@@ -45,7 +45,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 				{headerOptions.map((option, index) => (
 					<Link
 						href={option.href}
-						className="font-oswald py-2 font-medium uppercase transition hover:scale-110 hover:text-[#ff422d]"
+						className="font-oswald hover:text-primary py-2 font-medium uppercase transition hover:scale-110"
 						key={index}
 					>
 						{option.label}

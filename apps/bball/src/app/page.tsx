@@ -3,8 +3,10 @@
 
 export default function Page(): JSX.Element {
 	return (
-		<section className="container mx-auto flex h-full min-h-screen items-center justify-center bg-black">
-			<h1 className="font-oswald text-6xl uppercase">main page</h1>
+		<section className="container mx-auto flex h-full min-h-screen items-center justify-center">
+			<h1 className="font-oswald text-5xl uppercase">
+				register now for season 4
+			</h1>
 		</section>
 	);
 }
