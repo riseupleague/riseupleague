@@ -10,7 +10,9 @@ async function getData() {
 export default async function Standings(): Promise<JSX.Element> {
 	// export default function Standings(): JSX.Element {
 	const { data } = await getData();
-	console.log(data);
+
+	const dogMessage = data?.message;
+	if (data) console.log(dogMessage);
 
 	return (
 		<section className="container mx-auto flex min-h-screen items-center justify-center">
