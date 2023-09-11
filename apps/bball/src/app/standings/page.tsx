@@ -1,8 +1,7 @@
 export default async function Standings(): Promise<JSX.Element> {
-	// export default function Standings(): JSX.Element {
-	const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-	const res = await fetch(`${baseURL}/api/test`, { cache: "no-store" });
+	const res = await fetch("https://dog.ceo/api/breeds/image/random", {
+		cache: "no-store",
+	});
 	if (!res.ok) throw new Error("Cannot fetch standings data");
 
 	const { data } = await res.json();
