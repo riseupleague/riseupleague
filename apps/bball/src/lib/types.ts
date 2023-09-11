@@ -1,8 +1,8 @@
-export type ChildrenProps = {
+export interface ChildrenProps {
 	children: React.ReactNode;
-};
+}
 
-export type Link = {
+export interface Link {
 	label: string;
 	href: string;
-};
+}
