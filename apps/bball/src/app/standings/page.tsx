@@ -1,18 +1,21 @@
+import { connectToDatabase } from "@/src/api-helpers/utils";
+import { getAllSeasons } from "@/src/api-helpers/controllers/seasons-controller";
+
 export default async function Standings(): Promise<JSX.Element> {
-	const res = await fetch("https://dog.ceo/api/breeds/image/random", {
-		cache: "no-store",
-	});
-	if (!res.ok) throw new Error("Cannot fetch standings data");
+	await connectToDatabase();
+	const res = await getAllSeasons();
+	const { seasons } = await res.json();
 
-	const { data } = await res.json();
-
-	console.log(data);
+	const data = JSON.stringify(seasons);
 
 	return (
-		<section className="container mx-auto flex min-h-screen items-center justify-center">
-			<h1 className="font-oswald text-3xl font-medium uppercase">
+		<section className="container mx-auto min-h-screen">
+			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				standings page
 			</h1>
+
+			{/* show fetch data */}
+			<pre>{data}</pre>
 		</section>
 	);
 }
