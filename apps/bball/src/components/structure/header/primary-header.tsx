@@ -3,8 +3,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function PrimaryHeader(): React.JSX.Element {
+	const path = usePathname();
+
 	const headerOptions = [
 		{
 			label: "home",
@@ -29,7 +32,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 	];
 
 	return (
-		<nav className="container mx-auto flex justify-between py-8">
+		<nav className="container mx-auto hidden justify-between py-8 md:flex">
 			<div>
 				<Link href="/" className="transition hover:opacity-80">
 					<Image
@@ -42,15 +45,21 @@ export default function PrimaryHeader(): React.JSX.Element {
 				</Link>
 			</div>
 			<div className="hidden items-center gap-7 md:flex">
-				{headerOptions.map((option, index) => (
-					<Link
-						href={option.href}
-						className="font-oswald hover:text-primary py-2 font-medium uppercase transition hover:scale-110"
-						key={index}
-					>
-						{option.label}
-					</Link>
-				))}
+				{headerOptions.map((option, index) => {
+					const isActive = path === option.href;
+
+					return (
+						<Link
+							href={option.href}
+							className={`font-oswald hover:text-primary p-2 font-medium uppercase transition hover:scale-110 ${
+								isActive && "text-primary pointer-events-none underline"
+							}`}
+							key={index}
+						>
+							{option.label}
+						</Link>
+					);
+				})}
 			</div>
 		</nav>
 	);
