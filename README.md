@@ -1,51 +1,48 @@
-# Turborepo Tailwind CSS starter
+# riseupleague.com
 
-This is an official starter Turborepo.
+The official website for [www.riseupleague.com](www.riseupleague.com).
 
-## Using this example
+## Tech Stack
 
-Run the following command:
+This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](www.riseupleague.com) webiste, as well as the [admin.riseupleague.com](admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
 
-```sh
-npx create-turbo@latest -e with-tailwind
+### Frontend
+
+- [React](react.dev)
+- [NextJS 13](https://nextjs.org/) using App Router
+- [TailwindCSS](https://tailwindcss.com/)
+- [shadcn-ui](https://ui.shadcn.com/)
+
+### Backend
+
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
+
+## Project Archicture
+
+```
+├── apps
+│   ├── bball (riseupleague.com; NextJS app)
+│   └── bball-admin (admin.riseupleague.com; NextJS app)
+├── packages
+│   ├── eslint-config-custom (custom ESLint configuration)
+│   ├── tailwind-config (all tailwind configs in /apps extend this config)
+│   └── tsconfig (all tsconfigs in /apps extend this config)
+│   └── ui (riseupleague UI library; shadcn-ui components)
+└── ... (config files)
 ```
 
-## What's inside?
+## Development
 
-This Turborepo includes the following packages/apps:
+To run all projects:
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Building packages/ui
-
-This example is setup to build `packages/ui` and output the transpiled source and compiled styles to `dist/`. This was chosen to make sharing one `tailwind.config.js` as easy as possible, and to ensure only the CSS that is used by the current application and its dependencies is generated.
-
-Another option is to consume `packages/ui` directly from source without building. If using this option, you will need to update your `tailwind.config.js` to be aware of your package locations, so it can find all usages of the `tailwindcss` class names.
-
-For example, in [tailwind.config.js](packages/tailwind-config/tailwind.config.js):
-
-```js
-  content: [
-    // app content
-    `src/**/*.{js,ts,jsx,tsx}`,
-    // include packages if not transpiling
-    "../../packages/**/*.{js,ts,jsx,tsx}",
-  ],
+```
+> npm i
+> npm run dev
 ```
 
-### Utilities
+To clear cache and start up the dev server:
 
-This Turborepo has some additional tools already setup for you:
-
-- [Tailwind CSS](https://tailwindcss.com/) for styles
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+```
+> npm run fresh:start
+```
