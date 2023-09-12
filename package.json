@@ -5,8 +5,8 @@
 	"scripts": {
 		"build": "turbo build",
 		"dev": "turbo dev",
-		"dev:admin": "turbo dev --filter='./apps/admin-bball'",
-		"dev:bball": "turbo dev --filter='./apps/bball'",
+		"dev:bball": "turbo dev --filter=bball",
+		"dev:admin": "turbo dev --filter=admin-bball",
 		"lint": "turbo lint",
 		"clean": "turbo clean",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
