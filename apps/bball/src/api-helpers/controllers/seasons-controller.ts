@@ -16,7 +16,20 @@ export const getAllSeasons = async () => {
 
 export const getActiveSeason = async () => {
 	try {
-		const season = await Season.find({ active: true });
+		const season = await Season.findOne({ active: true });
+
+		return NextResponse.json({ season });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "error retrieving active season" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getSeasonById = async (id: string) => {
+	try {
+		const season = await Season.findOne({ _id: id });
 
 		return NextResponse.json({ season });
 	} catch (e) {
