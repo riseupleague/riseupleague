@@ -6,7 +6,7 @@ The official v2 website for [www.riseupleague.com](https://www.riseupleague.medi
 
 ## Tech Stack
 
-This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.media) webiste, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
+This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.media) website, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
 
 ### Frontend
 
