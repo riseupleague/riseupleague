@@ -46,7 +46,16 @@ export default function PrimaryHeader(): React.JSX.Element {
 			</div>
 			<div className="hidden items-center gap-7 md:flex">
 				{headerOptions.map((option, index) => {
-					const isActive = path === option.href;
+					let isActive;
+
+					// if homepage, make active class exact
+					if (option.label === "home") {
+						isActive = path === option.href;
+
+						// else just .includes()
+					} else {
+						isActive = path.includes(option.href);
+					}
 
 					return (
 						<Link
