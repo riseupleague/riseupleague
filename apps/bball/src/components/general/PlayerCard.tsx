@@ -6,7 +6,7 @@ import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 export default function PlayerCard({ player }) {
 	let badges = new Array(5).fill("");
 
-	const allStats = player.allStats;
+	// get and sort average stats
 	let avgStats = [
 		{
 			label: "APG",
@@ -33,6 +33,9 @@ export default function PlayerCard({ player }) {
 		},
 		...avgStats,
 	];
+
+	// find badges
+	const allStats = player.allStats;
 
 	// 20 pt game
 	if (allStats.filter((game) => game.points >= 20).length > 0) {
