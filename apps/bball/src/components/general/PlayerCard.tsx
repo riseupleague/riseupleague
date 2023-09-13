@@ -52,25 +52,23 @@ export default function PlayerCard({ player }) {
 	return (
 		<div className="h-fit rounded border border-neutral-600 bg-neutral-700">
 			{/* pic / name / team / division */}
-			<div className="flex justify-between border-b border-neutral-600 px-6 py-3.5">
-				<div className="flex items-center gap-3">
-					<figure className="h-[52px] w-[52px] rounded-full bg-[#d9d9d9]"></figure>
-					<div>
+			<div className="flex justify-between gap-3 border-b border-neutral-600 px-6 py-3.5">
+				<figure className="h-[52px] w-[52px] rounded-full bg-[#d9d9d9]"></figure>
+				<div className="flex w-full flex-col">
+					<div className="flex w-full justify-between">
 						<h6 className="font-barlow font-medium uppercase text-neutral-500">
 							team {player.team.substring(0, 5)}... | #{player.jerseyNumber}
 						</h6>
-						<Link
-							href={`/players/${player._id}`}
-							className="font-barlow text-2xl uppercase text-neutral-100 transition hover:opacity-80"
-						>
-							{player.playerName}
-						</Link>
+						<div className="flex justify-center rounded-md bg-neutral-600 px-4 py-1">
+							<p className="font-barlow text-xs font-medium uppercase">div</p>
+						</div>
 					</div>
-				</div>
-				<div>
-					<div className="flex justify-center rounded-md bg-neutral-600 px-4 py-1">
-						<p className="font-barlow text-xs font-medium uppercase">div</p>
-					</div>
+					<Link
+						href={`/players/${player._id}`}
+						className="font-barlow w-fit truncate text-2xl uppercase text-neutral-100 transition hover:opacity-80"
+					>
+						{player.playerName}
+					</Link>
 				</div>
 			</div>
 
