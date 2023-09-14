@@ -23,7 +23,7 @@ export default function PlayerGrid({ allPlayers }) {
 		<>
 			<input
 				type="search"
-				className="my-4 p-2 text-black"
+				className="my-4 p-2 px-4 text-black sm:px-0"
 				onChange={handleSearch}
 			/>
 			{players.length > 0 ? (
