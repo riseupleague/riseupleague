@@ -1,7 +1,7 @@
 import { getAllPlayers } from "@/src/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/src/api-helpers/utils";
-import PlayerCard from "@/src/components/general/PlayerCard";
 import PlayerGrid from "@/src/components/players/PlayerGrid";
+import { Suspense } from "react";
 
 export default async function Players(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -13,7 +13,9 @@ export default async function Players(): Promise<JSX.Element> {
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				players page
 			</h1>
-			<PlayerGrid allPlayers={allPlayers} />
+			<Suspense fallback={"loading data..."}>
+				<PlayerGrid allPlayers={allPlayers} />
+			</Suspense>
 		</section>
 	);
 }
