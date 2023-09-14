@@ -12,7 +12,9 @@
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"clear:cache": "rm -rf package-lock.json node_modules apps/*/package-lock.json apps/*/node_modules apps/*/.next",
 		"fresh": "npm run clear:cache && npm i && npm run format",
-		"fresh:start": "npm run fresh && npm run dev"
+		"fresh:start": "npm run fresh && npm run dev",
+		"fresh:start:bball": "npm run fresh && npm run dev:bball",
+		"fresh:start:admin": "npm run fresh && npm run dev:admin"
 	},
 	"devDependencies": {
 		"eslint": "^8.48.0",
