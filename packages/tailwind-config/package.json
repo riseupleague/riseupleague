@@ -6,5 +6,8 @@
   "types": "index.ts",
   "devDependencies": {
     "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "tailwindcss-animate": "^1.0.7"
   }
 }
