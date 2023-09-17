@@ -23,11 +23,11 @@ export default function PlayerGrid({ allPlayers }) {
 		<>
 			<input
 				type="search"
-				className="my-4 p-2 px-4 text-black sm:px-0"
+				className="my-4 p-2 text-neutral-900"
 				onChange={handleSearch}
 			/>
 			{players.length > 0 ? (
-				<div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 2xl:grid-cols-4">
+				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 2xl:grid-cols-4">
 					{players.map((player, index) => (
 						<PlayerCard player={player} key={index} />
 					))}
