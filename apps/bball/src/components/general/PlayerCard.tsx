@@ -4,6 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
+import {
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from "@/components/ui/table";
 
 export default function PlayerCard({ player }) {
 	let badges = new Array(5).fill("");
@@ -75,8 +83,45 @@ export default function PlayerCard({ player }) {
 			</div>
 
 			{/* stats table */}
-			<div className=" flex h-[112px] items-center justify-center border-b border-neutral-600">
-				<p className="font-barlow text-xl uppercase">table</p>
+			<div className="h-fit border-b border-neutral-600">
+				<Table>
+					<TableHeader>
+						<TableRow>
+							<TableHead>game</TableHead>
+							<TableHead>matchup</TableHead>
+							<TableHead>pts</TableHead>
+							<TableHead>reb</TableHead>
+							<TableHead>ast</TableHead>
+							<TableHead>stl</TableHead>
+							<TableHead>blk</TableHead>
+						</TableRow>
+					</TableHeader>
+					<TableBody>
+						{allStats
+							.map((game, index) => {
+								return (
+									<TableRow key={index}>
+										<TableCell>{index + 1}</TableCell>
+										<TableCell>
+											<Link
+												href={`/games/summary/${game.game}`}
+												className="transition hover:underline"
+											>
+												{game.game.slice(0, 5)}...
+											</Link>
+										</TableCell>
+										<TableCell>{game.points}</TableCell>
+										<TableCell>{game.rebounds}</TableCell>
+										<TableCell>{game.assists}</TableCell>
+										<TableCell>{game.steals}</TableCell>
+										<TableCell>{game.blocks}</TableCell>
+									</TableRow>
+								);
+							})
+							.reverse()
+							.slice(0, 3)}
+					</TableBody>
+				</Table>
 			</div>
 
 			{/* badges */}
