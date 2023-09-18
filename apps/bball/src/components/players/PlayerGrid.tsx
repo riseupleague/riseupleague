@@ -24,7 +24,7 @@ export default function PlayerGrid({ allPlayers }) {
 			<input
 				type="search"
 				className="my-4 p-2 text-neutral-900"
-				onKeyDown={handleSearch}
+				onChange={handleSearch}
 			/>
 			{players.length > 0 ? (
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 2xl:grid-cols-4">
