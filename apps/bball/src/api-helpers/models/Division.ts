@@ -1,9 +1,9 @@
-import mongoose, { Schema, Document, Model } from "mongoose";
-import { SeasonDocument } from "./Season"; // Import the SeasonDocument type.
-import { TeamDocument } from "./Team"; // Import the TeamDocument type.
-import { GameDocument } from "./Game"; // Import the GameDocument type.
+import mongoose from "mongoose";
+import Team from "@/src/api-helpers/models/Team";
+import Game from "@/src/api-helpers/models/Game";
 
-// Define the schema for the Division model.
+const Schema = mongoose.Schema;
+
 const divisionSchema = new Schema({
 	divisionName: { type: String, required: true },
 	season: {
@@ -14,23 +14,5 @@ const divisionSchema = new Schema({
 	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
 });
 
-// Define the interface for the Division document.
-interface DivisionDocument extends Document {
-	divisionName: string;
-	season: SeasonDocument["_id"];
-	teams: TeamDocument["_id"][];
-	games: GameDocument["_id"][];
-}
-
-export type { DivisionDocument };
-
-// Define the interface for the Division model.
-interface DivisionModel extends Model<DivisionDocument> {}
-
-// Create the Division model.
-const Division = mongoose.model<DivisionDocument, DivisionModel>(
-	"Division",
-	divisionSchema
-);
-
-export default Division;
+export default mongoose.models.Division ||
+	mongoose.model("Division", divisionSchema);

@@ -1,10 +1,10 @@
-import mongoose, { Schema, Document, Model, Types } from "mongoose";
-import { PlayerDocument } from "./Player"; // Import the PlayerDocument type.
-import { DivisionDocument } from "./Division"; // Import the DivisionDocument type.
-import { SeasonDocument } from "./Season"; // Import the SeasonDocument type.
-import { GameDocument } from "./Game"; // Import the GameDocument type.
+import mongoose from "mongoose";
+import Division from "@/src/api-helpers/models/Division";
+import Player from "@/src/api-helpers/models/Player";
+import Season from "@/src/api-helpers/models/Season";
+import Game from "@/src/api-helpers/models/Game";
+const Schema = mongoose.Schema;
 
-// Define the schema for the Team model.
 const teamSchema = new Schema({
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
@@ -69,48 +69,6 @@ const teamSchema = new Schema({
 	},
 });
 
-// Define the interface for the Team document.
-interface TeamDocument extends Document {
-	teamName: string;
-	teamNameShort: string;
-	teamBanner?: string;
-	teamBannerId?: string;
-	wins: number;
-	losses: number;
-	pointDifference: number;
-	players: PlayerDocument["_id"][];
-	seasonStatistics: {
-		points: number;
-		rebounds: number;
-		assists: number;
-		blocks: number;
-		steals: number;
-		threesMade: number;
-		twosMade: number;
-		freeThrowsMade: number;
-		gameId: string;
-		teamId: string;
-		game: GameDocument["_id"];
-	}[];
-	averageStats: {
-		points: number;
-		rebounds: number;
-		assists: number;
-		blocks: number;
-		steals: number;
-		threesMade: number;
-		twosMade: number;
-		freeThrowsMade: number;
-	};
-	games: GameDocument["_id"][];
-	division: DivisionDocument["_id"];
-	season: SeasonDocument["_id"];
-}
+teamSchema.index({ players: 1 });
 
-// Define the interface for the Team model.
-interface TeamModel extends Model<TeamDocument> {}
-
-// Create the Team model.
-const Team = mongoose.model<TeamDocument, TeamModel>("Team", teamSchema);
-
-export default Team;
+export default mongoose.models.Team || mongoose.model("Team", teamSchema);

@@ -1,48 +1,122 @@
-import { Request, Response } from "express";
-import Division, { DivisionDocument } from "../models/Division";
-import Season, { SeasonDocument } from "../models/Season";
+import mongoose from "mongoose";
+import Team from "@/src/api-helpers/models/Team";
+import Division from "@/src/api-helpers/models/Division";
+import Season from "@/src/api-helpers/models/Season";
+import { NextResponse } from "next/server";
 
-export const getAllDivisions = async (req: Request, res: Response) => {
+type Season = {
+	_id: string;
+	seasonName: string;
+	active: boolean;
+	divisions: string[];
+	__v: number;
+};
+
+// Define the type for a Division object
+type Division = {
+	_id: string; // Assuming _id is a string
+	divisionName: string;
+	season: string; // Assuming season is a string (ObjectId.toString())
+	teams: any[]; // An array of Team objects
+};
+export const getAllCurrentDivisions = async () => {
 	try {
-		let divisions: DivisionDocument[];
-		if (req.query.seasonId) {
-			divisions = await Division.find({ season: req.query.seasonId })
-				.populate("teams", "teamName")
-				.select("divisionName season teams");
-		} else {
-			divisions = await Division.find()
-				.populate("teams", "teamName teamNameShort")
-				.select("divisionName season teams");
-		}
+		const activeSeason = await Season.find({ active: "true" });
+
+		const divisions = await Division.find({ season: activeSeason });
 
 		if (!divisions) {
-			return res.status(500).json({ message: "Internal Server Error" });
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
 		}
 
-		if (divisions.length === 0) {
-			return res.status(404).json({ message: "No divisions found" });
-		}
-
-		return res.status(200).json({ divisions });
+		return NextResponse.json({ divisions });
 	} catch (error) {
-		return res.status(500).json({ message: error.message });
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
 	}
 };
 
-export const getDivisionFromId = async (req: Request, res: Response) => {
-	const id = req.query.id as string; // Ensure 'id' is a string.
-
+export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
-		let division: DivisionDocument | null;
+		const activeSeason = await Season.find({ active: "true" });
+		const divisions = await Division.find({ season: activeSeason })
+			.populate("teams", "teamName wins losses pointDifference teamBanner")
+			.select("divisionName teams");
+		const divisionsWithStats = divisions.map((division) => {
+			// Calculate statistics for teams within this division
+			const teamsWithStats = division.teams?.map((team) => {
+				const { wins, losses, pointDifference, teamName } = team;
+				let gp, wpct;
+				if (!wins && !losses) {
+					gp = 0;
+					wpct = 0;
+				} else {
+					gp = wins + losses;
+					wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
+				}
 
-		division = await Division.findById(id).populate("teams");
+				return {
+					teamName,
+					wins,
+					losses,
+					pointDifference,
+					gp,
+					wpct,
+				};
+			});
 
-		if (!division) {
-			return res.status(500).json({ message: "Internal Server Error" });
+			// Return the division with teams and stats
+			return {
+				_id: division._id,
+				divisionName: division.divisionName,
+				teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
+			};
+		});
+
+		if (!divisions) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
 		}
 
-		return res.status(200).json({ division });
+		console.log("divisions:", divisionsWithStats);
+
+		return NextResponse.json({ divisionsWithStats });
 	} catch (error) {
-		return res.status(500).json({ error: error.message });
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
 	}
 };
+
+// export const getDivisionFromId = async (id) => {
+// 	try {
+// 		let division;
+// 		if (req.query.name) {
+// 			division = await Division.findById(id)
+// 				.populate({ path: "teams", select: "teamName players" })
+// 				.select("divisionName season teams");
+// 		} else {
+// 			division = await Division.findById(id).populate("teams");
+// 		}
+// 		if (!division) {
+// 			return NextResponse.json(
+// 				{ message: "Internal Server Error" },
+// 				{ status: 500 }
+// 			);
+// 		}
+
+// 		return NextResponse.json({ division }, { status: 200 });
+// 	} catch (error) {
+// 		return NextResponse.json({ message: error.message }, { status: 500 });
+// 	}
+// };
