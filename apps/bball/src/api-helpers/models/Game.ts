@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import Team from "./Team";
+import Division from "./Division";
+import Player from "./Player";
 
 const Schema = mongoose.Schema;
 

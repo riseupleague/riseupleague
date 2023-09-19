@@ -20,6 +20,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 		{
 			label: "standings",
 			href: "/standings",
+			dropdown: true,
 		},
 		{
 			label: "teams",
@@ -60,8 +61,8 @@ export default function PrimaryHeader(): React.JSX.Element {
 					return (
 						<Link
 							href={option.href}
-							className={`font-oswald hover:text-primary p-2 font-medium uppercase transition hover:scale-110 ${
-								isActive && "text-primary pointer-events-none underline"
+							className={`font-oswald hover:text-primary cursor-pointer p-2 font-medium uppercase transition hover:scale-110 ${
+								isActive && "text-primary underline"
 							}`}
 							key={index}
 						>
