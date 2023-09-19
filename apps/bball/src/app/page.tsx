@@ -9,7 +9,7 @@ import FAQs from "@/src/components/home/faqs";
 
 export default function Page(): JSX.Element {
 	return (
-		<div className="container mx-auto min-h-screen">
+		<div className="container mx-auto min-h-[100dvh]">
 			{/* hero */}
 			<Hero />
 

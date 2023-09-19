@@ -9,7 +9,7 @@ export default async function Standings(): Promise<JSX.Element> {
 	const data = JSON.stringify(seasons);
 
 	return (
-		<section className="container mx-auto min-h-screen">
+		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				standings page
 			</h1>
