@@ -26,7 +26,7 @@ export default async function Teams(): Promise<JSX.Element> {
 		// You can show a message or render something else
 	}
 	return (
-		<section className="container mx-auto flex min-h-screen items-center justify-center">
+		<section className="container mx-auto flex min-h-[100dvh] items-center justify-center">
 			<h1 className="font-oswald text-3xl font-medium uppercase">
 				teams page danny
 			</h1>

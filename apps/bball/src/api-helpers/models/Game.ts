@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 import Team from "./Team";
 import Division from "./Division";
 import Player from "./Player";
+
+const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
 	gameName: { type: String, required: true },
