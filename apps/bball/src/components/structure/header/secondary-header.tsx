@@ -13,7 +13,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	const sampleGames = allUpcomingGames.slice(0, 5);
 
 	return (
-		<section className="font-oswald flex items-center border border-x-neutral-900 border-y-neutral-600">
+		<section className="font-oswald max-w-screen flex items-center overflow-auto border border-x-neutral-900 border-y-neutral-600">
 			{sampleGames.map((game) => {
 				const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
 
@@ -31,13 +31,13 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 				return (
 					<article className="bg-secondary flex h-full items-center border-r border-neutral-600">
 						{/* date */}
-						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-xs uppercase">
+						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase">
 							<div className="font-semibold">{dayName}</div>
 							<div>{gameDate}</div>
 						</div>
 
 						{/* game stats */}
-						<div className="flex w-fit flex-col bg-neutral-900 pb-2 pl-[22px] pr-[11px] pt-[18px] uppercase">
+						<div className="flex w-fit flex-col bg-neutral-900 pb-2 pl-[22px] pr-5 pt-[18px] uppercase sm:pr-[11px]">
 							<h4 className="mb-[6px]">FINAL</h4>
 
 							{/* home */}
