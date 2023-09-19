@@ -98,25 +98,76 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 	}
 };
 
-// export const getDivisionFromId = async (id) => {
-// 	try {
-// 		let division;
-// 		if (req.query.name) {
-// 			division = await Division.findById(id)
-// 				.populate({ path: "teams", select: "teamName players" })
-// 				.select("divisionName season teams");
-// 		} else {
-// 			division = await Division.findById(id).populate("teams");
-// 		}
-// 		if (!division) {
-// 			return NextResponse.json(
-// 				{ message: "Internal Server Error" },
-// 				{ status: 500 }
-// 			);
-// 		}
+export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
+	try {
+		const activeSeason = await Season.find({ active: "true" });
+		const division = await Division.findOne({ _id: id, season: activeSeason })
+			.populate("teams", "teamName wins losses pointDifference teamBanner")
+			.select("divisionName teams");
 
-// 		return NextResponse.json({ division }, { status: 200 });
-// 	} catch (error) {
-// 		return NextResponse.json({ message: error.message }, { status: 500 });
-// 	}
-// };
+		// Calculate statistics for teams within this division
+		const teamsWithStats = division.teams?.map((team) => {
+			const { wins, losses, pointDifference, teamName } = team;
+			let gp, wpct;
+			if (!wins && !losses) {
+				gp = 0;
+				wpct = 0;
+			} else {
+				gp = wins + losses;
+				wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
+			}
+
+			return {
+				teamName,
+				wins,
+				losses,
+				pointDifference,
+				gp,
+				wpct,
+			};
+		});
+
+		// Now, you have the division with teams and stats in the 'teamsWithStats' variable
+		const divisionWithStats = {
+			_id: division._id,
+			divisionName: division.divisionName,
+			teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
+		};
+
+		if (!division) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+
+		return NextResponse.json({ divisionWithStats }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json({ message: error.message }, { status: 500 });
+	}
+};
+
+export const getAllCurrentDivisionsNameAndId = async () => {
+	try {
+		const activeSeason = await Season.find({ active: "true" });
+
+		// Use select to retrieve only divisionName and _id fields
+		const divisionsNameAndId = await Division.find({
+			season: activeSeason,
+		}).select("divisionName _id");
+		if (!divisionsNameAndId) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisionsNameAndId });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
