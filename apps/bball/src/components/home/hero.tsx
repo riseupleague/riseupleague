@@ -12,7 +12,7 @@ export default function Hero(): JSX.Element {
 					className="w-full"
 				/>
 			</figure>
-			<div className="container mx-auto px-4">
+			<div>
 				<h1 className="font-barlow mb-6 text-5xl font-medium uppercase leading-tight">
 					register now for season 4
 				</h1>
