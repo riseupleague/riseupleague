@@ -1,5 +1,6 @@
-import Player from "@/src/api-helpers/models/Player";
 import { NextResponse } from "next/server";
+import Player from "@/src/api-helpers/models/Player";
+import Team from "@/src/api-helpers/models/Team";
 
 export const getAllPlayers = async (teamId = "") => {
 	try {

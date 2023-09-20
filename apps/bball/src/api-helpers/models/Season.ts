@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Division from "@/src/api-helpers/models/Division";
 
 const Schema = mongoose.Schema;
 

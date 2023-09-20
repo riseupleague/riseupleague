@@ -16,7 +16,7 @@
 		"clsx": "^2.0.0",
 		"lucide-react": "^0.279.0",
 		"mongoose": "^7.5.1",
-		"next": "^13.4.19",
+		"next": "^13.5.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"tailwind-merge": "^1.14.0",

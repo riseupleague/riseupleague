@@ -11,16 +11,14 @@ interface Season {
 export default async function Teams(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const resSeasons = await getAllSeasons();
-	const { seasons }: { seasons: Season[] } = await resSeasons.json(); // Specify the type
-	// Find the season with active: true
+	const { seasons }: { seasons: Season[] } = await resSeasons.json();
 	const activeSeason = seasons.find((season) => season.active === true);
 
+	// If an active season is found, call getAllCurrentDivisionsWithTeams
 	if (activeSeason) {
-		// If an active season is found, call getAllCurrentDivisionsWithTeams
 		const resTeams = await getAllCurrentTeams(activeSeason._id);
 		// Continue with the rest of your code here
 		const { teams } = await resTeams.json(); // Specify the type
-		console.log(teams);
 	} else {
 		// Handle the case when no active season is found
 		// You can show a message or render something else

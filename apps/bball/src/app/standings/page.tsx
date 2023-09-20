@@ -1,18 +1,8 @@
 import { connectToDatabase } from "@/src/api-helpers/utils";
-import { getAllSeasons } from "@/src/api-helpers/controllers/seasons-controller";
 import { getAllCurrentDivisionsWithTeams } from "@/src/api-helpers/controllers/divisions-controller";
-import Link from "next/link";
 import { Suspense } from "react";
-
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
 import StandingsTable from "@/src/components/standings/StandingsTable";
+import { getAllSeasons } from "@/src/api-helpers/controllers/seasons-controller";
 
 // Define the type for a Division object
 type Division = {

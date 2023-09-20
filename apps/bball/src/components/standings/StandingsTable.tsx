@@ -11,8 +11,9 @@ import {
 import FilterByDivision from "@/src/components/filters/FilterByDivision";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+
 export default function StandingsTable({ divisions }) {
-	const [selectedDivision, setSelectedDivision] = useState(divisions[0]?._id);
+	const [selectedDivision, setSelectedDivision] = useState(divisions[0]._id);
 	const [divisionShown, setDivisionShown] = useState(divisions[0]);
 
 	const handleDivisionChange = (event) => {
@@ -25,6 +26,7 @@ export default function StandingsTable({ divisions }) {
 		);
 		setDivisionShown(foundDivision);
 	}, [selectedDivision, divisions]);
+
 	return (
 		<div>
 			<div className="my-8 ">
