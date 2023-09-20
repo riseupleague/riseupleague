@@ -85,8 +85,6 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 			);
 		}
 
-		console.log("divisions:", divisionsWithStats);
-
 		return NextResponse.json({ divisionsWithStats });
 	} catch (error) {
 		console.error("Error:", error);
