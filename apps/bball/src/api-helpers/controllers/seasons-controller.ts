@@ -1,4 +1,5 @@
 import Season from "@/src/api-helpers/models/Season";
+import Team from "@/src/api-helpers/models/Team";
 import { NextResponse } from "next/server";
 
 export const getAllSeasons = async () => {
