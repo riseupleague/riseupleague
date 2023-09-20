@@ -1,11 +1,11 @@
-import { getAllPlayers } from "@/src/api-helpers/controllers/players-controller";
+import { getAllCurrentPlayers } from "@/src/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/src/api-helpers/utils";
 import PlayerGrid from "@/src/components/players/PlayerGrid";
 import { Suspense } from "react";
 
 export default async function Players(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const res = await getAllPlayers();
+	const res = await getAllCurrentPlayers();
 	const { allPlayers } = await res.json();
 
 	return (
