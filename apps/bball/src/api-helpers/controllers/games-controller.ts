@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Game from "@/src/api-helpers/models/Game";
+import Team from "@/src/api-helpers/models/Team";
 
 export const getAllUpcomingGames = async () => {
 	try {

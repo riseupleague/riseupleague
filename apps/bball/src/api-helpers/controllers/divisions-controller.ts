@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-import Team from "@/src/api-helpers/models/Team";
+import { NextResponse } from "next/server";
 import Division from "@/src/api-helpers/models/Division";
 import Season from "@/src/api-helpers/models/Season";
-import { NextResponse } from "next/server";
+import Team from "@/src/api-helpers/models/Team";
 
 type Season = {
 	_id: string;
@@ -19,10 +18,10 @@ type Division = {
 	season: string; // Assuming season is a string (ObjectId.toString())
 	teams: any[]; // An array of Team objects
 };
+
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
-
 		const divisions = await Division.find({ season: activeSeason });
 
 		if (!divisions) {
@@ -85,8 +84,6 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 				{ status: 404 }
 			);
 		}
-
-		console.log("divisions:", divisionsWithStats);
 
 		return NextResponse.json({ divisionsWithStats });
 	} catch (error) {
