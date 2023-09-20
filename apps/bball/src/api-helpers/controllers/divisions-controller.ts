@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-import Team from "@/src/api-helpers/models/Team";
 import Division from "@/src/api-helpers/models/Division";
 import Season from "@/src/api-helpers/models/Season";
 import { NextResponse } from "next/server";
@@ -19,10 +17,10 @@ type Division = {
 	season: string; // Assuming season is a string (ObjectId.toString())
 	teams: any[]; // An array of Team objects
 };
+
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
-
 		const divisions = await Division.find({ season: activeSeason });
 
 		if (!divisions) {
