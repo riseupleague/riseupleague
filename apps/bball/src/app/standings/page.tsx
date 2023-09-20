@@ -2,6 +2,7 @@ import { connectToDatabase } from "@/src/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeams } from "@/src/api-helpers/controllers/divisions-controller";
 import { Suspense } from "react";
 import StandingsTable from "@/src/components/standings/StandingsTable";
+import { getAllSeasons } from "@/src/api-helpers/controllers/seasons-controller";
 
 // Define the type for a Division object
 type Division = {
@@ -14,6 +15,7 @@ type Division = {
 export default async function Standings(): Promise<JSX.Element> {
 	await connectToDatabase();
 
+	const resSeasons = await getAllSeasons();
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();
