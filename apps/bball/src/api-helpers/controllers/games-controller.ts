@@ -8,10 +8,7 @@ export const getAllUpcomingGames = async () => {
 		const activeSeason = await Season.find({ active: "true" });
 		{
 		}
-		const allUpcomingGames = await Game.find({
-			status: false,
-			season: activeSeason,
-		})
+		const allUpcomingGames = await Game.find({})
 			.populate({
 				path: "division",
 				select: "divisionName",

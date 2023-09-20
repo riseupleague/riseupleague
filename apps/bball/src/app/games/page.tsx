@@ -1,4 +1,6 @@
+import { getAllCurrentDivisionsNameAndId } from "@/src/api-helpers/controllers/divisions-controller";
 import { getAllUpcomingGames } from "@/src/api-helpers/controllers/games-controller";
+import { getAllCurrentTeamsNameDivisionAndId } from "@/src/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/src/api-helpers/utils";
 import ScheduleFilterPage from "@/src/components/games/ScheduleFilterPage";
 
@@ -9,14 +11,24 @@ export default async function Games(): Promise<JSX.Element> {
 
 	const resAllUpcomingGames = await getAllUpcomingGames();
 	const { allUpcomingGames } = await resAllUpcomingGames.json();
-
+	const resAllCurrentDivisionsNameAndId =
+		await getAllCurrentDivisionsNameAndId();
+	const { divisionsNameAndId } = await resAllCurrentDivisionsNameAndId.json();
+	const resAllCurrentTeamsNameDivisionAndId =
+		await getAllCurrentTeamsNameDivisionAndId();
+	const { teamsNameDivisionAndId } =
+		await resAllCurrentTeamsNameDivisionAndId.json();
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<h1 className="font-oswald my-8 text-3xl  font-medium uppercase">
 				games page
 			</h1>
 			<Suspense fallback={"loading data..."}>
-				<ScheduleFilterPage allUpcomingGames={allUpcomingGames} />
+				<ScheduleFilterPage
+					allUpcomingGames={allUpcomingGames}
+					divisionsNameAndId={divisionsNameAndId}
+					teamsNameDivisionAndId={teamsNameDivisionAndId}
+				/>
 			</Suspense>
 		</section>
 	);
