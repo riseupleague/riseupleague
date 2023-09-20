@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 import Player from "@/src/api-helpers/models/Player";
 import Team from "@/src/api-helpers/models/Team";
+import Season from "@/src/api-helpers/models/Season";
 
-export const getAllPlayers = async (teamId = "") => {
+export const getAllCurrentPlayers = async () => {
 	try {
-		// team ID param passed
-		if (teamId) {
-			const players = await Player.find({ team: teamId });
-			return NextResponse.json({ players });
-		}
+		const activeSeason = await Season.find({ active: "true" });
 
-		const allPlayers = await Player.find();
+		const allPlayers = await Player.find({ season: activeSeason })
+			.sort({ playerName: 1 })
+			.populate([
+				{ path: "division", select: "divisionName" },
+				{ path: "team", select: "teamName" }, // Add this to populate the team field with teamName
+			])
+			.select("playerName team jerseyNumber division");
+
 		return NextResponse.json({ allPlayers });
 	} catch (e) {
 		return NextResponse.json(

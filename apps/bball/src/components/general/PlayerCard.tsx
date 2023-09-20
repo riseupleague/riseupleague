@@ -20,26 +20,26 @@ export default function PlayerCard({ player }) {
 	let avgStats = [
 		{
 			label: "APG",
-			average: player.averageStats.assists,
+			average: player.averageStats?.assists,
 		},
 		{
 			label: "RPG",
-			average: player.averageStats.rebounds,
+			average: player.averageStats?.rebounds,
 		},
 		{
 			label: "BPG",
-			average: player.averageStats.blocks,
+			average: player.averageStats?.blocks,
 		},
 		{
 			label: "SPG",
-			average: player.averageStats.steals,
+			average: player.averageStats?.steals,
 		},
 	].sort((a, b) => (a.average < b.average ? 1 : -1));
 
 	avgStats = [
 		{
 			label: "PPG",
-			average: player.averageStats.points,
+			average: player.averageStats?.points,
 		},
 		...avgStats,
 	];
@@ -48,13 +48,13 @@ export default function PlayerCard({ player }) {
 	const allStats = player.allStats;
 
 	// 20 pt game
-	if (allStats.filter((game) => game.points >= 20).length > 0) {
+	if (allStats?.filter((game) => game.points >= 20).length > 0) {
 		badges.unshift(twentyPtBadge.src);
 		badges.pop();
 	}
 
 	// 30 pt game
-	if (allStats.filter((game) => game.points >= 30).length > 0) {
+	if (allStats?.filter((game) => game.points >= 30).length > 0) {
 		badges.unshift(thirtyPtBadge.src);
 		badges.pop();
 	}
@@ -67,7 +67,7 @@ export default function PlayerCard({ player }) {
 				<div className="flex w-full flex-col">
 					<div className="flex w-full justify-between">
 						<h6 className="font-barlow font-medium uppercase text-neutral-500">
-							team {player.team.substring(0, 5)}... | #{player.jerseyNumber}
+							team {player.team?.substring(0, 5)}... | #{player.jerseyNumber}
 						</h6>
 						<div className="flex justify-center rounded-md bg-neutral-600 px-4 py-1">
 							<p className="font-barlow text-xs font-medium uppercase">div</p>
@@ -98,7 +98,7 @@ export default function PlayerCard({ player }) {
 					</TableHeader>
 					<TableBody>
 						{allStats
-							.map((game, index) => {
+							?.map((game, index) => {
 								return (
 									<TableRow key={index}>
 										<TableCell>{index + 1}</TableCell>
@@ -107,7 +107,7 @@ export default function PlayerCard({ player }) {
 												href={`/games/summary/${game.game}`}
 												className="transition hover:underline"
 											>
-												{game.game.slice(0, 5)}...
+												{game.game?.slice(0, 5)}...
 											</Link>
 										</TableCell>
 										<TableCell>{game.points}</TableCell>

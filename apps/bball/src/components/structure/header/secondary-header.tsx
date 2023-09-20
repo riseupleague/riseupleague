@@ -42,10 +42,10 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 							{/* home */}
 							<Link
-								href={`/teams/${game.homeTeam}`}
+								href={`/teams/${game.homeTeam.teamName}`}
 								className="mb-[9px] flex w-fit gap-[100px] font-bold transition hover:underline"
 							>
-								<p>{game.homeTeam.slice(0, 4)}...</p>
+								<p>{game.homeTeam.teamName}</p>
 								<p className="flex items-center gap-2">
 									{game.homeTeamScore}
 									{homeTeamWon && (
@@ -62,10 +62,10 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 							{/* away */}
 							<Link
-								href={`/teams/${game.awayTeam}`}
+								href={`/teams/${game.awayTeam.teamName}`}
 								className="mb-[7px] flex w-fit gap-[100px] font-bold transition hover:underline"
 							>
-								<h5>{game.awayTeam.slice(0, 4)}...</h5>
+								<h5>{game.awayTeam.teamName}</h5>
 								<p className="flex items-center gap-2">
 									{game.awayTeamScore}{" "}
 									{!homeTeamWon && (
@@ -82,10 +82,10 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 							{/* division */}
 							<Link
-								href={`/standings?division=${game.division}`}
+								href={`/standings?division=${game.division.divisionName}`}
 								className="text-primary w-fit font-semibold uppercase transition hover:underline"
 							>
-								{game.division.slice(0, 4)}...
+								{game.division.divisionName}
 							</Link>
 						</div>
 					</article>

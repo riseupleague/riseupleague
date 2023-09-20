@@ -20,6 +20,8 @@ export default function PlayerGrid({ allPlayers }) {
 		);
 	};
 
+	console.log(players);
+
 	return (
 		<>
 			<div className="relative w-fit">
@@ -31,9 +33,16 @@ export default function PlayerGrid({ allPlayers }) {
 				/>
 			</div>
 			{players.length > 0 ? (
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 2xl:grid-cols-4">
+				// <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 2xl:grid-cols-4">
+				<div className="flex flex-col">
 					{players.map((player, index) => (
-						<PlayerCard player={player} key={index} />
+						// <PlayerCard player={player} key={index} />
+						<ul className="flex gap-4">
+							<li>{player.playerName}</li>
+							<li>{player.team.teamName}</li>
+							<li>{player.jerseyNumber}</li>
+							<li>{player.division.divisionName}</li>
+						</ul>
 					))}
 				</div>
 			) : (
