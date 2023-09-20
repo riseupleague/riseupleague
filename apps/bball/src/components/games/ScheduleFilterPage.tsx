@@ -35,8 +35,15 @@ interface DateObject {
 	date: string;
 	games: Game[];
 }
-export default function ScheduleFilterPage({ allUpcomingGames }) {
+export default function ScheduleFilterPage({
+	allUpcomingGames,
+	divisionsNameAndId,
+	teamsNameDivisionAndId,
+}) {
 	const [games, setGames] = useState(allUpcomingGames);
+	const [selectedDivision, setSelectedDivision] = useState("");
+	const [selectedTeam, setSelectedTeam] = useState("");
+	const [allTeams, setAllTeams] = useState(teamsNameDivisionAndId);
 	const [gamesByDate, setGamesByDate] = useState<DateObject[]>([]);
 	useEffect(() => {
 		// Inside the useEffect, you can create gamesByDateArray and set state
@@ -64,12 +71,110 @@ export default function ScheduleFilterPage({ allUpcomingGames }) {
 
 		// Set the games state with the computed gamesByDateArray
 		setGamesByDate(gamesByDateArray);
-	}, [games]); // Ensure this effect runs when allUpcomingGames changes
-	console.log("hello");
+
+		if (selectedDivision === "" && selectedTeam === "") {
+			setGames(allUpcomingGames);
+		}
+	}, [games, selectedDivision, selectedTeam]); // Ensure this effect runs when allUpcomingGames changes
+
+	console.log(selectedDivision, selectedTeam, allTeams, games);
+	// Handle the select change event for filtering by division and team
+	const handleFilterChange = (event) => {
+		const { name, value } = event.target;
+
+		console.log("name:", name);
+		console.log("value:", value);
+		if (name === "division") {
+			setSelectedDivision(value);
+			// First, filter by division
+
+			const filteredTeams = teamsNameDivisionAndId.filter((team) => {
+				if (value === "") {
+					return true;
+				}
+				return team.division.divisionName === value;
+			});
+
+			setAllTeams(filteredTeams);
+
+			const filteredGames = allUpcomingGames
+				.filter((game) => {
+					if (value === "") {
+						setSelectedTeam("");
+						return true;
+					}
+					return game.division.divisionName === value;
+				})
+				.filter((game) => {
+					if (filteredTeams.find((team) => team.teamName === selectedTeam)) {
+						const homeTeamMatch =
+							selectedTeam === "" || game.homeTeam.teamName === selectedTeam;
+
+						const awayTeamMatch =
+							selectedTeam === "" || game.awayTeam.teamName === selectedTeam;
+
+						return homeTeamMatch || awayTeamMatch;
+					} else {
+						return true;
+					}
+				});
+
+			setGames(filteredGames);
+		} else if (name === "team") {
+			setSelectedTeam(value);
+			// First, filter by division
+			const filteredGames = allUpcomingGames
+				.filter((game) => {
+					if (selectedDivision === "") {
+						return true;
+					}
+					return game.division.divisionName === selectedDivision;
+				})
+				.filter((game) => {
+					const homeTeamMatch =
+						value === "" || game.homeTeam.teamName === value;
+
+					const awayTeamMatch =
+						value === "" || game.awayTeam.teamName === value;
+
+					return homeTeamMatch || awayTeamMatch;
+				});
+			setGames(filteredGames);
+		}
+	};
+
 	return (
 		<div>
+			<div className="mb-10 flex gap-5">
+				<select
+					name="division"
+					value={selectedDivision}
+					onChange={handleFilterChange}
+					className="w-1/4 rounded-md border px-2 py-1 text-black"
+				>
+					<option value="">All Divisions</option>
+					{divisionsNameAndId.map((division) => (
+						<option key={division._id} value={division.divisionName}>
+							{division.divisionName}
+						</option>
+					))}
+				</select>
+				<select
+					name="team"
+					value={selectedTeam}
+					onChange={handleFilterChange}
+					className="w-1/4 rounded-md border px-2 py-1 text-black"
+				>
+					<option value="">All Teams</option>
+					{allTeams.map((team) => (
+						<option key={team._id} value={team.teamName}>
+							{team.teamName}
+						</option>
+					))}
+				</select>
+			</div>
 			{gamesByDate.map((games) => (
-				<div>
+				<div key={games.date}>
 					<h3 className="font-semibold">{games.date}</h3>
 					<ul className="mx-auto w-11/12">
 						{games?.games.map((game) => {

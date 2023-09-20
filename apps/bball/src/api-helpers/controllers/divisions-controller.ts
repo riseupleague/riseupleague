@@ -176,9 +176,7 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 		const activeSeason = await Season.find({ active: "true" });
 
 		// Use select to retrieve only divisionName and _id fields
-		const divisionsNameAndId = await Division.find({
-			season: activeSeason,
-		}).select("divisionName _id");
+		const divisionsNameAndId = await Division.find().select("divisionName _id");
 		if (!divisionsNameAndId) {
 			return NextResponse.json(
 				{ message: "No divisions found" },
