@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import Player from "@/src/api-helpers/models/Player";
+import Game from "@/src/api-helpers/models/Game";
+import Division from "@/src/api-helpers/models/Division";
+import Season from "@/src/api-helpers/models/Season";
 
 const Schema = mongoose.Schema;
 
