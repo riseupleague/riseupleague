@@ -15,7 +15,6 @@ type Division = {
 export default async function Standings(): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const resSeasons = await getAllSeasons();
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();

@@ -1,6 +1,7 @@
+import { NextResponse } from "next/server";
 import Division from "@/src/api-helpers/models/Division";
 import Season from "@/src/api-helpers/models/Season";
-import { NextResponse } from "next/server";
+import Team from "@/src/api-helpers/models/Team";
 
 type Season = {
 	_id: string;
