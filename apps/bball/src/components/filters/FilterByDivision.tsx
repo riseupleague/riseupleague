@@ -1,13 +1,4 @@
 "use client";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-	SelectLabel,
-	SelectGroup,
-} from "@/components/ui/select";
 
 const FilterByDivision = ({
 	selectedDivision,
@@ -15,36 +6,18 @@ const FilterByDivision = ({
 	divisions,
 }) => {
 	return (
-		<SelectGroup className="z-50 w-full  text-white md:w-72">
-			<SelectLabel>Filter By Division</SelectLabel>
-			<Select
-				defaultValue={selectedDivision}
-				onValueChange={handleDivisionChange}
-			>
-				<SelectTrigger className="w-full">
-					<SelectValue />
-				</SelectTrigger>
-				<SelectContent
-					className="w-full bg-neutral-900"
-					ref={(ref) => {
-						if (!ref) return;
-						ref.ontouchstart = (e) => {
-							e.preventDefault();
-						};
-					}}
-				>
-					{divisions?.map((division) => (
-						<SelectItem
-							className="w-full cursor-pointer"
-							value={division._id}
-							key={division._id}
-						>
-							{division.divisionName}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
-		</SelectGroup>
+		<select
+			value={selectedDivision}
+			onChange={handleDivisionChange}
+			className="w-1/4 rounded-md border px-2 py-1 text-black"
+		>
+			<option value="">All Divisions</option>
+			{divisions.map((division) => (
+				<option key={division._id} value={division.divisionName}>
+					{division.divisionName}
+				</option>
+			))}
+		</select>
 	);
 };
 

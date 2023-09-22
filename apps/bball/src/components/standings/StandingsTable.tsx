@@ -14,7 +14,9 @@ import Link from "next/link";
 
 export default function StandingsTable({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
-	const [selectedDivision, setSelectedDivision] = useState(""); // Initialize with an empty string
+	const [selectedDivision, setSelectedDivision] = useState(
+		divisions[0].divisionName
+	);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -33,18 +35,11 @@ export default function StandingsTable({ divisions }) {
 	};
 	return (
 		<div>
-			<select
-				value={selectedDivision}
-				onChange={handleDivisionChange}
-				className="w-1/4 rounded-md border px-2 py-1 text-black"
-			>
-				<option value="">All Divisions</option>
-				{divisions.map((division) => (
-					<option key={division._id} value={division.divisionName}>
-						{division.divisionName}
-					</option>
-				))}
-			</select>
+			<FilterByDivision
+				selectedDivision={selectedDivision}
+				handleDivisionChange={handleDivisionChange}
+				divisions={divisions}
+			/>
 
 			<div className="flex flex-col gap-10">
 				{divisionsWithTeams.map((division) => (
