@@ -20,8 +20,6 @@ export default function PlayerGrid({ allPlayers }) {
 		);
 	};
 
-	console.log(players);
-
 	return (
 		<>
 			<div className="relative w-fit">

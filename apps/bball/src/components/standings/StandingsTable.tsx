@@ -14,20 +14,19 @@ import Link from "next/link";
 
 export default function StandingsTable({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
-	const [selectedDivision, setSelectedDivision] = useState(
-		divisions[0].divisionName
-	);
+	const [selectedDivision, setSelectedDivision] = useState("All Divisions");
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
-		const selectedDivisionName = event.target.value;
-		if (selectedDivisionName !== "") {
+		const selectedDivisionId = event;
+
+		if (selectedDivisionId !== "") {
 			// Filter the divisions based on the selected division name
 			const filteredDivisions = divisions.filter(
-				(division) => division.divisionName === selectedDivisionName
+				(division) => division._id === selectedDivisionId
 			);
 
-			setSelectedDivision(selectedDivisionName);
+			setSelectedDivision(selectedDivisionId);
 			setDivisionsWithTeams(filteredDivisions);
 		} else {
 			setDivisionsWithTeams(divisions);
