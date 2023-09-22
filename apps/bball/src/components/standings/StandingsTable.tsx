@@ -9,7 +9,7 @@ import {
 	TableRow,
 } from "@/components/ui/table";
 import FilterByDivision from "@/src/components/filters/FilterByDivision";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function StandingsTable({ divisions }) {
@@ -43,7 +43,7 @@ export default function StandingsTable({ divisions }) {
 			<div className="flex flex-col gap-10">
 				{divisionsWithTeams.map((division) => (
 					<div key={division._id}>
-						<h3 className="mx-auto mb-4 hidden w-11/12 text-2xl font-bold uppercase text-white sm:block sm:w-auto">
+						<h3 className="font-barlow my-4 text-2xl font-semibold uppercase text-neutral-100">
 							{division.divisionName}
 						</h3>
 
