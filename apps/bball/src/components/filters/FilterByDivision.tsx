@@ -1,42 +1,23 @@
 "use client";
 
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-
 const FilterByDivision = ({
 	selectedDivision,
 	handleDivisionChange,
 	divisions,
 }) => {
 	return (
-		<SelectGroup className="w-[180px]">
-			<Select onValueChange={handleDivisionChange}>
-				<SelectTrigger>
-					<SelectValue placeholder={selectedDivision} />
-				</SelectTrigger>
-				<SelectContent
-					ref={(ref) => {
-						if (!ref) return;
-						ref.ontouchstart = (e) => {
-							e.preventDefault();
-						};
-					}}
-					className="w-full"
-				>
-					{divisions.map((division, index) => (
-						<SelectItem key={index} value={division._id}>
-							{division.divisionName}
-						</SelectItem>
-					))}
-				</SelectContent>
-			</Select>
-		</SelectGroup>
+		<select
+			value={selectedDivision}
+			onChange={handleDivisionChange}
+			className="w-1/4 rounded-md border px-2 py-1 text-black"
+		>
+			<option value="">All Divisions</option>
+			{divisions.map((division) => (
+				<option key={division._id} value={division.divisionName}>
+					{division.divisionName}
+				</option>
+			))}
+		</select>
 	);
 };
 

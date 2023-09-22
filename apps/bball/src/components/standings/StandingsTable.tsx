@@ -1,13 +1,5 @@
 "use client";
 
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
 import FilterByDivision from "@/src/components/filters/FilterByDivision";
 import { useState } from "react";
 import Link from "next/link";
@@ -46,59 +38,6 @@ export default function StandingsTable({ divisions }) {
 						<h3 className="font-barlow my-4 text-2xl font-semibold uppercase text-neutral-100">
 							{division.divisionName}
 						</h3>
-
-						<Table>
-							<TableHeader>
-								<TableRow>
-									<TableHead>#</TableHead>
-									<TableHead className="w-1/2 text-left sm:w-auto">
-										Team
-									</TableHead>
-									<TableHead>W</TableHead>
-									<TableHead>L</TableHead>
-									<TableHead>GP</TableHead>
-									<TableHead>W%</TableHead>
-									<TableHead>PD</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{division.teams?.map((team, index) => {
-									return (
-										<TableRow key={index}>
-											<TableCell>{index + 1}</TableCell>
-											<TableCell
-												className={`w-1/2 text-left sm:w-auto ${
-													team.teamBanner && "flex items-center gap-1"
-												}`}
-											>
-												{team.teamBanner && (
-													<img
-														src={team.teamBanner}
-														className="max-h-8 w-auto md:hidden"
-													/>
-												)}
-												<Link href={`/teams/${team._id}`}>
-													<p className="hover:underline">{team.teamName}</p>
-												</Link>
-											</TableCell>
-											<TableCell>{team.wins || 0}</TableCell>
-											<TableCell>{team.losses || 0}</TableCell>
-											<TableCell>{team.gp}</TableCell>
-											<TableCell>{team.wpct.toFixed(3)}</TableCell>
-											<TableCell
-												className={
-													team.pointDifference > 0
-														? "text-green-500"
-														: "text-red-500"
-												}
-											>
-												{team.pointDifference || 0}
-											</TableCell>
-										</TableRow>
-									);
-								})}
-							</TableBody>
-						</Table>
 					</div>
 				))}
 			</div>

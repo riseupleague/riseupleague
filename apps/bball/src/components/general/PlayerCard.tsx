@@ -84,7 +84,7 @@ export default function PlayerCard({ player }) {
 
 			{/* stats table */}
 			<div className="h-fit border-b border-neutral-600">
-				<Table>
+				{/* <Table>
 					<TableHeader>
 						<TableRow>
 							<TableHead>game</TableHead>
@@ -121,7 +121,7 @@ export default function PlayerCard({ player }) {
 							.reverse()
 							.slice(0, 3)}
 					</TableBody>
-				</Table>
+				</Table> */}
 			</div>
 
 			{/* badges */}
