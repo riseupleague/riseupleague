@@ -29,7 +29,10 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 				});
 
 				return (
-					<article className="bg-secondary flex h-full items-center border-r border-neutral-600" key={index}>
+					<article
+						className="bg-secondary flex h-full items-center border-r border-neutral-600"
+						key={index}
+					>
 						{/* date */}
 						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase">
 							<div className="font-semibold">{dayName}</div>

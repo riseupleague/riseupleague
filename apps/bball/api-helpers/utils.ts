@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// eslint-disable-next-line turbo/no-undeclared-env-vars
 const uri: string = process.env.MONGODB_URI as string;
 
 export const connectToDatabase = async () => {
