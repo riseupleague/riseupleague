@@ -13,7 +13,7 @@ import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 // 	TableRow,
 // } from "@/components/ui/table";
 
-export default function PlayerCard({ player }) {
+export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
 
 	// get and sort average stats

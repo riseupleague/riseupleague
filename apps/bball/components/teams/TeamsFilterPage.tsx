@@ -2,21 +2,23 @@
 
 import { useState, useEffect } from "react";
 import FilterByDivision from "../filters/FilterByDivision";
+import TeamsCard from "./TeamsCard";
 
 export default function TeamsFilterPage({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
-	const [selectedDivision, setSelectedDivision] = useState(""); // Initialize with an empty string
+	const [selectedDivision, setSelectedDivision] = useState("All Divisions");
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
-		const selectedDivisionName = event.target.value;
-		if (selectedDivisionName !== "") {
+		const selectedDivisionId = event;
+
+		if (selectedDivisionId !== "") {
 			// Filter the divisions based on the selected division name
 			const filteredDivisions = divisions.filter(
-				(division) => division.divisionName === selectedDivisionName
+				(division) => division._id === selectedDivisionId
 			);
 
-			setSelectedDivision(selectedDivisionName);
+			setSelectedDivision(selectedDivisionId);
 			setDivisionsWithTeams(filteredDivisions);
 		} else {
 			setDivisionsWithTeams(divisions);
@@ -24,27 +26,24 @@ export default function TeamsFilterPage({ divisions }) {
 	};
 	return (
 		<div>
-			<select
-				value={selectedDivision}
-				onChange={handleDivisionChange}
-				className="w-1/4 rounded-md border px-2 py-1 text-black"
-			>
-				<option value="">All Divisions</option>
-				{divisions.map((division) => (
-					<option key={division._id} value={division.divisionName}>
-						{division.divisionName}
-					</option>
-				))}
-			</select>
+			<FilterByDivision
+				selectedDivision={selectedDivision}
+				handleDivisionChange={handleDivisionChange}
+				divisions={divisions}
+			/>
 
 			{divisionsWithTeams.map((division) => (
 				<div key={division._id}>
-					<h3 className="font-semibold">{division.divisionName}</h3>
-					<ul>
-						{division.teams.map((team) => (
-							<li key={team._id}>{team.teamName}</li>
-						))}
-					</ul>
+					<h3 className="font-barlow my-4 gap-1 text-lg font-semibold uppercase">
+						{division.divisionName}
+					</h3>
+					<div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+						{division.teams
+							.sort((a, b) => (a.teamName > b.teamName ? 1 : -1))
+							.map((team) => (
+								<TeamsCard key={team._id} team={team} />
+							))}
+					</div>
 				</div>
 			))}
 		</div>

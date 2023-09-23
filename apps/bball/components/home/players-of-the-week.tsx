@@ -1,6 +1,6 @@
 import { getAllPlayersOfTheWeek } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import PlayerCard from "../general/PlayerCard";
+import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
 
 export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -14,7 +14,7 @@ export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 				<div className="flex flex-col">
 					{allPlayersOfTheWeek.map((player, index) => {
 						if (player.playerOfTheGame) {
-							return <PlayerCard player={player} key={index} />;
+							return <FeaturedPlayerCard player={player} key={index} />;
 						}
 					})}
 				</div>

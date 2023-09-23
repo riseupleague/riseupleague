@@ -11,7 +11,7 @@ export default async function Players(): Promise<JSX.Element> {
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				players page
+				league roster
 			</h1>
 			<Suspense fallback={"loading data..."}>
 				<PlayerGrid allPlayers={allPlayers} />

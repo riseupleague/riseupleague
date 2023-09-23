@@ -17,10 +17,10 @@ const FilterByDivision = ({
 }) => {
 	return (
 		<Select onValueChange={handleDivisionChange}>
-			<SelectTrigger className="w-[180px]">
+			<SelectTrigger className="font-barlow w-[180px] text-lg">
 				<SelectValue placeholder={selectedDivision} />
 			</SelectTrigger>
-			<SelectContent>
+			<SelectContent className="font-barlow text-lg">
 				<SelectGroup>
 					<SelectLabel>Division:</SelectLabel>
 					{divisions.map((division, index) => (
