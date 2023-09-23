@@ -4,8 +4,6 @@ import { getAllCurrentTeamsNameDivisionAndId } from "@/api-helpers/controllers/t
 import { connectToDatabase } from "@/api-helpers/utils";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 
-import { Suspense } from "react";
-
 export default async function Games(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -23,13 +21,11 @@ export default async function Games(): Promise<JSX.Element> {
 			<h1 className="font-oswald my-8 text-3xl  font-medium uppercase">
 				games page
 			</h1>
-			<Suspense fallback={"loading data..."}>
-				<ScheduleFilterPage
-					allUpcomingGames={allUpcomingGames}
-					divisionsNameAndId={divisionsNameAndId}
-					teamsNameDivisionAndId={teamsNameDivisionAndId}
-				/>
-			</Suspense>
+			<ScheduleFilterPage
+				allUpcomingGames={allUpcomingGames}
+				divisionsNameAndId={divisionsNameAndId}
+				teamsNameDivisionAndId={teamsNameDivisionAndId}
+			/>
 		</section>
 	);
 }

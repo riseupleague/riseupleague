@@ -1,12 +1,12 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function PlayersLoading() {
+export default function GamesLoading() {
 	const array16 = Array(30).fill("");
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				league roster
+				standings
 			</h1>
 			<div>
 				{/* search */}

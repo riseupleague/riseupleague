@@ -9,7 +9,7 @@ export default function PlayerCard({ player }) {
 					<LogoPlaceholder />
 					<Link
 						href={`/players/${player._id}`}
-						className="font-barlow uppercase"
+						className="font-barlow uppercase transition hover:opacity-80"
 					>
 						{player.playerName}
 					</Link>

@@ -1,7 +1,6 @@
 import { getAllCurrentPlayers } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerGrid from "@/components/players/PlayerGrid";
-import { Suspense } from "react";
 
 export default async function Players(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -13,9 +12,7 @@ export default async function Players(): Promise<JSX.Element> {
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				league roster
 			</h1>
-			<Suspense fallback={"loading data..."}>
-				<PlayerGrid allPlayers={allPlayers} />
-			</Suspense>
+			<PlayerGrid allPlayers={allPlayers} />
 		</section>
 	);
 }

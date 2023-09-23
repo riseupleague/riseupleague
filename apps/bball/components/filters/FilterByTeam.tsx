@@ -11,17 +11,13 @@ import {
 } from "@ui/components/select";
 import { Label } from "@ui/components/label";
 
-const FilterByDivision = ({
-	selectedDivision,
-	handleDivisionChange,
-	divisions,
-}) => {
+const FilterByTeam = ({ selectedTeam, handleTeamChange, teams }) => {
 	return (
 		<div className="font-barlow flex flex-col gap-2">
-			<Label>Filter By Division:</Label>
-			<Select onValueChange={handleDivisionChange}>
+			<Label>Filter By Team:</Label>
+			<Select onValueChange={handleTeamChange}>
 				<SelectTrigger className="font-barlow w-[180px] text-lg">
-					<SelectValue placeholder={selectedDivision} />
+					<SelectValue placeholder={selectedTeam} />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {
@@ -33,10 +29,10 @@ const FilterByDivision = ({
 					className="font-barlow text-lg"
 				>
 					<SelectGroup>
-						<SelectLabel>Division:</SelectLabel>
-						{divisions.map((division, index) => (
-							<SelectItem value={division._id} key={index}>
-								{division.divisionName}
+						<SelectLabel>Team:</SelectLabel>
+						{teams.map((team, index) => (
+							<SelectItem value={team._id} key={index}>
+								{team.teamName}
 							</SelectItem>
 						))}
 					</SelectGroup>
@@ -46,4 +42,4 @@ const FilterByDivision = ({
 	);
 };
 
-export default FilterByDivision;
+export default FilterByTeam;

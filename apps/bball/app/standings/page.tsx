@@ -1,6 +1,5 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
-import { Suspense } from "react";
 import StandingsTable from "@/components/standings/StandingsTable";
 
 // Define the type for a Division object
@@ -23,9 +22,7 @@ export default async function Standings(): Promise<JSX.Element> {
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				standings page
 			</h1>
-			<Suspense fallback={"loading data..."}>
-				<StandingsTable divisions={divisionsWithStats} />
-			</Suspense>
+			<StandingsTable divisions={divisionsWithStats} />
 		</section>
 	);
 }

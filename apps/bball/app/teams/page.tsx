@@ -1,6 +1,5 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeamNames } from "@/api-helpers/controllers/divisions-controller";
-import { Suspense } from "react";
 import TeamsFilterPage from "@/components/teams/TeamsFilterPage";
 
 export default async function Teams(): Promise<JSX.Element> {
@@ -14,9 +13,7 @@ export default async function Teams(): Promise<JSX.Element> {
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
 				All Teams
 			</h1>
-			<Suspense fallback={"loading data..."}>
-				<TeamsFilterPage divisions={divisionsWithTeamNames} />
-			</Suspense>
+			<TeamsFilterPage divisions={divisionsWithTeamNames} />
 		</section>
 	);
 }
