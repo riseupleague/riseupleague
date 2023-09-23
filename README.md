@@ -20,7 +20,7 @@ This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that co
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
 
-## Project Archicture
+## Project Architecture
 
 ```
 ├── apps

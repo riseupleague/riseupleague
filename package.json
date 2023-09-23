@@ -1,6 +1,6 @@
 {
 	"name": "riseupleague",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
@@ -8,18 +8,17 @@
 		"dev:bball": "turbo dev --filter=bball",
 		"dev:admin": "turbo dev --filter=admin-bball",
 		"lint": "turbo lint",
-		"clean": "turbo clean",
+		"ui:add": "cd packages/ui && npm run ui:add",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"clear:cache": "rm -rf package-lock.json node_modules apps/*/package-lock.json apps/*/node_modules apps/*/.next",
-		"fresh": "npm run clear:cache && npm i && npm run format",
-		"fresh:start": "npm run fresh && npm run dev",
-		"fresh:start:bball": "npm run fresh && npm run dev:bball",
-		"fresh:start:admin": "npm run fresh && npm run dev:admin"
+		"clean:cache": "rm -rf package-lock.json node_modules apps/*/package-lock.json apps/*/node_modules apps/*/.next packages/*/node_modules",
+		"fresh": "npm run clean:cache && npm i && npm run format",
+		"fresh:start": "npm run fresh && npm run dev"
 	},
 	"devDependencies": {
+		"@turbo/gen": "^1.9.7",
 		"eslint": "^8.48.0",
 		"prettier": "^3.0.3",
-		"prettier-plugin-tailwindcss": "^0.5.3",
+		"prettier-plugin-tailwindcss": "^0.5.4",
 		"tsconfig": "*",
 		"turbo": "latest"
 	},
