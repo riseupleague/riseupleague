@@ -16,6 +16,7 @@ export default async function Games(): Promise<JSX.Element> {
 		await getAllCurrentTeamsNameDivisionAndId();
 	const { teamsNameDivisionAndId } =
 		await resAllCurrentTeamsNameDivisionAndId.json();
+
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<h1 className="font-oswald my-8 text-3xl  font-medium uppercase">

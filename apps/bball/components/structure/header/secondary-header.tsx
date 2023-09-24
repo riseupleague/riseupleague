@@ -30,7 +30,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 				return (
 					<article
-						className="bg-secondary flex h-full items-center border-r border-neutral-600"
+						className="bg-secondary flex max-h-[140px] items-center border-r border-neutral-600"
 						key={index}
 					>
 						{/* date */}
@@ -40,16 +40,16 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 						</div>
 
 						{/* game stats */}
-						<div className="flex w-fit flex-col bg-neutral-900 pb-2 pl-[22px] pr-5 pt-[18px] uppercase sm:pr-[11px]">
-							<h4 className="mb-[6px]">FINAL</h4>
+						<div className="flex w-fit flex-col gap-2 bg-neutral-900 pb-2 pl-5 pr-2.5 pt-4 uppercase">
+							<h4>FINAL</h4>
 
 							{/* home */}
 							<Link
 								href={`/teams/${game.homeTeam.teamName}`}
-								className="mb-[9px] flex w-fit gap-[100px] font-bold transition hover:underline"
+								className="flex w-fit gap-[100px] font-bold transition hover:underline"
 							>
-								<p>{game.homeTeam.teamName}</p>
-								<p className="flex items-center gap-2">
+								<p className="m-0">{game.homeTeam.teamNameShort}</p>
+								<p className="m-0 flex items-center gap-2">
 									{game.homeTeamScore}
 									{homeTeamWon && (
 										<Image
@@ -66,9 +66,9 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 							{/* away */}
 							<Link
 								href={`/teams/${game.awayTeam.teamName}`}
-								className="mb-[7px] flex w-fit gap-[100px] font-bold transition hover:underline"
+								className="flex w-fit gap-[100px] font-bold transition hover:underline"
 							>
-								<h5>{game.awayTeam.teamName}</h5>
+								<h5>{game.awayTeam.teamNameShort}</h5>
 								<p className="flex items-center gap-2">
 									{game.awayTeamScore}{" "}
 									{!homeTeamWon && (
@@ -86,7 +86,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 							{/* division */}
 							<Link
 								href={`/standings?division=${game.division.divisionName}`}
-								className="text-primary w-fit font-semibold uppercase transition hover:underline"
+								className="text-primary w-fit text-sm font-semibold uppercase transition hover:underline"
 							>
 								{game.division.divisionName}
 							</Link>

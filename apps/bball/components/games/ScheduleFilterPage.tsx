@@ -129,7 +129,7 @@ export default function ScheduleFilterPage({
 
 	return (
 		<div>
-			<div className="mb-10 flex gap-5">
+			<div className="mb-10 flex flex-col md:flex-row gap-5">
 				<FilterByDivision
 					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
