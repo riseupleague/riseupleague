@@ -10,7 +10,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	const res = await getAllUpcomingGames();
 	const { allUpcomingGames } = await res.json();
 
-	const sampleGames = allUpcomingGames.slice(0, 5);
+	const sampleGames = allUpcomingGames.reverse().slice(0, 5);
 
 	return (
 		<section className="font-oswald max-w-screen flex items-center overflow-auto border border-x-neutral-900 border-y-neutral-600">

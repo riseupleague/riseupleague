@@ -10,8 +10,8 @@ export default function ContactUs() {
 			<p className="mb-8">
 				That&apos;s ok. Just drop a message and we will get back to you ASAP.
 			</p>
-			<Link href="/contact">
-				<Button variant="ghost" className="border border-neutral-100 uppercase">
+			<Link href="/contact-us">
+				<Button variant="ghost" className="border border-neutral-100 uppercase hover:opacity-80 transition">
 					Contact Us
 				</Button>
 			</Link>

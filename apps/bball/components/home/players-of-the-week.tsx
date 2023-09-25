@@ -14,7 +14,7 @@ export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h2 className="py-2.5 text-3xl uppercase">players of the week</h2>
-			<hr className="my-4 border-neutral-600" />
+			<hr className="mb-4 border-neutral-600 -mx-2" />
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 lg:grid-cols-4">
 				{featuredPlayers.slice(0, 4).map((player, index) => (
 					<FeaturedPlayerCard player={player.playerOfTheGame} key={index} />

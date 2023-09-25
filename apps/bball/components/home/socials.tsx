@@ -19,7 +19,7 @@ export default function Socials(): JSX.Element {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h2 className="py-2.5 text-3xl uppercase">socials 📱</h2>
-			<hr className="border-neutral-600" />
+			<hr className="border-neutral-600 -mx-2" />
 			<div className="my-4 grid grid-cols-1 gap-1 sm:grid-cols-2 md:gap-4">
 				{socialLinks.map((social, index) => (
 					<SocialCard

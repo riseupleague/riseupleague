@@ -5,7 +5,7 @@ import { Button } from "@ui/components/button";
 export default function Hero(): JSX.Element {
 	return (
 		<section className="mb-8">
-			<figure>
+			<figure className="-mx-2 lg:mx-0">
 				<Image
 					src="/images/home/hero.jpg"
 					alt="Rise Up Hero Image"
@@ -14,7 +14,7 @@ export default function Hero(): JSX.Element {
 					className="w-full"
 				/>
 			</figure>
-			<div>
+			<div className="px-2">
 				<h1 className="font-barlow mb-6 text-5xl font-medium uppercase leading-tight">
 					register now for season 4
 				</h1>
