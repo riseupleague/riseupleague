@@ -16,7 +16,7 @@ export default function SeasonCountdown() {
 	};
 
 	useEffect(() => {
-		const totalSeconds: number = (season3Start - now) / 1000;
+		const totalSeconds = (season3Start.valueOf() - now.valueOf()) / 1000;
 		setDays(formatTime(Math.floor(totalSeconds / 3600 / 24)));
 	}, [now, season3Start]);
 

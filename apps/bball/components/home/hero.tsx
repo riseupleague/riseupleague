@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@ui/components/button";
 
 export default function Hero(): JSX.Element {
 	return (
@@ -19,6 +21,11 @@ export default function Hero(): JSX.Element {
 				<p className="font-barlow font-light text-neutral-200">
 					This season is the best season yet, so don’t miss out!
 				</p>
+				<div className="my-4">
+					<Link href="/register">
+						<Button>Register Now</Button>
+					</Link>
+				</div>
 			</div>
 		</section>
 	);

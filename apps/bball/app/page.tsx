@@ -6,6 +6,7 @@ import LatestGames from "@/components/home/latest-games";
 import MVPLadder from "@/components/home/mvp-ladder";
 import Socials from "@/components/home/socials";
 import FAQs from "@/components/home/faqs";
+import ContactUs from "@/components/home/contact-us";
 
 export default function Page(): JSX.Element {
 	return (
@@ -35,6 +36,7 @@ export default function Page(): JSX.Element {
 			<FAQs />
 
 			{/* contact us */}
+			<ContactUs />
 
 			{/* register */}
 		</div>
