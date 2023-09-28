@@ -20,9 +20,11 @@ module.exports = {
 			primary: "#ff422e",
 			secondary: "#202328",
 			neutral: {
+				50: "#fafbfc",
 				100: "#fefefe",
 				200: "#dfe2e6",
 				300: "#abafb3",
+				350: "#798394",
 				400: "#82878d",
 				500: "#555b64",
 				600: "#282d35",
@@ -39,11 +41,7 @@ module.exports = {
 			pink: colors.fuchsia,
 		},
 		container: {
-			center: true,
-			padding: "2rem",
-			screens: {
-				"2xl": "1400px",
-			},
+			padding: "8px",
 		},
 		extend: {
 			fontFamily: {

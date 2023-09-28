@@ -2,6 +2,7 @@ import Link from "next/link";
 import LocationMarker from "../general/icons/LocationMarker";
 import HomeImgPlaceholder from "../general/icons/HomeImgPlaceholder";
 import AwayImgPlaceholder from "../general/icons/AwayImgPlaceholder";
+import { Button } from "@ui/components/button";
 
 export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
@@ -50,11 +51,8 @@ export default function ScheduleCard({ game }) {
 
 			{/* preview/summary button */}
 			<div className="flex p-4">
-				<Link
-					href={`/games/preview/${game._id}`}
-					className="font-barlow flex w-full items-center justify-center rounded bg-neutral-100 px-12 py-4 font-bold capitalize text-neutral-900 transition hover:-translate-y-1"
-				>
-					{gameStatus}
+				<Link href={`/games/preview/${game._id}`} className="w-full">
+					<Button className="w-full capitalize">{gameStatus}</Button>
 				</Link>
 			</div>
 		</article>

@@ -6,37 +6,22 @@ import LatestGames from "@/components/home/latest-games";
 import MVPLadder from "@/components/home/mvp-ladder";
 import Socials from "@/components/home/socials";
 import FAQs from "@/components/home/faqs";
+import ContactUs from "@/components/home/contact-us";
+import HomeRegister from "@/components/home/home-register";
 
 export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
-			{/* hero */}
 			<Hero />
-
-			{/* featured sponsors */}
 			<FeaturedSponsors />
-
-			{/* about */}
 			<AboutRiseUp />
-
-			{/* players of the week */}
 			<PlayersOfTheWeek />
-
-			{/* latest games */}
 			<LatestGames />
-
-			{/* mvp ladder */}
 			<MVPLadder />
-
-			{/* socials */}
 			<Socials />
-
-			{/* faqs */}
 			<FAQs />
-
-			{/* contact us */}
-
-			{/* register */}
+			<ContactUs />
+			<HomeRegister />
 		</div>
 	);
 }

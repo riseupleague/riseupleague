@@ -16,7 +16,7 @@ const FilterByTeam = ({ selectedTeam, handleTeamChange, teams }) => {
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Team:</Label>
 			<Select onValueChange={handleTeamChange}>
-				<SelectTrigger className="font-barlow w-[180px] text-lg">
+				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
 					<SelectValue placeholder={selectedTeam} />
 				</SelectTrigger>
 				<SelectContent

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
+import { Button } from "@ui/components/button";
 // import {
 // 	Table,
 // 	TableBody,
@@ -83,46 +84,7 @@ export default function FeaturedPlayerCard({ player }) {
 			</div>
 
 			{/* stats table */}
-			<div className="h-fit border-b border-neutral-600">
-				{/* <Table>
-					<TableHeader>
-						<TableRow>
-							<TableHead>game</TableHead>
-							<TableHead>matchup</TableHead>
-							<TableHead>pts</TableHead>
-							<TableHead>reb</TableHead>
-							<TableHead>ast</TableHead>
-							<TableHead>stl</TableHead>
-							<TableHead>blk</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{allStats
-							?.map((game, index) => {
-								return (
-									<TableRow key={index}>
-										<TableCell>{index + 1}</TableCell>
-										<TableCell>
-											<Link
-												href={`/games/summary/${game.game}`}
-												className="transition hover:underline"
-											>
-												{game.game?.slice(0, 5)}...
-											</Link>
-										</TableCell>
-										<TableCell>{game.points}</TableCell>
-										<TableCell>{game.rebounds}</TableCell>
-										<TableCell>{game.assists}</TableCell>
-										<TableCell>{game.steals}</TableCell>
-										<TableCell>{game.blocks}</TableCell>
-									</TableRow>
-								);
-							})
-							.reverse()
-							.slice(0, 3)}
-					</TableBody>
-				</Table> */}
-			</div>
+			<div className="h-fit border-b border-neutral-600"></div>
 
 			{/* badges */}
 			<div className="flex justify-center gap-x-2 border-b border-neutral-600 px-5 py-3">
@@ -170,11 +132,8 @@ export default function FeaturedPlayerCard({ player }) {
 
 			{/* view player profile */}
 			<div className="px-2.5 py-4">
-				<Link
-					href={`/players/${player._id}`}
-					className="font-barlow flex h-[38px] w-full items-center justify-center rounded bg-neutral-100 font-semibold text-black transition hover:-translate-y-1"
-				>
-					View Player Profile
+				<Link href={`/players/${player._id}`}>
+					<Button className="w-full">View Player Profile</Button>
 				</Link>
 			</div>
 		</div>
