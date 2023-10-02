@@ -51,13 +51,14 @@ export const getGamesByDate = async (division, team) => {
 			filter.division = division;
 		}
 
-		if (team && team !== "") {
-			// Update filter to match either homeTeam or awayTeam with the provided team ID
-			filter.$or = [{ homeTeam: team }, { awayTeam: team }];
-		}
+		// Create a separate condition for homeTeam and awayTeam
+		const teamCondition =
+			team && team !== ""
+				? { $or: [{ homeTeam: team }, { awayTeam: team }] }
+				: {};
 
 		// Retrieve all games (you can add any necessary filters)
-		const allGames = await Game.find(filter)
+		const allGames = await Game.find({ ...filter, ...teamCondition })
 			.populate({
 				path: "division",
 				select: "divisionName",
@@ -94,8 +95,6 @@ export const getGamesByDate = async (division, team) => {
 
 			return accumulator;
 		}, []);
-
-		console.log(gamesByDate);
 
 		// Return the gamesByDate as the response
 		return NextResponse.json({ gamesByDate });
