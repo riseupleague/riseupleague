@@ -12,12 +12,14 @@ import {
 import { Label } from "@ui/components/label";
 
 const FilterByTeam = ({ selectedTeam, handleTeamChange, teams }) => {
+	const placeholder = teams.find((team) => team._id === selectedTeam)?.teamName;
+	console.log(placeholder);
 	return (
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Team:</Label>
 			<Select onValueChange={handleTeamChange}>
 				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-					<SelectValue placeholder={selectedTeam} />
+					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {

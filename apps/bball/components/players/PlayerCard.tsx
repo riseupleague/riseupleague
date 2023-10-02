@@ -14,7 +14,9 @@ export default function PlayerCard({ player }) {
 						{player.playerName}
 					</Link>
 				</div>
-				<p className="flex text-sm">{player.team.teamName}</p>
+				<Link href={`/teams/${player.team._id}`} className="flex text-sm">
+					{player.team.teamName}
+				</Link>
 			</div>
 			<div className="grid w-1/4 grid-cols-2 items-center justify-items-center gap-4">
 				<p className="text-sm">{player.jerseyNumber}</p>

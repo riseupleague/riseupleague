@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import FilterByDivision from "../filters/FilterByDivision";
 import FilterByTeam from "../filters/FilterByTeam";
 import ScheduleCard from "./ScheduleCard";
+import { useRouter } from "next/navigation";
 
 interface Game {
 	_id: string;
@@ -38,110 +39,99 @@ interface DateObject {
 	games: Game[];
 }
 export default function ScheduleFilterPage({
-	allUpcomingGames,
+	gamesByDate,
+	// page,
+	// totalPages,
+	// limit,
+	team,
+	division,
 	divisionsNameAndId,
 	teamsNameDivisionAndId,
 }) {
-	const [games, setGames] = useState(allUpcomingGames);
-	const [allTeams, setAllTeams] = useState(teamsNameDivisionAndId);
-	const [selectedDivision, setSelectedDivision] = useState("All Divisions");
-	const [selectedTeam, setSelectedTeam] = useState("All Teams");
-	const [gamesByDate, setGamesByDate] = useState<DateObject[]>([]);
+	const router = useRouter();
+	// useEffect(() => {
+	// 	// Inside the useEffect, you can create gamesByDateArray and set state
+	// 	const gamesByDateArray: DateObject[] = [];
 
-	useEffect(() => {
-		// Inside the useEffect, you can create gamesByDateArray and set state
-		const gamesByDateArray: DateObject[] = [];
+	// 	games.forEach((game) => {
+	// 		const date = new Date(game.date);
+	// 		const formattedDate = date.toLocaleDateString("en-US", {
+	// 			weekday: "long",
+	// 			year: "numeric",
+	// 			month: "long",
+	// 			day: "numeric",
+	// 		});
 
-		games.forEach((game) => {
-			const date = new Date(game.date);
-			const formattedDate = date.toLocaleDateString("en-US", {
-				weekday: "long",
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			});
+	// 		const existingDateObject = gamesByDateArray.find(
+	// 			(dateObject) => dateObject.date === formattedDate
+	// 		);
 
-			const existingDateObject = gamesByDateArray.find(
-				(dateObject) => dateObject.date === formattedDate
-			);
+	// 		if (existingDateObject) {
+	// 			existingDateObject.games.push(game);
+	// 		} else {
+	// 			gamesByDateArray.push({ date: formattedDate, games: [game] });
+	// 		}
+	// 	});
 
-			if (existingDateObject) {
-				existingDateObject.games.push(game);
-			} else {
-				gamesByDateArray.push({ date: formattedDate, games: [game] });
-			}
-		});
+	// 	// Set the games state with the computed gamesByDateArray
+	// 	setGamesByDate(gamesByDateArray);
 
-		// Set the games state with the computed gamesByDateArray
-		setGamesByDate(gamesByDateArray);
-
-		if (selectedDivision === "" && selectedTeam === "") {
-			setGames(allUpcomingGames);
-		}
-	}, [games, selectedDivision, selectedTeam, allUpcomingGames]); // Ensure this effect runs when allUpcomingGames changes
+	// 	if (selectedDivision === "" && selectedTeam === "") {
+	// 		setGames(allUpcomingGames);
+	// 	}
+	// }, [games, selectedDivision, selectedTeam, allUpcomingGames]);
+	// Ensure this effect runs when allUpcomingGames changes
 
 	const handleDivisionChange = (event) => {
+		// const selectedDivisionId = event;
+
+		// setSelectedDivision(selectedDivisionId);
+
+		// // get all teams with division id
+		// const filteredTeams = teamsNameDivisionAndId.filter(
+		// 	(team) => team.division._id === selectedDivisionId
+		// );
+		// setAllTeams(filteredTeams);
+
+		// // get all games with division id
+		// const filteredGames = allUpcomingGames.filter(
+		// 	(game) => game.division._id === selectedDivisionId
+		// );
+		// setGames(filteredGames);
+
+		// // select first team in the list
+		// setSelectedTeam(filteredTeams[0].teamName);
+
 		const selectedDivisionId = event;
-
-		setSelectedDivision(selectedDivisionId);
-
-		// get all teams with division id
-		const filteredTeams = teamsNameDivisionAndId.filter(
-			(team) => team.division._id === selectedDivisionId
-		);
-		setAllTeams(filteredTeams);
-
-		// get all games with division id
-		const filteredGames = allUpcomingGames.filter(
-			(game) => game.division._id === selectedDivisionId
-		);
-		setGames(filteredGames);
-
-		// select first team in the list
-		setSelectedTeam(filteredTeams[0].teamName);
+		const newUrl = `/games?division=${selectedDivisionId}&team=${teamsNameDivisionAndId[0]._id}`;
+		router.push(newUrl);
 	};
 
 	const handleTeamChange = (event) => {
 		const selectedTeamId = event;
-
-		setSelectedTeam(selectedTeamId);
-
-		let filteredGames;
-
-		if (selectedDivision === "All Divisions") {
-			filteredGames = allUpcomingGames.filter(
-				(game) =>
-					game.homeTeam?._id === selectedTeamId ||
-					game.awayTeam?._id === selectedTeamId
-			);
+		if (selectedTeamId !== "") {
+			const newUrl = `/games?division=${division}&team=${selectedTeamId}`;
+			router.push(newUrl);
 		} else {
-			// get all games with division id
-			filteredGames = allUpcomingGames.filter(
-				(game) =>
-					game.division._id === selectedDivision &&
-					(game.homeTeam?._id === selectedTeamId ||
-						game.awayTeam?._id === selectedTeamId)
-			);
+			const newUrl = `/games?division=${division}&team=`;
+			router.push(newUrl);
 		}
-
-		setGames(filteredGames);
 	};
-
 	return (
 		<div>
 			<div className="mb-10 flex flex-col gap-5 md:flex-row">
 				<FilterByDivision
-					selectedDivision={selectedDivision}
+					selectedDivision={division}
 					handleDivisionChange={handleDivisionChange}
 					divisions={divisionsNameAndId}
 				/>
 				<FilterByTeam
-					selectedTeam={selectedTeam}
+					selectedTeam={team}
 					handleTeamChange={handleTeamChange}
-					teams={allTeams}
+					teams={teamsNameDivisionAndId}
 				/>
 			</div>
-			{gamesByDate.map((games) => (
+			{gamesByDate?.map((games) => (
 				<div key={games.date}>
 					<h3 className="font-barlow my-4 text-sm uppercase md:text-2xl">
 						{games.date}

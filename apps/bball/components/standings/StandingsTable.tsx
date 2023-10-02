@@ -14,7 +14,18 @@ import {
 
 export default function StandingsTable({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
-	const [selectedDivision, setSelectedDivision] = useState("All Divisions");
+	const divisionsNameAndId = divisions.map((division) => {
+		return {
+			divisionName: division.divisionName,
+			_id: division._id,
+		};
+	});
+
+	// Add "All Divisions" to the beginning of the array
+	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
+	const [selectedDivision, setSelectedDivision] = useState(
+		divisionsNameAndId[0]._id
+	);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -37,7 +48,7 @@ export default function StandingsTable({ divisions }) {
 			<FilterByDivision
 				selectedDivision={selectedDivision}
 				handleDivisionChange={handleDivisionChange}
-				divisions={divisions}
+				divisions={divisionsNameAndId}
 			/>
 
 			<div className="flex flex-col gap-10">

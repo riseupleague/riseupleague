@@ -19,7 +19,10 @@ const gameSchema = new Schema({
 	awayTeamScore: { type: Number, required: true },
 	status: { type: Boolean, required: true },
 	division: { type: mongoose.Schema.Types.ObjectId, ref: "Division" },
-	season: { type: String, required: true },
+	season: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Season",
+	},
 	location: { type: String, required: true }, // Add the location field
 	players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
 	playerOfTheGame: { type: mongoose.Schema.Types.ObjectId, ref: "Player" },
