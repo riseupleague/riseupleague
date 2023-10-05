@@ -10,33 +10,55 @@ export default async function Games({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+	const teamsParams =
+		typeof searchParams.teams === "string" ? searchParams.teams : "";
 
-	const page =
-		typeof searchParams.page === "string" ? Number(searchParams.page) : 1;
+	const divisionsParams =
+		typeof searchParams.divisions === "string" ? searchParams.divisions : "";
 
-	const limit =
-		typeof searchParams.limit === "string" ? Number(searchParams.limit) : 50;
-
-	const search =
-		typeof searchParams.search === "string" ? searchParams.search : undefined;
-
-	const team = typeof searchParams.team === "string" ? searchParams.team : "";
-
-	const division =
-		typeof searchParams.division === "string" ? searchParams.division : "";
-
-	// Construct a filter object based on query parameters
-	const filters = { page, limit, query: search, team, division };
-
-	const resAllUpcomingGames = await getGamesByDate(division, team);
+	const resAllUpcomingGames = await getGamesByDate();
 	const { gamesByDate } = await resAllUpcomingGames.json();
 	const resAllCurrentDivisionsNameAndId =
 		await getAllCurrentDivisionsNameAndId();
 	const { divisionsNameAndId } = await resAllCurrentDivisionsNameAndId.json();
 	const resAllCurrentTeamsNameDivisionAndId =
-		await getAllCurrentTeamsNameDivisionAndId(division);
+		await getAllCurrentTeamsNameDivisionAndId();
 	const { teamsNameDivisionAndId } =
 		await resAllCurrentTeamsNameDivisionAndId.json();
+
+	// Split divisionParams into an array using ',' as the divider
+	const divisionsArray = (divisionsParams as string).split(",");
+	console.log("divisionsArray:", divisionsArray);
+
+	// Filter divisions from divisionsNameAndId that exist in divisionsArray
+	const divisionsInUrl = divisionsNameAndId
+		.filter((division) => divisionsArray.includes(division.divisionName))
+		.map((division) => division.divisionName);
+
+	const initialDivisionCheckboxState = {};
+	console.log("divisionsInUrl:", divisionsInUrl);
+	if (divisionsInUrl.length > 0) {
+		for (const division of divisionsInUrl) {
+			initialDivisionCheckboxState[division] = true;
+		}
+	}
+	console.log("teamsParams:", teamsParams);
+	// Split divisionParams into an array using ',' as the divider
+	const teamsArray = (teamsParams as string).split(",");
+	console.log("teamsArray:", teamsArray);
+
+	// Filter teams from teamsNameAndId that exist in teamsArray
+	const teamsInUrl = teamsNameDivisionAndId
+		.filter((team) => teamsArray.includes(team.teamName))
+		.map((team) => team.teamName);
+
+	const initialTeamCheckboxState = {};
+	console.log("divisionsInUrl:", teamsInUrl);
+	if (teamsInUrl.length > 0) {
+		for (const team of teamsInUrl) {
+			initialTeamCheckboxState[team] = true;
+		}
+	}
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
@@ -45,10 +67,10 @@ export default async function Games({
 			</h1>
 			<ScheduleFilterPage
 				gamesByDate={gamesByDate}
-				// page={page}
-				// totalPages={totalPages}
-				team={team}
-				division={division}
+				initialDivisionCheckboxState={initialDivisionCheckboxState}
+				initialTeamCheckboxState={initialTeamCheckboxState}
+				divisionParams={divisionsInUrl}
+				teamsParams={teamsInUrl}
 				divisionsNameAndId={divisionsNameAndId}
 				teamsNameDivisionAndId={teamsNameDivisionAndId}
 			/>

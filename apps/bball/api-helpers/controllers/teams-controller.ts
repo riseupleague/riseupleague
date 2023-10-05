@@ -43,26 +43,14 @@ export const getAllCurrentTeamsNameAndId = async () => {
 	}
 };
 
-export const getAllCurrentTeamsNameDivisionAndId = async (division: string) => {
-	console.log("hello", division);
+export const getAllCurrentTeamsNameDivisionAndId = async () => {
 	try {
-		let teamsNameDivisionAndId;
 		const activeSeason = await Season.find({ active: "true" });
 
-		if (division && division !== "") {
-			// Use select to retrieve only divisionName and _id fields
-			teamsNameDivisionAndId = await Team.find({
-				season: activeSeason,
-				division: division,
-			})
-				.populate("division", "divisionName")
-				.select("teamName _id division");
-		} else {
-			// Use select to retrieve only divisionName and _id fields
-			teamsNameDivisionAndId = await Team.find({ season: activeSeason })
-				.populate("division", "divisionName")
-				.select("teamName _id division");
-		}
+		// Use select to retrieve only divisionName and _id fields
+		const teamsNameDivisionAndId = await Team.find({ season: activeSeason })
+			.populate("division", "divisionName")
+			.select("teamName _id division");
 
 		// Create the object to push (All Teams)
 		const allTeamsObject = {
@@ -71,9 +59,8 @@ export const getAllCurrentTeamsNameDivisionAndId = async (division: string) => {
 			_id: "",
 		};
 
-		// Push the All Teams object into the beginning of array
+		// Push the All Teams object into the array
 		teamsNameDivisionAndId.unshift(allTeamsObject);
-
 		if (!teamsNameDivisionAndId) {
 			return NextResponse.json({ message: "No teams found" }, { status: 404 });
 		}

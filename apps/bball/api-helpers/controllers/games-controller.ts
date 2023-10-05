@@ -3,12 +3,6 @@ import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 
-type GameFilter = {
-	status: boolean;
-	team?: string | undefined;
-	division?: string | undefined;
-};
-
 export const getAllUpcomingGames = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -37,28 +31,12 @@ export const getAllUpcomingGames = async () => {
 	}
 };
 
-export const getGamesByDate = async (division, team) => {
+export const getGamesByDate = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
 
-		console.log("division:", division);
-		// Regular query with additional filters
-		const filter: GameFilter = {
-			status: false,
-		};
-
-		if (division && division !== "") {
-			filter.division = division;
-		}
-
-		// Create a separate condition for homeTeam and awayTeam
-		const teamCondition =
-			team && team !== ""
-				? { $or: [{ homeTeam: team }, { awayTeam: team }] }
-				: {};
-
 		// Retrieve all games (you can add any necessary filters)
-		const allGames = await Game.find({ ...filter, ...teamCondition })
+		const allGames = await Game.find({ status: false })
 			.populate({
 				path: "division",
 				select: "divisionName",
