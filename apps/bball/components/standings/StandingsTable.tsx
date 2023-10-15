@@ -43,6 +43,8 @@ export default function StandingsTable({ divisions }) {
 			setDivisionsWithTeams(divisions);
 		}
 	};
+
+	console.log(divisionsWithTeams);
 	return (
 		<div>
 			<FilterByDivision
@@ -73,37 +75,35 @@ export default function StandingsTable({ divisions }) {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{division.teams
-									.sort((a, b) => (a.wins < b.wins ? 1 : -1))
-									.map((team, index) => {
-										const positivePD = team.pointDifference > 0;
+								{division.teams.map((team, index) => {
+									const positivePD = team.pointDifference > 0;
 
-										return (
-											<TableRow key={index} className="text-sm md:text-lg">
-												<TableCell>{index + 1}</TableCell>
-												<TableCell className={`w-1/2 text-left sm:w-auto`}>
-													<Link
-														href={`/teams/${team._id}`}
-														className="flex w-fit"
-													>
-														<p className="hover:underline">{team.teamName}</p>
-													</Link>
-												</TableCell>
-												<TableCell>{team.wins || 0}</TableCell>
-												<TableCell>{team.losses || 0}</TableCell>
-												<TableCell>{team.gp}</TableCell>
-												<TableCell>{team.wpct.toFixed(3)}</TableCell>
-												<TableCell
-													className={
-														positivePD ? "text-green-500" : "text-primary"
-													}
+									return (
+										<TableRow key={index} className="text-sm md:text-lg">
+											<TableCell>{index + 1}</TableCell>
+											<TableCell className={`w-1/2 text-left sm:w-auto`}>
+												<Link
+													href={`/teams/${team._id}`}
+													className="flex w-fit"
 												>
-													{positivePD ? "+" : ""}
-													{team.pointDifference || 0}
-												</TableCell>
-											</TableRow>
-										);
-									})}
+													{team.teamName}
+												</Link>
+											</TableCell>
+											<TableCell>{team.wins || 0}</TableCell>
+											<TableCell>{team.losses || 0}</TableCell>
+											<TableCell>{team.gp}</TableCell>
+											<TableCell>{team.wpct.toFixed(3)}</TableCell>
+											<TableCell
+												className={
+													positivePD ? "text-green-500" : "text-primary"
+												}
+											>
+												{positivePD ? "+" : ""}
+												{team.pointDifference || 0}
+											</TableCell>
+										</TableRow>
+									);
+								})}
 							</TableBody>
 						</Table>
 					</div>

@@ -5,9 +5,8 @@ import Season from "@/api-helpers/models/Season";
 
 export const getAllUpcomingGames = async () => {
 	try {
-		const activeSeason = await Season.find({ active: "true" });
-		{
-		}
+		// const activeSeason = await Season.find({ active: "true" });
+
 		const allUpcomingGames = await Game.find({ status: false })
 			.populate({
 				path: "division",
@@ -21,8 +20,40 @@ export const getAllUpcomingGames = async () => {
 				path: "awayTeam",
 				select: "teamName teamNameShort",
 			})
-			.select("status homeTeam awayTeam division date gameName location");
+			.select("status homeTeam awayTeam division date gameName location")
+			.limit(12);
 		return NextResponse.json({ allUpcomingGames });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllPastGames = async () => {
+	try {
+		// const activeSeason = await Season.find({ active: "true" });
+
+		const allPastGames = await Game.find({ status: true })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamName teamNameShort",
+			})
+			.select(
+				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
+			)
+			// .sort({ date: -1 }) // Sort by date in descending order (most recent first)
+			.limit(12);
+		return NextResponse.json({ allPastGames });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },

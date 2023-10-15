@@ -10,9 +10,9 @@ export default function Instagram() {
 			<path
 				d="M11.25 22.5L18.75 15L11.25 7.5"
 				stroke="#555B64"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);

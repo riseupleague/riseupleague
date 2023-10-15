@@ -1,4 +1,4 @@
-export default function GameSummary({
+export default function GamePreview({
 	params,
 }: {
 	params: { id: string };

@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Button } from "@ui/components/button";
 
 export default function PrimaryHeader(): React.JSX.Element {
 	const path = usePathname();
@@ -23,6 +24,15 @@ export default function PrimaryHeader(): React.JSX.Element {
 			dropdown: true,
 		},
 		{
+			label: "standings",
+			href: "/standings",
+			dropdown: true,
+		},
+		{
+			label: "leaders",
+			href: "/leaders",
+		},
+		{
 			label: "teams",
 			href: "/teams",
 		},
@@ -33,7 +43,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 	];
 
 	return (
-		<nav className="container mx-auto hidden justify-between py-8 md:flex">
+		<nav className="container mx-auto hidden items-center justify-between py-8 md:flex">
 			<div>
 				<Link href="/" className="transition hover:opacity-80">
 					<Image
@@ -71,6 +81,10 @@ export default function PrimaryHeader(): React.JSX.Element {
 					);
 				})}
 			</div>
+
+			<Button variant="register">
+				<Link href={"/register"}> Register Now</Link>
+			</Button>
 		</nav>
 	);
 }

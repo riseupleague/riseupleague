@@ -16,11 +16,10 @@ export default async function Standings(): Promise<JSX.Element> {
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();
-
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				standings page
+				standings
 			</h1>
 			<StandingsTable divisions={divisionsWithStats} />
 		</section>

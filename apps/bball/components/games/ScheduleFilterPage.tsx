@@ -36,10 +36,6 @@ interface Game {
 	awayTeamScore?: number;
 }
 
-interface DateObject {
-	date: string;
-	games: Game[];
-}
 export default function ScheduleFilterPage({
 	gamesByDate,
 	divisionsNameAndId,
@@ -66,7 +62,6 @@ export default function ScheduleFilterPage({
 	// Use a useEffect to handle filtering when selectedDivisions or selectedTeams change
 	useEffect(() => {
 		// Use the selected divisions and teams to filter gamesByDate
-		console.log("closeTeams:", closeTeams);
 
 		if (closeDivisions.length !== 0 || closeTeams.length !== 0) {
 			const filteredGamesByDate = gamesByDate.map((dateObject) => ({
@@ -217,7 +212,7 @@ export default function ScheduleFilterPage({
 				}
 				return (
 					<div key={games.date}>
-						<h3 className="font-barlow my-4 text-sm uppercase md:text-2xl">
+						<h3 className="font-barlow my-4  text-2xl uppercase">
 							{games.date}
 						</h3>
 						<hr className="my-4 border border-neutral-600" />
@@ -240,17 +235,4 @@ export default function ScheduleFilterPage({
 			})}
 		</div>
 	);
-}
-
-{
-	/* <FilterByDivision
-selectedDivision={selectedDivision}
-handleDivisionChange={handleDivisionChange}
-divisions={divisionsNameAndId}
-/>
-<FilterByTeam
-selectedTeam={selectedTeam}
-handleTeamChange={handleTeamChange}
-teams={allTeams}
-/> */
 }

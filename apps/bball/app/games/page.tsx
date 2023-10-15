@@ -28,7 +28,6 @@ export default async function Games({
 
 	// Split divisionParams into an array using ',' as the divider
 	const divisionsArray = (divisionsParams as string).split(",");
-	console.log("divisionsArray:", divisionsArray);
 
 	// Filter divisions from divisionsNameAndId that exist in divisionsArray
 	const divisionsInUrl = divisionsNameAndId
@@ -36,16 +35,13 @@ export default async function Games({
 		.map((division) => division.divisionName);
 
 	const initialDivisionCheckboxState = {};
-	console.log("divisionsInUrl:", divisionsInUrl);
 	if (divisionsInUrl.length > 0) {
 		for (const division of divisionsInUrl) {
 			initialDivisionCheckboxState[division] = true;
 		}
 	}
-	console.log("teamsParams:", teamsParams);
 	// Split divisionParams into an array using ',' as the divider
 	const teamsArray = (teamsParams as string).split(",");
-	console.log("teamsArray:", teamsArray);
 
 	// Filter teams from teamsNameAndId that exist in teamsArray
 	const teamsInUrl = teamsNameDivisionAndId
@@ -53,7 +49,6 @@ export default async function Games({
 		.map((team) => team.teamName);
 
 	const initialTeamCheckboxState = {};
-	console.log("divisionsInUrl:", teamsInUrl);
 	if (teamsInUrl.length > 0) {
 		for (const team of teamsInUrl) {
 			initialTeamCheckboxState[team] = true;
