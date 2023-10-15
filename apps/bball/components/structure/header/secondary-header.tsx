@@ -3,10 +3,8 @@ import {
 	getAllUpcomingGames,
 } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import Link from "next/link";
 import React from "react";
-import WinnerIcon from "@/public/images/winner-icon.png";
-import Image from "next/image";
+
 import FutureGames from "./FutureGames";
 
 export default async function SecondaryHeader(): Promise<React.JSX.Element> {

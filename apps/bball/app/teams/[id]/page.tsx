@@ -17,13 +17,50 @@ export default async function Players({
 
 	const { team, allAvg } = await resTeam.json();
 
-	const leaders = {
-		points: { name: "", stats: { points: 0 } },
-		rebounds: { name: "", stats: { rebounds: 0 } },
-		assists: { name: "", stats: { assists: 0 } },
-		blocks: { name: "", stats: { blocks: 0 } },
-		steals: { name: "", stats: { steals: 0 } },
-		threesMade: { name: "", stats: { threesMade: 0 } },
+	const leaders: {
+		points: {
+			name: string;
+			jerseyNumber: number;
+			stats: { points: number };
+			id: string;
+		};
+		rebounds: {
+			name: string;
+			jerseyNumber: number;
+			stats: { rebounds: number };
+			id: string;
+		};
+		assists: {
+			name: string;
+			jerseyNumber: number;
+			stats: { assists: number };
+			id: string;
+		};
+		blocks: {
+			name: string;
+			jerseyNumber: number;
+			stats: { blocks: number };
+			id: string;
+		};
+		steals: {
+			name: string;
+			jerseyNumber: number;
+			stats: { steals: number };
+			id: string;
+		};
+		threesMade: {
+			name: string;
+			jerseyNumber: number;
+			stats: { threesMade: number };
+			id: string;
+		};
+	} = {
+		points: { name: "", jerseyNumber: 0, stats: { points: 0 }, id: "" }, // Initialize 'id'
+		rebounds: { name: "", jerseyNumber: 0, stats: { rebounds: 0 }, id: "" }, // Initialize 'id'
+		assists: { name: "", jerseyNumber: 0, stats: { assists: 0 }, id: "" }, // Initialize 'id'
+		blocks: { name: "", jerseyNumber: 0, stats: { blocks: 0 }, id: "" }, // Initialize 'id'
+		steals: { name: "", jerseyNumber: 0, stats: { steals: 0 }, id: "" }, // Initialize 'id'
+		threesMade: { name: "", jerseyNumber: 0, stats: { threesMade: 0 }, id: "" }, // Initialize 'id'
 	};
 
 	if (team.players.length > 0) {

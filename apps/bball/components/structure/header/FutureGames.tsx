@@ -39,7 +39,10 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 					<path d="M15 19l-7-7 7-7" />
 				</svg>
 			</button>
-			<div ref={containerRef} className="flex items-center overflow-auto">
+			<div
+				ref={containerRef}
+				className="flex items-center overflow-auto xl:overflow-x-hidden"
+			>
 				{separatedGames.map((dateGroup, dateIndex) => (
 					<article
 						className="bg-secondary flex max-h-[140px] items-center border-r border-neutral-600"
