@@ -5,8 +5,8 @@ const BarChart = ({ stats, allAvg, label, avgLabel }) => {
 	const chartRef = useRef<HTMLCanvasElement | null>(null); // Add type annotation for HTMLCanvasElement
 
 	useEffect(() => {
-		const myChartRef = chartRef.current.getContext("2d");
-		let myChart = new Chart(myChartRef, {
+		const myBarChartRef = chartRef.current.getContext("2d");
+		let myBarChart = new Chart(myBarChartRef, {
 			type: "bar",
 			data: {
 				labels: ["Points", "Rebounds", "Assists", "Steals", "Blocks"],
@@ -50,13 +50,13 @@ const BarChart = ({ stats, allAvg, label, avgLabel }) => {
 		});
 
 		return () => {
-			myChart.destroy();
+			myBarChart.destroy();
 		};
 	}, [stats, allAvg, avgLabel, label]);
 
 	return (
 		<div style={{ flex: 1 }}>
-			<canvas id="myChart" ref={chartRef} style={{ width: "100%" }} />
+			<canvas id="myBarChart" ref={chartRef} style={{ width: "100%" }} />
 		</div>
 	);
 };

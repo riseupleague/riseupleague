@@ -15,7 +15,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 			href: "/",
 		},
 		{
-			label: "games",
+			label: "schedule",
 			href: "/games",
 		},
 		{
@@ -23,11 +23,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 			href: "/standings",
 			dropdown: true,
 		},
-		{
-			label: "standings",
-			href: "/standings",
-			dropdown: true,
-		},
+
 		{
 			label: "leaders",
 			href: "/leaders",

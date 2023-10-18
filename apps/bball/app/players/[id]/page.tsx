@@ -1,10 +1,9 @@
 import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
 import AdvanceStatistics from "@/components/players/player/AdvanceStatistics";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
+import PlayerSection from "@/components/players/player/PlayerSections";
 import PreviousGames from "@/components/players/player/PreviousGames";
-import Image from "next/image";
 import Link from "next/link";
-import { Skeleton } from "@ui/components/skeleton";
 
 export default async function Players({
 	params,
@@ -23,14 +22,14 @@ export default async function Players({
 				</h1>
 				<div className="text-white">
 					<Link href={`/teams/${player.team._id}`}>
-						<span className="hover:underline">{player.team.teamName}</span>
+						<span className="font-barlow hover:underline">
+							{player.team.teamName}
+						</span>
 					</Link>{" "}
-					| <span>#{player.jerseyNumber}</span>
+					| <span className="font-barlow">#{player.jerseyNumber}</span>
 				</div>
 			</div>
-			<AverageStatistics player={player} allAvg={allAvg} />
-			<AdvanceStatistics player={player} allAvg={allAvg} />
-			<PreviousGames player={player} />
+			<PlayerSection player={player} allAvg={allAvg} />
 		</section>
 	);
 }

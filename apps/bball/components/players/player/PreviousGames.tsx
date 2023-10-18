@@ -11,20 +11,30 @@ import {
 const PreviousGames = ({ player }) => {
 	return (
 		<div className="mt-10">
-			<h2 className="mb-10 border-b border-[#282828] py-10 text-2xl font-semibold text-white">
+			<h2 className="font-barlow mb-10 border-b border-[#282828] py-10 text-2xl font-semibold text-white">
 				Previous Games
 			</h2>
 			<Table>
 				<TableHeader>
 					<TableRow className="border-b border-gray-200 uppercase">
-						<TableHead className="w-1/3 bg-transparent text-left sm:w-auto">
+						<TableHead className="w-1/3 bg-transparent text-left text-sm sm:w-auto sm:text-lg">
 							Game
 						</TableHead>
-						<TableHead className="bg-transparent">PTS</TableHead>
-						<TableHead className="bg-transparent">REB</TableHead>
-						<TableHead className="bg-transparent">AST</TableHead>
-						<TableHead className="bg-transparent">BLK</TableHead>
-						<TableHead className="bg-transparent">STL</TableHead>
+						<TableHead className="bg-transparent text-sm sm:text-lg">
+							PTS
+						</TableHead>
+						<TableHead className="bg-transparent text-sm sm:text-lg">
+							REB
+						</TableHead>
+						<TableHead className="bg-transparent text-sm sm:text-lg">
+							AST
+						</TableHead>
+						<TableHead className="bg-transparent text-sm sm:text-lg">
+							BLK
+						</TableHead>
+						<TableHead className="bg-transparent text-sm sm:text-lg">
+							STL
+						</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>

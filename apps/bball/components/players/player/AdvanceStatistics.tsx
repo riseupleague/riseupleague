@@ -1,6 +1,4 @@
 import BarChart from "./BarChart";
-import LineChart from "./LineChart";
-import { Chart } from "chart.js/auto";
 
 const AdvanceStatistics = ({ player, allAvg }) => {
 	return (
@@ -9,7 +7,9 @@ const AdvanceStatistics = ({ player, allAvg }) => {
 				style={{ borderColor: "#282828" }}
 				className="my-10 flex items-center justify-between border-b pb-5 pt-10 "
 			>
-				<h2 className="text-2xl font-semibold  text-white ">Advanced Stats</h2>
+				<h2 className="font-barlow text-2xl  font-semibold text-white ">
+					Advanced Stats
+				</h2>
 			</div>
 
 			<div className="flex w-full flex-col lg:flex-row">
@@ -19,8 +19,6 @@ const AdvanceStatistics = ({ player, allAvg }) => {
 					avgLabel={`Average Player`}
 					label={player.playerName}
 				/>
-
-				<LineChart stats={player.seasonStatistics} />
 			</div>
 		</div>
 	);

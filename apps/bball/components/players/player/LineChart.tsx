@@ -1,10 +1,12 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+
+import { useEffect, useState, useRef } from "react";
 import Chart from "chart.js/auto";
-const LineChart = ({ stats }) => {
+
+const PlayerLineChart = ({ stats }) => {
+	const chartRef = useRef();
 	const [selectedCategory, setSelectedCategory] = useState("points");
 
-	const chartRef = useRef<HTMLCanvasElement | null>(null); // Add type annotation for HTMLCanvasElement
 	useEffect(() => {
 		const myChartRef = chartRef.current.getContext("2d");
 		let myChart = new Chart(myChartRef, {
@@ -54,8 +56,8 @@ const LineChart = ({ stats }) => {
 	}, [stats, selectedCategory]);
 
 	return (
-		<div style={{ flex: 1 }} className="mt-16 lg:mt-0">
-			<div className="">
+		<div>
+			<div>
 				<select
 					style={{ backgroundColor: "#0a0e14" }}
 					className="rounded p-2  font-semibold text-white"
@@ -85,4 +87,4 @@ const LineChart = ({ stats }) => {
 	);
 };
 
-export default LineChart;
+export default PlayerLineChart;

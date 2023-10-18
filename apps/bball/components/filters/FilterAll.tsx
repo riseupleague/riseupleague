@@ -59,7 +59,7 @@ const FilterAll = ({
 					<SheetTrigger asChild>
 						<Button>Filter</Button>
 					</SheetTrigger>
-					<SheetContent side={"right"} className="  bg-neutral-900 ">
+					<SheetContent side={"right"} className="w-full  bg-neutral-900 ">
 						<SheetHeader>
 							<SheetTitle className="uppercase">Filter and Sort</SheetTitle>
 						</SheetHeader>
