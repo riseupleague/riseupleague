@@ -54,8 +54,10 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						</div>
 						{dateGroup.games
 							.sort((gameA, gameB) => {
-								// Sort games based on their original date
-								return new Date(gameA.date) - new Date(gameB.date);
+								// Convert the date strings to timestamps and then subtract
+								const dateA = new Date(gameA.date).getTime();
+								const dateB = new Date(gameB.date).getTime();
+								return dateA - dateB;
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
