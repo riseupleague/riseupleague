@@ -7,7 +7,6 @@ import {
 	Sheet,
 	SheetClose,
 	SheetContent,
-	SheetDescription,
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
@@ -25,7 +24,7 @@ const FilterAll = ({
 }) => {
 	return (
 		<div className="grid grid-cols-2 gap-2">
-			<div className="block sm:hidden">
+			<div className="block sm:hidden ">
 				<Sheet>
 					<SheetTrigger asChild>
 						<Button>Filter</Button>

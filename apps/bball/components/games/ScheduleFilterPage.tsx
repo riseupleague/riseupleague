@@ -8,34 +8,6 @@ import FilterAll from "../filters/FilterAll";
 import { Button } from "@ui/components/button";
 import CloseX from "../general/icons/CloseX";
 
-interface Game {
-	_id: string;
-	gameName: string;
-	date: string;
-	homeTeam: {
-		_id: string;
-		teamName: string;
-		teamNameShort: string;
-		wins?: number; // Make it optional with the "?"
-		losses?: number; // Make it optional with the "?"
-	};
-	awayTeam: {
-		_id: string;
-		teamName: string;
-		teamNameShort: string;
-		wins?: number; // Make it optional with the "?"
-		losses?: number; // Make it optional with the "?"
-	};
-	status: boolean;
-	division: {
-		_id: string;
-		divisionName: string;
-	};
-	location: string;
-	homeTeamScore?: number;
-	awayTeamScore?: number;
-}
-
 export default function ScheduleFilterPage({
 	gamesByDate,
 	divisionsNameAndId,

@@ -16,6 +16,7 @@ export default function Page(): JSX.Element {
 			<SecondaryHeader />
 
 			<Hero />
+
 			<FeaturedSponsors />
 			<AboutRiseUp />
 			<PlayersOfTheWeek />
