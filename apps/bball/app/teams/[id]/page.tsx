@@ -1,9 +1,6 @@
 import AdvanceStatistics from "@/components/players/player/AdvanceStatistics";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
-import PreviousGames from "@/components/players/player/PreviousGames";
-import Image from "next/image";
 import Link from "next/link";
-import { Skeleton } from "@ui/components/skeleton";
 import { getTeamAllAvgFromId } from "@/api-helpers/controllers/teams-controller";
 
 export default async function Players({

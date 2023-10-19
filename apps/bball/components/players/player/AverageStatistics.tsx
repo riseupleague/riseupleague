@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import BarChart from "./BarChart";
+
 import PointsCircle from "./PointsCircle";
 import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
 const AverageStatistics = ({ player, allAvg }) => {
@@ -141,6 +145,16 @@ const AverageStatistics = ({ player, allAvg }) => {
 							SPG
 						</div>
 					</div>
+				</div>
+			</div>
+			<div className="mt-10">
+				<div className="flex w-full flex-col lg:flex-row">
+					<BarChart
+						stats={player.averageStats}
+						allAvg={allAvg}
+						avgLabel={`Average Player`}
+						label={player.playerName}
+					/>
 				</div>
 			</div>
 		</div>
