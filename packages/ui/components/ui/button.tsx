@@ -20,7 +20,8 @@ const buttonVariants = cva(
 				link: "text-primary underline-offset-4 hover:underline",
 				register:
 					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
-				navlink: "bg-transparent text-white border-none px-0",
+				navlink:
+					"bg-transparent text-white border-none px-0 flex  items-center gap-3 ",
 			},
 			size: {
 				default: "px-12 py-2",

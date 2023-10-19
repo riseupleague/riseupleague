@@ -1,7 +1,6 @@
 import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
-import AdvanceStatistics from "@/components/players/player/AdvanceStatistics";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
-import PlayerSection from "@/components/players/player/PlayerSections";
+import PlayerSections from "@/components/players/player/PlayerSections";
 import PreviousGames from "@/components/players/player/PreviousGames";
 import Link from "next/link";
 
@@ -29,7 +28,7 @@ export default async function Players({
 					| <span className="font-barlow">#{player.jerseyNumber}</span>
 				</div>
 			</div>
-			<PlayerSection player={player} allAvg={allAvg} />
+			<PlayerSections player={player} allAvg={allAvg} />
 		</section>
 	);
 }

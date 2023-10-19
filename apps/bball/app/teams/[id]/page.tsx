@@ -1,7 +1,7 @@
-import AdvanceStatistics from "@/components/players/player/AdvanceStatistics";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import Link from "next/link";
 import { getTeamAllAvgFromId } from "@/api-helpers/controllers/teams-controller";
+import TeamSections from "@/components/teams/team/TeamSections";
 
 export default async function Players({
 	params,
@@ -115,8 +115,7 @@ export default async function Players({
 					</Link>{" "}
 				</div>
 			</div>
-			<AverageStatistics player={team} allAvg={allAvg} />
-			<AdvanceStatistics player={team} allAvg={allAvg} />
+			<TeamSections team={team} allAvg={allAvg} />
 		</section>
 	);
 }

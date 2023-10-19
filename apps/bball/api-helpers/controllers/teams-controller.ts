@@ -77,8 +77,6 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
-		const activeSeason = await Season.find({ active: "true" });
-
 		const team = await Team.findById(teamId)
 			.populate("players")
 			.populate({

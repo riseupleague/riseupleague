@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
+import { useRouter } from "next/navigation";
 
 import {
 	Sheet,
@@ -16,6 +17,7 @@ import {
 
 export default function PrimaryHeader(): React.JSX.Element {
 	const path = usePathname();
+	const router = useRouter(); // Initialize the router
 
 	const headerOptions = [
 		{
@@ -273,16 +275,15 @@ export default function PrimaryHeader(): React.JSX.Element {
 										key={index}
 									>
 										<SheetClose asChild>
-											<Button variant="navlink" size="navlink">
-												<a
-													href={option.href}
-													className="flex items-center gap-3"
-												>
-													{option.icon}
-													<span className="font-barlow text-[24px] uppercase tracking-tighter">
-														{option.label}
-													</span>
-												</a>
+											<Button
+												variant="navlink"
+												size="navlink"
+												onClick={() => router.push(option.href)}
+											>
+												{option.icon}
+												<span className="font-barlow text-[24px] uppercase tracking-tighter">
+													{option.label}
+												</span>
 											</Button>
 										</SheetClose>
 									</li>

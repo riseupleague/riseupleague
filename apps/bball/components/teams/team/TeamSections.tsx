@@ -1,16 +1,16 @@
 "use client";
 import React, { useState } from "react";
-import AverageStatistics from "@/components/players/player/AverageStatistics";
-import PreviousGames from "@/components/players/player/PreviousGames";
+import PreviousGames from "./PreviousGames";
+import Statistics from "./Statistics";
 
-export default function PlayerSections({ player, allAvg }) {
+export default function TeamSections({ team, allAvg }) {
 	const [selectedSection, setSelectedSection] = useState("overview"); // Set the default selected section
 
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
 
-	const playerNav = [
+	const teamNav = [
 		{
 			id: "overview",
 			label: "Overview",
@@ -21,19 +21,19 @@ export default function PlayerSections({ player, allAvg }) {
 			label: "Stats",
 			component: (
 				<div>
-					<AverageStatistics player={player} allAvg={allAvg} />
+					<Statistics team={team} allAvg={allAvg} />
 				</div>
 			),
 		},
 		{
 			id: "previousGames",
 			label: "Previous",
-			component: <PreviousGames player={player} />,
+			component: <PreviousGames team={team} />,
 		},
 	];
 
-	// Find the currently selected section in the playerNav array
-	const selectedNavItem = playerNav.find(
+	// Find the currently selected section in the teamNav array
+	const selectedNavItem = teamNav.find(
 		(navItem) => navItem.id === selectedSection
 	);
 
@@ -42,7 +42,7 @@ export default function PlayerSections({ player, allAvg }) {
 	return (
 		<div>
 			<ul className="no-scrollbar flex w-full items-center justify-between overflow-x-auto border-b border-[#282828] md:gap-3">
-				{playerNav.map((navItem) => (
+				{teamNav.map((navItem) => (
 					<li
 						className={`font-barlow flex-1 cursor-pointer p-6  text-center text-sm font-semibold uppercase md:text-lg ${
 							selectedSection === navItem.id
