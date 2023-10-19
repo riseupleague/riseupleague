@@ -6,7 +6,7 @@ export default function TeamsLoading() {
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				standings
+				<Skeleton className="h-16 w-3/4 rounded-lg bg-neutral-700 lg:w-1/4" />
 			</h1>
 			<div>
 				{/* search */}

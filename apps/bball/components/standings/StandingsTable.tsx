@@ -14,7 +14,18 @@ import {
 
 export default function StandingsTable({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
-	const [selectedDivision, setSelectedDivision] = useState("All Divisions");
+	const divisionsNameAndId = divisions.map((division) => {
+		return {
+			divisionName: division.divisionName,
+			_id: division._id,
+		};
+	});
+
+	// Add "All Divisions" to the beginning of the array
+	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
+	const [selectedDivision, setSelectedDivision] = useState(
+		divisionsNameAndId[0]._id
+	);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -32,12 +43,14 @@ export default function StandingsTable({ divisions }) {
 			setDivisionsWithTeams(divisions);
 		}
 	};
+
+	console.log(divisionsWithTeams);
 	return (
 		<div>
 			<FilterByDivision
 				selectedDivision={selectedDivision}
 				handleDivisionChange={handleDivisionChange}
-				divisions={divisions}
+				divisions={divisionsNameAndId}
 			/>
 
 			<div className="flex flex-col gap-10">
@@ -62,37 +75,35 @@ export default function StandingsTable({ divisions }) {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{division.teams
-									.sort((a, b) => (a.wins < b.wins ? 1 : -1))
-									.map((team, index) => {
-										const positivePD = team.pointDifference > 0;
+								{division.teams.map((team, index) => {
+									const positivePD = team.pointDifference > 0;
 
-										return (
-											<TableRow key={index} className="text-sm md:text-lg">
-												<TableCell>{index + 1}</TableCell>
-												<TableCell className={`w-1/2 text-left sm:w-auto`}>
-													<Link
-														href={`/teams/${team._id}`}
-														className="flex w-fit"
-													>
-														<p className="hover:underline">{team.teamName}</p>
-													</Link>
-												</TableCell>
-												<TableCell>{team.wins || 0}</TableCell>
-												<TableCell>{team.losses || 0}</TableCell>
-												<TableCell>{team.gp}</TableCell>
-												<TableCell>{team.wpct.toFixed(3)}</TableCell>
-												<TableCell
-													className={
-														positivePD ? "text-green-500" : "text-primary"
-													}
+									return (
+										<TableRow key={index} className="text-sm md:text-lg">
+											<TableCell>{index + 1}</TableCell>
+											<TableCell className={`w-1/2 text-left sm:w-auto`}>
+												<Link
+													href={`/teams/${team._id}`}
+													className="flex w-fit"
 												>
-													{positivePD ? "+" : ""}
-													{team.pointDifference || 0}
-												</TableCell>
-											</TableRow>
-										);
-									})}
+													{team.teamName}
+												</Link>
+											</TableCell>
+											<TableCell>{team.wins || 0}</TableCell>
+											<TableCell>{team.losses || 0}</TableCell>
+											<TableCell>{team.gp}</TableCell>
+											<TableCell>{team.wpct.toFixed(3)}</TableCell>
+											<TableCell
+												className={
+													positivePD ? "text-green-500" : "text-primary"
+												}
+											>
+												{positivePD ? "+" : ""}
+												{team.pointDifference || 0}
+											</TableCell>
+										</TableRow>
+									);
+								})}
 							</TableBody>
 						</Table>
 					</div>

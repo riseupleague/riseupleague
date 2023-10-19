@@ -21,7 +21,7 @@ const FilterByDivision = ({
 			<Label>Filter By Division:</Label>
 			<Select onValueChange={handleDivisionChange}>
 				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-					<SelectValue placeholder={selectedDivision} />
+					<SelectValue placeholder="All Divisions" />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {

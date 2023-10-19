@@ -1,4 +1,4 @@
-export default function Players({
+export default function GameSummary({
 	params,
 }: {
 	params: { id: string };

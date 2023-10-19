@@ -17,7 +17,7 @@ const FilterByTeam = ({ selectedTeam, handleTeamChange, teams }) => {
 			<Label>Filter By Team:</Label>
 			<Select onValueChange={handleTeamChange}>
 				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-					<SelectValue placeholder={selectedTeam} />
+					<SelectValue placeholder="All Teams" />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {

@@ -5,10 +5,69 @@ import Season from "@/api-helpers/models/Season";
 
 export const getAllUpcomingGames = async () => {
 	try {
+		// const activeSeason = await Season.find({ active: "true" });
+
+		const allUpcomingGames = await Game.find({ status: false })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamName teamNameShort",
+			})
+			.select("status homeTeam awayTeam division date gameName location")
+			.limit(12);
+		return NextResponse.json({ allUpcomingGames });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllPastGames = async () => {
+	try {
+		// const activeSeason = await Season.find({ active: "true" });
+
+		const allPastGames = await Game.find({ status: true })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamName teamNameShort",
+			})
+			.select(
+				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
+			)
+			// .sort({ date: -1 }) // Sort by date in descending order (most recent first)
+			.limit(12);
+		return NextResponse.json({ allPastGames });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getGamesByDate = async () => {
+	try {
 		const activeSeason = await Season.find({ active: "true" });
-		{
-		}
-		const allUpcomingGames = await Game.find({})
+
+		// Retrieve all games (you can add any necessary filters)
+		const allGames = await Game.find({ status: false })
 			.populate({
 				path: "division",
 				select: "divisionName",
@@ -22,7 +81,32 @@ export const getAllUpcomingGames = async () => {
 				select: "teamName teamNameShort",
 			})
 			.select("status homeTeam awayTeam division date gameName location");
-		return NextResponse.json({ allUpcomingGames });
+
+		// Convert the games into the gamesByDate format
+		const gamesByDate = allGames.reduce((accumulator, game) => {
+			const date = new Date(game.date);
+			const formattedDate = date.toLocaleDateString("en-US", {
+				weekday: "long",
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			});
+
+			const existingDateObject = accumulator.find(
+				(dateObject) => dateObject.date === formattedDate
+			);
+
+			if (existingDateObject) {
+				existingDateObject.games.push(game);
+			} else {
+				accumulator.push({ date: formattedDate, games: [game] });
+			}
+
+			return accumulator;
+		}, []);
+
+		// Return the gamesByDate as the response
+		return NextResponse.json({ gamesByDate });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
@@ -30,6 +114,67 @@ export const getAllUpcomingGames = async () => {
 		);
 	}
 };
+
+// export const getAllUpcomingGames = async ({
+// 	page = 1,
+// 	limit = 50,
+// 	team = "",
+// 	division = "",
+// }: {
+// 	page: number;
+// 	limit: number;
+// 	team?: string; // Team parameter
+// 	division?: string; // Division parameter
+// }) => {
+// 	try {
+// 		const activeSeason = await Season.find({ active: true });
+
+// 		const skip = (page - 1) * limit;
+
+// 		// Define the filter object based on query parameters
+// 		const filter: GameFilter = {
+// 			season: activeSeason,
+// 		};
+
+// 		// Add filters based on query parameters
+// 		if (team !== "") {
+// 			filter.team = team;
+// 		}
+
+// 		if (division !== "") {
+// 			filter.division = division;
+// 		}
+
+// 		const allUpcomingGames = await Game.find(filter)
+// 			.populate({
+// 				path: "division",
+// 				select: "divisionName",
+// 			})
+// 			.populate({
+// 				path: "homeTeam",
+// 				select: "teamName teamNameShort",
+// 			})
+// 			.populate({
+// 				path: "awayTeam",
+// 				select: "teamName teamNameShort",
+// 			})
+// 			.select("status homeTeam awayTeam division date gameName location")
+// 			.limit(limit)
+// 			.skip(skip);
+
+// 		const totalRecords = await Game.countDocuments(filter);
+
+// 		// Calculate the total number of pages
+// 		const totalPages = Math.ceil(totalRecords / limit);
+
+// 		return NextResponse.json({ allUpcomingGames, totalPages });
+// 	} catch (e) {
+// 		return NextResponse.json(
+// 			{ message: "Internal Server Error" },
+// 			{ status: 500 }
+// 		);
+// 	}
+// };
 
 export const getAllPlayersOfTheWeek = async () => {
 	try {

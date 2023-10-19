@@ -8,11 +8,15 @@ import Socials from "@/components/home/socials";
 import FAQs from "@/components/home/faqs";
 import ContactUs from "@/components/home/contact-us";
 import HomeRegister from "@/components/home/home-register";
+import SecondaryHeader from "@/components/structure/header/secondary-header";
 
 export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
+			<SecondaryHeader />
+
 			<Hero />
+
 			<FeaturedSponsors />
 			<AboutRiseUp />
 			<PlayersOfTheWeek />

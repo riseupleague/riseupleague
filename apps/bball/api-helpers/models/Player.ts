@@ -76,4 +76,7 @@ const playerSchema = new Schema({
 	],
 });
 
+// Create a text index on the "playerName" field
+playerSchema.index({ playerName: "text" });
+
 export default mongoose.models.Player || mongoose.model("Player", playerSchema);
