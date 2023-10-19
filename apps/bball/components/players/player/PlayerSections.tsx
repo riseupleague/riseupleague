@@ -23,7 +23,6 @@ export default function PlayerSection({ player, allAvg }) {
 			component: (
 				<div>
 					<AverageStatistics player={player} allAvg={allAvg} />
-					<AdvanceStatistics player={player} allAvg={allAvg} />
 				</div>
 			),
 		},
