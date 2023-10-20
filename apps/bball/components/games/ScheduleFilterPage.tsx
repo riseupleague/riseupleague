@@ -25,11 +25,8 @@ export default function ScheduleFilterPage({
 		initialDivisionCheckboxState
 	);
 
-	console.log(initialDivisionCheckboxState, divisionCheckboxState);
-
 	const [closeDivisions, setCloseDivisions] = useState(divisionParams);
 	const [closeTeams, setCloseTeams] = useState(teamsParams);
-	console.log(teamsParams);
 
 	// Use a useEffect to handle filtering when selectedDivisions or selectedTeams change
 	useEffect(() => {
@@ -54,8 +51,6 @@ export default function ScheduleFilterPage({
 				}),
 			}));
 
-			console.log("filteredGamesByDate:", filteredGamesByDate);
-
 			setAllGames(filteredGamesByDate);
 		}
 	}, []);
@@ -67,7 +62,6 @@ export default function ScheduleFilterPage({
 			(divisionId) => divisions[divisionId]
 		);
 
-		console.log("selectedDivisions:", selectedDivisions);
 		setCloseDivisions(selectedDivisions);
 		setCloseTeams(selectedTeams);
 
@@ -137,8 +131,6 @@ export default function ScheduleFilterPage({
 			teams: updatedTeamState,
 		});
 	};
-
-	console.log("divisionCheckboxState:", divisionCheckboxState);
 
 	return (
 		<div>

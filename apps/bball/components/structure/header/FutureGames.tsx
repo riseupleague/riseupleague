@@ -22,7 +22,6 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 		});
 	};
 
-	console.log(separatedGames);
 	return (
 		<div className="flex ">
 			<button

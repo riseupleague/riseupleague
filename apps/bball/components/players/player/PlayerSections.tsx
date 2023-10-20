@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PreviousGames from "@/components/players/player/PreviousGames";
@@ -36,8 +37,6 @@ export default function PlayerSections({ player, allAvg }) {
 	const selectedNavItem = playerNav.find(
 		(navItem) => navItem.id === selectedSection
 	);
-
-	console.log(selectedSection, selectedNavItem);
 
 	return (
 		<div>
