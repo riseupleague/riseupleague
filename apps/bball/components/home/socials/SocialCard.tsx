@@ -4,7 +4,10 @@ import Link from "next/link";
 
 export default function SocialCard({ link, text, icon }) {
 	return (
-		<Card className="flex items-center justify-between">
+		<Link
+			href={link}
+			className="flex items-center justify-between rounded-sm border border-neutral-600 bg-neutral-800 transition hover:opacity-80"
+		>
 			<Link
 				href={link}
 				className="flex h-full items-center bg-neutral-600 p-4 transition hover:opacity-80"
@@ -26,6 +29,6 @@ export default function SocialCard({ link, text, icon }) {
 					<ChevronRight />
 				</Link>
 			</div>
-		</Card>
+		</Link>
 	);
 }
