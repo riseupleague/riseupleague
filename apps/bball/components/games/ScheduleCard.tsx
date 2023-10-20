@@ -7,6 +7,29 @@ import { Button } from "@ui/components/button";
 export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
 
+	const getLocation = () => {
+		switch (game.location) {
+			case "Sheridan College - Davis Campus":
+				return "https://maps.app.goo.gl/XwsAiAFX8AEE5ryv6";
+
+			case "Playground Brampton":
+				return "https://maps.app.goo.gl/qNjhrmea6q54CEsm9";
+
+			case "Game6 Sports Academy":
+				return "https://maps.app.goo.gl/WLVopB291PbLJHKz5";
+
+			default:
+				return "";
+		}
+	};
+
+	const gameLocation = getLocation();
+	const date = new Date(game.date);
+	const hours = date.getHours() - 12;
+
+	let minutes = date.getMinutes().toString();
+	if (minutes === "0") minutes = "00";
+
 	return (
 		<article className="flex flex-col rounded border border-neutral-600 bg-neutral-700">
 			<div className="grid grid-cols-3">
@@ -21,20 +44,16 @@ export default function ScheduleCard({ game }) {
 					</Link>
 				</div>
 
-				{/* division / time / location */}
-				<div className="font-barlow  flex flex-col justify-center p-4 text-center uppercase">
+				{/* division / time */}
+				<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
 					<div className="mb-[35px] flex justify-center">
-						<p className="w-fit rounded bg-neutral-600 px-4 py-1 text-center text-[10px]">
-							div
+						<p className="text-md w-fit rounded bg-neutral-600 px-4 py-1 text-center">
+							{game.division.divisionName}
 						</p>
 					</div>
-					<p className="mb-3 text-[31px]">time</p>
-					<div className="flex items-center justify-center gap-1">
-						<div className="translate-y-[1px]">
-							<LocationMarker />
-						</div>
-						<p className="text-neutral-400">location</p>
-					</div>
+					<p className="mb-3 text-[31px]">
+						{hours}:{minutes} PM
+					</p>
 				</div>
 
 				{/* away team */}
@@ -47,6 +66,19 @@ export default function ScheduleCard({ game }) {
 						{game.awayTeam?.teamName}
 					</Link>
 				</div>
+			</div>
+
+			{/* location */}
+			<div className="flex items-center justify-center gap-1">
+				<div className="translate-y-[1px]">
+					<LocationMarker />
+				</div>
+				<Link
+					href={gameLocation}
+					className="font-barlow text-sm uppercase text-neutral-400 transition hover:underline hover:opacity-80"
+				>
+					{game.location}
+				</Link>
 			</div>
 
 			{/* preview/summary button */}

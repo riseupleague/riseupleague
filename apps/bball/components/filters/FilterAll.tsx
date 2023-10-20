@@ -24,14 +24,14 @@ const FilterAll = ({
 }) => {
 	return (
 		<div className="grid grid-cols-2 gap-2">
-			<div className="block sm:hidden ">
+			<div className="block sm:hidden">
 				<Sheet>
 					<SheetTrigger asChild>
 						<Button>Filter</Button>
 					</SheetTrigger>
-					<SheetContent side={"bottom"} className=" h-[85%] bg-neutral-900 ">
+					<SheetContent side={"bottom"} className="h-[85%] bg-neutral-900">
 						<SheetHeader>
-							<SheetTitle className="uppercase">Filter and Sort</SheetTitle>
+							<SheetTitle>Filter and Sort</SheetTitle>
 						</SheetHeader>
 						<FilterAccordion
 							divisions={divisions}
@@ -60,7 +60,9 @@ const FilterAll = ({
 					</SheetTrigger>
 					<SheetContent side={"right"} className="w-full  bg-neutral-900 ">
 						<SheetHeader>
-							<SheetTitle className="uppercase">Filter and Sort</SheetTitle>
+							<SheetTitle className="font-barlow text-2xl uppercase">
+								Filter and Sort
+							</SheetTitle>
 						</SheetHeader>
 						<FilterAccordion
 							divisions={divisions}

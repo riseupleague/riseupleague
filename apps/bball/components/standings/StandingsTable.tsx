@@ -83,7 +83,7 @@ export default function StandingsTable({ divisions }) {
 											<TableCell className={`w-1/2 text-left sm:w-auto`}>
 												<Link
 													href={`/teams/${team._id}`}
-													className="flex w-fit"
+													className="flex w-fit hover:underline"
 												>
 													{team.teamName}
 												</Link>
