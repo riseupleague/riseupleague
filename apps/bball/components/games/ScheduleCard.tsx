@@ -1,6 +1,5 @@
 import Link from "next/link";
 import LocationMarker from "../general/icons/LocationMarker";
-import HomeImgPlaceholder from "../general/icons/HomeImgPlaceholder";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 
