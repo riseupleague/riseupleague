@@ -11,7 +11,7 @@ export default function Footer(): React.JSX.Element {
 	const path = usePathname();
 
 	return (
-		<footer className="container mx-auto flex flex-col gap-8 px-4 py-8">
+		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
 			{/* logo & copyright */}
 			<section>
 				<Link

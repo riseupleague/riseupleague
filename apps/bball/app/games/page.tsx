@@ -57,8 +57,8 @@ export default async function Games({
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
-			<h1 className="font-oswald my-8 text-3xl  font-medium uppercase">
-				games page
+			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
+				Schedule
 			</h1>
 			<ScheduleFilterPage
 				gamesByDate={gamesByDate}

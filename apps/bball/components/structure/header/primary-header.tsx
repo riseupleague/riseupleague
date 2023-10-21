@@ -353,10 +353,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 								}
 
 								return (
-									<li
-										className={`px-6 py-2 ${isActive && "bg-neutral-600"}`}
-										key={index}
-									>
+									<li className={`${isActive && "bg-neutral-600"}`} key={index}>
 										<SheetClose asChild>
 											<Button
 												variant="navlink"

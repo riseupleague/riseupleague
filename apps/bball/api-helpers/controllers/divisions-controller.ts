@@ -156,7 +156,7 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 		const divisionsWithTeamNames = await Division.find({
 			season: activeSeason,
 		})
-			.populate("teams", "teamName")
+			.populate("teams", "teamName primaryColor secondaryColor tertiaryColor")
 			.select("divisionName _id teams");
 		if (!divisionsWithTeamNames) {
 			return NextResponse.json(
