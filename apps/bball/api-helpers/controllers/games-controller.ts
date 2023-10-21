@@ -90,6 +90,7 @@ export const getGamesByDate = async () => {
 		const gamesByDate = allGames.reduce((accumulator, game) => {
 			const date = new Date(game.date);
 			const formattedDate = date.toLocaleDateString("en-US", {
+				timeZone: "America/Toronto",
 				weekday: "long",
 				year: "numeric",
 				month: "long",

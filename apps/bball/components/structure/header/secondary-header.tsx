@@ -19,7 +19,10 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 	allGames.forEach((game) => {
 		const gameDate = new Date(game.date);
-		const month = gameDate.toLocaleString("en-US", { month: "short" });
+		const month = gameDate.toLocaleString("en-US", {
+			timeZone: "America/Toronto",
+			month: "short",
+		});
 		const day = gameDate.getDate();
 		const formattedDate = `${month} ${day}`;
 
