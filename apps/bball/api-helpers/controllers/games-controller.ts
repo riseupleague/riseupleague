@@ -7,7 +7,7 @@ export const getAllUpcomingGames = async () => {
 	try {
 		// const activeSeason = await Season.find({ active: "true" });
 
-		const allUpcomingGames = await Game.find({ status: false })
+		const games = await Game.find({ status: false })
 			.populate({
 				path: "division",
 				select: "divisionName",
@@ -24,6 +24,17 @@ export const getAllUpcomingGames = async () => {
 			})
 			.select("status homeTeam awayTeam division date gameName location")
 			.limit(12);
+
+		const allUpcomingGames = games.map((game) => ({
+			...game.toObject(), // Convert the Mongoose document to a plain JavaScript object
+			date: new Date(game.date).toLocaleDateString("en-US", {
+				timeZone: "America/Toronto",
+				weekday: "long",
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			}),
+		}));
 		return NextResponse.json({ allUpcomingGames });
 	} catch (e) {
 		return NextResponse.json(
@@ -37,7 +48,7 @@ export const getAllPastGames = async () => {
 	try {
 		// const activeSeason = await Season.find({ active: "true" });
 
-		const allPastGames = await Game.find({ status: true })
+		const games = await Game.find({ status: true })
 			.populate({
 				path: "division",
 				select: "divisionName",
@@ -55,6 +66,17 @@ export const getAllPastGames = async () => {
 			)
 			// .sort({ date: -1 }) // Sort by date in descending order (most recent first)
 			.limit(12);
+
+		const allPastGames = games.map((game) => ({
+			...game.toObject(), // Convert the Mongoose document to a plain JavaScript object
+			date: new Date(game.date).toLocaleDateString("en-US", {
+				timeZone: "America/Toronto",
+				weekday: "long",
+				year: "numeric",
+				month: "long",
+				day: "numeric",
+			}),
+		}));
 		return NextResponse.json({ allPastGames });
 	} catch (e) {
 		return NextResponse.json(
