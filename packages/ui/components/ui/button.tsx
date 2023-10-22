@@ -21,14 +21,14 @@ const buttonVariants = cva(
 				register:
 					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
 				navlink:
-					"bg-transparent text-white border-none px-0 flex  items-center gap-3 ",
+					"bg-transparent text-white border-none px-0 flex  items-center gap-3  w-full justify-start",
 			},
 			size: {
 				default: "px-12 py-2",
 				sm: "h-9 rounded-md px-3",
 				lg: "h-11 rounded-md px-8",
 				icon: "h-10 w-10",
-				navlink: "p-0 py-0",
+				navlink: "px-6 py-2",
 			},
 		},
 		defaultVariants: {

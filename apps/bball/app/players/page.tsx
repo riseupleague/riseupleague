@@ -63,7 +63,7 @@ export default async function Players({
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
+			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
 				league roster
 			</h1>
 			<PlayerGrid

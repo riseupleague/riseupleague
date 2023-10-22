@@ -25,11 +25,10 @@ export default function ScheduleFilterPage({
 		initialDivisionCheckboxState
 	);
 
-	console.log(initialDivisionCheckboxState, divisionCheckboxState);
+	console.log(allGames);
 
 	const [closeDivisions, setCloseDivisions] = useState(divisionParams);
 	const [closeTeams, setCloseTeams] = useState(teamsParams);
-	console.log(teamsParams);
 
 	// Use a useEffect to handle filtering when selectedDivisions or selectedTeams change
 	useEffect(() => {
@@ -184,7 +183,7 @@ export default function ScheduleFilterPage({
 				}
 				return (
 					<div key={games.date}>
-						<h3 className="font-barlow my-4  text-2xl uppercase">
+						<h3 className="font-barlow mb-8 mt-16  text-2xl uppercase">
 							{games.date}
 						</h3>
 						<hr className="my-4 border border-neutral-600" />

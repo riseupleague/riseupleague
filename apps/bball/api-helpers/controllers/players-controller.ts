@@ -12,7 +12,10 @@ export const getAllCurrentPlayers = async () => {
 			.sort({ playerName: 1 })
 			.populate([
 				{ path: "division", select: "divisionName" },
-				{ path: "team", select: "teamName" },
+				{
+					path: "team",
+					select: "teamName primaryColor secondaryColor tertiaryColor",
+				},
 			])
 			.select("playerName team jerseyNumber division");
 

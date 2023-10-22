@@ -14,19 +14,22 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	const resPast = await getAllPastGames();
 	const { allPastGames } = await resPast.json();
 	const allGames = [...allPastGames, ...allUpcomingGames];
-
 	const separatedGames = [];
 
 	allGames.forEach((game) => {
 		const gameDate = new Date(game.date);
-		const month = gameDate.toLocaleString("en-US", { month: "short" });
+		const month = gameDate.toLocaleString("en-US", {
+			timeZone: "America/Toronto",
+			month: "short",
+		});
+
 		const day = gameDate.getDate();
 		const formattedDate = `${month} ${day}`;
 
 		// Check if there's an object with the same date, if not, create one
-		const existingDateObject = separatedGames.find(
-			(obj) => obj.date === formattedDate
-		);
+		const existingDateObject = separatedGames.find((obj) => {
+			return obj.date === formattedDate;
+		});
 
 		if (existingDateObject) {
 			existingDateObject.games.push(game);

@@ -31,7 +31,9 @@ const FilterAll = ({
 					</SheetTrigger>
 					<SheetContent side={"bottom"} className=" h-[85%] bg-neutral-900 ">
 						<SheetHeader>
-							<SheetTitle className="uppercase">Filter and Sort</SheetTitle>
+							<SheetTitle className="my-16 uppercase">
+								Filter and Sort
+							</SheetTitle>
 						</SheetHeader>
 						<FilterAccordion
 							divisions={divisions}
@@ -42,14 +44,6 @@ const FilterAll = ({
 							setTeamCheckboxState={setTeamCheckboxState}
 							setDivisionCheckboxState={setDivisionCheckboxState}
 						/>
-						<SheetFooter className="mt-10 flex gap-2">
-							<SheetClose asChild>
-								<Button>Clear All</Button>
-							</SheetClose>
-							<SheetClose asChild>
-								<Button>Apply</Button>
-							</SheetClose>
-						</SheetFooter>
 					</SheetContent>
 				</Sheet>
 			</div>
