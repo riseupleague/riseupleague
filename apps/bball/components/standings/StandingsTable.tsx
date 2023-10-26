@@ -52,7 +52,7 @@ export default function StandingsTable({ divisions }) {
 				divisions={divisionsNameAndId}
 			/>
 
-			<div className="flex flex-col gap-10">
+			<div className="mt-5 flex flex-col gap-10">
 				{divisionsWithTeams.map((division) => (
 					<div key={division._id}>
 						<h3 className="font-barlow my-4 text-2xl font-semibold uppercase text-neutral-100">

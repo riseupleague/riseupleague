@@ -19,7 +19,7 @@ export default async function Standings(): Promise<JSX.Element> {
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
+			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
 				standings
 			</h1>
 			<StandingsTable divisions={divisionsWithStats} />

@@ -238,17 +238,17 @@ export default function PlayerGrid({
 					<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 ">
 						<div className="grid w-3/4 grid-cols-2 items-center gap-1">
 							<div className="flex items-center gap-2">
-								<div className="font-barlow uppercase transition hover:opacity-80">
+								<div className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg">
 									Name
 								</div>
 							</div>
-							<div className="font-barlow uppercase transition hover:opacity-80">
+							<div className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg">
 								Team
 							</div>
 						</div>
 						<div className="grid w-1/4 grid-cols-2 items-center justify-items-center gap-4">
-							<p className="text-sm">Jersey Number</p>
-							<p className="font-barlow uppercase transition hover:opacity-80">
+							<p className="text-sm  uppercase sm:text-lg">Jersey Number</p>
+							<p className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg">
 								Division{" "}
 							</p>
 						</div>

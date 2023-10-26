@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import WinnerIcon from "@/public/images/winner-icon.png";
 import Image from "next/image";
+import TeamLogo from "@/components/general/icons/TeamLogo";
 export default function FutureGames({ separatedGames }): JSX.Element {
 	const containerRef = useRef(null);
 
@@ -40,7 +41,7 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 			</button>
 			<div
 				ref={containerRef}
-				className="flex items-center overflow-auto xl:overflow-x-hidden"
+				className="flex items-center  overflow-x-auto overflow-y-hidden xl:overflow-x-hidden"
 			>
 				{separatedGames.map((dateGroup, dateIndex) => (
 					<article
@@ -90,7 +91,18 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 											href={`/teams/${game.homeTeam.teamName}`}
 											className="flex w-full justify-between gap-[100px] font-bold transition hover:underline"
 										>
-											<p className="m-0">{game.homeTeam.teamNameShort}</p>
+											<div className="flex items-center gap-2">
+												<TeamLogo
+													primary={game.homeTeam.primaryColor}
+													secondary={game.homeTeam.secondaryColor}
+													tertiary={game.homeTeam.tertiaryColor}
+													circleWidth={1.3}
+													circleHeight={1.3}
+													width={15}
+													height={14}
+												/>
+												<h5>{game.homeTeam.teamNameShort}</h5>
+											</div>
 											{game.status ? (
 												<p className="m-0 flex w-5 items-center gap-2">
 													{game.homeTeamScore}
@@ -114,7 +126,18 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 											href={`/teams/${game.awayTeam.teamName}`}
 											className="flex w-full justify-between gap-[100px] font-bold transition hover:underline"
 										>
-											<h5>{game.awayTeam.teamNameShort}</h5>
+											<div className="flex items-center gap-2">
+												<TeamLogo
+													primary={game.awayTeam.primaryColor}
+													secondary={game.awayTeam.secondaryColor}
+													tertiary={game.awayTeam.tertiaryColor}
+													circleWidth={1.3}
+													circleHeight={1.3}
+													width={15}
+													height={14}
+												/>
+												<h5>{game.awayTeam.teamNameShort}</h5>
+											</div>
 
 											{game.status ? (
 												<p className="m-0 flex w-5 items-center gap-2">
@@ -137,7 +160,7 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 										{/* division */}
 										<Link
 											href={`/standings?division=${game.division.divisionName}`}
-											className="text-primary w-fit text-sm font-semibold uppercase transition hover:underline"
+											className="text-primary mt-1 w-fit text-sm font-semibold uppercase transition hover:underline"
 										>
 											{game.division.divisionName}
 										</Link>
