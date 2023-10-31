@@ -53,8 +53,6 @@ export default function ScheduleFilterPage({
 				}),
 			}));
 
-			console.log("filteredGamesByDate:", filteredGamesByDate);
-
 			setAllGames(filteredGamesByDate);
 		}
 	}, []);
@@ -66,7 +64,6 @@ export default function ScheduleFilterPage({
 			(divisionId) => divisions[divisionId]
 		);
 
-		console.log("selectedDivisions:", selectedDivisions);
 		setCloseDivisions(selectedDivisions);
 		setCloseTeams(selectedTeams);
 
@@ -136,8 +133,6 @@ export default function ScheduleFilterPage({
 			teams: updatedTeamState,
 		});
 	};
-
-	console.log("divisionCheckboxState:", divisionCheckboxState);
 
 	return (
 		<div>

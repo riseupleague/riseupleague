@@ -44,7 +44,6 @@ export default function StandingsTable({ divisions }) {
 		}
 	};
 
-	console.log(divisionsWithTeams);
 	return (
 		<div>
 			<FilterByDivision
@@ -84,7 +83,7 @@ export default function StandingsTable({ divisions }) {
 											<TableCell className={`w-1/2 text-left sm:w-auto`}>
 												<Link
 													href={`/teams/${team._id}`}
-													className="flex w-fit"
+													className="flex w-fit hover:underline"
 												>
 													{team.teamName}
 												</Link>
@@ -92,7 +91,7 @@ export default function StandingsTable({ divisions }) {
 											<TableCell>{team.wins || 0}</TableCell>
 											<TableCell>{team.losses || 0}</TableCell>
 											<TableCell>{team.gp}</TableCell>
-											<TableCell>{team.wpct.toFixed(3)}</TableCell>
+											<TableCell>{team.wpct?.toFixed(3)}</TableCell>
 											<TableCell
 												className={
 													positivePD ? "text-green-500" : "text-primary"

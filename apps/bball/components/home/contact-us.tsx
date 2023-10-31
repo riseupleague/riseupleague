@@ -11,7 +11,10 @@ export default function ContactUs() {
 				That&apos;s ok. Just drop a message and we will get back to you ASAP.
 			</p>
 			<Link href="/contact-us">
-				<Button variant="ghost" className="border border-neutral-100 uppercase hover:opacity-80 transition">
+				<Button
+					variant="ghost"
+					className="border border-neutral-100 uppercase transition hover:opacity-80"
+				>
 					Contact Us
 				</Button>
 			</Link>

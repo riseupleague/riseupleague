@@ -5,7 +5,10 @@ import TeamLogo from "@/components/general/icons/TeamLogo";
 
 export default function TeamsCard({ team }) {
 	return (
-		<article className="flex w-full items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 px-6 py-4">
+		<Link
+			href={`/teams/${team._id}`}
+			className="flex w-full items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 px-6 py-4 transition hover:opacity-80"
+		>
 			<div className="flex items-center gap-3">
 				<TeamLogo
 					primary={team.primaryColor}
@@ -24,6 +27,6 @@ export default function TeamsCard({ team }) {
 			>
 				View Profile
 			</Link>
-		</article>
+		</Link>
 	);
 }
