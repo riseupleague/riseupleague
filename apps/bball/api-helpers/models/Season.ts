@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 const seasonSchema = new Schema({
 	seasonName: { type: String, required: true },
 	active: { type: Boolean },
+	register: { type: Boolean },
 	division: [{ type: mongoose.Schema.Types.ObjectId, ref: "Division" }],
 });
 

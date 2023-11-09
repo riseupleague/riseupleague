@@ -7,6 +7,9 @@ import Game from "@/api-helpers/models/Game";
 const Schema = mongoose.Schema;
 
 const playerSchema = new Schema({
+	paid: {
+		type: Boolean,
+	},
 	playerName: {
 		type: String,
 		required: true,
@@ -17,6 +20,17 @@ const playerSchema = new Schema({
 	jerseyNumber: {
 		type: Number,
 		required: true,
+	},
+	JerseySize: {
+		type: String,
+		required: true,
+	},
+	shortSize: {
+		type: String,
+		required: true,
+	},
+	JerseyName: {
+		type: String,
 	},
 	playerProfile: { type: String },
 	playerProfileId: { type: String },

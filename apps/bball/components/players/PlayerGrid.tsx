@@ -16,13 +16,11 @@ export default function PlayerGrid({
 	initialTeamCheckboxState,
 }) {
 	const [players, setPlayers] = useState(allPlayers);
-	console.log(players);
 	const playersPerPage = 50;
 	const totalPlayers = players.length;
 
 	const totalPages = Math.ceil(totalPlayers / playersPerPage);
 	const [page, setPage] = useState(1);
-	console.log(`Total Pages: ${totalPages}`);
 
 	// Calculate the index range for the current page
 	const startIndex = (page - 1) * playersPerPage;
@@ -49,7 +47,6 @@ export default function PlayerGrid({
 	// Use a useEffect to handle filtering when selectedDivisions or selectedTeams change
 	useEffect(() => {
 		// Use the selected divisions and teams to filter gamesByDate
-		console.log("closeTeams:", closeTeams);
 
 		if (closeDivisions.length !== 0 || closeTeams.length !== 0) {
 			const filteredPlayers = allPlayers.filter((player) => {
@@ -65,8 +62,6 @@ export default function PlayerGrid({
 				return divisionMatch || teamMatch;
 			});
 
-			console.log("filteredPlayers:", filteredPlayers);
-
 			setPlayers(filteredPlayers);
 		}
 	}, []);
@@ -78,7 +73,6 @@ export default function PlayerGrid({
 			(divisionId) => divisions[divisionId]
 		);
 
-		console.log("selectedDivisions:", selectedDivisions);
 		setCloseDivisions(selectedDivisions);
 		setCloseTeams(selectedTeams);
 

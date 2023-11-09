@@ -44,7 +44,6 @@ export default function StandingsTable({ divisions }) {
 		}
 	};
 
-	console.log(divisionsWithTeams);
 	return (
 		<div>
 			<FilterByDivision

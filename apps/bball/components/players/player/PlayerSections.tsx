@@ -37,8 +37,6 @@ export default function PlayerSections({ player, allAvg }) {
 		(navItem) => navItem.id === selectedSection
 	);
 
-	console.log(selectedSection, selectedNavItem);
-
 	return (
 		<div>
 			<ul className="no-scrollbar flex w-full items-center justify-between overflow-x-auto border-b border-[#282828] md:gap-3">

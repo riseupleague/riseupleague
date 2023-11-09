@@ -13,16 +13,50 @@ type Season = {
 
 // Define the type for a Division object
 type Division = {
-	_id: string; // Assuming _id is a string
+	_id: string;
 	divisionName: string;
 	season: string; // Assuming season is a string (ObjectId.toString())
 	teams: any[]; // An array of Team objects
+	location: string;
+	day: string;
+	startTime: string;
+	endTime: string;
+	earlyBird: string;
+	regularPrice: string;
+	description: string;
+	earlyBirdOpen: boolean;
+	earlyBirdId: string;
+	regularPriceFullId: string;
+	regularPriceInstalmentId: string;
 };
-
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
 		const divisions = await Division.find({ season: activeSeason });
+
+		if (!divisions) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisions });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllRegisterDivisions = async () => {
+	try {
+		const registerSeason = await Season.find({ register: "true" });
+		const divisions = await Division.find({ season: registerSeason }).select(
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+		);
 
 		if (!divisions) {
 			return NextResponse.json(
@@ -202,4 +236,22 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 			{ status: 500 }
 		);
 	}
+};
+
+export const getRegisterDivisionById = async (id: string) => {
+	const division = await Division.findById(id)
+		.populate({
+			path: "teams",
+			select:
+				"teamName teamNameShort teamCode wins losses primaryColor secondaryColor tertiaryColor players",
+		})
+		.select(
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season"
+		);
+
+	if (!division) {
+		return NextResponse.json({ message: "No division found" }, { status: 404 });
+	}
+
+	return NextResponse.json({ division });
 };
