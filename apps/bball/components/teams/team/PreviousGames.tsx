@@ -13,12 +13,13 @@ import {
 const PreviousGames = ({ team }) => {
 	return (
 		<div className="mt-10">
-			<h2 className="font-barlow mb-10 border-b border-[#282828] py-10 text-2xl font-semibold text-white">
+			<h2 className="font-barlow mb-10 border-b border-neutral-400 py-10 text-2xl font-semibold uppercase text-white">
 				Previous Games
 			</h2>
+
 			<Table>
 				<TableHeader>
-					<TableRow className="border-b border-gray-200 uppercase">
+					<TableRow className="font-barlow border-b border-neutral-200 uppercase">
 						<TableHead className="w-1/3 bg-transparent text-left text-sm sm:w-auto sm:text-lg">
 							Game
 						</TableHead>

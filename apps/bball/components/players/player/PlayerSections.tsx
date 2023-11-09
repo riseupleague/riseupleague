@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PreviousGames from "@/components/players/player/PreviousGames";
+import Overview from "@/components/players/player/Overview";
 
 export default function PlayerSections({ player, allAvg }) {
 	const [selectedSection, setSelectedSection] = useState("overview"); // Set the default selected section
@@ -14,7 +16,7 @@ export default function PlayerSections({ player, allAvg }) {
 		{
 			id: "overview",
 			label: "Overview",
-			component: <div>Overview</div>,
+			component: <Overview player={player} />,
 		},
 		{
 			id: "stats",

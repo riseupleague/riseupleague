@@ -35,6 +35,7 @@ export default function TeamsFilterPage({ divisions }) {
 			setDivisionsWithTeams(divisions);
 		}
 	};
+
 	return (
 		<div>
 			<FilterByDivision

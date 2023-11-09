@@ -53,7 +53,7 @@ export default function FilterAccordion({
 	};
 
 	return (
-		<Accordion type="single" collapsible className="w-full">
+		<Accordion type="single" collapsible className="font-barlow w-full text-xl">
 			<AccordionItem value="item-1">
 				<AccordionTrigger>Filter By Division</AccordionTrigger>
 				<AccordionContent>

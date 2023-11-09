@@ -40,6 +40,10 @@ export default async function Players({
 		.map((division) => division.divisionName);
 
 	const initialDivisionCheckboxState = {};
+<<<<<<< HEAD
+=======
+
+>>>>>>> 27cb0bae8e81fec53a2bb31636a8ce4fb5ea5f7b
 	if (divisionsInUrl.length > 0) {
 		for (const division of divisionsInUrl) {
 			initialDivisionCheckboxState[division] = true;

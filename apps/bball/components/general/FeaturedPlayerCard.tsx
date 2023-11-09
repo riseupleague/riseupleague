@@ -5,14 +5,6 @@ import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { Button } from "@ui/components/button";
-// import {
-// 	Table,
-// 	TableBody,
-// 	TableCell,
-// 	TableHead,
-// 	TableHeader,
-// 	TableRow,
-// } from "@/components/ui/table";
 
 export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
