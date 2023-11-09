@@ -59,7 +59,7 @@ export default function ChooseTeam({ division }) {
 									>
 										<AccordionTrigger
 											className=" flex-col items-start gap-3 rounded-md rounded-b-none bg-neutral-700 px-[16px] py-[26px] "
-											NoArrow={true}
+											noArrow={true}
 											onClick={() => setSelectedTeamIndex(index)}
 										>
 											<p className="text-2xl">{team.teamName}</p>
