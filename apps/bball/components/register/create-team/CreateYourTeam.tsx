@@ -1,9 +1,10 @@
 "use client";
+
 import DivisionAndDifficulty from "@/components/register/DivisionAndDifficulty";
 import SummaryPayment from "@/components/register/create-team/SummaryPayment";
 import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
-
 import { useState } from "react";
+
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;
@@ -27,6 +28,7 @@ export default function CreateYourTeam(): JSX.Element {
 		termsChecked: false,
 		refundChecked: false,
 	});
+
 	return (
 		<>
 			{!isSummary ? (
@@ -34,11 +36,12 @@ export default function CreateYourTeam(): JSX.Element {
 					{!isDivisionSelected ? (
 						<DivisionAndDifficulty onDivisionSelected={setIsDivisionSelected} />
 					) : (
-						<CustomizeTeam
-							onSummary={setIsSummary}
-							formData={formData}
-							onFormData={setFormData}
-						/>
+						<></>
+						// <CustomizeTeam
+						// // onSummary={setIsSummary}
+						// // formData={formData}
+						// // onFormData={setFormData}
+						// />
 					)}
 				</>
 			) : (

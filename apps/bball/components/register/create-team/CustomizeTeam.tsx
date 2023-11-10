@@ -1,4 +1,5 @@
 "use client";
+
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import { Label } from "@ui/components/label";
@@ -24,6 +25,7 @@ import {
 } from "@ui/components/select";
 import Link from "next/link";
 import { useState } from "react";
+
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;

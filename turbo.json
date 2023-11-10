@@ -1,4 +1,12 @@
 {
+	"globalEnv": [
+		"MONGODB_URI",
+		"GOOGLE_CLIENT_ID",
+		"GOOGLE_CLIENT_SECRET",
+		"NEXTAUTH_URL",
+		"NEXTAUTH_SECRET",
+		"STRIPE_SECRET_KEY"
+	],
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
 	"pipeline": {

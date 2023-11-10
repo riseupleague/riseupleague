@@ -121,10 +121,10 @@ export default function ChooseTeam({ division }) {
 														value={teamCode}
 														onChange={(e) => setTeamCode(e.target.value)}
 													/>
-													{codeError !== "" &&
+													{/* {codeError !== "" &&
 														selectedTeam.teamName === team.teamName && (
 															<p className="text-primary mt-1">{codeError}</p>
-														)}
+														)} */}
 													<Button
 														onClick={handleTeamSelected}
 														className="mt-12"

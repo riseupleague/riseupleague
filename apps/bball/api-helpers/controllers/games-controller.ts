@@ -25,7 +25,6 @@ export const getAllUpcomingGames = async () => {
 			.select("status homeTeam awayTeam division date gameName location")
 			.limit(12);
 
-
 		const allUpcomingGames = games.map((game) => ({
 			...game.toObject(), // Convert the Mongoose document to a plain JavaScript object
 			date: new Date(game.date).toLocaleDateString("en-US", {
@@ -35,8 +34,6 @@ export const getAllUpcomingGames = async () => {
 				month: "long",
 				day: "numeric",
 			}),
-
-			
 		}));
 		return NextResponse.json({ allUpcomingGames });
 	} catch (e) {

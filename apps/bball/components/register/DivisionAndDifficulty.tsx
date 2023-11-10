@@ -10,11 +10,13 @@ import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import Image from "next/image";
 import { useState } from "react";
+
 export default function DivisionAndDifficulty({
 	onDivisionSelected,
-	divisions,
+	// divisions,
 }) {
 	const [isDivision, setIsDivision] = useState(false);
+
 	return (
 		<>
 			{/* {!isDivision ? (
@@ -107,7 +109,7 @@ export default function DivisionAndDifficulty({
 					</section>
 				</>
 			) : ( */}
-			<>
+			{/* <>
 				<h3 className="mt-20  text-3xl uppercase">Choose your difficulty:</h3>
 
 				<div className="mt-10 flex flex-col gap-10 ">
@@ -306,7 +308,7 @@ export default function DivisionAndDifficulty({
 						})}
 					</Accordion>
 				</div>
-			</>
+			</> */}
 			{/* )} */}
 		</>
 	);
