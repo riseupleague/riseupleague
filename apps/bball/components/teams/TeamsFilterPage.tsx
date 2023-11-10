@@ -14,7 +14,10 @@ export default function TeamsFilterPage({ divisions }) {
 	});
 
 	// Add "All Divisions" to the beginning of the array
-	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
+	divisionsNameAndId.unshift({
+		divisionName: "All Divisions",
+		_id: "all",
+	});
 	const [selectedDivision, setSelectedDivision] = useState(
 		divisionsNameAndId[0]._id
 	);
