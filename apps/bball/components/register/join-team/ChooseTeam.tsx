@@ -15,7 +15,7 @@ import { Button } from "@ui/components/button";
 import { useState } from "react";
 import CustomizeJersey from "./CustomizeJersey";
 
-export default function ChooseTeam({ division }) {
+export default function ChooseTeam({ division, session }) {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);
 	const [teamCode, setTeamCode] = useState("");
 	const [selectedTeamIndex, setSelectedTeamIndex] = useState(null);
@@ -41,7 +41,7 @@ export default function ChooseTeam({ division }) {
 	};
 
 	console.log(division);
-
+	console.log(session.user);
 	return (
 		<>
 			{!isTeamSelected ? (
@@ -141,7 +141,7 @@ export default function ChooseTeam({ division }) {
 					</div>
 				</>
 			) : (
-				<CustomizeJersey team={selectedTeam} />
+				<CustomizeJersey team={selectedTeam} session={session} />
 			)}
 		</>
 	);

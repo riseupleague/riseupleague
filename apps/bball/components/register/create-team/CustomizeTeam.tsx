@@ -25,6 +25,7 @@ import {
 } from "@ui/components/select";
 import Link from "next/link";
 import { useState } from "react";
+import getStripe from "@/utils/checkout";
 
 interface FormData {
 	teamName: string;
@@ -50,7 +51,7 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeTeam({ division }) {
+export default function CustomizeTeam({ division, session }) {
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",
@@ -65,7 +66,6 @@ export default function CustomizeTeam({ division }) {
 		refundChecked: false,
 	});
 	const [formErrors, setFormErrors] = useState<FormErrors>({});
-
 	const validateForm = (): FormErrors => {
 		const errors: FormErrors = {};
 
@@ -131,7 +131,10 @@ export default function CustomizeTeam({ division }) {
 		setFormData({ ...formData, shortSize: value });
 	};
 
-	const handleCreateTeamAndPlayer = async () => {
+	const handleCreateTeamAndPlayer = async (
+		itemPriceId: string,
+		payment: string
+	) => {
 		const {
 			teamName,
 			teamNameShort,
@@ -141,8 +144,6 @@ export default function CustomizeTeam({ division }) {
 			jerseySize,
 			shortSize,
 			instagram,
-			termsChecked,
-			refundChecked,
 		} = formData;
 
 		// Check for required input fields
@@ -185,7 +186,8 @@ export default function CustomizeTeam({ division }) {
 				team: newTeam.team._id,
 				division: division._id,
 				season: division.season,
-				playerName: "test",
+				playerName: session.user.name,
+				email: session.user.email,
 			};
 
 			const resPlayer = await fetch("/api/register-player", {
@@ -198,8 +200,42 @@ export default function CustomizeTeam({ division }) {
 
 			const newPlayer = await resPlayer.json();
 			console.log("Player created:", newPlayer);
+
+			const formObject = {
+				status: "createTeam",
+				playerId: newPlayer.player._id,
+				team: newTeam.team._id,
+				division: division._id,
+				season: division.season,
+				itemPriceId: itemPriceId,
+				payment: payment,
+			};
+
+			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
 		} catch (error) {
 			console.error("Error creating team:", error);
+		}
+	};
+
+	const redirectToCheckout = async (items, formObject) => {
+		try {
+			const response = await fetch("/api/checkout-sessions", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ items, formObject: JSON.stringify(formObject) }),
+			});
+
+			if (response.ok) {
+				const { session } = await response.json();
+				const stripe = await getStripe();
+				await stripe.redirectToCheckout({ sessionId: session.id });
+			} else {
+				console.error("Failed to create Stripe checkout session:", response);
+			}
+		} catch (error) {
+			console.error("Error creating Stripe checkout session:", error);
 		}
 	};
 
@@ -598,17 +634,20 @@ export default function CustomizeTeam({ division }) {
 
 							<h4 className="text-lg uppercase underline">Your Own Jersey:</h4>
 							{/* for early birds only */}
-							<section className="flex items-center">
-								<Label className="uppercase">
-									Name on the back of the Jersey
-								</Label>
-								<Input
-									type="text"
-									className="w-40 border-0 bg-neutral-700 py-[16px]"
-									value={formData.jerseyName}
-									disabled
-								/>
-							</section>
+
+							{division.earlyBirdOpen && (
+								<section className="flex items-center">
+									<Label className="uppercase">
+										Name on the back of the Jersey
+									</Label>
+									<Input
+										type="text"
+										className="w-40 border-0 bg-neutral-700 py-[16px]"
+										value={formData.jerseyName}
+										disabled
+									/>
+								</section>
+							)}
 							<section className="flex items-center">
 								<Label className="uppercase">Jersey Number</Label>
 								<Input
@@ -688,69 +727,97 @@ export default function CustomizeTeam({ division }) {
 
 						<div className="mt-20 flex flex-col gap-10">
 							<h4 className="text-3xl uppercase">Overall total:</h4>
-							<p className="text-4xl">$254.25</p>
-							<Button className="uppercase" onClick={handleCreateTeamAndPlayer}>
+							<p className="text-4xl">
+								$
+								{division.earlyBirdOpen
+									? division.earlyBirdPrice
+									: division.regularPrice}{" "}
+								<span className="text-sm text-neutral-50">+ 13% HST</span>
+							</p>
+							<Button
+								className="uppercase"
+								onClick={() => {
+									division.earlyBirdOpen
+										? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
+										: handleCreateTeamAndPlayer(
+												division.regularPriceFullId,
+												"full"
+										  );
+								}}
+							>
 								Pay in full
 							</Button>
-							<Separator orientation="horizontal" className="bg-neutral-600" />{" "}
-							<p className="text-4xl">
-								$67.80{" "}
-								<span className="text-sm text-neutral-50">
-									Today + 3 more $67.80 bi-weekly
-								</span>
-							</p>
-							<Table>
-								<TableHeader>
-									<TableRow>
-										<TableHead className="uppercase">Payment</TableHead>
-										<TableHead className="uppercase">Due dates</TableHead>
-										<TableHead className="uppercase">Amount</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									<TableRow className="uppercase">
-										<TableCell>1st</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>2nd</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>3rd</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>4th</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-								</TableBody>
-							</Table>
-							<Button
-								onClick={handleCreateTeamAndPlayer}
-								variant="secondary"
-								className="uppercase text-neutral-300"
-							>
-								Pay in instalments
-							</Button>
-							<ul className="flex flex-col gap-4 text-sm uppercase text-neutral-300">
-								<li>
-									Your card will be saved on file and automatically charged on
-									the scheduled dates ABOVE.
-								</li>
-								<li>
-									Scheduled online payments will be subject to an additional
-									Online Payment Fee.
-								</li>
-								<li>
-									late payments will be subject to additional fees or may
-									receive penalties.
-								</li>
-							</ul>
+
+							{!division.earlyBirdOpen && (
+								<>
+									<Separator
+										orientation="horizontal"
+										className="bg-neutral-600"
+									/>{" "}
+									<p className="text-4xl">
+										<span className="text-sm text-neutral-50">
+											Today + 3 more {division.instalmentPrice} bi-weekly
+										</span>
+									</p>
+									<Table>
+										<TableHeader>
+											<TableRow>
+												<TableHead className="uppercase">Payment</TableHead>
+												<TableHead className="uppercase">Due dates</TableHead>
+												<TableHead className="uppercase">Amount</TableHead>
+											</TableRow>
+										</TableHeader>
+										<TableBody>
+											<TableRow className="uppercase">
+												<TableCell>1st</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>{division.instalmentPrice}</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>2nd</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>{division.instalmentPrice}</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>3rd</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>{division.instalmentPrice}</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>4th</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>{division.instalmentPrice}</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
+									<Button
+										onClick={() =>
+											handleCreateTeamAndPlayer(
+												division.regularPriceInstalmentId,
+												"four"
+											)
+										}
+										variant="secondary"
+										className="uppercase text-neutral-300"
+									>
+										Pay in instalments
+									</Button>
+									<ul className="flex flex-col gap-4 text-sm uppercase text-neutral-300">
+										<li>
+											Your card will be saved on file and automatically charged
+											on the scheduled dates ABOVE.
+										</li>
+										<li>
+											Scheduled online payments will be subject to an additional
+											Online Payment Fee.
+										</li>
+										<li>
+											late payments will be subject to additional fees or may
+											receive penalties.
+										</li>
+									</ul>
+								</>
+							)}
 						</div>
 					</div>
 				</>

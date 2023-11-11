@@ -9,13 +9,17 @@ import FAQs from "@/components/home/faqs";
 import ContactUs from "@/components/home/contact-us";
 import HomeRegister from "@/components/home/home-register";
 import SecondaryHeader from "@/components/structure/header/secondary-header";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default function Page(): JSX.Element {
+export default async function Page(): Promise<JSX.Element> {
+	const session = await getServerSession();
+
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
 
-			<Hero />
+			<Hero session={session} />
 
 			<FeaturedSponsors />
 			<AboutRiseUp />

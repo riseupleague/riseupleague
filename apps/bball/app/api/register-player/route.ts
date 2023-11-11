@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
+import User from "@/api-helpers/models/User";
 
 export async function POST(req: Request) {
 	try {
@@ -10,6 +11,7 @@ export async function POST(req: Request) {
 		// Extract user data from the request body
 		const {
 			playerName,
+			email,
 			jerseyNumber,
 			jerseySize,
 			shortSize,
@@ -24,6 +26,7 @@ export async function POST(req: Request) {
 
 		console.log(
 			playerName,
+			email,
 			jerseyNumber,
 			jerseySize,
 			shortSize,
@@ -36,6 +39,7 @@ export async function POST(req: Request) {
 
 		if (
 			!playerName ||
+			!email ||
 			jerseyNumber.trim() === "" ||
 			!jerseySize ||
 			!shortSize ||
@@ -45,6 +49,8 @@ export async function POST(req: Request) {
 		) {
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
 		}
+
+		const updatedUser = await User.findOne({ email });
 
 		const newPlayer = new Player({
 			paid: false,
@@ -57,6 +63,7 @@ export async function POST(req: Request) {
 			season,
 			division,
 			team,
+			user: updatedUser._id,
 			averageStats: {
 				points: 0,
 				rebounds: 0,
@@ -74,6 +81,8 @@ export async function POST(req: Request) {
 		// Save the new team to the database
 		const savedPlayer = await newPlayer.save();
 		updatedTeam.players = updatedTeam.players.concat(savedPlayer._id);
+		updatedUser.basketball = updatedUser.basketball.concat(savedPlayer._id);
+
 		await updatedTeam.save();
 		return NextResponse.json({ player: savedPlayer }, { status: 201 });
 	} catch (error) {

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { motion } from "framer-motion";
-export default function Hero(): JSX.Element {
+export default function Hero({ session }): JSX.Element {
 	const slides = [
 		{
 			url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
@@ -97,10 +97,16 @@ export default function Hero(): JSX.Element {
 							<p className="font-barlow font-light text-neutral-200">
 								This season is the best season yet, so don’t miss out!
 							</p>
-							<div className="my-4">
-								<Link href="/register">
-									<Button>Register Now</Button>
-								</Link>
+							<div className="relative z-50 my-4">
+								{!session || !session.user ? (
+									<Link href="/login">
+										<Button>Register Now</Button>
+									</Link>
+								) : (
+									<Link href="/register">
+										<Button>Register Now</Button>
+									</Link>
+								)}
 							</div>
 						</motion.div>
 					)}

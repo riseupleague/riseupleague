@@ -10,6 +10,10 @@ const playerSchema = new Schema({
 	paid: {
 		type: Boolean,
 	},
+	customerId: {
+		type: String,
+	},
+
 	playerName: {
 		type: String,
 		required: true,
@@ -32,8 +36,6 @@ const playerSchema = new Schema({
 	JerseyName: {
 		type: String,
 	},
-	playerProfile: { type: String },
-	playerProfileId: { type: String },
 	team: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Team",
@@ -45,6 +47,10 @@ const playerSchema = new Schema({
 	season: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Season",
+	},
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
 	},
 	averageStats: {
 		type: {

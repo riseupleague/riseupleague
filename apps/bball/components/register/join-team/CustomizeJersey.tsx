@@ -47,7 +47,7 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeJersey({ team }) {
+export default function CustomizeJersey({ team, session }) {
 	const [isSummary, setIsSummary] = useState(false);
 
 	const [formData, setFormData] = useState<FormData>({
@@ -71,8 +71,8 @@ export default function CustomizeJersey({ team }) {
 			errors.teamName = "Team name is required";
 		}
 
-		if (!formData.teamName) {
-			errors.teamName = "Team name is required";
+		if (!formData.teamCode) {
+			errors.teamCode = "Team code is required";
 		}
 
 		if (!formData.jerseyName) {
@@ -153,7 +153,8 @@ export default function CustomizeJersey({ team }) {
 				team: team._id,
 				division: team.division,
 				season: team.season,
-				playerName: "iris",
+				playerName: session.user.name,
+				email: session.user.email,
 			};
 
 			const resPlayer = await fetch("/api/register-player", {

@@ -8,10 +8,17 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 import { Separator } from "@ui/components/separator";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const resDivisions = await getAllRegisterDivisions();
 	const { divisions } = await resDivisions.json();
+	const session = await getServerSession();
+
+	if (!session || !session.user) {
+		redirect("/");
+	}
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">

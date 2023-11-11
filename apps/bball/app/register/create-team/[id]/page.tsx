@@ -1,8 +1,8 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
-
 import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
-import Season from "@/api-helpers/models/Season";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function JoinTeam({
 	params,
@@ -12,7 +12,10 @@ export default async function JoinTeam({
 	await connectToDatabase();
 	const resDivision = await getRegisterDivisionById(params.id);
 	const { division } = await resDivision.json();
-
+	const session = await getServerSession();
+	if (!session || !session.user) {
+		redirect("/");
+	}
 	console.log(division);
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
@@ -20,7 +23,7 @@ export default async function JoinTeam({
 				Create a team
 			</h1>
 
-			<CustomizeTeam division={division} />
+			<CustomizeTeam division={division} session={session} />
 		</main>
 	);
 }

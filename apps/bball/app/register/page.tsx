@@ -1,8 +1,14 @@
 import { Separator } from "@ui/components/separator";
-import { Button } from "@ui/components/button";
+import { getServerSession } from "next-auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function Register(): JSX.Element {
+export default async function Register(): Promise<JSX.Element> {
+	const session = await getServerSession();
+
+	if (!session || !session.user) {
+		redirect("/");
+	}
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
