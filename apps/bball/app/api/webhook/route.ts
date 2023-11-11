@@ -9,11 +9,13 @@ import { connectToDatabase } from "@/api-helpers/utils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const config = {
+const config = {
 	api: {
 		bodyParser: false,
 	},
 };
+
+export default config;
 
 export async function POST(req: Request) {
 	await connectToDatabase();
