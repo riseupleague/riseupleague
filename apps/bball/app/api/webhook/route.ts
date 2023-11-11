@@ -9,14 +9,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const config = {
-	api: {
-		bodyParser: false,
-	},
-};
-
-export default config;
-
 export async function POST(req: Request) {
 	await connectToDatabase();
 
@@ -224,84 +216,76 @@ export async function POST(req: Request) {
 		console.log(`💰  Payment failed!`);
 
 		if (session.billing_reason === "subscription_cycle") {
-			// Find the RegisterPlayer based on the customer's email
-			const registeredPlayer = await RegisterPlayer.findOne({
-				email: session.customer_email,
-			});
-
-			// Check if the customer with the same invoice ID exists
-			const existingCustomer = await Customer.findOne({
-				invoiceId: session.id,
-			});
-
-			if (existingCustomer) {
-				// Customer with the same invoice ID found, update attempt count
-				existingCustomer.attempt_count = session.attempt_count;
-
-				// Save the updated customer data to MongoDB
-				try {
-					await existingCustomer.save();
-					console.log("Customer data updated in MongoDB:", existingCustomer);
-				} catch (err) {
-					console.error("Error updating customer data:", err);
-				}
-			} else {
-				const periodEnd = new Date(session.period_end * 1000); // Convert timestamp to milliseconds
-				const periodStart = new Date(session.period_start * 1000); // Convert timestamp to milliseconds
-
-				// Create a new Customer document
-				const newCustomer = new Customer({
-					customerId: session.customer,
-					customerName: registeredPlayer
-						? registeredPlayer.registrationName
-						: session.customer_name,
-					customerEmail: session.customer_email,
-					invoiceId: session.id,
-					invoiceAmountDue: session.amount_due,
-					invoiceStatus: session.status,
-					paymentFailedTimestamp: new Date(),
-					instagram: registeredPlayer ? registeredPlayer.instagram : "",
-					phoneNumber: registeredPlayer ? registeredPlayer.phoneNumber : "",
-					division: registeredPlayer ? registeredPlayer.division : "",
-					hosted_invoice_url: session.hosted_invoice_url,
-					period_end: `${
-						periodEnd.getMonth() + 1
-					}/${periodEnd.getDate()}/${periodEnd.getFullYear()}`,
-					period_start: `${
-						periodStart.getMonth() + 1
-					}/${periodStart.getDate()}/${periodStart.getFullYear()}`,
-					attempt_count: session.attempt_count, // Add attempt_count field
-				});
-
-				// Save the customer data to MongoDB
-				try {
-					await newCustomer.save();
-					console.log("Customer data saved to MongoDB:", newCustomer);
-				} catch (err) {
-					console.error("Error saving customer data:", err);
-				}
-			}
+			// // Find the RegisterPlayer based on the customer's email
+			// const registeredPlayer = await RegisterPlayer.findOne({
+			// 	email: session.customer_email,
+			// });
+			// // Check if the customer with the same invoice ID exists
+			// const existingCustomer = await Customer.findOne({
+			// 	invoiceId: session.id,
+			// });
+			// if (existingCustomer) {
+			// 	// Customer with the same invoice ID found, update attempt count
+			// 	existingCustomer.attempt_count = session.attempt_count;
+			// 	// Save the updated customer data to MongoDB
+			// 	try {
+			// 		await existingCustomer.save();
+			// 		console.log("Customer data updated in MongoDB:", existingCustomer);
+			// 	} catch (err) {
+			// 		console.error("Error updating customer data:", err);
+			// 	}
+			// } else {
+			// 	const periodEnd = new Date(session.period_end * 1000); // Convert timestamp to milliseconds
+			// 	const periodStart = new Date(session.period_start * 1000); // Convert timestamp to milliseconds
+			// 	// Create a new Customer document
+			// 	const newCustomer = new Customer({
+			// 		customerId: session.customer,
+			// 		customerName: registeredPlayer
+			// 			? registeredPlayer.registrationName
+			// 			: session.customer_name,
+			// 		customerEmail: session.customer_email,
+			// 		invoiceId: session.id,
+			// 		invoiceAmountDue: session.amount_due,
+			// 		invoiceStatus: session.status,
+			// 		paymentFailedTimestamp: new Date(),
+			// 		instagram: registeredPlayer ? registeredPlayer.instagram : "",
+			// 		phoneNumber: registeredPlayer ? registeredPlayer.phoneNumber : "",
+			// 		division: registeredPlayer ? registeredPlayer.division : "",
+			// 		hosted_invoice_url: session.hosted_invoice_url,
+			// 		period_end: `${
+			// 			periodEnd.getMonth() + 1
+			// 		}/${periodEnd.getDate()}/${periodEnd.getFullYear()}`,
+			// 		period_start: `${
+			// 			periodStart.getMonth() + 1
+			// 		}/${periodStart.getDate()}/${periodStart.getFullYear()}`,
+			// 		attempt_count: session.attempt_count, // Add attempt_count field
+			// 	});
+			// 	// Save the customer data to MongoDB
+			// 	try {
+			// 		await newCustomer.save();
+			// 		console.log("Customer data saved to MongoDB:", newCustomer);
+			// 	} catch (err) {
+			// 		console.error("Error saving customer data:", err);
+			// 	}
+			// }
 		}
 	} else if (event.type === "invoice.payment_succeeded") {
-		console.log("✅ invoice.payment_succeeded:", event.id);
-
-		const session = event.data.object;
-		console.log(`💰 Payment succeeded!`);
-
-		// Find and delete the customer by customerId
-		try {
-			const deletedCustomer = await Customer.findOneAndDelete({
-				customerId: session.customer,
-			});
-
-			if (deletedCustomer) {
-				console.log("Customer deleted from MongoDB:", deletedCustomer);
-			} else {
-				console.log("Customer not found in MongoDB.");
-			}
-		} catch (err) {
-			console.error("Error deleting customer data:", err);
-		}
+		// console.log("✅ invoice.payment_succeeded:", event.id);
+		// const session = event.data.object;
+		// console.log(`💰 Payment succeeded!`);
+		// // Find and delete the customer by customerId
+		// try {
+		// 	const deletedCustomer = await Customer.findOneAndDelete({
+		// 		customerId: session.customer,
+		// 	});
+		// 	if (deletedCustomer) {
+		// 		console.log("Customer deleted from MongoDB:", deletedCustomer);
+		// 	} else {
+		// 		console.log("Customer not found in MongoDB.");
+		// 	}
+		// } catch (err) {
+		// 	console.error("Error deleting customer data:", err);
+		// }
 	} else {
 		console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
 	}
