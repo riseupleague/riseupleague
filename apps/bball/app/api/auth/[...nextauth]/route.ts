@@ -44,7 +44,8 @@ const authOptions = {
 	],
 
 	session: {
-		strategy: "jwt",
+		jwt: true,
+		maxAge: 30 * 24 * 60 * 60, // 30 days
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 	pages: {
@@ -52,9 +53,6 @@ const authOptions = {
 	},
 	callbacks: {
 		async signIn({ user, account }) {
-			// console.log("User:", user);
-			// console.log("Account:", account);
-
 			if (account.provider === "google") {
 				const { name, email } = user;
 				try {
@@ -67,7 +65,6 @@ const authOptions = {
 					}
 				} catch (e) {}
 			}
-			// Return user to indicate successful sign-in
 			return user;
 		},
 	},
