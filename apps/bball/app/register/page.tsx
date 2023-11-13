@@ -1,14 +1,38 @@
+import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import { Separator } from "@ui/components/separator";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-export default async function Register(): Promise<JSX.Element> {
+export default async function Register({
+	searchParams,
+}: {
+	searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<JSX.Element> {
 	const session = await getServerSession();
-
+	console.log("searchParams:", searchParams);
 	if (!session || !session.user) {
 		redirect("/");
 	}
+	const { back } = searchParams;
+	if (!back) {
+		const resPlayer = await getUserPlayerPayment(session.user.email);
+		const { player } = await resPlayer.json();
+		console.log("player:", player);
+		if (player) {
+			if (player.paid === false) {
+				console.log("player:", player);
+				if (player.teamCaptain) {
+					redirect(`/register/create-team/${player.division}`);
+				} else {
+					redirect(`/register/join-team/${player.division}`);
+				}
+			} else {
+				redirect(`/`);
+			}
+		}
+	}
+
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">

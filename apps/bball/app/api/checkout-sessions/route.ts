@@ -7,14 +7,13 @@ export async function POST(req: Request) {
 	const { items, formObject } = await req.json();
 
 	const parsedFormObject = JSON.parse(formObject);
-
 	try {
 		if (parsedFormObject.payment === "full") {
 			const session = await stripe.checkout.sessions.create({
 				mode: "payment",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success/${parsedFormObject.division}`,
 				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
 				automatic_tax: {
 					enabled: true,
@@ -29,7 +28,7 @@ export async function POST(req: Request) {
 				mode: "subscription",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success/${parsedFormObject.division}`,
 				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
 				automatic_tax: {
 					enabled: true,

@@ -21,12 +21,9 @@ export default function TeamsCard({ team }) {
 				/>
 				<h3 className="font-barlow text-lg uppercase">{team.teamName}</h3>
 			</div>
-			<Link
-				href={`/teams/${team._id}`}
-				className="font-barlow text-sm underline transition hover:opacity-80"
-			>
+			<span className="font-barlow text-sm underline transition hover:opacity-80">
 				View Profile
-			</Link>
+			</span>
 		</Link>
 	);
 }

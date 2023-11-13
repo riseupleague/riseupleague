@@ -25,7 +25,7 @@ const playerSchema = new Schema({
 		type: Number,
 		required: true,
 	},
-	JerseySize: {
+	jerseySize: {
 		type: String,
 		required: true,
 	},
@@ -33,12 +33,15 @@ const playerSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	JerseyName: {
+	jerseyName: {
 		type: String,
 	},
 	team: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Team",
+	},
+	teamCaptain: {
+		type: Boolean,
 	},
 	division: {
 		type: mongoose.Schema.Types.ObjectId,

@@ -24,8 +24,29 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
+			<Link
+				href={"/register?back=true"}
+				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="15"
+					height="20"
+					viewBox="0 0 15 20"
+					fill="none"
+				>
+					<path
+						d="M8.125 16.25L1.875 10L8.125 3.75"
+						stroke="#ABAFB3"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+				Back
+			</Link>
 
-			<h3 className="mt-20  text-3xl uppercase">Choose your difficulty:</h3>
+			<h3 className="mt-10  text-3xl uppercase">Choose your difficulty:</h3>
 
 			<div className="mt-10 flex flex-col gap-10 ">
 				<Accordion type="single" collapsible className="w-full">

@@ -19,7 +19,7 @@ const divisionSchema = new Schema({
 	endTime: { type: String, required: true },
 	earlyBirdPrice: { type: String, required: true },
 	regularPrice: { type: String, required: true },
-	isntalmentPrice: { type: String, required: true },
+	instalmentPrice: { type: String, required: true },
 	description: { type: String, required: true },
 	earlyBirdOpen: { type: Boolean, required: true },
 	earlyBirdId: { type: String },

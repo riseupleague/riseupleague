@@ -26,7 +26,7 @@ export default function TeamsFilterPage({ divisions }) {
 	const handleDivisionChange = (event) => {
 		const selectedDivisionId = event;
 
-		if (selectedDivisionId !== "") {
+		if (selectedDivisionId !== "default") {
 			// Filter the divisions based on the selected division name
 			const filteredDivisions = divisions.filter(
 				(division) => division._id === selectedDivisionId

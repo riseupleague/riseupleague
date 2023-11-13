@@ -3,6 +3,7 @@ import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-con
 import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 
 export default async function JoinTeam({
 	params,
@@ -16,14 +17,29 @@ export default async function JoinTeam({
 	if (!session || !session.user) {
 		redirect("/");
 	}
-	console.log(division);
+
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { player } = await resPlayer.json();
+	console.log(player);
+
+	if (player) {
+		if (player.paid) {
+			redirect(`/`);
+		}
+	}
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Create a team
 			</h1>
 
-			<CustomizeTeam division={division} session={session} />
+			<CustomizeTeam
+				division={division}
+				session={session}
+				player={player ? player : false}
+				team={player?.team ? player.team : false}
+			/>
 		</main>
 	);
 }

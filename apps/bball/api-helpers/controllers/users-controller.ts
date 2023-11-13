@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
+import Season from "@/api-helpers/models/Season";
 
 import User from "@/api-helpers/models/User";
 import { connectToDatabase } from "@/api-helpers/utils";
@@ -56,5 +57,34 @@ export const handleAddNewUserWithPassword = async (
 	} catch (error) {
 		console.error("Error:", error);
 		res.status(500).json({ error: "Internal server error" });
+	}
+};
+
+export const getUserPlayerPayment = async (email: string) => {
+	try {
+		const season = await Season.findOne({ register: true });
+		const user = await User.findOne({ email }).populate({
+			path: "basketball",
+			populate: {
+				path: "team", // Populate the 'team' field inside 'Player'
+			},
+		});
+		const selectedPlayer = user.basketball.find((player) => {
+			return player.season._id.toString() === season._id.toString();
+		});
+
+		if (selectedPlayer) {
+			console.log("user exists");
+			return NextResponse.json({ player: selectedPlayer });
+		} else {
+			console.log("create account");
+			return NextResponse.json({ message: "No player found" }, { status: 404 });
+		}
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
 	}
 };

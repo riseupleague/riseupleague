@@ -23,6 +23,8 @@ import {
 } from "@ui/components/select";
 
 import Link from "next/link";
+import getStripe from "@/utils/checkout";
+
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;
@@ -47,18 +49,24 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeJersey({ team, session }) {
+export default function CustomizeJersey({
+	team,
+	session,
+	player,
+	division,
+	teamId,
+}) {
 	const [isSummary, setIsSummary] = useState(false);
 
 	const [formData, setFormData] = useState<FormData>({
 		teamName: team.teamName,
 		teamNameShort: team.teamNameShort,
-		teamCode: "",
-		jerseyName: "",
-		instagram: "",
-		jerseyNumber: "",
-		jerseySize: "",
-		shortSize: "",
+		teamCode: team.teamCode,
+		jerseyName: player ? player?.jerseyName : "",
+		instagram: player ? player?.instagram : "",
+		jerseyNumber: player ? player?.jerseyNumber : "",
+		jerseySize: player ? player?.jerseySize : "",
+		shortSize: player ? player?.shortSize : "",
 		termsChecked: false,
 		refundChecked: false,
 	});
@@ -126,19 +134,15 @@ export default function CustomizeJersey({ team, session }) {
 		setFormData({ ...formData, shortSize: value });
 	};
 
-	const handleCreateTeamAndPlayer = async () => {
+	const handleCreateTeamAndPlayer = async (
+		itemPriceId: string,
+		payment: string
+	) => {
 		const { jerseyName, jerseyNumber, jerseySize, shortSize, instagram } =
 			formData;
 
 		// Check for required input fields
-		if (
-			!jerseyNumber ||
-			jerseyNumber.trim() === "" ||
-			!jerseySize ||
-			jerseySize.trim() === "" ||
-			!shortSize ||
-			shortSize.trim() === ""
-		) {
+		if (!jerseyNumber || !jerseySize || !shortSize) {
 			console.error("Invalid Inputs");
 			return; // Exit the function if inputs are invalid
 		}
@@ -155,26 +159,96 @@ export default function CustomizeJersey({ team, session }) {
 				season: team.season,
 				playerName: session.user.name,
 				email: session.user.email,
+				playerId: player ? player._id : "",
+				teamId: player ? player.team._id : "",
+				status: "joinTeam",
 			};
 
-			const resPlayer = await fetch("/api/register-player", {
+			let resPlayer;
+			console.log("player:", player);
+
+			if (player) {
+				resPlayer = await fetch("/api/register-player", {
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(playerObject),
+				});
+			} else {
+				resPlayer = await fetch("/api/register-player", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(playerObject),
+				});
+			}
+
+			const newPlayer = await resPlayer.json();
+			console.log("Player created:", newPlayer);
+
+			const formObject = {
+				status: "joinTeam",
+				playerId: newPlayer.player._id,
+				division: division._id,
+				season: division.season,
+				itemPriceId: itemPriceId,
+				payment: payment,
+			};
+
+			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
+		} catch (error) {
+			console.error("Error creating team:", error);
+		}
+	};
+
+	const redirectToCheckout = async (items, formObject) => {
+		try {
+			const response = await fetch("/api/checkout-sessions", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(playerObject),
+				body: JSON.stringify({ items, formObject: JSON.stringify(formObject) }),
 			});
 
-			const newPlayer = await resPlayer.json();
-			console.log("Player created:", newPlayer);
+			if (response.ok) {
+				const { session } = await response.json();
+				const stripe = await getStripe();
+				await stripe.redirectToCheckout({ sessionId: session.id });
+			} else {
+				console.error("Failed to create Stripe checkout session:", response);
+			}
 		} catch (error) {
-			console.error("Error creating team:", error);
+			console.error("Error creating Stripe checkout session:", error);
 		}
 	};
 	return (
 		<>
 			{!isSummary ? (
 				<>
+					<Link
+						href={"/register/join-team"}
+						className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="15"
+							height="20"
+							viewBox="0 0 15 20"
+							fill="none"
+						>
+							<path
+								d="M8.125 16.25L1.875 10L8.125 3.75"
+								stroke="#ABAFB3"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						Back
+					</Link>
 					<h3 className="mt-20  text-3xl uppercase">Customize your jersey:</h3>
 
 					<form onSubmit={handleFormSubmit}>
@@ -228,7 +302,7 @@ export default function CustomizeJersey({ team, session }) {
 								<Label className="uppercase">Jersey Top Size</Label>
 								<Select onValueChange={handleJerseySize}>
 									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder="Size" />
+										<SelectValue placeholder={formData.jerseySize} />
 									</SelectTrigger>
 									<SelectContent className="font-barlow text-lg">
 										<SelectGroup>
@@ -247,7 +321,7 @@ export default function CustomizeJersey({ team, session }) {
 								<Label className="uppercase">Jersey Bottom Size</Label>
 								<Select onValueChange={handleShortSize}>
 									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder="Size" />
+										<SelectValue placeholder={formData.shortSize} />
 									</SelectTrigger>
 									<SelectContent className="font-barlow text-lg">
 										<SelectGroup>
@@ -379,6 +453,27 @@ export default function CustomizeJersey({ team, session }) {
 				</>
 			) : (
 				<>
+					<button
+						onClick={() => setIsSummary(false)}
+						className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="15"
+							height="20"
+							viewBox="0 0 15 20"
+							fill="none"
+						>
+							<path
+								d="M8.125 16.25L1.875 10L8.125 3.75"
+								stroke="#ABAFB3"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						Back
+					</button>
 					<h3 className="mt-20  text-3xl uppercase">Summary:</h3>
 					<div>
 						<div className="mt-5 flex flex-col gap-5 rounded-md bg-neutral-700 px-3 py-6">
@@ -460,17 +555,7 @@ export default function CustomizeJersey({ team, session }) {
 									disabled
 								/>
 							</section>
-							<h4 className="text-lg uppercase underline">Personal:</h4>
-							{/* for early birds only */}
-							<section>
-								<Label className="uppercase">Instagram</Label>
-								<Input
-									type="text"
-									className="w-40 border-0 bg-neutral-700 py-[16px]"
-									value={formData.instagram}
-									disabled
-								/>
-							</section>
+
 							<section className="flex flex-col gap-3">
 								<div className="flex items-center">
 									<Checkbox
@@ -511,69 +596,98 @@ export default function CustomizeJersey({ team, session }) {
 
 						<div className="mt-20 flex flex-col gap-10">
 							<h4 className="text-3xl uppercase">Overall total:</h4>
-							<p className="text-4xl">$254.25</p>
-							<Button className="uppercase" onClick={handleCreateTeamAndPlayer}>
+							<p className="text-4xl">
+								$
+								{division.earlyBirdOpen
+									? division.earlyBirdPrice
+									: division.regularPrice}{" "}
+								<span className="text-sm text-neutral-50">+ 13% HST</span>
+							</p>
+							<Button
+								className="uppercase"
+								onClick={() => {
+									division.earlyBirdOpen
+										? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
+										: handleCreateTeamAndPlayer(
+												division.regularPriceFullId,
+												"full"
+										  );
+								}}
+							>
 								Pay in full
 							</Button>
-							<Separator orientation="horizontal" className="bg-neutral-600" />{" "}
-							<p className="text-4xl">
-								$67.80{" "}
-								<span className="text-sm text-neutral-50">
-									Today + 3 more $67.80 bi-weekly
-								</span>
-							</p>
-							<Table>
-								<TableHeader>
-									<TableRow>
-										<TableHead className="uppercase">Payment</TableHead>
-										<TableHead className="uppercase">Due dates</TableHead>
-										<TableHead className="uppercase">Amount</TableHead>
-									</TableRow>
-								</TableHeader>
-								<TableBody>
-									<TableRow className="uppercase">
-										<TableCell>1st</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>2nd</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>3rd</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-									<TableRow className="uppercase">
-										<TableCell>4th</TableCell>
-										<TableCell>sep 4, 2023</TableCell>
-										<TableCell>$67.80</TableCell>
-									</TableRow>
-								</TableBody>
-							</Table>
-							<Button
-								onClick={handleCreateTeamAndPlayer}
-								variant="secondary"
-								className="uppercase text-neutral-300"
-							>
-								Pay in instalments
-							</Button>
-							<ul className="flex flex-col gap-4 text-sm uppercase text-neutral-300">
-								<li>
-									Your card will be saved on file and automatically charged on
-									the scheduled dates ABOVE.
-								</li>
-								<li>
-									Scheduled online payments will be subject to an additional
-									Online Payment Fee.
-								</li>
-								<li>
-									late payments will be subject to additional fees or may
-									receive penalties.
-								</li>
-							</ul>
+
+							{!division.earlyBirdOpen && (
+								<>
+									<Separator
+										orientation="horizontal"
+										className="bg-neutral-600"
+									/>{" "}
+									<p className="text-4xl">
+										$67.80{" "}
+										<span className="text-sm text-neutral-50">
+											Today + 3 more $67.80 bi-weekly
+										</span>
+									</p>
+									<Table>
+										<TableHeader>
+											<TableRow>
+												<TableHead className="uppercase">Payment</TableHead>
+												<TableHead className="uppercase">Due dates</TableHead>
+												<TableHead className="uppercase">Amount</TableHead>
+											</TableRow>
+										</TableHeader>
+										<TableBody>
+											<TableRow className="uppercase">
+												<TableCell>1st</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>$67.80</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>2nd</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>$67.80</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>3rd</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>$67.80</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>4th</TableCell>
+												<TableCell>sep 4, 2023</TableCell>
+												<TableCell>$67.80</TableCell>
+											</TableRow>
+										</TableBody>
+									</Table>
+									<Button
+										onClick={() =>
+											handleCreateTeamAndPlayer(
+												division.regularPriceInstalmentId,
+												"four"
+											)
+										}
+										variant="secondary"
+										className="uppercase text-neutral-300"
+									>
+										Pay in instalments
+									</Button>
+									<ul className="flex flex-col gap-4 text-sm uppercase text-neutral-300">
+										<li>
+											Your card will be saved on file and automatically charged
+											on the scheduled dates ABOVE.
+										</li>
+										<li>
+											Scheduled online payments will be subject to an additional
+											Online Payment Fee.
+										</li>
+										<li>
+											late payments will be subject to additional fees or may
+											receive penalties.
+										</li>
+									</ul>
+								</>
+							)}
 						</div>
 					</div>
 				</>

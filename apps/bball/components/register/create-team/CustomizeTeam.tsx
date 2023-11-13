@@ -5,7 +5,6 @@ import { Button } from "@ui/components/button";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import SummaryPayment from "@/components/register/create-team/SummaryPayment";
 import {
 	Table,
 	TableBody,
@@ -51,21 +50,23 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeTeam({ division, session }) {
+export default function CustomizeTeam({ division, session, player, team }) {
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",
 		teamNameShort: "",
 		teamCode: "",
-		jerseyName: "",
-		instagram: "",
-		jerseyNumber: "",
-		jerseySize: "",
-		shortSize: "",
+		jerseyName: player ? player?.jerseyName : "",
+		instagram: player ? player?.instagram : "",
+		jerseyNumber: player ? player?.jerseyNumber : "",
+		jerseySize: player ? player?.jerseySize : "",
+		shortSize: player ? player?.shortSize : "",
 		termsChecked: false,
 		refundChecked: false,
 	});
 	const [formErrors, setFormErrors] = useState<FormErrors>({});
+
+	console.log("team:", team);
 	const validateForm = (): FormErrors => {
 		const errors: FormErrors = {};
 
@@ -131,6 +132,8 @@ export default function CustomizeTeam({ division, session }) {
 		setFormData({ ...formData, shortSize: value });
 	};
 
+	console.log(division, team);
+
 	const handleCreateTeamAndPlayer = async (
 		itemPriceId: string,
 		payment: string
@@ -163,19 +166,56 @@ export default function CustomizeTeam({ division, session }) {
 			teamCode,
 			division: division._id,
 			season: division.season,
+			teamId: team ? team._id : "",
+			playerId: player ? player._id : "",
 		};
 
 		try {
-			const resTeam = await fetch("/api/register-team", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(teamObject),
-			});
+			let resTeam;
+
+			console.log(team);
+			const dontDeleteTeam = division.teams.find(
+				(paidTeam) => paidTeam._id === team._id
+			);
+			if (!team) {
+				console.log("!team");
+				resTeam = await fetch("/api/register-team", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(teamObject),
+				});
+			} else {
+				console.log("team");
+
+				if (dontDeleteTeam && dontDeleteTeam.paid === true) {
+					console.log("dontDeleteTeam");
+
+					resTeam = await fetch("/api/register-team", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(teamObject),
+					});
+				} else {
+					console.log("!dontDeleteTeam");
+
+					resTeam = await fetch("/api/register-team", {
+						method: "PATCH",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(teamObject),
+					});
+				}
+			}
 
 			const newTeam = await resTeam.json();
 			console.log("Team created:", newTeam);
+
+			console.log(dontDeleteTeam);
 
 			const playerObject = {
 				jerseyNumber,
@@ -184,20 +224,36 @@ export default function CustomizeTeam({ division, session }) {
 				jerseyName,
 				instagram,
 				team: newTeam.team._id,
+				teamCaptain: true,
 				division: division._id,
 				season: division.season,
 				playerName: session.user.name,
 				email: session.user.email,
+				playerId: player ? player._id : "",
+				status: "createTeam",
 			};
+			let resPlayer;
+			console.log("player:", player);
+			if (player) {
+				console.log("hello");
+				resPlayer = await fetch("/api/register-player", {
+					method: "PATCH",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(playerObject),
+				});
+			} else {
+				console.log("hi");
 
-			const resPlayer = await fetch("/api/register-player", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(playerObject),
-			});
-
+				resPlayer = await fetch("/api/register-player", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(playerObject),
+				});
+			}
 			const newPlayer = await resPlayer.json();
 			console.log("Player created:", newPlayer);
 
@@ -243,7 +299,28 @@ export default function CustomizeTeam({ division, session }) {
 		<>
 			{!isSummary ? (
 				<>
-					<h3 className="mt-20  text-3xl uppercase">
+					<Link
+						href={"/register/create-team"}
+						className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="15"
+							height="20"
+							viewBox="0 0 15 20"
+							fill="none"
+						>
+							<path
+								d="M8.125 16.25L1.875 10L8.125 3.75"
+								stroke="#ABAFB3"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						Back
+					</Link>
+					<h3 className="mt-10  text-3xl uppercase">
 						Customizing your team in:
 					</h3>
 
@@ -432,7 +509,7 @@ export default function CustomizeTeam({ division, session }) {
 								<Label className="uppercase">Jersey Top Size</Label>
 								<Select onValueChange={handleJerseySize}>
 									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder="Size" />
+										<SelectValue placeholder={formData.jerseySize} />
 									</SelectTrigger>
 									<SelectContent className="font-barlow text-lg">
 										<SelectGroup>
@@ -451,7 +528,7 @@ export default function CustomizeTeam({ division, session }) {
 								<Label className="uppercase">Jersey Bottom Size</Label>
 								<Select onValueChange={handleShortSize}>
 									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder="Size" />
+										<SelectValue placeholder={formData.shortSize} />
 									</SelectTrigger>
 									<SelectContent className="font-barlow text-lg">
 										<SelectGroup>
@@ -594,7 +671,28 @@ export default function CustomizeTeam({ division, session }) {
 				</>
 			) : (
 				<>
-					<h3 className="mt-20  text-3xl uppercase">Summary:</h3>
+					<button
+						onClick={() => setIsSummary(false)}
+						className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="15"
+							height="20"
+							viewBox="0 0 15 20"
+							fill="none"
+						>
+							<path
+								d="M8.125 16.25L1.875 10L8.125 3.75"
+								stroke="#ABAFB3"
+								strokeWidth="1.5"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+						</svg>
+						Back
+					</button>
+					<h3 className="mt-10  text-3xl uppercase">Summary:</h3>
 					<div>
 						<div className="mt-5 flex flex-col gap-5 rounded-md bg-neutral-700 px-3 py-6">
 							<h4 className="text-lg uppercase underline">Team Identity:</h4>

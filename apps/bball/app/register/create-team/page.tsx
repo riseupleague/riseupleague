@@ -1,5 +1,7 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
+import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+
 import Link from "next/link";
 import {
 	Accordion,
@@ -19,11 +21,41 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	if (!session || !session.user) {
 		redirect("/");
 	}
+
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { player } = await resPlayer.json();
+	if (player) {
+		if (player.paid) {
+			redirect(`/`);
+		}
+	}
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Create a team
 			</h1>
+
+			<Link
+				href={"/register?back=true"}
+				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="15"
+					height="20"
+					viewBox="0 0 15 20"
+					fill="none"
+				>
+					<path
+						d="M8.125 16.25L1.875 10L8.125 3.75"
+						stroke="#ABAFB3"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+				Back
+			</Link>
 
 			<h3 className="mt-10  text-3xl uppercase">Choose your difficulty:</h3>
 

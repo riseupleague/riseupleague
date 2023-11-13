@@ -15,6 +15,10 @@ const teamSchema = new Schema({
 	teamCode: { type: String, required: true },
 	teamBanner: { type: String },
 	teamBannerId: { type: String },
+	teamCaptain: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Player",
+	},
 	primaryColor: { type: String },
 	secondaryColor: { type: String },
 	tertiaryColor: { type: String },

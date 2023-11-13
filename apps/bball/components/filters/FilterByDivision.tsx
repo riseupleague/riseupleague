@@ -35,7 +35,10 @@ const FilterByDivision = ({
 					<SelectGroup>
 						<SelectLabel>Division:</SelectLabel>
 						{divisions.map((division, index) => (
-							<SelectItem value={division._id} key={index}>
+							<SelectItem
+								value={division._id || "default"} // Ensure a non-empty string value
+								key={index}
+							>
 								{division.divisionName}
 							</SelectItem>
 						))}

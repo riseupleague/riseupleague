@@ -37,6 +37,8 @@ export async function POST(req: Request) {
 	// 2. Handle event type (add business logic here)
 	if (event.type === "checkout.session.completed") {
 		const session = event.data.object;
+		console.log("Session:", session);
+
 		const metadata = JSON.parse(session.metadata.formObject);
 		console.log(`💰  Payment received!`);
 
