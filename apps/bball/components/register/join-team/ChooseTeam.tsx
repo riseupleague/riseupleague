@@ -151,7 +151,7 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 															<Input
 																type="text"
 																className="border-neutral-500 bg-neutral-700 py-[16px]"
-																placeholder="Enter Your Team's Code"
+																placeholder="Enter Your Team Code"
 																value={teamCode}
 																onChange={(e) => setTeamCode(e.target.value)}
 															/>

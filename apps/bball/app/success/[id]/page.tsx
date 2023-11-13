@@ -49,7 +49,7 @@ export default async function Success({
 							className="mb-3 mt-1 bg-white"
 						/>{" "}
 						<p>
-							Customize your team's jersey. You decide your own colors and
+							Customize your team jersey. You decide your own colors and
 							designs!
 						</p>
 					</div>
@@ -60,7 +60,7 @@ export default async function Success({
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 					<div>
 						<h3 className=" text-2xl font-semibold uppercase ">
-							Team's Schedule
+							Team Schedule
 						</h3>
 						<Separator
 							orientation="horizontal"
