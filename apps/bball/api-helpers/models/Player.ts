@@ -7,6 +7,13 @@ import Game from "@/api-helpers/models/Game";
 const Schema = mongoose.Schema;
 
 const playerSchema = new Schema({
+	paid: {
+		type: Boolean,
+	},
+	customerId: {
+		type: String,
+	},
+
 	playerName: {
 		type: String,
 		required: true,
@@ -18,11 +25,23 @@ const playerSchema = new Schema({
 		type: Number,
 		required: true,
 	},
-	playerProfile: { type: String },
-	playerProfileId: { type: String },
+	jerseySize: {
+		type: String,
+		required: true,
+	},
+	shortSize: {
+		type: String,
+		required: true,
+	},
+	jerseyName: {
+		type: String,
+	},
 	team: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Team",
+	},
+	teamCaptain: {
+		type: Boolean,
 	},
 	division: {
 		type: mongoose.Schema.Types.ObjectId,
@@ -31,6 +50,10 @@ const playerSchema = new Schema({
 	season: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Season",
+	},
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "User",
 	},
 	averageStats: {
 		type: {

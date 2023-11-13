@@ -60,8 +60,8 @@ export default async function Players({
 		threesMade: { name: "", jerseyNumber: 0, stats: { threesMade: 0 }, id: "" }, // Initialize 'id'
 	};
 
-	if (team.players.length > 0) {
-		team.players.forEach((player) => {
+	if (team?.players.length > 0) {
+		team?.players.forEach((player) => {
 			if (player.allStats.length > 0) {
 				const playerStats = player.averageStats;
 				if (playerStats.points > leaders.points.stats.points) {
@@ -107,11 +107,11 @@ export default async function Players({
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<div className="mb-8 mt-16">
 				<h1 className="font-oswald text-3xl font-medium uppercase">
-					{team.teamName}
+					{team?.teamName}
 				</h1>
 				<div className="text-white">
-					<Link href={`/teams/${team._id}`}>
-						<span className="hover:underline">{team.teamName}</span>
+					<Link href={`/teams/${team?._id}`}>
+						<span className="hover:underline">{team?.teamName}</span>
 					</Link>{" "}
 				</div>
 			</div>

@@ -13,6 +13,18 @@ const divisionSchema = new Schema({
 	},
 	teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
 	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
+	location: { type: String, required: true },
+	day: { type: String, required: true },
+	startTime: { type: String, required: true },
+	endTime: { type: String, required: true },
+	earlyBirdPrice: { type: String, required: true },
+	regularPrice: { type: String, required: true },
+	instalmentPrice: { type: String, required: true },
+	description: { type: String, required: true },
+	earlyBirdOpen: { type: Boolean, required: true },
+	earlyBirdId: { type: String },
+	regularPriceFullId: { type: String },
+	regularPriceInstalmentId: { type: String },
 });
 
 export default mongoose.models.Division ||

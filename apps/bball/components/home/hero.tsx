@@ -1,10 +1,25 @@
 "use client";
 import { Progress } from "@ui/components/progress";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
+import { Input } from "@ui/components/input";
+import { Label } from "@ui/components/label";
 import { motion } from "framer-motion";
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@ui/components/dialog";
+
+import { signIn, useSession } from "next-auth/react";
+import SignInDialog from "../auth/SignInDialog";
+
 export default function Hero(): JSX.Element {
 	const slides = [
 		{
@@ -77,6 +92,20 @@ export default function Hero(): JSX.Element {
 		};
 	}, [currentIndex, autoplayDelay]);
 
+	const [open, setOpen] = useState(false);
+
+	// Function to open the dialog
+	const openDialog = () => {
+		setOpen(true);
+	};
+
+	// Function to close the dialog
+	const closeDialog = () => {
+		setOpen(false);
+	};
+
+	const { status, data: session } = useSession();
+
 	return (
 		<section className="group relative  mb-8  mt-16 h-[450px] w-full  sm:h-[650px] lg:my-16 ">
 			<figure
@@ -86,9 +115,9 @@ export default function Hero(): JSX.Element {
 				<div className="flex h-5/6 w-full items-end bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
 					{isAnimating && (
 						<motion.div
-							initial={{ opacity: 0, x: 100 }}
+							initial={{ opacity: 0, x: 10 }}
 							animate={{ opacity: 1, x: 0 }}
-							exit={{ opacity: 0, x: -100 }}
+							exit={{ opacity: 0, x: -10 }}
 							transition={{ duration: 0.5 }}
 						>
 							<h1 className="font-barlow mb-6 text-3xl font-medium uppercase leading-tight sm:text-5xl">
@@ -97,10 +126,14 @@ export default function Hero(): JSX.Element {
 							<p className="font-barlow font-light text-neutral-200">
 								This season is the best season yet, so don’t miss out!
 							</p>
-							<div className="my-4">
-								<Link href="/register">
-									<Button>Register Now</Button>
-								</Link>
+							<div className="relative z-50 my-4">
+								{!session || !session.user ? (
+									<Button onClick={openDialog}>Register Now</Button>
+								) : (
+									<Link href="/register">
+										<Button>Register Now</Button>
+									</Link>
+								)}
 							</div>
 						</motion.div>
 					)}
@@ -128,6 +161,9 @@ export default function Hero(): JSX.Element {
 					</p>
 				</div>
 			</figure>
+			{/* Dialog component */}
+
+			<SignInDialog open={open} onOpenChange={setOpen} />
 		</section>
 	);
 }

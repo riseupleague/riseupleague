@@ -4,6 +4,7 @@ import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import Header from "../components/structure/header/header";
 import Footer from "../components/structure/footer/footer";
 import { type ChildrenProps } from "../lib/types";
+import { NextAuthProvider } from "./Providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
@@ -25,9 +26,11 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 			lang="en"
 		>
 			<body className="bg-neutral-900 text-neutral-100">
-				<Header />
-				<main>{children}</main>
-				<Footer />
+				<NextAuthProvider>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</NextAuthProvider>
 			</body>
 		</html>
 	);

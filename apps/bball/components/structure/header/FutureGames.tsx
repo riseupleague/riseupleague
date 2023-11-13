@@ -66,13 +66,9 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 									const dateStr = game.date;
 									const date = new Date(dateStr);
 
-									// Define the time zone you want to convert to (e.g., Toronto)
-									const torontoTimeZone = "America/Toronto";
-
 									// Convert the date to Toronto time
 									torontoTime = date
 										.toLocaleTimeString("en-US", {
-											timeZone: torontoTimeZone,
 											minute: "2-digit",
 											hour: "numeric",
 											hour12: true,

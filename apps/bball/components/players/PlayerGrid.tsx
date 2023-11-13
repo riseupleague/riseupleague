@@ -48,6 +48,7 @@ export default function PlayerGrid({
 	// Use a useEffect to handle filtering when selectedDivisions or selectedTeams change
 	useEffect(() => {
 		// Use the selected divisions and teams to filter gamesByDate
+
 		if (closeDivisions.length !== 0 || closeTeams.length !== 0) {
 			const filteredPlayers = allPlayers.filter((player) => {
 				// Check if the player's division ID is in the selected divisions array

@@ -25,8 +25,6 @@ export default function ScheduleFilterPage({
 		initialDivisionCheckboxState
 	);
 
-	console.log(allGames);
-
 	const [closeDivisions, setCloseDivisions] = useState(divisionParams);
 	const [closeTeams, setCloseTeams] = useState(teamsParams);
 
