@@ -74,35 +74,42 @@ export default function StandingsTable({ divisions }) {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{division.teams.map((team, index) => {
-									const positivePD = team.pointDifference > 0;
+								{division.teams
+									.sort((a, b) =>
+										a.pointDifference > b.pointDifference ? 1 : -1
+									)
+									.sort((a, b) =>
+										a.wpct?.toFixed(3) < b.wpct?.toFixed(3) ? 1 : -1
+									)
+									.map((team, index) => {
+										const positivePD = team.pointDifference > 0;
 
-									return (
-										<TableRow key={index} className="text-sm md:text-lg">
-											<TableCell>{index + 1}</TableCell>
-											<TableCell className={`w-1/2 text-left sm:w-auto`}>
-												<Link
-													href={`/teams/${team._id}`}
-													className="flex w-fit hover:underline"
+										return (
+											<TableRow key={index} className="text-sm md:text-lg">
+												<TableCell>{index + 1}</TableCell>
+												<TableCell className={`w-1/2 text-left sm:w-auto`}>
+													<Link
+														href={`/teams/${team._id}`}
+														className="flex w-fit hover:underline"
+													>
+														{team.teamName}
+													</Link>
+												</TableCell>
+												<TableCell>{team.wins || 0}</TableCell>
+												<TableCell>{team.losses || 0}</TableCell>
+												<TableCell>{team.gp}</TableCell>
+												<TableCell>{team.wpct?.toFixed(3)}</TableCell>
+												<TableCell
+													className={
+														positivePD ? "text-green-500" : "text-primary"
+													}
 												>
-													{team.teamName}
-												</Link>
-											</TableCell>
-											<TableCell>{team.wins || 0}</TableCell>
-											<TableCell>{team.losses || 0}</TableCell>
-											<TableCell>{team.gp}</TableCell>
-											<TableCell>{team.wpct?.toFixed(3)}</TableCell>
-											<TableCell
-												className={
-													positivePD ? "text-green-500" : "text-primary"
-												}
-											>
-												{positivePD ? "+" : ""}
-												{team.pointDifference || 0}
-											</TableCell>
-										</TableRow>
-									);
-								})}
+													{positivePD ? "+" : ""}
+													{team.pointDifference || 0}
+												</TableCell>
+											</TableRow>
+										);
+									})}
 							</TableBody>
 						</Table>
 					</div>

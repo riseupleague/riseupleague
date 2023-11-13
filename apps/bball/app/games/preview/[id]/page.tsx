@@ -219,14 +219,14 @@ export default async function GamePreview({
 									{statType === "points"
 										? "PPG"
 										: statType === "rebounds"
-										? "RPG"
-										: statType === "assists"
-										? "APG"
-										: statType === "blocks"
-										? "BPG"
-										: statType === "steals"
-										? "SPG"
-										: ""}
+										  ? "RPG"
+										  : statType === "assists"
+										    ? "APG"
+										    : statType === "blocks"
+										      ? "BPG"
+										      : statType === "steals"
+										        ? "SPG"
+										        : ""}
 								</span>
 								<div
 									style={{ borderColor: "#282828", backgroundColor: "#18181A" }}
