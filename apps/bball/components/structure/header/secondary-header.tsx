@@ -1,19 +1,67 @@
 import {
 	getAllPastGames,
 	getAllUpcomingGames,
+	getAllUpcomingGamesHeader,
 } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import React from "react";
-
+import { format, addDays, getISODay } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import FutureGames from "./FutureGames";
 
 export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	await connectToDatabase();
-	const resUpcoming = await getAllUpcomingGames();
+	// const resUpcoming = await getAllUpcomingGames();
+	// const { allUpcomingGames } = await resUpcoming.json();
+	// const resPast = await getAllPastGames();
+	// const { allPastGames } = await resPast.json();
+	// const allGames = [...allPastGames, ...allUpcomingGames];
+	// const separatedGames = [];
+
+	// Set the Toronto time zone
+	const torontoTimeZone = "America/Toronto";
+
+	// Get the current date in Toronto time zone
+	const currentDate = utcToZonedTime(new Date(), torontoTimeZone);
+
+	// Format the current date as "eee, MMM d"
+	const formattedCurrentDate = format(currentDate, "eee, MMM d");
+
+	console.log("Current Date:", formattedCurrentDate);
+
+	// Find the next Saturday
+	const nextSaturday = addDays(
+		currentDate,
+		(6 - getISODay(currentDate) + 7) % 7
+	);
+	const formattedNextSaturday = format(nextSaturday, "eee, MMM d");
+
+	console.log("Next Saturday:", formattedNextSaturday);
+
+	// Find the next Sunday
+	const nextSunday = addDays(currentDate, (7 - getISODay(currentDate) + 7) % 7);
+	const formattedNextSunday = format(nextSunday, "eee, MMM d");
+	console.log("Next Sunday:", nextSunday);
+
+	console.log("Next Sunday:", formattedNextSunday);
+
+	// Find the next Monday
+	const nextMonday = addDays(currentDate, (8 - getISODay(currentDate) + 7) % 7);
+	const formattedNextMonday = format(nextMonday, "eee, MMM d");
+
+	console.log("Next Monday:", formattedNextMonday);
+
+	const resUpcoming = await getAllUpcomingGamesHeader([
+		currentDate,
+		nextSaturday,
+		nextSunday,
+		nextMonday,
+	]);
 	const { allUpcomingGames } = await resUpcoming.json();
-	const resPast = await getAllPastGames();
-	const { allPastGames } = await resPast.json();
-	const allGames = [...allPastGames, ...allUpcomingGames];
+
+	console.log("allUpcomingGames:", allUpcomingGames);
+
+	const allGames = [...allUpcomingGames];
 	const separatedGames = [];
 
 	allGames.forEach((game) => {
