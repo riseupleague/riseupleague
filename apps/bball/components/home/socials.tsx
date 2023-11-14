@@ -1,6 +1,7 @@
 import SocialCard from "./socials/SocialCard";
 import Instagram from "../general/icons/Instagram";
 import YouTube from "../general/icons/YouTube";
+import TikTok from "../general/icons/TikTok";
 
 export default function Socials(): JSX.Element {
 	const socialLinks = [
@@ -13,6 +14,11 @@ export default function Socials(): JSX.Element {
 			text: "Youtube - riseup basketball media",
 			link: "https://www.youtube.com/@RiseUPBasketballLeagueMedia/videos",
 			icon: <YouTube />,
+		},
+		{
+			text: "TikTok - @riseupleague",
+			link: "https://www.tiktok.com/@riseupleague",
+			icon: <TikTok />,
 		},
 	];
 
