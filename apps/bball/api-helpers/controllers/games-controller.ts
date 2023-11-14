@@ -67,7 +67,8 @@ export const getAllUpcomingGamesHeader = async () => {
 				select:
 					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
 			})
-			.select("status homeTeam awayTeam division date gameName location");
+			.select("status homeTeam awayTeam division date gameName location")
+			.limit(20);
 
 		console.log("allUpcomingGames:", allGames);
 
