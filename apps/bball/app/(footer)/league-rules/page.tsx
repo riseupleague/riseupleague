@@ -23,7 +23,7 @@ export default function LeagueRules(): JSX.Element {
 							<span className="text-primary bold uppercase underline">
 								required
 							</span>{" "}
-							to wear their team's{" "}
+							to wear their team&apos;s{" "}
 							<span className="text-primary bold uppercase underline">top</span>{" "}
 							and{" "}
 							<span className="text-primary bold uppercase underline">
