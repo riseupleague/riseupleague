@@ -102,80 +102,81 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
-		const team = await Team.findById(teamId)
-			.populate("players")
-			.populate({
-				path: "division",
-				select: "divisionName",
-			})
-			.populate({
-				path: "games",
-				select: "gameName date homeTeam awayTeam status division location",
-				populate: [
-					{
-						path: "homeTeam",
-						select: "teamName teamNameShort  wins losses",
-					},
-					{
-						path: "awayTeam",
-						select: "teamName teamNameShort wins losses",
-					},
-					{
-						path: "division",
-						select: "divisionName",
-					},
-				],
-			})
-			.populate({
-				path: "seasonStatistics.game",
-				select: "gameName homeTeamScore awayTeamScore homeTeam awayTeam",
-				populate: [
-					{
-						path: "homeTeam",
-						select: "teamName",
-					},
-					{
-						path: "awayTeam",
-						select: "teamName",
-					},
-				],
-			});
+		const team = await Team.findById(teamId);
+		// .populate("players")
+		// .populate({
+		// 	path: "division",
+		// 	select: "divisionName",
+		// })
+		// .populate({
+		// 	path: "games",
+		// 	select: "gameName date homeTeam awayTeam status division location",
+		// 	populate: [
+		// 		{
+		// 			path: "homeTeam",
+		// 			select: "teamName teamNameShort  wins losses",
+		// 		},
+		// 		{
+		// 			path: "awayTeam",
+		// 			select: "teamName teamNameShort wins losses",
+		// 		},
+		// 		{
+		// 			path: "division",
+		// 			select: "divisionName",
+		// 		},
+		// 	],
+		// })
+		// .populate({
+		// 	path: "seasonStatistics.game",
+		// 	select: "gameName homeTeamScore awayTeamScore homeTeam awayTeam",
+		// 	populate: [
+		// 		{
+		// 			path: "homeTeam",
+		// 			select: "teamName",
+		// 		},
+		// 		{
+		// 			path: "awayTeam",
+		// 			select: "teamName",
+		// 		},
+		// 	],
+		// });
 
-		if (!team) {
-			return NextResponse.json(
-				{ message: "Player not found" },
-				{ status: 404 }
-			);
-		}
-		const teams = await Team.find().select("averageStats");
-		const avgStats = {
-			points: 0,
-			rebounds: 0,
-			assists: 0,
-			steals: 0,
-			blocks: 0,
-			threesMade: 0,
-		};
+		// if (!team) {
+		// 	return NextResponse.json(
+		// 		{ message: "Player not found" },
+		// 		{ status: 404 }
+		// 	);
+		// }
+		// const teams = await Team.find().select("averageStats");
+		// const avgStats = {
+		// 	points: 0,
+		// 	rebounds: 0,
+		// 	assists: 0,
+		// 	steals: 0,
+		// 	blocks: 0,
+		// 	threesMade: 0,
+		// };
 
-		teams.forEach((t) => {
-			avgStats.points += t.averageStats?.points;
-			avgStats.rebounds += t.averageStats?.rebounds;
-			avgStats.assists += t.averageStats?.assists;
-			avgStats.steals += t.averageStats?.steals;
-			avgStats.blocks += t.averageStats?.blocks;
-			avgStats.threesMade += t.averageStats?.threesMade;
-		});
+		// teams.forEach((t) => {
+		// 	avgStats.points += t.averageStats?.points;
+		// 	avgStats.rebounds += t.averageStats?.rebounds;
+		// 	avgStats.assists += t.averageStats?.assists;
+		// 	avgStats.steals += t.averageStats?.steals;
+		// 	avgStats.blocks += t.averageStats?.blocks;
+		// 	avgStats.threesMade += t.averageStats?.threesMade;
+		// });
 
-		const allAvg = {
-			points: avgStats.points / teams?.length,
-			rebounds: avgStats.rebounds / teams?.length,
-			assists: avgStats.assists / teams?.length,
-			steals: avgStats.steals / teams?.length,
-			blocks: avgStats.blocks / teams?.length,
-			threesMade: avgStats.threesMade / teams?.length,
-		};
+		// const allAvg = {
+		// 	points: avgStats.points / teams?.length,
+		// 	rebounds: avgStats.rebounds / teams?.length,
+		// 	assists: avgStats.assists / teams?.length,
+		// 	steals: avgStats.steals / teams?.length,
+		// 	blocks: avgStats.blocks / teams?.length,
+		// 	threesMade: avgStats.threesMade / teams?.length,
+		// };
 
-		return NextResponse.json({ team, allAvg }, { status: 200 });
+		// return NextResponse.json({ team, allAvg }, { status: 200 });
+		return NextResponse.json({ team }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
