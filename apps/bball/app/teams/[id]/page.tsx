@@ -101,6 +101,7 @@ export default async function Players({
 			}
 		});
 	}
+
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<div className="mb-8 mt-16">
