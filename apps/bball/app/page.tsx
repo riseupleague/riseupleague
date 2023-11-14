@@ -14,14 +14,12 @@ export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
-
 			<Hero />
-
-			<FeaturedSponsors />
-			<AboutRiseUp />
-			<PlayersOfTheWeek />
+			{/* <FeaturedSponsors /> */}
+			{/* <AboutRiseUp /> */}
+			{/* <PlayersOfTheWeek /> */}
 			<LatestGames />
-			<MVPLadder />
+			{/* <MVPLadder /> */}
 			<Socials />
 			<FAQs />
 			<ContactUs />
