@@ -46,8 +46,6 @@ export const getAllUpcomingGames = async () => {
 
 export const getAllPastGames = async () => {
 	try {
-		// const activeSeason = await Season.find({ active: "true" });
-
 		const games = await Game.find({ status: true })
 			.populate({
 				path: "division",
@@ -221,77 +219,27 @@ export const getGameById = async (id) => {
 	}
 };
 
-// export const getAllUpcomingGames = async ({
-// 	page = 1,
-// 	limit = 50,
-// 	team = "",
-// 	division = "",
-// }: {
-// 	page: number;
-// 	limit: number;
-// 	team?: string; // Team parameter
-// 	division?: string; // Division parameter
-// }) => {
-// 	try {
-// 		const activeSeason = await Season.find({ active: true });
-
-// 		const skip = (page - 1) * limit;
-
-// 		// Define the filter object based on query parameters
-// 		const filter: GameFilter = {
-// 			season: activeSeason,
-// 		};
-
-// 		// Add filters based on query parameters
-// 		if (team !== "") {
-// 			filter.team = team;
-// 		}
-
-// 		if (division !== "") {
-// 			filter.division = division;
-// 		}
-
-// 		const allUpcomingGames = await Game.find(filter)
-// 			.populate({
-// 				path: "division",
-// 				select: "divisionName",
-// 			})
-// 			.populate({
-// 				path: "homeTeam",
-// 				select: "teamName teamNameShort",
-// 			})
-// 			.populate({
-// 				path: "awayTeam",
-// 				select: "teamName teamNameShort",
-// 			})
-// 			.select("status homeTeam awayTeam division date gameName location")
-// 			.limit(limit)
-// 			.skip(skip);
-
-// 		const totalRecords = await Game.countDocuments(filter);
-
-// 		// Calculate the total number of pages
-// 		const totalPages = Math.ceil(totalRecords / limit);
-
-// 		return NextResponse.json({ allUpcomingGames, totalPages });
-// 	} catch (e) {
-// 		return NextResponse.json(
-// 			{ message: "Internal Server Error" },
-// 			{ status: 500 }
-// 		);
-// 	}
-// };
-
 export const getAllPlayersOfTheWeek = async () => {
 	try {
-		const activeSeason = await Season.find({ active: "true" });
-		{
-		}
-		const allPlayersOfTheWeek = await Game.find({
-			status: true,
-		})
-			.populate("playerOfTheGame")
-			.select("playerOfTheGame");
+		const allPlayersOfTheWeek = await Game.find({ status: true })
+			.populate({
+				path: "playerOfTheGame",
+				select: "playerName jerseyNumber team division averageStats allStats",
+			})
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamNameShort",
+			})
+			.select("homeTeam awayTeam gameName");
+
 		return NextResponse.json({ allPlayersOfTheWeek });
 	} catch (e) {
 		return NextResponse.json(

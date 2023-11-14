@@ -16,9 +16,15 @@ export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 			<h2 className="py-2.5 text-3xl uppercase">players of the week</h2>
 			<hr className="-mx-2 mb-4 border-neutral-600" />
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 lg:grid-cols-4">
-				{featuredPlayers.slice(0, 4).map((player, index) => (
-					<FeaturedPlayerCard player={player.playerOfTheGame} key={index} />
-				))}
+				{featuredPlayers
+					.slice(featuredPlayers.length - 4)
+					.map((player, index) => (
+						<FeaturedPlayerCard
+							player={player.playerOfTheGame}
+							division={player.division.divisionName}
+							key={index}
+						/>
+					))}
 			</div>
 		</section>
 	);
