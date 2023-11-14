@@ -13,7 +13,7 @@ export default async function Players({
 	const { team } = await resTeam.json();
 	// const { team, allAvg } = await resTeam.json();
 
-	console.log(resTeam);
+	console.log(team);
 
 	// const leaders: {
 	// 	points: {
