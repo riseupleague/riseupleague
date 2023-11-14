@@ -45,54 +45,33 @@ export const getAllUpcomingGames = async () => {
 	}
 };
 
-const getGamesForDate = async (date) => {
-	return await Game.find({
-		date: {
-			$gte: addHours(startOfDay(date), 5),
-			$lt: addHours(endOfDay(date), 5),
-		},
-	})
-		.populate({
-			path: "division",
-			select: "divisionName",
-		})
-		.populate({
-			path: "homeTeam",
-			select:
-				"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
-		})
-		.populate({
-			path: "awayTeam",
-			select:
-				"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
-		})
-		.select("status homeTeam awayTeam division date gameName location");
-};
-
-export const getAllUpcomingGamesHeader = async (arrayOfDates) => {
+export const getAllUpcomingGamesHeader = async () => {
 	try {
-		const gamesPromises = arrayOfDates.map((dateString) => {
-			const date = new Date(dateString);
-			return getGamesForDate(date);
-		});
+		const currentDate = new Date();
+		const startOfToday = startOfDay(currentDate);
+		const allGames = await Game.find({
+			status: false,
+			date: { $gte: addHours(startOfToday, 5) }, // Assuming you want to start from 5 am today
+		})
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.populate({
+				path: "awayTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.select("status homeTeam awayTeam division date gameName location");
 
-		const allGames = await Promise.all(gamesPromises);
-		const flattenedGames = allGames.flat();
+		console.log("allUpcomingGames:", allGames);
 
-		const allUpcomingGames = flattenedGames.map((game) => ({
-			...game.toObject(),
-			date: new Date(game.date).toLocaleDateString("en-US", {
-				timeZone: "America/Toronto",
-				weekday: "long",
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			}),
-		}));
-
-		console.log("allUpcomingGames:", allUpcomingGames);
-
-		return NextResponse.json({ allUpcomingGames });
+		return NextResponse.json({ allUpcomingGames: allGames });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },

@@ -51,12 +51,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 	console.log("Next Monday:", formattedNextMonday);
 
-	const resUpcoming = await getAllUpcomingGamesHeader([
-		currentDate,
-		nextSaturday,
-		nextSunday,
-		nextMonday,
-	]);
+	const resUpcoming = await getAllUpcomingGamesHeader();
 	const { allUpcomingGames } = await resUpcoming.json();
 
 	console.log("allUpcomingGames:", allUpcomingGames);

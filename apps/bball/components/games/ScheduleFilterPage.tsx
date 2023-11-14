@@ -1,8 +1,3 @@
-"use client";
-import { NextResponse } from "next/server";
-import { useState } from "react";
-
-import Link from "next/link";
 import CalendarGames from "./CalendarGames";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
@@ -11,10 +6,7 @@ import { Separator } from "@ui/components/separator";
 
 export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
 	// const [showDetails, setShowDetails] = useState(false);
-	const [dateData, setDateData] = useState(null);
-	const [gameSchedule, setGameSchedule] = useState(
-		gamesByDate.length > 0 ? gamesByDate[0] : {}
-	);
+	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
 	console.log(gamesByDate);
 	const date = new Date(linkDate * 1000).toLocaleDateString("en-US", {
 		timeZone: "America/Toronto",

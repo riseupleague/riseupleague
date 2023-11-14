@@ -66,6 +66,10 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 									const dateStr = game.date;
 									const date = new Date(dateStr);
 
+									console.log("dateStr:", dateStr);
+
+									console.log("date:", date);
+
 									// Convert the date to Toronto time
 									torontoTime = date
 										.toLocaleTimeString("en-US", {
@@ -74,6 +78,8 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 											hour12: true,
 										})
 										.replace(/ /g, "\u202F"); // Replace regular spaces with non-breaking spaces
+
+									console.log("torontoTime:", torontoTime);
 								}
 
 								return (
