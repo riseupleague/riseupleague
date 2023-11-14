@@ -178,10 +178,7 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 		// return NextResponse.json({ team, allAvg }, { status: 200 });
 		return NextResponse.json({ team }, { status: 200 });
 	} catch (e) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
+		return NextResponse.json({ e }, { status: 500 });
 	}
 };
 
