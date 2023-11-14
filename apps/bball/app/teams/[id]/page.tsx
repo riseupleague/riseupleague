@@ -9,8 +9,10 @@ export default async function Players({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	const { id } = params; // Destructure the 'id' property from 'params'
-	// const resTeam = await getTeamAllAvgFromId(id);
+	const resTeam = await getTeamAllAvgFromId(id);
 	// const { team, allAvg } = await resTeam.json();
+
+	console.log(resTeam.status);
 
 	// const leaders: {
 	// 	points: {
