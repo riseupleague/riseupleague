@@ -22,7 +22,7 @@ export default function Page(): JSX.Element {
 			{/* <MVPLadder /> */}
 			<Socials />
 			<FAQs />
-			<ContactUs />
+			{/* <ContactUs /> */}
 			<HomeRegister />
 		</div>
 	);
