@@ -50,49 +50,49 @@ export default async function Players({
 			id: string;
 		};
 	} = {
-		points: { name: "", jerseyNumber: 0, stats: { points: 0 }, id: "" }, // Initialize 'id'
-		rebounds: { name: "", jerseyNumber: 0, stats: { rebounds: 0 }, id: "" }, // Initialize 'id'
-		assists: { name: "", jerseyNumber: 0, stats: { assists: 0 }, id: "" }, // Initialize 'id'
-		blocks: { name: "", jerseyNumber: 0, stats: { blocks: 0 }, id: "" }, // Initialize 'id'
-		steals: { name: "", jerseyNumber: 0, stats: { steals: 0 }, id: "" }, // Initialize 'id'
-		threesMade: { name: "", jerseyNumber: 0, stats: { threesMade: 0 }, id: "" }, // Initialize 'id'
+		points: { name: "", jerseyNumber: 0, stats: { points: 0 }, id: "" },
+		rebounds: { name: "", jerseyNumber: 0, stats: { rebounds: 0 }, id: "" },
+		assists: { name: "", jerseyNumber: 0, stats: { assists: 0 }, id: "" },
+		blocks: { name: "", jerseyNumber: 0, stats: { blocks: 0 }, id: "" },
+		steals: { name: "", jerseyNumber: 0, stats: { steals: 0 }, id: "" },
+		threesMade: { name: "", jerseyNumber: 0, stats: { threesMade: 0 }, id: "" },
 	};
 
 	if (team?.players.length > 0) {
 		team?.players.forEach((player) => {
 			if (player.allStats.length > 0) {
 				const playerStats = player.averageStats;
-				if (playerStats.points > leaders.points.stats.points) {
+				if (playerStats?.points > leaders.points.stats.points) {
 					leaders.points.name = player.playerName;
 					leaders.points.jerseyNumber = player.jerseyNumber;
 					leaders.points.stats = playerStats;
 					leaders.points.id = player._id;
 				}
-				if (playerStats.rebounds > leaders.rebounds.stats.rebounds) {
+				if (playerStats?.rebounds > leaders.rebounds.stats.rebounds) {
 					leaders.rebounds.name = player.playerName;
 					leaders.rebounds.jerseyNumber = player.jerseyNumber;
 					leaders.rebounds.stats = playerStats;
 					leaders.rebounds.id = player._id;
 				}
-				if (playerStats.assists > leaders.assists.stats.assists) {
+				if (playerStats?.assists > leaders.assists.stats.assists) {
 					leaders.assists.name = player.playerName;
 					leaders.assists.jerseyNumber = player.jerseyNumber;
 					leaders.assists.stats = playerStats;
 					leaders.assists.id = player._id;
 				}
-				if (playerStats.blocks > leaders.blocks.stats.blocks) {
+				if (playerStats?.blocks > leaders.blocks.stats.blocks) {
 					leaders.blocks.name = player.playerName;
 					leaders.blocks.jerseyNumber = player.jerseyNumber;
 					leaders.blocks.stats = playerStats;
 					leaders.blocks.id = player._id;
 				}
-				if (playerStats.steals > leaders.steals.stats.steals) {
+				if (playerStats?.steals > leaders.steals.stats.steals) {
 					leaders.steals.name = player.playerName;
 					leaders.steals.jerseyNumber = player.jerseyNumber;
 					leaders.steals.stats = playerStats;
 					leaders.steals.id = player._id;
 				}
-				if (playerStats.threesMade > leaders.threesMade.stats.threesMade) {
+				if (playerStats?.threesMade > leaders.threesMade.stats.threesMade) {
 					leaders.threesMade.name = player.playerName;
 					leaders.threesMade.jerseyNumber = player.jerseyNumber;
 					leaders.threesMade.stats = playerStats;
