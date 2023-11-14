@@ -54,8 +54,6 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	const resUpcoming = await getAllUpcomingGamesHeader();
 	const { allUpcomingGames } = await resUpcoming.json();
 
-	console.log("allUpcomingGames:", allUpcomingGames);
-
 	const allGames = [...allUpcomingGames];
 	const separatedGames = [];
 

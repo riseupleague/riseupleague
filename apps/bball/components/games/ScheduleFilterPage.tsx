@@ -7,15 +7,12 @@ import { Separator } from "@ui/components/separator";
 export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
 	// const [showDetails, setShowDetails] = useState(false);
 	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
-	console.log(gamesByDate);
 	const date = new Date(linkDate * 1000).toLocaleDateString("en-US", {
 		timeZone: "America/Toronto",
 		month: "short",
 		day: "2-digit",
 		weekday: "long",
 	});
-
-	console.log("date:", date);
 
 	return (
 		<div className="relative ">

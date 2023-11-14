@@ -13,7 +13,6 @@ export default async function Schedule({
 
 	const resAllUpcomingGames = await getGamesByDate(id);
 	const { gamesByDate } = await resAllUpcomingGames.json();
-	console.log(gamesByDate);
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			<ScheduleFilterPage gamesByDate={gamesByDate} linkDate={id} />

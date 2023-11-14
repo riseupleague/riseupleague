@@ -24,7 +24,7 @@ export default function ScheduleCard({ game }) {
 				{/* home team */}
 				<Link
 					href={`/teams/${game.homeTeam._id}`}
-					className="flex flex-col gap-[10px] p-4"
+					className="flex flex-col items-center gap-[10px] p-4"
 				>
 					<TeamLogo
 						primary={game.homeTeam.primaryColor}
@@ -35,9 +35,16 @@ export default function ScheduleCard({ game }) {
 						circleHeight={4}
 						circleWidth={4}
 					/>
-					<span className="font-barlow text-sm transition hover:opacity-80 lg:text-lg">
+					<span className="font-barlow text-center text-sm transition hover:opacity-80 ">
 						{game.homeTeam.teamName}
 					</span>
+					<p
+						className={`text-3xl ${
+							game.homeTeamScore > game.awayTeamScore ? "text-primary" : ""
+						}`}
+					>
+						{game.homeTeamScore}
+					</p>
 				</Link>
 
 				{/* division / time / location */}
@@ -47,11 +54,14 @@ export default function ScheduleCard({ game }) {
 							{game.division.divisionName}
 						</p>
 					</div>
-					<p className="mb-3 text-[31px]">{time}</p>
+					<p className="mb-3 text-[31px]">{game.status ? "Final" : time}</p>
 				</div>
 
 				{/* away team */}
-				<div className="flex flex-col items-end gap-[10px] p-4">
+				<Link
+					href={`/teams/${game.awayTeam?._id}`}
+					className="flex flex-col items-center gap-[10px] p-4"
+				>
 					<TeamLogo
 						primary={game.awayTeam.primaryColor}
 						secondary={game.awayTeam.secondaryColor}
@@ -61,13 +71,17 @@ export default function ScheduleCard({ game }) {
 						circleHeight={4}
 						circleWidth={4}
 					/>
-					<Link
-						href={`/teams/${game.awayTeam?._id}`}
-						className="font-barlow text-right text-sm transition hover:opacity-80 lg:text-lg"
-					>
+					<span className="font-barlow text-center text-sm transition hover:opacity-80">
 						{game.awayTeam?.teamName}
-					</Link>
-				</div>
+					</span>
+					<p
+						className={`text-3xl ${
+							game.awayTeamScore > game.homeTeamScore ? "text-primary" : ""
+						}`}
+					>
+						{game.awayTeamScore}
+					</p>
+				</Link>
 			</div>
 			<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
 				<div className="translate-y-[1px]">

@@ -3,6 +3,7 @@ import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 import { parse, startOfDay, endOfDay, addHours } from "date-fns";
+import { Limelight } from "next/font/google";
 
 export const getAllUpcomingGames = async () => {
 	try {
@@ -51,7 +52,7 @@ export const getAllUpcomingGamesHeader = async () => {
 		const startOfToday = startOfDay(currentDate);
 		const allGames = await Game.find({
 			status: false,
-			date: { $gte: addHours(startOfToday, 5) }, // Assuming you want to start from 5 am today
+			date: { $gte: addHours(startOfToday, 5) },
 		})
 			.populate({
 				path: "division",
@@ -67,10 +68,7 @@ export const getAllUpcomingGamesHeader = async () => {
 				select:
 					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
 			})
-			.select("status homeTeam awayTeam division date gameName location")
-			.limit(20);
-
-		console.log("allUpcomingGames:", allGames);
+			.select("status homeTeam awayTeam division date gameName location");
 
 		return NextResponse.json({ allUpcomingGames: allGames });
 	} catch (e) {
@@ -91,29 +89,43 @@ export const getAllPastGames = async () => {
 			})
 			.populate({
 				path: "homeTeam",
-				select: "teamName teamNameShort",
+				select:
+					"teamName teamNameShort teamBanner wins losses primaryColor secondaryColor tertiaryColor",
 			})
 			.populate({
 				path: "awayTeam",
-				select: "teamName teamNameShort",
+				select:
+					"teamName teamNameShort teamBanner wins losses primaryColor secondaryColor tertiaryColor",
+			})
+			.populate({
+				path: "players",
+				populate: {
+					path: "team",
+					select: "teamName",
+				},
+				options: { lean: true }, // Add this option to make players object plain JavaScript objects
+			})
+			.populate({
+				path: "playerOfTheGame",
+				populate: [
+					{
+						path: "division",
+						select: "divisionName",
+					},
+					{
+						path: "team",
+						select: "teamName  primaryColor secondaryColor tertiaryColor",
+					},
+				],
 			})
 			.select(
-				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
+				"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore playerOfTheGame location"
 			)
-			// .sort({ date: -1 }) // Sort by date in descending order (most recent first)
-			.limit(12);
+			.sort({ date: -1 })
+			.limit(4)
+			.lean();
 
-		const allPastGames = games.map((game) => ({
-			...game.toObject(), // Convert the Mongoose document to a plain JavaScript object
-			date: new Date(game.date).toLocaleDateString("en-US", {
-				timeZone: "America/Toronto",
-				weekday: "long",
-				year: "numeric",
-				month: "long",
-				day: "numeric",
-			}),
-		}));
-		return NextResponse.json({ allPastGames });
+		return NextResponse.json({ games });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
@@ -201,7 +213,6 @@ export const getGamesByDate = async (selectedDate) => {
 		// });
 
 		const date = new Date(selectedDate * 1000);
-		console.log("date:", date);
 		// Filter games by the date
 		const games = await Game.find({
 			date: {
@@ -215,16 +226,17 @@ export const getGamesByDate = async (selectedDate) => {
 			})
 			.populate({
 				path: "homeTeam",
-				select: "teamName teamNameShort wins losses",
+				select:
+					"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
 			})
 			.populate({
 				path: "awayTeam",
-				select: "teamName teamNameShort wins losses",
+				select:
+					"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
 			})
 			.select(
 				"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location"
 			);
-		console.log("games:", games);
 
 		const gamesByDate =
 			games &&
@@ -252,8 +264,6 @@ export const getGamesByDate = async (selectedDate) => {
 				return timeA - timeB;
 			});
 		});
-
-		console.log("gamesByDate:", gamesByDate);
 
 		// Return the gamesByDate as the response
 		return NextResponse.json({ gamesByDate });
@@ -328,21 +338,21 @@ export const getGameById = async (id) => {
 	}
 };
 
-export const getAllPlayersOfTheWeek = async () => {
-	try {
-		const activeSeason = await Season.find({ active: "true" });
-		{
-		}
-		const allPlayersOfTheWeek = await Game.find({
-			status: true,
-		})
-			.populate("playerOfTheGame")
-			.select("playerOfTheGame");
-		return NextResponse.json({ allPlayersOfTheWeek });
-	} catch (e) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
+// export const getAllPlayersOfTheWeek = async () => {
+// 	try {
+// 		const activeSeason = await Season.find({ active: "true" });
+// 		{
+// 		}
+// 		const allPlayersOfTheWeek = await Game.find({
+// 			status: true,
+// 		})
+// 			.populate("playerOfTheGame")
+// 			.select("playerOfTheGame");
+// 		return NextResponse.json({ allPlayersOfTheWeek });
+// 	} catch (e) {
+// 		return NextResponse.json(
+// 			{ message: "Internal Server Error" },
+// 			{ status: 500 }
+// 		);
+// 	}
+// };
