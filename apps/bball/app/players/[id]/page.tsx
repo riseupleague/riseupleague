@@ -28,7 +28,7 @@ export default async function Players({
 					| <span className="font-barlow">#{player?.jerseyNumber}</span>
 				</div>
 			</div>
-			{player && <PlayerSections player={player} allAvg={allAvg} />}
+			{/* <PlayerSections player={player} allAvg={allAvg} /> */}
 		</section>
 	);
 }

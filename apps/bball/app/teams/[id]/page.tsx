@@ -114,7 +114,7 @@ export default async function Players({
 					</Link>{" "}
 				</div>
 			</div>
-			<TeamSections team={team} allAvg={allAvg} />
+			{/* <TeamSections team={team} allAvg={allAvg} /> */}
 		</section>
 	);
 }
