@@ -18,7 +18,10 @@ import ProfileLink from "@/components/auth/ProfileLink";
 export default function PrimaryHeader(): React.JSX.Element {
 	const path = usePathname();
 	const router = useRouter(); // Initialize the router
+	const currentDate = new Date();
 
+	// Convert the date to seconds
+	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
 	const headerOptions = [
 		{
 			label: "home",
@@ -50,7 +53,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 		},
 		{
 			label: "schedule",
-			href: "/games",
+			href: `/schedule/${currentDateInSeconds}`,
 			icon: (
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

@@ -7,8 +7,11 @@ export default function AboutRiseUp(): JSX.Element {
 			<h2 className="py-2.5 text-3xl uppercase">about rise up</h2>
 			<hr className="-mx-2 border-neutral-600" />
 			<p className="py-4 text-neutral-200">
-				Lorem ipsum dolor sit amet consectetur. Dis ut iaculis ornare tellus. In
-				molestie tincidunt purus in.
+				Rise Up is a basketball league that welcomes players of all levels. Our
+				focus on teamwork, sportsmanship, and community brings people together
+				to celebrate their love of the game. Whether you&apos;re a seasoned pro
+				or new to the sport, Rise Up has something for everyone. Join us today
+				and experience the excitement of Rise Up basketball!
 			</p>
 			<div>
 				<Link href="/">
