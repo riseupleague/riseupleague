@@ -80,8 +80,6 @@ export const getAllUpcomingGamesHeader = async () => {
 };
 export const getAllPastGames = async () => {
 	try {
-		// const activeSeason = await Season.find({ active: "true" });
-
 		const games = await Game.find({ status: true })
 			.populate({
 				path: "division",

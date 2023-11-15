@@ -87,8 +87,8 @@ export default function ScheduleCard({ game }) {
 				<div className="translate-y-[1px]">
 					<LocationMarker />
 				</div>
-				<p className="text-neutral-400">{game.location}</p>
 			</div>
+
 			{/* preview/summary button */}
 			<div className="flex p-4">
 				<Link href={`/games/preview/${game._id}`} className="w-full">

@@ -177,7 +177,7 @@ export default function PlayerGrid({
 				{/* Pagination Controls */}
 
 				{totalPages > 1 && (
-					<div className="flex space-x-6">
+					<div className="font-barlow flex space-x-6 text-xl">
 						<div>
 							<select
 								value={page}

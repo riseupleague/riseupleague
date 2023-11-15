@@ -2,15 +2,15 @@
 
 import React from "react";
 import BarChart from "./BarChart";
-
 import PointsCircle from "./PointsCircle";
 import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
+
 const AverageStatistics = ({ player, allAvg }) => {
 	return (
-		<div>
+		<div className="font-barlow">
 			<div
 				style={{ borderColor: "#282828" }}
-				className="mb-10 flex items-center justify-between border-b pb-5 pt-10 "
+				className="mb-10 flex items-center justify-between border-b pb-5 pt-10"
 			>
 				<h2 className="font-barlow text-2xl font-semibold  text-white ">
 					Average Statistics
