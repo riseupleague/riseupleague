@@ -7,7 +7,6 @@ import { utcToZonedTime } from "date-fns-tz";
 
 export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
-<<<<<<< HEAD
 
 	// const isoDate = game.date;
 
@@ -21,8 +20,6 @@ export default function ScheduleCard({ game }) {
 	// 	})
 	// 	.replace(/\u202f/, " ");
 
-=======
->>>>>>> c3c2c95b3ce6d44af1ba94bd8d3cb9edf5cddafe
 	const isoDate = game.date;
 	const date = new Date(isoDate);
 
