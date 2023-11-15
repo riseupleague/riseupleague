@@ -29,7 +29,9 @@ export default async function JoinTeam({
 
 	if (player) {
 		if (player.paid) {
-			redirect(`/`);
+			if (player.division === params.id) {
+				redirect(`/`);
+			}
 		}
 	}
 

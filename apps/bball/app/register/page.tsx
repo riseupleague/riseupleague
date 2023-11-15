@@ -27,8 +27,6 @@ export default async function Register({
 				} else {
 					redirect(`/register/join-team/${player.division}`);
 				}
-			} else {
-				redirect(`/`);
 			}
 		}
 	}

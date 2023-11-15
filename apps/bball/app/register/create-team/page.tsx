@@ -24,9 +24,15 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { player } = await resPlayer.json();
+	console.log("player:", player);
+
+	let filteredDivisions = [...divisions];
+
 	if (player) {
-		if (player.paid) {
-			redirect(`/`);
+		if (player.paid === true) {
+			filteredDivisions = filteredDivisions.filter(
+				(division) => division._id !== player.division
+			);
 		}
 	}
 	return (
@@ -61,7 +67,7 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 			<div className="mt-10 flex flex-col gap-10 ">
 				<Accordion type="single" collapsible className="w-full">
-					{divisions.map((division, index) => {
+					{filteredDivisions.map((division, index) => {
 						return (
 							<AccordionItem
 								key={division.divisionName}

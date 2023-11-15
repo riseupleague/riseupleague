@@ -28,7 +28,9 @@ export default function HomeRegister() {
 						Register Now
 					</Button>
 				) : (
-					<Link href="/register">Register Now</Link>
+					<Link href="/register" className="w-full">
+						<Button className="w-full">Register Now</Button>
+					</Link>
 				)}
 			</div>
 			<SignInDialog open={open} onOpenChange={setOpen} />

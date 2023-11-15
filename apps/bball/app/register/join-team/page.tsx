@@ -1,5 +1,7 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
+import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+
 import Link from "next/link";
 import {
 	Accordion,
@@ -19,6 +21,20 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	if (!session || !session.user) {
 		redirect("/");
 	}
+
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { player } = await resPlayer.json();
+	console.log("player:", player);
+	let filteredDivisions = [...divisions];
+
+	if (player) {
+		if (player.paid === true) {
+			filteredDivisions = filteredDivisions.filter(
+				(division) => division._id !== player.division
+			);
+		}
+	}
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
@@ -50,7 +66,7 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 			<div className="mt-10 flex flex-col gap-10 ">
 				<Accordion type="single" collapsible className="w-full">
-					{divisions.map((division, index) => {
+					{filteredDivisions.map((division, index) => {
 						return (
 							<AccordionItem
 								key={division.divisionName}
