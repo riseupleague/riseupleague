@@ -107,7 +107,6 @@ const CalendarGames = ({ linkDate }) => {
 				const currentDateInSeconds = Math.floor(cloneDay.getTime() / 1000);
 				const isLinkDate =
 					Number(linkDate) === currentDateInSeconds ? true : false;
-				console.log(isLinkDate, currentDateInSeconds, Number(linkDate));
 				days.push(
 					<Link
 						href={`/schedule/${currentDateInSeconds}`}
@@ -115,10 +114,10 @@ const CalendarGames = ({ linkDate }) => {
 							isSameDay(day, new Date())
 								? "bg-gray-900 text-white"
 								: isSameDay(day, selectedDate)
-								? "text-primary" // Add "text-primary" class when selectedDate matches
-								: isLinkDate
-								? "text-primary" // Add "text-primary" class when linkDate matches
-								: "text-white"
+								  ? "text-primary" // Add "text-primary" class when selectedDate matches
+								  : isLinkDate
+								    ? "text-primary" // Add "text-primary" class when linkDate matches
+								    : "text-white"
 						}`}
 						// onClick={() => {
 						// 	const dayStr = format(cloneDay, "ccc dd MMM yy");

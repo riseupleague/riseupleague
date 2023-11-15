@@ -66,7 +66,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 	});
 	const [formErrors, setFormErrors] = useState<FormErrors>({});
 
-	console.log("team:", team);
 	const validateForm = (): FormErrors => {
 		const errors: FormErrors = {};
 
@@ -112,7 +111,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 		e.preventDefault();
 		const errors = validateForm();
 
-		console.log(errors);
 		if (Object.keys(errors).length === 0) {
 			setIsSummary(true);
 			window.scrollTo({
@@ -131,8 +129,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 	const handleShortSize = (value: string) => {
 		setFormData({ ...formData, shortSize: value });
 	};
-
-	console.log(division, team);
 
 	const handleCreateTeamAndPlayer = async (
 		itemPriceId: string,
@@ -173,12 +169,10 @@ export default function CustomizeTeam({ division, session, player, team }) {
 		try {
 			let resTeam;
 
-			console.log(team);
 			const dontDeleteTeam = division.teams.find(
 				(paidTeam) => paidTeam._id === team._id
 			);
 			if (!team) {
-				console.log("!team");
 				resTeam = await fetch("/api/register-team", {
 					method: "POST",
 					headers: {
@@ -187,11 +181,7 @@ export default function CustomizeTeam({ division, session, player, team }) {
 					body: JSON.stringify(teamObject),
 				});
 			} else {
-				console.log("team");
-
 				if (dontDeleteTeam && dontDeleteTeam.paid === true) {
-					console.log("dontDeleteTeam");
-
 					resTeam = await fetch("/api/register-team", {
 						method: "POST",
 						headers: {
@@ -200,8 +190,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 						body: JSON.stringify(teamObject),
 					});
 				} else {
-					console.log("!dontDeleteTeam");
-
 					resTeam = await fetch("/api/register-team", {
 						method: "PATCH",
 						headers: {
@@ -213,10 +201,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 			}
 
 			const newTeam = await resTeam.json();
-			console.log("Team created:", newTeam);
-
-			console.log(dontDeleteTeam);
-
 			const playerObject = {
 				jerseyNumber,
 				jerseySize,
@@ -233,9 +217,7 @@ export default function CustomizeTeam({ division, session, player, team }) {
 				status: "createTeam",
 			};
 			let resPlayer;
-			console.log("player:", player);
 			if (player) {
-				console.log("hello");
 				resPlayer = await fetch("/api/register-player", {
 					method: "PATCH",
 					headers: {
@@ -244,8 +226,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 					body: JSON.stringify(playerObject),
 				});
 			} else {
-				console.log("hi");
-
 				resPlayer = await fetch("/api/register-player", {
 					method: "POST",
 					headers: {
@@ -255,8 +235,6 @@ export default function CustomizeTeam({ division, session, player, team }) {
 				});
 			}
 			const newPlayer = await resPlayer.json();
-			console.log("Player created:", newPlayer);
-
 			const formObject = {
 				status: "createTeam",
 				playerId: newPlayer.player._id,

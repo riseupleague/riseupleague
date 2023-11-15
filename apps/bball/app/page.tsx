@@ -24,7 +24,6 @@ export default async function Page(): Promise<JSX.Element> {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
-
 			<Hero />
 			{/* 
 			<FeaturedSponsors />

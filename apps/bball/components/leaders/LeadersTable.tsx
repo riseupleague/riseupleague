@@ -12,7 +12,7 @@ import {
 	TableRow,
 } from "@ui/components/ui/table";
 
-export default function StandingsTable({ divisions }) {
+export default function LeadersTable({ divisions }) {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
 	const divisionsNameAndId = divisions.map((division) => {
 		return {

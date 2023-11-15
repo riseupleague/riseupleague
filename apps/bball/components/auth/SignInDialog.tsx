@@ -60,14 +60,10 @@ const SignInDialog = ({ open, onOpenChange }) => {
 
 			const { user } = await res.json();
 
-			console.log(user);
-
 			if (user) {
-				console.log("type password");
 				setIsPassword(true);
 			} else {
 				const regex = /@gmail/i;
-				console.log("create account");
 
 				if (regex.test(email)) {
 					setIsEmail(false);
@@ -83,8 +79,6 @@ const SignInDialog = ({ open, onOpenChange }) => {
 
 	const handleCreateAccountWithEmail = async (event: React.FormEvent) => {
 		event.preventDefault();
-
-		console.log(registerName, registerPassword, email);
 
 		if (registerName && registerPassword && email) {
 			const res = await fetch("/api/register", {

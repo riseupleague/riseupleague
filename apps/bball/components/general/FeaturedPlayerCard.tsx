@@ -8,7 +8,6 @@ import { Button } from "@ui/components/button";
 import TeamLogo from "./icons/TeamLogo";
 
 export default function FeaturedPlayerCard({ player }) {
-	console.log(player);
 	let badges = new Array(5).fill("");
 
 	// get and sort average stats

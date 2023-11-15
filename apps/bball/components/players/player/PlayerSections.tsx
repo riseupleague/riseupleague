@@ -6,18 +6,18 @@ import PreviousGames from "@/components/players/player/PreviousGames";
 import Overview from "@/components/players/player/Overview";
 
 export default function PlayerSections({ player, allAvg }) {
-	const [selectedSection, setSelectedSection] = useState("overview"); // Set the default selected section
+	const [selectedSection, setSelectedSection] = useState("stats");
 
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
 
 	const playerNav = [
-		{
-			id: "overview",
-			label: "Overview",
-			component: <Overview player={player} />,
-		},
+		// {
+		// 	id: "overview",
+		// 	label: "Overview",
+		// 	component: <Overview player={player} />,
+		// },
 		{
 			id: "stats",
 			label: "Stats",

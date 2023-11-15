@@ -20,7 +20,6 @@ export default async function JoinTeam({
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { player } = await resPlayer.json();
-	console.log(player);
 
 	if (player) {
 		if (player.paid) {

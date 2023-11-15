@@ -42,6 +42,13 @@ export default function Footer(): React.JSX.Element {
 							{option.links.map((link, index) => {
 								const isActive = path === link.href;
 
+								if (
+									link.label === "career" ||
+									link.label === "about us" ||
+									link.label === "contact us"
+								)
+									return;
+
 								return (
 									<Link
 										href={link.href}
@@ -60,7 +67,7 @@ export default function Footer(): React.JSX.Element {
 			</section>
 
 			{/* newsletter */}
-			<section className="font-barlow flex flex-col items-center text-center">
+			{/* <section className="font-barlow flex flex-col items-center text-center">
 				<div className="font-barlow flex max-w-[300px] flex-col items-center gap-5 text-center">
 					<h3 className="text-primary text-xl uppercase">
 						subscribe to our newsletter
@@ -70,7 +77,7 @@ export default function Footer(): React.JSX.Element {
 						its community.
 					</p>
 				</div>
-			</section>
+			</section> */}
 		</footer>
 	);
 }

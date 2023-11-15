@@ -14,7 +14,9 @@
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"clean:cache": "rm -rf package-lock.json node_modules apps/*/package-lock.json apps/*/node_modules apps/*/.next packages/*/node_modules",
 		"fresh": "npm run clean:cache && npm i && npm run format",
-		"fresh:start": "npm run fresh && npm run dev"
+		"fresh:start": "npm run fresh && npm run dev",
+		"fresh:start:bball": "npm run fresh && npm run dev:bball",
+		"fresh:start:admin": "npm run fresh && npm run dev:admin"
 	},
 	"devDependencies": {
 		"@turbo/gen": "^1.9.7",

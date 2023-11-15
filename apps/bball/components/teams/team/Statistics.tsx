@@ -7,7 +7,7 @@ import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
 
 const Statistics = ({ team, allAvg }) => {
 	return (
-		<div>
+		<div className="font-barlow">
 			<div
 				style={{ borderColor: "#282828" }}
 				className="mb-10 flex items-center justify-between border-b pb-5 pt-10 "
@@ -73,9 +73,9 @@ const Statistics = ({ team, allAvg }) => {
 						style={{ borderColor: "#292929" }}
 					>
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
-							{team?.averageStats.rebounds.toFixed(1)}
+							{team?.averageStats?.rebounds?.toFixed(1)}
 							<span className="absolute">
-								{team?.averageStats.rebounds > allAvg.rebounds && (
+								{team?.averageStats.rebounds?.toFixed(1) > allAvg.rebounds && (
 									<ChevronUpIcon />
 								)}
 							</span>

@@ -114,7 +114,7 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 				populate: [
 					{
 						path: "homeTeam",
-						select: "teamName teamNameShort  wins losses",
+						select: "teamName teamNameShort wins losses",
 					},
 					{
 						path: "awayTeam",
@@ -128,7 +128,7 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 			})
 			.populate({
 				path: "seasonStatistics.game",
-				select: "gameName homeTeamScore awayTeamScore homeTeam awayTeam",
+				select: "gameName homeTeamScore awayTeamScore status homeTeam awayTeam",
 				populate: [
 					{
 						path: "homeTeam",
@@ -177,10 +177,7 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 
 		return NextResponse.json({ team, allAvg }, { status: 200 });
 	} catch (e) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
+		return NextResponse.json({ message: e }, { status: 500 });
 	}
 };
 
