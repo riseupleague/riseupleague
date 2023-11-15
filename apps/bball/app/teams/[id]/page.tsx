@@ -13,7 +13,7 @@ export default async function Players({
 
 	const { id } = params; // Destructure the 'id' property from 'params'
 	const resTeam = await getTeamAllAvgFromId(id);
-	const { team } = await resTeam.json();
+	const { team, allAvg } = await resTeam.json();
 
 	const leaders: {
 		points: {
@@ -113,7 +113,7 @@ export default async function Players({
 					{/* {id} */}
 				</h1>
 			</div>
-			<TeamSections team={team} allAvg={team.averageStats} />
+			<TeamSections team={team} allAvg={allAvg} />
 		</section>
 	);
 }

@@ -5,7 +5,7 @@ export default function LeagueRules(): JSX.Element {
 				league rules
 			</h1>
 
-			<div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+			<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
 				<div className="font-barlow">
 					<h2 className="text-3xl uppercase">fiba game format</h2>
 					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">

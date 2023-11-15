@@ -102,6 +102,7 @@ export const getPlayerAllAvgFromId = async (playerId: string) => {
 			steals: avgStats.steals / players.length,
 			blocks: avgStats.blocks / players.length,
 		};
+
 		return NextResponse.json({ player, allAvg }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json(
