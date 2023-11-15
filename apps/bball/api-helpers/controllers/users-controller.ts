@@ -66,15 +66,11 @@ export const getUserPlayerPayment = async (email: string) => {
 				select: "teamName",
 			},
 		});
-		const selectedPlayer = user.basketball.find((player) => {
-			return player.season._id.toString() === season._id.toString();
-		});
 
-		if (selectedPlayer) {
-			return NextResponse.json({ player: selectedPlayer });
-		} else {
-			return NextResponse.json({ message: "No player found" }, { status: 404 });
-		}
+		return NextResponse.json({
+			players: user.basketball,
+			season: season._id.toString(),
+		});
 	} catch (error) {
 		console.error("Error:", error);
 		return NextResponse.json(

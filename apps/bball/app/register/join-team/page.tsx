@@ -23,17 +23,14 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	}
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { player } = await resPlayer.json();
-	console.log("player:", player);
+	const { players, season } = await resPlayer.json();
+	console.log("players:", players);
 	let filteredDivisions = [...divisions];
 
-	if (player) {
-		if (player.paid === true) {
-			filteredDivisions = filteredDivisions.filter(
-				(division) => division._id !== player.division
-			);
-		}
-	}
+	filteredDivisions = filteredDivisions.filter((division) => {
+		// Check if every players division is not equal to the current division
+		return players.every((player) => player.division !== division._id);
+	});
 
 	console.log("divisions:", divisions);
 

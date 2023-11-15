@@ -23,18 +23,17 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	}
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { player } = await resPlayer.json();
-	console.log("player:", player);
+	const { players, season } = await resPlayer.json();
+	console.log("player:", players);
 
 	let filteredDivisions = [...divisions];
 
-	if (player) {
-		if (player.paid === true) {
-			filteredDivisions = filteredDivisions.filter(
-				(division) => division._id !== player.division
-			);
-		}
-	}
+	filteredDivisions = filteredDivisions.filter((division) => {
+		// Check if every players division is not equal to the current division
+		return players.every((player) => player.division !== division._id);
+	});
+
+	console.log("Filtered Divisions:", filteredDivisions);
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">

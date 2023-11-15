@@ -16,14 +16,16 @@ export default async function Register({
 	const { back } = searchParams;
 	if (!back) {
 		const resPlayer = await getUserPlayerPayment(session.user.email);
-		const { player } = await resPlayer.json();
-
-		if (player) {
-			if (player.paid === false) {
-				if (player.teamCaptain) {
-					redirect(`/register/create-team/${player.division}`);
+		const { players, season } = await resPlayer.json();
+		const selectedPlayer = players.find((player) => {
+			return player.season === season;
+		});
+		if (selectedPlayer) {
+			if (selectedPlayer.paid === false) {
+				if (selectedPlayer.teamCaptain) {
+					redirect(`/register/create-team/${selectedPlayer.division}`);
 				} else {
-					redirect(`/register/join-team/${player.division}`);
+					redirect(`/register/join-team/${selectedPlayer.division}`);
 				}
 			}
 		}

@@ -22,11 +22,14 @@ export default async function JoinTeam({
 	const newDivision = { ...division, teams: paidTeams };
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { player } = await resPlayer.json();
-
-	if (player) {
-		if (player.paid) {
-			if (player.division === params.id) {
+	const { players, season } = await resPlayer.json();
+	const selectedPlayer = players.find((player) => {
+		console.log(player, season);
+		return player.season === season;
+	});
+	if (selectedPlayer) {
+		if (selectedPlayer.paid) {
+			if (selectedPlayer.division === params.id) {
 				redirect(`/`);
 			}
 		}
@@ -41,8 +44,8 @@ export default async function JoinTeam({
 			<ChooseTeam
 				division={newDivision}
 				session={session}
-				player={player ? player : false}
-				userTeam={player?.team ? player.team._id : false}
+				player={selectedPlayer ? selectedPlayer : false}
+				userTeam={selectedPlayer?.team ? selectedPlayer.team._id : false}
 			/>
 		</main>
 	);
