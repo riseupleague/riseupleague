@@ -34,9 +34,7 @@ const authOptions = {
 					}
 
 					return user;
-				} catch (error) {
-					console.log("Error:", error);
-				}
+				} catch (error) {}
 				const user = { id: "1" };
 				return user;
 			},
@@ -58,10 +56,8 @@ const authOptions = {
 				try {
 					const userExists = await User.findOne({ email, type: "google" });
 
-					console.log("userExists:", userExists);
 					if (!userExists) {
 						const newUser = await addNewUser(name, email, "google");
-						console.log("newUser:", newUser);
 					}
 				} catch (e) {}
 			}

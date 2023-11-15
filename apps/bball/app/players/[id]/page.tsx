@@ -1,4 +1,5 @@
 import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
+import { connectToDatabase } from "@/api-helpers/utils";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PlayerSections from "@/components/players/player/PlayerSections";
 import PreviousGames from "@/components/players/player/PreviousGames";
@@ -9,9 +10,11 @@ export default async function Players({
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
+	await connectToDatabase();
+
 	const { id } = params; // Destructure the 'id' property from 'params'
 	const resPlayer = await getPlayerAllAvgFromId(id);
-	const { player, allAvg } = await resPlayer.json();
+	const { player } = await resPlayer.json();
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
@@ -28,7 +31,7 @@ export default async function Players({
 					| <span className="font-barlow">#{player?.jerseyNumber}</span>
 				</div>
 			</div>
-			{/* <PlayerSections player={player} allAvg={allAvg} /> */}
+			<PlayerSections player={player} allAvg={player.averageStats} />
 		</section>
 	);
 }

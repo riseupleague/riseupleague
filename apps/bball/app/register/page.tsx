@@ -10,7 +10,6 @@ export default async function Register({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	const session = await getServerSession();
-	console.log("searchParams:", searchParams);
 	if (!session || !session.user) {
 		redirect("/");
 	}
@@ -18,10 +17,9 @@ export default async function Register({
 	if (!back) {
 		const resPlayer = await getUserPlayerPayment(session.user.email);
 		const { player } = await resPlayer.json();
-		console.log("player:", player);
+
 		if (player) {
 			if (player.paid === false) {
-				console.log("player:", player);
 				if (player.teamCaptain) {
 					redirect(`/register/create-team/${player.division}`);
 				} else {

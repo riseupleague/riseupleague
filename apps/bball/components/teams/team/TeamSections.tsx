@@ -21,7 +21,7 @@ export default function TeamSections({ team, allAvg }) {
 		{
 			id: "stats",
 			label: "Stats",
-			component: <Statistics team={team} allAvg={allAvg} />,
+			component: <Statistics team={team} allAvg={team.averageStats} />,
 		},
 		{
 			id: "previousGames",

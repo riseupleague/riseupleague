@@ -107,7 +107,6 @@ const CalendarGames = ({ linkDate }) => {
 				const currentDateInSeconds = Math.floor(cloneDay.getTime() / 1000);
 				const isLinkDate =
 					Number(linkDate) === currentDateInSeconds ? true : false;
-				console.log(isLinkDate, currentDateInSeconds, Number(linkDate));
 				days.push(
 					<Link
 						href={`/schedule/${currentDateInSeconds}`}
