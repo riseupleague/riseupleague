@@ -78,6 +78,7 @@ export const getAllUpcomingGamesHeader = async () => {
 		);
 	}
 };
+
 export const getAllPastGames = async () => {
 	try {
 		const games = await Game.find({ status: true })
