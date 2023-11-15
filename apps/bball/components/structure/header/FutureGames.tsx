@@ -165,13 +165,13 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 							})}
 					</article>
 				))}
-				<article className=" flex w-64 flex-1 items-center  justify-center px-5 sm:w-full">
+				{/* <article className=" flex w-64 flex-1 items-center  justify-center px-5 sm:w-full">
 					<Link href="/games">
 						<span className="text-main font-semibold uppercase hover:underline">
 							all games
 						</span>
 					</Link>
-				</article>
+				</article> */}
 			</div>
 			<button
 				style={{ backgroundColor: "#16161A" }}

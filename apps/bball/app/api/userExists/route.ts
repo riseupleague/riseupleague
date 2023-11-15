@@ -17,7 +17,6 @@ export async function POST(req: Request) {
 			console.log("user exists");
 			return NextResponse.json({ user });
 		} else {
-			console.log("create account");
 			return NextResponse.json(
 				{ message: "No divisions found" },
 				{ status: 404 }
