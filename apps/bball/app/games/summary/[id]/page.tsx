@@ -51,9 +51,12 @@ export default async function Summary({
 						>
 							{game.homeTeamScore}
 						</h3>
-						<h4 className="my-2 text-3xl font-bold">
+						<Link
+							href={`/teams/${game.homeTeam._id}`}
+							className="my-2 text-3xl font-bold hover:underline"
+						>
 							{game.homeTeam.teamNameShort}
-						</h4>
+						</Link>
 						<h5>
 							{game.homeTeam.wins} - {game.homeTeam.losses}
 						</h5>
@@ -79,9 +82,12 @@ export default async function Summary({
 						>
 							{game.awayTeamScore}
 						</h3>
-						<h4 className="my-2 text-3xl font-bold">
+						<Link
+							href={`/teams/${game.awayTeam._id}`}
+							className="my-2 text-3xl font-bold hover:underline"
+						>
 							{game.awayTeam.teamNameShort}
-						</h4>
+						</Link>
 						<h5>
 							{game.awayTeam.wins} - {game.awayTeam.losses}
 						</h5>
