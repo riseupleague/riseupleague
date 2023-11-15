@@ -1,6 +1,5 @@
 import CalendarGames from "./CalendarGames";
-import { format } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+
 import ScheduleCard from "./ScheduleCard";
 import { Separator } from "@ui/components/separator";
 
@@ -33,15 +32,6 @@ export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
 
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 						{gameSchedule.games?.map((game) => {
-							const isoDate = game.date;
-							const date = new Date(isoDate);
-
-							// Assuming 'America/Toronto' is the target time zone
-							const timeZone = "America/Toronto";
-							const zonedDate = utcToZonedTime(date, timeZone);
-
-							const time = format(zonedDate, "h:mm a");
-
 							return <ScheduleCard game={game} key={game._id} />;
 						})}
 					</div>
