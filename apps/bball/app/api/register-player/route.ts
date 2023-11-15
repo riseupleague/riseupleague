@@ -26,22 +26,6 @@ export async function POST(req: Request) {
 		} = await req.json();
 
 		// Check for required input fields
-
-		console.log(
-			playerName,
-			email,
-			teamCaptain,
-			jerseyNumber,
-			jerseySize,
-			shortSize,
-			jerseyName,
-			instagram,
-			team,
-			division,
-			season,
-			playerId
-		);
-
 		if (
 			!playerName ||
 			!email ||
@@ -87,7 +71,6 @@ export async function POST(req: Request) {
 
 		// Handle the rest of the code based on the existingPlayer
 		const updatedTeam = await Team.findById(team);
-		console.log(updatedUser);
 
 		// Save the team and user information
 		updatedTeam.players = updatedTeam.players.concat(newPlayer._id);
@@ -129,24 +112,6 @@ export async function PATCH(req: Request) {
 		} = await req.json();
 
 		// Check for required input fields
-
-		console.log(
-			playerName,
-			email,
-			teamCaptain,
-			jerseyNumber,
-			jerseySize,
-			shortSize,
-			jerseyName,
-			instagram,
-			team,
-			division,
-			season,
-			playerId,
-			teamId,
-			status
-		);
-
 		if (
 			!playerName ||
 			!email ||
@@ -197,11 +162,9 @@ export async function PATCH(req: Request) {
 				// Handle the rest of the code based on the existingPlayer
 				const updatedTeam = await Team.findById(team);
 				const foundPlayer = updatedTeam.players.find((player: string) => {
-					console.log("playerfound", player.toString());
 					return player.toString() === playerId;
 				});
 
-				console.log("foundPlayer:", foundPlayer);
 				if (!foundPlayer) {
 					updatedTeam.players = updatedTeam.players.concat(playerId);
 					const updatedPlayer = await Player.findById(playerId);

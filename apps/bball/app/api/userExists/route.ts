@@ -7,14 +7,9 @@ export async function POST(req: Request) {
 		await connectToDatabase();
 		const { email } = await req.json();
 
-		console.log(req.body);
-		console.log("email:", email);
 		const user = await User.findOne({ email, type: "email" });
 
-		// Your logic here
-		console.log("User:", user);
 		if (user) {
-			console.log("user exists");
 			return NextResponse.json({ user });
 		} else {
 			return NextResponse.json(

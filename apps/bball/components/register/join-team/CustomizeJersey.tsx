@@ -114,7 +114,6 @@ export default function CustomizeJersey({
 		e.preventDefault();
 		const errors = validateForm();
 
-		console.log(errors);
 		if (Object.keys(errors).length === 0) {
 			setIsSummary(true);
 			window.scrollTo({
@@ -165,7 +164,6 @@ export default function CustomizeJersey({
 			};
 
 			let resPlayer;
-			console.log("player:", player);
 
 			if (player) {
 				resPlayer = await fetch("/api/register-player", {
@@ -186,8 +184,6 @@ export default function CustomizeJersey({
 			}
 
 			const newPlayer = await resPlayer.json();
-			console.log("Player created:", newPlayer);
-
 			const formObject = {
 				status: "joinTeam",
 				playerId: newPlayer.player._id,

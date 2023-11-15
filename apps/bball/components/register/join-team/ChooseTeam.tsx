@@ -41,8 +41,6 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 		}
 	};
 
-	console.log(division);
-	console.log(session.user);
 	return (
 		<>
 			{!isTeamSelected ? (

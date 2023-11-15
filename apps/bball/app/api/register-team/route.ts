@@ -13,7 +13,6 @@ export async function POST(req: Request) {
 			await req.json();
 
 		// Check for required input fields
-		console.log(teamName, teamNameShort, teamCode, division, season, teamId);
 		if (
 			!teamName ||
 			teamName.trim() === "" ||
@@ -53,7 +52,6 @@ export async function POST(req: Request) {
 		const savedTeam = await newTeam.save();
 
 		const updatedDivision = await Division.findById(division);
-		console.log(updatedDivision);
 		updatedDivision.teams = updatedDivision.teams.concat(savedTeam._id);
 		await updatedDivision.save();
 

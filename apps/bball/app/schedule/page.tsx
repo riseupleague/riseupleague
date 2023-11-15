@@ -7,8 +7,6 @@ export default async function Schedule(): Promise<JSX.Element> {
 	// Convert the date to seconds
 	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
 
-	console.log(currentDateInSeconds);
-
 	redirect(`/schedule/${currentDateInSeconds}`);
 
 	return (

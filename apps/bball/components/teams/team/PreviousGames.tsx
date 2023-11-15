@@ -19,7 +19,7 @@ const PreviousGames = ({ team }) => {
 
 			<Table>
 				<TableHeader>
-					<TableRow className="font-barlow border-b border-neutral-200 uppercase">
+					<TableRow className="font-barlow border-b border-neutral-500 uppercase">
 						<TableHead className="w-1/3 bg-transparent text-left text-sm sm:w-auto sm:text-lg">
 							Game
 						</TableHead>
@@ -46,7 +46,7 @@ const PreviousGames = ({ team }) => {
 							return (
 								<TableRow
 									key={index}
-									className={`sm:h-6 ${!(index % 2) && "bg-[#282828]"}`}
+									className="font-oswald border-b-neutral-500"
 								>
 									<TableCell className="w-1/2 text-left sm:w-auto">
 										<Link

@@ -40,15 +40,11 @@ export const handleAddNewUserWithPassword = async (
 		await connectToDatabase();
 		const { email } = req.body;
 
-		console.log("email:", email);
 		const user = await User.findOne({ email });
 		// Your logic here
-		console.log("User:", user);
 		if (user) {
-			console.log("user exists");
 			return NextResponse.json({ user });
 		} else {
-			console.log("create account");
 			return NextResponse.json(
 				{ message: "No divisions found" },
 				{ status: 404 }
@@ -74,10 +70,8 @@ export const getUserPlayerPayment = async (email: string) => {
 		});
 
 		if (selectedPlayer) {
-			console.log("user exists");
 			return NextResponse.json({ player: selectedPlayer });
 		} else {
-			console.log("create account");
 			return NextResponse.json({ message: "No player found" }, { status: 404 });
 		}
 	} catch (error) {

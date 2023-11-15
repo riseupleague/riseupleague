@@ -31,16 +31,10 @@ export async function POST(req: Request) {
 		);
 	}
 
-	// Successfully constructed event
-	console.log("✅ Success:", event.id);
-
 	// 2. Handle event type (add business logic here)
 	if (event.type === "checkout.session.completed") {
 		const session = event.data.object;
-		console.log("Session:", session);
-
 		const metadata = JSON.parse(session.metadata.formObject);
-		console.log(`💰  Payment received!`);
 
 		if (metadata.status === "freeAgent") {
 			const newPlayer = new Player({
@@ -60,21 +54,18 @@ export async function POST(req: Request) {
 			});
 
 			await newPlayer.save();
-			console.log("Registered player:", newPlayer);
 
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
 					from_subscription: session.subscription as string,
 				});
 
-				console.log(`Schedule created: ${schedule.id}`);
 				const phases = schedule.phases.map((phase) => ({
 					start_date: phase.start_date,
 					end_date: phase.end_date,
 					items: phase.items,
 				}));
 
-				console.log({ phases });
 				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
 					...phases.map((phase) => ({
 						...phase,
@@ -98,8 +89,6 @@ export async function POST(req: Request) {
 					end_behavior: "cancel",
 					phases: updatedPhases,
 				});
-
-				console.log({ schedule });
 			}
 		}
 
@@ -111,8 +100,6 @@ export async function POST(req: Request) {
 				{ new: true } // Return the modified document
 			);
 
-			console.log("Updated player:", updatedPlayer);
-
 			// Update team
 			const updatedTeam = await Team.findOneAndUpdate(
 				{ _id: metadata.team },
@@ -120,21 +107,17 @@ export async function POST(req: Request) {
 				{ new: true } // Return the modified document
 			);
 
-			console.log("Updated team:", updatedTeam);
-
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
 					from_subscription: session.subscription as string,
 				});
 
-				console.log(`Schedule created: ${schedule.id}`);
 				const phases = schedule.phases.map((phase) => ({
 					start_date: phase.start_date,
 					end_date: phase.end_date,
 					items: phase.items,
 				}));
 
-				console.log({ phases });
 				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
 					...phases.map((phase) => ({
 						...phase,
@@ -158,8 +141,6 @@ export async function POST(req: Request) {
 					end_behavior: "cancel",
 					phases: updatedPhases,
 				});
-
-				console.log({ schedule });
 			}
 		}
 
@@ -170,21 +151,18 @@ export async function POST(req: Request) {
 				{ $set: { paid: true, customerId: session.customer } }, // Set the 'paid' field to true
 				{ new: true } // Return the modified document
 			);
-			console.log("Updated player:", updatedPlayer);
 
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
 					from_subscription: session.subscription as string,
 				});
 
-				console.log(`Schedule created: ${schedule.id}`);
 				const phases = schedule.phases.map((phase) => ({
 					start_date: phase.start_date,
 					end_date: phase.end_date,
 					items: phase.items,
 				}));
 
-				console.log({ phases });
 				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
 					...phases.map((phase) => ({
 						...phase,
@@ -208,14 +186,10 @@ export async function POST(req: Request) {
 					end_behavior: "cancel",
 					phases: updatedPhases,
 				});
-				console.log({ schedule });
 			}
 		}
 	} else if (event.type === "invoice.payment_failed") {
-		console.log("❌ invoice.payment_failed:", event.id);
-
 		const session = event.data.object;
-		console.log(`💰  Payment failed!`);
 
 		if (session.billing_reason === "subscription_cycle") {
 			// // Find the RegisterPlayer based on the customer's email
