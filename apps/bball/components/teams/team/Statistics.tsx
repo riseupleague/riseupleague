@@ -73,9 +73,9 @@ const Statistics = ({ team, allAvg }) => {
 						style={{ borderColor: "#292929" }}
 					>
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
-							{team?.averageStats.rebounds.toFixed(1)}
+							{team?.averageStats?.rebounds?.toFixed(1)}
 							<span className="absolute">
-								{team?.averageStats.rebounds.toFixed(1) > allAvg.rebounds && (
+								{team?.averageStats.rebounds?.toFixed(1) > allAvg.rebounds && (
 									<ChevronUpIcon />
 								)}
 							</span>

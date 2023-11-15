@@ -6,6 +6,8 @@ import Statistics from "./Statistics";
 import Overview from "./Overview";
 
 export default function TeamSections({ team, allAvg }) {
+	console.log(allAvg);
+
 	const [selectedSection, setSelectedSection] = useState("stats");
 
 	const handleNavClick = (sectionId) => {

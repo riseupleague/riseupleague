@@ -101,8 +101,11 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 };
 
 export const getTeamAllAvgFromId = async (teamId: string) => {
+	console.log(teamId);
+
 	try {
 		const team = await Team.findById(teamId);
+		console.log(team);
 		// .populate("players")
 		// .populate({
 		// 	path: "division",
