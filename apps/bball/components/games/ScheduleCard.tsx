@@ -2,21 +2,32 @@ import Link from "next/link";
 import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 
 export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
 
-	const isoDate = game.date;
+	// const isoDate = game.date;
 
+	// const date = new Date(isoDate);
+
+	// const time = date
+	// 	.toLocaleTimeString("en-US", {
+	// 		hour: "numeric",
+	// 		minute: "numeric",
+	// 		hour12: true,
+	// 	})
+	// 	.replace(/\u202f/, " ");
+
+	const isoDate = game.date;
 	const date = new Date(isoDate);
 
-	const time = date
-		.toLocaleTimeString("en-US", {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true,
-		})
-		.replace(/\u202f/, " ");
+	// Assuming 'America/Toronto' is the target time zone
+	const timeZone = "America/Toronto";
+	const zonedDate = utcToZonedTime(date, timeZone);
+
+	const time = format(zonedDate, "h:mm a");
 
 	return (
 		<article className="flex flex-col rounded border border-neutral-600 bg-neutral-700">
@@ -38,13 +49,15 @@ export default function ScheduleCard({ game }) {
 					<span className="font-barlow text-center text-sm transition hover:opacity-80 ">
 						{game.homeTeam.teamName}
 					</span>
-					<p
-						className={`text-3xl ${
-							game.homeTeamScore > game.awayTeamScore ? "text-primary" : ""
-						}`}
-					>
-						{game.homeTeamScore}
-					</p>
+					{game.status && (
+						<p
+							className={`text-3xl ${
+								game.homeTeamScore > game.awayTeamScore ? "text-primary" : ""
+							}`}
+						>
+							{game.homeTeamScore}
+						</p>
+					)}
 				</Link>
 
 				{/* division / time / location */}
@@ -74,13 +87,15 @@ export default function ScheduleCard({ game }) {
 					<span className="font-barlow text-center text-sm transition hover:opacity-80">
 						{game.awayTeam?.teamName}
 					</span>
-					<p
-						className={`text-3xl ${
-							game.awayTeamScore > game.homeTeamScore ? "text-primary" : ""
-						}`}
-					>
-						{game.awayTeamScore}
-					</p>
+					{game.status && (
+						<p
+							className={`text-3xl ${
+								game.awayTeamScore > game.homeTeamScore ? "text-primary" : ""
+							}`}
+						>
+							{game.awayTeamScore}
+						</p>
+					)}
 				</Link>
 			</div>
 			<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
