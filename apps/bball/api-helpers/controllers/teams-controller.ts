@@ -176,8 +176,6 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 			threesMade: avgStats.threesMade / teams?.length,
 		};
 
-		console.log(allAvg);
-
 		return NextResponse.json({ team, allAvg }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json({ message: e }, { status: 500 });
