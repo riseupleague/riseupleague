@@ -11,9 +11,12 @@ export default async function Success({
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
+	const session = await getServerSession();
+
 	const resDivision = await getRegisterDivisionById(params.id);
 	const { division } = await resDivision.json();
-	const session = await getServerSession();
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { player } = await resPlayer.json();
 	if (!session || !session.user) {
 		redirect("/");
 	}
@@ -38,24 +41,31 @@ export default async function Success({
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
-				You have successfully registered your team!{" "}
+			<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
+				You have successfully {player.teamCaptain ? "registered" : "joined"}{" "}
+				{player.team.teamName} to {division.divisionName} division!{" "}
 			</h1>
-			<h2 className=" mt-2 text-center text-2xl font-semibold uppercase text-neutral-300 md:text-3xl">
+			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
 				An email has been sent to {session.user.email}
 			</h2>
 
-			<h3 className=" mt-10 text-3xl uppercase">Season Summary </h3>
-			<ul className="rounded border-neutral-600 uppercase text-white">
-				<li>Division: {division.divisionName}</li>
-				<li>Arena: {division.location}</li>
-				<li>
+			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
+				Season Summary
+			</h3>
+			<ul className="my-5 rounded border border-neutral-600 p-3 uppercase text-white">
+				<li className="my-1">Division: {division.divisionName}</li>
+				<li className="my-1">Arena: {division.location}</li>
+				<li className="my-1">
 					Game Days: {division.day} at {startTimeAMPM} - {endTimeAMPM}
 				</li>
-				<li>Season Length: 7 Regular games + 1 guaranteed playoff game</li>
+				<li className="my-1">
+					Season Length: 7 Regular games + 1 guaranteed playoff game
+				</li>
 			</ul>
 
-			<h3 className=" mt-10 text-3xl uppercase">Registration Next Steps</h3>
+			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
+				Registration Next Steps
+			</h3>
 
 			<section className="mt-10 flex flex-col gap-10 md:flex-row">
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">

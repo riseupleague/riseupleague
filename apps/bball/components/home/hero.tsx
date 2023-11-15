@@ -23,7 +23,7 @@ import SignInDialog from "../auth/SignInDialog";
 export default function Hero(): JSX.Element {
 	const slides = [
 		{
-			url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
+			url: "/images/home/early-bird.png",
 			text: "Winter registration now open",
 		},
 		{
@@ -109,10 +109,10 @@ export default function Hero(): JSX.Element {
 	return (
 		<section className="group relative  mb-8  mt-16 h-[450px] w-full  sm:h-[650px] lg:my-16 ">
 			<figure
-				className="relative   h-full  w-full items-center bg-cover bg-center duration-500"
+				className="repeat-0   relative  h-full w-full items-center bg-cover bg-center duration-500"
 				style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
 			>
-				<div className="flex h-5/6 w-full items-end bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
+				<div className="flex h-5/6 w-full items-end bg-opacity-80 bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
 					{isAnimating && (
 						<motion.div
 							initial={{ opacity: 0, x: 10 }}

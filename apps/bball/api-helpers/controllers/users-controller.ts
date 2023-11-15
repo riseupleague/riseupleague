@@ -62,7 +62,8 @@ export const getUserPlayerPayment = async (email: string) => {
 		const user = await User.findOne({ email }).populate({
 			path: "basketball",
 			populate: {
-				path: "team", // Populate the 'team' field inside 'Player'
+				path: "team",
+				select: "teamName",
 			},
 		});
 		const selectedPlayer = user.basketball.find((player) => {

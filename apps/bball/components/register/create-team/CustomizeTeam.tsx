@@ -51,6 +51,9 @@ interface FormErrors {
 }
 
 export default function CustomizeTeam({ division, session, player, team }) {
+	console.log("player:", player);
+	console.log("team:", team);
+
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",

@@ -37,8 +37,8 @@ export default async function JoinTeam({
 			<CustomizeTeam
 				division={division}
 				session={session}
-				player={player ? player : false}
-				team={player?.team ? player.team : false}
+				player={player && !player.paid ? player : false}
+				team={player?.team && !player.paid ? player.team : false}
 			/>
 		</main>
 	);
