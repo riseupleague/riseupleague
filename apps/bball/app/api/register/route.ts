@@ -30,9 +30,8 @@ export async function POST(req: Request) {
 
 		// Save the user to the database
 		await newUser.save();
-
 		return NextResponse.json(
-			{ error: "User registered successfully" },
+			{ email: newUser.email, password: password },
 			{ status: 201 }
 		);
 	} catch (error) {

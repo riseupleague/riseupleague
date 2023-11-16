@@ -2,10 +2,13 @@ import Stripe from "stripe";
 import mongoose from "mongoose";
 import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
-import User from "@/api-helpers/models/Team";
+import User from "@/api-helpers/models/User";
+import Division from "@/api-helpers/models/Division";
+
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { google } from "googleapis";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -35,6 +38,7 @@ export async function POST(req: Request) {
 	if (event.type === "checkout.session.completed") {
 		const session = event.data.object;
 		const metadata = JSON.parse(session.metadata.formObject);
+		console.log(`💰  Payment received!`);
 
 		if (metadata.status === "freeAgent") {
 			const newPlayer = new Player({
@@ -92,20 +96,78 @@ export async function POST(req: Request) {
 			}
 		}
 
-		if (metadata.status === "createTeam") {
-			// Update player
-			const updatedPlayer = await Player.findOneAndUpdate(
-				{ _id: metadata.playerId },
-				{ $set: { paid: true, customerId: session.customer } }, // Set the 'paid' field to true
-				{ new: true } // Return the modified document
+		if (metadata.status === "createTeam" && metadata.teamName !== "") {
+			const updatedUser = await User.findOne({ email: metadata.email });
+			console.log("updatedUser:", updatedUser);
+			// Update team
+
+			const newTeam = new Team({
+				teamName: metadata.teamName,
+				teamNameShort: metadata.teamNameShort,
+				teamCode: metadata.teamCode,
+				wins: 0,
+				losses: 0,
+				pointDifference: 0,
+				averageStats: {
+					points: 0,
+					rebounds: 0,
+					assists: 0,
+					blocks: 0,
+					steals: 0,
+					threesMade: 0,
+					twosMade: 0,
+					freeThrowsMade: 0,
+				},
+				division: metadata.division,
+				season: metadata.season,
+			});
+
+			// Save the new player to the database
+			const savedTeam = await newTeam.save();
+			console.log("Registered team:", savedTeam);
+
+			const updatedDivision = await Division.findById(metadata.division);
+			updatedDivision.teams = updatedDivision.teams.concat(savedTeam._id);
+			await updatedDivision.save();
+
+			// Register player
+
+			const registeredPlayer = new Player({
+				season: metadata.season,
+				division: metadata.division,
+				team: savedTeam._id,
+				teamCaptain: true,
+				playerName: metadata.playerName,
+				instagram: metadata.instagram,
+				jerseyNumber: metadata.jerseyNumber,
+				jerseySize: metadata.jerseySize,
+				shortSize: metadata.shortSize,
+				user: updatedUser._id,
+				averageStats: {
+					points: 0,
+					rebounds: 0,
+					assists: 0,
+					blocks: 0,
+					steals: 0,
+					threesMade: 0,
+					twosMade: 0,
+					freeThrowsMade: 0,
+				},
+			});
+
+			await registeredPlayer.save();
+			console.log("Registered player:", registeredPlayer);
+
+			const updatedTeam = await Team.findById(savedTeam._id);
+
+			// Save the team and user information
+			updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
+			updatedUser.basketball = updatedUser.basketball.concat(
+				registeredPlayer._id
 			);
 
-			// Update team
-			const updatedTeam = await Team.findOneAndUpdate(
-				{ _id: metadata.team },
-				{ $set: { paid: true } }, // Set the 'paid' field to true
-				{ new: true } // Return the modified document
-			);
+			await updatedTeam.save();
+			await updatedUser.save();
 
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
@@ -145,12 +207,44 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "joinTeam") {
-			// Update player
-			const updatedPlayer = await Player.findOneAndUpdate(
-				{ _id: metadata.playerId },
-				{ $set: { paid: true, customerId: session.customer } }, // Set the 'paid' field to true
-				{ new: true } // Return the modified document
+			const updatedUser = await User.findOne({ email: metadata.email });
+
+			const registeredPlayer = new Player({
+				season: metadata.season,
+				division: metadata.division,
+				team: metadata.team,
+				teamCaptain: false,
+				playerName: metadata.playerName,
+				instagram: metadata.instagram,
+				jerseyNumber: metadata.jerseyNumber,
+				jerseySize: metadata.jerseySize,
+				shortSize: metadata.shortSize,
+				user: updatedUser._id,
+				averageStats: {
+					points: 0,
+					rebounds: 0,
+					assists: 0,
+					blocks: 0,
+					steals: 0,
+					threesMade: 0,
+					twosMade: 0,
+					freeThrowsMade: 0,
+				},
+			});
+
+			await registeredPlayer.save();
+			console.log("Registered player:", registeredPlayer);
+			// Handle the rest of the code based on the existingPlayer
+			const updatedTeam = await Team.findById(metadata.team);
+
+			// Save the team and user information
+			updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
+			updatedUser.basketball = updatedUser.basketball.concat(
+				registeredPlayer._id
 			);
+
+			await updatedTeam.save();
+			await updatedUser.save();
 
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
@@ -188,6 +282,45 @@ export async function POST(req: Request) {
 				});
 			}
 		}
+
+		const auth = new google.auth.GoogleAuth({
+			credentials: {
+				client_email: process.env.CLIENT_EMAIL,
+				client_id: process.env.CLIENT_ID,
+				private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"), // Replace \\n with actual line breaks
+			},
+			scopes: [
+				"https://www.googleapis.com/auth/drive",
+				"https://www.googleapis.com/auth/drive.file",
+				"https://www.googleapis.com/auth/spreadsheets",
+			],
+		});
+
+		const sheets = google.sheets({
+			auth,
+			version: "v4",
+		});
+
+		const response = await sheets.spreadsheets.values.append({
+			spreadsheetId: "1uFrrYeBPut9A0_6zvC90YJm22FRBXAuL_pG64bJmymU",
+			range: "Sheet3!A2:I", // Assuming 5 columns are required for the form data
+			valueInputOption: "USER_ENTERED",
+			requestBody: {
+				values: [
+					[
+						metadata.teamName,
+						metadata.jerseyName,
+						metadata.jerseyNumber,
+						metadata.jerseySize,
+						metadata.shortSize,
+						metadata.playerName,
+						metadata.instagram,
+						metadata.division.divisionName,
+						metadata.status,
+					],
+				],
+			},
+		});
 	} else if (event.type === "invoice.payment_failed") {
 		const session = event.data.object;
 

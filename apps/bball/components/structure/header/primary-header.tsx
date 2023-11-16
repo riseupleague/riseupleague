@@ -159,7 +159,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 
 	return (
 		<nav>
-			<div className="container mx-auto  items-center justify-between py-8 md:flex">
+			<div className="container mx-auto  flex items-center justify-between py-8">
 				<div className="flex items-center">
 					<div className="block md:hidden">
 						<Sheet>

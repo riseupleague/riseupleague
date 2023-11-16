@@ -7,7 +7,10 @@
 		"NEXTAUTH_SECRET",
 		"STRIPE_SECRET_KEY",
 		"NEXT_PUBLIC_API_BASE_URL",
-		"STRIPE_WEBHOOK_SECRET"
+		"STRIPE_WEBHOOK_SECRET",
+		"CLIENT_EMAIL",
+		"CLIENT_ID",
+		"PRIVATE_KEY"
 	],
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],

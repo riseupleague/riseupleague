@@ -116,18 +116,18 @@ export default function Login(): JSX.Element {
 							Continue With Email
 						</Button>
 					</div>
-					<footer className="flex flex-col-reverse text-center sm:flex-row sm:justify-start  sm:space-x-2">
+					{/* <footer className="flex flex-col-reverse text-center sm:flex-row sm:justify-start  sm:space-x-2">
 						<p className="text-xs">
 							By continuing, you agree to Rise Up League&apos;s{" "}
-							<Link href={"/terms"} className="underline">
+							<Link href={"/terms-of-use"} className="underline">
 								Terms of Use.
 							</Link>{" "}
 							Read our{" "}
-							<Link href="/privacy" className="underline">
+							<Link href="/privacy-policy" className="underline">
 								Privacy Policy.
 							</Link>
 						</p>
-					</footer>
+					</footer> */}
 				</section>
 			) : (
 				<>

@@ -1,5 +1,3 @@
-import { getAllUpcomingGames } from "@/api-helpers/controllers/games-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
 import HomeLatestGames from "../games/HomeLatestGames";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
@@ -11,7 +9,7 @@ export default function LatestGames({ games }): JSX.Element {
 			<hr className="-mx-2 mb-4 border-neutral-600" />
 			<HomeLatestGames games={games} />
 			<div className="my-9">
-				<Link href="/games" className="w-full">
+				<Link href="/schedule" className="w-full">
 					<Button variant="secondary" className="w-full">
 						View All
 					</Button>

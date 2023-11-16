@@ -7,9 +7,6 @@ import Season from "@/api-helpers/models/Season";
 const Schema = mongoose.Schema;
 
 const teamSchema = new Schema({
-	paid: {
-		type: Boolean,
-	},
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
 	teamCode: { type: String, required: true },

@@ -55,7 +55,7 @@ export const getAllRegisterDivisions = async () => {
 	try {
 		const registerSeason = await Season.find({ register: "true" });
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 		);
 
 		if (!divisions) {
@@ -246,7 +246,7 @@ export const getRegisterDivisionById = async (id: string) => {
 				"teamName teamNameShort teamCode wins losses primaryColor secondaryColor tertiaryColor players paid",
 			populate: {
 				path: "players",
-				select: "paid", // Select only the 'paid' field for players
+				select: "paid playerName jerseyNumber", // Select only the 'paid' field for players
 			},
 		})
 		.select(

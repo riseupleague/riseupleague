@@ -3,7 +3,6 @@ import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-con
 import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 
 export default async function JoinTeam({
 	params,
@@ -11,21 +10,12 @@ export default async function JoinTeam({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-	const resDivision = await getRegisterDivisionById(params.id);
-	const { division } = await resDivision.json();
 	const session = await getServerSession();
 	if (!session || !session.user) {
 		redirect("/");
 	}
-
-	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { player } = await resPlayer.json();
-
-	if (player) {
-		if (player.paid) {
-			redirect(`/`);
-		}
-	}
+	const resDivision = await getRegisterDivisionById(params.id);
+	const { division } = await resDivision.json();
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
@@ -33,12 +23,7 @@ export default async function JoinTeam({
 				Create a team
 			</h1>
 
-			<CustomizeTeam
-				division={division}
-				session={session}
-				player={player ? player : false}
-				team={player?.team ? player.team : false}
-			/>
+			<CustomizeTeam division={division} session={session} />
 		</main>
 	);
 }
