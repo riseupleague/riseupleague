@@ -1,0 +1,78 @@
+[
+	{
+		"section": "sitemap",
+		"links": [
+			{
+				"label": "home",
+				"href": "/"
+			},
+			{
+				"label": "games",
+				"href": "/games"
+			},
+			{
+				"label": "standings",
+				"href": "/standings"
+			},
+			{
+				"label": "teams",
+				"href": "/teams"
+			},
+			{
+				"label": "players",
+				"href": "/players"
+			}
+		]
+	},
+	{
+		"section": "quick links",
+		"links": [
+			{
+				"label": "register",
+				"href": "/register"
+			},
+			{
+				"label": "league rules",
+				"href": "/league-rules"
+			},
+			{
+				"label": "career",
+				"href": "/career"
+			},
+			{
+				"label": "about us",
+				"href": "/about-us"
+			}
+		]
+	},
+	{
+		"section": "socials",
+		"links": [
+			{
+				"label": "instagram",
+				"href": "https://www.instagram.com/riseup.bball/"
+			},
+			{
+				"label": "youtube",
+				"href": "https://www.youtube.com/@RiseUPBasketballLeagueMedia/videos"
+			},
+			{
+				"label": "TikTok",
+				"href": "https://www.tiktok.com/@riseupleague"
+			}
+		]
+	},
+	{
+		"section": "help",
+		"links": [
+			{
+				"label": "FAQ",
+				"href": "/faq"
+			},
+			{
+				"label": "contact us",
+				"href": "/contact-us"
+			}
+		]
+	}
+]

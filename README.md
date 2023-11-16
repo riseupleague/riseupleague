@@ -1,10 +1,12 @@
 # riseupleague.com
 
-The official website for [www.riseupleague.com](https://www.riseupleague.com).
+The official v2 website for [www.riseupleague.com](https://www.riseupleague.media).
+
+🚧 This website is still being actively worked on 🚧
 
 ## Tech Stack
 
-This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.com) webiste, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
+This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.media) website, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
 
 ### Frontend
 
@@ -18,7 +20,7 @@ This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that co
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
 
-## Project Archicture
+## Project Architecture
 
 ```
 ├── apps
