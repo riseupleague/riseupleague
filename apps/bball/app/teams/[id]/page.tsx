@@ -13,7 +13,7 @@ export default async function Players({
 
 	const { id } = params; // Destructure the 'id' property from 'params'
 	const resTeam = await getTeamAllAvgFromId(id);
-	const { team } = await resTeam.json();
+	const { team, allAvg } = await resTeam.json();
 
 	const leaders: {
 		points: {
@@ -107,13 +107,15 @@ export default async function Players({
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
-			<div className="mb-8 mt-16">
-				<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
+			<div className="mb-8 mt-16 flex flex-col items-center text-center">
+				<h1 className="font-barlow my-8 text-center text-5xl font-medium uppercase">
 					{team?.teamName}
-					{/* {id} */}
 				</h1>
+				<h2 className="font-barlow rounded bg-neutral-500 px-2 py-1 uppercase">
+					{team.division.divisionName}
+				</h2>
 			</div>
-			<TeamSections team={team} allAvg={team.averageStats} />
+			<TeamSections team={team} allAvg={allAvg} />
 		</section>
 	);
 }

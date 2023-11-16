@@ -14,15 +14,15 @@ export default async function Players({
 
 	const { id } = params; // Destructure the 'id' property from 'params'
 	const resPlayer = await getPlayerAllAvgFromId(id);
-	const { player } = await resPlayer.json();
+	const { player, allAvg } = await resPlayer.json();
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<div className="mb-8 mt-16">
-				<h1 className="font-oswald text-3xl font-medium uppercase">
+				<h1 className="font-oswald text-center text-4xl font-medium uppercase">
 					{player?.playerName}
 				</h1>
-				<div className="text-white">
+				<div className="my-4 text-center text-neutral-50">
 					<Link href={`/teams/${player?.team._id}`}>
 						<span className="font-barlow hover:underline">
 							{player?.team.teamName}
@@ -31,7 +31,7 @@ export default async function Players({
 					| <span className="font-barlow">#{player?.jerseyNumber}</span>
 				</div>
 			</div>
-			<PlayerSections player={player} allAvg={player.averageStats} />
+			<PlayerSections player={player} allAvg={allAvg} />
 		</section>
 	);
 }

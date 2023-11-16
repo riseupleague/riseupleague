@@ -93,7 +93,7 @@ export default function ScheduleCard({ game }) {
 			</div>
 			{/* preview/summary button */}
 			<div className="flex p-4">
-				<Link href={`/games/preview/${game._id}`} className="w-full">
+				<Link href={`/games/${gameStatus}/${game._id}`} className="w-full">
 					<Button className="w-full capitalize">{gameStatus}</Button>
 				</Link>
 			</div>

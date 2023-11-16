@@ -6,22 +6,22 @@ import Statistics from "./Statistics";
 import Overview from "./Overview";
 
 export default function TeamSections({ team, allAvg }) {
-	const [selectedSection, setSelectedSection] = useState("stats");
+	const [selectedSection, setSelectedSection] = useState("overview");
 
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
 
 	const teamNav = [
-		// {
-		// 	id: "overview",
-		// 	label: "Overview",
-		// 	component: <Overview team={team} />,
-		// },
+		{
+			id: "overview",
+			label: "Overview",
+			component: <Overview team={team} />,
+		},
 		{
 			id: "stats",
 			label: "Stats",
-			component: <Statistics team={team} allAvg={team.averageStats} />,
+			component: <Statistics team={team} allAvg={allAvg} />,
 		},
 		{
 			id: "previousGames",
