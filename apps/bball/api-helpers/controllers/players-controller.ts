@@ -6,8 +6,8 @@ import Season from "@/api-helpers/models/Season";
 export const getAllCurrentPlayers = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
-		// Get the total number of records that match the query criteria
 
+		// Get the total number of records that match the query criteria
 		const allPlayers = await Player.find({ season: activeSeason })
 			.sort({ playerName: 1 })
 			.populate([
@@ -17,7 +17,7 @@ export const getAllCurrentPlayers = async () => {
 					select: "teamName primaryColor secondaryColor tertiaryColor",
 				},
 			])
-			.select("playerName team jerseyNumber division");
+			.select("playerName team jerseyNumber division averageStats");
 
 		return NextResponse.json({ allPlayers });
 	} catch (e) {

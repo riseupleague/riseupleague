@@ -20,6 +20,8 @@ export default function PlayerGrid({
 	const playersPerPage = 50;
 	const totalPlayers = players.length;
 
+	console.log(allPlayers);
+
 	const totalPages = Math.ceil(totalPlayers / playersPerPage);
 	const [page, setPage] = useState(1);
 
