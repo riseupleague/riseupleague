@@ -149,9 +149,9 @@ const SignInDialog = ({ open, onOpenChange }) => {
 				<Sheet open={open} onOpenChange={onOpenChange}>
 					<SheetContent side="bottom" className="h-full w-full bg-neutral-900">
 						{!isEmail ? (
-							<section className=" gap-4 border bg-white p-6 text-black shadow-lg duration-200 sm:max-w-md sm:rounded-lg md:w-full">
-								<header className="flex flex-col space-y-1.5 text-center sm:text-left">
-									<h3 className="flex items-center justify-center text-center text-lg font-semibold leading-none tracking-tight">
+							<section className=" gap-4 p-6 shadow-lg duration-200 sm:max-w-md sm:rounded-lg sm:border sm:bg-white sm:text-black md:w-full">
+								<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
+									<h3 className="flex  items-center justify-center gap-5 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 										<SheetClose>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +181,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 										</p>
 									)}
 								</header>
-								<div className="flex flex-col  gap-3">
+								<div className="my-5 flex  flex-col gap-3 ">
 									<Button onClick={() => signIn("google")}>
 										Continue With Google
 									</Button>
@@ -189,27 +189,27 @@ const SignInDialog = ({ open, onOpenChange }) => {
 										Continue With Email
 									</Button>
 								</div>
-								<footer className="flex flex-col-reverse text-center sm:flex-row sm:justify-start  sm:space-x-2">
+								{/* <footer className="flex flex-col-reverse text-center sm:flex-row sm:justify-start  sm:space-x-2">
 									<p className="text-xs">
 										By continuing, you agree to Rise Up League&apos;s{" "}
-										<Link href={"/terms"} className="underline">
+										<Link href={"/terms-of-use"} className="underline">
 											Terms of Use.
 										</Link>{" "}
 										Read our{" "}
-										<Link href="/privacy" className="underline">
+										<Link href="/privacy-policy" className="underline">
 											Privacy Policy.
 										</Link>
 									</p>
-								</footer>
+								</footer> */}
 							</section>
 						) : (
 							<>
 								{!isCreateAccount ? (
 									<>
 										{!isPassword ? (
-											<section className=" gap-4 border bg-white p-6 text-black shadow-lg duration-200 sm:max-w-md sm:rounded-lg md:w-full">
-												<header className="flex flex-col space-y-1.5 text-center sm:text-left">
-													<h3 className="text-center text-lg font-semibold leading-none tracking-tight">
+											<section className="  gap-4 p-6 shadow-lg duration-200 sm:max-w-md sm:rounded-lg sm:border sm:bg-white sm:text-black md:w-full">
+												<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
+													<h3 className="flex  items-center justify-center gap-5 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 														<button
 															onClick={() => {
 																setIsEmail(false);
@@ -217,7 +217,21 @@ const SignInDialog = ({ open, onOpenChange }) => {
 																setEmail("");
 															}}
 														>
-															Back
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="24"
+																height="24"
+																viewBox="0 0 24 24"
+																fill="none"
+															>
+																<path
+																	d="M14.4 18L8.39999 12L14.4 6"
+																	stroke="#ABAFB3"
+																	strokeWidth="1.67"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+															</svg>
 														</button>{" "}
 														Continue with your email
 													</h3>
@@ -226,7 +240,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 														create one if you don&apos;t.
 													</p>
 												</header>
-												<div className="flex flex-col  gap-3">
+												<div className="mt-6 flex  flex-col gap-3">
 													<form
 														onSubmit={handleEmailValidation}
 														className="flex flex-col gap-3"
@@ -237,15 +251,16 @@ const SignInDialog = ({ open, onOpenChange }) => {
 															onChange={(e) => setEmail(e.target.value)}
 															type="email"
 															placeholder="john@example.com"
+															className="text-black sm:text-white"
 														/>
 														<Button type="submit">Continue</Button>
 													</form>
 												</div>
 											</section>
 										) : (
-											<section className=" gap-4 border bg-white p-6 text-black shadow-lg duration-200 sm:max-w-md sm:rounded-lg md:w-full">
-												<header className="flex flex-col space-y-1.5 text-center sm:text-left">
-													<h3 className="text-center text-lg font-semibold leading-none tracking-tight">
+											<section className="  gap-4 p-6 shadow-lg duration-200 sm:max-w-md sm:rounded-lg sm:border sm:bg-white sm:text-black md:w-full">
+												<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
+													<h3 className="flex  items-center justify-center gap-5 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 														<button
 															onClick={() => {
 																setIsPassword(false);
@@ -253,7 +268,21 @@ const SignInDialog = ({ open, onOpenChange }) => {
 																setEmail("");
 															}}
 														>
-															Back
+															<svg
+																xmlns="http://www.w3.org/2000/svg"
+																width="24"
+																height="24"
+																viewBox="0 0 24 24"
+																fill="none"
+															>
+																<path
+																	d="M14.4 18L8.39999 12L14.4 6"
+																	stroke="#ABAFB3"
+																	strokeWidth="1.67"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
+																/>
+															</svg>
 														</button>{" "}
 														Log in to your account
 													</h3>
@@ -261,7 +290,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 														using {email}
 													</p>
 												</header>
-												<div className="flex flex-col  gap-3">
+												<div className="mt-6 flex  flex-col gap-3">
 													<form
 														onSubmit={handleLoginCredentials}
 														className="flex flex-col gap-3"
@@ -271,6 +300,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 															value={password}
 															onChange={(e) => setPassword(e.target.value)}
 															type="password"
+															className="text-black sm:text-white"
 														/>
 														<Button type="submit">Log in</Button>
 													</form>
@@ -404,18 +434,18 @@ const SignInDialog = ({ open, onOpenChange }) => {
 									Continue With Email
 								</Button>
 							</div>
-							<DialogFooter className="text-center sm:justify-start">
+							{/* <DialogFooter className="text-center sm:justify-start">
 								<DialogDescription className="text-xs">
 									By continuing, you agree to Rise Up League&apos;s{" "}
-									<Link href={"/terms"} className="underline">
+									<Link href={"/terms-of-use"} className="underline">
 										Terms of Use.
 									</Link>{" "}
 									Read our{" "}
-									<Link href="/privacy" className="underline">
+									<Link href="/privacy-policy" className="underline">
 										Privacy Policy.
 									</Link>
 								</DialogDescription>
-							</DialogFooter>
+							</DialogFooter> */}
 						</DialogContent>
 					) : (
 						<>

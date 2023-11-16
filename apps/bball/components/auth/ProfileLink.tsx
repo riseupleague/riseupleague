@@ -115,7 +115,7 @@ const ProfileLink = () => {
 				</>
 			) : (
 				<>
-					<Button onClick={openDialog} variant="register">
+					<Button onClick={openDialog} variant="register" size="sm">
 						Log In
 					</Button>
 					<SignInDialog open={open} onOpenChange={setOpen} />

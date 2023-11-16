@@ -21,6 +21,8 @@ export default async function Success({
 		redirect("/");
 	}
 
+	console.log(players);
+
 	const selectedPlayer = players.find((player) => {
 		return player.season === season;
 	});

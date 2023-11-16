@@ -29,7 +29,7 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 	filteredDivisions = filteredDivisions.filter((division) => {
 		// Check if every players division is not equal to the current division
-		return players.every((player) => player.division !== division._id);
+		return players.every((player) => player.division._id !== division._id);
 	});
 
 	console.log("divisions:", divisions);

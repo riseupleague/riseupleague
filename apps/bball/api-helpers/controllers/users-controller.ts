@@ -61,10 +61,16 @@ export const getUserPlayerPayment = async (email: string) => {
 		const season = await Season.findOne({ register: true });
 		const user = await User.findOne({ email }).populate({
 			path: "basketball",
-			populate: {
-				path: "team",
-				select: "teamName",
-			},
+			populate: [
+				{
+					path: "team",
+					select: "teamName",
+				},
+				{
+					path: "division",
+					select: "divisionName", // Select the fields you want to include
+				},
+			],
 		});
 
 		return NextResponse.json({

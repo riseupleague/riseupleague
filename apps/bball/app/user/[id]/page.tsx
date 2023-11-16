@@ -17,7 +17,7 @@ export default async function Success({
 	}
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-
+	console.log(players);
 	const convertToAMPM = (timeString) => {
 		const [hours, minutes] = timeString.split(":");
 		const date = new Date(2023, 0, 1, hours, minutes); // Assuming year 2023, month 0 (January), day 1
