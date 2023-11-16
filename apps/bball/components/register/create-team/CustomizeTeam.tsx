@@ -496,7 +496,11 @@ export default function CustomizeTeam({ division, session }) {
 										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 									>
 										I have read and agree to the{" "}
-										<Link className="underline" href="/terms">
+										<Link
+											className="text-primary transition-all hover:underline"
+											href="/terms-and-conditions"
+											target="_blank"
+										>
 											Terms and Conditions
 										</Link>
 										.
@@ -519,7 +523,11 @@ export default function CustomizeTeam({ division, session }) {
 										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 									>
 										I have read and agree to the{" "}
-										<Link className="underline" href="/terms">
+										<Link
+											className="text-primary transition-all hover:underline"
+											href="/refund-policy"
+											target="_blank"
+										>
 											Refund Policy
 										</Link>
 										.
@@ -708,7 +716,11 @@ export default function CustomizeTeam({ division, session }) {
 										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 									>
 										I have read and agree to the{" "}
-										<Link className="underline" href="/terms">
+										<Link
+											className="text-primary transition-all hover:underline"
+											href="/terms-and-conditions"
+											target="_blank"
+										>
 											Terms and Conditions
 										</Link>
 										.
@@ -725,7 +737,11 @@ export default function CustomizeTeam({ division, session }) {
 										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 									>
 										I have read and agree to the{" "}
-										<Link className="underline" href="/terms">
+										<Link
+											className="text-primary transition-all hover:underline"
+											href="/refund-policy"
+											target="_blank"
+										>
 											Refund Policy
 										</Link>
 										.
