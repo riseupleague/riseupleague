@@ -10,8 +10,9 @@ export default async function Success(): Promise<JSX.Element> {
 	const { user } = await resUser.json();
 	if (!session || !session.user) {
 		redirect("/");
+	} else {
+		redirect(`/user/${user._id}`);
 	}
-	redirect(`/user/${user._id}`);
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
