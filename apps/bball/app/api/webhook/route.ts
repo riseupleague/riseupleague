@@ -22,14 +22,22 @@ export async function POST(req: Request) {
 		const body = await req.text();
 		// const signature = headers().get("Stripe-Signature") ?? "";
 		const signature = req.headers.get("Stripe-Signature");
+
+		console.log("Signature:", signature);
+		console.log("Body:", body);
+		console.log("Webhook Secret:", process.env.STRIPE_WEBHOOK_SECRET);
 		event = stripe.webhooks.constructEvent(
 			body,
 			signature,
 			process.env.STRIPE_WEBHOOK_SECRET || ""
 		);
 	} catch (err) {
-		return new Response(
-			`Webhook Error: ${err instanceof Error ? err.message : "Unknown Error"}`,
+		return NextResponse.json(
+			{
+				message: `Webhook Error: ${
+					err instanceof Error ? err.message : "Unknown Error"
+				}`,
+			},
 			{ status: 400 }
 		);
 	}
@@ -97,8 +105,11 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "createTeam" && metadata.teamName !== "") {
-			const updatedUser = await User.findOne({ email: metadata.email });
-			console.log("updatedUser:", updatedUser);
+			const updatedUser = await User.findOne({ name: metadata.playerName });
+			const selectedDivision = await Division.findOne({
+				divisionName: metadata.divisionName,
+			});
+
 			// Update team
 
 			const newTeam = new Team({
@@ -118,23 +129,22 @@ export async function POST(req: Request) {
 					twosMade: 0,
 					freeThrowsMade: 0,
 				},
-				division: metadata.division,
-				season: metadata.season,
+				division: selectedDivision._id.toString(),
+				season: selectedDivision.season.toString(),
 			});
 
 			// Save the new player to the database
 			const savedTeam = await newTeam.save();
 			console.log("Registered team:", savedTeam);
 
-			const updatedDivision = await Division.findById(metadata.division);
-			updatedDivision.teams = updatedDivision.teams.concat(savedTeam._id);
-			await updatedDivision.save();
+			selectedDivision.teams = selectedDivision.teams.concat(savedTeam._id);
+			await selectedDivision.save();
 
 			// Register player
 
 			const registeredPlayer = new Player({
-				season: metadata.season,
-				division: metadata.division,
+				season: selectedDivision.season.toString(),
+				division: selectedDivision._id.toString(),
 				team: savedTeam._id,
 				teamCaptain: true,
 				playerName: metadata.playerName,
@@ -184,14 +194,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: metadata.itemPriceId,
+							price: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: metadata.itemPriceId,
+								price: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -207,11 +217,13 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "joinTeam") {
-			const updatedUser = await User.findOne({ email: metadata.email });
-
+			const updatedUser = await User.findOne({ name: metadata.playerName });
+			const selectedDivision = await Division.findOne({
+				divisionName: metadata.divisionName,
+			});
 			const registeredPlayer = new Player({
-				season: metadata.season,
-				division: metadata.division,
+				season: selectedDivision.season.toString(),
+				division: selectedDivision._id.toString(),
 				team: metadata.team,
 				teamCaptain: false,
 				playerName: metadata.playerName,
@@ -261,14 +273,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: metadata.itemPriceId,
+							price: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: metadata.itemPriceId,
+								price: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -315,7 +327,7 @@ export async function POST(req: Request) {
 						metadata.shortSize,
 						metadata.playerName,
 						metadata.instagram,
-						metadata.division.divisionName,
+						metadata.divisionName,
 						metadata.status,
 					],
 				],
@@ -400,5 +412,5 @@ export async function POST(req: Request) {
 	}
 
 	// 3. Return a response to acknowledge receipt of the event.
-	NextResponse.json({ received: true });
+	return NextResponse.json({ received: true });
 }

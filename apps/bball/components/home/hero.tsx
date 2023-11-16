@@ -141,10 +141,22 @@ export default function Hero(): JSX.Element {
 								{slides[currentIndex].description}
 							</p>
 							<div className="relative z-30 my-4">
-								{!session || !session.user ? (
-									<Button onClick={openDialog}>
-										{slides[currentIndex].cta}
-									</Button>
+								{slides[currentIndex].link === "/register" ? (
+									<>
+										{!session || !session.user ? (
+											<Button onClick={openDialog}>
+												{slides[currentIndex].cta}
+											</Button>
+										) : (
+											<Link href={slides[currentIndex].link} target="_blank">
+												{slides[currentIndex].cta !== "" ? (
+													<Button>{slides[currentIndex].cta}</Button>
+												) : (
+													""
+												)}
+											</Link>
+										)}
+									</>
 								) : (
 									<Link href={slides[currentIndex].link} target="_blank">
 										{slides[currentIndex].cta !== "" ? (

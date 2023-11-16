@@ -138,6 +138,8 @@ export default function CustomizeTeam({ division, session }) {
 		itemPriceId: string,
 		payment: string
 	) => {
+		setIsLoader(true);
+
 		const {
 			teamName,
 			teamNameShort,
@@ -166,18 +168,13 @@ export default function CustomizeTeam({ division, session }) {
 				teamName: teamName,
 				teamNameShort: teamNameShort,
 				teamCode: teamCode,
-				division: division._id,
-				season: division.season,
-				itemPriceId: itemPriceId,
 				payment: payment,
 				jerseyNumber,
 				jerseySize,
 				shortSize,
 				jerseyName,
 				instagram,
-				teamCaptain: true,
 				playerName: session.user.name,
-				email: session.user.email,
 				divisionName: division.divisionName,
 			};
 

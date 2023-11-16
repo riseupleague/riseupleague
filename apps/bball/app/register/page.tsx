@@ -1,4 +1,5 @@
 import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+import { connectToDatabase } from "@/api-helpers/utils";
 import { Separator } from "@ui/components/separator";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -9,6 +10,7 @@ export default async function Register({
 }: {
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
+	await connectToDatabase();
 	const session = await getServerSession();
 	if (!session || !session.user) {
 		redirect("/");
