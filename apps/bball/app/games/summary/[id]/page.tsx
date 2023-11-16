@@ -5,7 +5,9 @@ import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PlayerSections from "@/components/players/player/PlayerSections";
 import PreviousGames from "@/components/players/player/PreviousGames";
+import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
+import { format } from "date-fns";
 
 export default async function Summary({
 	params,
@@ -19,20 +21,16 @@ export default async function Summary({
 	const { game } = await resGame.json();
 
 	const isoDate = new Date(game.date);
-	const day = isoDate.toLocaleDateString("en-US", {
+	const timeZone = "America/Toronto";
+	const date = utcToZonedTime(isoDate, timeZone);
+	const day = date.toLocaleDateString("en-US", {
 		weekday: "short",
 	});
-	const monthDay = isoDate.toLocaleDateString("en-US", {
+	const monthDay = date.toLocaleDateString("en-US", {
 		month: "2-digit",
 		day: "2-digit",
 	});
-	const time = isoDate
-		.toLocaleTimeString("en-US", {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true,
-		})
-		.replace(/\u202f/, " ");
+	const time = format(date, "h:mm a");
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
