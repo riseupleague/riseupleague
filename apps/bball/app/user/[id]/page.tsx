@@ -15,18 +15,9 @@ export default async function Success({
 	if (!session || !session.user) {
 		redirect("/");
 	}
-	const resDivision = await getRegisterDivisionById(params.id);
-	const { division } = await resDivision.json();
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-
-	console.log(players, season);
-
-	const selectedPlayer = players.find((player) => {
-		console.log(player.season.toString(), season);
-		return player.season.toString() === season;
-	});
-
+	console.log(players);
 	const convertToAMPM = (timeString) => {
 		const [hours, minutes] = timeString.split(":");
 		const date = new Date(2023, 0, 1, hours, minutes); // Assuming year 2023, month 0 (January), day 1
@@ -42,17 +33,11 @@ export default async function Success({
 	};
 
 	// Example usage:
-	const startTimeAMPM = convertToAMPM(division.startTime);
-	const endTimeAMPM = convertToAMPM(division.endTime);
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
 				You have successfully{" "}
-				{selectedPlayer.teamCaptain ? "registered" : "joined"}{" "}
-				{selectedPlayer.team.teamName}{" "}
-				{selectedPlayer.teamCaptain ? "to" : "in"} {division.divisionName}{" "}
-				division!{" "}
 			</h1>
 			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
 				An email has been sent to {session.user.email}
@@ -61,16 +46,6 @@ export default async function Success({
 			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
 				Season Summary
 			</h3>
-			<ul className="my-5 rounded border border-neutral-600 p-3 uppercase text-white">
-				<li className="my-1">Division: {division.divisionName}</li>
-				<li className="my-1">Arena: {division.location}</li>
-				<li className="my-1">
-					Game Days: {division.day} at {startTimeAMPM} - {endTimeAMPM}
-				</li>
-				<li className="my-1">
-					Season Length: 7 Regular games + 1 guaranteed playoff game
-				</li>
-			</ul>
 
 			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
 				Registration Next Steps

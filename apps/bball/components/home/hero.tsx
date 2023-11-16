@@ -23,20 +23,34 @@ import SignInDialog from "../auth/SignInDialog";
 export default function Hero(): JSX.Element {
 	const slides = [
 		{
-			url: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2620&q=80",
-			text: "Winter registration now open",
+			url: "/images/home/early-bird.jpg",
+			title: "Winter registration now open!",
+			description: "Early Bird Starting $200+ Per Player!",
+			cta: "Register Now",
+			link: "/register",
 		},
 		{
-			url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2670&q=80",
-			text: "Schedules now available",
+			url: "/images/home/photos.jpg",
+			title: "Check Out Your Game Photos",
+			description:
+				"We Upload Your Game Photos Every Week! Don't Forget to Tag Us",
+			cta: "Check Photos",
+			link: "https://drive.google.com/drive/u/1/folders/1bGVX8fo7WJwfx2IOEp_ZgEfHb21qsdx-",
 		},
 		{
-			url: "https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2672&q=80",
-			text: "Become a League sponsor",
+			url: "/images/home/volunteer.jpg",
+			title: "Be Part Of Our Team!",
+			description:
+				"We Are Accepting Volunteers for Basketball and Volleyball. Let Us Know!",
+			cta: "",
+			link: "",
 		},
 		{
-			url: "https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2253&q=80",
-			text: "shop",
+			url: "/images/home/league-rules.jpg",
+			title: "League Rules",
+			description: "Visit our league rules.",
+			cta: "Our Rules",
+			link: "/league-rules",
 		},
 	];
 
@@ -109,10 +123,10 @@ export default function Hero(): JSX.Element {
 	return (
 		<section className="group relative  mb-8  mt-16 h-[450px] w-full  sm:h-[650px] lg:my-16 ">
 			<figure
-				className="relative   h-full  w-full items-center bg-cover bg-center duration-500"
+				className="repeat-0   relative  h-full w-full items-center bg-cover bg-center duration-500"
 				style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
 			>
-				<div className="flex h-5/6 w-full items-end bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
+				<div className="flex h-5/6 w-full items-end bg-opacity-80 bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
 					{isAnimating && (
 						<motion.div
 							initial={{ opacity: 0, x: 10 }}
@@ -121,17 +135,23 @@ export default function Hero(): JSX.Element {
 							transition={{ duration: 0.5 }}
 						>
 							<h1 className="font-barlow mb-6 text-3xl font-medium uppercase leading-tight sm:text-5xl">
-								{slides[currentIndex].text}
+								{slides[currentIndex].title}
 							</h1>
 							<p className="font-barlow font-light text-neutral-200">
-								This season is the best season yet, so don’t miss out!
+								{slides[currentIndex].description}
 							</p>
 							<div className="relative z-50 my-4">
 								{!session || !session.user ? (
-									<Button onClick={openDialog}>Register Now</Button>
+									<Button onClick={openDialog}>
+										{slides[currentIndex].cta}
+									</Button>
 								) : (
-									<Link href="/register">
-										<Button>Register Now</Button>
+									<Link href={slides[currentIndex].link} target="_blank">
+										{slides[currentIndex].cta !== "" ? (
+											<Button>{slides[currentIndex].cta}</Button>
+										) : (
+											""
+										)}
 									</Link>
 								)}
 							</div>
@@ -150,14 +170,14 @@ export default function Hero(): JSX.Element {
 							>
 								<Progress value={slideIndex === currentIndex ? progress : 0} />
 								<p className="font-barlow hidden font-light sm:block">
-									{slide.text}
+									{slide.title}
 								</p>
 							</div>
 						))}
 					</div>
 					<p className="font-barlow mt-5 block w-full sm:hidden">
 						{" "}
-						{slides[currentIndex].text}
+						{slides[currentIndex].title}
 					</p>
 				</div>
 			</figure>

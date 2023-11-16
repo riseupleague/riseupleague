@@ -1,5 +1,3 @@
-import { getAllUpcomingGames } from "@/api-helpers/controllers/games-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
 import HomeLatestGames from "../games/HomeLatestGames";
 import Link from "next/link";
 import { Button } from "@ui/components/button";

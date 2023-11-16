@@ -14,21 +14,30 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const resDivisions = await getAllRegisterDivisions();
-	const { divisions } = await resDivisions.json();
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
 		redirect("/");
 	}
+	const resDivisions = await getAllRegisterDivisions();
+	const { divisions } = await resDivisions.json();
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { player } = await resPlayer.json();
-	if (player) {
-		if (player.paid) {
-			redirect(`/`);
-		}
+	const { players, season } = await resPlayer.json();
+	console.log("player:", players);
+
+	let filteredDivisions = [...divisions];
+
+	if (players && players.length > 0) {
+		filteredDivisions = filteredDivisions.filter((division) => {
+			// Check if every players division is not equal to the current division
+			return players.every((player) => {
+				return player.division._id !== division._id;
+			});
+		});
 	}
+
+	console.log("Filtered Divisions:", filteredDivisions);
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
@@ -36,7 +45,7 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 			</h1>
 
 			<Link
-				href={"/register?back=true"}
+				href={"/register"}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
 				<svg
@@ -61,7 +70,7 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 			<div className="mt-10 flex flex-col gap-10 ">
 				<Accordion type="single" collapsible className="w-full">
-					{divisions.map((division, index) => {
+					{filteredDivisions.map((division, index) => {
 						return (
 							<AccordionItem
 								key={division.divisionName}

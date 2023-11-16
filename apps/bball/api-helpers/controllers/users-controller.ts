@@ -61,19 +61,45 @@ export const getUserPlayerPayment = async (email: string) => {
 		const season = await Season.findOne({ register: true });
 		const user = await User.findOne({ email }).populate({
 			path: "basketball",
-			populate: {
-				path: "team", // Populate the 'team' field inside 'Player'
-			},
-		});
-		const selectedPlayer = user.basketball.find((player) => {
-			return player.season._id.toString() === season._id.toString();
+			populate: [
+				{
+					path: "team",
+					select: "teamName",
+				},
+				{
+					path: "division",
+					select: "divisionName", // Select the fields you want to include
+				},
+			],
 		});
 
-		if (selectedPlayer) {
-			return NextResponse.json({ player: selectedPlayer });
-		} else {
-			return NextResponse.json({ message: "No player found" }, { status: 404 });
-		}
+		return NextResponse.json({
+			players: user.basketball,
+			season: season._id.toString(),
+		});
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getCurrentUser = async (email: string) => {
+	try {
+		const season = await Season.findOne({ register: true });
+		const user = await User.findOne({ email }).populate({
+			path: "basketball",
+			populate: {
+				path: "team",
+				select: "teamName",
+			},
+		});
+
+		return NextResponse.json({
+			user,
+		});
 	} catch (error) {
 		console.error("Error:", error);
 		return NextResponse.json(

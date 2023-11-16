@@ -1,5 +1,7 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
+import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+
 import Link from "next/link";
 import {
 	Accordion,
@@ -12,20 +14,36 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const resDivisions = await getAllRegisterDivisions();
-	const { divisions } = await resDivisions.json();
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
 		redirect("/");
 	}
+	const resDivisions = await getAllRegisterDivisions();
+	const { divisions } = await resDivisions.json();
+
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { players, season } = await resPlayer.json();
+	console.log("players:", players);
+	let filteredDivisions = [...divisions];
+	if (players && players.length > 0) {
+		filteredDivisions = filteredDivisions.filter((division) => {
+			// Check if every players division is not equal to the current division
+			return players.every((player) => {
+				return player.division._id !== division._id;
+			});
+		});
+	}
+
+	console.log("filteredDivisions:", filteredDivisions);
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
 			<Link
-				href={"/register?back=true"}
+				href={"/register"}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
 				<svg
@@ -50,7 +68,7 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 			<div className="mt-10 flex flex-col gap-10 ">
 				<Accordion type="single" collapsible className="w-full">
-					{divisions.map((division, index) => {
+					{filteredDivisions.map((division, index) => {
 						return (
 							<AccordionItem
 								key={division.divisionName}

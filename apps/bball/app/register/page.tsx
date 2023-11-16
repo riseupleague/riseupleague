@@ -13,23 +13,6 @@ export default async function Register({
 	if (!session || !session.user) {
 		redirect("/");
 	}
-	const { back } = searchParams;
-	if (!back) {
-		const resPlayer = await getUserPlayerPayment(session.user.email);
-		const { player } = await resPlayer.json();
-
-		if (player) {
-			if (player.paid === false) {
-				if (player.teamCaptain) {
-					redirect(`/register/create-team/${player.division}`);
-				} else {
-					redirect(`/register/join-team/${player.division}`);
-				}
-			} else {
-				redirect(`/`);
-			}
-		}
-	}
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">

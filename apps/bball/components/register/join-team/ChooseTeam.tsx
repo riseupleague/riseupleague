@@ -16,7 +16,7 @@ import { Button } from "@ui/components/button";
 import { useState } from "react";
 import CustomizeJersey from "./CustomizeJersey";
 
-export default function ChooseTeam({ division, session, player, userTeam }) {
+export default function ChooseTeam({ division, session }) {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);
 	const [teamCode, setTeamCode] = useState("");
 	const [selectedTeamIndex, setSelectedTeamIndex] = useState(null);
@@ -46,9 +46,32 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 			{!isTeamSelected ? (
 				<>
 					{division.teams?.length === 0 ? (
-						<h3 className="mt-20  text-3xl uppercase">
-							No teams have been created in this division yet.
-						</h3>
+						<>
+							<Link
+								href={"/register/join-team"}
+								className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+							>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="15"
+									height="20"
+									viewBox="0 0 15 20"
+									fill="none"
+								>
+									<path
+										d="M8.125 16.25L1.875 10L8.125 3.75"
+										stroke="#ABAFB3"
+										strokeWidth="1.5"
+										strokeLinecap="round"
+										strokeLinejoin="round"
+									/>
+								</svg>
+								Back
+							</Link>
+							<h3 className="mt-20  text-3xl uppercase">
+								No teams have been created in this division yet.
+							</h3>
+						</>
 					) : (
 						<>
 							<Link
@@ -77,9 +100,6 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 							<div className="mt-10 flex flex-col gap-10 ">
 								<Accordion type="single" collapsible className="w-full">
 									{division.teams?.map((team, index) => {
-										const paidPlayers = team.players.filter((player) => {
-											return player.paid == true;
-										});
 										return (
 											<AccordionItem
 												key={team.teamName}
@@ -115,7 +135,7 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 																/>
 															</svg>
 															<div className="flex gap-1">
-																<span>{paidPlayers.length}</span>/
+																<span>{team.players.length}</span>/
 																<span>10</span>
 															</div>
 														</div>
@@ -178,9 +198,7 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 				<CustomizeJersey
 					team={selectedTeam}
 					session={session}
-					player={player}
 					division={division}
-					teamId={userTeam}
 				/>
 			)}
 		</>
