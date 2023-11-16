@@ -215,8 +215,10 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 															</div>
 															<span className="text-xs">
 																or 4 installments of{" "}
-																<span className="text-sm">$60</span> + 13% HST
-																bi-weekly
+																<span className="text-sm">
+																	{division.instalmentPrice}
+																</span>{" "}
+																+ 13% HST bi-weekly
 															</span>
 														</div>
 													</div>
@@ -230,14 +232,13 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 															<p className="mb-2 text-5xl font-semibold">
 																$ {division.earlyBirdPrice}
 															</p>
-
 															<span className="text-xs">+ 13% HST</span>
 														</div>
-														<span className="text-xs">
+														{/* <span className="text-xs">
 															or 4 installments of{" "}
 															<span className="text-sm">$60</span> + 13% HST
 															bi-weekly
-														</span>
+														</span> */}
 													</div>
 												</div>
 											</div>
