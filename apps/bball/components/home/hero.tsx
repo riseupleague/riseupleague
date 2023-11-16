@@ -140,7 +140,7 @@ export default function Hero(): JSX.Element {
 							<p className="font-barlow font-light text-neutral-200">
 								{slides[currentIndex].description}
 							</p>
-							<div className="relative z-50 my-4">
+							<div className="relative z-30 my-4">
 								{!session || !session.user ? (
 									<Button onClick={openDialog}>
 										{slides[currentIndex].cta}
