@@ -44,8 +44,12 @@ export default async function JoinTeam({
 			<ChooseTeam
 				division={newDivision}
 				session={session}
-				player={selectedPlayer ? selectedPlayer : false}
-				userTeam={selectedPlayer?.team ? selectedPlayer.team._id : false}
+				player={selectedPlayer && !selectedPlayer.paid ? selectedPlayer : false}
+				userTeam={
+					selectedPlayer?.team && !selectedPlayer.paid
+						? selectedPlayer.team
+						: false
+				}
 			/>
 		</main>
 	);

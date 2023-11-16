@@ -28,6 +28,7 @@ import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
+import bcrypt from "bcryptjs";
 
 const SignInDialog = ({ open, onOpenChange }) => {
 	const router = useRouter();
@@ -81,7 +82,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 		event.preventDefault();
 
 		if (registerName && registerPassword && email) {
-			const res = await fetch("/api/register", {
+			const resSignUp = await fetch("/api/register", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -92,6 +93,19 @@ const SignInDialog = ({ open, onOpenChange }) => {
 					password: registerPassword,
 				}),
 			});
+
+			if (resSignUp.ok) {
+				const { email, password } = await resSignUp.json();
+
+				const resLogin = await signIn("credentials", {
+					email,
+					password,
+					redirect: false,
+				});
+				if (resLogin.ok) {
+					router.push("/");
+				}
+			}
 		}
 	};
 
