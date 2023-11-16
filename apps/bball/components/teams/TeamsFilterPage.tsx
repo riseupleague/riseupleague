@@ -54,7 +54,9 @@ export default function TeamsFilterPage({ divisions }) {
 					</h3>
 					<div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 						{division.teams
-							.sort((a, b) => (a.teamName > b.teamName ? 1 : -1))
+							.sort((a, b) =>
+								a.teamName.toLowerCase() > b.teamName.toLowerCase() ? 1 : -1
+							)
 							.map((team) => (
 								<TeamsCard key={team._id} team={team} />
 							))}

@@ -255,9 +255,13 @@ export default function PlayerGrid({
 							</p>
 						</div>
 					</article>
-					{currentPlayers.map((player, index) => (
-						<PlayerCard player={player} key={index} />
-					))}
+					{currentPlayers
+						.sort((a, b) =>
+							a.playerName.toLowerCase() > b.playerName.toLowerCase() ? 1 : -1
+						)
+						.map((player, index) => (
+							<PlayerCard player={player} key={index} />
+						))}
 				</div>
 			) : (
 				<div className="flex h-[50vh] items-center justify-center">
