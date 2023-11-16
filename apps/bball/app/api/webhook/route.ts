@@ -28,8 +28,12 @@ export async function POST(req: Request) {
 			process.env.STRIPE_WEBHOOK_SECRET || ""
 		);
 	} catch (err) {
-		return new NextResponse(
-			`Webhook Error: ${err instanceof Error ? err.message : "Unknown Error"}`,
+		return NextResponse.json(
+			{
+				message: `Webhook Error: ${
+					err instanceof Error ? err.message : "Unknown Error"
+				}`,
+			},
 			{ status: 400 }
 		);
 	}
@@ -404,5 +408,5 @@ export async function POST(req: Request) {
 	}
 
 	// 3. Return a response to acknowledge receipt of the event.
-	NextResponse.json({ received: true });
+	return NextResponse.json({ received: true });
 }
