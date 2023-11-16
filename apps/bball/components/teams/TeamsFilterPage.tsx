@@ -16,7 +16,7 @@ export default function TeamsFilterPage({ divisions }) {
 	// Add "All Divisions" to the beginning of the array
 	divisionsNameAndId.unshift({
 		divisionName: "All Divisions",
-		_id: "all",
+		_id: "default",
 	});
 	const [selectedDivision, setSelectedDivision] = useState(
 		divisionsNameAndId[0]._id
@@ -24,6 +24,7 @@ export default function TeamsFilterPage({ divisions }) {
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
+		console.log(event);
 		const selectedDivisionId = event;
 
 		if (selectedDivisionId !== "default") {

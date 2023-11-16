@@ -173,12 +173,12 @@ export default function PlayerGrid({
 					type="search"
 					onChange={handleSearch}
 					placeholder="Search Player"
-					className="font-barlow my-8 rounded border border-neutral-600 bg-neutral-700 px-4 py-3 text-lg sm:w-1/6"
+					className="font-barlow my-8 rounded border border-neutral-600 bg-neutral-700 px-4 py-3 text-lg sm:w-1/4"
 				/>
 				{/* Pagination Controls */}
 
 				{totalPages > 1 && (
-					<div className="font-barlow flex space-x-6 text-xl">
+					<div className="font-barlow my-8 flex space-x-6 text-xl">
 						<div>
 							<select
 								value={page}
@@ -198,7 +198,7 @@ export default function PlayerGrid({
 					</div>
 				)}
 			</div>
-			<div className="mb-10 flex flex-col gap-5 md:flex-row">
+			{/* <div className="mb-10 flex flex-col gap-5 md:flex-row">
 				<FilterAll
 					divisions={divisionsNameAndId}
 					teams={teamsNameDivisionAndId}
@@ -208,7 +208,7 @@ export default function PlayerGrid({
 					setTeamCheckboxState={setTeamCheckboxState}
 					setDivisionCheckboxState={setDivisionCheckboxState}
 				/>
-			</div>
+			</div> */}
 			<div className="flex flex-wrap space-x-2">
 				{closeDivisions.map((division) => (
 					<Button
@@ -249,7 +249,7 @@ export default function PlayerGrid({
 							</div>
 						</div>
 						<div className="grid w-1/4 grid-cols-2 items-center justify-items-center gap-4">
-							<p className="text-sm  uppercase sm:text-lg">Jersey Number</p>
+							<p className="text-sm  uppercase sm:text-lg">Jersey</p>
 							<p className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg">
 								Division{" "}
 							</p>

@@ -20,7 +20,7 @@ const ProfileLink = () => {
 		setOpen(false);
 	};
 	return (
-		<div className="bg-neutral-800">
+		<div className="hidden bg-neutral-800 md:block">
 			{status === "authenticated" ? (
 				<>
 					<Image
