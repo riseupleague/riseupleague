@@ -14,13 +14,13 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const resDivisions = await getAllRegisterDivisions();
-	const { divisions } = await resDivisions.json();
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
 		redirect("/");
 	}
+	const resDivisions = await getAllRegisterDivisions();
+	const { divisions } = await resDivisions.json();
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
@@ -28,12 +28,14 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 	let filteredDivisions = [...divisions];
 
-	filteredDivisions = filteredDivisions.filter((division) => {
-		// Check if every players division is not equal to the current division
-		return players.every(
-			(player) => player.division._id !== division._id || player.paid == false
-		);
-	});
+	if (players && players.length > 0) {
+		filteredDivisions = filteredDivisions.filter((division) => {
+			// Check if every players division is not equal to the current division
+			return players.every((player) => {
+				return player.division._id !== division._id;
+			});
+		});
+	}
 
 	console.log("Filtered Divisions:", filteredDivisions);
 	return (
@@ -43,7 +45,7 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 			</h1>
 
 			<Link
-				href={"/register?back=true"}
+				href={"/register"}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
 				<svg

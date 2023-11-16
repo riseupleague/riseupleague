@@ -13,23 +13,6 @@ export default async function Register({
 	if (!session || !session.user) {
 		redirect("/");
 	}
-	const { back } = searchParams;
-	if (!back) {
-		const resPlayer = await getUserPlayerPayment(session.user.email);
-		const { players, season } = await resPlayer.json();
-		const selectedPlayer = players.find((player) => {
-			return player.season === season;
-		});
-		if (selectedPlayer) {
-			if (selectedPlayer.paid === false) {
-				if (selectedPlayer.teamCaptain) {
-					redirect(`/register/create-team/${selectedPlayer.division._id}`);
-				} else {
-					redirect(`/register/join-team/${selectedPlayer.division._id}`);
-				}
-			}
-		}
-	}
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">

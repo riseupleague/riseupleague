@@ -25,6 +25,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import getStripe from "@/utils/checkout";
+import { Loader2 } from "lucide-react";
 
 interface FormData {
 	teamName: string;
@@ -50,20 +51,20 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeTeam({ division, session, player, team }) {
-	console.log("player:", player);
-	console.log("team:", team);
+export default function CustomizeTeam({ division, session }) {
+	console.log("division:", division);
+	const [isLoader, setIsLoader] = useState(false);
 
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",
 		teamNameShort: "",
 		teamCode: "",
-		jerseyName: player ? player?.jerseyName : "",
-		instagram: player ? player?.instagram : "",
-		jerseyNumber: player ? player?.jerseyNumber : "",
-		jerseySize: player ? player?.jerseySize : "",
-		shortSize: player ? player?.shortSize : "",
+		jerseyName: "",
+		instagram: "",
+		jerseyNumber: "",
+		jerseySize: "",
+		shortSize: "",
 		termsChecked: false,
 		refundChecked: false,
 	});
@@ -140,12 +141,12 @@ export default function CustomizeTeam({ division, session, player, team }) {
 		const {
 			teamName,
 			teamNameShort,
-			teamCode,
 			jerseyName,
 			jerseyNumber,
 			jerseySize,
 			shortSize,
 			instagram,
+			teamCode,
 		} = formData;
 
 		// Check for required input fields
@@ -159,93 +160,25 @@ export default function CustomizeTeam({ division, session, player, team }) {
 			return; // Exit the function if inputs are invalid
 		}
 
-		const teamObject = {
-			teamName,
-			teamNameShort,
-			teamCode,
-			division: division._id,
-			season: division.season,
-			teamId: team ? team._id : "",
-			playerId: player ? player._id : "",
-		};
-
 		try {
-			let resTeam;
-
-			const dontDeleteTeam = division.teams.find(
-				(paidTeam) => paidTeam._id === team._id
-			);
-			if (!team) {
-				resTeam = await fetch("/api/register-team", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(teamObject),
-				});
-			} else {
-				if (dontDeleteTeam && dontDeleteTeam.paid === true) {
-					resTeam = await fetch("/api/register-team", {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(teamObject),
-					});
-				} else {
-					resTeam = await fetch("/api/register-team", {
-						method: "PATCH",
-						headers: {
-							"Content-Type": "application/json",
-						},
-						body: JSON.stringify(teamObject),
-					});
-				}
-			}
-
-			const newTeam = await resTeam.json();
-			const playerObject = {
+			const formObject = {
+				status: "createTeam",
+				teamName: teamName,
+				teamNameShort: teamNameShort,
+				teamCode: teamCode,
+				division: division._id,
+				season: division.season,
+				itemPriceId: itemPriceId,
+				payment: payment,
 				jerseyNumber,
 				jerseySize,
 				shortSize,
 				jerseyName,
 				instagram,
-				team: newTeam.team._id,
 				teamCaptain: true,
-				division: division._id,
-				season: division.season,
 				playerName: session.user.name,
 				email: session.user.email,
-				playerId: player ? player._id : "",
-				status: "createTeam",
-			};
-			let resPlayer;
-			if (player) {
-				resPlayer = await fetch("/api/register-player", {
-					method: "PATCH",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(playerObject),
-				});
-			} else {
-				resPlayer = await fetch("/api/register-player", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(playerObject),
-				});
-			}
-			const newPlayer = await resPlayer.json();
-			const formObject = {
-				status: "createTeam",
-				playerId: newPlayer.player._id,
-				team: newTeam.team._id,
-				division: division._id,
-				season: division.season,
-				itemPriceId: itemPriceId,
-				payment: payment,
+				divisionName: division.divisionName,
 			};
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
@@ -824,7 +757,11 @@ export default function CustomizeTeam({ division, session, player, team }) {
 										  );
 								}}
 							>
-								Pay in full
+								{isLoader ? (
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+								) : (
+									"Pay in full"
+								)}
 							</Button>
 
 							{!division.earlyBirdOpen && (

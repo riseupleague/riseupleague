@@ -20,10 +20,11 @@ export default async function Success({
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
-	console.log(players);
+	console.log(players, season);
 
 	const selectedPlayer = players.find((player) => {
-		return player.season === season;
+		console.log(player.season.toString(), season);
+		return player.season.toString() === season;
 	});
 
 	const convertToAMPM = (timeString) => {
@@ -49,7 +50,9 @@ export default async function Success({
 			<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
 				You have successfully{" "}
 				{selectedPlayer.teamCaptain ? "registered" : "joined"}{" "}
-				{selectedPlayer.team.teamName} to {division.divisionName} division!{" "}
+				{selectedPlayer.team.teamName}{" "}
+				{selectedPlayer.teamCaptain ? "to" : "in"} {division.divisionName}{" "}
+				division!{" "}
 			</h1>
 			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
 				An email has been sent to {session.user.email}

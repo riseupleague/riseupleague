@@ -51,13 +51,9 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeJersey({
-	team,
-	session,
-	player,
-	division,
-	teamId,
-}) {
+export default function CustomizeJersey({ team, session, division }) {
+	console.log("team:", team);
+	console.log("division:", division);
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 
@@ -65,11 +61,11 @@ export default function CustomizeJersey({
 		teamName: team.teamName,
 		teamNameShort: team.teamNameShort,
 		teamCode: team.teamCode,
-		jerseyName: player ? player?.jerseyName : "",
-		instagram: player ? player?.instagram : "",
-		jerseyNumber: player ? player?.jerseyNumber : "",
-		jerseySize: player ? player?.jerseySize : "",
-		shortSize: player ? player?.shortSize : "",
+		jerseyName: "",
+		instagram: "",
+		jerseyNumber: "",
+		jerseySize: "",
+		shortSize: "",
 		termsChecked: false,
 		refundChecked: false,
 	});
@@ -164,50 +160,23 @@ export default function CustomizeJersey({
 		}
 
 		try {
-			const playerObject = {
+			const formObject = {
+				status: "joinTeam",
+				team: team._id,
+				division: division._id,
+				season: division.season,
+				itemPriceId: itemPriceId,
+				payment: payment,
 				jerseyNumber,
 				jerseySize,
 				shortSize,
 				jerseyName,
 				instagram,
-				team: team._id,
-				division: team.division,
-				season: team.season,
+				teamCaptain: true,
 				playerName: session.user.name,
 				email: session.user.email,
-				playerId: player ? player._id : "",
-				teamId: player ? player.team._id : "",
-				status: "joinTeam",
-			};
-
-			let resPlayer;
-
-			if (player) {
-				resPlayer = await fetch("/api/register-player", {
-					method: "PATCH",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(playerObject),
-				});
-			} else {
-				resPlayer = await fetch("/api/register-player", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(playerObject),
-				});
-			}
-
-			const newPlayer = await resPlayer.json();
-			const formObject = {
-				status: "joinTeam",
-				playerId: newPlayer.player._id,
-				division: division._id,
-				season: division.season,
-				itemPriceId: itemPriceId,
-				payment: payment,
+				teamName: team.teamName,
+				divisionName: division.divisionName,
 			};
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);

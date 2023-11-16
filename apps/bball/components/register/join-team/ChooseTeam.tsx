@@ -16,14 +16,13 @@ import { Button } from "@ui/components/button";
 import { useState } from "react";
 import CustomizeJersey from "./CustomizeJersey";
 
-export default function ChooseTeam({ division, session, player, userTeam }) {
+export default function ChooseTeam({ division, session }) {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);
 	const [teamCode, setTeamCode] = useState("");
 	const [selectedTeamIndex, setSelectedTeamIndex] = useState(null);
 	const [selectedTeam, setSelectedTeam] = useState({});
 	const [codeError, setCodeError] = useState("");
-	console.log("player:", player);
-	console.log("team:", userTeam);
+
 	const handleTeamSelected = () => {
 		const teamSelected = division.teams[selectedTeamIndex];
 		setSelectedTeam({
@@ -101,9 +100,6 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 							<div className="mt-10 flex flex-col gap-10 ">
 								<Accordion type="single" collapsible className="w-full">
 									{division.teams?.map((team, index) => {
-										const paidPlayers = team.players.filter((player) => {
-											return player.paid == true;
-										});
 										return (
 											<AccordionItem
 												key={team.teamName}
@@ -139,7 +135,7 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 																/>
 															</svg>
 															<div className="flex gap-1">
-																<span>{paidPlayers.length}</span>/
+																<span>{team.players.length}</span>/
 																<span>10</span>
 															</div>
 														</div>
@@ -202,9 +198,7 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 				<CustomizeJersey
 					team={selectedTeam}
 					session={session}
-					player={player}
 					division={division}
-					teamId={userTeam}
 				/>
 			)}
 		</>
