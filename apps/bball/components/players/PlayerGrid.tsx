@@ -165,6 +165,7 @@ export default function PlayerGrid({
 		// const newUrl = `/players?search=${searchValue}`;
 		// window.history.pushState({}, "", newUrl);
 	};
+
 	return (
 		<>
 			<div className="flex flex-col items-center justify-between sm:flex-row">

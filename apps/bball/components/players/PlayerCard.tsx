@@ -24,7 +24,7 @@ export default function PlayerCard({ player }) {
 				</div>
 				<Link
 					href={`/teams/${player.team._id}`}
-					className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg"
+					className="font-barlow w-fit text-sm uppercase transition hover:opacity-80 sm:text-lg"
 				>
 					{player.team.teamName}
 				</Link>

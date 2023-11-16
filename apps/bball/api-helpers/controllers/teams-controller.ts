@@ -148,6 +148,7 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 			);
 		}
 		const teams = await Team.find().select("averageStats");
+
 		const avgStats = {
 			points: 0,
 			rebounds: 0,

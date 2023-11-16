@@ -78,6 +78,7 @@ export const getAllUpcomingGamesHeader = async () => {
 		);
 	}
 };
+
 export const getAllPastGames = async () => {
 	try {
 		const games = await Game.find({ status: true })
@@ -278,7 +279,7 @@ export const getGameById = async (id) => {
 		const game = await Game.findById(id)
 			.populate({
 				path: "homeTeam",
-				select: "teamName teamNameShort wins losses averageStats",
+				select: "teamName teamNameShort wins losses averageStats location",
 				populate: [
 					{
 						path: "players",
@@ -299,7 +300,7 @@ export const getGameById = async (id) => {
 			})
 			.populate({
 				path: "awayTeam",
-				select: "teamName teamNameShort wins losses averageStats",
+				select: "teamName teamNameShort wins losses averageStats location",
 				populate: [
 					{
 						path: "players",
@@ -335,22 +336,3 @@ export const getGameById = async (id) => {
 		);
 	}
 };
-
-// export const getAllPlayersOfTheWeek = async () => {
-// 	try {
-// 		const activeSeason = await Season.find({ active: "true" });
-// 		{
-// 		}
-// 		const allPlayersOfTheWeek = await Game.find({
-// 			status: true,
-// 		})
-// 			.populate("playerOfTheGame")
-// 			.select("playerOfTheGame");
-// 		return NextResponse.json({ allPlayersOfTheWeek });
-// 	} catch (e) {
-// 		return NextResponse.json(
-// 			{ message: "Internal Server Error" },
-// 			{ status: 500 }
-// 		);
-// 	}
-// };
