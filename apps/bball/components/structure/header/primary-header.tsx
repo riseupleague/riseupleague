@@ -159,8 +159,8 @@ export default function PrimaryHeader(): React.JSX.Element {
 	return (
 		<nav>
 			<div className="container mx-auto  items-center justify-between py-8 md:flex">
-				<div className="flex items-center">
-					<div className="block md:hidden">
+				<div className="flex items-center justify-between">
+					<div className="block w-1/12 md:hidden">
 						<Sheet>
 							<SheetTrigger asChild>
 								<button className="flex flex-col items-center justify-center">
@@ -237,11 +237,14 @@ export default function PrimaryHeader(): React.JSX.Element {
 											League
 										</span>
 									</li>
+									<li className="flex items-center gap-3 px-6 py-2">
+										<ProfileLink />
+									</li>
 								</ul>
 							</SheetContent>
 						</Sheet>
 					</div>
-					<figure>
+					<figure className="flex w-5/6 justify-center">
 						<Link href="/" className="transition hover:opacity-80">
 							<Image
 								alt="Rise Up Logo"
@@ -252,6 +255,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 							/>
 						</Link>
 					</figure>
+					<div className="w-1/12"></div>
 				</div>
 				<div className="hidden items-center gap-7 md:flex">
 					{headerOptions.map((option, index) => {
@@ -279,7 +283,9 @@ export default function PrimaryHeader(): React.JSX.Element {
 						) : null;
 					})}
 				</div>
-				<ProfileLink />
+				<div className="hidden md:block">
+					<ProfileLink />
+				</div>
 			</div>
 			<ul className="fixed bottom-0 left-0 z-50 flex  w-full items-center justify-around border border-neutral-600 bg-neutral-700 px-[15px] pb-[25px] pt-[15px] backdrop-blur-md md:hidden">
 				{headerOptions.map((option, index) => {

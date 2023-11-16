@@ -4,8 +4,8 @@ import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { Button } from "@ui/components/button";
-
 import SignInDialog from "@/components/auth/SignInDialog";
+
 const ProfileLink = () => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
@@ -20,7 +20,7 @@ const ProfileLink = () => {
 		setOpen(false);
 	};
 	return (
-		<div className="hidden bg-neutral-800 md:block">
+		<div className="bg-neutral-800">
 			{status === "authenticated" ? (
 				<>
 					<Image
