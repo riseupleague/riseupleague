@@ -23,9 +23,9 @@ export default async function Register({
 		if (selectedPlayer) {
 			if (selectedPlayer.paid === false) {
 				if (selectedPlayer.teamCaptain) {
-					redirect(`/register/create-team/${selectedPlayer.division}`);
+					redirect(`/register/create-team/${selectedPlayer.division._id}`);
 				} else {
-					redirect(`/register/join-team/${selectedPlayer.division}`);
+					redirect(`/register/join-team/${selectedPlayer.division._id}`);
 				}
 			}
 		}

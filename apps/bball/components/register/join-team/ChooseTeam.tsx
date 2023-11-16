@@ -22,7 +22,8 @@ export default function ChooseTeam({ division, session, player, userTeam }) {
 	const [selectedTeamIndex, setSelectedTeamIndex] = useState(null);
 	const [selectedTeam, setSelectedTeam] = useState({});
 	const [codeError, setCodeError] = useState("");
-
+	console.log("player:", player);
+	console.log("team:", userTeam);
 	const handleTeamSelected = () => {
 		const teamSelected = division.teams[selectedTeamIndex];
 		setSelectedTeam({

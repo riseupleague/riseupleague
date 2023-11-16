@@ -246,7 +246,7 @@ export const getRegisterDivisionById = async (id: string) => {
 				"teamName teamNameShort teamCode wins losses primaryColor secondaryColor tertiaryColor players paid",
 			populate: {
 				path: "players",
-				select: "paid", // Select only the 'paid' field for players
+				select: "paid playerName jerseyNumber", // Select only the 'paid' field for players
 			},
 		})
 		.select(

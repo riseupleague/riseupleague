@@ -5,6 +5,8 @@ import { Button } from "@ui/components/button";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
+import { Loader2 } from "lucide-react";
+
 import {
 	Table,
 	TableBody,
@@ -57,6 +59,7 @@ export default function CustomizeJersey({
 	teamId,
 }) {
 	const [isSummary, setIsSummary] = useState(false);
+	const [isLoader, setIsLoader] = useState(false);
 
 	const [formData, setFormData] = useState<FormData>({
 		teamName: team.teamName,
@@ -89,6 +92,18 @@ export default function CustomizeJersey({
 
 		if (!formData.jerseyNumber) {
 			errors.jerseyNumber = "Jersey number is required";
+		}
+
+		if (formData.jerseyNumber) {
+			// Check if the jersey number already exists
+			const jerseyNumberExists = team.players.some(
+				(player) =>
+					player.jerseyNumber.toString() === formData.jerseyNumber.toString()
+			);
+
+			if (jerseyNumberExists) {
+				errors.jerseyNumber = "Jersey number is already taken";
+			}
 		}
 
 		if (!formData.jerseySize) {
@@ -137,6 +152,8 @@ export default function CustomizeJersey({
 		itemPriceId: string,
 		payment: string
 	) => {
+		setIsLoader(true);
+
 		const { jerseyName, jerseyNumber, jerseySize, shortSize, instagram } =
 			formData;
 
@@ -249,6 +266,29 @@ export default function CustomizeJersey({
 
 					<form onSubmit={handleFormSubmit}>
 						<div className="mt-5 flex flex-col gap-5 rounded-md bg-neutral-700 px-3 py-6">
+							<h4 className="text-lg uppercase underline">Current Roster:</h4>
+							<section className="mb-5 overflow-x-auto">
+								<table className="w-full table-auto">
+									<thead>
+										<tr>
+											<th className="px-4 py-2">Name</th>
+											<th className="px-4 py-2">Jersey Number</th>
+										</tr>
+									</thead>
+									<tbody className="text-white">
+										{team.players.map((player) => (
+											<tr key={player.playerName + player.jerseyNumber}>
+												<td className="border px-4 py-2 font-bold">
+													{player.playerName}
+												</td>
+												<td className="rounded border px-4 py-2 text-center text-lg font-bold text-white md:text-start">
+													{player.jerseyNumber}
+												</td>
+											</tr>
+										))}
+									</tbody>
+								</table>
+							</section>
 							<h4 className="text-lg uppercase underline">Your Own Jersey:</h4>
 							{/* for early birds only */}
 							<section>
@@ -264,6 +304,7 @@ export default function CustomizeJersey({
 									}
 								/>
 							</section>
+
 							<section>
 								<Label className="uppercase">Jersey Number</Label>
 								<Input
@@ -610,7 +651,11 @@ export default function CustomizeJersey({
 										  );
 								}}
 							>
-								Pay in full
+								{isLoader ? (
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+								) : (
+									"Pay in full"
+								)}
 							</Button>
 
 							{!division.earlyBirdOpen && (

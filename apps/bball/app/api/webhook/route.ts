@@ -6,6 +6,7 @@ import User from "@/api-helpers/models/Team";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { google } from "googleapis";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -35,7 +36,6 @@ export async function POST(req: Request) {
 	if (event.type === "checkout.session.completed") {
 		const session = event.data.object;
 		const metadata = JSON.parse(session.metadata.formObject);
-
 		if (metadata.status === "freeAgent") {
 			const newPlayer = new Player({
 				season: metadata.season,
@@ -188,6 +188,63 @@ export async function POST(req: Request) {
 				});
 			}
 		}
+
+		const updatedPlayer = await Player.findById(metadata.playerId)
+			.populate({
+				path: "team",
+				select: "teamName teamBanner",
+			})
+			.populate({ path: "allStats.game", select: "gameName status" })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "team",
+				select: "divisionName",
+			})
+			.select("playerName team jerseyNumber division jerseyName");
+
+		console.log("updatedPlayer:", updatedPlayer);
+
+		const auth = new google.auth.GoogleAuth({
+			credentials: {
+				client_email: process.env.CLIENT_EMAIL,
+				client_id: process.env.CLIENT_ID,
+				private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"), // Replace \\n with actual line breaks
+			},
+			scopes: [
+				"https://www.googleapis.com/auth/drive",
+				"https://www.googleapis.com/auth/drive.file",
+				"https://www.googleapis.com/auth/spreadsheets",
+			],
+		});
+
+		const sheets = google.sheets({
+			auth,
+			version: "v4",
+		});
+
+		const response = await sheets.spreadsheets.values.append({
+			spreadsheetId: "1uFrrYeBPut9A0_6zvC90YJm22FRBXAuL_pG64bJmymU",
+			range: "Sheet3!A2:I", // Assuming 5 columns are required for the form data
+			valueInputOption: "USER_ENTERED",
+			requestBody: {
+				values: [
+					[
+						updatedPlayer.team.teamName,
+						updatedPlayer.jerseyName,
+						updatedPlayer.jerseyNumber,
+						updatedPlayer.jerseySize,
+						updatedPlayer.shortSize,
+						updatedPlayer.playerName,
+						updatedPlayer.instagram,
+						updatedPlayer.division.divisionName,
+						metadata.status,
+					],
+				],
+			},
+		});
 	} else if (event.type === "invoice.payment_failed") {
 		const session = event.data.object;
 

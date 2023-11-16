@@ -12,14 +12,13 @@ export default async function Success({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	const session = await getServerSession();
-
+	if (!session || !session.user) {
+		redirect("/");
+	}
 	const resDivision = await getRegisterDivisionById(params.id);
 	const { division } = await resDivision.json();
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
 	console.log(players);
 

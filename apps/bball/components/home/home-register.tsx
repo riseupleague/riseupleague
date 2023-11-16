@@ -17,11 +17,7 @@ export default function HomeRegister() {
 			<h3 className="mb-4 max-w-[240px] text-[31px] font-medium uppercase leading-snug">
 				Ready to elevate your basketball experience?
 			</h3>
-			<p className="mb-8 w-11/12">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu vestibulum
-				commodo non nunc tristique. Quis ullamcorper cursus congue pharetra at.
-				Leo lobortis duis nisi quis. Sit fames diam nisi.
-			</p>
+			{/* <p className="mb-8 w-11/12">Winter season registration now open.</p> */}
 			<div className="w-full px-2">
 				{!session || !session.user ? (
 					<Button className="w-full" onClick={openDialog}>
