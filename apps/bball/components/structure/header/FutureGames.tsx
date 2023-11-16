@@ -1,9 +1,12 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+
+import React, { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import WinnerIcon from "@/public/images/winner-icon.png";
 import Image from "next/image";
 import TeamLogo from "@/components/general/icons/TeamLogo";
+import FutureGame from "./FutureGame";
+
 export default function FutureGames({ separatedGames }): JSX.Element {
 	const containerRef = useRef(null);
 
@@ -41,7 +44,7 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 			</button>
 			<div
 				ref={containerRef}
-				className="flex items-center  overflow-x-auto overflow-y-hidden xl:overflow-x-hidden"
+				className="flex items-center overflow-x-auto overflow-y-hidden xl:overflow-x-hidden"
 			>
 				{separatedGames.map((dateGroup, dateIndex) => (
 					<article
@@ -77,101 +80,16 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 								}
 
 								return (
-									<div
+									<FutureGame
 										key={index}
-										className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 pb-2 pt-4 uppercase"
-									>
-										<h4>{torontoTime ? torontoTime : "Final"}</h4>
-										{/* home */}
-										<Link
-											href={`/teams/${game.homeTeam.teamName}`}
-											className="flex w-full justify-between gap-[100px] font-bold transition hover:underline"
-										>
-											<div className="flex items-center gap-2">
-												<TeamLogo
-													primary={game.homeTeam.primaryColor}
-													secondary={game.homeTeam.secondaryColor}
-													tertiary={game.homeTeam.tertiaryColor}
-													circleWidth={1.3}
-													circleHeight={1.3}
-													width={15}
-													height={14}
-												/>
-												<h5>{game.homeTeam.teamNameShort}</h5>
-											</div>
-											{game.status ? (
-												<p className="m-0 flex w-5 items-center gap-2">
-													{game.homeTeamScore}
-													{homeTeamWon && (
-														<Image
-															src={WinnerIcon.src}
-															alt="Winner icon"
-															width={540}
-															height={480}
-															style={{ objectFit: "contain" }}
-															className="h-3 w-5"
-														/>
-													)}
-												</p>
-											) : (
-												<p className="m-0 flex w-5 items-center gap-2"></p>
-											)}
-										</Link>
-										{/* away */}
-										<Link
-											href={`/teams/${game.awayTeam.teamName}`}
-											className="flex w-full justify-between gap-[100px] font-bold transition hover:underline"
-										>
-											<div className="flex items-center gap-2">
-												<TeamLogo
-													primary={game.awayTeam.primaryColor}
-													secondary={game.awayTeam.secondaryColor}
-													tertiary={game.awayTeam.tertiaryColor}
-													circleWidth={1.3}
-													circleHeight={1.3}
-													width={15}
-													height={14}
-												/>
-												<h5>{game.awayTeam.teamNameShort}</h5>
-											</div>
-
-											{game.status ? (
-												<p className="m-0 flex w-5 items-center gap-2">
-													{game.awayTeamScore}
-													{!homeTeamWon && (
-														<Image
-															src={WinnerIcon.src}
-															alt="Winner icon"
-															width={540}
-															height={480}
-															style={{ objectFit: "contain" }}
-															className="h-3 w-5"
-														/>
-													)}
-												</p>
-											) : (
-												<p className="m-0 flex w-5 items-center gap-2"></p>
-											)}
-										</Link>
-										{/* division */}
-										<Link
-											href={`/standings?division=${game.division.divisionName}`}
-											className="text-primary mt-1 w-fit text-sm font-semibold uppercase transition hover:underline"
-										>
-											{game.division.divisionName}
-										</Link>
-									</div>
+										game={game}
+										time={torontoTime}
+										homeTeamWon={homeTeamWon}
+									/>
 								);
 							})}
 					</article>
 				))}
-				{/* <article className=" flex w-64 flex-1 items-center  justify-center px-5 sm:w-full">
-					<Link href="/games">
-						<span className="text-main font-semibold uppercase hover:underline">
-							all games
-						</span>
-					</Link>
-				</article> */}
 			</div>
 			<button
 				style={{ backgroundColor: "#16161A" }}

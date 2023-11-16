@@ -17,21 +17,21 @@ export default function PlayerCard({ player }) {
 					/>
 					<Link
 						href={`/players/${player._id}`}
-						className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg"
+						className="font-barlow text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
 					>
 						{player.playerName}
 					</Link>
 				</div>
 				<Link
 					href={`/teams/${player.team._id}`}
-					className="font-barlow w-fit text-sm uppercase transition hover:opacity-80 sm:text-lg"
+					className="font-barlow w-fit text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
 				>
 					{player.team.teamName}
 				</Link>
 			</div>
 			<div className="grid w-1/4 grid-cols-2 items-center justify-items-center gap-4">
-				<p className="text-sm sm:text-lg">{player.jerseyNumber}</p>
-				<p className="font-barlow text-sm uppercase transition hover:opacity-80 sm:text-lg">
+				<p className="text-center text-sm sm:text-lg">{player.jerseyNumber}</p>
+				<p className="font-barlow text-center text-sm uppercase transition hover:opacity-80 sm:text-lg">
 					{player.division.divisionName}
 				</p>
 			</div>

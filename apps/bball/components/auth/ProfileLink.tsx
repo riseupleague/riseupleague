@@ -38,6 +38,7 @@ import {
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
 import SignInDialog from "@/components/auth/SignInDialog";
+
 const ProfileLink = () => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);

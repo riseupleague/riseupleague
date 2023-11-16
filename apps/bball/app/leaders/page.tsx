@@ -1,6 +1,7 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import LeadersTable from "@/components/leaders/LeadersTable";
+import { getAllCurrentPlayers } from "@/api-helpers/controllers/players-controller";
 
 // Define the type for a Division object
 type Division = {
@@ -12,6 +13,8 @@ type Division = {
 
 export default async function Leaders(): Promise<JSX.Element> {
 	await connectToDatabase();
+	const resAllPlayers = await getAllCurrentPlayers();
+	const { allPlayers } = await resAllPlayers.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =

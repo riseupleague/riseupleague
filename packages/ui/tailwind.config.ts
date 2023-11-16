@@ -42,7 +42,7 @@ module.exports = {
 			pink: colors.fuchsia,
 		},
 		container: {
-			padding: "8px",
+			padding: "16px",
 		},
 		extend: {
 			fontFamily: {

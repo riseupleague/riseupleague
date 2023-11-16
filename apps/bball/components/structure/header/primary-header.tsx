@@ -91,28 +91,27 @@ export default function PrimaryHeader(): React.JSX.Element {
 				</svg>
 			),
 		},
-
-		{
-			label: "leaders",
-			href: "/leaders",
-			icon: (
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="25"
-					height="25"
-					viewBox="0 0 25 25"
-					fill="none"
-				>
-					<path
-						d="M16.875 8.28125V16.7187M12.5 11.4453V16.7187M8.125 14.6094V16.7187M5.9375 20.9375H19.0625C20.2706 20.9375 21.25 19.9931 21.25 18.8281V6.17187C21.25 5.0069 20.2706 4.0625 19.0625 4.0625H5.9375C4.72938 4.0625 3.75 5.0069 3.75 6.17187V18.8281C3.75 19.9931 4.72938 20.9375 5.9375 20.9375Z"
-						stroke="#ABAFB3"
-						strokeWidth="1.503"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-			),
-		},
+		// {
+		// 	label: "leaders",
+		// 	href: "/leaders",
+		// 	icon: (
+		// 		<svg
+		// 			xmlns="http://www.w3.org/2000/svg"
+		// 			width="25"
+		// 			height="25"
+		// 			viewBox="0 0 25 25"
+		// 			fill="none"
+		// 		>
+		// 			<path
+		// 				d="M16.875 8.28125V16.7187M12.5 11.4453V16.7187M8.125 14.6094V16.7187M5.9375 20.9375H19.0625C20.2706 20.9375 21.25 19.9931 21.25 18.8281V6.17187C21.25 5.0069 20.2706 4.0625 19.0625 4.0625H5.9375C4.72938 4.0625 3.75 5.0069 3.75 6.17187V18.8281C3.75 19.9931 4.72938 20.9375 5.9375 20.9375Z"
+		// 				stroke="#ABAFB3"
+		// 				strokeWidth="1.503"
+		// 				strokeLinecap="round"
+		// 				strokeLinejoin="round"
+		// 			/>
+		// 		</svg>
+		// 	),
+		// },
 		{
 			label: "teams",
 			href: "/teams",
@@ -238,11 +237,14 @@ export default function PrimaryHeader(): React.JSX.Element {
 											League
 										</span>
 									</li>
+									<li className="flex items-center gap-3 px-6 py-2">
+										<ProfileLink />
+									</li>
 								</ul>
 							</SheetContent>
 						</Sheet>
 					</div>
-					<figure>
+					<figure className="flex w-5/6 justify-center">
 						<Link href="/" className="transition hover:opacity-80">
 							<Image
 								alt="Rise Up Logo"
@@ -253,6 +255,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 							/>
 						</Link>
 					</figure>
+					<div className="w-1/12"></div>
 				</div>
 				<div className="hidden items-center gap-7 md:flex">
 					{headerOptions.map((option, index) => {
@@ -280,7 +283,9 @@ export default function PrimaryHeader(): React.JSX.Element {
 						) : null;
 					})}
 				</div>
-				<ProfileLink />
+				<div className="hidden md:block">
+					<ProfileLink />
+				</div>
 			</div>
 			<ul className="fixed bottom-0 left-0 z-50 flex  w-full items-center justify-around border border-neutral-600 bg-neutral-700 px-[15px] pb-[25px] pt-[15px] backdrop-blur-md md:hidden">
 				{headerOptions.map((option, index) => {

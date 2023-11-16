@@ -24,9 +24,9 @@ export default function SummaryBoxScore({ game }) {
 			<div className="my-8 flex justify-center">
 				<Button
 					onClick={() => setCurrentTeam(game.homeTeam)}
-					className={`w-1/2 border-0 px-0 text-xl md:px-12 ${
+					className={`border-primary w-1/2 rounded-none border-0 px-0 text-xl md:px-12 ${
 						game.homeTeam.teamName === currentTeam.teamName &&
-						"text-primary underline"
+						"text-primary border-b"
 					}`}
 					variant="secondary"
 				>
@@ -34,9 +34,9 @@ export default function SummaryBoxScore({ game }) {
 				</Button>
 				<Button
 					onClick={() => setCurrentTeam(game.awayTeam)}
-					className={`w-1/2 border-0 px-0 text-xl md:px-12 ${
+					className={`border-primary w-1/2 rounded-none border-0 px-0 text-xl md:px-12 ${
 						game.awayTeam.teamName === currentTeam.teamName &&
-						"text-primary underline"
+						"text-primary border-b"
 					}`}
 					variant="secondary"
 				>

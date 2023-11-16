@@ -13,7 +13,7 @@ export default function Footer(): React.JSX.Element {
 	return (
 		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
 			{/* logo & copyright */}
-			<section>
+			<section className="flex flex-col items-center text-center lg:items-start">
 				<Link
 					href="/"
 					className="text-2xl font-bold transition hover:opacity-80"
