@@ -16,8 +16,6 @@ export default async function Leaders(): Promise<JSX.Element> {
 	const resAllPlayers = await getAllCurrentPlayers();
 	const { allPlayers } = await resAllPlayers.json();
 
-	console.log(allPlayers);
-
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();
