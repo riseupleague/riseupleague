@@ -7,8 +7,8 @@
 				"href": "/"
 			},
 			{
-				"label": "games",
-				"href": "/games"
+				"label": "schedule",
+				"href": "/schedule"
 			},
 			{
 				"label": "standings",
@@ -27,10 +27,6 @@
 	{
 		"section": "quick links",
 		"links": [
-			{
-				"label": "register",
-				"href": "/register"
-			},
 			{
 				"label": "league rules",
 				"href": "/league-rules"
