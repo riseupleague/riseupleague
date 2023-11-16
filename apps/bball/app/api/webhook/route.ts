@@ -98,6 +98,12 @@ export async function POST(req: Request) {
 
 		if (metadata.status === "createTeam" && metadata.teamName !== "") {
 			const updatedUser = await User.findOne({ email: metadata.email });
+			const selectedDivision = await Division.findOne({
+				divisionName: metadata.divisionName,
+			});
+
+			console.log("selectedDivision:", selectedDivision);
+
 			console.log("updatedUser:", updatedUser);
 			// Update team
 
@@ -118,23 +124,22 @@ export async function POST(req: Request) {
 					twosMade: 0,
 					freeThrowsMade: 0,
 				},
-				division: metadata.division,
-				season: metadata.season,
+				division: selectedDivision._id.toString(),
+				season: selectedDivision.season.toString(),
 			});
 
 			// Save the new player to the database
 			const savedTeam = await newTeam.save();
 			console.log("Registered team:", savedTeam);
 
-			const updatedDivision = await Division.findById(metadata.division);
-			updatedDivision.teams = updatedDivision.teams.concat(savedTeam._id);
-			await updatedDivision.save();
+			selectedDivision.teams = selectedDivision.teams.concat(savedTeam._id);
+			await selectedDivision.save();
 
 			// Register player
 
 			const registeredPlayer = new Player({
-				season: metadata.season,
-				division: metadata.division,
+				season: selectedDivision.season.toString(),
+				division: selectedDivision._id.toString(),
 				team: savedTeam._id,
 				teamCaptain: true,
 				playerName: metadata.playerName,
@@ -208,10 +213,12 @@ export async function POST(req: Request) {
 
 		if (metadata.status === "joinTeam") {
 			const updatedUser = await User.findOne({ email: metadata.email });
-
+			const selectedDivision = await Division.findOne({
+				divisionName: metadata.divisionName,
+			});
 			const registeredPlayer = new Player({
-				season: metadata.season,
-				division: metadata.division,
+				season: selectedDivision.season.toString(),
+				division: selectedDivision._id.toString(),
 				team: metadata.team,
 				teamCaptain: false,
 				playerName: metadata.playerName,
@@ -315,7 +322,7 @@ export async function POST(req: Request) {
 						metadata.shortSize,
 						metadata.playerName,
 						metadata.instagram,
-						metadata.division.divisionName,
+						metadata.divisionName,
 						metadata.status,
 					],
 				],

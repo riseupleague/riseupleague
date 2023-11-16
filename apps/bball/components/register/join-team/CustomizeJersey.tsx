@@ -163,8 +163,6 @@ export default function CustomizeJersey({ team, session, division }) {
 			const formObject = {
 				status: "joinTeam",
 				team: team._id,
-				division: division._id,
-				season: division.season,
 				itemPriceId: itemPriceId,
 				payment: payment,
 				jerseyNumber,
@@ -172,7 +170,6 @@ export default function CustomizeJersey({ team, session, division }) {
 				shortSize,
 				jerseyName,
 				instagram,
-				teamCaptain: true,
 				playerName: session.user.name,
 				email: session.user.email,
 				teamName: team.teamName,
