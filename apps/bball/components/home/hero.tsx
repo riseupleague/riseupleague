@@ -177,7 +177,7 @@ export default function Hero(): JSX.Element {
 					</div>
 					<p className="font-barlow mt-5 block w-full sm:hidden">
 						{" "}
-						{slides[currentIndex].text}
+						{slides[currentIndex].title}
 					</p>
 				</div>
 			</figure>
