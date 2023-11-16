@@ -97,14 +97,11 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "createTeam" && metadata.teamName !== "") {
-			const updatedUser = await User.findOne({ email: metadata.email });
+			const updatedUser = await User.findOne({ name: metadata.playerName });
 			const selectedDivision = await Division.findOne({
 				divisionName: metadata.divisionName,
 			});
 
-			console.log("selectedDivision:", selectedDivision);
-
-			console.log("updatedUser:", updatedUser);
 			// Update team
 
 			const newTeam = new Team({
@@ -189,14 +186,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: metadata.itemPriceId,
+							price: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: metadata.itemPriceId,
+								price: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -212,7 +209,7 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "joinTeam") {
-			const updatedUser = await User.findOne({ email: metadata.email });
+			const updatedUser = await User.findOne({ name: metadata.playerName });
 			const selectedDivision = await Division.findOne({
 				divisionName: metadata.divisionName,
 			});
@@ -268,14 +265,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: metadata.itemPriceId,
+							price: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: metadata.itemPriceId,
+								price: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],

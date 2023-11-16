@@ -168,7 +168,6 @@ export default function CustomizeTeam({ division, session }) {
 				teamName: teamName,
 				teamNameShort: teamNameShort,
 				teamCode: teamCode,
-				itemPriceId: itemPriceId,
 				payment: payment,
 				jerseyNumber,
 				jerseySize,
@@ -176,7 +175,6 @@ export default function CustomizeTeam({ division, session }) {
 				jerseyName,
 				instagram,
 				playerName: session.user.name,
-				email: session.user.email,
 				divisionName: division.divisionName,
 			};
 

@@ -13,7 +13,6 @@ export async function POST(req: Request) {
 	const selectedDivision = await Division.findOne({
 		divisionName: parsedFormObject.divisionName,
 	});
-	console.log("selectedDivision:", selectedDivision);
 
 	try {
 		if (parsedFormObject.payment === "full") {
