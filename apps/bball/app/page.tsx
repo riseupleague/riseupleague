@@ -25,6 +25,7 @@ export default async function Page(): Promise<JSX.Element> {
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
 			<Hero />
+			<HomeRegister />
 			{/* 
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
@@ -34,7 +35,6 @@ export default async function Page(): Promise<JSX.Element> {
 			<Socials />
 			{/* <FAQs />
 			<ContactUs /> */}
-			<HomeRegister />
 		</div>
 	);
 }
