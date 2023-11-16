@@ -24,7 +24,6 @@ export default function TeamsFilterPage({ divisions }) {
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
-		console.log(event);
 		const selectedDivisionId = event;
 
 		if (selectedDivisionId !== "default") {
