@@ -52,7 +52,7 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						key={dateIndex}
 					>
 						{/* date */}
-						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs md:text-lg uppercase">
+						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase md:text-lg">
 							{dateGroup.date}
 						</div>
 						{dateGroup.games
