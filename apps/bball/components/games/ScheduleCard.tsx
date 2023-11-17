@@ -31,6 +31,7 @@ export default function ScheduleCard({ game }) {
 
 	return (
 		<article className="flex flex-col rounded border border-neutral-600 bg-neutral-700">
+			<div className="flex-1">
 			<div className="grid grid-cols-3">
 				{/* home team */}
 				<Link
@@ -46,7 +47,7 @@ export default function ScheduleCard({ game }) {
 						circleHeight={4}
 						circleWidth={4}
 					/>
-					<span className="font-barlow text-center text-sm transition hover:opacity-80 ">
+					<span className="font-barlow text-center text-sm transition hover:opacity-80">
 						{game.homeTeam.teamName}
 					</span>
 					{game.status && (
@@ -63,7 +64,7 @@ export default function ScheduleCard({ game }) {
 				{/* division / time / location */}
 				<div className="font-barlow  flex flex-col justify-center py-4 text-center uppercase">
 					<div className="mb-[35px] flex justify-center">
-						<p className="w-fit rounded bg-neutral-600 px-4 py-1 text-center text-[10px]">
+						<p className="w-fit rounded bg-neutral-600 px-4 py-1 text-center text-sm">
 							{game.division.divisionName}
 						</p>
 					</div>
@@ -102,8 +103,11 @@ export default function ScheduleCard({ game }) {
 				<div className="translate-y-[1px]">
 					<LocationMarker />
 				</div>
-				<p className="text-neutral-400">{game.location}</p>
+				<p className="text-neutral-400 text-sm">{game.location}</p>
 			</div>
+			</div>
+
+
 			{/* preview/summary button */}
 			<div className="flex p-4">
 				<Link href={`/games/${gameStatus}/${game._id}`} className="w-full">

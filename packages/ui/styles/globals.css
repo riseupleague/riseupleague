@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-5xl my-4 md:text-[61px] font-medium font-barlow uppercase text-neutral-50 text-center;
+  }
+  h2 {
+    @apply text-4xl my-3 md:text-[49px] font-medium font-barlow uppercase text-neutral-50;
+  }
+  h3 {
+    @apply text-3xl my-2 md:text-[31px] font-medium font-barlow uppercase text-neutral-50;
+  }
+  h4 {
+    @apply text-2xl my-2 font-medium font-barlow uppercase text-neutral-50;
+  }
+  h5 {
+    @apply text-xl my-2 font-medium font-barlow uppercase text-neutral-50;
+  }
+  h6 {
+    @apply text-base my-2 font-medium font-barlow uppercase text-neutral-50;
+  }
+  p {
+    @apply font-barlow text-sm md:text-base lg:text-2xl;
+  }
+  hr {
+    @apply my-4 border-neutral-500;
+  }
+}

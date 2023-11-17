@@ -28,7 +28,7 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 			<body className="bg-neutral-900 text-neutral-100">
 				<NextAuthProvider>
 					<Header />
-					<main>{children}</main>
+					<main className="bball">{children}</main>
 					<Footer />
 				</NextAuthProvider>
 			</body>

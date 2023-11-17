@@ -15,6 +15,7 @@ import {
 	SheetTrigger,
 } from "@ui/components/sheet";
 import ProfileLink from "@/components/auth/ProfileLink";
+
 export default function PrimaryHeader(): React.JSX.Element {
 	const path = usePathname();
 	const router = useRouter(); // Initialize the router

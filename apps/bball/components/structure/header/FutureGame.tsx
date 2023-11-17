@@ -17,9 +17,9 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 			className="relative"
 		>
 			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 pb-2 pt-4 uppercase">
-				<h4>{time ? time : "Final"}</h4>
+				<div>{time ? time : "Final"}</div>
 				{/* home */}
-				<h3 className="flex w-full justify-between gap-[100px] font-bold">
+				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
 						<TeamLogo
 							primary={game.homeTeam.primaryColor}
@@ -30,7 +30,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 							width={15}
 							height={14}
 						/>
-						<h5>{game.homeTeam.teamNameShort}</h5>
+						<div>{game.homeTeam.teamNameShort}</div>
 					</div>
 					{game.status ? (
 						<p className="m-0 flex w-5 items-center gap-2">
@@ -49,9 +49,9 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 					) : (
 						<p className="m-0 flex w-5 items-center gap-2"></p>
 					)}
-				</h3>
+				</div>
 				{/* away */}
-				<h3 className="flex w-full justify-between gap-[100px] font-bold">
+				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
 						<TeamLogo
 							primary={game.awayTeam.primaryColor}
@@ -62,7 +62,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 							width={15}
 							height={14}
 						/>
-						<h5>{game.awayTeam.teamNameShort}</h5>
+						<div>{game.awayTeam.teamNameShort}</div>
 					</div>
 
 					{game.status ? (
@@ -82,11 +82,11 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 					) : (
 						<p className="m-0 flex w-5 items-center gap-2"></p>
 					)}
-				</h3>
+				</div>
 				{/* division */}
-				<h3 className="text-primary mt-1 w-fit text-sm font-semibold uppercase">
+				<div className="text-primary mt-1 w-fit text-sm font-semibold uppercase">
 					{game.division.divisionName}
-				</h3>
+				</div>
 			</div>
 			{isHovered && (
 				<Link

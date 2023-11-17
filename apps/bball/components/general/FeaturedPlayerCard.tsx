@@ -77,7 +77,7 @@ export default function FeaturedPlayerCard({ player }) {
 							<h6 className="font-barlow text-sm font-medium uppercase text-neutral-500">
 								{player.team?.teamName} | #{player.jerseyNumber}
 							</h6>
-							<div className="flex justify-center rounded-md bg-neutral-600 px-4 py-1">
+							<div className="flex justify-center items-center rounded-md bg-neutral-600 px-4 py-1">
 								<p className="font-barlow text-xs font-medium uppercase">
 									{player.division.divisionName}
 								</p>
