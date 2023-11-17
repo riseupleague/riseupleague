@@ -47,44 +47,53 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 				ref={containerRef}
 				className="flex items-center overflow-x-auto overflow-y-hidden xl:overflow-x-hidden"
 			>
-				{separatedGames.map((dateGroup, dateIndex) => (
-					<article
-						className="bg-secondary flex max-h-[140px] items-center border-r border-neutral-600"
-						key={dateIndex}
-					>
-						{/* date */}
-						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase md:text-lg">
-							{dateGroup.date}
-						</div>
-						{dateGroup.games
-							.sort((gameA, gameB) => {
-								// Convert the date strings to timestamps and then subtract
-								const dateA = new Date(gameA.date).getTime();
-								const dateB = new Date(gameB.date).getTime();
-								return dateA - dateB;
-							})
-							.map((game, index) => {
-								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let torontoTime;
-								if (!game.status) {
-									const isoDate = game.date;
-									const date = new Date(isoDate);
-									const timezone = "America/Toronto";
-									const zonedDate = utcToZonedTime(date, timezone);
-									torontoTime = format(zonedDate, "MMM do").toString();
-								}
+				{separatedGames.map((dateGroup, dateIndex) => {
+					let torontoTime;
+					const isoDate = dateGroup.date;
+					const date = new Date(isoDate);
+					const timezone = "America/Toronto";
+					const zonedDate = utcToZonedTime(date, timezone);
+					torontoTime = format(zonedDate, "MMM do").toString();
 
-								return (
-									<FutureGame
-										key={index}
-										game={game}
-										time={torontoTime}
-										homeTeamWon={homeTeamWon}
-									/>
-								);
-							})}
-					</article>
-				))}
+					return (
+						<article
+							className="bg-secondary flex max-h-[140px] items-center border-r border-neutral-600"
+							key={dateIndex}
+						>
+							{/* date */}
+							<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase md:text-lg">
+								{torontoTime}
+							</div>
+							{dateGroup.games
+								.sort((gameA, gameB) => {
+									// Convert the date strings to timestamps and then subtract
+									const dateA = new Date(gameA.date).getTime();
+									const dateB = new Date(gameB.date).getTime();
+									return dateA - dateB;
+								})
+								.map((game, index) => {
+									const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
+									let torontoTime;
+									if (!game.status) {
+										const isoDate = game.date;
+										const date = new Date(isoDate);
+										const timezone = "America/Toronto";
+										const zonedDate = utcToZonedTime(date, timezone);
+										torontoTime = format(zonedDate, "MMM do").toString();
+									}
+
+									return (
+										<FutureGame
+											key={index}
+											game={game}
+											time={torontoTime}
+											homeTeamWon={homeTeamWon}
+										/>
+									);
+								})}
+						</article>
+					);
+				})}
 			</div>
 			<button
 				style={{ backgroundColor: "#16161A" }}
