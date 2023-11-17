@@ -175,8 +175,10 @@ export default function CustomizeTeam({ division, session }) {
 				jerseyName,
 				instagram,
 				playerName: session.user.name,
-				divisionName: division.divisionName,
+				division: division._id,
 			};
+
+			console.log("formObject:", formObject);
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
 		} catch (error) {

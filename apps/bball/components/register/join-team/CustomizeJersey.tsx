@@ -171,7 +171,7 @@ export default function CustomizeJersey({ team, session, division }) {
 				instagram,
 				playerName: session.user.name,
 				teamName: team.teamName,
-				divisionName: division.divisionName,
+				division: division._id,
 			};
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);

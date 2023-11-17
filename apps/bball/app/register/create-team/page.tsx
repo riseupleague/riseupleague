@@ -217,8 +217,10 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 															</div>
 															<span className="text-xs">
 																or 4 installments of{" "}
-																<span className="text-sm">$60</span> + 13% HST
-																bi-weekly
+																<span className="text-sm">
+																	${division.instalmentPrice}
+																</span>{" "}
+																+ 13% HST bi-weekly
 															</span>
 														</div>
 													</div>
@@ -227,19 +229,12 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 													<span className="bg-main mb-2 inline-block w-fit rounded-md bg-green-500 px-2 py-1  uppercase text-white">
 														Early Bird
 													</span>
-													<div className="">
-														<div className="flex items-center gap-2">
-															<p className="mb-2 text-5xl font-semibold">
-																$ {division.earlyBirdPrice}
-															</p>
+													<div className="flex items-center gap-2">
+														<p className="mb-2 text-5xl font-semibold">
+															$ {division.earlyBirdPrice}
+														</p>
 
-															<span className="text-xs">+ 13% HST</span>
-														</div>
-														<span className="text-xs">
-															or 4 installments of{" "}
-															<span className="text-sm">$60</span> + 13% HST
-															bi-weekly
-														</span>
+														<span className="text-xs">+ 13% HST</span>
 													</div>
 												</div>
 											</div>

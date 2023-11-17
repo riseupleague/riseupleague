@@ -23,9 +23,6 @@ export async function POST(req: Request) {
 		// const signature = headers().get("Stripe-Signature") ?? "";
 		const signature = req.headers.get("Stripe-Signature");
 
-		console.log("Signature:", signature);
-		console.log("Body:", body);
-		console.log("Webhook Secret:", process.env.STRIPE_WEBHOOK_SECRET);
 		event = stripe.webhooks.constructEvent(
 			body,
 			signature,
@@ -106,9 +103,7 @@ export async function POST(req: Request) {
 
 		if (metadata.status === "createTeam" && metadata.teamName !== "") {
 			const updatedUser = await User.findOne({ name: metadata.playerName });
-			const selectedDivision = await Division.findOne({
-				divisionName: metadata.divisionName,
-			});
+			const selectedDivision = await Division.findById(metadata.division);
 
 			// Update team
 
@@ -218,9 +213,8 @@ export async function POST(req: Request) {
 
 		if (metadata.status === "joinTeam") {
 			const updatedUser = await User.findOne({ name: metadata.playerName });
-			const selectedDivision = await Division.findOne({
-				divisionName: metadata.divisionName,
-			});
+			const selectedDivision = await Division.findById(metadata.division);
+
 			const registeredPlayer = new Player({
 				season: selectedDivision.season.toString(),
 				division: selectedDivision._id.toString(),
