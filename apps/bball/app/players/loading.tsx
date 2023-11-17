@@ -5,7 +5,7 @@ export default function PlayersLoading() {
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1>league roster</h1>
+			<h1 className="text-center">league roster</h1>
 			<div>
 				{/* search */}
 				<div className="flex gap-4">

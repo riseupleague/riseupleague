@@ -25,7 +25,7 @@ export default function Hero(): JSX.Element {
 		{
 			url: "/images/home/early-bird.jpg",
 			title: "Winter registration now open!",
-			description: "Early Bird Starting $200+ Per Player!",
+			description: "Early Bird starting at $200+ per player!",
 			cta: "Register Now",
 			link: "/register",
 		},
@@ -33,7 +33,7 @@ export default function Hero(): JSX.Element {
 			url: "/images/home/photos.jpg",
 			title: "Check Out Your Game Photos",
 			description:
-				"We Upload Your Game Photos Every Week! Don't Forget to Tag Us",
+				"We upload your game photos every week! Don't forget to tag us!",
 			cta: "Check Photos",
 			link: "https://drive.google.com/drive/u/1/folders/1bGVX8fo7WJwfx2IOEp_ZgEfHb21qsdx-",
 		},
@@ -41,7 +41,7 @@ export default function Hero(): JSX.Element {
 			url: "/images/home/volunteer.jpg",
 			title: "Be Part Of Our Team!",
 			description:
-				"We Are Accepting Volunteers for Basketball and Volleyball. Let Us Know!",
+				"We are accepting volunteers for Basketball and Volleyball. Let us know!",
 			cta: "",
 			link: "",
 		},

@@ -13,9 +13,9 @@ import {
 const PreviousGames = ({ team }) => {
 	return (
 		<div className="mt-10">
-			<h2 className="font-barlow mb-10 border-b border-neutral-400 py-10 text-2xl font-semibold uppercase text-white">
-				Previous Games
-			</h2>
+			<h3 className="my-6">Previous Games</h3>
+
+			<hr />
 
 			<Table>
 				<TableHeader>

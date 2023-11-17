@@ -107,8 +107,8 @@ export default async function Players({
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
-			<div className="mb-8 mt-16 flex flex-col items-center text-center">
-				<h1>{team?.teamName}</h1>
+			<div className="mb-8 flex flex-col items-center text-center md:mt-16">
+				<h1 className="text-4xl lg:text-[61px]">{team?.teamName}</h1>
 				<h6 className="rounded bg-neutral-500 px-2 py-1 uppercase">
 					{team.division.divisionName}
 				</h6>

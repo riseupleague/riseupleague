@@ -159,7 +159,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 
 	return (
 		<nav>
-			<div className="container mx-auto  flex items-center justify-between py-8">
+			<div className="container mx-auto flex items-center justify-between py-8">
 				<div className="flex items-center">
 					<div className="block md:hidden">
 						<Sheet>
@@ -344,7 +344,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 							</span>
 						</button>
 					</SheetTrigger>
-					<SheetContent side={"left"} className=" bg-neutral-900 ">
+					<SheetContent side={"left"} className=" bg-neutral-900">
 						<ul className="mt-16 flex flex-col gap-6">
 							{headerOptions.map((option, index) => {
 								let isActive;
@@ -359,7 +359,10 @@ export default function PrimaryHeader(): React.JSX.Element {
 								}
 
 								return (
-									<li className={`${isActive && "bg-neutral-600"}`} key={index}>
+									<li
+										className={`px-6 py-2 ${isActive && "bg-neutral-600"}`}
+										key={index}
+									>
 										<SheetClose asChild>
 											<Button
 												variant="navlink"
@@ -396,6 +399,9 @@ export default function PrimaryHeader(): React.JSX.Element {
 								<span className="font-barlow text-[24px] uppercase tracking-tighter">
 									League
 								</span>
+							</li>
+							<li className="flex items-center gap-3 px-6 py-2">
+								<ProfileLink />
 							</li>
 						</ul>
 					</SheetContent>
