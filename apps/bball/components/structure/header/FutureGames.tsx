@@ -71,7 +71,7 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 									const date = new Date(isoDate);
 									const timezone = "America/Toronto";
 									const zonedDate = utcToZonedTime(date, timezone);
-									const torontoTime = format(zonedDate, "MMM do").toString();
+									torontoTime = format(zonedDate, "MMM do").toString();
 								}
 
 								return (
