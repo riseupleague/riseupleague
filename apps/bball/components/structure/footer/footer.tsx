@@ -14,6 +14,8 @@ export default function Footer(): React.JSX.Element {
 
 	return (
 		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
+			<hr />
+
 			{/* links */}
 			<section className="grid grid-cols-2 gap-y-9">
 				{footerOptions.map((option, index) => (
@@ -36,7 +38,7 @@ export default function Footer(): React.JSX.Element {
 									<Link
 										href={link.href}
 										key={index}
-										className={`font-barlow w-fit text-sm md:text-lg font-light capitalize text-neutral-200 transition hover:opacity-80 ${
+										className={`font-barlow w-fit text-sm font-light capitalize text-neutral-200 transition hover:opacity-80 md:text-lg ${
 											isActive && "text-primary pointer-events-none underline"
 										}`}
 									>
@@ -64,7 +66,9 @@ export default function Footer(): React.JSX.Element {
 					/>
 				</Link>
 				<div className="font-barlow my-7 text-sm text-neutral-200">
-					<p className="text-sm">Copyright© 2023. Rise Up Sports League. All Rights Reserved.</p>
+					<p className="text-sm">
+						Copyright© 2023. Rise Up Sports League. All Rights Reserved.
+					</p>
 					<Link
 						href="https://github.com/n9d0g/riseupleague/releases"
 						target="_blank"

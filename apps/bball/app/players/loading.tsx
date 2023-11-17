@@ -5,9 +5,7 @@ export default function PlayersLoading() {
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				league roster
-			</h1>
+			<h1>league roster</h1>
 			<div>
 				{/* search */}
 				<div className="flex gap-4">

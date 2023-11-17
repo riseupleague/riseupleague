@@ -1,11 +1,9 @@
 export default function TermsAndConditions(): JSX.Element {
 	return (
 		<section className="container mx-auto">
-			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
-				Rise Up Basketball Terms and Conditions
-			</h1>
+			<h1>Rise Up Basketball Terms and Conditions</h1>
 
-			<div className="font-barlow text-lg">
+			<div>
 				<p className="my-4">
 					Welcome to Rise Up Basketball League! By participating in our
 					recreational basketball league, you agree to comply with the following
@@ -13,7 +11,7 @@ export default function TermsAndConditions(): JSX.Element {
 					proceeding with your registration.
 				</p>
 
-				<h2 className="text-3xl">1. Code of Conduct:</h2>
+				<h2 className="my-6">1. Code of Conduct:</h2>
 
 				<p className="my-4">
 					1.1. All participants, including players, coaches, officials, and
@@ -29,9 +27,9 @@ export default function TermsAndConditions(): JSX.Element {
 					prohibited within our league.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">2. Participation Requirements:</h2>
+				<h2 className="my-6">2. Participation Requirements:</h2>
 
 				<p className="my-4">
 					2.1. Participants must adhere to the league&apos;s schedule and rules
@@ -45,9 +43,9 @@ export default function TermsAndConditions(): JSX.Element {
 					identification may be required.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">3. Liability and Waiver:</h2>
+				<h2 className="my-6">3. Liability and Waiver:</h2>
 
 				<p className="my-4">
 					3.1. Participants understand and acknowledge that basketball is a
@@ -62,9 +60,9 @@ export default function TermsAndConditions(): JSX.Element {
 					its organizers, sponsors, and affiliated parties.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">4. Photography and Media:</h2>
+				<h2 className="my-6">4. Photography and Media:</h2>
 
 				<p className="my-4">
 					4.1. Rise Up Basketball League may capture photos or videos of league
@@ -73,9 +71,9 @@ export default function TermsAndConditions(): JSX.Element {
 					league-related materials.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">5. Changes and Updates:</h2>
+				<h2 className="my-6">5. Changes and Updates:</h2>
 
 				<p className="my-4">
 					5.1. Rise Up Basketball League reserves the right to make changes to
@@ -84,9 +82,9 @@ export default function TermsAndConditions(): JSX.Element {
 					manner.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">6. Contact Information:</h2>
+				<h2 className="my-6">6. Contact Information:</h2>
 
 				<p className="my-4">
 					For inquiries or assistance related to our terms and conditions,

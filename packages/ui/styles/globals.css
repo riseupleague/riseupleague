@@ -3,28 +3,33 @@
 @tailwind utilities;
 
 @layer base {
-  h1 {
-    @apply text-5xl my-4 md:text-[61px] font-medium font-barlow uppercase text-neutral-50 text-center;
-  }
-  h2 {
-    @apply text-4xl my-3 md:text-[49px] font-medium font-barlow uppercase text-neutral-50;
-  }
-  h3 {
-    @apply text-3xl my-2 md:text-[31px] font-medium font-barlow uppercase text-neutral-50;
-  }
-  h4 {
-    @apply text-2xl my-2 font-medium font-barlow uppercase text-neutral-50;
-  }
-  h5 {
-    @apply text-xl my-2 font-medium font-barlow uppercase text-neutral-50;
-  }
-  h6 {
-    @apply text-base my-2 font-medium font-barlow uppercase text-neutral-50;
-  }
-  p {
-    @apply font-barlow text-sm md:text-base lg:text-2xl;
-  }
-  hr {
-    @apply my-4 border-neutral-500;
-  }
+	h1 {
+		@apply font-barlow my-4 text-center text-5xl font-medium uppercase text-neutral-50 md:text-[61px];
+	}
+	h2 {
+		@apply font-barlow my-3 text-4xl font-medium uppercase text-neutral-50 md:text-[49px];
+	}
+	h3 {
+		@apply font-barlow my-2 text-3xl font-medium uppercase text-neutral-50 md:text-[31px];
+	}
+	h4 {
+		@apply font-barlow my-2 text-2xl font-medium uppercase text-neutral-50;
+	}
+	h5 {
+		@apply font-barlow my-2 text-xl font-medium uppercase text-neutral-50;
+	}
+	h6 {
+		@apply font-barlow my-2 text-base font-medium uppercase text-neutral-50;
+	}
+	p {
+		@apply font-barlow text-sm md:text-base lg:text-2xl;
+	}
+	hr {
+		@apply my-4 border-neutral-500;
+	}
+	ul,
+	ol,
+	li {
+		@apply font-barlow;
+	}
 }

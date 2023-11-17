@@ -1,13 +1,11 @@
 export default function LeagueRules(): JSX.Element {
 	return (
 		<section className="container mx-auto">
-			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
-				league rules
-			</h1>
+			<h1>league rules</h1>
 
 			<div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-				<div className="font-barlow">
-					<h2 className="text-3xl uppercase">fiba game format</h2>
+				<div>
+					<h2>fiba game format</h2>
 					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
 						<li>2/20 mins halves instead of 4/10 mins quarters.</li>
 						<li>2 timeouts per half and timeout on possession.</li>
@@ -15,8 +13,8 @@ export default function LeagueRules(): JSX.Element {
 					</ul>
 				</div>
 
-				<div className="font-barlow">
-					<h2 className="text-3xl uppercase">jerseys</h2>
+				<div>
+					<h2>jerseys</h2>
 					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
 						<li>
 							Every player is{" "}
@@ -43,8 +41,8 @@ export default function LeagueRules(): JSX.Element {
 					</ul>
 				</div>
 
-				<div className="font-barlow">
-					<h2 className="text-3xl uppercase">player fill-ins</h2>
+				<div>
+					<h2>player fill-ins</h2>
 					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
 						<li>
 							Players not listed on the roster must pay{" "}
@@ -72,9 +70,9 @@ export default function LeagueRules(): JSX.Element {
 					</ul>
 				</div>
 
-				<div className="font-barlow">
-					<h2 className="text-3xl uppercase">default fee</h2>
-					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
+				<div>
+					<h2>default fee</h2>
+					<ul className="my-4 text-lg">
 						<li>
 							If your team defaults, your team will have to{" "}
 							<span className="text-primary bold uppercase underline">pay</span>{" "}
@@ -96,9 +94,9 @@ export default function LeagueRules(): JSX.Element {
 					</ul>
 				</div>
 
-				<div className="font-barlow">
-					<h2 className="text-3xl uppercase">player conduct</h2>
-					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
+				<div>
+					<h2>player conduct</h2>
+					<ul className="my-4 text-lg">
 						<li>
 							Rise Up{" "}
 							<span className="text-primary bold uppercase underline">
@@ -117,7 +115,7 @@ export default function LeagueRules(): JSX.Element {
 							<span className="text-primary bold uppercase underline">
 								fine
 							</span>{" "}
-							of up to
+							of up to{" "}
 							<span className="text-primary bold uppercase underline">
 								$250.
 							</span>

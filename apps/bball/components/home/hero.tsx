@@ -134,12 +134,8 @@ export default function Hero(): JSX.Element {
 							exit={{ opacity: 0, x: -10 }}
 							transition={{ duration: 0.5 }}
 						>
-							<h1 className="font-barlow mb-6 text-3xl font-medium uppercase leading-tight sm:text-5xl">
-								{slides[currentIndex].title}
-							</h1>
-							<p className="font-barlow font-light text-neutral-200">
-								{slides[currentIndex].description}
-							</p>
+							<h1 className="text-left">{slides[currentIndex].title}</h1>
+							<p>{slides[currentIndex].description}</p>
 							<div className="relative z-30 my-4">
 								{slides[currentIndex].link === "/register" ? (
 									<>
