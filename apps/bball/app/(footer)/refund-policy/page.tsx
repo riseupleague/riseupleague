@@ -1,6 +1,6 @@
 export default function TermsAndConditions(): JSX.Element {
 	return (
-		<section className="container mx-auto px-4 md:px-0">
+		<section className="container mx-auto">
 			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
 				Refund Policy
 			</h1>
