@@ -6,6 +6,7 @@ import WinnerIcon from "@/public/images/winner-icon.png";
 import Image from "next/image";
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import FutureGame from "./FutureGame";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 export default function FutureGames({ separatedGames }): JSX.Element {
 	const containerRef = useRef(null);
@@ -66,17 +67,11 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
 								let torontoTime;
 								if (!game.status) {
-									const dateStr = game.date;
-									const date = new Date(dateStr);
-
-									// Convert the date to Toronto time
-									torontoTime = date
-										.toLocaleTimeString("en-US", {
-											minute: "2-digit",
-											hour: "numeric",
-											hour12: true,
-										})
-										.replace(/ /g, "\u202F"); // Replace regular spaces with non-breaking spaces
+									const isoDate = game.date;
+									const date = new Date(isoDate);
+									const timezone = "America/Toronto";
+									const zonedDate = utcToZonedTime(date, timezone);
+									const torontoTime = format(zonedDate, "MMM do").toString();
 								}
 
 								return (
