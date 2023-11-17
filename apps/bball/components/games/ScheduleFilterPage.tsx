@@ -22,13 +22,8 @@ export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
 
 			{Object.keys(gameSchedule).length > 0 && (
 				<div>
-					<h3
-						style={{ borderColor: "#292929" }}
-						className="w-full  border-b bg-neutral-900 py-10 text-xl text-white "
-					>
-						{gameSchedule.date}
-					</h3>
-					<Separator className="my-5" />
+					<h3>{gameSchedule.date}</h3>
+					<hr />
 
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
 						{gameSchedule.games?.map((game) => {
@@ -39,9 +34,7 @@ export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
 			)}
 
 			{Object.keys(gameSchedule).length === 0 && (
-				<h4 className=" mt-16  text-2xl text-white">
-					No games scheduled for {date}
-				</h4>
+				<h3>No games scheduled for {date}</h3>
 			)}
 		</div>
 	);

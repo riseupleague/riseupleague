@@ -18,10 +18,8 @@ export default async function Register({
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
-				Welcome to rise up basketball
-			</h1>
-			<h2 className=" mt-2 text-center text-2xl font-semibold uppercase text-neutral-300 md:text-3xl">
+			<h1>Welcome to rise up basketball</h1>
+			<h2 className="mt-2 text-center text-2xl font-semibold uppercase text-neutral-300 md:text-3xl">
 				Winter Season 2024
 			</h2>
 			<section className="mt-20 flex flex-col gap-10 md:flex-row">

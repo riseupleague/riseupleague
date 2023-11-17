@@ -52,8 +52,8 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						key={dateIndex}
 					>
 						{/* date */}
-						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase">
-							<h2>{dateGroup.date}</h2>
+						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs md:text-lg uppercase">
+							{dateGroup.date}
 						</div>
 						{dateGroup.games
 							.sort((gameA, gameB) => {

@@ -12,9 +12,7 @@ const Statistics = ({ team, allAvg }) => {
 				style={{ borderColor: "#282828" }}
 				className="mb-10 flex items-center justify-between border-b pb-5 pt-10 "
 			>
-				<h2 className="font-barlow text-2xl font-semibold  text-white ">
-					Average Statistics
-				</h2>
+				<h3 className="text-center">Average Statistics</h3>
 			</div>
 			<div className="grid gap-4 lg:grid-cols-2">
 				<div

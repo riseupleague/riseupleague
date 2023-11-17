@@ -5,7 +5,7 @@ export default function PlayersLoading() {
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
+			<h1>
 				<Skeleton className="h-16 w-3/4 rounded-lg bg-neutral-700 lg:w-1/4" />
 			</h1>
 			<div>

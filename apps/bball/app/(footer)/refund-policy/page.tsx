@@ -1,11 +1,9 @@
 export default function TermsAndConditions(): JSX.Element {
 	return (
-		<section className="container mx-auto px-4 md:px-0">
-			<h1 className="font-barlow mb-16 mt-8 text-center text-5xl font-medium uppercase">
-				Refund Policy
-			</h1>
+		<section className="container mx-auto">
+			<h1>Refund Policy</h1>
 
-			<div className="font-barlow text-lg">
+			<div>
 				<p className="my-4">
 					Welcome to Rise Up Basketball League! We are excited to have you as
 					part of our recreational basketball community. Before proceeding with
@@ -19,7 +17,7 @@ export default function TermsAndConditions(): JSX.Element {
 					the terms and conditions of this refund policy.
 				</p>
 
-				<h2 className="text-3xl">1. Registration Fee Refunds:</h2>
+				<h2 className="my-6">1. Registration Fee Refunds:</h2>
 
 				<p className="my-4">
 					1.1. <strong>Full Refund:</strong> A full refund of the registration
@@ -42,9 +40,9 @@ export default function TermsAndConditions(): JSX.Element {
 					case-by-case basis.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">2. Refund Request Procedure:</h2>
+				<h2 className="my-6">2. Refund Request Procedure:</h2>
 
 				<p className="my-4">
 					2.1. All refund requests must be made in writing and sent to our
@@ -74,9 +72,9 @@ export default function TermsAndConditions(): JSX.Element {
 					the complete refund request email.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">3. League Cancellation:</h2>
+				<h2 className="my-6">3. League Cancellation:</h2>
 
 				<p className="my-4">
 					3.1. In the event that the Rise Up Basketball League is canceled
@@ -90,9 +88,9 @@ export default function TermsAndConditions(): JSX.Element {
 					number of games remaining in the season.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">4. Non-Refundable Items:</h2>
+				<h2 className="my-6">4. Non-Refundable Items:</h2>
 
 				<p className="my-4">
 					4.1. Certain league-related items, such as uniforms, merchandise, or
@@ -100,16 +98,16 @@ export default function TermsAndConditions(): JSX.Element {
 					stated otherwise.
 				</p>
 
-				<hr className="my-4 border-neutral-500" />
+				<hr />
 
-				<h2 className="text-3xl">5. Contact Information:</h2>
+				<h2 className="my-6">5. Contact Information:</h2>
 
 				<p className="my-4">
 					For all refund-related inquiries or assistance, please contact our
 					league&apos;s customer service at{" "}
 					<a
-						href="mailto:riseupbballleague@gmail.com
-"
+						href="mailto:riseupbballleague@gmail.com"
+						className="text-primary hover:underline"
 					>
 						riseupbballleague@gmail.com
 					</a>{" "}

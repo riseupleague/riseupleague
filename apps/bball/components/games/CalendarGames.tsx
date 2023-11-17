@@ -43,9 +43,7 @@ const CalendarGames = ({ linkDate }) => {
 		return (
 			<div className="my-5 flex items-center justify-between py-2">
 				<div className="mb-8 flex w-full items-center justify-between">
-					<h2 className="font-oswald text-4xl text-white sm:text-6xl ">
-						Schedules
-					</h2>
+					<h1>Schedule</h1>
 					<div className="flex items-center">
 						<button
 							onClick={() => changeWeekHandle("prev")}
