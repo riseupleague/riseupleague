@@ -1,6 +1,4 @@
 import {
-	getAllPastGames,
-	getAllUpcomingGames,
 	getAllUpcomingGamesHeader,
 } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
@@ -8,15 +6,10 @@ import React from "react";
 import { format, addDays, getISODay } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import FutureGames from "./FutureGames";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	await connectToDatabase();
-	// const resUpcoming = await getAllUpcomingGames();
-	// const { allUpcomingGames } = await resUpcoming.json();
-	// const resPast = await getAllPastGames();
-	// const { allPastGames } = await resPast.json();
-	// const allGames = [...allPastGames, ...allUpcomingGames];
-	// const separatedGames = [];
 
 	// Set the Toronto time zone
 	const torontoTimeZone = "America/Toronto";

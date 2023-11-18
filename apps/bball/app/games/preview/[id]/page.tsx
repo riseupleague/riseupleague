@@ -1,11 +1,6 @@
 import { getGameById } from "@/api-helpers/controllers/games-controller";
-import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
-import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
-import AverageStatistics from "@/components/players/player/AverageStatistics";
-import PlayerSections from "@/components/players/player/PlayerSections";
-import PreviousGames from "@/components/players/player/PreviousGames";
 import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";

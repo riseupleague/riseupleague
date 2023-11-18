@@ -3,31 +3,13 @@ import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
 
-	// const isoDate = game.date;
-
-	// const date = new Date(isoDate);
-
-	// const time = date
-	// 	.toLocaleTimeString("en-US", {
-	// 		hour: "numeric",
-	// 		minute: "numeric",
-	// 		hour12: true,
-	// 	})
-	// 	.replace(/\u202f/, " ");
-
-	const isoDate = game.date;
-	const date = new Date(isoDate);
-
-	// Assuming 'America/Toronto' is the target time zone
-	const timeZone = "America/Toronto";
-	const zonedDate = utcToZonedTime(date, timeZone);
-
-	const time = format(zonedDate, "h:mm a");
+	const date = convertToEST(new Date(game.date));
+	const time = format(date, "h:mm a");
 
 	return (
 		<article className="flex flex-col rounded border border-neutral-600 bg-neutral-700">

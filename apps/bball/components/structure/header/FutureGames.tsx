@@ -57,7 +57,6 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						</div>
 						{dateGroup.games
 							.sort((gameA, gameB) => {
-								// Convert the date strings to timestamps and then subtract
 								const dateA = new Date(gameA.date).getTime();
 								const dateB = new Date(gameB.date).getTime();
 								return dateA - dateB;
@@ -69,14 +68,13 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 									const dateStr = game.date;
 									const date = new Date(dateStr);
 
-									// Convert the date to Toronto time
 									torontoTime = date
 										.toLocaleTimeString("en-US", {
 											minute: "2-digit",
 											hour: "numeric",
 											hour12: true,
 										})
-										.replace(/ /g, "\u202F"); // Replace regular spaces with non-breaking spaces
+										.replace(/ /g, "\u202F");
 								}
 
 								return (
