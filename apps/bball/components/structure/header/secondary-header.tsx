@@ -11,14 +11,7 @@ import { convertToEST } from "@/utils/convertToEST";
 export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	await connectToDatabase();
 
-	// Set the Toronto time zone
-	const torontoTimeZone = "America/Toronto";
-
-	// Get the current date in Toronto time zone
-	const currentDate = utcToZonedTime(new Date(), torontoTimeZone);
-
-	// Format the current date as "eee, MMM d"
-	const formattedCurrentDate = format(currentDate, "eee, MMM d");
+	const currentDate = convertToEST(new Date());
 
 	// Find the next Saturday
 	const nextSaturday = addDays(
@@ -42,13 +35,9 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	const separatedGames = [];
 
 	allGames.forEach((game) => {
-		const gameDate = new Date(game.date);
-		const month = gameDate.toLocaleString("en-US", {
-			timeZone: "America/Toronto",
-			month: "short",
-		});
-
-		const day = gameDate.getDate();
+		const gameDate = convertToEST(new Date(game.date));
+		const month = format(gameDate, "MMM")
+		const day = format(gameDate, "d")
 		const formattedDate = `${month} ${day}`;
 
 		// Check if there's an object with the same date, if not, create one
@@ -65,7 +54,7 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 	});
 
 	return (
-		<section className="font-oswald max-w-screen  border border-x-neutral-900 border-y-neutral-600">
+		<section className="font-oswald max-w-screen border border-x-neutral-900 border-y-neutral-600">
 			<FutureGames separatedGames={separatedGames} />
 		</section>
 	);

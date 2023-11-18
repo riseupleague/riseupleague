@@ -4,6 +4,7 @@ import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
 import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default async function Summary({
 	params,
@@ -16,9 +17,7 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	const isoDate = new Date(game.date);
-	const timeZone = "America/Toronto";
-	const date = utcToZonedTime(isoDate, timeZone);
+	const date = convertToEST(new Date(game.date))
 	const day = date.toLocaleDateString("en-US", {
 		weekday: "short",
 	});

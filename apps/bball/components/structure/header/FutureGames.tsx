@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import Link from "next/link";
-import WinnerIcon from "@/public/images/winner-icon.png";
-import Image from "next/image";
-import TeamLogo from "@/components/general/icons/TeamLogo";
+import React, { useRef } from "react";
 import FutureGame from "./FutureGame";
+import { format } from "date-fns-tz";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default function FutureGames({ separatedGames }): JSX.Element {
 	const containerRef = useRef(null);
@@ -63,19 +61,8 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let torontoTime;
-								if (!game.status) {
-									const dateStr = game.date;
-									const date = new Date(dateStr);
-
-									torontoTime = date
-										.toLocaleTimeString("en-US", {
-											minute: "2-digit",
-											hour: "numeric",
-											hour12: true,
-										})
-										.replace(/ /g, "\u202F");
-								}
+								let date = convertToEST(game.date)
+								let torontoTime = format(new Date(date), 'p');
 
 								return (
 									<FutureGame
