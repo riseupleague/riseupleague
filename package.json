@@ -1,14 +1,14 @@
 {
 	"name": "riseupleague",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
 		"build:bball": "turbo build --filter=bball",
-		"build:admin": "turbo build --filter=admin-bball",
+		"build:admin": "turbo build --filter=bball-admin",
 		"dev": "turbo dev",
 		"dev:bball": "turbo dev --filter=bball",
-		"dev:admin": "turbo dev --filter=admin-bball",
+		"dev:admin": "turbo dev --filter=bball-admin",
 		"lint": "turbo lint",
 		"ui:add": "cd packages/ui && npm run ui:add",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",

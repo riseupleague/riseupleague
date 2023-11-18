@@ -12,23 +12,27 @@ export default async function Players({
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const { id } = params; // Destructure the 'id' property from 'params'
+	const { id } = params;
 	const resPlayer = await getPlayerAllAvgFromId(id);
 	const { player, allAvg } = await resPlayer.json();
+
+	console.log(player);
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<div className="mb-8 mt-16">
-				<h1 className="font-oswald text-center text-4xl font-medium uppercase">
-					{player?.playerName}
-				</h1>
+				<h1>{player?.playerName}</h1>
 				<div className="my-4 text-center text-neutral-50">
-					<Link href={`/teams/${player?.team._id}`}>
+					<Link href={`/teams/${player?.team._id}`} className="text-xl">
 						<span className="font-barlow hover:underline">
-							{player?.team.teamName}
+							{player?.team.teamName} | #{player?.jerseyNumber}
 						</span>
-					</Link>{" "}
-					| <span className="font-barlow">#{player?.jerseyNumber}</span>
+					</Link>
+				</div>
+				<div className="flex justify-center">
+					<h6 className="rounded bg-neutral-500 p-1">
+						{player.division.divisionName}
+					</h6>
 				</div>
 			</div>
 			<PlayerSections player={player} allAvg={allAvg} />

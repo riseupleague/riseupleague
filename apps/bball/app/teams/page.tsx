@@ -10,9 +10,7 @@ export default async function Teams(): Promise<JSX.Element> {
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh]">
-			<h1 className="font-oswald my-8 text-3xl font-medium uppercase">
-				All Teams
-			</h1>
+			<h1>All Teams</h1>
 			<TeamsFilterPage divisions={divisionsWithTeamNames} />
 		</section>
 	);

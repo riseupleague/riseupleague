@@ -14,9 +14,7 @@ export default function HomeRegister() {
 	};
 	return (
 		<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
-			<h3 className="mb-4 max-w-[240px] text-[31px] font-medium uppercase leading-snug">
-				Ready to elevate your basketball experience?
-			</h3>
+			<h2 className="my-8">Ready to elevate your basketball experience?</h2>
 			{/* <p className="mb-8 w-11/12">Winter season registration now open.</p> */}
 			<div className="w-full px-2">
 				{!session || !session.user ? (
