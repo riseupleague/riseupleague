@@ -1,44 +1,26 @@
 export default function UI(): JSX.Element {
 	return (
 		<section className="container mx-auto">
-			<h1>
-				UI Style Guide
-			</h1>
+			<h1>UI Style Guide</h1>
 
 			<hr />
 
 			{/* headings */}
 
-			<h1 className="text-primary">
-				Headings
-			</h1>
+			<h1 className="text-primary">Headings</h1>
 			<div className="flex flex-col gap-2 text-left">
-				<h1 className="text-left">
-					Heading H1
-				</h1>
-				<h2>
-					Heading H2
-				</h2>
-				<h3>
-					Heading H3
-				</h3>
-				<h4>
-					Heading H4
-				</h4>
-				<h5>
-					Heading H5
-				</h5>
-				<h6>
-					Heading H6
-				</h6>
+				<h1 className="text-left">Heading H1</h1>
+				<h2>Heading H2</h2>
+				<h3>Heading H3</h3>
+				<h4>Heading H4</h4>
+				<h5>Heading H5</h5>
+				<h6>Heading H6</h6>
 			</div>
 
 			<hr />
 
 			{/* paragraphs */}
-			<h1 className="text-primary">
-				Paragraphs
-			</h1>
+			<h1 className="text-primary">Paragraphs</h1>
 			<div className="flex flex-col gap-4">
 				<p className="font-barlow text-sm">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -63,9 +45,7 @@ export default function UI(): JSX.Element {
 			<hr />
 
 			{/* colours */}
-			<h1 className="text-primary">
-				Colours
-			</h1>
+			<h1 className="text-primary">Colours</h1>
 			<div className="grid grid-cols-2 gap-4 md:grid-cols-3">
 				<div className="bg-primary flex h-[150px] w-full items-center justify-center rounded border border-neutral-500">
 					<span className="text-lg font-medium uppercase text-neutral-50">
@@ -73,7 +53,7 @@ export default function UI(): JSX.Element {
 					</span>
 				</div>
 				<div className="bg-secondary flex h-[150px] w-full items-center justify-center rounded border border-neutral-500">
-					<span className="text-lg font-medium uppercase text-primary">
+					<span className="text-primary text-lg font-medium uppercase">
 						secondary
 					</span>
 				</div>
