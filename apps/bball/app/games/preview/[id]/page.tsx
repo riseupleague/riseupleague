@@ -17,7 +17,7 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	const date = convertToEST(new Date(game.date))
+	const date = convertToEST(new Date(game.date));
 	const day = date.toLocaleDateString("en-US", {
 		weekday: "short",
 	});

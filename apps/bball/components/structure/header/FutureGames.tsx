@@ -61,8 +61,8 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let date = convertToEST(game.date)
-								let torontoTime = format(new Date(date), 'p');
+								let date = convertToEST(game.date);
+								let torontoTime = format(new Date(date), "p");
 
 								return (
 									<FutureGame

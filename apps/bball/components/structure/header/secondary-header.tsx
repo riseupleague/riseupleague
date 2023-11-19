@@ -1,6 +1,4 @@
-import {
-	getAllUpcomingGamesHeader,
-} from "@/api-helpers/controllers/games-controller";
+import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import React from "react";
 import { format, addDays, getISODay } from "date-fns";
@@ -36,8 +34,8 @@ export default async function SecondaryHeader(): Promise<React.JSX.Element> {
 
 	allGames.forEach((game) => {
 		const gameDate = convertToEST(new Date(game.date));
-		const month = format(gameDate, "MMM")
-		const day = format(gameDate, "d")
+		const month = format(gameDate, "MMM");
+		const day = format(gameDate, "d");
 		const formattedDate = `${month} ${day}`;
 
 		// Check if there's an object with the same date, if not, create one
