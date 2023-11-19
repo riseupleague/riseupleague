@@ -24,7 +24,6 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-	console.log("players:", players);
 	let filteredDivisions = [...divisions];
 	if (players && players.length > 0) {
 		filteredDivisions = filteredDivisions.filter((division) => {
@@ -34,8 +33,6 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 			});
 		});
 	}
-
-	console.log("filteredDivisions:", filteredDivisions);
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">

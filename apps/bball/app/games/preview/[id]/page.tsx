@@ -18,14 +18,7 @@ export default async function Summary({
 	const { game } = await resGame.json();
 
 	const date = convertToEST(new Date(game.date));
-	const day = date.toLocaleDateString("en-US", {
-		weekday: "short",
-	});
-	const monthDay = date.toLocaleDateString("en-US", {
-		month: "2-digit",
-		day: "2-digit",
-	});
-	const time = format(date, "h:mm a");
+	const formattedDate = format(date, "E L/d @ h:mm a");
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
@@ -55,9 +48,7 @@ export default async function Summary({
 
 					{/* game info */}
 					<div className="font-oswald my-4 flex w-full flex-col items-center text-center">
-						<h4>
-							{day} {monthDay} @ {time}
-						</h4>
+						<h4>{formattedDate}</h4>
 						<h6>{game.location}</h6>
 					</div>
 

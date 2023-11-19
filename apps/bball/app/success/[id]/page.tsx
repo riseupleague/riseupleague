@@ -22,10 +22,7 @@ export default async function Success({
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
-	console.log(players, season);
-
 	const selectedPlayer = players.find((player) => {
-		console.log(player.season.toString(), season);
 		return player.season.toString() === season;
 	});
 

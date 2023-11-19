@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
@@ -52,8 +53,6 @@ interface FormErrors {
 }
 
 export default function CustomizeJersey({ team, session, division }) {
-	console.log("team:", team);
-	console.log("division:", division);
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 

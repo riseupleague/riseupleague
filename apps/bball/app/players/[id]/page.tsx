@@ -16,8 +16,6 @@ export default async function Players({
 	const resPlayer = await getPlayerAllAvgFromId(id);
 	const { player, allAvg } = await resPlayer.json();
 
-	console.log(player);
-
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
 			<div className="mb-8 mt-16">

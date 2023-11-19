@@ -18,9 +18,7 @@ export default async function Page(): Promise<JSX.Element> {
 
 	const resGames = await getAllPastGames();
 	const { games } = await resGames.json();
-	const playerOfTheGames = games
-		?.map((game) => game.playerOfTheGame)
-		.filter((player) => player !== undefined);
+
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
@@ -29,7 +27,7 @@ export default async function Page(): Promise<JSX.Element> {
 			{/* 
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
-			<PlayersOfTheWeek players={playerOfTheGames} />
+			<PlayersOfTheWeek games={games} />
 			<LatestGames games={games} />
 			{/* <MVPLadder /> */}
 			<Socials />

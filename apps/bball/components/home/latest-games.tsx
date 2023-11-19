@@ -1,3 +1,5 @@
+"use client";
+
 import HomeLatestGames from "../games/HomeLatestGames";
 import Link from "next/link";
 import { Button } from "@ui/components/button";

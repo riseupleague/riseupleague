@@ -52,7 +52,6 @@ interface FormErrors {
 }
 
 export default function CustomizeTeam({ division, session }) {
-	console.log("division:", division);
 	const [isLoader, setIsLoader] = useState(false);
 
 	const [isSummary, setIsSummary] = useState(false);

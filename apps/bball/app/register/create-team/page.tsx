@@ -24,7 +24,6 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-	console.log("player:", players);
 
 	let filteredDivisions = [...divisions];
 
@@ -37,7 +36,6 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 		});
 	}
 
-	console.log("Filtered Divisions:", filteredDivisions);
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
