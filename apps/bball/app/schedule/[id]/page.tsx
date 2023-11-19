@@ -15,7 +15,7 @@ export default async function Schedule({
 	const { gamesByDate } = await resAllUpcomingGames.json();
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<ScheduleFilterPage gamesByDate={gamesByDate} linkDate={id} />
+			<ScheduleFilterPage gamesByDate={gamesByDate} />
 		</main>
 	);
 }
