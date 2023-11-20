@@ -5,6 +5,7 @@ import Header from "../components/structure/header/header";
 import Footer from "../components/structure/footer/footer";
 import { type ChildrenProps } from "../lib/types";
 import { NextAuthProvider } from "./Providers";
+import GoogleAnalytics from "@/components/general/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
@@ -27,6 +28,9 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 			lang="en"
 		>
 			<body className="bg-neutral-900 text-neutral-100">
+				{process.env.GOOGLE_ANALYTICS_ID ? (
+					<GoogleAnalytics ga_id={process.env.GOOGLE_ANALYTICS_ID} />
+				) : null}
 				<NextAuthProvider>
 					<Header />
 					<main className="bball">{children}</main>
