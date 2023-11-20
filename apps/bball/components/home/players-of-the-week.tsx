@@ -1,8 +1,13 @@
-"use client";
-
+import { connectToDatabase } from "@/api-helpers/utils";
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
+import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
 
-export default function PlayersOfTheWeek({ games }): JSX.Element {
+export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
+	await connectToDatabase();
+
+	const resGames = await getAllPastGames();
+	const { games } = await resGames.json();
+
 	const playerOfTheGames = games
 		?.map((game) => game.playerOfTheGame)
 		.filter((player) => player !== undefined);
