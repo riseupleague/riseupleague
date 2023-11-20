@@ -10,10 +10,8 @@ export default async function Schedule(): Promise<JSX.Element> {
 	redirect(`/schedule/${currentDateInSeconds}`);
 
 	return (
-		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
-				Welcome to rise up basketball
-			</h1>
+		<main className="container mx-auto min-h-[100dvh]">
+			<h1>Welcome to rise up basketball</h1>
 		</main>
 	);
 }

@@ -1,9 +1,7 @@
 export default function AboutUs(): JSX.Element {
 	return (
-		<section className="container mx-auto flex min-h-[100dvh] items-center justify-center">
-			<h1 className="font-oswald text-3xl font-medium uppercase">
-				career page
-			</h1>
+		<section className="container mx-auto min-h-[100dvh]">
+			<h1>career page</h1>
 		</section>
 	);
 }

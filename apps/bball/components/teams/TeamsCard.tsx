@@ -7,7 +7,7 @@ export default function TeamsCard({ team }) {
 	return (
 		<Link
 			href={`/teams/${team._id}`}
-			className="flex w-full items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 px-6 py-4 transition hover:opacity-80"
+			className="flex w-full items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 px-3 py-1 transition hover:opacity-80"
 		>
 			<div className="flex items-center gap-3">
 				<TeamLogo
@@ -19,9 +19,9 @@ export default function TeamsCard({ team }) {
 					circleHeight={1}
 					circleWidth={1}
 				/>
-				<h3 className="font-barlow text-lg uppercase">{team.teamName}</h3>
+				<h5 className="md:text-base lg:text-lg">{team.teamName}</h5>
 			</div>
-			<span className="font-barlow text-sm underline transition hover:opacity-80">
+			<span className="font-barlow text-xs underline transition hover:opacity-80 md:text-sm">
 				View Profile
 			</span>
 		</Link>

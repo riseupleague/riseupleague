@@ -17,9 +17,7 @@ export default function PreviewMatchup({ game }) {
 
 	return (
 		<div>
-			<h2 className="font-oswald my-8 text-center text-3xl font-bold uppercase">
-				Preview Matchup
-			</h2>
+			<h2 className="text-center">Preview Matchup</h2>
 
 			<div className="my-8 flex justify-center">
 				<Button
