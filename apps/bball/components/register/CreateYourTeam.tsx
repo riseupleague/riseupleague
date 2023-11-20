@@ -9,6 +9,7 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 import { Separator } from "@ui/components/separator";
+import { Button } from "@ui/components/button";
 
 export default function CreateYourTeam({ divisions, category }): JSX.Element {
 	const [selectedDivision, setSelectedDivision] = useState([]);
@@ -314,20 +315,31 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 												</div>
 											</div>
 											<div className="mt-10 flex justify-end">
-												{category === "create" ? (
-													<Link
+												{division.teams.length >= 8 ? (
+													<Button
+														variant="secondary"
 														className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-														href={`/register/create-team/${division._id}`}
 													>
-														Continue
-													</Link>
+														Full
+													</Button>
 												) : (
-													<Link
-														className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-														href={`/register/join-team/${division._id}`}
-													>
-														Continue
-													</Link>
+													<>
+														{category === "create" ? (
+															<Link
+																className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
+																href={`/register/create-team/${division._id}`}
+															>
+																Continue
+															</Link>
+														) : (
+															<Link
+																className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
+																href={`/register/join-team/${division._id}`}
+															>
+																Continue
+															</Link>
+														)}
+													</>
 												)}
 											</div>
 										</AccordionContent>
