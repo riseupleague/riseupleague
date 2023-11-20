@@ -170,6 +170,7 @@ export default function CustomizeJersey({ team, session, division }) {
 				jerseyName,
 				instagram,
 				playerName: session.user.name,
+				email: session.user.email,
 				teamName: team.teamName,
 				division: division._id,
 			};

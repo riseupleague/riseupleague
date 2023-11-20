@@ -175,6 +175,7 @@ export default function CustomizeTeam({ division, session }) {
 				jerseyName,
 				instagram,
 				playerName: session.user.name,
+				email: session.user.email,
 				division: division._id,
 			};
 

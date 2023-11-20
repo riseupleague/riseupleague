@@ -102,9 +102,9 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "createTeam" && metadata.teamName !== "") {
-			const updatedUser = await User.findOne({ name: metadata.playerName });
+			const updatedUser = await User.findOne({ email: metadata.email });
 			const selectedDivision = await Division.findById(metadata.division);
-
+			console.log(updatedUser);
 			// Update team
 
 			const newTeam = new Team({
