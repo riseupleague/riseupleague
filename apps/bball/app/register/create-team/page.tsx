@@ -28,6 +28,11 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	console.log("player:", players);
 
 	let filteredDivisions = [...divisions];
+	console.log("Filtered Divisions 1:", filteredDivisions);
+	filteredDivisions = filteredDivisions.filter((division) => {
+		console.log(division.teams.length);
+		return division.teams.length < 8;
+	});
 
 	if (players && players.length > 0) {
 		filteredDivisions = filteredDivisions.filter((division) => {
