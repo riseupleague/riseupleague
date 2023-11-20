@@ -8,6 +8,7 @@ import PreviousGames from "@/components/players/player/PreviousGames";
 import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default async function Summary({
 	params,
@@ -20,9 +21,7 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	const isoDate = new Date(game.date);
-	const timeZone = "America/Toronto";
-	const date = utcToZonedTime(isoDate, timeZone);
+	const date = convertToEST(new Date(game.date));
 	const day = date.toLocaleDateString("en-US", {
 		weekday: "short",
 	});
@@ -35,20 +34,18 @@ export default async function Summary({
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<div className="mb-8 mt-16">
-				<h1 className="font-oswald text-center text-3xl font-medium uppercase">
-					{game.gameName}
-				</h1>
+				<h1>{game.gameName}</h1>
 
 				<div className="font-oswald my-8 flex w-full items-center justify-center md:gap-16">
 					{/* home team */}
 					<div className="flex w-full flex-col items-center">
-						<h3
-							className={`my-4 text-5xl ${
+						<h2
+							className={`my-4 ${
 								game.homeTeamScore > game.awayTeamScore && "text-primary"
 							}`}
 						>
 							{game.homeTeamScore}
-						</h3>
+						</h2>
 						<Link
 							href={`/teams/${game.homeTeam._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
@@ -62,24 +59,22 @@ export default async function Summary({
 
 					{/* game info */}
 					<div className="font-oswald my-4 flex w-full flex-col items-center text-center">
-						<h2 className="my-8 text-5xl">Final</h2>
-						<h3 className="text-sm md:text-xl">
+						<h2 className="my-8">Final</h2>
+						<h4>
 							{day} {monthDay} @ {time}
-						</h3>
-						<h4 className="font-base md:text-md my-4 text-xs">
-							{game.location}
 						</h4>
+						<h5>{game.location}</h5>
 					</div>
 
 					{/* away team */}
 					<div className="flex w-full flex-col items-center">
-						<h3
-							className={`my-4 text-5xl ${
+						<h2
+							className={`my-4 ${
 								game.awayTeamScore > game.homeTeamScore && "text-primary"
 							}`}
 						>
 							{game.awayTeamScore}
-						</h3>
+						</h2>
 						<Link
 							href={`/teams/${game.awayTeam._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
@@ -92,7 +87,7 @@ export default async function Summary({
 					</div>
 				</div>
 
-				<hr className="border-neutral-500" />
+				<hr />
 
 				{/* box score */}
 				<div className="my-10">

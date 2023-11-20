@@ -5,31 +5,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import footerOptions from "@/lib/data/footerOptions.json";
+import packageJson from "../../../../../package.json";
 
 export default function Footer(): React.JSX.Element {
 	// for active class
 	const path = usePathname();
+	const versionNumber = packageJson.version;
 
 	return (
 		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
-			{/* logo & copyright */}
-			<section className="flex flex-col items-center text-center lg:items-start">
-				<Link
-					href="/"
-					className="text-2xl font-bold transition hover:opacity-80"
-				>
-					<Image
-						alt="Logo"
-						height={100}
-						priority
-						src="/images/riseup-logo.png"
-						width={200}
-					/>
-				</Link>
-				<p className="font-barlow my-7 text-sm capitalize text-neutral-200">
-					Copyright© 2023. Rise Up Sports League. All Rights Reserved.
-				</p>
-			</section>
+			<hr />
 
 			{/* links */}
 			<section className="grid grid-cols-2 gap-y-9">
@@ -53,7 +38,7 @@ export default function Footer(): React.JSX.Element {
 									<Link
 										href={link.href}
 										key={index}
-										className={`font-barlow w-fit text-sm font-light capitalize text-neutral-200 transition hover:opacity-80 ${
+										className={`font-barlow w-fit text-sm font-light capitalize text-neutral-200 transition hover:opacity-80 md:text-lg ${
 											isActive && "text-primary pointer-events-none underline"
 										}`}
 									>
@@ -64,6 +49,34 @@ export default function Footer(): React.JSX.Element {
 						</div>
 					</div>
 				))}
+			</section>
+
+			{/* logo & copyright */}
+			<section className="flex flex-col items-center text-center">
+				<Link
+					href="/"
+					className="text-2xl font-bold transition hover:opacity-80"
+				>
+					<Image
+						alt="Logo"
+						height={100}
+						priority
+						src="/images/riseup-logo.png"
+						width={200}
+					/>
+				</Link>
+				<div className="font-barlow my-7 text-sm text-neutral-200">
+					<p className="text-sm">
+						Copyright© 2023. Rise Up Sports League. All Rights Reserved.
+					</p>
+					<Link
+						href="https://github.com/n9d0g/riseupleague/releases"
+						target="_blank"
+						className="hover:text-primary transition-all hover:underline"
+					>
+						v{versionNumber}
+					</Link>
+				</div>
 			</section>
 
 			{/* newsletter */}

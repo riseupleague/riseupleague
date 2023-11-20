@@ -1,11 +1,9 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
-import Link from "next/link";
-import WinnerIcon from "@/public/images/winner-icon.png";
-import Image from "next/image";
-import TeamLogo from "@/components/general/icons/TeamLogo";
+import React, { useRef } from "react";
 import FutureGame from "./FutureGame";
+import { format } from "date-fns-tz";
+import { convertToEST } from "@/utils/convertToEST";
 
 export default function FutureGames({ separatedGames }): JSX.Element {
 	const containerRef = useRef(null);
@@ -52,32 +50,19 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						key={dateIndex}
 					>
 						{/* date */}
-						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase">
-							<h2>{dateGroup.date}</h2>
+						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase md:text-lg">
+							{dateGroup.date}
 						</div>
 						{dateGroup.games
 							.sort((gameA, gameB) => {
-								// Convert the date strings to timestamps and then subtract
 								const dateA = new Date(gameA.date).getTime();
 								const dateB = new Date(gameB.date).getTime();
 								return dateA - dateB;
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let torontoTime;
-								if (!game.status) {
-									const dateStr = game.date;
-									const date = new Date(dateStr);
-
-									// Convert the date to Toronto time
-									torontoTime = date
-										.toLocaleTimeString("en-US", {
-											minute: "2-digit",
-											hour: "numeric",
-											hour12: true,
-										})
-										.replace(/ /g, "\u202F"); // Replace regular spaces with non-breaking spaces
-								}
+								let date = convertToEST(game.date)
+								let torontoTime = format(new Date(date), 'p');
 
 								return (
 									<FutureGame
