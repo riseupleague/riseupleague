@@ -1,6 +1,13 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import StandingsTable from "@/components/standings/StandingsTable";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Standings",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
 
 // Define the type for a Division object
 type Division = {

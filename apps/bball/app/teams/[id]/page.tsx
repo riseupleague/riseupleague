@@ -1,8 +1,13 @@
-import AverageStatistics from "@/components/players/player/AverageStatistics";
-import Link from "next/link";
 import { getTeamAllAvgFromId } from "@/api-helpers/controllers/teams-controller";
 import TeamSections from "@/components/teams/team/TeamSections";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Team",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
 
 export default async function Players({
 	params,

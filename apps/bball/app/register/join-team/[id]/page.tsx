@@ -1,9 +1,15 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import ChooseTeam from "@/components/register/join-team/ChooseTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Join a Team",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
 
 export default async function JoinTeam({
 	params,

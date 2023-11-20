@@ -9,6 +9,13 @@ import FAQs from "@/components/home/faqs";
 import ContactUs from "@/components/home/contact-us";
 import HomeRegister from "@/components/home/home-register";
 import SecondaryHeader from "@/components/structure/header/secondary-header";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Home",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
 
 export default async function Page(): Promise<JSX.Element> {
 	return (

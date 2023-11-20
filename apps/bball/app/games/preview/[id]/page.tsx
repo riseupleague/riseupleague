@@ -1,12 +1,18 @@
 import { getGameById } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
-import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
+import { Metadata } from "next";
 
-export default async function Summary({
+export const metadata: Metadata = {
+	title: "Rise Up League | Game Preview",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
+
+export default async function Preview({
 	params,
 }: {
 	params: { id: string };

@@ -3,6 +3,13 @@ import { getAllCurrentPlayers } from "@/api-helpers/controllers/players-controll
 import { getAllCurrentTeamsNameDivisionAndId } from "@/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerGrid from "@/components/players/PlayerGrid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Players",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+};
 
 export default async function Players({
 	searchParams,
