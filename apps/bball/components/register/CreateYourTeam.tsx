@@ -46,6 +46,7 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 	});
 
 	// Now, you have three arrays with divisions categorized by location
+	console.log("hello");
 	console.log("Brampton Divisions:", bramptonDivisions);
 	console.log("Vaughan Divisions:", vaughanDivisions);
 	console.log("Markham Divisions:", markhamDivisions);
