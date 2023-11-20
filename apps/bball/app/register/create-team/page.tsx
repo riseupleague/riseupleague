@@ -12,6 +12,7 @@ import {
 import { Separator } from "@ui/components/separator";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import CreateYourTeam from "@/components/register/CreateYourTeam";
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
@@ -27,12 +28,17 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	console.log("player:", players);
 
 	let filteredDivisions = [...divisions];
+	console.log("Filtered Divisions 1:", filteredDivisions);
+	filteredDivisions = filteredDivisions.filter((division) => {
+		console.log(division.teams.length);
+		return division.teams.length < 8;
+	});
 
 	if (players && players.length > 0) {
 		filteredDivisions = filteredDivisions.filter((division) => {
 			// Check if every players division is not equal to the current division
 			return players.every((player) => {
-				return player.division._id !== division._id;
+				return player.division?._id !== division._id;
 			});
 		});
 	}
@@ -43,8 +49,9 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Create a team
 			</h1>
+			<CreateYourTeam divisions={filteredDivisions} category="create" />
 
-			<Link
+			{/* <Link
 				href={"/register"}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
@@ -229,38 +236,36 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 													<span className="bg-main mb-2 inline-block w-fit rounded-md bg-green-500 px-2 py-1  uppercase text-white">
 														Early Bird
 													</span>
-													<div className="">
-														<div className="flex items-center gap-2">
-															<p className="mb-2 text-5xl font-semibold">
-																$ {division.earlyBirdPrice}
-															</p>
+													<div className="flex items-center gap-2">
+														<p className="mb-2 text-5xl font-semibold">
+															$ {division.earlyBirdPrice}
+														</p>
 
-															<span className="text-xs">+ 13% HST</span>
-														</div>
-														{/* <span className="text-xs">
-															or 4 installments of{" "}
-															<span className="text-sm">$60</span> + 13% HST
-															bi-weekly
-														</span> */}
+														<span className="text-xs">+ 13% HST</span>
 													</div>
+													<span className="text-xs">
+														or 4 installments of{" "}
+														<span className="text-sm">$60</span> + 13% HST
+														bi-weekly
+													</span>
 												</div>
 											</div>
 										</div>
-										<div className="mt-10 flex justify-end">
-											<Link
-												className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-												href={`/register/create-team/${division._id}`}
-											>
-												Continue
-											</Link>
-										</div>
+									</div>
+									<div className="mt-10 flex justify-end">
+										<Link
+											className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
+											href={`/register/create-team/${division._id}`}
+										>
+											Continue
+										</Link>
 									</div>
 								</AccordionContent>
 							</AccordionItem>
 						);
 					})}
 				</Accordion>
-			</div>
+			</div> */}
 		</main>
 	);
 }
