@@ -11,7 +11,8 @@
 		"STRIPE_WEBHOOK_SECRET",
 		"CLIENT_EMAIL",
 		"CLIENT_ID",
-		"PRIVATE_KEY"
+		"PRIVATE_KEY",
+		"GOOGLE_ANALYTICS_ID"
 	],
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],

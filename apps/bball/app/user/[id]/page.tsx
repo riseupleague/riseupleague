@@ -6,6 +6,13 @@ import { redirect } from "next/navigation";
 import { Button } from "@ui/components/button";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | User",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function Success({
 	params,
@@ -17,24 +24,6 @@ export default async function Success({
 	if (!session || !session.user) {
 		redirect("/");
 	}
-	// const resPlayer = await getUserPlayerPayment(session.user.email);
-	// const { players, season } = await resPlayer.json();
-	// console.log(players);
-	// const convertToAMPM = (timeString) => {
-	// 	const [hours, minutes] = timeString.split(":");
-	// 	const date = new Date(2023, 0, 1, hours, minutes); // Assuming year 2023, month 0 (January), day 1
-
-	// 	// Format the time to AM/PM
-	// 	const formattedTime = date.toLocaleTimeString("en-US", {
-	// 		hour: "numeric",
-	// 		minute: "numeric",
-	// 		hour12: true,
-	// 	});
-
-	// 	return formattedTime;
-	// };
-
-	// // Example usage:
 
 	return (
 		<main className="container mx-auto min-h-[100dvh]">
