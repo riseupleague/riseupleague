@@ -7,7 +7,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
 	title: "Rise Up League | League Leaders",
 	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
 // Define the type for a Division object

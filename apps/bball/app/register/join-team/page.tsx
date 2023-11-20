@@ -4,14 +4,14 @@ import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import CreateYourTeam from "@/components/register/CreateYourTeam";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Join a Team",
 	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and have Rise Up to the challenge!",
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-import CreateYourTeam from "@/components/register/CreateYourTeam";
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
