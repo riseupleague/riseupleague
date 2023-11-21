@@ -36,7 +36,8 @@ const FilterByDivision = ({
 						<SelectLabel>Division:</SelectLabel>
 						{divisions.map((division, index) => (
 							<SelectItem
-								value={division._id || "default"} // Ensure a non-empty string value
+								className="text-sm sm:text-lg"
+								value={division._id || "default"}
 								key={index}
 							>
 								{division.divisionName}

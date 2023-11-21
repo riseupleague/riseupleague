@@ -20,25 +20,25 @@ const PreviousGames = ({ team }) => {
 			<Table>
 				<TableHeader>
 					<TableRow className="font-barlow border-b border-neutral-500 uppercase">
-						<TableHead className="bg-transparent text-center text-sm sm:w-auto sm:text-lg">
+						<TableHead className="w-1/4 p-1 text-left text-sm sm:w-1/6 sm:text-lg lg:w-1/12">
 							W/L
 						</TableHead>
-						<TableHead className="w-1/3 bg-transparent text-left text-sm sm:w-auto sm:text-lg">
+						<TableHead className="w-1/2 p-1 text-left text-sm sm:w-auto sm:text-lg">
 							Game
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
+						<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
 							PTS
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
+						<TableHead className="w-1/12 p-1 text-sm  sm:w-auto sm:text-lg">
 							REB
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
+						<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
 							AST
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
+						<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
 							BLK
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
+						<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
 							STL
 						</TableHead>
 					</TableRow>
@@ -48,6 +48,11 @@ const PreviousGames = ({ team }) => {
 						if (stats.game?.status) {
 							const isHomeTeam =
 								stats.game?.homeTeam.teamName === team.teamName;
+
+							const opponent = isHomeTeam
+								? stats.game?.awayTeam.teamName
+								: stats.game?.homeTeam.teamName;
+
 							const isWin =
 								(isHomeTeam &&
 									stats.game?.homeTeamScore >= stats.game?.awayTeamScore) ||
@@ -59,7 +64,7 @@ const PreviousGames = ({ team }) => {
 									key={index}
 									className="font-oswald border-b-neutral-500"
 								>
-									<TableCell>
+									<TableCell className="w-1/4 p-1 text-left text-sm sm:w-1/6 sm:text-lg lg:w-1/12">
 										<span
 											className={`${isWin ? "text-green-600" : "text-primary"}`}
 										>
@@ -67,19 +72,29 @@ const PreviousGames = ({ team }) => {
 										</span>
 										{stats.game?.homeTeamScore} - {stats.game?.awayTeamScore}
 									</TableCell>
-									<TableCell className="w-1/2 text-left sm:w-auto">
+									<TableCell className="w-1/2 p-1 text-left text-sm sm:w-auto sm:text-lg">
 										<Link
 											href={`/games/summary/${stats.game?._id}`}
 											className="hover:underline"
 										>
-											{stats.game?.gameName}
+											vs {opponent}
 										</Link>
 									</TableCell>
-									<TableCell>{stats.points}</TableCell>
-									<TableCell>{stats.rebounds}</TableCell>
-									<TableCell>{stats.assists}</TableCell>
-									<TableCell>{stats.blocks}</TableCell>
-									<TableCell>{stats.steals}</TableCell>
+									<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
+										{stats.points}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
+										{stats.rebounds}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
+										{stats.assists}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
+										{stats.blocks}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
+										{stats.steals}
+									</TableCell>
 								</TableRow>
 							);
 						}
