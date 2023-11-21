@@ -9,6 +9,13 @@ import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Game Summary",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function Summary({
 	params,

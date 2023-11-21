@@ -1,12 +1,18 @@
 import { getGameById } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
-import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
+import { Metadata } from "next";
 
-export default async function Summary({
+export const metadata: Metadata = {
+	title: "Rise Up League | Game Preview",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
+
+export default async function Preview({
 	params,
 }: {
 	params: { id: string };
@@ -17,15 +23,8 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	const date = convertToEST(new Date(game.date))
-	const day = date.toLocaleDateString("en-US", {
-		weekday: "short",
-	});
-	const monthDay = date.toLocaleDateString("en-US", {
-		month: "2-digit",
-		day: "2-digit",
-	});
-	const time = format(date, "h:mm a");
+	const date = convertToEST(new Date(game.date));
+	const formattedDate = format(date, "E L/d @ h:mm a");
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
@@ -55,9 +54,7 @@ export default async function Summary({
 
 					{/* game info */}
 					<div className="font-oswald my-4 flex w-full flex-col items-center text-center">
-						<h4>
-							{day} {monthDay} @ {time}
-						</h4>
+						<h4>{formattedDate}</h4>
 						<h6>{game.location}</h6>
 					</div>
 

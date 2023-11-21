@@ -1,11 +1,17 @@
 import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import { Separator } from "@ui/components/separator";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button } from "@ui/components/button";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Success!",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function Success({
 	params,
@@ -22,10 +28,7 @@ export default async function Success({
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
-	console.log(players, season);
-
 	const selectedPlayer = players.find((player) => {
-		console.log(player.season.toString(), season);
 		return player.season.toString() === season;
 	});
 

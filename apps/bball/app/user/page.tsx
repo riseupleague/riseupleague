@@ -2,8 +2,15 @@ import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
 
-export default async function Success(): Promise<JSX.Element> {
+export const metadata: Metadata = {
+	title: "Rise Up League | User",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
+
+export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);

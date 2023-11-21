@@ -9,18 +9,15 @@ import FAQs from "@/components/home/faqs";
 import ContactUs from "@/components/home/contact-us";
 import HomeRegister from "@/components/home/home-register";
 import SecondaryHeader from "@/components/structure/header/secondary-header";
-import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
 
-import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
+export const metadata: Metadata = {
+	title: "Rise Up League | Home",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function Page(): Promise<JSX.Element> {
-	await connectToDatabase();
-
-	const resGames = await getAllPastGames();
-	const { games } = await resGames.json();
-	const playerOfTheGames = games
-		?.map((game) => game.playerOfTheGame)
-		.filter((player) => player !== undefined);
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
@@ -29,8 +26,8 @@ export default async function Page(): Promise<JSX.Element> {
 			{/* 
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
-			<PlayersOfTheWeek players={playerOfTheGames} />
-			<LatestGames games={games} />
+			<PlayersOfTheWeek />
+			<LatestGames />
 			{/* <MVPLadder /> */}
 			<Socials />
 			{/* <FAQs />

@@ -1,8 +1,14 @@
+"use client";
+
 import CalendarGames from "./CalendarGames";
 import ScheduleCard from "./ScheduleCard";
 
-export default function ScheduleFilterPage({ gamesByDate, linkDate }) {
+export default function ScheduleFilterPage({ gamesByDate }) {
 	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
+
+	const currentDate = new Date();
+	const linkDate = Math.floor(currentDate.getTime() / 1000);
+
 	const date = new Date(linkDate * 1000).toLocaleDateString("en-US", {
 		timeZone: "America/Toronto",
 		month: "short",

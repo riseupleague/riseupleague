@@ -1,9 +1,16 @@
 import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Separator } from "@ui/components/separator";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Register",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function Register({
 	searchParams,

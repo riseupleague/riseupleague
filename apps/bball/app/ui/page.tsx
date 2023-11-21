@@ -48,63 +48,81 @@ export default function UI(): JSX.Element {
 			<h1 className="text-primary">Colours</h1>
 			<div className="grid grid-cols-2 gap-4 md:grid-cols-3">
 				<div className="bg-primary flex h-[150px] w-full items-center justify-center rounded border border-neutral-500">
-					<span className="text-lg font-medium uppercase text-neutral-50">
-						primary
+					<span className="text-center text-lg font-medium uppercase text-neutral-50">
+						primary <br />
+						#ff422e
 					</span>
 				</div>
 				<div className="bg-secondary flex h-[150px] w-full items-center justify-center rounded border border-neutral-500">
-					<span className="text-primary text-lg font-medium uppercase">
-						secondary
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						secondary <br />
+						#e8341c
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-50">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-50
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-50 <br />
+						#fafbfc
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-100">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-100
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-100 <br />
+						#fefefe
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-200">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-200
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-200 <br />
+						#dfe2e6
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-300">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-300
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-300 <br />
+						#abafb3
+					</span>
+				</div>
+				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-300">
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-350 <br />
+						#798394
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-400">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-400
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-400 <br />
+						#82878d
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-500">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-500
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-500 <br />
+						#555b64
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-600">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-600
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-600 <br />
+						#282d35
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-700">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-700
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-700 <br />
+						#11161d
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-800">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-800
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-800 <br />
+						#11161f
 					</span>
 				</div>
 				<div className="flex h-[150px] w-full items-center justify-center rounded border border-neutral-500 bg-neutral-900">
-					<span className="text-primary text-lg font-medium uppercase">
-						neutral-900
+					<span className="text-primary text-center text-lg font-medium uppercase">
+						neutral-900 <br />
+						#04080f
 					</span>
 				</div>
 			</div>
