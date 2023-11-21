@@ -172,6 +172,7 @@ export default function CustomizeJersey({ team, session, division }) {
 				email: session.user.email,
 				teamName: team.teamName,
 				division: division._id,
+				divisionName: division.divisionName,
 			};
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
