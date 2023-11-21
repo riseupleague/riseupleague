@@ -20,24 +20,14 @@ const PreviousGames = ({ player }) => {
 			<Table>
 				<TableHeader>
 					<TableRow className="font-barlow border-b border-neutral-500 uppercase">
-						<TableHead className="w-1/3 bg-transparent text-left text-sm sm:w-auto sm:text-lg">
+						<TableHead className="w-1/2 p-1 text-left text-sm sm:w-auto sm:text-lg">
 							Game
 						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
-							PTS
-						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
-							REB
-						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
-							AST
-						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
-							BLK
-						</TableHead>
-						<TableHead className="bg-transparent text-sm sm:text-lg">
-							STL
-						</TableHead>
+						<TableHead className="p-1 text-sm sm:text-lg">PTS</TableHead>
+						<TableHead className="p-1 text-sm sm:text-lg">REB</TableHead>
+						<TableHead className="p-1 text-sm sm:text-lg">AST</TableHead>
+						<TableHead className="p-1 text-sm sm:text-lg">BLK</TableHead>
+						<TableHead className="p-1 text-sm sm:text-lg">STL</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
@@ -46,9 +36,9 @@ const PreviousGames = ({ player }) => {
 							return (
 								<TableRow
 									key={index}
-									className="font-oswald border-b-neutral-500"
+									className="font-oswald border-b-neutral-500 text-sm sm:text-lg"
 								>
-									<TableCell className="w-1/2 text-left sm:w-auto">
+									<TableCell className="w-1/2 p-1 text-left sm:w-auto">
 										<Link
 											href={`/games/summary/${stats.game?._id}`}
 											className="hover:underline"
@@ -56,11 +46,21 @@ const PreviousGames = ({ player }) => {
 											{stats.game?.gameName}
 										</Link>
 									</TableCell>
-									<TableCell>{stats.points}</TableCell>
-									<TableCell>{stats.rebounds}</TableCell>
-									<TableCell>{stats.assists}</TableCell>
-									<TableCell>{stats.blocks}</TableCell>
-									<TableCell>{stats.steals}</TableCell>
+									<TableCell className="w-1/12 p-1 sm:w-auto">
+										{stats.points}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 sm:w-auto">
+										{stats.rebounds}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 sm:w-auto">
+										{stats.assists}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 sm:w-auto">
+										{stats.blocks}
+									</TableCell>
+									<TableCell className="w-1/12 p-1 sm:w-auto">
+										{stats.steals}
+									</TableCell>
 								</TableRow>
 							);
 						}
