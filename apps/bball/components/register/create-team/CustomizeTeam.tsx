@@ -176,6 +176,7 @@ export default function CustomizeTeam({ division, session }) {
 				playerName: session.user.name,
 				email: session.user.email,
 				division: division._id,
+				divisionName: division.divisionName,
 			};
 
 			console.log("formObject:", formObject);
