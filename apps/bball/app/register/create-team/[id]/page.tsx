@@ -3,6 +3,13 @@ import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-con
 import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Create a Team",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default async function JoinTeam({
 	params,

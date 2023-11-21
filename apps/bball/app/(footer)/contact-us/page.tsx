@@ -1,4 +1,11 @@
 import ContactUs from "@/components/home/contact-us";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Contact",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
 export default function ContactUsPage(): JSX.Element {
 	return (

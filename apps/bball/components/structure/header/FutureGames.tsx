@@ -4,8 +4,37 @@ import React, { useRef } from "react";
 import FutureGame from "./FutureGame";
 import { format } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
+import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
+import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
+import { startOfDay } from "date-fns";
 
-export default function FutureGames({ separatedGames }): JSX.Element {
+export default function FutureGames({ allUpcomingGames }): JSX.Element {
+	const currentDate = convertToEST(startOfDay(new Date()));
+
+	const allGames = allUpcomingGames.filter((game) => {
+		return convertToEST(game.date) >= currentDate;
+	});
+	const separatedGames = [];
+
+	allGames.forEach((game) => {
+		const gameDate = convertToEST(new Date(game.date));
+		const month = format(gameDate, "MMM");
+		const day = format(gameDate, "d");
+		const formattedDate = `${month} ${day}`;
+
+		// Check if there's an object with the same date, if not, create one
+		const existingDateObject = separatedGames.find((obj) => {
+			return obj.date === formattedDate;
+		});
+
+		if (existingDateObject) {
+			existingDateObject.games.push(game);
+		} else {
+			const newDateObject = { date: formattedDate, games: [game] };
+			separatedGames.push(newDateObject);
+		}
+	});
+
 	const containerRef = useRef(null);
 
 	const scrollLeft = () => {
@@ -27,18 +56,10 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 	return (
 		<div className="flex ">
 			<button
-				style={{ backgroundColor: "#16161A" }}
-				className={` hidden px-3 text-gray-100 sm:block`}
+				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollLeft}
 			>
-				<svg
-					className="h-6 w-6 fill-current"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="#ffffff"
-				>
-					<path d="M15 19l-7-7 7-7" />
-				</svg>
+				<ScrollRightIcon />
 			</button>
 			<div
 				ref={containerRef}
@@ -49,7 +70,6 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 						className="bg-secondary flex max-h-[140px] items-center border-r border-neutral-600"
 						key={dateIndex}
 					>
-						{/* date */}
 						<div className="bg-secondary flex h-full flex-col items-center gap-1 p-[18px] text-center text-xs uppercase md:text-lg">
 							{dateGroup.date}
 						</div>
@@ -61,8 +81,8 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let date = convertToEST(game.date)
-								let torontoTime = format(new Date(date), 'p');
+								let date = convertToEST(game.date);
+								let torontoTime = format(new Date(date), "p");
 
 								return (
 									<FutureGame
@@ -76,19 +96,12 @@ export default function FutureGames({ separatedGames }): JSX.Element {
 					</article>
 				))}
 			</div>
+
 			<button
-				style={{ backgroundColor: "#16161A" }}
-				className={` hidden px-3 text-gray-100 sm:block`}
+				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollRight}
 			>
-				<svg
-					className="h-6 w-6 fill-current"
-					xmlns="http://www.w3.org/2000/svg"
-					viewBox="0 0 24 24"
-					fill="#ffffff"
-				>
-					<path d="M9 5l7 7-7 7" />
-				</svg>
+				<ScrollLeftIcon />
 			</button>
 		</div>
 	);

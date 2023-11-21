@@ -1,12 +1,10 @@
 # riseupleague.com
 
-The official v2 website for [www.riseupleague.com](https://www.riseupleague.media).
-
-🚧 This website is still being actively worked on 🚧
+The official v2 website for [www.riseupleague.com](https://www.riseupleague.com).
 
 ## Tech Stack
 
-This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.media) website, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
+This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that contains the [www.riseupleague.com](https://www.riseupleague.com) website, as well as the [admin.riseupleague.com](https://admin.riseupleague.com) for game-tracking purposes used by the Rise Up staff.
 
 ### Frontend
 
@@ -47,4 +45,16 @@ To clear cache and start up the dev server:
 
 ```
 > npm run fresh:start
+```
+
+To clear cache and start up the dev server only for the bball site:
+
+```
+> npm run fresh:start:bball
+```
+
+To clear cache and start up the dev server only for the bball admin site:
+
+```
+> npm run fresh:start:bball-admin
 ```

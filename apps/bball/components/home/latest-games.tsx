@@ -1,8 +1,15 @@
 import HomeLatestGames from "../games/HomeLatestGames";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
+import { connectToDatabase } from "@/api-helpers/utils";
+import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
 
-export default function LatestGames({ games }): JSX.Element {
+export default async function LatestGames(): Promise<JSX.Element> {
+	await connectToDatabase();
+
+	const resGames = await getAllPastGames();
+	const { games } = await resGames.json();
+
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3 className="my-6">latest games</h3>

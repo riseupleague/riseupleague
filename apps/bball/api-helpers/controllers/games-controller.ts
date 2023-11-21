@@ -3,16 +3,10 @@ import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 import { startOfDay, endOfDay, addHours } from "date-fns";
-import { convertToEST } from "@/utils/convertToEST";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {
-		const currentDate = convertToEST(new Date());
-		const startOfToday = startOfDay(currentDate);
-		const allGames = await Game.find({
-			status: false,
-			date: { $gte: startOfToday },
-		})
+		const allGames = await Game.find({ status: false })
 			.populate({
 				path: "division",
 				select: "divisionName",
@@ -29,7 +23,9 @@ export const getAllUpcomingGamesHeader = async () => {
 			})
 			.select("status homeTeam awayTeam division date gameName location");
 
-		return NextResponse.json({ allUpcomingGames: allGames });
+		return NextResponse.json({
+			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
+		});
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
