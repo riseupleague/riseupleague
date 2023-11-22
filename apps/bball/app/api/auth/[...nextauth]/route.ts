@@ -34,7 +34,9 @@ const authOptions = {
 					}
 
 					return user;
-				} catch (error) {}
+				} catch (e) {
+					console.error("Error during sign-in:", e);
+				}
 				const user = { id: "1" };
 				return user;
 			},
@@ -59,7 +61,9 @@ const authOptions = {
 					if (!userExists) {
 						const newUser = await addNewUser(name, email, "google");
 					}
-				} catch (e) {}
+				} catch (e) {
+					console.error("Error during sign-in:", e);
+				}
 			}
 			return user;
 		},

@@ -1,6 +1,9 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+import {
+	getUserPlayerPayment,
+	getCurrentUser,
+} from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
@@ -17,6 +20,13 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
+		redirect("/");
+	}
+
+	const resUser = await getCurrentUser(session.user.email);
+	const { user } = await resUser.json();
+
+	if (!user) {
 		redirect("/");
 	}
 	const resDivisions = await getAllRegisterDivisions();

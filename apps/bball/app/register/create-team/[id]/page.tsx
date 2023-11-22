@@ -4,6 +4,7 @@ import CustomizeTeam from "@/components/register/create-team/CustomizeTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Create a Team",
@@ -19,6 +20,13 @@ export default async function JoinTeam({
 	await connectToDatabase();
 	const session = await getServerSession();
 	if (!session || !session.user) {
+		redirect("/");
+	}
+
+	const resUser = await getCurrentUser(session.user.email);
+	const { user } = await resUser.json();
+
+	if (!user) {
 		redirect("/");
 	}
 	const resDivision = await getRegisterDivisionById(params.id);
