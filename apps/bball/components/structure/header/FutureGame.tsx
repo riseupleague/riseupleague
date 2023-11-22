@@ -91,7 +91,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 			{isHovered && (
 				<Link
 					href={`/games/${gameStatus}/${game._id}`}
-					className="z-1 text-primary absolute top-0 flex h-full w-full flex-col items-center justify-center bg-neutral-900 transition-all hover:underline"
+					className="text-primary absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-neutral-900 transition-all hover:underline"
 				>
 					<span>
 						{game.homeTeam.teamNameShort} vs {game.awayTeam.teamNameShort}

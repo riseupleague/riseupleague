@@ -36,7 +36,7 @@ const PreviousGames = ({ player }) => {
 							return (
 								<TableRow
 									key={index}
-									className="font-oswald border-b-neutral-500 text-sm sm:text-lg"
+									className="font-barlow border-b-neutral-500 text-sm sm:text-lg"
 								>
 									<TableCell className="w-1/2 p-1 text-left sm:w-auto">
 										<Link
