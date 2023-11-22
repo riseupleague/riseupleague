@@ -136,7 +136,7 @@ export default function Hero(): JSX.Element {
 						>
 							<h1 className="text-left">{slides[currentIndex].title}</h1>
 							<p>{slides[currentIndex].description}</p>
-							<div className="relative z-30 my-4">
+							<div className="relative z-10 my-4">
 								{slides[currentIndex].link === "/register" ? (
 									<>
 										{!session || !session.user ? (

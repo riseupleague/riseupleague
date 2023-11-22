@@ -10,9 +10,9 @@ export default function LeftChevronIcon() {
 			<path
 				d="M16.4062 20.3125L8.59375 12.5L16.4062 4.6875"
 				stroke="#ABAFB3"
-				stroke-width="1.5"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);

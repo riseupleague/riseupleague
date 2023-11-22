@@ -1,6 +1,6 @@
 {
-	"name": "riseupleague",
-	"version": "1.0.7",
+	"name": "riseupleague.com",
+	"version": "1.0.9",
 	"private": true,
 	"scripts": {
 		"build": "turbo build",

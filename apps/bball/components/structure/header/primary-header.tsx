@@ -138,7 +138,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 			</div>
 
 			{/* mobile bottom nav */}
-			<ul className="fixed bottom-0 left-0 z-50 flex w-full items-center justify-around border border-neutral-600 bg-neutral-700 px-[15px] pb-[25px] pt-[15px] backdrop-blur-md md:hidden">
+			<ul className="fixed bottom-0 left-0 z-20 flex w-full items-center justify-around border border-neutral-600 bg-neutral-700 px-[15px] pb-[25px] pt-[15px] backdrop-blur-md md:hidden">
 				{headerOptions.map((option, index) => {
 					let isActive;
 

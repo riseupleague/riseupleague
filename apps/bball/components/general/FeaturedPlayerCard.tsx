@@ -57,7 +57,7 @@ export default function FeaturedPlayerCard({ player }) {
 		<div className="h-full rounded border border-neutral-600 bg-neutral-700">
 			<div className="flex flex-col">
 				{/* pic / name / team / division */}
-				<div className="flex items-center justify-between gap-3 border-b border-neutral-600 px-6 py-3.5 md:min-h-[120px] 2xl:min-h-0">
+				<div className="flex items-center justify-between gap-3 border-b border-neutral-600 px-2 py-3.5 md:min-h-[120px] md:px-6 2xl:min-h-0">
 					<TeamLogo
 						primary={player.team.primaryColor}
 						secondary={player.team.secondaryColor}
@@ -67,20 +67,13 @@ export default function FeaturedPlayerCard({ player }) {
 						circleHeight={3}
 						circleWidth={4}
 					/>
-					{/* <figure className="h-[52px] w-[52px] rounded-full bg-[#d9d9d9]"></figure> */}
 					<div className="flex w-full flex-col">
 						<div className="flex w-full justify-between">
-							{/* <h6 className="font-barlow font-medium uppercase text-neutral-500">
-							team {player.team?.teamName.substring(0, 5)}... | #
-							{player.jerseyNumber}
-						</h6> */}
-							<h6 className="font-barlow text-sm font-medium uppercase text-neutral-500">
+							<h6 className="font-barlow text-xs font-medium uppercase text-neutral-500">
 								{player.team?.teamName} | #{player.jerseyNumber}
 							</h6>
-							<div className="flex items-center justify-center rounded-md bg-neutral-600 px-2 py-1">
-								<p className="font-barlow text-sm uppercase">
-									{player.division.divisionName}
-								</p>
+							<div className="font-barlow flex items-center justify-center rounded-md bg-neutral-600 px-1 text-center text-xs uppercase">
+								{player.division.divisionName}
 							</div>
 						</div>
 						<Link
@@ -125,7 +118,7 @@ export default function FeaturedPlayerCard({ player }) {
 			</div> */}
 
 				{/* avg stats */}
-				<div className="flex justify-center gap-4 border-b border-neutral-600 px-4 py-3">
+				<div className="flex justify-center gap-2 border-b border-neutral-600 px-4 py-3 md:gap-4">
 					{avgStats.slice(0, 3).map((stat, index) => (
 						<div
 							key={index}
@@ -133,7 +126,7 @@ export default function FeaturedPlayerCard({ player }) {
 						>
 							<h6 className="text-center">{stat.label}</h6>
 							<h3 className="text-center text-[31px] font-medium">
-								{stat.average}
+								{stat.average.toFixed(1)}
 							</h3>
 						</div>
 					))}

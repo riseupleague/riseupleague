@@ -62,7 +62,7 @@ const PreviousGames = ({ team }) => {
 							return (
 								<TableRow
 									key={index}
-									className="font-oswald border-b-neutral-500"
+									className="font-barlow border-b-neutral-500"
 								>
 									<TableCell className="w-1/4 p-1 text-left text-sm sm:w-1/6 sm:text-lg lg:w-1/12">
 										<span
