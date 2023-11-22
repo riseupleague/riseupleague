@@ -9,6 +9,7 @@ export default function ScheduleCard({ game }) {
 	const gameStatus = game.status ? "summary" : "preview";
 
 	const date = convertToEST(new Date(game.date));
+	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mm a");
 
 	return (
@@ -29,7 +30,7 @@ export default function ScheduleCard({ game }) {
 							circleHeight={4}
 							circleWidth={4}
 						/>
-						<span className="font-barlow text-center text-sm transition hover:opacity-80">
+						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
 							{game.homeTeam.teamName}
 						</span>
 						{game.status && (
@@ -45,12 +46,15 @@ export default function ScheduleCard({ game }) {
 
 					{/* division / time / location */}
 					<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
-						<div className="mb-[35px] flex justify-center">
-							<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-sm">
+						<div className="mb-4 flex justify-center">
+							<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
 								{game.division.divisionName}
 							</p>
 						</div>
-						<p className="mb-3 text-[31px]">{game.status ? "Final" : time}</p>
+						<p className="my-2 text-xs text-neutral-400">{dateFormatted}</p>
+						<p className="mb-3 text-xl xl:text-[31px]">
+							{game.status ? "Final" : time}
+						</p>
 					</div>
 
 					{/* away team */}
@@ -67,7 +71,7 @@ export default function ScheduleCard({ game }) {
 							circleHeight={4}
 							circleWidth={4}
 						/>
-						<span className="font-barlow text-center text-sm transition hover:opacity-80">
+						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
 							{game.awayTeam?.teamName}
 						</span>
 						{game.status && (

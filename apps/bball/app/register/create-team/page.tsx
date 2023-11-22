@@ -1,6 +1,10 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+import {
+	getUserPlayerPayment,
+	getCurrentUser,
+} from "@/api-helpers/controllers/users-controller";
+
 import Link from "next/link";
 import {
 	Accordion,
@@ -25,6 +29,13 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const session = await getServerSession();
 
 	if (!session || !session.user) {
+		redirect("/");
+	}
+
+	const resUser = await getCurrentUser(session.user.email);
+	const { user } = await resUser.json();
+
+	if (!user) {
 		redirect("/");
 	}
 	const resDivisions = await getAllRegisterDivisions();
