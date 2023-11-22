@@ -34,7 +34,6 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const { players, season } = await resPlayer.json();
 
 	let filteredDivisions = [...divisions];
-	console.log("Filtered Divisions 1:", filteredDivisions);
 	filteredDivisions = filteredDivisions.filter((division) => {
 		console.log(division.teams.length);
 		return division.teams.length < 8;
