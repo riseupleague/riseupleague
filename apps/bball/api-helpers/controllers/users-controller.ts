@@ -9,7 +9,12 @@ export const addNewUser = async (name: string, email: string, type: string) => {
 	try {
 		await connectToDatabase();
 
-		const newUser = await User.create({ name, email, type });
+		const user = new User({
+			name,
+			email,
+			type,
+		});
+		const savedUser = await user.save();
 
 		return NextResponse.json({ message: "User registered" }, { status: 201 });
 	} catch (e) {
@@ -91,10 +96,16 @@ export const getCurrentUser = async (email: string) => {
 		const season = await Season.findOne({ register: true });
 		const user = await User.findOne({ email }).populate({
 			path: "basketball",
-			populate: {
-				path: "team",
-				select: "teamName",
-			},
+			populate: [
+				{
+					path: "team",
+					select: "teamName",
+				},
+				{
+					path: "division",
+					select: "teamName",
+				},
+			],
 		});
 
 		return NextResponse.json({

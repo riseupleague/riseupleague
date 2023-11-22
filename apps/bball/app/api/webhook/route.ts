@@ -212,7 +212,7 @@ export async function POST(req: Request) {
 		}
 
 		if (metadata.status === "joinTeam") {
-			const updatedUser = await User.findOne({ name: metadata.playerName });
+			const updatedUser = await User.findOne({ email: metadata.email });
 			const selectedDivision = await Division.findById(metadata.division);
 
 			const registeredPlayer = new Player({
