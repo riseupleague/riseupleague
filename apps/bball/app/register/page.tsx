@@ -5,7 +5,10 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
+import {
+	getCurrentUser,
+	addNewUser,
+} from "@/api-helpers/controllers/users-controller";
 export const metadata: Metadata = {
 	title: "Rise Up League | Register",
 	description:
@@ -20,6 +23,15 @@ export default async function Register({
 	await connectToDatabase();
 	const session = await getServerSession();
 	if (!session || !session.user) {
+		redirect("/");
+	}
+
+	const resUser = await getCurrentUser(session.user.email);
+	const { user } = await resUser.json();
+
+	if (!user) {
+		await addNewUser(session.user.name, session.user.email, "google");
+
 		redirect("/");
 	}
 

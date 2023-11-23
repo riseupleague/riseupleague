@@ -100,6 +100,27 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 	}
 };
 
+export const getTeamById = async (teamId: string) => {
+	try {
+		const team = await Team.findById(teamId).populate("players").populate({
+			path: "division",
+			select: "divisionName",
+		});
+
+		if (!team) {
+			return NextResponse.json(
+				{ message: "Player not found" },
+				{ status: 404 }
+			);
+		}
+		const teams = await Team.find().select("averageStats");
+
+		return NextResponse.json({ team: team }, { status: 200 });
+	} catch (e) {
+		return NextResponse.json({ message: e }, { status: 500 });
+	}
+};
+
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)
@@ -179,53 +200,5 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 		return NextResponse.json({ team, allAvg }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json({ message: e }, { status: 500 });
-	}
-};
-
-export const postRegisterTeam = async (team) => {
-	const { teamName, teamNameShort, teamNameCode } = team;
-
-	// Check for required input fields
-	if (
-		!teamName ||
-		teamName.trim() === "" ||
-		!teamNameShort ||
-		teamNameShort.trim() === ""
-	) {
-		return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
-	}
-
-	// Create the new team
-	try {
-		const newTeam = new Team({
-			paid: false,
-			teamName,
-			teamNameShort,
-			teamNameCode,
-			wins: 0,
-			losses: 0,
-			pointDifference: 0,
-			averageStats: {
-				points: 0,
-				rebounds: 0,
-				assists: 0,
-				blocks: 0,
-				steals: 0,
-				threesMade: 0,
-				twosMade: 0,
-				freeThrowsMade: 0,
-			},
-		});
-
-		// Save the new team to the database
-		const savedTeam = await newTeam.save();
-
-		return NextResponse.json({ team: savedTeam }, { status: 201 });
-	} catch (error) {
-		console.error("Error:", error);
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
 	}
 };
