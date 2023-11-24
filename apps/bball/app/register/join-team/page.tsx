@@ -3,6 +3,7 @@ import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-con
 import {
 	getUserPlayerPayment,
 	getCurrentUser,
+	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -27,6 +28,8 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	const { user } = await resUser.json();
 
 	if (!user) {
+		await addNewUser(session.user.name, session.user.email, "google");
+
 		redirect("/");
 	}
 	const resDivisions = await getAllRegisterDivisions();

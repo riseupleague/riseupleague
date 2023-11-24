@@ -3,6 +3,7 @@ import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-con
 import {
 	getUserPlayerPayment,
 	getCurrentUser,
+	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
 
 import Link from "next/link";
@@ -36,6 +37,8 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const { user } = await resUser.json();
 
 	if (!user) {
+		await addNewUser(session.user.name, session.user.email, "google");
+
 		redirect("/");
 	}
 	const resDivisions = await getAllRegisterDivisions();
@@ -46,9 +49,10 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 
 	let filteredDivisions = [...divisions];
 	filteredDivisions = filteredDivisions.filter((division) => {
-		console.log(division.teams.length);
 		return division.teams.length < 8;
 	});
+
+	console.log(players);
 
 	if (players && players.length > 0) {
 		filteredDivisions = filteredDivisions.filter((division) => {

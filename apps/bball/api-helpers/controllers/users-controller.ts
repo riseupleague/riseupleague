@@ -16,7 +16,7 @@ export const addNewUser = async (name: string, email: string, type: string) => {
 		});
 		const savedUser = await user.save();
 
-		return NextResponse.json({ message: "User registered" }, { status: 201 });
+		return NextResponse.json({ newUser: user }, { status: 201 });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
