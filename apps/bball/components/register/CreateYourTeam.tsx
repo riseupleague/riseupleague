@@ -25,6 +25,7 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 			case "Filipino Beginners":
 			case "Filipinos Greats":
 			case "Filipino Intermediates":
+			case "Nations Beginner":
 			case "Nation Greats":
 				bramptonDivisions.push(division);
 				break;

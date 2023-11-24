@@ -1,4 +1,7 @@
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
+import {
+	getCurrentUser,
+	getUserPlayerPayment,
+} from "@/api-helpers/controllers/users-controller";
 import { Separator } from "@ui/components/separator";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
@@ -24,6 +27,9 @@ export default async function User({
 
 	if (!session || !session.user) redirect("/");
 
+	const resUser = await getCurrentUser(session.user.email);
+	const { user } = await resUser.json();
+	console.log(user);
 	return (
 		<main className="container mx-auto">
 			<h1>{session.user.name}&apos;s Profile</h1>
