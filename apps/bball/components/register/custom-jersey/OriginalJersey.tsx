@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@ui/components/skeleton";
+import { useState } from "react";
 
 // import dynamic from "next/dynamic";
 import Original2 from "@/lib/jersey-designs/original/original-2";
@@ -22,7 +20,7 @@ const numberToComponent = {
 	8: Original8(),
 };
 
-export default function CustomizeJersey({ edition, number, team }) {
+export default function OriginalJersey({ edition, number, team }) {
 	const [primaryFillColor, setPrimaryFillColor] = useState("#ff0000"); // Default to red
 	const [primaryStrokeColor, setPrimaryStrokeColor] = useState("#000000"); // Default to black
 	const [secondaryFillColor, setSecondaryFillColor] = useState("#e66465"); // Default to a specific color

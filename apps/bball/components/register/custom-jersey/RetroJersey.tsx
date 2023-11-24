@@ -1,28 +1,33 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Skeleton } from "@ui/components/skeleton";
+import { useState } from "react";
 
 // import dynamic from "next/dynamic";
-import Original2 from "@/lib/jersey-designs/original/original-2";
-import Original3 from "@/lib/jersey-designs/original/original-3";
-import Original5 from "@/lib/jersey-designs/original/original-5";
-import Original6 from "@/lib/jersey-designs/original/original-6";
-import Original7 from "@/lib/jersey-designs/original/original-7";
-import Original8 from "@/lib/jersey-designs/original/original-8";
+import Retro1 from "@/lib/jersey-designs/retro/retro-1";
+import Retro2 from "@/lib/jersey-designs/retro/retro-2";
+import Retro3 from "@/lib/jersey-designs/retro/retro-3";
+import Retro4 from "@/lib/jersey-designs/retro/retro-4";
+
+import Retro5 from "@/lib/jersey-designs/retro/retro-5";
+import Retro6 from "@/lib/jersey-designs/retro/retro-6";
+import Retro7 from "@/lib/jersey-designs/retro/retro-7";
+import Retro8 from "@/lib/jersey-designs/retro/retro-8";
+import Retro9 from "@/lib/jersey-designs/retro/retro-9";
 
 const numberToComponent = {
-	2: Original2(),
-	3: Original3(),
-	5: Original5(),
-	6: Original6(),
-	7: Original7(),
-	8: Original8(),
+	1: Retro1(),
+	2: Retro2(),
+	3: Retro3(),
+	4: Retro4(),
+	5: Retro5(),
+	6: Retro6(),
+	7: Retro7(),
+	8: Retro8(),
+	9: Retro9(),
 };
 
-export default function CustomizeJersey({ edition, number, team }) {
+export default function RetroJersey({ edition, number, team }) {
 	const [primaryFillColor, setPrimaryFillColor] = useState("#ff0000"); // Default to red
 	const [primaryStrokeColor, setPrimaryStrokeColor] = useState("#000000"); // Default to black
 	const [secondaryFillColor, setSecondaryFillColor] = useState("#e66465"); // Default to a specific color
@@ -141,50 +146,119 @@ export default function CustomizeJersey({ edition, number, team }) {
 				{numberToComponent[number]}
 
 				<div className="w-full">
-					<div className="mt-10 flex gap-5">
+					<div className="mt-10 flex flex-wrap gap-5">
 						<button
-							className="font-barlow w-[250px] rounded bg-[red] p-4 font-bold text-black md:w-full"
-							id="red"
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#3498db] p-4 font-bold text-white md:w-full"
 							onClick={() =>
 								handleColorChange(
-									"#ff0000",
+									"#3498db",
 									setPrimaryFillColor,
 									setPrimaryStrokeColor,
 									"primary"
 								)
 							}
-						>
-							Red
-						</button>
+						></button>
 						<button
-							className="font-barlow w-[250px] rounded bg-[blue] p-4 font-bold text-black md:w-full"
-							id="blue"
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#e74c3c] p-4 font-bold text-white md:w-full"
 							onClick={() =>
 								handleColorChange(
-									"#0000ff",
+									"#e74c3c",
 									setPrimaryFillColor,
 									setPrimaryStrokeColor,
 									"primary"
 								)
 							}
-						>
-							Blue
-						</button>
+						></button>
 						<button
-							className="font-barlow w-[250px] rounded bg-[yellow] p-4 font-bold text-black md:w-full"
-							id="yellow"
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#27ae60] p-4 font-bold text-white md:w-full"
 							onClick={() =>
 								handleColorChange(
-									"#ffff00",
+									"#27ae60",
 									setPrimaryFillColor,
 									setPrimaryStrokeColor,
 									"primary"
 								)
 							}
-						>
-							Yellow
-						</button>
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#f39c12] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#f39c12",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#9b59b6] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#9b59b6",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#2ecc71] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#2ecc71",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#e67e22] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#e67e22",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#1abc9c] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#1abc9c",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#34495e] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#34495e",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
+						<button
+							className="font-barlow h-[25px] w-[25px] rounded-full bg-[#d35400] p-4 font-bold text-white md:w-full"
+							onClick={() =>
+								handleColorChange(
+									"#d35400",
+									setPrimaryFillColor,
+									setPrimaryStrokeColor,
+									"primary"
+								)
+							}
+						></button>
 					</div>
+
 					<div className="mt-10">
 						<input
 							type="color"

@@ -191,9 +191,9 @@ export default function JerseySelection({ team }) {
 							<div key={index}>
 								{team ? (
 									<Link
-										href={`/jersey/${
-											team._id
-										}?edition=${selectedEdition}&number=${index + 1}`}
+										href={`/jersey/${team._id}/${selectedEdition}?number=${
+											index + 1
+										}`}
 									>
 										{!imageErrors[index] && (
 											<Image

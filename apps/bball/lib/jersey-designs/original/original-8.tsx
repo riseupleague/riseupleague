@@ -1,6 +1,5 @@
-export default function Original1() {
-	return `
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 1236.12 1425.14">
+export default function Original8() {
+	const svgString = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 1236.12 1425.14">
       <defs>
         <style>
           .cls-1 {
@@ -1673,11 +1672,8 @@ export default function Original1() {
         <path class="cls-13 tertiaryColorFill" d="m750.83,985.43c-.2,1.16-.41,2.31-.62,3.46h-2.85c.5-2.82.99-5.61,1.48-8.44.52.06,1.04.12,1.58.19-.36-1.06-.72-2.1-1.07-3.14.07,0,.12-.02.17-.02h4.89c.52,0,1.05.08,1.54.28.86.34,1.29.99,1.37,1.9.04.41-.02.81-.09,1.2-.09.49-.19.98-.27,1.47-.16.99-.68,1.74-1.48,2.31-.61.44-1.3.68-2.03.76-.37.04-.76.04-1.13.04h-1.48,0Zm.44-2.52s.04.03.06.03c.56,0,1.12,0,1.67-.02.57-.04.99-.39,1.12-.95.09-.37.14-.76.19-1.13.02-.12-.03-.24-.07-.35-.15-.35-.44-.51-.82-.52-.52,0-1.04,0-1.55,0-.03,0-.05,0-.08.02-.17.98-.34,1.95-.51,2.92h0Z"></path>
         <path class="cls-13 tertiaryColorFill" d="m716.54,988.9h-2.89c.68-3.81,1.34-7.6,2.02-11.41h2.87c-.67,3.81-1.33,7.6-2,11.41Z"></path>
       </g>
-    </svg>
-    
-    
-    
-    
-    
-    `;
+    </svg>`;
+	return (
+		<div className="w-full" dangerouslySetInnerHTML={{ __html: svgString }} />
+	);
 }
