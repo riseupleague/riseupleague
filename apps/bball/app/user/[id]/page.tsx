@@ -17,23 +17,26 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-export default async function Success({
+export default async function User({
 	params,
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
+
+	if (!session || !session.user) redirect("/");
 
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 	console.log(user);
 	return (
-		<main className="container mx-auto min-h-[100dvh]">
-			<h1>Welcome to rise up basketball. Please join a team!</h1>
+		<main className="container mx-auto">
+			<h1>{session.user.name}&apos;s Profile</h1>
+			<p className="text-primary flex h-[50dvh] items-center justify-center text-center text-2xl">
+				We&apos;re still updating your personal user page. Please come back at a
+				later time.
+			</p>
 		</main>
 	);
 }
