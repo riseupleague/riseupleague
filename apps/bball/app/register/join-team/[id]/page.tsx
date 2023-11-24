@@ -4,7 +4,10 @@ import ChooseTeam from "@/components/register/join-team/ChooseTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
+import {
+	getCurrentUser,
+	addNewUser,
+} from "@/api-helpers/controllers/users-controller";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Join a Team",
@@ -26,6 +29,8 @@ export default async function JoinTeam({
 	const { user } = await resUser.json();
 
 	if (!user) {
+		await addNewUser(session.user.name, session.user.email, "google");
+
 		redirect("/");
 	}
 
