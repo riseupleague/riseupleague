@@ -6,7 +6,7 @@ import { Sheet, SheetClose, SheetContent } from "@ui/components/sheet";
 import { useState, useEffect } from "react";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import LeftChevronIcon from "../icons/LeftChevronIcon";
 import EmailIcon from "../general/icons/EmailIcon";
 import GoogleIcon from "../general/icons/GoogleIcon";
@@ -116,7 +116,18 @@ const SignInDialog = ({ open, onOpenChange }) => {
 	};
 
 	const handleGoogleSignIn = () => {
-		console.log(navigator);
+		const ua = navigator.userAgent.toLowerCase().trim();
+
+		// Facebook
+		if (ua.includes("fbios") || ua.includes("fb_iab")) {
+			redirect("/ui");
+		}
+
+		// Instagram
+		if (ua.includes("instagram")) {
+			redirect("/ui");
+		}
+
 		signIn("google");
 	};
 
