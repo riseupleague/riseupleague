@@ -12,6 +12,8 @@ const buttonVariants = cva(
 					"bg-neutral-100 text-neutral-900 transition font-barlow rounded font-bold hover:bg-neutral-200",
 				secondary:
 					"bg-neutral-900 font-barlow font-bold text-neutral-100 border border-neutral-100 rounded-md transition hover:bg-neutral-800",
+				signIn:
+					"flex items-center gap-2 bg-neutral-500 text-neutral-50 uppercase font-barlow transition-all hover:opacity-80",
 				destructive:
 					"bg-destructive text-destructive-foreground hover:bg-destructive/90",
 				outline:

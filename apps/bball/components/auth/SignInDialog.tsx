@@ -1,9 +1,12 @@
 "use client";
 
 import { Button } from "@ui/components/button";
-import Image from "next/image";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { Sheet, SheetClose, SheetContent } from "@ui/components/sheet";
+import { useState, useEffect } from "react";
+import { Input } from "@ui/components/input";
+import { Label } from "@ui/components/label";
+import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -13,30 +16,17 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@ui/components/dialog";
-import {
-	Sheet,
-	SheetClose,
-	SheetContent,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-	SheetDescription,
-} from "@ui/components/sheet";
-import { useState, useEffect } from "react";
-import { Input } from "@ui/components/input";
-import { Label } from "@ui/components/label";
-import { Router } from "next/router";
-import { useRouter } from "next/navigation";
-import bcrypt from "bcryptjs";
+import CloseX from "../general/icons/CloseX";
+import LeftChevronIcon from "../icons/LeftChevronIcon";
+import EmailIcon from "../general/icons/EmailIcon";
+import GoogleIcon from "../general/icons/GoogleIcon";
+import Link from "next/link";
 
 const SignInDialog = ({ open, onOpenChange }) => {
 	const router = useRouter();
-	const { status, data: session } = useSession();
 	const [isEmail, setIsEmail] = useState(false);
 	const [isCreateAccount, setIsCreateAccount] = useState(false);
 	const [isPassword, setIsPassword] = useState(false);
-	const [isRegisterPassword, setIsRegisterPassword] = useState(false);
 	const [isRegisterName, setIsRegisterName] = useState(false);
 
 	const [useGoogle, setUseGoogle] = useState(false);
@@ -45,8 +35,8 @@ const SignInDialog = ({ open, onOpenChange }) => {
 	const [registerPassword, setRegisterPassword] = useState("");
 	const [registerName, setRegisterName] = useState("");
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
-
 	const [name, setName] = useState("");
+
 	const handleEmailValidation = async (event: React.FormEvent) => {
 		event.preventDefault();
 
@@ -149,7 +139,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 				<Sheet open={open} onOpenChange={onOpenChange}>
 					<SheetContent side="bottom" className="h-full w-full bg-neutral-900">
 						{!isEmail ? (
-							<section className=" gap-4 p-6 shadow-lg duration-200 sm:max-w-md sm:rounded-lg sm:border sm:bg-white sm:text-black md:w-full">
+							<section className="gap-4 p-6 shadow-lg duration-200 sm:max-w-md sm:rounded-lg sm:border sm:bg-white sm:text-black md:w-full">
 								<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
 									<h3 className="flex  items-center justify-center gap-5 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 										<SheetClose>
@@ -394,30 +384,16 @@ const SignInDialog = ({ open, onOpenChange }) => {
 			) : (
 				<Dialog open={open} onOpenChange={onOpenChange}>
 					{!isEmail ? (
-						<DialogContent className=" bg-neutral-800 text-white sm:max-w-md">
+						<DialogContent className=" bg-neutral-800 text-neutral-50 sm:max-w-md">
 							<DialogHeader className="text-center">
-								<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
-									<DialogClose>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="24"
-											height="24"
-											viewBox="0 0 24 24"
-											fill="none"
-										>
-											<path
-												d="M14.4 18L8.39999 12L14.4 6"
-												stroke="#ABAFB3"
-												strokeWidth="1.67"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-											/>
-										</svg>
+								<DialogTitle className="flex items-center justify-center gap-1 text-center text-2xl text-neutral-300">
+									<DialogClose className="transition-all hover:opacity-80">
+										<LeftChevronIcon />
 									</DialogClose>{" "}
 									Log in or sign up in seconds
 								</DialogTitle>
 								{!useGoogle ? (
-									<DialogDescription className="text-center text-xs">
+									<DialogDescription className="text-center text-sm md:text-lg">
 										Use your gmail or another email to continue.
 									</DialogDescription>
 								) : (
@@ -427,25 +403,33 @@ const SignInDialog = ({ open, onOpenChange }) => {
 								)}
 							</DialogHeader>
 							<div className="flex flex-col  gap-3">
-								<Button onClick={() => signIn("google")}>
+								<Button variant="signIn" onClick={() => signIn("google")}>
+									<GoogleIcon />
 									Continue With Google
 								</Button>
-								<Button onClick={() => setIsEmail(true)}>
+								<Button variant="signIn" onClick={() => setIsEmail(true)}>
+									<EmailIcon />
 									Continue With Email
 								</Button>
 							</div>
-							{/* <DialogFooter className="text-center sm:justify-start">
+							<DialogFooter className="mt-6 text-center text-neutral-300 sm:justify-start">
 								<DialogDescription className="text-xs">
 									By continuing, you agree to Rise Up League&apos;s{" "}
-									<Link href={"/terms-of-use"} className="underline">
-										Terms of Use.
+									<Link
+										href="/terms-and-conditions"
+										className="underline transition-all hover:text-neutral-50"
+									>
+										Terms and Conditions.
 									</Link>{" "}
 									Read our{" "}
-									<Link href="/privacy-policy" className="underline">
-										Privacy Policy.
+									<Link
+										href="/refund-policy"
+										className="underline transition-all hover:text-neutral-50"
+									>
+										Refund Policy.
 									</Link>
 								</DialogDescription>
-							</DialogFooter> */}
+							</DialogFooter>
 						</DialogContent>
 					) : (
 						<>
@@ -454,51 +438,42 @@ const SignInDialog = ({ open, onOpenChange }) => {
 									{!isPassword ? (
 										<DialogContent className=" bg-neutral-800 text-white sm:max-w-md">
 											<DialogHeader className="text-center">
-												<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
+												<DialogTitle className="flex items-center justify-center gap-1 text-center text-2xl text-neutral-300">
 													<button
+														className="transition-all hover:opacity-80"
 														onClick={() => {
 															setIsEmail(false);
 															setName("");
 															setEmail("");
 														}}
 													>
-														<svg
-															xmlns="http://www.w3.org/2000/svg"
-															width="24"
-															height="24"
-															viewBox="0 0 24 24"
-															fill="none"
-														>
-															<path
-																d="M14.4 18L8.39999 12L14.4 6"
-																stroke="#ABAFB3"
-																strokeWidth="1.67"
-																strokeLinecap="round"
-																strokeLinejoin="round"
-															/>
-														</svg>
+														<LeftChevronIcon />
 													</button>
 													Continue with your email
 												</DialogTitle>
-												<DialogDescription className="text-center text-xs">
+												<DialogDescription className="text-center text-xs sm:text-base">
 													We&apos;ll check if you have an account, and help
 													create one if you don&apos;t.
 												</DialogDescription>
 											</DialogHeader>
-											<div className="flex flex-col  gap-3">
+											<div className="font-barlow flex flex-col gap-3">
 												<form
 													onSubmit={handleEmailValidation}
 													className="flex flex-col gap-3"
 												>
-													<Label className="text-xs">Email Address</Label>
+													<Label className="text-xs sm:text-base">
+														Email Address
+													</Label>
 													<Input
-														className="text-black"
+														className="text-xs text-neutral-900 sm:text-base"
 														value={email}
 														onChange={(e) => setEmail(e.target.value)}
 														type="email"
 														placeholder="john@example.com"
 													/>
-													<Button type="submit">Continue</Button>
+													<Button variant="signIn" type="submit">
+														Continue
+													</Button>
 												</form>
 											</div>
 										</DialogContent>
