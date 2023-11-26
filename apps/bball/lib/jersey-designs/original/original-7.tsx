@@ -22,7 +22,7 @@ export default function Original1() {
           .cls-13,
           .cls-14,
           .cls-15 {
-            stroke-width: 0px;
+            strokeWidth: 0px;
           }
 
           .cls-2 {
@@ -42,7 +42,7 @@ export default function Original1() {
           }
 
           .cls-16 {
-            clip-path: url(#clippath);
+            clipPath: url(#clippath);
           }
 
           .cls-6 {
@@ -64,59 +64,59 @@ export default function Original1() {
           }
 
           .cls-17 {
-            clip-path: url(#clippath-1);
+            clipPath: url(#clippath-1);
           }
 
           .cls-18 {
-            clip-path: url(#clippath-4);
+            clipPath: url(#clippath-4);
           }
 
           .cls-19 {
-            clip-path: url(#clippath-2);
+            clipPath: url(#clippath-2);
           }
 
           .cls-20 {
-            clip-path: url(#clippath-7);
+            clipPath: url(#clippath-7);
           }
 
           .cls-21 {
-            clip-path: url(#clippath-8);
+            clipPath: url(#clippath-8);
           }
 
           .cls-22 {
-            clip-path: url(#clippath-6);
+            clipPath: url(#clippath-6);
           }
 
           .cls-23 {
-            clip-path: url(#clippath-5);
+            clipPath: url(#clippath-5);
           }
 
           .cls-24 {
-            clip-path: url(#clippath-9);
+            clipPath: url(#clippath-9);
           }
 
           .cls-25 {
-            clip-path: url(#clippath-14);
+            clipPath: url(#clippath-14);
           }
 
           .cls-26 {
-            clip-path: url(#clippath-13);
+            clipPath: url(#clippath-13);
           }
 
           .cls-27 {
-            clip-path: url(#clippath-12);
+            clipPath: url(#clippath-12);
           }
 
           .cls-28 {
-            clip-path: url(#clippath-10);
+            clipPath: url(#clippath-10);
           }
 
           .cls-29 {
-            clip-path: url(#clippath-15);
+            clipPath: url(#clippath-15);
           }
 
           .cls-30 {
-            clip-path: url(#clippath-11);
+            clipPath: url(#clippath-11);
           }
 
           .cls-9 {

@@ -4,7 +4,7 @@ export default function Original2() {
       <defs>
         <style>
           .cls-1 {
-            stroke-width: 8px;
+            strokeWidth: 8px;
           }
 
           .cls-1,
@@ -27,7 +27,7 @@ export default function Original2() {
           }
 
           .cls-11 {
-            clip-path: url(#clippath);
+            clipPath: url(#clippath);
           }
 
           .cls-2,
@@ -43,7 +43,7 @@ export default function Original2() {
           .cls-21,
           .cls-22,
           .cls-23 {
-            stroke-width: 0px;
+            strokeWidth: 0px;
           }
 
           .cls-12 {
@@ -57,7 +57,7 @@ export default function Original2() {
           }
 
           .cls-3 {
-            stroke-width: 2px;
+            strokeWidth: 2px;
           }
 
           .cls-3,
@@ -70,39 +70,39 @@ export default function Original2() {
 
           .cls-4 {
             stroke: #bc081e;
-            stroke-width: 10px;
+            strokeWidth: 10px;
           }
 
           .cls-24 {
-            clip-path: url(#clippath-1);
+            clipPath: url(#clippath-1);
           }
 
           .cls-25 {
-            clip-path: url(#clippath-3);
+            clipPath: url(#clippath-3);
           }
 
           .cls-26 {
-            clip-path: url(#clippath-2);
+            clipPath: url(#clippath-2);
           }
 
           .cls-27 {
-            clip-path: url(#clippath-7);
+            clipPath: url(#clippath-7);
           }
 
           .cls-28 {
-            clip-path: url(#clippath-8);
+            clipPath: url(#clippath-8);
           }
 
           .cls-29 {
-            clip-path: url(#clippath-6);
+            clipPath: url(#clippath-6);
           }
 
           .cls-30 {
-            clip-path: url(#clippath-11);
+            clipPath: url(#clippath-11);
           }
 
           .cls-5 {
-            stroke-width: 5px;
+            strokeWidth: 5px;
           }
 
           .cls-13 {
@@ -126,25 +126,25 @@ export default function Original2() {
           }
 
           .cls-6 {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-width: 7px;
+            strokeLinecap: round;
+            strokeLinejoin: round;
+            strokeWidth: 7px;
           }
 
           .cls-7 {
-            stroke-width: 12px;
+            strokeWidth: 12px;
           }
 
           .cls-8 {
-            stroke-width: 3px;
+            strokeWidth: 3px;
           }
 
           .cls-9 {
-            stroke-width: 6px;
+            strokeWidth: 6px;
           }
 
           .cls-10 {
-            stroke-width: 14px;
+            strokeWidth: 14px;
           }
 
           .cls-18 {

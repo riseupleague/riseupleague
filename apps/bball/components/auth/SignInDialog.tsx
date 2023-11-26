@@ -115,6 +115,11 @@ const SignInDialog = ({ open, onOpenChange }) => {
 		} catch (error) {}
 	};
 
+	const handleGoogleSignIn = () => {
+		console.log(navigator);
+		signIn("google");
+	};
+
 	useEffect(() => {
 		// Function to handle window resize
 		const handleResize = () => {
@@ -157,7 +162,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 									)}
 								</header>
 								<div className="my-5 flex  flex-col gap-3 ">
-									<Button variant="signIn" onClick={() => signIn("google")}>
+									<Button variant="signIn" onClick={handleGoogleSignIn}>
 										<GoogleIcon />
 										Continue With Google
 									</Button>
@@ -364,7 +369,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 								)}
 							</DialogHeader>
 							<div className="flex flex-col  gap-3">
-								<Button variant="signIn" onClick={() => signIn("google")}>
+								<Button variant="signIn" onClick={handleGoogleSignIn}>
 									<GoogleIcon />
 									Continue With Google
 								</Button>
