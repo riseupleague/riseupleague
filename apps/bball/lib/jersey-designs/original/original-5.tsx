@@ -110,6 +110,27 @@ export default function Original5() {
           .cls-16 {
             fill: #e9be1f;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
           <feOffset dx="7" dy="7"></feOffset>

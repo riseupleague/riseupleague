@@ -53,6 +53,14 @@ export default async function Jersey({
 		redirect("/");
 	}
 
+	if (team.primaryColor && team.primaryColor !== "") {
+		const jerseyEdition = team.jerseyEdition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
+		const edition = jerseyEdition.split("-")[0];
+		const number = jerseyEdition.split("-")[1];
+
+		redirect(`/jersey/${team._id}/${edition}?number=${number}`);
+	}
+
 	typeof searchParams.teams === "string" ? searchParams.teams : "";
 
 	const selectedEdition =

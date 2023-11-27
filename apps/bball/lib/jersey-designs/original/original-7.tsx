@@ -142,6 +142,27 @@ export default function Original1() {
           .cls-15 {
             fill: #0016dd;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <filter id="outer-glow-1" filterUnits="userSpaceOnUse">
           <feOffset dx="0" dy="0"></feOffset>

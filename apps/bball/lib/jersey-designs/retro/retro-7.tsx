@@ -481,6 +481,27 @@ export default function Retro7() {
           .cls-35 {
             stroke-dasharray: 0 0.39;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path id="R-2" data-name="R" class="cls-3" d="m498.54,339.35c-24.45-.53-42.93-9.25-54.91-25.94-14.41-20.07-19.49-51.37-15.1-93.05,3.37-31.97,11.25-58.8,12.8-63.85l.25-.82-14.29-4.89-.75,2.03c-22.76,78.6-21.48,135.34,4.28,169.18,21.95,28.84,54.67,31.4,65.5,31.4.29,0,.57,0,.84,0l2.26-.08v-13.96l-.88-.02Z"></path>

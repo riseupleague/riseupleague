@@ -10,6 +10,7 @@ const teamSchema = new Schema({
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
 	teamCode: { type: String, required: true },
+	jerseyEdition: { type: String },
 	teamBanner: { type: String },
 	teamBannerId: { type: String },
 	teamCaptain: {

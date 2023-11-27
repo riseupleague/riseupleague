@@ -346,6 +346,27 @@ export default function Retro3() {
           .cls-21 {
             stroke-width: 0.56px;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path class="cls-4" d="m501,351.87l-.81,1.15v417.3s-.4,4.59-3.16,7.89l-7.62,1.69c-212.41,56.17-361.36,0-361.36,0-3.02-3.61-3.59-8.43-3.59-8.43,0,0,.34-418.11,0-418.79s-.44-.82-.44-.82l2.67.07c18.61,0,126.15-8.14,71.32-200.37l-1.38-3.77,1.38.9,31.15-9.91.04-.12c1.44,53.55,29.69,89.9,81.29,105.3l4.11,1.23,4.11-1.23c50.95-15.21,78.82-50.82,80.91-103.25l.02.02,27.83,7.99.9-.93-.54,1.88c-56.92,196.56,54.29,202.46,71.09,202.26l2.08-.07Z"></path>

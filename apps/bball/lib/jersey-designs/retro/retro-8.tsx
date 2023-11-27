@@ -363,6 +363,27 @@ export default function Retro8() {
           .cls-24 {
             stroke-width: 0.56px;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path class="cls-5" d="m740.13,765.84v-415.25c86.12-3.6,94.15-89.44,75.05-197.38l27.47-8.57c52.11,40.94,105.75,43.09,161.18,0l26.98,8.57c-21.6,128.77,13.94,185,75.55,201.13v411.5s-.05,2.51-.05,2.51c0,0-.39,4.87-3.07,8.39l-7.43,1.81c-206.96,59.71-352.08,0-352.08,0-2.92-3.84-3.49-8.97-3.49-8.97l-.13-3.73v-415.25"></path>

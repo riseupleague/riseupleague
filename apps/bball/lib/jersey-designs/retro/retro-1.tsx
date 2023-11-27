@@ -293,6 +293,27 @@ export default function Retro1() {
             stroke-dasharray: 0 0.17;
             stroke-width: 0.14px;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path id="R-2" data-name="R" class="cls-3" d="m500.18,339.95c-24.61-.53-43.21-9.31-55.26-26.1-14.5-20.19-19.61-51.7-15.2-93.65,3.39-32.18,11.32-59.17,12.88-64.26l.25-.82-14.38-4.93-.75,2.05c-22.9,79.1-21.62,136.2,4.31,170.26,22.09,29.02,55.02,31.6,65.92,31.6.3,0,.58,0,.84,0l2.28-.08v-14.05l-.88-.02Z"></path>
