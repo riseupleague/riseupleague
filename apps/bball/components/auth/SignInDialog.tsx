@@ -116,20 +116,7 @@ const SignInDialog = ({ open, onOpenChange }) => {
 	};
 
 	const handleGoogleSignIn = () => {
-		const ua = navigator.userAgent.toLowerCase().trim();
-
-		alert(ua);
-
-		// Facebook
-		if (ua.includes("fbios") || ua.includes("fb_iab")) {
-			redirect("/ui");
-		}
-
-		// Instagram
-		if (ua.includes("instagram")) {
-			redirect("/ui");
-		}
-
+		// TODO: figure out if in-app browser here
 		signIn("google");
 	};
 
