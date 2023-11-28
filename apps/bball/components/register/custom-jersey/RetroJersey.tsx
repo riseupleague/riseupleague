@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 import {
 	Accordion,
@@ -10,6 +11,7 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 import { Button } from "@ui/components/button";
+import { useRouter } from "next/navigation";
 
 interface FormErrors {
 	primaryColor: string;
@@ -41,7 +43,7 @@ export default function RetroJersey({
 			team.tertiaryColor && team.tertiaryColor !== "" ? team.tertiaryColor : ""
 		}`
 	);
-
+	const [isLoader, setIsLoader] = useState(false);
 	useEffect(() => {
 		if (team.primaryColor && team.primaryColor !== "") {
 			const styleElement = document.getElementById("dynamicStyles");
@@ -72,6 +74,7 @@ export default function RetroJersey({
 	}, []);
 
 	const [formErrors, setFormErrors] = useState<FormErrors>({});
+	const router = useRouter();
 
 	const validateForm = (): FormErrors => {
 		const errors: FormErrors = {};
@@ -88,10 +91,10 @@ export default function RetroJersey({
 		}
 
 		const isColorInTeam = team.division.teamColors.includes(primaryColor);
-
-		if (isColorInTeam) {
-			errors.tertiaryColor =
-				"Primary color is already selected by another team";
+		console.log(isColorInTeam, oldPrimaryColor, primaryColor);
+		console.log(oldPrimaryColor !== primaryColor);
+		if (isColorInTeam && oldPrimaryColor !== primaryColor) {
+			errors.primaryColor = "Primary color is already selected by another team";
 		}
 
 		return errors;
@@ -173,11 +176,12 @@ export default function RetroJersey({
 
 	const handleTeamColorUpdate = async (event: React.FormEvent) => {
 		event.preventDefault();
+		setIsLoader(true);
+
 		const errors = validateForm();
 		console.log(errors);
 		console.log(Object.keys(errors).length);
 		if (Object.keys(errors).length === 0) {
-			console.log("hello");
 			const formObject = {
 				teamId: team._id,
 				divisionId: team.division._id,
@@ -194,25 +198,70 @@ export default function RetroJersey({
 				},
 				body: JSON.stringify(formObject),
 			});
-		} else {
-			console.log("hi");
 
+			if (res.ok) {
+				setIsLoader(false);
+				router.push("/user"); // Use router.push instead of redirect
+			}
+		} else {
 			setFormErrors(errors);
+			setIsLoader(false);
 		}
 	};
 	console.log("team:", team);
 
+	// const colors = {
+	// 	"#3498db": "Blue",
+	// 	"#e74c3c": "Red",
+	// 	"#27ae60": "Green",
+	// 	"#f39c12": "Orange",
+	// 	"#9b59b6": "Purple",
+	// 	"#2ecc71": "Turquoise",
+	// 	"#e67e22": "Carrot",
+	// 	"#1abc9c": "Turquoise",
+	// 	"#34495e": "Wet Asphalt",
+	// 	"#d35400": "Pumpkin",
+	// };
+
 	const colors = {
-		"#3498db": "Blue",
-		"#e74c3c": "Red",
-		"#27ae60": "Green",
-		"#f39c12": "Orange",
-		"#9b59b6": "Purple",
-		"#2ecc71": "Turquoise",
-		"#e67e22": "Carrot",
-		"#1abc9c": "Turquoise",
-		"#34495e": "Wet Asphalt",
-		"#d35400": "Pumpkin",
+		"#ffb3ba": "pastel-red",
+		"#ffdfba": "pastel-orange",
+		"#ffffba": "pastel-yellow",
+		"#baffc9": "pastel-green",
+		"#bae1ff": "pastel-blue",
+
+		"#FF339C": "neon-pink",
+		"#94FA00": "neon-lime",
+		"#0DD4AB": "sea-green",
+		"#02E1F3": "electric-blue",
+		"#00F6B9": "bright-aqua",
+		"#CA02FF": "bright-lavender-pink",
+
+		"#58231E": "ruse-red",
+		"#65704E": "olive-green",
+		"#BEAA8A": "sand",
+		"#0B4B4C": "moss",
+		"#7F94A3": "slate-gray",
+
+		"#0C7C99": "ocean-blue",
+		"#F6B400": "sun-yellow",
+		"#7F2977": "orchid-pink",
+		"#82C59F": "palm-leaf-green",
+		"#3E5A99": "dusk-blue",
+
+		"#860038": "cavaliers-red",
+		"#002B5C": "jazz-navy",
+		"#007A33": "boston-green",
+		"#552583": "lakers-photo",
+
+		"#000000": "black",
+		"#ffffff": "white",
+
+		"#5EC2E1": "azure-blue",
+		"#D7442A": "fiery-red",
+		"#468950": "evergreen",
+		"#CC995A": "beige",
+		"#5784C5": "sky-blue",
 	};
 
 	const colorButtons = Object.entries(colors).map(([hexValue, colorName]) => {
@@ -221,7 +270,8 @@ export default function RetroJersey({
 		return (
 			<span
 				key={hexValue}
-				className={`font-barlow h-10 w-10 rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
+				className={`font-barlow h-10 w-10 cursor-pointer rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
+				style={{ backgroundColor: `${hexValue}` }}
 				onClick={() => handleColorChange(hexValue, setPrimaryColor, "primary")}
 			>
 				{/* Add the red X as a pseudo-element */}
@@ -238,7 +288,7 @@ export default function RetroJersey({
 	return (
 		<>
 			<Link
-				href={`/jersey/${team._id}`}
+				href={`/jersey/${team._id}?back=true`}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
 				<svg
@@ -322,7 +372,13 @@ export default function RetroJersey({
 						</label>
 					</div>
 					<div className="mt-20 flex w-full justify-end">
-						<Button type="submit">Continue</Button>
+						<Button type="submit" className="h-[50px] w-[200px]">
+							{isLoader ? (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								"Choose Colors"
+							)}
+						</Button>
 					</div>
 
 					{formErrors.primaryColor && (

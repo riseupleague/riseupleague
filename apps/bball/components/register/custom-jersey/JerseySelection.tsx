@@ -126,7 +126,7 @@ export default function JerseySelection({ team }) {
 						<button
 							onClick={() => {
 								setIsEditionSelected(true);
-								setNumOfJersey(10);
+								setNumOfJersey(8);
 								setSelectedEdition("original");
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
@@ -188,7 +188,10 @@ export default function JerseySelection({ team }) {
 					</h3>
 					<div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
 						{Array.from({ length: numOfJersey }, (_, index) => (
-							<div key={index}>
+							<div
+								key={index}
+								className="rounded border border-neutral-600 pb-2"
+							>
 								{team ? (
 									<Link
 										href={`/jersey/${team._id}/${selectedEdition}?number=${
@@ -199,7 +202,7 @@ export default function JerseySelection({ team }) {
 											<Image
 												src={`/images/jersey/placeholders/${selectedEdition}/${selectedEdition}-${
 													index + 1
-												}.png`}
+												}.svg`}
 												alt={`${selectedEdition} ${index + 1}`}
 												width={500}
 												height={300}
@@ -216,7 +219,7 @@ export default function JerseySelection({ team }) {
 											<Image
 												src={`/images/jersey/placeholders/${selectedEdition}/${selectedEdition}-${
 													index + 1
-												}.png`}
+												}.svg`}
 												alt={`${selectedEdition} ${index + 1}`}
 												width={500}
 												height={300}
@@ -225,6 +228,10 @@ export default function JerseySelection({ team }) {
 										)}
 									</Button>
 								)}
+
+								<p className="text-center text-lg uppercase lg:text-2xl">
+									{selectedEdition} {index + 1}
+								</p>
 							</div>
 						))}
 					</div>

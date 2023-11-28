@@ -5,16 +5,17 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 // import dynamic from "next/dynamic";
-// import Classic1 from "@/lib/jersey-designs/classic/classic-1";
+import Classic1 from "@/lib/jersey-designs/classic/classic-1";
 import Classic2 from "@/lib/jersey-designs/classic/classic-2";
 import Classic3 from "@/lib/jersey-designs/classic/classic-3";
 import Classic4 from "@/lib/jersey-designs/classic/classic-4";
 
 import Classic5 from "@/lib/jersey-designs/classic/classic-5";
-// import Classic6 from "@/lib/jersey-designs/classic/classic-6";
-// import Classic7 from "@/lib/jersey-designs/classic/classic-7";
-// import Classic8 from "@/lib/jersey-designs/classic/classic-8";
-// import Classic9 from "@/lib/jersey-designs/classic/classic-9";
+import Classic6 from "@/lib/jersey-designs/classic/classic-6";
+import Classic7 from "@/lib/jersey-designs/classic/classic-7";
+import Classic8 from "@/lib/jersey-designs/classic/classic-8";
+import Classic9 from "@/lib/jersey-designs/classic/classic-9";
+import Classic10 from "@/lib/jersey-designs/classic/classic-10";
 
 import ClassicJersey from "@/components/register/custom-jersey/ClassicJersey";
 export const metadata: Metadata = {
@@ -37,15 +38,16 @@ export default async function Classic({
 	}
 
 	const numberToComponent = {
-		// 1: Classic1(),
+		1: Classic1(),
 		2: Classic2(),
 		3: Classic3(),
 		4: Classic4(),
 		5: Classic5(),
-		// 6: Classic6(),
-		// 7: Classic7(),
-		// 8: Classic8(),
-		// 9: Classic9(),
+		6: Classic6(),
+		7: Classic7(),
+		8: Classic8(),
+		9: Classic9(),
+		10: Classic10(),
 	};
 
 	const resTeam = await getTeamById(params.id);

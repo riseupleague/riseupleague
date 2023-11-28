@@ -18,6 +18,7 @@ import Retro6 from "@/lib/jersey-designs/retro/retro-6";
 import Retro7 from "@/lib/jersey-designs/retro/retro-7";
 import Retro8 from "@/lib/jersey-designs/retro/retro-8";
 import Retro9 from "@/lib/jersey-designs/retro/retro-9";
+import Retro10 from "@/lib/jersey-designs/retro/retro-10";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Retro",
@@ -66,6 +67,7 @@ export default async function Retro({
 		7: Retro7(),
 		8: Retro8(),
 		9: Retro9(),
+		10: Retro10(),
 	};
 
 	const selectedNumber =

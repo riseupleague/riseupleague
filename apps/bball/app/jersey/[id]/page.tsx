@@ -53,24 +53,17 @@ export default async function Jersey({
 		redirect("/");
 	}
 
-	if (team.primaryColor && team.primaryColor !== "") {
-		const jerseyEdition = team.jerseyEdition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
-		const edition = jerseyEdition.split("-")[0];
-		const number = jerseyEdition.split("-")[1];
+	const back = typeof searchParams.back === "string" ? searchParams.back : "";
 
-		redirect(`/jersey/${team._id}/${edition}?number=${number}`);
-	}
+	if (back == "true") {
+	} else {
+		if (team.primaryColor && team.primaryColor !== "") {
+			const jerseyEdition = team.jerseyEdition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
+			const edition = jerseyEdition.split("-")[0];
+			const number = jerseyEdition.split("-")[1];
 
-	typeof searchParams.teams === "string" ? searchParams.teams : "";
-
-	const selectedEdition =
-		typeof searchParams.edition === "string" ? searchParams.edition : "";
-	const selectedNumber =
-		typeof searchParams.number === "string" ? searchParams.number : "";
-
-	let jerseySelected = false;
-	if (selectedEdition !== "" && selectedNumber !== "") {
-		jerseySelected = true;
+			redirect(`/jersey/${team._id}/${edition}?number=${number}`);
+		}
 	}
 
 	return (
