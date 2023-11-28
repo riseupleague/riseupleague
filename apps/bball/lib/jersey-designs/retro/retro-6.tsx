@@ -368,6 +368,27 @@ export default function Retro6() {
             stroke-dasharray: 0 0.18;
             stroke-width: 0.09px;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path class="cls-3" d="m1128.15,896.21c-.26-1.52-.51-3.04-.77-4.56l-78.98-3.3-7.7-.32-8.92-.37-87.85-3.66c-.84,4.03-1.65,8.1-2.42,12.22-18.61,98.83-18.95,223.35-3.94,369.45.28,2.76.57,5.53.87,8.3.27,2.57.55,5.15.84,7.74.27,2.48.55,4.98.82,7.47h71.64l21.87-30.35,19.14,30.35h74.65c20.83-144.12,20.46-274.7.77-392.96Z"></path>
@@ -3011,7 +3032,7 @@ export default function Retro6() {
 	`;
 	return (
 		<div
-			className="w-full rounded bg-neutral-100"
+			className="jerseyDiv h-full w-full rounded bg-neutral-100"
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);

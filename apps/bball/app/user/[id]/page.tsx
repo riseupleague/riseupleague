@@ -10,6 +10,7 @@ import { Button } from "@ui/components/button";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
+import UserProfile from "@/components/user/UserProfile";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | User",
@@ -30,13 +31,16 @@ export default async function User({
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 	console.log(user);
+
 	return (
-		<main className="container mx-auto">
-			<h1>{session.user.name}&apos;s Profile</h1>
-			<p className="text-primary flex h-[50dvh] items-center justify-center text-center text-2xl">
+		<section className="container mx-auto">
+			<h1 className="mb-40">{session.user.name}&apos;s Profile</h1>
+			{/* <p className="text-primary flex h-[50dvh] items-center justify-center text-center text-2xl">
 				We&apos;re still updating your personal user page. Please come back at a
 				later time.
-			</p>
-		</main>
+			</p> */}
+
+			<UserProfile session={session} user={user} />
+		</section>
 	);
 }

@@ -102,10 +102,15 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 
 export const getTeamById = async (teamId: string) => {
 	try {
-		const team = await Team.findById(teamId).populate("players").populate({
-			path: "division",
-			select: "divisionName",
-		});
+		const team = await Team.findById(teamId)
+			.populate("players")
+			.populate({
+				path: "division",
+				select: "divisionName teamColors",
+			})
+			.select(
+				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+			);
 
 		if (!team) {
 			return NextResponse.json(
