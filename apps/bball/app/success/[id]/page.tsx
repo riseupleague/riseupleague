@@ -55,9 +55,9 @@ export default async function Success({
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
 				You have successfully{" "}
-				{selectedPlayer.teamCaptain ? "registered" : "joined"}{" "}
-				{selectedPlayer.team.teamName}{" "}
-				{selectedPlayer.teamCaptain ? "to" : "in"} {division.divisionName}{" "}
+				{selectedPlayer?.teamCaptain ? "registered" : "joined"}{" "}
+				{selectedPlayer?.team.teamName}{" "}
+				{selectedPlayer?.teamCaptain ? "to" : "in"} {division.divisionName}{" "}
 				division!{" "}
 			</h1>
 			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
