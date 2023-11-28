@@ -14,9 +14,9 @@ import { Button } from "@ui/components/button";
 import { useRouter } from "next/navigation";
 
 interface FormErrors {
-	primaryColor: string;
-	secondaryColor: string;
-	tertiaryColor: string;
+	primaryColor?: string;
+	secondaryColor?: string;
+	tertiaryColor?: string;
 }
 
 export default function OriginalJersey({
@@ -93,8 +93,7 @@ export default function OriginalJersey({
 		const isColorInTeam = team.division.teamColors.includes(primaryColor);
 
 		if (isColorInTeam) {
-			errors.tertiaryColor =
-				"Primary color is already selected by another team";
+			errors.primaryColor = "Primary color is already selected by another team";
 		}
 
 		return errors;

@@ -14,9 +14,9 @@ import { Button } from "@ui/components/button";
 import { useRouter } from "next/navigation";
 
 interface FormErrors {
-	primaryColor: string;
-	secondaryColor: string;
-	tertiaryColor: string;
+	primaryColor?: string;
+	secondaryColor?: string;
+	tertiaryColor?: string;
 }
 
 export default function RetroJersey({
