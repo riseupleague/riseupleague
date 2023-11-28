@@ -4,7 +4,7 @@ export default function Retro8() {
       <defs>
         <style>
           .cls-1 {
-            strokeWidth: 3px;
+            stroke-width: 3px;
           }
 
           .cls-1,
@@ -59,7 +59,7 @@ export default function Retro8() {
           }
 
           .cls-2 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-2,
@@ -82,11 +82,11 @@ export default function Retro8() {
           }
 
           .cls-3 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-4 {
-            strokeWidth: 8px;
+            stroke-width: 8px;
           }
 
           .cls-4,
@@ -97,7 +97,7 @@ export default function Retro8() {
           .cls-20,
           .cls-21,
           .cls-24 {
-            strokeLinejoin: round;
+            stroke-linejoin: round;
           }
 
           .cls-4,
@@ -108,7 +108,7 @@ export default function Retro8() {
           }
 
           .cls-26 {
-            clipPath: url(#clippath);
+            clip-path: url(#clippath);
           }
 
           .cls-5,
@@ -123,7 +123,7 @@ export default function Retro8() {
           .cls-35,
           .cls-36,
           .cls-37 {
-            strokeWidth: 0px;
+            stroke-width: 0px;
           }
 
           .cls-6 {
@@ -137,12 +137,12 @@ export default function Retro8() {
 
           .cls-6,
           .cls-12 {
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-7 {
             stroke-dasharray: 0 1.05;
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-38 {
@@ -151,11 +151,11 @@ export default function Retro8() {
 
           .cls-8,
           .cls-20 {
-            strokeWidth: 0.42px;
+            stroke-width: 0.42px;
           }
 
           .cls-9 {
-            strokeWidth: 0.78px;
+            stroke-width: 0.78px;
           }
 
           .cls-9,
@@ -163,44 +163,44 @@ export default function Retro8() {
           .cls-14,
           .cls-20,
           .cls-24 {
-            strokeLinecap: round;
+            stroke-linecap: round;
           }
 
           .cls-10 {
-            strokeWidth: 1.17px;
+            stroke-width: 1.17px;
           }
 
           .cls-39 {
-            clipPath: url(#clippath-3);
+            clip-path: url(#clippath-3);
           }
 
           .cls-40 {
-            clipPath: url(#clippath-7);
+            clip-path: url(#clippath-7);
           }
 
           .cls-41 {
-            clipPath: url(#clippath-8);
+            clip-path: url(#clippath-8);
           }
 
           .cls-42 {
-            clipPath: url(#clippath-6);
+            clip-path: url(#clippath-6);
           }
 
           .cls-43 {
-            clipPath: url(#clippath-5);
+            clip-path: url(#clippath-5);
           }
 
           .cls-44 {
-            clipPath: url(#clippath-9);
+            clip-path: url(#clippath-9);
           }
 
           .cls-11 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-13 {
-            strokeWidth: 6px;
+            stroke-width: 6px;
           }
 
           .cls-13,
@@ -211,64 +211,64 @@ export default function Retro8() {
           }
 
           .cls-47 {
-            clipPath: url(#clippath-20);
+            clip-path: url(#clippath-20);
           }
 
           .cls-48 {
-            clipPath: url(#clippath-21);
+            clip-path: url(#clippath-21);
           }
 
           .cls-49 {
-            clipPath: url(#clippath-27);
+            clip-path: url(#clippath-27);
           }
 
           .cls-50 {
-            clipPath: url(#clippath-28);
+            clip-path: url(#clippath-28);
           }
 
           .cls-51 {
-            clipPath: url(#clippath-26);
+            clip-path: url(#clippath-26);
           }
 
           .cls-52 {
-            clipPath: url(#clippath-14);
+            clip-path: url(#clippath-14);
           }
 
           .cls-53 {
-            clipPath: url(#clippath-13);
+            clip-path: url(#clippath-13);
           }
 
           .cls-54 {
-            clipPath: url(#clippath-12);
+            clip-path: url(#clippath-12);
           }
 
           .cls-55 {
-            clipPath: url(#clippath-10);
+            clip-path: url(#clippath-10);
           }
 
           .cls-56 {
-            clipPath: url(#clippath-15);
+            clip-path: url(#clippath-15);
           }
 
           .cls-57 {
-            clipPath: url(#clippath-17);
+            clip-path: url(#clippath-17);
           }
 
           .cls-58 {
-            clipPath: url(#clippath-16);
+            clip-path: url(#clippath-16);
           }
 
           .cls-59 {
-            clipPath: url(#clippath-19);
+            clip-path: url(#clippath-19);
           }
 
           .cls-60 {
-            clipPath: url(#clippath-18);
+            clip-path: url(#clippath-18);
           }
 
           .cls-14 {
             stroke-dasharray: 0 0 0.43 0.6;
-            strokeWidth: 0.22px;
+            stroke-width: 0.22px;
           }
 
           .cls-25,
@@ -297,12 +297,12 @@ export default function Retro8() {
           }
 
           .cls-15 {
-            strokeWidth: 2px;
+            stroke-width: 2px;
           }
 
           .cls-17 {
-            strokeLinecap: square;
-            strokeWidth: 4.33px;
+            stroke-linecap: square;
+            stroke-width: 4.33px;
           }
 
           .cls-28 {
@@ -315,12 +315,12 @@ export default function Retro8() {
 
           .cls-18,
           .cls-23 {
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-19 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.14px;
+            stroke-width: 0.14px;
           }
 
           .cls-61 {
@@ -328,7 +328,7 @@ export default function Retro8() {
           }
 
           .cls-21 {
-            strokeWidth: 10px;
+            stroke-width: 10px;
           }
 
           .cls-30 {
@@ -357,11 +357,11 @@ export default function Retro8() {
 
           .cls-22 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-24 {
-            strokeWidth: 0.56px;
+            stroke-width: 0.56px;
           }
           .primaryColorFill {
             fill:  gray;

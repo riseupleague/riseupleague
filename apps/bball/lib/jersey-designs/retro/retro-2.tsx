@@ -4,7 +4,7 @@ export default function Retro1() {
       <defs>
         <style>
           .cls-1 {
-            strokeWidth: 0.75px;
+            stroke-width: 0.75px;
           }
 
           .cls-1,
@@ -65,7 +65,7 @@ export default function Retro1() {
           }
 
           .cls-30 {
-            clipPath: url(#clippath);
+            clip-path: url(#clippath);
           }
 
           .cls-2,
@@ -81,11 +81,11 @@ export default function Retro1() {
           .cls-40,
           .cls-41,
           .cls-42 {
-            strokeWidth: 0px;
+            stroke-width: 0px;
           }
 
           .cls-3 {
-            strokeWidth: 2.26px;
+            stroke-width: 2.26px;
           }
 
           .cls-3,
@@ -96,7 +96,7 @@ export default function Retro1() {
           }
 
           .cls-4 {
-            strokeWidth: 4.53px;
+            stroke-width: 4.53px;
           }
 
           .cls-4,
@@ -107,7 +107,7 @@ export default function Retro1() {
           .cls-13,
           .cls-16,
           .cls-24 {
-            strokeLinejoin: round;
+            stroke-linejoin: round;
           }
 
           .cls-4,
@@ -143,7 +143,7 @@ export default function Retro1() {
 
           .cls-5,
           .cls-17 {
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-43 {
@@ -151,7 +151,7 @@ export default function Retro1() {
           }
 
           .cls-6 {
-            strokeWidth: 0.78px;
+            stroke-width: 0.78px;
           }
 
           .cls-6,
@@ -159,12 +159,12 @@ export default function Retro1() {
           .cls-12,
           .cls-19,
           .cls-24 {
-            strokeLinecap: round;
+            stroke-linecap: round;
           }
 
           .cls-7 {
             stroke-dasharray: 0 0.18;
-            strokeWidth: 0.16px;
+            stroke-width: 0.16px;
           }
 
           .cls-44,
@@ -173,7 +173,7 @@ export default function Retro1() {
           }
 
           .cls-8 {
-            strokeWidth: 7.67px;
+            stroke-width: 7.67px;
           }
 
           .cls-9 {
@@ -182,133 +182,133 @@ export default function Retro1() {
 
           .cls-9,
           .cls-26 {
-            strokeWidth: 0.09px;
+            stroke-width: 0.09px;
           }
 
           .cls-10 {
-            strokeWidth: 3.84px;
+            stroke-width: 3.84px;
           }
 
           .cls-11 {
-            strokeWidth: 0.59px;
+            stroke-width: 0.59px;
           }
 
           .cls-12 {
-            strokeWidth: 1.17px;
+            stroke-width: 1.17px;
           }
 
           .cls-13 {
-            strokeWidth: 6.04px;
+            stroke-width: 6.04px;
           }
 
           .cls-14 {
-            strokeWidth: 0.47px;
+            stroke-width: 0.47px;
           }
 
           .cls-15 {
             stroke-dasharray: 0 0.18;
-            strokeWidth: 0.09px;
+            stroke-width: 0.09px;
           }
 
           .cls-16 {
-            strokeWidth: 3.01px;
+            stroke-width: 3.01px;
           }
 
           .cls-45 {
-            clipPath: url(#clippath-1);
+            clip-path: url(#clippath-1);
           }
 
           .cls-46 {
-            clipPath: url(#clippath-4);
+            clip-path: url(#clippath-4);
           }
 
           .cls-47 {
-            clipPath: url(#clippath-3);
+            clip-path: url(#clippath-3);
           }
 
           .cls-48 {
-            clipPath: url(#clippath-2);
+            clip-path: url(#clippath-2);
           }
 
           .cls-49 {
-            clipPath: url(#clippath-6);
+            clip-path: url(#clippath-6);
           }
 
           .cls-50 {
-            clipPath: url(#clippath-5);
+            clip-path: url(#clippath-5);
           }
 
           .cls-18 {
-            strokeWidth: 0.75px;
+            stroke-width: 0.75px;
           }
 
           .cls-51 {
-            clipPath: url(#clippath-20);
+            clip-path: url(#clippath-20);
           }
 
           .cls-52 {
-            clipPath: url(#clippath-21);
+            clip-path: url(#clippath-21);
           }
 
           .cls-53 {
-            clipPath: url(#clippath-24);
+            clip-path: url(#clippath-24);
           }
 
           .cls-54 {
-            clipPath: url(#clippath-23);
+            clip-path: url(#clippath-23);
           }
 
           .cls-55 {
-            clipPath: url(#clippath-22);
+            clip-path: url(#clippath-22);
           }
 
           .cls-56 {
-            clipPath: url(#clippath-27);
+            clip-path: url(#clippath-27);
           }
 
           .cls-57 {
-            clipPath: url(#clippath-28);
+            clip-path: url(#clippath-28);
           }
 
           .cls-58 {
-            clipPath: url(#clippath-26);
+            clip-path: url(#clippath-26);
           }
 
           .cls-59 {
-            clipPath: url(#clippath-29);
+            clip-path: url(#clippath-29);
           }
 
           .cls-60 {
-            clipPath: url(#clippath-33);
+            clip-path: url(#clippath-33);
           }
 
           .cls-61 {
-            clipPath: url(#clippath-32);
+            clip-path: url(#clippath-32);
           }
 
           .cls-62 {
-            clipPath: url(#clippath-30);
+            clip-path: url(#clippath-30);
           }
 
           .cls-63 {
-            clipPath: url(#clippath-31);
+            clip-path: url(#clippath-31);
           }
 
           .cls-64 {
-            clipPath: url(#clippath-14);
+            clip-path: url(#clippath-14);
           }
 
           .cls-65 {
-            clipPath: url(#clippath-17);
+            clip-path: url(#clippath-17);
           }
 
           .cls-66 {
-            clipPath: url(#clippath-19);
+            clip-path: url(#clippath-19);
           }
 
           .cls-19 {
             stroke-dasharray: 0 0 0.43 0.6;
-            strokeWidth: 0.22px;
+            stroke-width: 0.22px;
           }
 
           .cls-31 {
@@ -318,15 +318,15 @@ export default function Retro1() {
 
           .cls-20 {
             stroke-dasharray: 0 0.18;
-            strokeWidth: 0.15px;
+            stroke-width: 0.15px;
           }
 
           .cls-21 {
-            strokeWidth: 0.3px;
+            stroke-width: 0.3px;
           }
 
           .cls-22 {
-            strokeWidth: 0.3px;
+            stroke-width: 0.3px;
           }
 
           .cls-23 {
@@ -335,11 +335,11 @@ export default function Retro1() {
 
           .cls-24,
           .cls-25 {
-            strokeWidth: 0.45px;
+            stroke-width: 0.45px;
           }
 
           .cls-27 {
-            strokeWidth: 3.02px;
+            stroke-width: 3.02px;
           }
 
           .cls-67 {
@@ -347,7 +347,7 @@ export default function Retro1() {
           }
 
           .cls-28 {
-            strokeWidth: 1.5px;
+            stroke-width: 1.5px;
           }
 
           .cls-33 {
@@ -388,7 +388,7 @@ export default function Retro1() {
 
           .cls-29 {
             stroke-dasharray: 0 0.18;
-            strokeWidth: 0.09px;
+            stroke-width: 0.09px;
           }
 
           .primaryColorFill {

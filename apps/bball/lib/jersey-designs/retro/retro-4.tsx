@@ -5,7 +5,7 @@ export default function Retro4() {
         <style>
           .cls-1 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-1,
@@ -83,11 +83,11 @@ export default function Retro4() {
           }
 
           .cls-3 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-4 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-26 {
@@ -128,12 +128,12 @@ export default function Retro4() {
 
           .cls-6,
           .cls-8 {
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-7 {
             stroke-dasharray: 0 1.05;
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-40 {
@@ -177,7 +177,7 @@ export default function Retro4() {
           }
 
           .cls-20 {
-            strokeWidth: 3px;
+            stroke-width: 3px;
           }
 
           .cls-41 {
@@ -246,7 +246,7 @@ export default function Retro4() {
 
           .cls-9 {
             stroke-dasharray: 0 0 0.43 0.6;
-            strokeWidth: 0.22px;
+            stroke-width: 0.22px;
           }
 
           .cls-10,
@@ -256,7 +256,7 @@ export default function Retro4() {
 
           .cls-11,
           .cls-15 {
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-27 {
@@ -271,7 +271,7 @@ export default function Retro4() {
 
           .cls-12 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.14px;
+            stroke-width: 0.14px;
           }
 
           .cls-23 {
@@ -284,7 +284,7 @@ export default function Retro4() {
 
           .cls-14 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-29 {

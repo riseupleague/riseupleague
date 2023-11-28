@@ -4,7 +4,7 @@ export default function Original1() {
       <defs>
         <style>
           .cls-1 {
-            strokeWidth: 7px;
+            stroke-width: 7px;
           }
 
           .cls-1,
