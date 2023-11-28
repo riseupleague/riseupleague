@@ -6,6 +6,7 @@ import { Button } from "@ui/components/button";
 import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Success!",
@@ -95,7 +96,7 @@ export default async function Success({
 						</p>
 					</div>
 					<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-						Coming Soon
+						<Link href={`/jersey/${selectedPlayer.team._id}`}>Continue</Link>
 					</Button>
 				</div>
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">

@@ -251,12 +251,12 @@ export default function OriginalJersey({
 	};
 
 	const colorButtons = Object.entries(colors).map(([hexValue, colorName]) => {
-		const isColorInTeam = team.division.teamColors.includes(hexValue);
+		const isColorInTeam = team.division?.teamColors.includes(hexValue);
 
 		return (
 			<span
 				key={hexValue}
-				className={`font-barlow h-10 w-10 rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
+				className={`font-barlow h-10 w-10 cursor-pointer rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
 				style={{ backgroundColor: `${hexValue}` }}
 				onClick={() => handleColorChange(hexValue, setPrimaryColor, "primary")}
 			>

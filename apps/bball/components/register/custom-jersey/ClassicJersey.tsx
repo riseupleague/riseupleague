@@ -251,7 +251,7 @@ export default function ClassicJersey({
 	};
 
 	const colorButtons = Object.entries(colors).map(([hexValue, colorName]) => {
-		const isColorInTeam = team.division.teamColors.includes(hexValue);
+		const isColorInTeam = team.division.teamColors?.includes(hexValue);
 
 		return (
 			<span

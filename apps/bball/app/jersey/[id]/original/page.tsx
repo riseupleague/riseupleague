@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 // import dynamic from "next/dynamic";
+import Original1 from "@/lib/jersey-designs/original/original-2";
 import Original2 from "@/lib/jersey-designs/original/original-2";
 import Original3 from "@/lib/jersey-designs/original/original-3";
 import Original5 from "@/lib/jersey-designs/original/original-5";
@@ -57,6 +58,7 @@ export default async function Original({
 		typeof searchParams.number === "string" ? searchParams.number : "";
 
 	const numberToComponent = {
+		1: Original1(),
 		2: Original2(),
 		3: Original3(),
 		5: Original5(),

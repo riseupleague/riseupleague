@@ -114,13 +114,7 @@ export default function JerseySelection({ team }) {
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								Retro edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">Retro</span>
 						</button>
 
 						<button
@@ -131,13 +125,7 @@ export default function JerseySelection({ team }) {
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								original edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">original</span>
 						</button>
 
 						<button
@@ -148,13 +136,7 @@ export default function JerseySelection({ team }) {
 							}}
 							className="rounded-5 flex flex-col gap-5 bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								Classic edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">Classic</span>
 						</button>
 					</div>
 				</>
