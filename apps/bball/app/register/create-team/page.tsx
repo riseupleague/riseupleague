@@ -139,9 +139,9 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 														<path
 															d="M8 4.88889V8L10.3333 10.3333M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z"
 															stroke="#ff422d"
-															stroke-width="1.67"
-															stroke-linecap="round"
-															stroke-linejoin="round"
+															strokeWidth="1.67"
+															strokeLinecap="round"
+															strokeLinejoin="round"
 														/>
 													</svg>{" "}
 													<p className="text-sm">
@@ -159,9 +159,9 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 														<path
 															d="M4.88889 4.11111V1M11.1111 4.11111V1M4.11111 7.22222H11.8889M2.55556 15H13.4444C14.3036 15 15 14.3036 15 13.4444V4.11111C15 3.252 14.3036 2.55556 13.4444 2.55556H2.55556C1.69645 2.55556 1 3.252 1 4.11111V13.4444C1 14.3036 1.69645 15 2.55556 15Z"
 															stroke="#ff422d"
-															stroke-width="1.67"
-															stroke-linecap="round"
-															stroke-linejoin="round"
+															strokeWidth="1.67"
+															strokeLinecap="round"
+															strokeLinejoin="round"
 														/>
 													</svg>{" "}
 													<p className="text-sm">{division.day}</p>
@@ -206,8 +206,8 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 																	opacity="0.9"
 																	d="M98.0625 3.3916L3.00011 31.6076"
 																	stroke="#B91C1C"
-																	stroke-width="5"
-																	stroke-linecap="round"
+																	strokeWidth="5"
+																	strokeLinecap="round"
 																/>
 															</svg>
 															<span className="text-xs"> + 13% HST</span>
@@ -235,8 +235,8 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 																		opacity="0.9"
 																		d="M98.0625 3.3916L3.00011 31.6076"
 																		stroke="#B91C1C"
-																		stroke-width="5"
-																		stroke-linecap="round"
+																		strokeWidth="5"
+																		strokeLinecap="round"
 																	/>
 																</svg>
 																<span className="text-xs">+ 13% HST</span>
