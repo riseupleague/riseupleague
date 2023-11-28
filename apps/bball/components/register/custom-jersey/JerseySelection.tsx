@@ -114,30 +114,18 @@ export default function JerseySelection({ team }) {
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								Retro edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">Retro</span>
 						</button>
 
 						<button
 							onClick={() => {
 								setIsEditionSelected(true);
-								setNumOfJersey(10);
+								setNumOfJersey(8);
 								setSelectedEdition("original");
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								original edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">original </span>
 						</button>
 
 						<button
@@ -148,13 +136,7 @@ export default function JerseySelection({ team }) {
 							}}
 							className="rounded-5 flex flex-col gap-5 bg-neutral-700 px-[16px] py-[26px] text-start "
 						>
-							<span className="font-barlow text-3xl uppercase">
-								Classic edition
-							</span>
-							<p className="text-lg">
-								Lorem ipsum dolor sit amet consectetur. Duis nec risus lorem
-								nisi.
-							</p>
+							<span className="font-barlow text-4xl uppercase">Classic</span>
 						</button>
 					</div>
 				</>
@@ -184,11 +166,19 @@ export default function JerseySelection({ team }) {
 						Back
 					</button>
 					<h3 className="mt-10  text-3xl uppercase ">
-						{selectedEdition} Edition
+						{selectedEdition} Edition{" "}
+						{selectedEdition === "original" && (
+							<span className="text-xs">
+								(4, 7, 8, 9 and 10 are still missing. Will update soon!)
+							</span>
+						)}
 					</h3>
 					<div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
 						{Array.from({ length: numOfJersey }, (_, index) => (
-							<div key={index}>
+							<div
+								key={index}
+								className="rounded border border-neutral-600 pb-2"
+							>
 								{team ? (
 									<Link
 										href={`/jersey/${team._id}/${selectedEdition}?number=${
@@ -199,7 +189,7 @@ export default function JerseySelection({ team }) {
 											<Image
 												src={`/images/jersey/placeholders/${selectedEdition}/${selectedEdition}-${
 													index + 1
-												}.png`}
+												}.svg`}
 												alt={`${selectedEdition} ${index + 1}`}
 												width={500}
 												height={300}
@@ -216,7 +206,7 @@ export default function JerseySelection({ team }) {
 											<Image
 												src={`/images/jersey/placeholders/${selectedEdition}/${selectedEdition}-${
 													index + 1
-												}.png`}
+												}.svg`}
 												alt={`${selectedEdition} ${index + 1}`}
 												width={500}
 												height={300}
@@ -225,6 +215,10 @@ export default function JerseySelection({ team }) {
 										)}
 									</Button>
 								)}
+
+								<p className="text-center text-lg uppercase lg:text-2xl">
+									{selectedEdition} {index + 1}
+								</p>
 							</div>
 						))}
 					</div>

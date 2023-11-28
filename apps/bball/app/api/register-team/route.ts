@@ -160,7 +160,7 @@ export async function DELETE(req: Request) {
 			{ $pull: { teams: team } }
 		);
 
-		await Team.findByIdAndRemove(team);
+		await Team.findByIdAndDelete(team);
 
 		if (!deletedTeam) {
 			return NextResponse.json({ message: "Team not found" }, { status: 404 });

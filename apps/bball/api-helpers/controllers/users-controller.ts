@@ -99,13 +99,20 @@ export const getCurrentUser = async (email: string) => {
 			populate: [
 				{
 					path: "team",
-					select: "teamName",
+					select:
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition",
 				},
 				{
 					path: "division",
-					select: "teamName",
+					select: "divisionName location day description startTime endTime",
+				},
+				{
+					path: "season",
+					select: "seasonName",
 				},
 			],
+			select:
+				"team division season playerName  instagram jerseyNumber jerseySize shortSize",
 		});
 
 		return NextResponse.json({

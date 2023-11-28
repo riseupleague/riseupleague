@@ -174,7 +174,7 @@ export async function PATCH(req: Request) {
 							{ teams: teamId },
 							{ $pull: { teams: teamId } }
 						);
-						await Team.findByIdAndRemove(teamId);
+						await Team.findByIdAndDelete(teamId);
 						updatedPlayer.teamCaptain = false;
 					}
 

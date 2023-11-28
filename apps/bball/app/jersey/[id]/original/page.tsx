@@ -14,6 +14,16 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
+// import dynamic from "next/dynamic";
+import Original1 from "@/lib/jersey-designs/original/original-1";
+import Original2 from "@/lib/jersey-designs/original/original-2";
+import Original3 from "@/lib/jersey-designs/original/original-3";
+// import Original4 from "@/lib/jersey-designs/original/original-4";
+import Original5 from "@/lib/jersey-designs/original/original-5";
+import Original6 from "@/lib/jersey-designs/original/original-6";
+// import Original7 from "@/lib/jersey-designs/original/original-7";
+// import Original8 from "@/lib/jersey-designs/original/original-8";
+
 export default async function Original({
 	params,
 	searchParams,
@@ -48,6 +58,17 @@ export default async function Original({
 	const selectedNumber =
 		typeof searchParams.number === "string" ? searchParams.number : "";
 
+	const numberToComponent = {
+		1: Original1(),
+		2: Original2(),
+		3: Original3(),
+		// 4: Original4(),
+		5: Original5(),
+		6: Original6(),
+		// 7: Original7(),
+		// 8: Original8(),
+	};
+
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="mb-10">Jersey Locker</h1>
@@ -56,6 +77,7 @@ export default async function Original({
 				edition={"original"}
 				number={selectedNumber}
 				team={team}
+				numberToComponent={numberToComponent}
 			/>
 		</section>
 	);

@@ -12,6 +12,7 @@ export const connectToDatabase = async () => {
 		require("./models/Player");
 		require("./models/Season");
 		require("./models/Team");
+		require("./models/User");
 
 		console.log("connected to mongoDB");
 	} catch (e) {

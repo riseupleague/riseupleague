@@ -4,7 +4,7 @@ export default function Retro1() {
       <defs>
         <style>
           .cls-1 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-1,
@@ -73,11 +73,11 @@ export default function Retro1() {
           }
 
           .cls-2 {
-            strokeWidth: 0.28px;
+            stroke-width: 0.28px;
           }
 
           .cls-23 {
-            clipPath: url(#clippath);
+            clip-path: url(#clippath);
           }
 
           .cls-3,
@@ -88,12 +88,12 @@ export default function Retro1() {
           .cls-28,
           .cls-29,
           .cls-30 {
-            strokeWidth: 0px;
+            stroke-width: 0px;
           }
 
           .cls-4,
           .cls-18 {
-            strokeWidth: 0.42px;
+            stroke-width: 0.42px;
           }
 
           .cls-5 {
@@ -107,7 +107,7 @@ export default function Retro1() {
 
           .cls-5,
           .cls-11 {
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-6 {
@@ -116,7 +116,7 @@ export default function Retro1() {
 
           .cls-6,
           .cls-12 {
-            strokeWidth: 0.7px;
+            stroke-width: 0.7px;
           }
 
           .cls-31 {
@@ -124,7 +124,7 @@ export default function Retro1() {
           }
 
           .cls-7 {
-            strokeWidth: 0.78px;
+            stroke-width: 0.78px;
           }
 
           .cls-7,
@@ -132,22 +132,22 @@ export default function Retro1() {
           .cls-13,
           .cls-18,
           .cls-21 {
-            strokeLinecap: round;
+            stroke-linecap: round;
           }
 
           .cls-7,
           .cls-8,
           .cls-18,
           .cls-21 {
-            strokeLinejoin: round;
+            stroke-linejoin: round;
           }
 
           .cls-8 {
-            strokeWidth: 1.17px;
+            stroke-width: 1.17px;
           }
 
           .cls-9 {
-            strokeWidth: 6.19px;
+            stroke-width: 6.19px;
           }
 
           .cls-9,
@@ -157,81 +157,81 @@ export default function Retro1() {
           }
 
           .cls-10 {
-            strokeWidth: 3.07px;
+            stroke-width: 3.07px;
           }
 
           .cls-32 {
-            clipPath: url(#clippath-1);
+            clip-path: url(#clippath-1);
           }
 
           .cls-33 {
-            clipPath: url(#clippath-4);
+            clip-path: url(#clippath-4);
           }
 
           .cls-34 {
-            clipPath: url(#clippath-3);
+            clip-path: url(#clippath-3);
           }
 
           .cls-35 {
-            clipPath: url(#clippath-2);
+            clip-path: url(#clippath-2);
           }
 
           .cls-36 {
-            clipPath: url(#clippath-6);
+            clip-path: url(#clippath-6);
           }
 
           .cls-37 {
-            clipPath: url(#clippath-5);
+            clip-path: url(#clippath-5);
           }
 
           .cls-38 {
-            clipPath: url(#clippath-20);
+            clip-path: url(#clippath-20);
           }
 
           .cls-39 {
-            clipPath: url(#clippath-21);
+            clip-path: url(#clippath-21);
           }
 
           .cls-40 {
-            clipPath: url(#clippath-24);
+            clip-path: url(#clippath-24);
           }
 
           .cls-41 {
-            clipPath: url(#clippath-23);
+            clip-path: url(#clippath-23);
           }
 
           .cls-42 {
-            clipPath: url(#clippath-22);
+            clip-path: url(#clippath-22);
           }
 
           .cls-43 {
-            clipPath: url(#clippath-13);
+            clip-path: url(#clippath-13);
           }
 
           .cls-44 {
-            clipPath: url(#clippath-15);
+            clip-path: url(#clippath-15);
           }
 
           .cls-45 {
-            clipPath: url(#clippath-16);
+            clip-path: url(#clippath-16);
           }
 
           .cls-46 {
-            clipPath: url(#clippath-19);
+            clip-path: url(#clippath-19);
           }
 
           .cls-47 {
-            clipPath: url(#clippath-18);
+            clip-path: url(#clippath-18);
           }
 
           .cls-13 {
             stroke-dasharray: 0 0 0.43 0.6;
-            strokeWidth: 0.22px;
+            stroke-width: 0.22px;
           }
 
           .cls-14,
           .cls-19 {
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-24 {
@@ -245,11 +245,11 @@ export default function Retro1() {
 
           .cls-16 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-17 {
-            strokeWidth: 3.3px;
+            stroke-width: 3.3px;
           }
 
           .cls-19 {
@@ -262,7 +262,7 @@ export default function Retro1() {
 
           .cls-20 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.08px;
+            stroke-width: 0.08px;
           }
 
           .cls-26 {
@@ -286,13 +286,34 @@ export default function Retro1() {
           }
 
           .cls-21 {
-            strokeWidth: 0.56px;
+            stroke-width: 0.56px;
           }
 
           .cls-22 {
             stroke-dasharray: 0 0.17;
-            strokeWidth: 0.14px;
+            stroke-width: 0.14px;
           }
+          .primaryColorFill {
+            fill:  gray;
+          }
+          .primaryColorStroke {
+            stroke:  gray;
+          }
+            .tertiaryColorFill {
+            fill: lightgray
+            }
+            .tertiaryColorStroke {
+            stroke: lightgray
+            }
+    
+            .secondaryColorFill {
+            fill: darkgray
+            }
+    
+            .secondaryColorStroke {
+            stroke: darkgray
+            }
+
         </style>
         <clipPath id="clippath">
           <path id="R-2" data-name="R" class="cls-3" d="m500.18,339.95c-24.61-.53-43.21-9.31-55.26-26.1-14.5-20.19-19.61-51.7-15.2-93.65,3.39-32.18,11.32-59.17,12.88-64.26l.25-.82-14.38-4.93-.75,2.05c-22.9,79.1-21.62,136.2,4.31,170.26,22.09,29.02,55.02,31.6,65.92,31.6.3,0,.58,0,.84,0l2.28-.08v-14.05l-.88-.02Z"></path>
@@ -2590,7 +2611,7 @@ export default function Retro1() {
 `;
 	return (
 		<div
-			className="w-full rounded bg-neutral-100"
+			className="jerseyDiv h-full w-full rounded bg-neutral-100"
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);
