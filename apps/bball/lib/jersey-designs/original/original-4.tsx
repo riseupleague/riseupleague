@@ -1,4 +1,4 @@
-export default function Original7() {
+export default function Original4() {
 	const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" data-name="Layer 1" viewBox="0 0 1443.14 1861.7">
       <defs>
@@ -110,6 +110,7 @@ export default function Original7() {
           .cls-16 {
             fill: #e9be1f;
           }
+
           .primaryColorFill {
             fill:  gray;
           }
@@ -130,7 +131,6 @@ export default function Original7() {
             .secondaryColorStroke {
             stroke: darkgray
             }
-
         </style>
         <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
           <feOffset dx="7" dy="7"></feOffset>
@@ -4364,7 +4364,6 @@ export default function Original7() {
         </g>
       </g>
     </svg>
-    
     `;
 	return (
 		<div className="w-full" dangerouslySetInnerHTML={{ __html: svgString }} />

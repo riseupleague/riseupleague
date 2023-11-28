@@ -9,8 +9,8 @@ import { Skeleton } from "@ui/components/skeleton";
 import Original2 from "@/lib/jersey-designs/original/original-2";
 import Original3 from "@/lib/jersey-designs/original/original-3";
 import Original5 from "@/lib/jersey-designs/original/original-5";
-import Original6 from "@/lib/jersey-designs/original/original-6";
-import Original7 from "@/lib/jersey-designs/original/original-7";
+import Original6 from "@/lib/jersey-designs/original/original-5";
+import Original7 from "@/lib/jersey-designs/original/original-6";
 import Original8 from "@/lib/jersey-designs/original/original-8";
 
 const numberToComponent = {
