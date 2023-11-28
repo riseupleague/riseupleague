@@ -124,14 +124,14 @@ export default function ChooseTeam({ division, session }) {
 																<path
 																	d="M11.8 5.5002C11.8 7.04659 10.5464 8.3002 8.99998 8.3002C7.45358 8.3002 6.19998 7.04659 6.19998 5.5002C6.19998 3.9538 7.45358 2.7002 8.99998 2.7002C10.5464 2.7002 11.8 3.9538 11.8 5.5002Z"
 																	stroke="#E5E5E5"
-																	stroke-linecap="round"
-																	stroke-linejoin="round"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
 																/>
 																<path
 																	d="M8.99998 10.4002C6.29378 10.4002 4.09998 12.594 4.09998 15.3002H13.9C13.9 12.594 11.7062 10.4002 8.99998 10.4002Z"
 																	stroke="#E5E5E5"
-																	stroke-linecap="round"
-																	stroke-linejoin="round"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
 																/>
 															</svg>
 															<div className="flex gap-1">

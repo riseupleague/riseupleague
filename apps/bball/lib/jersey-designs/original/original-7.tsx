@@ -40,11 +40,11 @@ export default function Original7() {
           }
 
           .cls-17 {
-            clip-path: url(#clippath-1);
+            clipPath: url(#clippath-1);
           }
 
           .cls-18 {
-            clip-path: url(#clippath-4);
+            clipPath: url(#clippath-4);
           }
 
           .cls-19 {
