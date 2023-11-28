@@ -182,11 +182,14 @@ export default function UserProfile({ session, user }): JSX.Element {
 															colors and designs!
 														</p>
 													</div>
-													<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-														<Link href={`/jersey/${player.team._id}`}>
+													<Link
+														className="w-full"
+														href={`/jersey/${player.team._id}`}
+													>
+														<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
 															Continue
-														</Link>
-													</Button>
+														</Button>
+													</Link>
 												</div>
 											</>
 										)}
@@ -209,9 +212,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 									player!
 								</p>
 							</div>
-							<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-								<Link href={`/register`}>Continue</Link>
-							</Button>
+							<Link className="w-full" href={`/register`}>
+								<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+									Continue
+								</Button>
+							</Link>
 						</div>
 					)}
 				</>
