@@ -4,7 +4,7 @@ export default function Original5() {
       <defs>
         <style>
           .cls-1 {
-            stroke-width: 7px;
+            strokeWidth: 7px;
           }
 
           .cls-1,
@@ -32,31 +32,31 @@ export default function Original5() {
           .cls-14,
           .cls-15,
           .cls-16 {
-            stroke-width: 0px;
+            strokeWidth: 0px;
           }
 
           .cls-3 {
-            stroke-width: 10px;
+            strokeWidth: 10px;
           }
 
           .cls-17 {
-            clip-path: url(#clippath-1);
+            clipPath: url(#clippath-1);
           }
 
           .cls-18 {
-            clip-path: url(#clippath-4);
+            clipPath: url(#clippath-4);
           }
 
           .cls-19 {
-            clip-path: url(#clippath-7);
+            clipPath: url(#clippath-7);
           }
 
           .cls-20 {
-            clip-path: url(#clippath-8);
+            clipPath: url(#clippath-8);
           }
 
           .cls-21 {
-            clip-path: url(#clippath-10);
+            clipPath: url(#clippath-10);
           }
 
           .cls-4,
@@ -84,7 +84,7 @@ export default function Original5() {
 
           .cls-5 {
             stroke: #000;
-            stroke-width: 6px;
+            strokeWidth: 6px;
           }
 
           .cls-6 {
