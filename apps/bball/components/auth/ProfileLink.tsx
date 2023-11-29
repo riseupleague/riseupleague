@@ -24,7 +24,7 @@ import {
 const ProfileLink = () => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
-	const { toast } = useToast()
+	const { toast } = useToast();
 
 	const openDialog = () => {
 		setOpen(true);

@@ -6,7 +6,7 @@ import Footer from "../components/structure/footer/footer";
 import { type ChildrenProps } from "../lib/types";
 import { NextAuthProvider } from "./Providers";
 import GoogleAnalytics from "@/components/general/GoogleAnalytics";
-import { Toaster } from "@ui/components/toaster"
+import { Toaster } from "@ui/components/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
