@@ -30,8 +30,8 @@ export default async function Page(): Promise<JSX.Element> {
 			<LatestGames />
 			{/* <MVPLadder /> */}
 			<Socials />
-			{/* <FAQs />
-			<ContactUs /> */}
+			{/* <FAQs /> */}
+			<ContactUs />
 		</div>
 	);
 }
