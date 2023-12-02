@@ -54,7 +54,6 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }) => {
 };
 
 export default function JerseySelection({ team }) {
-	console.log(team);
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);
 

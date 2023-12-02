@@ -25,14 +25,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 					{user.basketball.length > 0 ? (
 						<div className="flex w-full flex-col gap-10 ">
 							{user.basketball.map((player) => {
-								console.log("player:", player);
 								const jerseyEdition = player.team.jerseyEdition;
 								let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
 								if (jerseyEdition) {
 									edition = jerseyEdition.split("-")[0];
 								}
-
-								console.log(jerseyEdition);
 
 								// Dynamic import of the component
 								const DynamicComponent = dynamic(
@@ -257,8 +254,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 	const selectedNavItem = profileNav.find(
 		(navItem) => navItem.id === selectedSection
 	);
-
-	console.log(user.basketball);
 
 	return (
 		<div className="flex flex-col gap-10 lg:flex-row">

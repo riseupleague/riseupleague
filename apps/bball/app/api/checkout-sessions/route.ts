@@ -8,9 +8,8 @@ export async function POST(req: Request) {
 	await connectToDatabase();
 
 	const { items, formObject } = await req.json();
-
 	const parsedFormObject = JSON.parse(formObject);
-	console.log("formObject:", formObject);
+
 	try {
 		if (parsedFormObject.payment === "full") {
 			const session = await stripe.checkout.sessions.create({
