@@ -7,7 +7,6 @@ import { Textarea } from "@ui/components/textarea"
 export default function ContactForm(): JSX.Element {
 	const handleSubmit = async () => {
 		const res = await fetch("/api/email/contact")
-		console.log(res)
 	}
 
   return (
