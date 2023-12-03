@@ -1,6 +1,4 @@
-import {
-	getCurrentUser,
-} from "@/api-helpers/controllers/users-controller";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";

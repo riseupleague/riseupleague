@@ -1,6 +1,4 @@
-import {
-	getCurrentUser,
-} from "@/api-helpers/controllers/users-controller";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -34,7 +32,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 					<Link
 						href={`/choose-team-schedule/${player.team._id}`}
 						key={player._id}
-						className="rounded-5 flex flex-col gap-5 bg-neutral-700 px-[16px] py-[26px] text-start font-barlow text-xl"
+						className="rounded-5 font-barlow flex flex-col gap-5 bg-neutral-700 px-[16px] py-[26px] text-start text-xl"
 					>
 						{player.team.teamName}
 					</Link>

@@ -14,15 +14,14 @@ export async function POST() {
 			react: EmailTemplate({ firstName: "John" }),
 		});
 
-		console.log(NextResponse.json(data))
-		debugger
+		console.log(NextResponse.json(data));
+		debugger;
 
 		return NextResponse.json(data);
 	} catch (error) {
+		console.log(NextResponse.json(error));
 
-		console.log(NextResponse.json(error))
-
-		debugger
+		debugger;
 		return NextResponse.json({ error });
 	}
 }

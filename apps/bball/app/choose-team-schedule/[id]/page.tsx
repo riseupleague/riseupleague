@@ -1,11 +1,10 @@
-import {
-	getCurrentUser,
-} from "@/api-helpers/controllers/users-controller";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
+import ChooseSchedule from "@/components/register/choose-schedule/ChooseSchedule";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Choose Your Schedule",
@@ -35,6 +34,7 @@ export default async function Jersey({
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="mb-10">Choose Your Schedule</h1>
+			<ChooseSchedule team={team} user={user} />
 		</section>
 	);
 }
