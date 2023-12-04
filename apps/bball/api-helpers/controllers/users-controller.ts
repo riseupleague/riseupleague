@@ -112,7 +112,7 @@ export const getCurrentUser = async (email: string) => {
 				},
 			],
 			select:
-				"team division season playerName  instagram jerseyNumber jerseySize shortSize",
+				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
 		});
 
 		return NextResponse.json({

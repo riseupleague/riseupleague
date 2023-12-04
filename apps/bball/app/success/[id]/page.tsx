@@ -34,22 +34,25 @@ export default async function Success({
 	});
 
 	const convertToAMPM = (timeString) => {
-		const [hours, minutes] = timeString.split(":");
-		const date = new Date(2023, 0, 1, hours, minutes); // Assuming year 2023, month 0 (January), day 1
+		let formattedTime;
+		if (timeString) {
+			const [hours, minutes] = timeString.split(":");
+			const date = new Date(2023, 0, 1, hours, minutes); // Assuming year 2023, month 0 (January), day 1
 
-		// Format the time to AM/PM
-		const formattedTime = date.toLocaleTimeString("en-US", {
-			hour: "numeric",
-			minute: "numeric",
-			hour12: true,
-		});
+			// Format the time to AM/PM
+			formattedTime = date.toLocaleTimeString("en-US", {
+				hour: "numeric",
+				minute: "numeric",
+				hour12: true,
+			});
+		}
 
 		return formattedTime;
 	};
 
 	// Example usage:
-	const startTimeAMPM = convertToAMPM(division.startTime);
-	const endTimeAMPM = convertToAMPM(division.endTime);
+	const startTimeAMPM = convertToAMPM(division?.startTime);
+	const endTimeAMPM = convertToAMPM(division?.endTime);
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
@@ -57,7 +60,7 @@ export default async function Success({
 				You have successfully{" "}
 				{selectedPlayer?.teamCaptain ? "registered" : "joined"}{" "}
 				{selectedPlayer?.team.teamName}{" "}
-				{selectedPlayer?.teamCaptain ? "to" : "in"} {division.divisionName}{" "}
+				{selectedPlayer?.teamCaptain ? "to" : "in"} {division?.divisionName}{" "}
 				division!{" "}
 			</h1>
 			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
@@ -68,10 +71,10 @@ export default async function Success({
 				Season Summary
 			</h3>
 			<ul className="my-5 rounded border border-neutral-600 p-3 uppercase text-white">
-				<li className="my-1">Division: {division.divisionName}</li>
-				<li className="my-1">Arena: {division.location}</li>
+				<li className="my-1">Division: {division?.divisionName}</li>
+				<li className="my-1">Arena: {division?.location}</li>
 				<li className="my-1">
-					Game Days: {division.day} at {startTimeAMPM} - {endTimeAMPM}
+					Game Days: {division?.day} at {startTimeAMPM} - {endTimeAMPM}
 				</li>
 				<li className="my-1">
 					Season Length: 7 Regular games + 1 guaranteed playoff game
@@ -95,9 +98,11 @@ export default async function Success({
 							designs!
 						</p>
 					</div>
-					<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-						<Link href={`/jersey/${selectedPlayer.team._id}`}>Continue</Link>
-					</Button>
+					<Link href={`/jersey/${selectedPlayer.team._id}`}>
+						<Button className=" font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+							Continue
+						</Button>
+					</Link>
 				</div>
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 					<div>

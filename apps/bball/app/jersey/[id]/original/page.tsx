@@ -18,11 +18,13 @@ export const metadata: Metadata = {
 import Original1 from "@/lib/jersey-designs/original/original-1";
 import Original2 from "@/lib/jersey-designs/original/original-2";
 import Original3 from "@/lib/jersey-designs/original/original-3";
-// import Original4 from "@/lib/jersey-designs/original/original-4";
+import Original4 from "@/lib/jersey-designs/original/original-4";
 import Original5 from "@/lib/jersey-designs/original/original-5";
 import Original6 from "@/lib/jersey-designs/original/original-6";
-// import Original7 from "@/lib/jersey-designs/original/original-7";
-// import Original8 from "@/lib/jersey-designs/original/original-8";
+import Original7 from "@/lib/jersey-designs/original/original-7";
+import Original8 from "@/lib/jersey-designs/original/original-8";
+import Original9 from "@/lib/jersey-designs/original/original-9";
+import Original10 from "@/lib/jersey-designs/original/original-10";
 
 export default async function Original({
 	params,
@@ -62,11 +64,13 @@ export default async function Original({
 		1: Original1(),
 		2: Original2(),
 		3: Original3(),
-		// 4: Original4(),
+		4: Original4(),
 		5: Original5(),
 		6: Original6(),
-		// 7: Original7(),
-		// 8: Original8(),
+		7: Original7(),
+		8: Original8(),
+		9: Original9(),
+		10: Original10(),
 	};
 
 	return (
