@@ -20,8 +20,12 @@ export default function ChooseSchedule({ team, user }) {
 	// const scheduleAvailable = true;
 
 	const teamCaptain = team.players.filter((player) => player.teamCaptain)[0];
-	const isTeamCaptain = user._id === teamCaptain._id;
+	const isTeamCaptain = user._id === teamCaptain.user;
 	// const isTeamCaptain = true;
+
+	const otherTeams = divisionTeams.filter(
+		(otherTeam) => otherTeam !== team._id
+	);
 
 	// this is a placeholder, use actual db times later
 	const weekTimes = [
@@ -75,7 +79,7 @@ export default function ChooseSchedule({ team, user }) {
 
 								<AlertDescription>
 									<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-										{divisionTeams.map((team, index) => (
+										{otherTeams.map((team, index) => (
 											<article key={index} className="text-lg">
 												Team #{index}
 												<pre>{team}</pre>
