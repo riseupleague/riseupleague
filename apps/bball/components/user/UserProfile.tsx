@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
 
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
@@ -8,13 +9,95 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
+import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetFooter,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@ui/components/sheet";
 
 export default function UserProfile({ session, user }): JSX.Element {
 	const [selectedSection, setSelectedSection] = useState("overview");
+	const [isSmallScreen, setIsSmallScreen] = useState(false);
+	const [isLoader, setIsLoader] = useState(false);
+	const [playerJerseyName, setPlayerJerseyName] = useState("");
+	const [playerJerseyNumber, setPlayerJerseyNumber] = useState("");
+	const [playerJerseySize, setPlayerJerseySize] = useState("");
+	const [playerShortSize, setPlayerShortSize] = useState("");
+	const [playerInstagram, setPlayerInstagram] = useState("");
 
+	const [playerFormObject, setPlayerFormObject] = useState({
+		instagram: "",
+		jerseyName: "",
+		jerseyNumber: "",
+		jerseySize: "",
+		shortSize: "",
+	});
+
+	const handleChosenPlayer = (player) => {
+		const chosenPlayerFormObject = {
+			instagram: player?.instagram || "",
+			jerseyName: player?.jerseyName || "",
+			jerseyNumber: player?.jerseyNumber || "",
+			jerseySize: player?.jerseySize || "",
+			shortSize: player?.shortSize || "",
+		};
+		setPlayerFormObject(chosenPlayerFormObject);
+	};
+
+	const handlePlayerInputChange = (field, value) => {
+		setPlayerFormObject((prev) => ({ ...prev, [field]: value }));
+	};
+
+	const handleEditPlayer = async (id: string) => {
+		setIsLoader(true);
+
+		const res = await fetch("/api/update-player", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ ...playerFormObject, playerId: id }),
+		});
+
+		if (res.ok) {
+			const { player } = await res.json();
+			setPlayerJerseyName(player.jerseyName);
+			setPlayerJerseyNumber(player.jerseyNumber);
+			setPlayerJerseySize(player.jerseySize);
+			setPlayerShortSize(player.shortSize);
+			setPlayerInstagram(player.instagram);
+			setIsLoader(false);
+		}
+	};
+
+	useEffect(() => {
+		// Function to handle window resize
+		const handleResize = () => {
+			setIsSmallScreen(window.innerWidth < 640); // Adjust the threshold as needed
+		};
+
+		// Add event listener for window resize
+		window.addEventListener("resize", handleResize);
+
+		// Call handleResize on chosen mount
+		handleResize();
+
+		// Clean up the event listener on component unmount
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
+	console.log("user:", user.basketball[0]);
+
+	console.log("playerFormObject:", playerFormObject);
 
 	const profileNav = [
 		{
@@ -70,13 +153,33 @@ export default function UserProfile({ session, user }): JSX.Element {
 												<span>Team:</span>
 												<span>{player.team.teamName}</span>
 											</li>
+											{player.jerseyName && player.jerseyName !== "" && (
+												<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
+													<div className="flex justify-between">
+														<span>Custom Jersey Name:</span>
+														<span className="uppercase">
+															{playerJerseyName !== ""
+																? playerJerseyName
+																: player.jerseyName}
+														</span>
+													</div>
+												</li>
+											)}
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Instagram:</span>
-												<span>{player.instagram}</span>
+												<span>
+													{playerInstagram !== ""
+														? playerInstagram
+														: player.instagram}
+												</span>
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Number:</span>
-												<span>{player.jerseyNumber}</span>
+												<span>
+													{playerJerseyNumber !== ""
+														? playerJerseyNumber
+														: player.jerseyNumber}
+												</span>
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Edition:</span>
@@ -84,11 +187,162 @@ export default function UserProfile({ session, user }): JSX.Element {
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Top:</span>
-												<span>{player.jerseySize}</span>
+												<span>
+													{playerJerseySize !== ""
+														? playerJerseySize
+														: player.jerseySize}
+												</span>
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Bottom:</span>
-												<span>{player.shortSize}</span>
+												<span>
+													{playerShortSize !== ""
+														? playerShortSize
+														: player.shortSize}
+												</span>
+											</li>
+											<li className="flex justify-end border-b border-t border-neutral-600 p-4">
+												<Sheet>
+													<SheetTrigger asChild>
+														{isLoader ? (
+															<Button
+																type="submit"
+																className="h-[50px] w-[200px]"
+															>
+																<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+															</Button>
+														) : (
+															<Button
+																onClick={() => handleChosenPlayer(player)}
+															>
+																Edit Player
+															</Button>
+														)}
+													</SheetTrigger>
+													<SheetContent
+														side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
+														className={`w-full bg-neutral-900 ${
+															isSmallScreen ? "h-[85%]" : ""
+														}`}
+													>
+														<SheetHeader>
+															<SheetTitle className="font-barlow text-2xl uppercase">
+																Edit Player
+															</SheetTitle>
+														</SheetHeader>
+														<SheetDescription>
+															<div className="mt-10 flex flex-col gap-4">
+																{player.jerseyName &&
+																	player.jerseyName !== "" && (
+																		<div className="flex flex-col gap-3">
+																			<Label
+																				htmlFor="jerseyName"
+																				className="uppercase"
+																			>
+																				Custom Jersey Name
+																			</Label>
+																			<Input
+																				className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																				value={playerFormObject.jerseyName}
+																				onChange={(e) =>
+																					handlePlayerInputChange(
+																						"jerseyName",
+																						e.target.value
+																					)
+																				}
+																				id="jerseyName"
+																			/>
+																		</div>
+																	)}
+																<div className="flex flex-col gap-3">
+																	<Label
+																		htmlFor="jerseyNumber"
+																		className="uppercase"
+																	>
+																		Jersey Number
+																	</Label>
+																	<Input
+																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																		value={playerFormObject?.jerseyNumber}
+																		onChange={(e) =>
+																			handlePlayerInputChange(
+																				"jerseyNumber",
+																				e.target.value
+																			)
+																		}
+																		id="jerseyNumber"
+																	/>
+																</div>
+																<div className="flex flex-col gap-3">
+																	<Label
+																		htmlFor="jerseySize"
+																		className="uppercase"
+																	>
+																		Jersey Size
+																	</Label>
+																	<Input
+																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																		value={playerFormObject?.jerseySize}
+																		onChange={(e) =>
+																			handlePlayerInputChange(
+																				"jerseySize",
+																				e.target.value
+																			)
+																		}
+																		id="jerseySize"
+																	/>
+																</div>
+																<div className="flex flex-col gap-3">
+																	<Label
+																		htmlFor="shortSize"
+																		className="uppercase"
+																	>
+																		Short Size
+																	</Label>
+																	<Input
+																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																		value={playerFormObject?.shortSize}
+																		onChange={(e) =>
+																			handlePlayerInputChange(
+																				"shortSize",
+																				e.target.value
+																			)
+																		}
+																		id="shortSize"
+																	/>
+																</div>
+																<div className="flex flex-col gap-3">
+																	<Label
+																		htmlFor="shortSize"
+																		className="uppercase"
+																	>
+																		Instagram
+																	</Label>
+																	<Input
+																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																		value={playerFormObject?.instagram}
+																		onChange={(e) =>
+																			handlePlayerInputChange(
+																				"instagram",
+																				e.target.value
+																			)
+																		}
+																		id="instagram"
+																	/>
+																</div>
+															</div>
+														</SheetDescription>
+														<SheetFooter className="mt-10 flex gap-2">
+															<SheetClose asChild>
+																<Button
+																	onClick={() => handleEditPlayer(player._id)}
+																>
+																	Submit
+																</Button>
+															</SheetClose>
+														</SheetFooter>
+													</SheetContent>
+												</Sheet>
 											</li>
 										</ul>
 										{jerseyEdition && jerseyEdition !== "" ? (
@@ -179,11 +433,14 @@ export default function UserProfile({ session, user }): JSX.Element {
 															colors and designs!
 														</p>
 													</div>
-													<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-														<Link href={`/jersey/${player.team._id}`}>
+													<Link
+														className="w-full"
+														href={`/jersey/${player.team._id}`}
+													>
+														<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
 															Continue
-														</Link>
-													</Button>
+														</Button>
+													</Link>
 												</div>
 											</>
 										)}
@@ -206,12 +463,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 									player!
 								</p>
 							</div>
-							<Button
-								asChild
-								className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
-							>
-								<Link href="/register">Continue</Link>
-							</Button>
+							<Link className="w-full" href={`/register`}>
+								<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+									Continue
+								</Button>
+							</Link>
 						</div>
 					)}
 				</>
@@ -257,19 +513,51 @@ export default function UserProfile({ session, user }): JSX.Element {
 		(navItem) => navItem.id === selectedSection
 	);
 
+	console.log(session.user);
+
 	return (
 		<div className="flex flex-col gap-10 lg:flex-row">
 			<div className="flex h-96 w-full flex-col border border-neutral-600 bg-neutral-700 p-5 lg:w-1/4">
 				<h2 className="mb-10 text-center">{session.user.name}</h2>
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col gap-3">
-						<Label htmlFor="email" className="uppercase">
+						<Label htmlFor="username" className="uppercase">
 							Name
+							<Sheet>
+								<SheetTrigger asChild>
+									{isLoader ? (
+										<span className="h-[50px] w-[200px]">
+											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										</span>
+									) : (
+										<span>Edit Profile</span>
+									)}
+								</SheetTrigger>
+								<SheetContent
+									side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
+									className={`w-full bg-neutral-900 ${
+										isSmallScreen ? "h-[85%]" : ""
+									}`}
+								>
+									<SheetHeader>
+										<SheetTitle className="font-barlow text-2xl uppercase">
+											Edit Profile
+										</SheetTitle>
+									</SheetHeader>
+									<SheetDescription></SheetDescription>
+									<SheetFooter className="mt-10 flex gap-2">
+										<SheetClose asChild>
+											<Button>Submit</Button>
+										</SheetClose>
+									</SheetFooter>
+								</SheetContent>
+							</Sheet>
 						</Label>
 						<Input
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
 							value={session.user.name}
 							disabled
+							id="username"
 						/>
 					</div>
 					<div className="flex flex-col gap-3">
@@ -280,6 +568,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
 							value={session.user.email}
 							disabled
+							id="email"
 						/>
 					</div>
 				</div>
