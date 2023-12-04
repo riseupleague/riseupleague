@@ -65,6 +65,7 @@ const authOptions = {
 					console.error("Error during sign-in:", e);
 				}
 			}
+
 			return user;
 		},
 	},

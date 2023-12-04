@@ -91,8 +91,7 @@ export default function RetroJersey({
 		}
 
 		const isColorInTeam = team.division.teamColors.includes(primaryColor);
-		console.log(isColorInTeam, oldPrimaryColor, primaryColor);
-		console.log(oldPrimaryColor !== primaryColor);
+
 		if (isColorInTeam && oldPrimaryColor !== primaryColor) {
 			errors.primaryColor = "Primary color is already selected by another team";
 		}
@@ -179,8 +178,7 @@ export default function RetroJersey({
 		setIsLoader(true);
 
 		const errors = validateForm();
-		console.log(errors);
-		console.log(Object.keys(errors).length);
+
 		if (Object.keys(errors).length === 0) {
 			const formObject = {
 				teamId: team._id,
@@ -208,7 +206,6 @@ export default function RetroJersey({
 			setIsLoader(false);
 		}
 	};
-	console.log("team:", team);
 
 	// const colors = {
 	// 	"#3498db": "Blue",

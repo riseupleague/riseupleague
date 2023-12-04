@@ -108,7 +108,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 					{user.basketball.length > 0 ? (
 						<div className="flex w-full flex-col gap-10 ">
 							{user.basketball.map((player) => {
-								console.log("player:", player);
 								const jerseyEdition = player.team.jerseyEdition;
 								let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
 								if (jerseyEdition) {
@@ -486,7 +485,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 		{
 			id: "previousGames",
 			label: "Previous",
-			// component: <PreviousGames player={player} />,
 			component: (
 				<div className="flex w-full flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px] lg:w-1/2">
 					<div>
@@ -500,10 +498,10 @@ export default function UserProfile({ session, user }): JSX.Element {
 						<p>You decide on what time your team will play in. </p>{" "}
 					</div>
 					<Button
-						disabled
+						asChild
 						className="font-barlow mt-16 rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
-						Coming Soon
+						<Link href="/choose-team-schedule">Select Dates</Link>
 					</Button>
 				</div>
 			),

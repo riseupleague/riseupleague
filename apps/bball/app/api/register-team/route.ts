@@ -12,8 +12,6 @@ export async function POST(req: Request) {
 		const { teamName, teamNameShort, teamCode, division, season, teamId } =
 			await req.json();
 
-		console.log(teamName, teamNameShort, teamCode, division, season, teamId);
-
 		// Check for required input fields
 		if (
 			!teamName ||

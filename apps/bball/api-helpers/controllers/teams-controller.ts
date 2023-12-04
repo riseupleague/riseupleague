@@ -104,10 +104,7 @@ export const getTeamById = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)
 			.populate("players")
-			.populate({
-				path: "division",
-				select: "divisionName teamColors",
-			})
+			.populate("division")
 			.select(
 				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
 			);

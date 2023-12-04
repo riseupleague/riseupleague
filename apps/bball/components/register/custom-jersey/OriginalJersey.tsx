@@ -178,8 +178,7 @@ export default function OriginalJersey({
 		setIsLoader(true);
 
 		const errors = validateForm();
-		console.log(errors);
-		console.log(Object.keys(errors).length);
+
 		if (Object.keys(errors).length === 0) {
 			const formObject = {
 				teamId: team._id,
@@ -207,7 +206,6 @@ export default function OriginalJersey({
 			setIsLoader(false);
 		}
 	};
-	console.log("team:", team);
 
 	const colors = {
 		"#ffb3ba": "pastel-red",
