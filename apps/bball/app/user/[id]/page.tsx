@@ -30,7 +30,6 @@ export default async function User({
 
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
-	console.log(user);
 
 	return (
 		<section className="container mx-auto">

@@ -54,7 +54,6 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }) => {
 };
 
 export default function JerseySelection({ team }) {
-	console.log(team);
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);
 
@@ -120,7 +119,7 @@ export default function JerseySelection({ team }) {
 						<button
 							onClick={() => {
 								setIsEditionSelected(true);
-								setNumOfJersey(8);
+								setNumOfJersey(10);
 								setSelectedEdition("original");
 							}}
 							className="flex flex-col gap-5 rounded-md bg-neutral-700 px-[16px] py-[26px] text-start "
@@ -167,11 +166,6 @@ export default function JerseySelection({ team }) {
 					</button>
 					<h3 className="mt-10  text-3xl uppercase ">
 						{selectedEdition} Edition{" "}
-						{selectedEdition === "original" && (
-							<span className="text-xs">
-								(4, 7, 8, 9 and 10 are still missing. Will update soon!)
-							</span>
-						)}
 					</h3>
 					<div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
 						{Array.from({ length: numOfJersey }, (_, index) => (
