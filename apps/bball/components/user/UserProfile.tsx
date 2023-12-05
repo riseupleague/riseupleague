@@ -186,18 +186,16 @@ export default function UserProfile({ session, user }): JSX.Element {
 												<span>Team:</span>
 												<span>{player.team.teamName}</span>
 											</li>
-											{player.jerseyName && player.jerseyName !== "" && (
-												<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
-													<div className="flex justify-between">
-														<span>Custom Jersey Name:</span>
-														<span className="uppercase">
-															{playerJerseyName !== ""
-																? playerJerseyName
-																: player.jerseyName}
-														</span>
-													</div>
-												</li>
-											)}
+											<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
+												<div className="flex justify-between">
+													<span>Custom Jersey Name:</span>
+													<span className="uppercase">
+														{playerJerseyName !== ""
+															? playerJerseyName
+															: player.jerseyName}
+													</span>
+												</div>
+											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Instagram:</span>
 												<span>
@@ -264,28 +262,26 @@ export default function UserProfile({ session, user }): JSX.Element {
 														</SheetHeader>
 														<SheetDescription>
 															<div className="mt-10 flex flex-col gap-4">
-																{player.jerseyName &&
-																	player.jerseyName !== "" && (
-																		<div className="flex flex-col gap-3">
-																			<Label
-																				htmlFor="jerseyName"
-																				className="uppercase"
-																			>
-																				Custom Jersey Name
-																			</Label>
-																			<Input
-																				className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-																				value={playerFormObject.jerseyName}
-																				onChange={(e) =>
-																					handlePlayerInputChange(
-																						"jerseyName",
-																						e.target.value
-																					)
-																				}
-																				id="jerseyName"
-																			/>
-																		</div>
-																	)}
+																<div className="flex flex-col gap-3">
+																	<Label
+																		htmlFor="jerseyName"
+																		className="uppercase"
+																	>
+																		Custom Jersey Name
+																	</Label>
+																	<Input
+																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+																		value={playerFormObject.jerseyName}
+																		onChange={(e) =>
+																			handlePlayerInputChange(
+																				"jerseyName",
+																				e.target.value
+																			)
+																		}
+																		id="jerseyName"
+																	/>
+																</div>
+
 																<div className="flex flex-col gap-3">
 																	<Label
 																		htmlFor="jerseyNumber"
