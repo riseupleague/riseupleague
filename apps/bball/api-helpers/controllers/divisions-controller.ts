@@ -250,7 +250,7 @@ export const getRegisterDivisionById = async (id: string) => {
 			},
 		})
 		.select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId"
 		);
 
 	if (!division) {
