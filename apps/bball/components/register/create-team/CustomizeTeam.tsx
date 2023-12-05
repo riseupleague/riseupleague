@@ -179,8 +179,6 @@ export default function CustomizeTeam({ division, session }) {
 				divisionName: division.divisionName,
 			};
 
-			console.log("formObject:", formObject);
-
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
 		} catch (error) {
 			console.error("Error creating team:", error);

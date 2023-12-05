@@ -15,15 +15,7 @@ export default async function User(): Promise<JSX.Element> {
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
-	if (!session || !session.user) {
-		redirect("/");
-	} else {
-		redirect(`/user/${user._id}`);
-	}
 
-	return (
-		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1>Welcome to rise up basketball</h1>
-		</main>
-	);
+	if (!session || !session.user) redirect("/");
+	else redirect(`/user/${user._id}`);
 }

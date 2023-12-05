@@ -12,7 +12,8 @@
 		"CLIENT_EMAIL",
 		"CLIENT_ID",
 		"PRIVATE_KEY",
-		"GOOGLE_ANALYTICS_ID"
+		"GOOGLE_ANALYTICS_ID",
+		"RESEND_API_KEY"
 	],
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],

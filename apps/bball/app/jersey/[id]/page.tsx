@@ -39,7 +39,6 @@ export default async function Jersey({
 
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
-	console.log(user);
 
 	const isUserInTeam = user.basketball.some((userPlayer) => {
 		// Check if userPlayer._id exists in team.players
