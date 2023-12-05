@@ -549,6 +549,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 					</div>
 					<Button
 						asChild
+						disabled
 						className="font-barlow mt-16 rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
 						<Link href="/choose-team-schedule">Select Dates</Link>
