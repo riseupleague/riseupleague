@@ -100,7 +100,11 @@ export const getCurrentUser = async (email: string) => {
 				{
 					path: "team",
 					select:
-						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition",
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players",
+					populate: {
+						path: "players",
+						model: "Player",
+					},
 				},
 				{
 					path: "division",

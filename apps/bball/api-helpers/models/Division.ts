@@ -24,6 +24,7 @@ const divisionSchema = new Schema({
 	description: { type: String, required: true },
 	earlyBirdOpen: { type: Boolean, required: true },
 	earlyBirdId: { type: String },
+	earlyBirdInstalmentId: { type: String },
 	regularPriceFullId: { type: String },
 	regularPriceInstalmentId: { type: String },
 });

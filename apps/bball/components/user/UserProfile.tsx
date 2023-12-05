@@ -20,6 +20,15 @@ import {
 	SheetTrigger,
 } from "@ui/components/sheet";
 
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@ui/components/select";
+
 export default function UserProfile({ session, user }): JSX.Element {
 	const [selectedSection, setSelectedSection] = useState("overview");
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -38,13 +47,15 @@ export default function UserProfile({ session, user }): JSX.Element {
 		shortSize: "",
 	});
 
+	const [jerseyNumberError, setJerseyNumberError] = useState("");
+
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
-			instagram: player?.instagram || "",
-			jerseyName: player?.jerseyName || "",
-			jerseyNumber: player?.jerseyNumber || "",
-			jerseySize: player?.jerseySize || "",
-			shortSize: player?.shortSize || "",
+			instagram: playerInstagram || player?.instagram || "",
+			jerseyName: playerJerseyName || player?.jerseyName || "",
+			jerseyNumber: playerJerseyNumber || player?.jerseyNumber || "",
+			jerseySize: playerJerseySize || player?.jerseySize || "",
+			shortSize: playerShortSize || player?.shortSize || "",
 		};
 		setPlayerFormObject(chosenPlayerFormObject);
 	};
@@ -54,6 +65,20 @@ export default function UserProfile({ session, user }): JSX.Element {
 	};
 
 	const handleEditPlayer = async (id: string) => {
+		const player = user.basketball.find((player) => player._id === id);
+		const jerseyNumberExists = player.team.players.some((teammate) => {
+			return teammate.jerseyNumber.toString() === playerFormObject.jerseyNumber;
+		});
+
+		if (jerseyNumberExists) {
+			setJerseyNumberError(
+				"Jersey number is already taken. Please choose a different number."
+			);
+			setIsLoader(false);
+			return;
+		} else {
+			setJerseyNumberError("");
+		}
 		setIsLoader(true);
 
 		const res = await fetch("/api/update-player", {
@@ -66,14 +91,25 @@ export default function UserProfile({ session, user }): JSX.Element {
 
 		if (res.ok) {
 			const { player } = await res.json();
+			console.log(player);
 			setPlayerJerseyName(player.jerseyName);
 			setPlayerJerseyNumber(player.jerseyNumber);
 			setPlayerJerseySize(player.jerseySize);
 			setPlayerShortSize(player.shortSize);
 			setPlayerInstagram(player.instagram);
+			const chosenPlayerFormObject = {
+				instagram: player?.instagram || "",
+				jerseyName: player?.jerseyName || "",
+				jerseyNumber: player?.jerseyNumber || "",
+				jerseySize: player?.jerseySize || "",
+				shortSize: player?.shortSize || "",
+			};
+
+			setPlayerFormObject(chosenPlayerFormObject);
 			setIsLoader(false);
 		}
 	};
+	console.log(playerFormObject);
 
 	useEffect(() => {
 		// Function to handle window resize
@@ -95,9 +131,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
-	console.log("user:", user.basketball[0]);
-
-	console.log("playerFormObject:", playerFormObject);
 
 	const profileNav = [
 		{
@@ -108,7 +141,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 					{user.basketball.length > 0 ? (
 						<div className="flex w-full flex-col gap-10 ">
 							{user.basketball.map((player) => {
-								console.log("player:", player);
 								const jerseyEdition = player.team.jerseyEdition;
 								let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
 								if (jerseyEdition) {
@@ -174,13 +206,15 @@ export default function UserProfile({ session, user }): JSX.Element {
 														: player.instagram}
 												</span>
 											</li>
-											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-												<span>Jersey Number:</span>
-												<span>
-													{playerJerseyNumber !== ""
-														? playerJerseyNumber
-														: player.jerseyNumber}
-												</span>
+											<li className="border-b border-t border-neutral-600 p-4">
+												<div className="flex justify-between ">
+													<span>Jersey Number:</span>
+													<span>
+														{playerJerseyNumber !== ""
+															? playerJerseyNumber
+															: player.jerseyNumber}
+													</span>
+												</div>
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Edition:</span>
@@ -202,14 +236,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 														: player.shortSize}
 												</span>
 											</li>
-											<li className="flex justify-end border-b border-t border-neutral-600 p-4">
+											<li className="flex flex-col justify-end  border-b border-t border-neutral-600 p-4">
 												<Sheet>
 													<SheetTrigger asChild>
 														{isLoader ? (
-															<Button
-																type="submit"
-																className="h-[50px] w-[200px]"
-															>
+															<Button type="submit">
 																<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 															</Button>
 														) : (
@@ -275,15 +306,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 																	/>
 																</div>
 																<div className="flex flex-col gap-3">
-																	<Label
-																		htmlFor="jerseySize"
-																		className="uppercase"
-																	>
+																	<Label className="uppercase">
+																		{" "}
 																		Jersey Size
 																	</Label>
-																	<Input
-																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-																		value={playerFormObject?.jerseySize}
+																	<select
 																		onChange={(e) =>
 																			handlePlayerInputChange(
 																				"jerseySize",
@@ -291,7 +318,17 @@ export default function UserProfile({ session, user }): JSX.Element {
 																			)
 																		}
 																		id="jerseySize"
-																	/>
+																		value={playerFormObject?.jerseySize}
+																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
+																	>
+																		<option value="SM">SM</option>
+																		<option value="MD">MD</option>
+																		<option value="LG">LG</option>
+																		<option value="XL">XL</option>
+																		<option value="XXL">XXL</option>
+																		<option value="XXXL">XXXL</option>
+																		<option value="XXXXL">XXXXL</option>
+																	</select>
 																</div>
 																<div className="flex flex-col gap-3">
 																	<Label
@@ -300,9 +337,8 @@ export default function UserProfile({ session, user }): JSX.Element {
 																	>
 																		Short Size
 																	</Label>
-																	<Input
-																		className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-																		value={playerFormObject?.shortSize}
+
+																	<select
 																		onChange={(e) =>
 																			handlePlayerInputChange(
 																				"shortSize",
@@ -310,7 +346,17 @@ export default function UserProfile({ session, user }): JSX.Element {
 																			)
 																		}
 																		id="shortSize"
-																	/>
+																		value={playerFormObject?.shortSize}
+																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
+																	>
+																		<option value="SM">SM</option>
+																		<option value="MD">MD</option>
+																		<option value="LG">LG</option>
+																		<option value="XL">XL</option>
+																		<option value="XXL">XXL</option>
+																		<option value="XXXL">XXXL</option>
+																		<option value="XXXXL">XXXXL</option>
+																	</select>
 																</div>
 																<div className="flex flex-col gap-3">
 																	<Label
@@ -344,6 +390,9 @@ export default function UserProfile({ session, user }): JSX.Element {
 														</SheetFooter>
 													</SheetContent>
 												</Sheet>
+												<p className="text-primary  mt-2 text-sm">
+													{jerseyNumberError}
+												</p>
 											</li>
 										</ul>
 										{jerseyEdition && jerseyEdition !== "" ? (
@@ -514,8 +563,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 	const selectedNavItem = profileNav.find(
 		(navItem) => navItem.id === selectedSection
 	);
-
-	console.log(session.user);
 
 	return (
 		<div className="flex flex-col gap-10 lg:flex-row">

@@ -209,6 +209,38 @@ export default function CustomizeTeam({ division, session }) {
 		}
 	};
 
+	// instalment payments dates
+	// Function to convert a date to Eastern Standard Time (EST)
+	const convertToEST = (date) => {
+		const estOffset = -5 * 60; // Eastern Standard Time offset in minutes
+		const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+		return new Date(utc + 60000 * estOffset);
+	};
+
+	// Get the original first payment date in EST
+	const originalFirstPaymentDate = convertToEST(new Date());
+
+	// Calculate the second payment date (2 weeks after the first payment)
+	const secondPaymentDate = new Date(originalFirstPaymentDate);
+	secondPaymentDate.setDate(originalFirstPaymentDate.getDate() + 14); // Add 14 days
+
+	// Format the dates for display
+	const options: Intl.DateTimeFormatOptions = {
+		weekday: "long",
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	};
+	const firstPayment = originalFirstPaymentDate.toLocaleDateString(
+		"en-US",
+		options
+	);
+	const secondPayment = secondPaymentDate.toLocaleDateString("en-US", options);
+
+	console.log("First Payment:", firstPayment);
+	console.log("Second Payment:", secondPayment);
+	console.log(division.earlyBirdInstalmentId);
+
 	return (
 		<>
 			{!isSummary ? (
@@ -780,15 +812,23 @@ export default function CustomizeTeam({ division, session }) {
 								)}
 							</Button>
 
-							{!division.earlyBirdOpen && (
+							{division.earlyBirdOpen && (
 								<>
 									<Separator
 										orientation="horizontal"
 										className="bg-neutral-600"
 									/>{" "}
 									<p className="text-4xl">
+										$
+										{division.earlyBirdOpen
+											? (division.earlyBirdPrice / 2).toFixed(2)
+											: (division.regularPrice / 2).toFixed(2)}{" "}
 										<span className="text-sm text-neutral-50">
-											Today + 3 more {division.instalmentPrice} bi-weekly
+											Today + another $
+											{division.earlyBirdOpen
+												? (division.earlyBirdPrice / 2).toFixed(2)
+												: (division.regularPrice / 2).toFixed(2)}{" "}
+											in 2 weeks
 										</span>
 									</p>
 									<Table>
@@ -802,33 +842,38 @@ export default function CustomizeTeam({ division, session }) {
 										<TableBody>
 											<TableRow className="uppercase">
 												<TableCell>1st</TableCell>
-												<TableCell>sep 4, 2023</TableCell>
-												<TableCell>{division.instalmentPrice}</TableCell>
+												<TableCell>{firstPayment}</TableCell>
+												<TableCell>
+													$
+													{division.earlyBirdOpen
+														? (division.earlyBirdPrice / 2).toFixed(2)
+														: (division.regularPrice / 2).toFixed(2)}
+												</TableCell>
 											</TableRow>
 											<TableRow className="uppercase">
 												<TableCell>2nd</TableCell>
-												<TableCell>sep 4, 2023</TableCell>
-												<TableCell>{division.instalmentPrice}</TableCell>
-											</TableRow>
-											<TableRow className="uppercase">
-												<TableCell>3rd</TableCell>
-												<TableCell>sep 4, 2023</TableCell>
-												<TableCell>{division.instalmentPrice}</TableCell>
-											</TableRow>
-											<TableRow className="uppercase">
-												<TableCell>4th</TableCell>
-												<TableCell>sep 4, 2023</TableCell>
-												<TableCell>{division.instalmentPrice}</TableCell>
+												<TableCell>{secondPayment}</TableCell>
+												<TableCell>
+													$
+													{division.earlyBirdOpen
+														? (division.earlyBirdPrice / 2).toFixed(2)
+														: (division.regularPrice / 2).toFixed(2)}
+												</TableCell>
 											</TableRow>
 										</TableBody>
 									</Table>
 									<Button
-										onClick={() =>
-											handleCreateTeamAndPlayer(
-												division.regularPriceInstalmentId,
-												"four"
-											)
-										}
+										onClick={() => {
+											division.earlyBirdOpen
+												? handleCreateTeamAndPlayer(
+														division.earlyBirdInstalmentId,
+														"four"
+												  )
+												: handleCreateTeamAndPlayer(
+														division.regularPriceInstalmentId,
+														"four"
+												  );
+										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"
 									>
