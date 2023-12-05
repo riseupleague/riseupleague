@@ -90,8 +90,7 @@ export default function ClassicJersey({
 		}
 
 		const isColorInTeam = team.division.teamColors.includes(primaryColor);
-		console.log(isColorInTeam, oldPrimaryColor, primaryColor);
-		console.log(oldPrimaryColor !== primaryColor);
+
 		if (isColorInTeam && oldPrimaryColor !== primaryColor) {
 			errors.primaryColor = "Primary color is already selected by another team";
 		}
@@ -178,8 +177,7 @@ export default function ClassicJersey({
 		setIsLoader(true);
 
 		const errors = validateForm();
-		console.log(errors);
-		console.log(Object.keys(errors).length);
+
 		if (Object.keys(errors).length === 0) {
 			const formObject = {
 				teamId: team._id,
@@ -207,7 +205,6 @@ export default function ClassicJersey({
 			setIsLoader(false);
 		}
 	};
-	console.log("team:", team);
 
 	const colors = {
 		"#ffb3ba": "pastel-red",

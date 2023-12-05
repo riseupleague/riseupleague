@@ -52,8 +52,6 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 		return division.teams.length < 8;
 	});
 
-	console.log(players);
-
 	if (players && players.length > 0) {
 		filteredDivisions = filteredDivisions.filter((division) => {
 			// Check if every players division is not equal to the current division

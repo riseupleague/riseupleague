@@ -19,15 +19,6 @@ export async function PATCH(req: Request) {
 			jerseyEdition,
 		} = await req.json();
 
-		console.log(
-			teamId,
-			divisionId,
-			primaryColor,
-			secondaryColor,
-			tertiaryColor,
-			oldPrimaryColor,
-			jerseyEdition
-		);
 		// Check for required input fields
 		if (
 			!teamId ||

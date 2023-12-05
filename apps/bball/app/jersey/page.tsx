@@ -1,17 +1,9 @@
-import {
-	getCurrentUser,
-	getUserPlayerPayment,
-} from "@/api-helpers/controllers/users-controller";
-import { Separator } from "@ui/components/separator";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Button } from "@ui/components/button";
-import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
-import { getTeamById } from "@/api-helpers/controllers/teams-controller";
-import JerseySelection from "@/components/register/custom-jersey/JerseySelection";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Jersey Selection",

@@ -100,7 +100,11 @@ export const getCurrentUser = async (email: string) => {
 				{
 					path: "team",
 					select:
-						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition",
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players",
+					populate: {
+						path: "players",
+						model: "Player",
+					},
 				},
 				{
 					path: "division",
@@ -112,7 +116,7 @@ export const getCurrentUser = async (email: string) => {
 				},
 			],
 			select:
-				"team division season playerName  instagram jerseyNumber jerseySize shortSize",
+				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
 		});
 
 		return NextResponse.json({

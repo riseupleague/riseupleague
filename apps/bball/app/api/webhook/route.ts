@@ -189,14 +189,20 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: selectedDivision.regularPriceInstalmentId,
+							price:
+								selectedDivision.earlyBirdOpen === true
+									? selectedDivision.earlyBirdInstalmentId
+									: selectedDivision.regularPriceFullId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: selectedDivision.regularPriceInstalmentId,
+								price:
+									selectedDivision.earlyBirdOpen === true
+										? selectedDivision.earlyBirdInstalmentId
+										: selectedDivision.regularPriceFullId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -267,14 +273,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: selectedDivision.regularPriceInstalmentId,
+							price: selectedDivision.earlyBirdInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: selectedDivision.regularPriceInstalmentId,
+								price: selectedDivision.earlyBirdInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
