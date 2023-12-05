@@ -136,29 +136,55 @@ export async function POST(req: Request) {
 			await selectedDivision.save();
 
 			// Register player
-
-			const registeredPlayer = new Player({
-				season: selectedDivision.season.toString(),
-				division: selectedDivision._id.toString(),
-				team: savedTeam._id,
-				teamCaptain: true,
-				playerName: metadata.playerName,
-				instagram: metadata.instagram,
-				jerseyNumber: metadata.jerseyNumber,
-				jerseySize: metadata.jerseySize,
-				shortSize: metadata.shortSize,
-				user: updatedUser._id,
-				averageStats: {
-					points: 0,
-					rebounds: 0,
-					assists: 0,
-					blocks: 0,
-					steals: 0,
-					threesMade: 0,
-					twosMade: 0,
-					freeThrowsMade: 0,
-				},
-			});
+			let registeredPlayer;
+			if (metadata.payment === "four") {
+				registeredPlayer = new Player({
+					customerId: session.customer,
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					team: savedTeam._id,
+					teamCaptain: true,
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			} else {
+				registeredPlayer = new Player({
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					team: savedTeam._id,
+					teamCaptain: true,
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			}
 
 			await registeredPlayer.save();
 			console.log("Registered player:", registeredPlayer);
@@ -221,28 +247,56 @@ export async function POST(req: Request) {
 			const updatedUser = await User.findOne({ email: metadata.email });
 			const selectedDivision = await Division.findById(metadata.division);
 
-			const registeredPlayer = new Player({
-				season: selectedDivision.season.toString(),
-				division: selectedDivision._id.toString(),
-				team: metadata.team,
-				teamCaptain: false,
-				playerName: metadata.playerName,
-				instagram: metadata.instagram,
-				jerseyNumber: metadata.jerseyNumber,
-				jerseySize: metadata.jerseySize,
-				shortSize: metadata.shortSize,
-				user: updatedUser._id,
-				averageStats: {
-					points: 0,
-					rebounds: 0,
-					assists: 0,
-					blocks: 0,
-					steals: 0,
-					threesMade: 0,
-					twosMade: 0,
-					freeThrowsMade: 0,
-				},
-			});
+			// Register player
+			let registeredPlayer;
+			if (metadata.payment === "four") {
+				registeredPlayer = new Player({
+					customerId: session.customer,
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					team: metadata.team,
+					teamCaptain: false,
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			} else {
+				registeredPlayer = new Player({
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					team: metadata.team,
+					teamCaptain: false,
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			}
 
 			await registeredPlayer.save();
 			console.log("Registered player:", registeredPlayer);
