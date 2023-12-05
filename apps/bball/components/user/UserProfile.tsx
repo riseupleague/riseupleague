@@ -572,7 +572,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 					<div className="flex flex-col gap-3">
 						<Label htmlFor="username" className="uppercase">
 							Name
-							<Sheet>
+							{/* <Sheet>
 								<SheetTrigger asChild>
 									{isLoader ? (
 										<span className="h-[50px] w-[200px]">
@@ -600,7 +600,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 										</SheetClose>
 									</SheetFooter>
 								</SheetContent>
-							</Sheet>
+							</Sheet> */}
 						</Label>
 						<Input
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
