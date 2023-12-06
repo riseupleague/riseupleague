@@ -12,7 +12,7 @@ export default async function Page(): Promise<JSX.Element> {
 
 	return (
 		<section>
-			<h1>team management page</h1>
+			<h1>seasons management page</h1>
 
 			<div>
 				<div className="flex justify-between">
@@ -22,7 +22,7 @@ export default async function Page(): Promise<JSX.Element> {
 				<div className="flex flex-col gap-2">
 					{seasons?.map((season, index) => (
 						<Button key={index} variant="secondary" className="p-4">
-							<Link href={`team-management/season/${season._id}`}>
+							<Link href={`seasons-management/season/${season._id}`}>
 								<h4>{season.seasonName}</h4>
 							</Link>
 						</Button>
@@ -31,6 +31,8 @@ export default async function Page(): Promise<JSX.Element> {
 			</div>
 
 			<Separator className="my-4 border-b border-neutral-500" />
+
+			<AddSeason />
 		</section>
 	);
 }

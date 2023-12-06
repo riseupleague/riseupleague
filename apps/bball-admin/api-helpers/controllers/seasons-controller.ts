@@ -15,14 +15,13 @@ export const getAllSeasons = async () => {
 	}
 };
 
-export const getActiveSeason = async () => {
+export const addSeasons = async ({ request }) => {
 	try {
-		const season = await Season.findOne({ active: true });
-
-		return NextResponse.json({ season });
+		// const seasons = await Season.find();
+		// return NextResponse.json({ seasons });
 	} catch (e) {
 		return NextResponse.json(
-			{ message: "error retrieving active season" },
+			{ message: "error retrieving all seasons" },
 			{ status: 500 }
 		);
 	}

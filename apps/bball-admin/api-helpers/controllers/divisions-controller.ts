@@ -51,6 +51,31 @@ export const getAllCurrentDivisions = async () => {
 	}
 };
 
+export const getAllDivisionsWithId = async (seasonId: string) => {
+	try {
+		const divisions = await Division.find({ season: seasonId })
+			.populate("teams", "teamName")
+			.select(
+				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+			);
+
+		if (!divisions) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisions });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getAllRegisterDivisions = async () => {
 	try {
 		const registerSeason = await Season.find({ register: "true" });
@@ -177,6 +202,27 @@ export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
 		}
 
 		return NextResponse.json({ divisionWithStats }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json({ message: error.message }, { status: 500 });
+	}
+};
+
+export const getDivisionFromIdWithTeams = async (id: string) => {
+	try {
+		const division = await Division.findOne({ _id: id })
+			.populate("teams", "teamName _id wins losses pointDifference teamBanner")
+			.select(
+				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+			);
+
+		if (!division) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+
+		return NextResponse.json({ division }, { status: 200 });
 	} catch (error) {
 		return NextResponse.json({ message: error.message }, { status: 500 });
 	}

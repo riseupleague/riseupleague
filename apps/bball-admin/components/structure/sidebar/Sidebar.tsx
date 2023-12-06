@@ -7,6 +7,10 @@ export default function Sidebar(): JSX.Element {
 			href: "/",
 		},
 		{
+			title: "seasons management",
+			href: "/seasons-management",
+		},
+		{
 			title: "team management",
 			href: "/team-management",
 		},
