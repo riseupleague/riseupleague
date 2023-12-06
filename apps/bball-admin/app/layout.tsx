@@ -1,7 +1,7 @@
-import Header from "@/components/structure/header/Header";
 import "../../../packages/ui/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
+import Header from "@/components/structure/header/Header";
 import Sidebar from "@/components/structure/sidebar/Sidebar";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
 				<Header />
 				<main>
 					<Sidebar />
-					<div className="sm:ml-[295px]">
+					<div className="sm:ml-[189px]">
 						<div className="container mx-auto py-4">{children}</div>
 					</div>
 				</main>
