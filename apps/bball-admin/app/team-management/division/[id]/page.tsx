@@ -16,8 +16,6 @@ export default async function DivisionPage({
 	const resDivision = await getDivisionFromIdWithTeams(params.id);
 	const { division } = await resDivision.json();
 
-	console.log(division);
-
 	return (
 		<section>
 			<h1>

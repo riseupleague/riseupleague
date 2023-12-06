@@ -91,7 +91,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 
 		if (res.ok) {
 			const { player } = await res.json();
-			console.log(player);
 			setPlayerJerseyName(player.jerseyName);
 			setPlayerJerseyNumber(player.jerseyNumber);
 			setPlayerJerseySize(player.jerseySize);
@@ -109,7 +108,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 			setIsLoader(false);
 		}
 	};
-	console.log(playerFormObject);
 
 	useEffect(() => {
 		// Function to handle window resize

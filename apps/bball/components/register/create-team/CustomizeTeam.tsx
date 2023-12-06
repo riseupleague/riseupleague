@@ -235,10 +235,6 @@ export default function CustomizeTeam({ division, session }) {
 	);
 	const secondPayment = secondPaymentDate.toLocaleDateString("en-US", options);
 
-	console.log("First Payment:", firstPayment);
-	console.log("Second Payment:", secondPayment);
-	console.log(division.earlyBirdInstalmentId);
-
 	return (
 		<>
 			{!isSummary ? (

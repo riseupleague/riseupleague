@@ -183,7 +183,6 @@ export default function CustomizeJersey({ team, session, division }) {
 	};
 
 	const redirectToCheckout = async (items, formObject) => {
-		console.log(items);
 		try {
 			const response = await fetch("/api/checkout-sessions", {
 				method: "POST",
@@ -233,9 +232,6 @@ export default function CustomizeJersey({ team, session, division }) {
 	);
 	const secondPayment = secondPaymentDate.toLocaleDateString("en-US", options);
 
-	console.log("First Payment:", firstPayment);
-	console.log("Second Payment:", secondPayment);
-	console.log(division.earlyBirdInstalmentId);
 	return (
 		<>
 			{!isSummary ? (
