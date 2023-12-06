@@ -27,8 +27,8 @@ export default function RootLayout({ children }) {
 				<Header />
 				<main>
 					<Sidebar />
-					<div className="sm:ml-[195px]">
-						<div className="container mx-auto">{children}</div>
+					<div className="sm:ml-[295px]">
+						<div className="container mx-auto py-4">{children}</div>
 					</div>
 				</main>
 			</body>

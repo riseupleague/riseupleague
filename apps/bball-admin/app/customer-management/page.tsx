@@ -1,5 +1,7 @@
 export default function CustomerManagement(): JSX.Element {
 	return (
-		<section className="flex justify-center">customer management page</section>
+		<section>
+			<h1>customer management page</h1>
+		</section>
 	);
 }

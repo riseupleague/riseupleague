@@ -1,5 +1,7 @@
 export default function LeagueSchedule(): JSX.Element {
 	return (
-		<section className="flex justify-center">league schedule page</section>
+		<section>
+			<h1>league schedule page</h1>
+		</section>
 	);
 }

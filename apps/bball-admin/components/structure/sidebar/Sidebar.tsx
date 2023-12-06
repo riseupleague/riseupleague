@@ -4,7 +4,7 @@ export default function Sidebar(): JSX.Element {
 	const sidebarLinks = [
 		{
 			title: "dashboard",
-			href: "/dashboard",
+			href: "/",
 		},
 		{
 			title: "team management",

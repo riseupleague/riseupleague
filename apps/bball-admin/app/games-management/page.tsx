@@ -1,5 +1,7 @@
 export default function GamesManagement(): JSX.Element {
 	return (
-		<section className="flex justify-center">games management page</section>
+		<section>
+			<h1>games management page</h1>
+		</section>
 	);
 }
