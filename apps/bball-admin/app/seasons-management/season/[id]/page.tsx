@@ -28,10 +28,18 @@ export default async function SeasonPage({
 				<h3>
 					Name: <span className="text-primary">{season?.seasonName}</span>
 				</h3>
-				<h3>
-					Active:{" "}
-					<span className="text-primary">{season?.active.toString()}</span>
-				</h3>
+				{season?.active !== null && (
+					<h3>
+						Active:{" "}
+						<span className="text-primary">{season?.active?.toString()}</span>
+					</h3>
+				)}
+				{season?.register !== null && (
+					<h3>
+						Register:{" "}
+						<span className="text-primary">{season?.register?.toString()}</span>
+					</h3>
+				)}
 			</div>
 
 			<div>
