@@ -1,19 +1,19 @@
 "use server";
 
 import Season from "@/api-helpers/models/Season";
+import { revalidatePath } from "next/cache";
 
-export async function editSeasonAction(seasonData: any) {
+export async function editSeasonAction(seasonData: any, id: string) {
 	try {
 		const season = await Season.findById(seasonData._id);
-
-		if (!season) return { message: "No season found" };
+		if (!season) return { status: 404 };
 
 		await Season.findByIdAndUpdate(seasonData._id, seasonData);
 
-		console.log("200");
-		return "200";
+		revalidatePath(`/seasons-management/season/${id}`);
+		return { status: 200 };
 	} catch (e) {
 		console.log(e);
-		return "500";
+		return { status: 500 };
 	}
 }

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import Header from "@/components/structure/header/Header";
 import Sidebar from "@/components/structure/sidebar/Sidebar";
+import { Toaster } from "@ui/components/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
 						<div className="container mx-auto py-4">{children}</div>
 					</div>
 				</main>
+				<Toaster />
 			</body>
 		</html>
 	);

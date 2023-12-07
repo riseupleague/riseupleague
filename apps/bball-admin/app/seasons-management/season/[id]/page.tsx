@@ -62,7 +62,7 @@ export default async function SeasonPage({
 				<Separator className="my-4 border-b border-neutral-500" />
 			</div>
 
-			<EditSeason season={season} />
+			<EditSeason season={season} id={params.id} />
 		</section>
 	);
 }
