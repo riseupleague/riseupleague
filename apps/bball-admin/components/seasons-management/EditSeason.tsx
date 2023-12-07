@@ -19,7 +19,7 @@ import { useState } from "react";
 
 export default function EditSeason({ season }): JSX.Element {
 	const [seasonData, setSeasonData] = useState(season);
-	const bindSeasonData = editSeasonAction.bind(seasonData, season._id);
+	const bindSeasonData = editSeasonAction.bind(null, seasonData);
 
 	return (
 		<Dialog>

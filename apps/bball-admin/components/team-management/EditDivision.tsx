@@ -14,12 +14,17 @@ import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
+import { editDivisionAction } from "@/actions/editDivisionAction";
+import { useState } from "react";
 
 export default function EditDivision({
 	division,
 }: {
 	division: any;
 }): JSX.Element {
+	const [divisionData, setDivisionData] = useState(division);
+	const bindDivisionData = editDivisionAction.bind(null, divisionData);
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -36,96 +41,136 @@ export default function EditDivision({
 
 				<Separator className="border-b border-neutral-500" />
 
-				<div className="flex flex-col gap-3">
-					<Label htmlFor="division-name">Division name:</Label>
-					<Input
-						id="division-name"
-						placeholder="New division name"
-						defaultValue={division?.divisionName}
-						className="text-neutral-900"
-					/>
-				</div>
-
-				<div className="flex flex-col gap-3">
-					<Label htmlFor="division-location">Division location:</Label>
-					<Input
-						id="division-location"
-						placeholder="New location name"
-						defaultValue={division?.location}
-						className="text-neutral-900"
-					/>
-				</div>
-
-				<div className="flex flex-col gap-3">
-					<Label htmlFor="division-day">Division day of the week:</Label>
-					<Input
-						id="division-day"
-						placeholder="New day name"
-						defaultValue={division?.day}
-						className="text-neutral-900"
-					/>
-				</div>
-
-				<div className="flex gap-3">
-					<div className="w-1/2">
-						<Label htmlFor="division-startTime">Start Time:</Label>
+				<form className="flex flex-col gap-4">
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="divisionName">Division name:</Label>
 						<Input
-							id="division-startTime"
-							placeholder="New start name"
-							defaultValue={division?.startTime}
+							onChange={(e) =>
+								setDivisionData({
+									...divisionData,
+									divisionName: e.target.value,
+								})
+							}
+							id="divisionName"
+							placeholder="New division name"
+							defaultValue={division?.divisionName}
 							className="text-neutral-900"
 						/>
 					</div>
-					<div className="w-1/2">
-						<Label htmlFor="division-endTime">End Time:</Label>
+
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="location">Division location:</Label>
 						<Input
-							id="division-endTime"
-							placeholder="New end name"
-							defaultValue={division?.endTime}
+							onChange={(e) =>
+								setDivisionData({ ...divisionData, location: e.target.value })
+							}
+							id="location"
+							placeholder="New location name"
+							defaultValue={division?.location}
 							className="text-neutral-900"
 						/>
 					</div>
-				</div>
 
-				<div className="flex gap-3">
-					<div className="w-1/2">
-						<Label htmlFor="division-earlyBirdPrice">Early Bird Price:</Label>
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="day">Division day of the week:</Label>
 						<Input
-							id="division-earlyBirdPrice"
-							type="number"
-							placeholder="New early bird price"
-							defaultValue={division?.earlyBirdPrice}
+							onChange={(e) =>
+								setDivisionData({ ...divisionData, day: e.target.value })
+							}
+							id="day"
+							placeholder="New day name"
+							defaultValue={division?.day}
 							className="text-neutral-900"
 						/>
 					</div>
-					<div className="w-1/2">
-						<Label htmlFor="division-regularPrice">Regular Price:</Label>
-						<Input
-							id="division-regularPrice"
-							type="number"
-							placeholder="New regular price"
-							defaultValue={division?.regularPrice}
-							className="text-neutral-900"
-						/>
+
+					<div className="flex gap-3">
+						<div className="w-1/2">
+							<Label htmlFor="startTime">Start Time:</Label>
+							<Input
+								onChange={(e) =>
+									setDivisionData({
+										...divisionData,
+										startTime: e.target.value,
+									})
+								}
+								id="startTime"
+								placeholder="New start name"
+								defaultValue={division?.startTime}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="w-1/2">
+							<Label htmlFor="endTime">End Time:</Label>
+							<Input
+								onChange={(e) =>
+									setDivisionData({ ...divisionData, endTime: e.target.value })
+								}
+								id="endTime"
+								placeholder="New end name"
+								defaultValue={division?.endTime}
+								className="text-neutral-900"
+							/>
+						</div>
 					</div>
-				</div>
 
-				{division?.earlyBirdOpen && (
-					<div className="flex items-center gap-3">
-						<Checkbox
-							id="division-earlyBirdOpen"
-							defaultChecked={division?.earlyBirdOpen}
-							className="border-neutral-200"
-						/>
-						<Label htmlFor="season-register">Early Bird Open</Label>
+					<div className="flex gap-3">
+						<div className="w-1/2">
+							<Label htmlFor="earlyBirdPrice">Early Bird Price:</Label>
+							<Input
+								onChange={(e) =>
+									setDivisionData({
+										...divisionData,
+										earlyBirdPrice: e.target.value,
+									})
+								}
+								id="earlyBirdPrice"
+								type="number"
+								placeholder="New early bird price"
+								defaultValue={division?.earlyBirdPrice}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="w-1/2">
+							<Label htmlFor="regularPrice">Regular Price:</Label>
+							<Input
+								onChange={(e) =>
+									setDivisionData({
+										...divisionData,
+										regularPrice: e.target.value,
+									})
+								}
+								id="regularPrice"
+								type="number"
+								placeholder="New regular price"
+								defaultValue={division?.regularPrice}
+								className="text-neutral-900"
+							/>
+						</div>
 					</div>
-				)}
 
-				<Separator className="mb-4 border-b border-neutral-500" />
+					{division?.earlyBirdOpen && (
+						<div className="flex items-center gap-3">
+							<Checkbox
+								id="earlyBirdOpen"
+								onCheckedChange={(e) =>
+									setDivisionData({ ...divisionData, earlyBirdOpen: e })
+								}
+								defaultChecked={division?.earlyBirdOpen}
+								className="border-neutral-200"
+							/>
+							<Label htmlFor="earlyBirdOpen">Early Bird Open</Label>
+						</div>
+					)}
 
-				<DialogFooter>
-					<Button>Update</Button>
-				</DialogFooter>
+					<Separator className="mb-4 border-b border-neutral-500" />
+
+					<DialogFooter>
+						<Button formAction={bindDivisionData} type="submit">
+							Update
+						</Button>
+					</DialogFooter>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);
