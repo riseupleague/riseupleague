@@ -46,23 +46,72 @@ export async function POST(req: Request) {
 		console.log(`💰  Payment received!`);
 
 		if (metadata.status === "freeAgent") {
-			const newPlayer = new Player({
-				season: metadata.season,
-				status: metadata.status,
-				division: metadata.division,
-				registrationName: metadata.registrationName,
-				birthDate: metadata.birthDate,
-				email: metadata.email,
-				instagram: metadata.instagram,
-				phoneNumber: metadata.phoneNumber,
-				position: metadata.position,
-				height: metadata.height,
-				jerseyOne: metadata.jerseyOne,
-				jerseySize: metadata.jerseySize,
-				shortSize: metadata.shortSize, // Add this line to include shortSize
-			});
+			const updatedUser = await User.findOne({ email: metadata.email });
+			const selectedDivision = await Division.findById(metadata.division);
 
-			await newPlayer.save();
+			// Register player
+			let registeredPlayer;
+			if (metadata.payment === "four") {
+				registeredPlayer = new Player({
+					freeAgent: metadata.freeAgent,
+					customerId: session.customer,
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyName: metadata.jerseyName,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseyNumberTwo: metadata.jerseyNumberTwo,
+					jerseyNumberThree: metadata.jerseyNumberThree,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			} else {
+				registeredPlayer = new Player({
+					freeAgent: metadata.freeAgent,
+					season: selectedDivision.season.toString(),
+					division: selectedDivision._id.toString(),
+					playerName: metadata.playerName,
+					instagram: metadata.instagram,
+					jerseyName: metadata.jerseyName,
+					jerseyNumber: metadata.jerseyNumber,
+					jerseyNumberTwo: metadata.jerseyNumberTwo,
+					jerseyNumberThree: metadata.jerseyNumberThree,
+					jerseySize: metadata.jerseySize,
+					shortSize: metadata.shortSize,
+					user: updatedUser._id,
+					averageStats: {
+						points: 0,
+						rebounds: 0,
+						assists: 0,
+						blocks: 0,
+						steals: 0,
+						threesMade: 0,
+						twosMade: 0,
+						freeThrowsMade: 0,
+					},
+				});
+			}
+
+			await registeredPlayer.save();
+			console.log("Registered player:", registeredPlayer);
+			// Handle the rest of the code based on the existingPlayer
+			updatedUser.basketball = updatedUser.basketball.concat(
+				registeredPlayer._id
+			);
+
+			await updatedUser.save();
 
 			if (metadata.payment === "four") {
 				let schedule = await stripe.subscriptionSchedules.create({
@@ -79,14 +128,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: "price_1Nt9mGHl6U3lbfQtazXBOL79",
+							price: "price_1OJxQGLNj0EwRSePDNZA7bTk",
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: "price_1Nt9mGHl6U3lbfQtazXBOL79",
+								price: "price_1OJxQGLNj0EwRSePDNZA7bTk",
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -147,6 +196,7 @@ export async function POST(req: Request) {
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyNumber: metadata.jerseyNumber,
+					jerseyName: metadata.jerseyName,
 					jerseySize: metadata.jerseySize,
 					shortSize: metadata.shortSize,
 					user: updatedUser._id,
@@ -170,6 +220,7 @@ export async function POST(req: Request) {
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyNumber: metadata.jerseyNumber,
+					jerseyName: metadata.jerseyName,
 					jerseySize: metadata.jerseySize,
 					shortSize: metadata.shortSize,
 					user: updatedUser._id,
@@ -259,6 +310,7 @@ export async function POST(req: Request) {
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyNumber: metadata.jerseyNumber,
+					jerseyName: metadata.jerseyName,
 					jerseySize: metadata.jerseySize,
 					shortSize: metadata.shortSize,
 					user: updatedUser._id,
@@ -282,6 +334,7 @@ export async function POST(req: Request) {
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyNumber: metadata.jerseyNumber,
+					jerseyName: metadata.jerseyName,
 					jerseySize: metadata.jerseySize,
 					shortSize: metadata.shortSize,
 					user: updatedUser._id,

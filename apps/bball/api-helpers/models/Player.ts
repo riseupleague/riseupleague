@@ -7,10 +7,12 @@ import Game from "@/api-helpers/models/Game";
 const Schema = mongoose.Schema;
 
 const playerSchema = new Schema({
+	freeAgent: {
+		type: Boolean,
+	},
 	customerId: {
 		type: String,
 	},
-
 	playerName: {
 		type: String,
 		required: true,
@@ -19,6 +21,14 @@ const playerSchema = new Schema({
 		type: String,
 	},
 	jerseyNumber: {
+		type: Number,
+		required: true,
+	},
+	jerseyNumberTwo: {
+		type: Number,
+		required: true,
+	},
+	jerseyNumberThree: {
 		type: Number,
 		required: true,
 	},

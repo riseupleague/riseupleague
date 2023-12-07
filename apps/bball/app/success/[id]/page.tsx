@@ -33,6 +33,8 @@ export default async function Success({
 		return player.season.toString() === season;
 	});
 
+	console.log("selectedPlayer:", selectedPlayer);
+
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
 		if (timeString) {
@@ -56,13 +58,20 @@ export default async function Success({
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
-				You have successfully{" "}
-				{selectedPlayer?.teamCaptain ? "registered" : "joined"}{" "}
-				{selectedPlayer?.team.teamName}{" "}
-				{selectedPlayer?.teamCaptain ? "to" : "in"} {division?.divisionName}{" "}
-				division!{" "}
-			</h1>
+			{selectedPlayer.freeAgent ? (
+				<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
+					You have successfully registered as a Free Agent in{" "}
+					{division?.divisionName} division!{" "}
+				</h1>
+			) : (
+				<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
+					You have successfully{" "}
+					{selectedPlayer?.teamCaptain ? "registered" : "joined"}{" "}
+					{selectedPlayer?.team?.teamName}{" "}
+					{selectedPlayer?.teamCaptain ? "to" : "in"} {division?.divisionName}{" "}
+					division!{" "}
+				</h1>
+			)}
 			<h2 className=" mt-4 text-center text-lg font-semibold uppercase text-neutral-300 md:text-3xl">
 				An email has been sent to {session.user.email}
 			</h2>
@@ -84,42 +93,63 @@ export default async function Success({
 			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
 				Registration Next Steps
 			</h3>
-
-			<section className="mt-10 flex flex-col gap-10 md:flex-row">
-				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
-					<div>
-						<h3 className=" text-2xl font-semibold uppercase ">Team Jersey</h3>
-						<Separator
-							orientation="horizontal"
-							className="mb-3 mt-1 bg-white"
-						/>{" "}
+			{selectedPlayer.freeAgent ? (
+				<section className="mt-5">
+					<div className="flex flex-1 flex-col justify-between gap-5 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 						<p>
-							Customize your team jersey. You decide your own colors and
-							designs!
+							We will put you in a team and let you know one week before the
+							season starts. The season starts around January 20th! We will
+							email you or message you on instagram! For now check your profile
+							previousGames
 						</p>
+						<Link
+							className=" font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+							href={`/user`}
+						>
+							Check Out Your Profile
+						</Link>
 					</div>
-					<Link href={`/jersey/${selectedPlayer.team._id}`}>
-						<Button className=" font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+				</section>
+			) : (
+				<section className="mt-10 flex flex-col gap-10 md:flex-row">
+					<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
+						<div>
+							<h3 className=" text-2xl font-semibold uppercase ">
+								Team Jersey
+							</h3>
+							<Separator
+								orientation="horizontal"
+								className="mb-3 mt-1 bg-white"
+							/>{" "}
+							<p>
+								Customize your team jersey. You decide your own colors and
+								designs!
+							</p>
+						</div>
+						<Link
+							className=" font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+							href={`/jersey/${selectedPlayer.team?._id}`}
+						>
 							Continue
-						</Button>
-					</Link>
-				</div>
-				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
-					<div>
-						<h3 className=" text-2xl font-semibold uppercase ">
-							Team Schedule
-						</h3>
-						<Separator
-							orientation="horizontal"
-							className="mb-3 mt-1 bg-white"
-						/>{" "}
-						<p>You decide on what time your team will play in. </p>{" "}
+						</Link>
 					</div>
-					<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-						Coming Soon
-					</Button>
-				</div>
-			</section>
+					<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
+						<div>
+							<h3 className=" text-2xl font-semibold uppercase ">
+								Team Schedule
+							</h3>
+							<Separator
+								orientation="horizontal"
+								className="mb-3 mt-1 bg-white"
+							/>{" "}
+							<p>You decide on what time your team will play in. </p>{" "}
+						</div>
+						<Button className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+							Coming Soon
+						</Button>
+					</div>
+				</section>
+			)}
 		</main>
 	);
 }
