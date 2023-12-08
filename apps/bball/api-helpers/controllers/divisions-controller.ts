@@ -209,6 +209,32 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 	}
 };
 
+export const getAllUpcomingDivisionsWithTeamNames = async () => {
+	try {
+		const registerSeason = await Season.find({ register: "true" });
+
+		// Use select to retrieve only divisionName and _id fields
+		const divisionsWithTeamNames = await Division.find({
+			season: registerSeason,
+		})
+			.populate("teams", "teamName primaryColor secondaryColor tertiaryColor")
+			.select("divisionName _id teams location");
+		if (!divisionsWithTeamNames) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisionsWithTeamNames });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
 export const getAllCurrentDivisionsNameAndId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
