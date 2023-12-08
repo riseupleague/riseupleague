@@ -222,6 +222,14 @@ export default function CustomizeTeam({ division, session }) {
 	const secondPaymentDate = new Date(originalFirstPaymentDate);
 	secondPaymentDate.setDate(originalFirstPaymentDate.getDate() + 14); // Add 14 days
 
+	// Calculate the third payment date (4 weeks after the first payment)
+	const thirdPaymentDate = new Date(originalFirstPaymentDate);
+	thirdPaymentDate.setDate(originalFirstPaymentDate.getDate() + 28); // Add 28 days
+
+	// Calculate the fourth payment date (6 weeks after the first payment)
+	const fourthPaymentDate = new Date(originalFirstPaymentDate);
+	fourthPaymentDate.setDate(originalFirstPaymentDate.getDate() + 42); // Add 42 days
+
 	// Format the dates for display
 	const options: Intl.DateTimeFormatOptions = {
 		weekday: "long",
@@ -229,15 +237,16 @@ export default function CustomizeTeam({ division, session }) {
 		day: "numeric",
 		year: "numeric",
 	};
+
 	const firstPayment = originalFirstPaymentDate.toLocaleDateString(
 		"en-US",
 		options
 	);
 	const secondPayment = secondPaymentDate.toLocaleDateString("en-US", options);
+	const thirdPayment = thirdPaymentDate.toLocaleDateString("en-US", options);
+	const fourthPayment = fourthPaymentDate.toLocaleDateString("en-US", options);
 
-	console.log("First Payment:", firstPayment);
-	console.log("Second Payment:", secondPayment);
-	console.log(division.earlyBirdInstalmentId);
+	// Now you can use firstPayment, secondPayment, thirdPayment, and fourthPayment as needed
 
 	return (
 		<>
@@ -819,14 +828,14 @@ export default function CustomizeTeam({ division, session }) {
 									<p className="text-4xl">
 										$
 										{division.earlyBirdOpen
-											? (division.earlyBirdPrice / 2).toFixed(2)
-											: (division.regularPrice / 2).toFixed(2)}{" "}
+											? (division.earlyBirdPrice / 4).toFixed(2)
+											: (division.regularPrice / 4).toFixed(2)}{" "}
 										<span className="text-sm text-neutral-50">
-											Today + another $
+											Today + $
 											{division.earlyBirdOpen
-												? (division.earlyBirdPrice / 2).toFixed(2)
-												: (division.regularPrice / 2).toFixed(2)}{" "}
-											in 2 weeks
+												? (division.earlyBirdPrice / 4).toFixed(2)
+												: (division.regularPrice / 4).toFixed(2)}{" "}
+											every 2 weeks
 										</span>
 									</p>
 									<Table>
@@ -844,8 +853,8 @@ export default function CustomizeTeam({ division, session }) {
 												<TableCell>
 													$
 													{division.earlyBirdOpen
-														? (division.earlyBirdPrice / 2).toFixed(2)
-														: (division.regularPrice / 2).toFixed(2)}
+														? (division.earlyBirdPrice / 4).toFixed(2)
+														: (division.regularPrice / 4).toFixed(2)}
 												</TableCell>
 											</TableRow>
 											<TableRow className="uppercase">
@@ -854,8 +863,28 @@ export default function CustomizeTeam({ division, session }) {
 												<TableCell>
 													$
 													{division.earlyBirdOpen
-														? (division.earlyBirdPrice / 2).toFixed(2)
-														: (division.regularPrice / 2).toFixed(2)}
+														? (division.earlyBirdPrice / 4).toFixed(2)
+														: (division.regularPrice / 4).toFixed(2)}
+												</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>3rd</TableCell>
+												<TableCell>{thirdPayment}</TableCell>
+												<TableCell>
+													$
+													{division.earlyBirdOpen
+														? (division.earlyBirdPrice / 4).toFixed(2)
+														: (division.regularPrice / 4).toFixed(2)}
+												</TableCell>
+											</TableRow>
+											<TableRow className="uppercase">
+												<TableCell>4th</TableCell>
+												<TableCell>{fourthPayment}</TableCell>
+												<TableCell>
+													$
+													{division.earlyBirdOpen
+														? (division.earlyBirdPrice / 4).toFixed(2)
+														: (division.regularPrice / 4).toFixed(2)}
 												</TableCell>
 											</TableRow>
 										</TableBody>

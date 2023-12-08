@@ -128,14 +128,14 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: "price_1OJxQGLNj0EwRSePDNZA7bTk",
+							price: "price_1OKYO4Hl6U3lbfQtIq8563wU",
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: "price_1OJxQGLNj0EwRSePDNZA7bTk",
+								price: "price_1OKYO4Hl6U3lbfQtIq8563wU",
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
@@ -391,7 +391,7 @@ export async function POST(req: Request) {
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
-						iterations: 1,
+						iterations: 3,
 					},
 				];
 

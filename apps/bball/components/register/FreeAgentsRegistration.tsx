@@ -311,8 +311,8 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 	console.log("First Payment:", firstPayment);
 	console.log("Second Payment:", secondPayment);
 
-	const fullPaymentId = "price_1OCf1gLNj0EwRSePNYan1PmL";
-	const splitPaymentId = "price_1OJxQGLNj0EwRSePDNZA7bTk";
+	const fullPaymentId = "price_1OKYL4Hl6U3lbfQtQD0OpQ8F";
+	const splitPaymentId = "price_1OKYO4Hl6U3lbfQtIq8563wU";
 	return (
 		<>
 			{!isDivisionSelected ? (

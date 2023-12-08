@@ -26,11 +26,9 @@ const playerSchema = new Schema({
 	},
 	jerseyNumberTwo: {
 		type: Number,
-		required: true,
 	},
 	jerseyNumberThree: {
 		type: Number,
-		required: true,
 	},
 	jerseySize: {
 		type: String,

@@ -29,6 +29,8 @@ export default async function Success({
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
+	console.log(players);
+
 	const selectedPlayer = players.find((player) => {
 		return player.season.toString() === season;
 	});
@@ -55,10 +57,10 @@ export default async function Success({
 	// Example usage:
 	const startTimeAMPM = convertToAMPM(division?.startTime);
 	const endTimeAMPM = convertToAMPM(division?.endTime);
-
+	console.log("selectedPlayer:", selectedPlayer);
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			{selectedPlayer.freeAgent ? (
+			{selectedPlayer?.freeAgent ? (
 				<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
 					You have successfully registered as a Free Agent in{" "}
 					{division?.divisionName} division!{" "}
@@ -93,7 +95,7 @@ export default async function Success({
 			<h3 className=" mt-16 text-center text-4xl uppercase md:text-start">
 				Registration Next Steps
 			</h3>
-			{selectedPlayer.freeAgent ? (
+			{selectedPlayer?.freeAgent ? (
 				<section className="mt-5">
 					<div className="flex flex-1 flex-col justify-between gap-5 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 						<p>
@@ -128,7 +130,7 @@ export default async function Success({
 						</div>
 						<Link
 							className=" font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
-							href={`/jersey/${selectedPlayer.team?._id}`}
+							href={`/jersey/${selectedPlayer?.team?._id}`}
 						>
 							Continue
 						</Link>
