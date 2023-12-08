@@ -14,6 +14,7 @@ const divisionSchema = new Schema({
 	teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
 	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
 	teamColors: { type: Array },
+	teamSchedule: { type: Array },
 	location: { type: String, required: true },
 	day: { type: String, required: true },
 	startTime: { type: String, required: true },

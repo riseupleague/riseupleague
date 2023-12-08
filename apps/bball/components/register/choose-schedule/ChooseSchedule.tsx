@@ -27,6 +27,8 @@ export default function ChooseSchedule({ team, user }) {
 		(otherTeam) => otherTeam !== team._id
 	);
 
+	console.log(team.division);
+
 	// this is a placeholder, use actual db times later
 	const weekTimes = [
 		{
