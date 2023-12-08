@@ -139,7 +139,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 					{user.basketball.length > 0 ? (
 						<div className="flex w-full flex-col gap-10 ">
 							{user.basketball.map((player) => {
-								const jerseyEdition = player.team.jerseyEdition;
+								const jerseyEdition = player.team?.jerseyEdition;
 								let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
 								if (jerseyEdition) {
 									edition = jerseyEdition.split("-")[0];
@@ -182,7 +182,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Team:</span>
-												<span>{player.team.teamName}</span>
+												<span>{player.team?.teamName}</span>
 											</li>
 											<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
 												<div className="flex justify-between">
@@ -214,7 +214,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Edition:</span>
-												<span>{player.team.jerseyEdition}</span>
+												<span>{player.team?.jerseyEdition}</span>
 											</li>
 											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
 												<span>Jersey Top:</span>
@@ -410,7 +410,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 								  }
 					
 								  .secondaryColorStroke {
-									stroke: ${player.secondaryColor} !important;
+									stroke: ${player.team.secondaryColor} !important;
 								  }
 
 								  .jerseyDiv {
@@ -463,29 +463,29 @@ export default function UserProfile({ session, user }): JSX.Element {
 											</div>
 										) : (
 											<>
-												<div className="flex h-96 flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
-													<div>
-														<h3 className=" text-2xl font-semibold uppercase ">
-															Team Jersey
-														</h3>
-														<Separator
-															orientation="horizontal"
-															className="mb-3 mt-1 bg-white"
-														/>{" "}
-														<p>
-															Customize your team jersey. You decide your own
-															colors and designs!
-														</p>
-													</div>
-													<Link
-														className="w-full"
-														href={`/jersey/${player.team._id}`}
-													>
-														<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
+												{player.team && (
+													<div className="flex h-96 flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
+														<div>
+															<h3 className=" text-2xl font-semibold uppercase ">
+																Team Jersey
+															</h3>
+															<Separator
+																orientation="horizontal"
+																className="mb-3 mt-1 bg-white"
+															/>{" "}
+															<p>
+																Customize your team jersey. You decide your own
+																colors and designs!
+															</p>
+														</div>
+														<Link
+															className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+															href={`/jersey/${player.team?._id}`}
+														>
 															Continue
-														</Button>
-													</Link>
-												</div>
+														</Link>
+													</div>
+												)}
 											</>
 										)}
 									</div>
@@ -507,10 +507,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 									player!
 								</p>
 							</div>
-							<Link className="w-full" href={`/register`}>
-								<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-									Continue
-								</Button>
+							<Link
+								className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+								href={`/register`}
+							>
+								Continue
 							</Link>
 						</div>
 					)}

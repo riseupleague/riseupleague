@@ -49,7 +49,16 @@ export default function TeamsFilterPage({ divisions }) {
 
 			{divisionsWithTeams.map((division) => (
 				<div key={division._id}>
-					<h3 className="my-6">{division.divisionName}</h3>
+					<h3 className="my-6">
+						{division.location ? (
+							<>
+								{division.location}
+								{" - "}
+							</>
+						) : undefined}
+
+						{division.divisionName}
+					</h3>
 					<div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 						{division.teams
 							.sort((a, b) =>

@@ -8,6 +8,7 @@ const seasonSchema = new Schema({
 	active: { type: Boolean },
 	register: { type: Boolean },
 	division: [{ type: mongoose.Schema.Types.ObjectId, ref: "Division" }],
+	workers: [{ type: String }],
 });
 
 export default mongoose.models.Season || mongoose.model("Season", seasonSchema);
