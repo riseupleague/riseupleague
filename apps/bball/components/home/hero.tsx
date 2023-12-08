@@ -25,7 +25,7 @@ export default function Hero(): JSX.Element {
 		{
 			url: "/images/home/early-bird.jpg",
 			title: "Winter registration now open!",
-			description: "Early Bird starting at $200+ per player!",
+			description: "Holiday special - Four instalments of $55 bi-weekly!",
 			cta: "Register Now",
 			link: "/register",
 		},
