@@ -42,7 +42,7 @@ export default async function Register({
 				Winter Season 2024
 			</h2>
 			<section className="mt-20 flex flex-col gap-10 md:flex-row">
-				{/* <div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
+				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 					<div>
 						<h3 className=" text-2xl font-semibold uppercase ">
 							JOIN AS A FREE AGENT
@@ -63,7 +63,7 @@ export default async function Register({
 					>
 						Join as a free agent Now
 					</Link>
-				</div> */}
+				</div>
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 					<div>
 						<h3 className=" text-2xl font-semibold uppercase ">

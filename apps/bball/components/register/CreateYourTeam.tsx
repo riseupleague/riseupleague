@@ -36,7 +36,7 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 			case "Nation Greats":
 				vaughanDivisions.push(division);
 				break;
-			case "Filipino Greats":
+			case "Nations Great":
 			case "Filipinos Beginners":
 				markhamDivisions.push(division);
 				break;
@@ -293,7 +293,7 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 														</div>
 														<div className="flex-1 p-4">
 															<span className="bg-main mb-2 inline-block w-fit rounded-md bg-green-500 px-2 py-1  uppercase text-white">
-																Early Bird
+																Christmas Special
 															</span>
 															<div className="flex items-center gap-2">
 																<p className="mb-2 text-5xl font-semibold">
@@ -303,9 +303,9 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 																<span className="text-xs">+ 13% HST</span>
 															</div>
 															<span className="text-xs">
-																or split payment of{" "}
+																or four payment of{" "}
 																<span className="text-sm">
-																	${(division.earlyBirdPrice / 2).toFixed(2)}
+																	${(division.earlyBirdPrice / 4).toFixed(2)}
 																</span>{" "}
 																+ 13% HST bi-weekly
 															</span>
