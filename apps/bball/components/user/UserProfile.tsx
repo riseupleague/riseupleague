@@ -481,12 +481,10 @@ export default function UserProfile({ session, user }): JSX.Element {
 															</p>
 														</div>
 														<Link
-															className="w-full"
+															className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 															href={`/jersey/${player.team?._id}`}
 														>
-															<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-																Continue
-															</Button>
+															Continue
 														</Link>
 													</div>
 												)}
@@ -511,10 +509,11 @@ export default function UserProfile({ session, user }): JSX.Element {
 									player!
 								</p>
 							</div>
-							<Link className="w-full" href={`/register`}>
-								<Button className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200">
-									Continue
-								</Button>
+							<Link
+								className="font-barlow w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+								href={`/register`}
+							>
+								Continue
 							</Link>
 						</div>
 					)}
