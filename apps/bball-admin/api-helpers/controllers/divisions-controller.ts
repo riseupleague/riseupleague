@@ -212,7 +212,7 @@ export const getDivisionFromIdWithTeams = async (id: string) => {
 		const division = await Division.findOne({ _id: id })
 			.populate("teams", "teamName _id wins losses pointDifference teamBanner")
 			.select(
-				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+				"divisionName season teams location day startTime teamSchedule endTime earlyBirdPrice regularPrice description earlyBirdOpen teamSchedule"
 			);
 
 		if (!division) {

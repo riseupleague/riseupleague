@@ -16,6 +16,11 @@ export default async function DivisionPage({
 	const resDivision = await getDivisionFromIdWithTeams(params.id);
 	const { division } = await resDivision.json();
 
+	const slot1Hours = Number(division.startTime.slice(0, 2));
+	const slot1Minutes = Number(division.startTime.slice(3, 5));
+
+	console.log(division);
+
 	return (
 		<section>
 			<h1>
@@ -59,7 +64,6 @@ export default async function DivisionPage({
 					Regular Price:{" "}
 					<span className="text-primary">{division?.regularPrice}</span>
 				</h3>
-				<h3>Teams:</h3>
 			</div>
 
 			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">

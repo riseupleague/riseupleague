@@ -1,19 +1,19 @@
 "use server";
 
-import Season from "@/api-helpers/models/Season";
 import Division from "@/api-helpers/models/Division";
+import { revalidatePath } from "next/cache";
 
-export async function editDivisionAction(divisionData: any) {
+export async function editDivisionAction(divisionData: any, id: string) {
 	try {
+		console.log(divisionData);
 		const division = await Division.findById(divisionData._id);
-
-		if (!division) return { message: "No division found" };
+		if (!division) return { status: 404 };
 
 		await Division.findByIdAndUpdate(divisionData._id, divisionData);
 
-		console.log("200");
-		return { message: "Division successfully updated" };
+		revalidatePath(`/team-management/division/${id}`);
+		return { status: 200 };
 	} catch (e) {
-		return { error: e };
+		return { status: 500 };
 	}
 }

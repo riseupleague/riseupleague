@@ -1,6 +1,21 @@
 "use client";
 
 import { Button } from "@ui/components/button";
+import { Separator } from "@ui/components/separator";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Checkbox } from "@ui/components/checkbox";
+import { editDivisionAction } from "@/actions/editDivisionAction";
+import { useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@ui/components/ui/select";
 import {
 	Dialog,
 	DialogContent,
@@ -10,20 +25,32 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { Separator } from "@ui/components/separator";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
-import { editDivisionAction } from "@/actions/editDivisionAction";
-import { useState } from "react";
 
 export default function EditDivision({
 	division,
 }: {
 	division: any;
 }): JSX.Element {
+	const { pending } = useFormStatus();
 	const [divisionData, setDivisionData] = useState(division);
-	const bindDivisionData = editDivisionAction.bind(null, divisionData);
+	const [currentWeek, setCurrentWeek] = useState(0);
+
+	const bindDivisionData = editDivisionAction.bind(
+		null,
+		divisionData,
+		division._id
+	);
+	const [state, formAction] = useFormState(bindDivisionData, null);
+
+	const noDataChanged =
+		JSON.stringify(division) === JSON.stringify(divisionData) ? true : false;
+
+	const firstSlotHours = Number(division.startTime.slice(0, 2));
+	const firstSlotMinutes = Number(division.startTime.slice(3, 5));
+
+	const handleScheduleChange = (e) => {
+		console.log(e);
+	};
 
 	return (
 		<Dialog>
@@ -41,7 +68,7 @@ export default function EditDivision({
 
 				<Separator className="border-b border-neutral-500" />
 
-				<form className="flex flex-col gap-4">
+				<form action={formAction} className="flex flex-col gap-4">
 					<div className="flex flex-col gap-3">
 						<Label htmlFor="divisionName">Division name:</Label>
 						<Input
@@ -163,13 +190,93 @@ export default function EditDivision({
 						</div>
 					)}
 
+					<div>
+						<h4>Schedule</h4>
+						<Separator className="border-b border-neutral-500" />
+						<div className="mt-4 flex gap-4">
+							<h5>Week #:</h5>
+							<Select onValueChange={(e) => setCurrentWeek(Number(e))}>
+								<SelectTrigger className="w-44">
+									<SelectValue placeholder="select week number" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectGroup>
+										{/* {divisionData.teamSchedule.map((_, index) => (
+											<SelectItem key={index} value={(index + 1).toString()}>
+												{index + 1}
+											</SelectItem>
+										))} */}
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</div>
+						{/* {divisionData.teamSchedule[currentWeek].map((slot, index) => (
+							<div key={index} className="flex h-16 items-center gap-3">
+								<p className="flex h-full w-full items-center">
+									{firstSlotHours + ":" + firstSlotMinutes} -{" "}
+									{firstSlotHours + index + ":" + firstSlotMinutes}
+								</p>
+								<div className="w-full">
+									<Label htmlFor="startTime">Home Team</Label>
+									<Select onValueChange={handleScheduleChange}>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="select a team" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												{division?.teams.map((team, index) => (
+													<SelectItem key={index} value={team.teamName}>
+														{team.teamName}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+								</div>
+								<div className="w-full">
+									<Label htmlFor="endTime">Away Team</Label>
+									<Select onValueChange={handleScheduleChange}>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="select a team" />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectGroup>
+												{division?.teams.map((team, index) => (
+													<SelectItem key={index} value={team.teamName}>
+														{team.teamName}
+													</SelectItem>
+												))}
+											</SelectGroup>
+										</SelectContent>
+									</Select>
+								</div>
+							</div>
+						))} */}
+					</div>
+
 					<Separator className="mb-4 border-b border-neutral-500" />
 
 					<DialogFooter>
-						<Button formAction={bindDivisionData} type="submit">
-							Update
+						<Button
+							type="submit"
+							disabled={pending || noDataChanged}
+							aria-disabled={pending}
+						>
+							{pending ? "Updating..." : "Update"}
 						</Button>
 					</DialogFooter>
+
+					<div className="text-right">
+						{state?.status === 200 && (
+							<p className="text-green-500">Successfully updated season!</p>
+						)}
+						{state?.status === 404 && (
+							<p className="text-primary">Season not found.</p>
+						)}
+						{state?.status === 500 && (
+							<p className="text-primary">Internal server error.</p>
+						)}
+					</div>
 				</form>
 			</DialogContent>
 		</Dialog>

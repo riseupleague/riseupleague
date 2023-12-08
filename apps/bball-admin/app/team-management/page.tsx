@@ -21,7 +21,7 @@ export default async function Page(): Promise<JSX.Element> {
 				<Separator className="my-4 border-b border-neutral-400" />
 				<div className="flex flex-col gap-2">
 					{seasons?.map((season, index) => (
-						<Button key={index} variant="secondary" className="p-4">
+						<Button key={index} variant="secondary" className="p-4" asChild>
 							<Link href={`team-management/season/${season._id}`}>
 								<h4>{season.seasonName}</h4>
 							</Link>
