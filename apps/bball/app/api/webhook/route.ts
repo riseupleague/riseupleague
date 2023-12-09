@@ -283,7 +283,7 @@ export async function POST(req: Request) {
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
-						iterations: 1,
+						iterations: 3,
 					},
 				];
 
