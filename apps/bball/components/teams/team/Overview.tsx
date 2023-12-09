@@ -27,7 +27,7 @@ const Overview = ({ team, upcomingGames }) => {
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
 					Jersey Design
 				</h2>
-				{jerseyEdition && jerseyEdition !== "" && (
+				{jerseyEdition && jerseyEdition !== "" ? (
 					<div className=" mx-auto w-full border-neutral-600 bg-neutral-700 lg:w-1/2">
 						<style id="styleElement">
 							{`.primaryColorFill {
@@ -61,6 +61,11 @@ const Overview = ({ team, upcomingGames }) => {
 							<DynamicComponent />
 						</div>
 					</div>
+				) : (
+					<h6 className="text-primary text-center">
+						no jersey designed at this moment, please come back again at a later
+						time.
+					</h6>
 				)}
 			</div>
 			{/* upcoming games grid */}
