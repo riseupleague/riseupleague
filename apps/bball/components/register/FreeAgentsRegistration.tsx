@@ -70,6 +70,7 @@ interface Division {
 	instalmentPrice: string;
 	location: string;
 	regularPrice: string;
+	earlyBirdInstalmentId: string;
 	regularPriceFullId: string;
 	regularPriceInstalmentId: string;
 	startTime: string;
@@ -105,6 +106,7 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 		location: "",
 		regularPrice: "",
 		regularPriceFullId: "",
+		earlyBirdInstalmentId: "",
 		regularPriceInstalmentId: "",
 		startTime: "",
 		teams: [],
@@ -319,8 +321,8 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 	const thirdPayment = thirdPaymentDate.toLocaleDateString("en-US", options);
 	const fourthPayment = fourthPaymentDate.toLocaleDateString("en-US", options);
 
-	const fullPaymentId = "price_1OKYL4Hl6U3lbfQtQD0OpQ8F";
-	const splitPaymentId = "price_1OKYO4Hl6U3lbfQtIq8563wU";
+	const fullPaymentId = "price_1OL6HGHl6U3lbfQt5IKBd3oM";
+	const splitPaymentId = "price_1OL6DiHl6U3lbfQt0iFELvGQ";
 	return (
 		<>
 			{!isDivisionSelected ? (
@@ -540,7 +542,7 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 
 																	<div className="flex-1 p-4">
 																		<span className="bg-main bg-primary mb-2 inline-block w-fit rounded-md px-2 py-1  uppercase text-white">
-																			Early Bird
+																			Christmas Special
 																		</span>
 																		<div className="flex items-center gap-2">
 																			<p className="mb-2 text-5xl font-semibold">
@@ -550,10 +552,10 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 																			<span className="text-xs">+ 13% HST</span>
 																		</div>
 																		<span className="text-xs">
-																			or split payment of{" "}
+																			or four payment of{" "}
 																			<span className="text-sm">
 																				$
-																				{(division.earlyBirdPrice / 2).toFixed(
+																				{(division.earlyBirdPrice / 4).toFixed(
 																					2
 																				)}
 																			</span>{" "}
@@ -1072,10 +1074,17 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 										<span className="text-sm text-neutral-50">+ 13% HST</span>
 									</p>
 									<Button
-										// "price_1OKYL4Hl6U3lbfQtQD0OpQ8F",
 										className="uppercase"
 										onClick={() => {
-											handleCreateTeamAndPlayer(fullPaymentId, "full");
+											selectedDivision.earlyBirdOpen
+												? handleCreateTeamAndPlayer(
+														selectedDivision.earlyBirdId,
+														"full"
+												  )
+												: handleCreateTeamAndPlayer(
+														selectedDivision.regularPriceFullId,
+														"full"
+												  );
 										}}
 									>
 										{isLoader ? (
@@ -1128,18 +1137,21 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 											</TableBody>
 										</Table>
 										<Button
-											// "price_1OKYO4Hl6U3lbfQtIq8563wU",
 											onClick={() => {
-												handleCreateTeamAndPlayer(splitPaymentId, "four");
+												selectedDivision.earlyBirdOpen
+													? handleCreateTeamAndPlayer(
+															selectedDivision.earlyBirdInstalmentId,
+															"four"
+													  )
+													: handleCreateTeamAndPlayer(
+															selectedDivision.regularPriceInstalmentId,
+															"four"
+													  );
 											}}
 											variant="secondary"
 											className="uppercase text-neutral-300"
 										>
-											{isLoader ? (
-												<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-											) : (
-												"Pay in instalments"
-											)}
+											Pay in instalments
 										</Button>
 										<ul className="flex flex-col gap-4 text-sm uppercase text-neutral-300">
 											<li>
