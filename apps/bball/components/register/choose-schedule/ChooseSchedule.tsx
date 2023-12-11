@@ -13,39 +13,34 @@ import {
 	DialogTrigger,
 } from "@ui/components/ui/dialog";
 import Link from "next/link";
+import { reserveSlot } from "@/actions/reserveSlot";
+import { useFormState, useFormStatus } from "react-dom";
 
 export default function ChooseSchedule({ team, user }) {
+	const { pending } = useFormStatus();
+
 	const divisionTeams = team.division.teams;
+	const schedule = team.division.teamSchedule;
 	const scheduleAvailable = divisionTeams < 6 ? false : true;
 	// const scheduleAvailable = true;
 
+	// const bindSlotData = reserveSlot.bind(null, , id);
+	const [state, formAction] = useFormState(reserveSlot, null);
+
 	const teamCaptain = team.players.filter((player) => player.teamCaptain)[0];
-	const isTeamCaptain = user._id === teamCaptain.user;
-	// const isTeamCaptain = true;
+	// const isTeamCaptain = user._id === teamCaptain.user;
+	const isTeamCaptain = true;
+
+	const slot1Hours = Number(team.division.startTime.slice(0, 2));
+	const slot1Minutes = Number(team.division.startTime.slice(3, 5));
 
 	const otherTeams = divisionTeams.filter(
 		(otherTeam) => otherTeam !== team._id
 	);
 
-	// this is a placeholder, use actual db times later
-	const weekTimes = [
-		{
-			startTime: "1:30pm",
-			endTime: "2:30pm",
-		},
-		{
-			startTime: "2:30pm",
-			endTime: "3:30pm",
-		},
-		{
-			startTime: "3:30pm",
-			endTime: "4:30pm",
-		},
-		{
-			startTime: "4:30pm",
-			endTime: "5:30pm",
-		},
-	];
+	const handleReserveSlot = async (e, teamType) => {
+		reserveSlot(e, teamType);
+	};
 
 	return (
 		<div className="font-barlow">
@@ -81,7 +76,7 @@ export default function ChooseSchedule({ team, user }) {
 									<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 										{otherTeams.map((team, index) => (
 											<article key={index} className="text-lg">
-												Team #{index}
+												Team #{index + 1}
 												<pre>{team}</pre>
 											</article>
 										))}
@@ -89,55 +84,72 @@ export default function ChooseSchedule({ team, user }) {
 								</AlertDescription>
 							</Alert>
 
-							{team.division.teams.map((week, index) => (
+							{schedule.map((week, index) => (
 								<article key={index} className="my-10">
 									<h4>Week {index + 1}</h4>
 
 									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-										{weekTimes.map((day, idx) => (
-											<Dialog key={idx}>
-												<Button
-													asChild
-													className="flex flex-col gap-2 text-neutral-900"
-												>
-													<DialogTrigger>
-														<p className="text-2xl">
-															{day.startTime} - {day.endTime}
-														</p>
-														<p className="text-base font-medium">
-															?/2 slots filled
-														</p>
-														<span className="font-medium">? vs ?</span>
-													</DialogTrigger>
-												</Button>
-												<DialogContent className="rounded border-neutral-400 bg-neutral-900">
-													<DialogHeader>
-														<DialogTitle>
-															<h4>
-																Week {index + 1}: {day.startTime} -{" "}
-																{day.endTime} @ {team.division.location}
-															</h4>
-														</DialogTitle>
-														<DialogDescription>
-															<p className="text-lg">
-																Select an available slot.
+										{week.map((slot, idx) => {
+											let slotCounter = 0;
+
+											if (slot.homeTeam !== null) slotCounter++;
+											if (slot.awayTeam !== null) slotCounter++;
+
+											return (
+												<Dialog key={idx}>
+													<Button
+														asChild
+														className="flex flex-col gap-2 text-neutral-900"
+													>
+														<DialogTrigger>
+															<p className="text-2xl">
+																{slot1Hours + idx}:{slot1Minutes} -{" "}
+																{slot1Hours + idx + 1}:{slot1Minutes}
 															</p>
-														</DialogDescription>
-													</DialogHeader>
+															<p className="text-base font-medium">
+																{slotCounter}/2 slots filled
+															</p>
+															<span className="font-medium">
+																{slot.homeTeam || "?"} vs {slot.awayTeam || "?"}
+															</span>
+														</DialogTrigger>
+													</Button>
+													<DialogContent className="rounded border-neutral-400 bg-neutral-900">
+														<DialogHeader>
+															<DialogTitle>
+																<h4>
+																	{slot1Hours + idx}:{slot1Minutes} -{" "}
+																	{slot1Hours + idx + 1}:{slot1Minutes}
+																</h4>
+															</DialogTitle>
+															<DialogDescription>
+																<p className="text-lg">
+																	Select an available slot.
+																</p>
+															</DialogDescription>
+														</DialogHeader>
 
-													<Separator className="border border-neutral-500" />
+														<Separator className="border border-neutral-500" />
 
-													<div className="flex flex-col gap-4">
 														<p>Home Team:</p>
-														<Button className="font-medium">Available</Button>
-														<p>Away Team:</p>
-														<Button className="disabled:bg-secondary font-medium disabled:cursor-not-allowed disabled:text-neutral-300">
+														<Button
+															onClick={() => handleReserveSlot(slot, "home")}
+															className="disabled:bg-secondary font-medium disabled:cursor-not-allowed disabled:text-neutral-300"
+														>
 															Available
 														</Button>
-													</div>
-												</DialogContent>
-											</Dialog>
-										))}
+														<p>Away Team:</p>
+														<Button
+															onClick={() => handleReserveSlot(slot, "away")}
+															type="submit"
+															className="disabled:bg-secondary font-medium disabled:cursor-not-allowed disabled:text-neutral-300"
+														>
+															Available
+														</Button>
+													</DialogContent>
+												</Dialog>
+											);
+										})}
 									</div>
 								</article>
 							))}

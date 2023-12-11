@@ -183,7 +183,6 @@ export default function CustomizeJersey({ team, session, division }) {
 	};
 
 	const redirectToCheckout = async (items, formObject) => {
-		console.log(items);
 		try {
 			const response = await fetch("/api/checkout-sessions", {
 				method: "POST",
@@ -236,6 +235,7 @@ export default function CustomizeJersey({ team, session, division }) {
 		year: "numeric",
 	};
 
+	// Now you can use firstPayment, secondPayment, thirdPayment, and fourthPayment as needed
 	const firstPayment = originalFirstPaymentDate.toLocaleDateString(
 		"en-US",
 		options
@@ -244,7 +244,6 @@ export default function CustomizeJersey({ team, session, division }) {
 	const thirdPayment = thirdPaymentDate.toLocaleDateString("en-US", options);
 	const fourthPayment = fourthPaymentDate.toLocaleDateString("en-US", options);
 
-	// Now you can use firstPayment, secondPayment, thirdPayment, and fourthPayment as needed
 	return (
 		<>
 			{!isSummary ? (
@@ -671,7 +670,7 @@ export default function CustomizeJersey({ team, session, division }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-										  );
+											);
 								}}
 							>
 								{isLoader ? (
@@ -757,11 +756,11 @@ export default function CustomizeJersey({ team, session, division }) {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-												  )
+													)
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-												  );
+													);
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"

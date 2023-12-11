@@ -238,6 +238,7 @@ export default function CustomizeTeam({ division, session }) {
 		year: "numeric",
 	};
 
+	// Now you can use firstPayment, secondPayment, thirdPayment, and fourthPayment as needed
 	const firstPayment = originalFirstPaymentDate.toLocaleDateString(
 		"en-US",
 		options
@@ -245,8 +246,6 @@ export default function CustomizeTeam({ division, session }) {
 	const secondPayment = secondPaymentDate.toLocaleDateString("en-US", options);
 	const thirdPayment = thirdPaymentDate.toLocaleDateString("en-US", options);
 	const fourthPayment = fourthPaymentDate.toLocaleDateString("en-US", options);
-
-	// Now you can use firstPayment, secondPayment, thirdPayment, and fourthPayment as needed
 
 	return (
 		<>
@@ -809,7 +808,7 @@ export default function CustomizeTeam({ division, session }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-										  );
+											);
 								}}
 							>
 								{isLoader ? (
@@ -895,11 +894,11 @@ export default function CustomizeTeam({ division, session }) {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-												  )
+													)
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-												  );
+													);
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"

@@ -10,6 +10,7 @@ import ContactUs from "@/components/home/contact-us";
 import HomeRegister from "@/components/home/home-register";
 import SecondaryHeader from "@/components/structure/header/secondary-header";
 import { Metadata } from "next";
+import { connectToDatabase } from "@/api-helpers/utils";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -19,6 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Page(): Promise<JSX.Element> {
+	await connectToDatabase();
+
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
