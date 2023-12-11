@@ -27,13 +27,6 @@ const divisionSchema = new Schema({
 	earlyBirdInstalmentId: { type: String },
 	regularPriceFullId: { type: String },
 	regularPriceInstalmentId: { type: String },
-	week1: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week2: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week3: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week4: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week5: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week6: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	week7: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
 });
 
 export default mongoose.models.Division ||
