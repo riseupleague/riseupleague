@@ -670,7 +670,7 @@ export default function CustomizeJersey({ team, session, division }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-										  );
+											);
 								}}
 							>
 								{isLoader ? (
@@ -756,11 +756,11 @@ export default function CustomizeJersey({ team, session, division }) {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-												  )
+													)
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-												  );
+													);
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"
