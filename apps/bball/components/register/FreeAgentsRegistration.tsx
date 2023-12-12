@@ -1070,7 +1070,7 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 								<div className="mt-20 flex flex-col gap-10">
 									<h4 className="text-3xl uppercase">Overall total:</h4>
 									<p className="text-4xl">
-										${(200).toFixed(2)}
+										${(220).toFixed(2)}
 										<span className="text-sm text-neutral-50">+ 13% HST</span>
 									</p>
 									<Button
@@ -1080,11 +1080,11 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 												? handleCreateTeamAndPlayer(
 														selectedDivision.earlyBirdId,
 														"full"
-													)
+												  )
 												: handleCreateTeamAndPlayer(
 														selectedDivision.regularPriceFullId,
 														"full"
-													);
+												  );
 										}}
 									>
 										{isLoader ? (
@@ -1100,9 +1100,9 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 											className="bg-neutral-600"
 										/>{" "}
 										<p className="text-4xl">
-											${(200 / 4).toFixed(2)}
+											${(220 / 4).toFixed(2)}
 											<span className="text-sm text-neutral-50">
-												Today + ${(200 / 4).toFixed(2)} every 2 weeks
+												Today + ${(220 / 4).toFixed(2)} every 2 weeks
 											</span>
 										</p>
 										<Table>
@@ -1117,22 +1117,22 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 												<TableRow className="uppercase">
 													<TableCell>1st</TableCell>
 													<TableCell>{firstPayment}</TableCell>
-													<TableCell>${(200 / 4).toFixed(2)}</TableCell>
+													<TableCell>${(220 / 4).toFixed(2)}</TableCell>
 												</TableRow>
 												<TableRow className="uppercase">
 													<TableCell>2nd</TableCell>
 													<TableCell>{secondPayment}</TableCell>
-													<TableCell>${(200 / 4).toFixed(2)}</TableCell>
+													<TableCell>${(220 / 4).toFixed(2)}</TableCell>
 												</TableRow>
 												<TableRow className="uppercase">
 													<TableCell>3rd</TableCell>
 													<TableCell>{thirdPayment}</TableCell>
-													<TableCell>${(200 / 4).toFixed(2)}</TableCell>
+													<TableCell>${(220 / 4).toFixed(2)}</TableCell>
 												</TableRow>
 												<TableRow className="uppercase">
 													<TableCell>4th</TableCell>
 													<TableCell>{fourthPayment}</TableCell>
-													<TableCell>${(200 / 4).toFixed(2)}</TableCell>
+													<TableCell>${(220 / 4).toFixed(2)}</TableCell>
 												</TableRow>
 											</TableBody>
 										</Table>
@@ -1142,11 +1142,11 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 													? handleCreateTeamAndPlayer(
 															selectedDivision.earlyBirdInstalmentId,
 															"four"
-														)
+													  )
 													: handleCreateTeamAndPlayer(
 															selectedDivision.regularPriceInstalmentId,
 															"four"
-														);
+													  );
 											}}
 											variant="secondary"
 											className="uppercase text-neutral-300"
