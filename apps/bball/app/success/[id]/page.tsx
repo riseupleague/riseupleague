@@ -29,13 +29,12 @@ export default async function Success({
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
-	console.log(players);
-
 	const selectedPlayer = players.find((player) => {
 		return player.season.toString() === season;
 	});
 
 	console.log("selectedPlayer:", selectedPlayer);
+	console.log("division:", division);
 
 	const convertToAMPM = (timeString) => {
 		let formattedTime;

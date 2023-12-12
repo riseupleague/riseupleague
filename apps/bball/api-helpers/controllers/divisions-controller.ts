@@ -55,7 +55,7 @@ export const getAllRegisterDivisions = async () => {
 	try {
 		const registerSeason = await Season.find({ register: "true" });
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+			"divisionName location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
 		);
 
 		if (!divisions) {
@@ -265,16 +265,31 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 };
 
 export const getRegisterDivisionById = async (id: string) => {
+	// Check if the provided ID is not undefined or null
+	if (!id) {
+		return NextResponse.json(
+			{ message: "Invalid division ID" },
+			{ status: 400 }
+		);
+	}
+
+	// Attempt to find the division by ID and populate related fields
 	const division = await Division.findById(id)
-		.populate({
-			path: "teams",
-			select:
-				"teamName teamNameShort teamCode wins losses primaryColor secondaryColor tertiaryColor players paid",
-			populate: {
-				path: "players",
-				select: "paid playerName jerseyNumber", // Select only the 'paid' field for players
+		.populate([
+			{
+				path: "teams",
+				select:
+					"teamName teamNameShort teamCode wins losses primaryColor secondaryColor tertiaryColor players paid",
+				populate: {
+					path: "players",
+					select: "paid playerName jerseyNumber", // Select only the 'paid' field for players
+				},
 			},
-		})
+			{
+				path: "season",
+				select: "freePrice",
+			},
+		])
 		.select(
 			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId"
 		);

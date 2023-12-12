@@ -91,7 +91,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 
 		if (res.ok) {
 			const { player } = await res.json();
-			console.log(player);
 			setPlayerJerseyName(player.jerseyName);
 			setPlayerJerseyNumber(player.jerseyNumber);
 			setPlayerJerseySize(player.jerseySize);
@@ -109,7 +108,6 @@ export default function UserProfile({ session, user }): JSX.Element {
 			setIsLoader(false);
 		}
 	};
-	console.log(playerFormObject);
 
 	useEffect(() => {
 		// Function to handle window resize
@@ -549,8 +547,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 						disabled
 						className="font-barlow mt-16 rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
-						{/* <Link href="/choose-team-schedule">Select Dates</Link> */}Select
-						Dates
+						<Link href="/choose-team-schedule">Select Dates</Link>
 					</Button>
 				</div>
 			),

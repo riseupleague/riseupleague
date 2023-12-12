@@ -112,10 +112,10 @@ const CalendarGames = ({ linkDate }) => {
 							isSameDay(day, new Date())
 								? "bg-gray-900 text-white"
 								: isSameDay(day, selectedDate)
-								  ? "text-primary" // Add "text-primary" class when selectedDate matches
-								  : isLinkDate
-								    ? "text-primary" // Add "text-primary" class when linkDate matches
-								    : "text-white"
+									? "text-primary" // Add "text-primary" class when selectedDate matches
+									: isLinkDate
+										? "text-primary" // Add "text-primary" class when linkDate matches
+										: "text-white"
 						}`}
 						// onClick={() => {
 						// 	const dayStr = format(cloneDay, "ccc dd MMM yy");

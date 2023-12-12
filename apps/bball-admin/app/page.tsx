@@ -1,7 +1,11 @@
-export default function Page(): JSX.Element {
+import { connectToDatabase } from "@/api-helpers/utils";
+
+export default async function Page(): Promise<JSX.Element> {
+	await connectToDatabase();
+
 	return (
-		<main className="container mx-auto min-h-[100dvh]">
-			<h1>admin site</h1>
-		</main>
+		<section>
+			<h1>dashboard page</h1>
+		</section>
 	);
 }
