@@ -7,7 +7,6 @@ import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button } from "@ui/components/button";
-import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import UserProfile from "@/components/user/UserProfile";

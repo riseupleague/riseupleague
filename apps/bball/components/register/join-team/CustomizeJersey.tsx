@@ -54,6 +54,9 @@ interface FormErrors {
 }
 
 export default function CustomizeJersey({ team, session, division }) {
+	console.log("team:", team);
+	console.log("division:", division);
+
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 
@@ -652,6 +655,31 @@ export default function CustomizeJersey({ team, session, division }) {
 								</div>
 							</section>
 						</div>
+						{team.paid && (
+							<div className="mt-20 flex flex-col gap-10">
+								<h4 className="text-primary text-3xl uppercase">PAID</h4>
+								<p className="text-2xl">
+									*Your team captain has paid for the team. If you are not part
+									of the payment, please choose the options below. We will know
+									who is part of the payment!
+								</p>
+								<Button
+									className="bg-primary uppercase text-white"
+									onClick={() => {
+										handleCreateTeamAndPlayer(
+											division.season.freePrice,
+											"full"
+										);
+									}}
+								>
+									{isLoader ? (
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										"Join Team"
+									)}
+								</Button>
+							</div>
+						)}
 
 						<div className="mt-20 flex flex-col gap-10">
 							<h4 className="text-3xl uppercase">Overall total:</h4>
@@ -670,7 +698,7 @@ export default function CustomizeJersey({ team, session, division }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-											);
+										  );
 								}}
 							>
 								{isLoader ? (
@@ -756,11 +784,11 @@ export default function CustomizeJersey({ team, session, division }) {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-													)
+												  )
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-													);
+												  );
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"
