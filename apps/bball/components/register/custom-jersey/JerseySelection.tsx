@@ -22,32 +22,10 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }) => {
 			<DialogContent className="bg-neutral-800 text-white sm:max-w-md">
 				<DialogHeader className="text-center">
 					<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
-						<DialogClose>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-							>
-								<path
-									d="M14.4 18L8.39999 12L14.4 6"
-									stroke="#ABAFB3"
-									strokeWidth="1.67"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
-							</svg>
-						</DialogClose>{" "}
-						Create Or Join A Team To Select Jersey
-					</DialogTitle>
-
-					<DialogDescription className="text-primary text-center text-xs">
-						<span className="text-2xl font-bold uppercase">
-							REGISTER A TEAM
+						<span className="text-primary text-2xl font-bold uppercase">
+							Please Have 9 or minimum registered to your team!
 						</span>{" "}
-						in order to access and customize this jersey.
-					</DialogDescription>
+					</DialogTitle>
 				</DialogHeader>
 			</DialogContent>
 		</Dialog>
@@ -283,7 +261,14 @@ export default function JerseySelection({ team }) {
 											{!usedJersey && (
 												<Button
 													className="bg-transparent hover:bg-transparent"
-													onClick={() => openFormUniqueJersey(index + 1)}
+													onClick={() => {
+														if (team.players.length < 9) {
+															console.log(team.players.length);
+															openDialog();
+														} else {
+															openFormUniqueJersey(index + 1);
+														}
+													}}
 												>
 													{!imageErrors[index] && (
 														<Image
