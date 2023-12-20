@@ -188,6 +188,7 @@ export default function OriginalJersey({
 				secondaryColor,
 				tertiaryColor,
 				oldPrimaryColor,
+				oldJerseyEdition: team.jerseyEdition ? team.jerseyEdition : "",
 			};
 			const res = await fetch("/api/update-team-color", {
 				method: "PATCH",
