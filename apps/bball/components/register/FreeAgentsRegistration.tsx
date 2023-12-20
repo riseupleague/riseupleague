@@ -1080,11 +1080,11 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 												? handleCreateTeamAndPlayer(
 														selectedDivision.earlyBirdId,
 														"full"
-												  )
+													)
 												: handleCreateTeamAndPlayer(
 														selectedDivision.regularPriceFullId,
 														"full"
-												  );
+													);
 										}}
 									>
 										{isLoader ? (
@@ -1142,11 +1142,11 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 													? handleCreateTeamAndPlayer(
 															selectedDivision.earlyBirdInstalmentId,
 															"four"
-													  )
+														)
 													: handleCreateTeamAndPlayer(
 															selectedDivision.regularPriceInstalmentId,
 															"four"
-													  );
+														);
 											}}
 											variant="secondary"
 											className="uppercase text-neutral-300"

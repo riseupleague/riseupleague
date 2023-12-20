@@ -16,19 +16,13 @@ export async function PATCH(req: Request) {
 			secondaryColor,
 			tertiaryColor,
 			oldPrimaryColor,
-			oldJerseyEdition,
 			jerseyEdition,
+			oldJerseyEdition,
 		} = await req.json();
 
 		// Check for required input fields
-		if (
-			!teamId ||
-			!divisionId ||
-			!primaryColor ||
-			!secondaryColor ||
-			!tertiaryColor ||
-			!jerseyEdition
-		) {
+		if (!teamId || !divisionId || !jerseyEdition) {
+			console.log("hi");
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
 		}
 
@@ -52,23 +46,24 @@ export async function PATCH(req: Request) {
 		await newTeam.save();
 
 		const division = await Division.findById(divisionId);
-		const newDivisionColors = division.teamColors.filter(
+
+		division.teamColors = division.teamColors.filter(
 			(color) => color !== oldPrimaryColor
 		);
-		division.teamColors = newDivisionColors.concat(primaryColor);
-		const uniqueEdition = oldJerseyEdition.split("-")[0];
-		if (uniqueEdition === "unique") {
-			division.uniqueJersey = division.uniqueJersey.filter((jersey) => {
-				return jersey !== oldJerseyEdition;
-			});
-		}
+
+		const newDivisionUniqueJersey = division.uniqueJersey.filter((jersey) => {
+			console.log(jersey, oldJerseyEdition);
+			return jersey !== oldJerseyEdition;
+		});
+		division.uniqueJersey = newDivisionUniqueJersey.concat(jerseyEdition);
+
 		await division.save();
 
 		if (!updatedTeam) {
 			return NextResponse.json({ message: "Team not found" }, { status: 404 });
 		}
 
-		return NextResponse.json({ updated: true }, { status: 200 });
+		return NextResponse.json({ updatedDivision: division }, { status: 200 });
 	} catch (error) {
 		console.error("Error during team update:", error);
 		return NextResponse.json(
