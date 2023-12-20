@@ -1,6 +1,10 @@
 "use client";
 
+import LocationMarker from "@/components/general/icons/LocationMarker";
+import TeamLogo from "@/components/general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
+import Link from "next/link";
+
 import { Separator } from "@ui/components/separator";
 import { Alert, AlertDescription, AlertTitle } from "@ui/components/ui/alert";
 import { AlertCircle } from "lucide-react";
@@ -12,35 +16,176 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/ui/dialog";
-import Link from "next/link";
-import { reserveSlot } from "@/actions/reserveSlot";
-import { useFormState, useFormStatus } from "react-dom";
+import { useState } from "react";
 
 export default function ChooseSchedule({ team, user }) {
-	const { pending } = useFormStatus();
-
 	const divisionTeams = team.division.teams;
-	const schedule = team.division.teamSchedule;
+	const gamesMade = team.division.games;
+	console.log(gamesMade);
 	const scheduleAvailable = divisionTeams < 6 ? false : true;
 	// const scheduleAvailable = true;
-
-	// const bindSlotData = reserveSlot.bind(null, , id);
-	const [state, formAction] = useFormState(reserveSlot, null);
 
 	const teamCaptain = team.players.filter((player) => player.teamCaptain)[0];
 	// const isTeamCaptain = user._id === teamCaptain.user;
 	const isTeamCaptain = true;
 
-	const slot1Hours = Number(team.division.startTime.slice(0, 2));
-	const slot1Minutes = Number(team.division.startTime.slice(3, 5));
-
 	const otherTeams = divisionTeams.filter(
 		(otherTeam) => otherTeam !== team._id
 	);
 
-	const handleReserveSlot = async (e, teamType) => {
-		reserveSlot(e, teamType);
+	const { startTime, endTime } = team.division;
+	const [selectedGames, setSelectedGames] = useState([]);
+	// Function to convert time to seconds
+	const timeToSeconds = (time) => {
+		const [hours, minutes] = time.split(":").map(Number);
+		return hours * 3600 + minutes * 60;
 	};
+
+	// Function to convert seconds to time (hh:mm)
+	const secondsToTime = (seconds) => {
+		const hours = Math.floor(seconds / 3600);
+		const minutes = Math.floor((seconds % 3600) / 60);
+		return `${hours.toString().padStart(2, "0")}:${minutes
+			.toString()
+			.padStart(2, "0")}`;
+	};
+
+	const handleGameSelect = (weekNumber, gameIndex, gameStartTime, homeTeam) => {
+		const selectedGame = {
+			homeTeam: homeTeam,
+			week: weekNumber,
+			index: gameIndex,
+			time: gameStartTime,
+		};
+
+		// Check if the game is already selected for the same week, if yes, remove it; otherwise, add it
+		const isGameSelectedInWeek = selectedGames.some(
+			(game) => game.week === selectedGame.week
+		);
+
+		if (isGameSelectedInWeek) {
+			setSelectedGames((prevSelectedGames) =>
+				prevSelectedGames.filter((game) => game.week !== selectedGame.week)
+			);
+		}
+
+		setSelectedGames((prevSelectedGames) => [
+			...prevSelectedGames,
+			selectedGame,
+		]);
+	};
+
+	const generateGameSlots = (weekNumber) => {
+		const gameSlots = [];
+		const startTimeSeconds = timeToSeconds(startTime);
+		const endTimeSeconds = timeToSeconds(endTime);
+		const gameDurationSeconds = 3600; // Assuming each game is 1 hour
+
+		for (let i = 0; i < 4; i++) {
+			const gameStartTimeSeconds = startTimeSeconds + i * gameDurationSeconds;
+			const gameEndTimeSeconds = gameStartTimeSeconds + gameDurationSeconds;
+
+			const gameStartTime = secondsToTime(gameStartTimeSeconds);
+			const gameEndTime = secondsToTime(gameEndTimeSeconds);
+			const gameMade = gamesMade.find((game) => timeToSeconds(game.time));
+
+			if (gameMade && gameMade.homeTeam) {
+			}
+			gameSlots.push(
+				<article
+					key={`game-${weekNumber}-${i}`}
+					className={`flex flex-col rounded border ${
+						selectedGames.some(
+							(game) => game.week === weekNumber && game.index === i
+						)
+							? "border-primary" // Add red border if the game is selected
+							: "border-neutral-600"
+					} bg-neutral-700`}
+				>
+					<div className="flex-1">
+						<div className="grid grid-cols-3">
+							{/* home team */}
+							<div className="flex flex-col items-center gap-[10px] p-4">
+								<TeamLogo
+									primary={""}
+									secondary={""}
+									tertiary={""}
+									width={45}
+									height={44}
+									circleHeight={4}
+									circleWidth={4}
+								/>
+								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+									Home Team
+								</span>
+							</div>
+
+							{/* division / time / location */}
+							<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
+								<div className="mb-4 flex justify-center">
+									<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
+										{team.division.divisionName}
+									</p>
+								</div>
+								<p className="text-center">{`${gameStartTime} - ${gameEndTime}`}</p>
+							</div>
+
+							{/* away team */}
+							<div className="flex flex-col items-center gap-[10px] p-4">
+								<TeamLogo
+									primary={""}
+									secondary={""}
+									tertiary={""}
+									width={45}
+									height={44}
+									circleHeight={4}
+									circleWidth={4}
+								/>
+								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+									Away Team
+								</span>
+							</div>
+						</div>
+						<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
+							<div className="translate-y-[1px]">
+								<LocationMarker />
+							</div>
+							<p className="text-sm text-neutral-400">
+								{team.division.location}
+							</p>
+						</div>
+					</div>
+
+					{/* Select button */}
+					<div className="flex p-4">
+						<Button
+							className="w-full "
+							onClick={() =>
+								handleGameSelect(weekNumber, i, gameStartTime, false)
+							}
+						>
+							Select
+						</Button>
+					</div>
+				</article>
+			);
+		}
+
+		return gameSlots;
+	};
+
+	// Generate calendar for weeks 1 to 7
+	const calendar = [];
+	for (let week = 1; week <= 7; week++) {
+		calendar.push(
+			<div key={`week-${week}`} className="mb-10">
+				<h2 className="mb-4">{`Week ${week}`}</h2>
+				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+					{generateGameSlots(week)}
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="font-barlow">
@@ -83,8 +228,9 @@ export default function ChooseSchedule({ team, user }) {
 									</div>
 								</AlertDescription>
 							</Alert>
+							<div className="my-20">{calendar}</div>
 
-							{schedule.map((week, index) => (
+							{/* {schedule?.map((week, index) => (
 								<article key={index} className="my-10">
 									<h4>Week {index + 1}</h4>
 
@@ -152,7 +298,7 @@ export default function ChooseSchedule({ team, user }) {
 										})}
 									</div>
 								</article>
-							))}
+							))} */}
 						</>
 					) : (
 						// tell user that the schedule is only available for team captain
@@ -207,3 +353,120 @@ export default function ChooseSchedule({ team, user }) {
 		</div>
 	);
 }
+
+// export default function ChooseSchedule({ team, user }) {
+// 	const { startTime, endTime } = team.division;
+
+// 	// Function to convert time to seconds
+// 	const timeToSeconds = (time) => {
+// 		const [hours, minutes] = time.split(":").map(Number);
+// 		return hours * 3600 + minutes * 60;
+// 	};
+
+// 	// Function to convert seconds to time (hh:mm)
+// 	const secondsToTime = (seconds) => {
+// 		const hours = Math.floor(seconds / 3600);
+// 		const minutes = Math.floor((seconds % 3600) / 60);
+// 		return `${hours.toString().padStart(2, "0")}:${minutes
+// 			.toString()
+// 			.padStart(2, "0")}`;
+// 	};
+
+// 	const generateGameSlots = (weekNumber) => {
+// 		const gameSlots = [];
+// 		const startTimeSeconds = timeToSeconds(startTime);
+// 		const endTimeSeconds = timeToSeconds(endTime);
+// 		const gameDurationSeconds = 3600; // Assuming each game is 1 hour
+
+// 		for (let i = 0; i < 4; i++) {
+// 			const gameStartTimeSeconds = startTimeSeconds + i * gameDurationSeconds;
+// 			const gameEndTimeSeconds = gameStartTimeSeconds + gameDurationSeconds;
+
+// 			const gameStartTime = secondsToTime(gameStartTimeSeconds);
+// 			const gameEndTime = secondsToTime(gameEndTimeSeconds);
+
+// 			gameSlots.push(
+// 				<article
+// 					key={`game-${weekNumber}-${i}`}
+// 					className="flex flex-col rounded border border-neutral-600 bg-neutral-700"
+// 				>
+// 					<div className="flex-1">
+// 						<div className="grid grid-cols-3">
+// 							{/* home team */}
+// 							<div className="flex flex-col items-center gap-[10px] p-4">
+// 								<TeamLogo
+// 									primary={""}
+// 									secondary={""}
+// 									tertiary={""}
+// 									width={45}
+// 									height={44}
+// 									circleHeight={4}
+// 									circleWidth={4}
+// 								/>
+// 								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+// 									Team A
+// 								</span>
+// 							</div>
+
+// 							{/* division / time / location */}
+// 							<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
+// 								<div className="mb-4 flex justify-center">
+// 									<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
+// 										{team.division.divisionName}
+// 									</p>
+// 								</div>
+// 								<p className="text-center">{`${gameStartTime} - ${gameEndTime}`}</p>
+// 							</div>
+
+// 							{/* away team */}
+// 							<div className="flex flex-col items-center gap-[10px] p-4">
+// 								<TeamLogo
+// 									primary={""}
+// 									secondary={""}
+// 									tertiary={""}
+// 									width={45}
+// 									height={44}
+// 									circleHeight={4}
+// 									circleWidth={4}
+// 								/>
+// 								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+// 									Team B
+// 								</span>
+// 							</div>
+// 						</div>
+// 						<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
+// 							<div className="translate-y-[1px]">
+// 								<LocationMarker />
+// 							</div>
+// 							<p className="text-sm text-neutral-400">
+// 								{team.division.location}
+// 							</p>
+// 						</div>
+// 					</div>
+
+// 					{/* preview/summary button */}
+// 					<div className="flex p-4">
+// 						<Button className="w-full capitalize">Join Game</Button>
+// 					</div>
+// 				</article>
+// 			);
+// 		}
+
+// 		return gameSlots;
+// 	};
+
+// 	// Generate calendar for weeks 1 to 7
+// 	const calendar = [];
+// 	for (let week = 1; week <= 7; week++) {
+// 		calendar.push(
+// 			<div key={`week-${week}`} className="mb-10">
+// 				<h2 className="mb-4">{`Week ${week}`}</h2>
+// 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+// 					{generateGameSlots(week)}
+// 				</div>
+// 			</div>
+// 		);
+// 	}
+
+// 	return <div>{calendar}</div>;
+// }
