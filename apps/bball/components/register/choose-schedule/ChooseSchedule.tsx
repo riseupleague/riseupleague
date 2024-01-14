@@ -280,22 +280,24 @@ export default function ChooseSchedule({ team, user }) {
 	}, [missingWeeks, gamesMade, teamsToRemove]);
 
 	const convertMilitaryToRegularTime = (militaryTime) => {
-		// Parse the military time
-		const [hours, minutes] = militaryTime.split(":").map(Number);
+		if (militaryTime) {
+			// Parse the military time
+			const [hours, minutes] = militaryTime.split(":").map(Number);
 
-		// Determine whether it's morning or afternoon
-		const period = hours < 12 ? "AM" : "PM";
+			// Determine whether it's morning or afternoon
+			const period = hours < 12 ? "AM" : "PM";
 
-		// Convert hours to 12-hour format
-		const regularHours = hours % 12 || 12;
+			// Convert hours to 12-hour format
+			const regularHours = hours % 12 || 12;
 
-		// Format the result
-		const regularTime = `${regularHours}:${String(minutes).padStart(
-			2,
-			"0"
-		)} ${period}`;
+			// Format the result
+			const regularTime = `${regularHours}:${String(minutes).padStart(
+				2,
+				"0"
+			)} ${period}`;
 
-		return regularTime;
+			return regularTime;
+		}
 	};
 
 	return (
@@ -359,31 +361,39 @@ export default function ChooseSchedule({ team, user }) {
 												return game;
 											}
 										});
-										const gamesTakenString = (
-											<span>
-												{gamesTaken.length === 3
-													? gamesTaken
-															.map((game, i) =>
-																i === 2
-																	? `${convertMilitaryToRegularTime(game.time)}`
-																	: `${convertMilitaryToRegularTime(
-																			game.time
-																	  )}, `
-															)
-															.join(" and ")
-													: gamesTaken.length === 2
-													? gamesTaken
-															.map((game, i) =>
-																i === 1
-																	? `${convertMilitaryToRegularTime(game.time)}`
-																	: `${convertMilitaryToRegularTime(
-																			game.time
-																	  )} and `
-															)
-															.join(" ")
-													: convertMilitaryToRegularTime(gamesTaken[0].time)}
-											</span>
-										);
+										let gamesTakenString;
+										if (gamesTaken.length > 0) {
+											gamesTakenString = (
+												<span>
+													{gamesTaken.length === 3
+														? gamesTaken
+																.map((game, i) =>
+																	i === 2
+																		? `${convertMilitaryToRegularTime(
+																				game.time
+																		  )}`
+																		: `${convertMilitaryToRegularTime(
+																				game.time
+																		  )}, `
+																)
+																.join(" and ")
+														: gamesTaken.length === 2
+														? gamesTaken
+																.map((game, i) =>
+																	i === 1
+																		? `${convertMilitaryToRegularTime(
+																				game.time
+																		  )}`
+																		: `${convertMilitaryToRegularTime(
+																				game.time
+																		  )} and `
+																)
+																.join(" ")
+														: convertMilitaryToRegularTime(gamesTaken[0]?.time)}
+												</span>
+											);
+										}
+
 										return (
 											<div
 												id={`week-${week}`}
@@ -392,10 +402,12 @@ export default function ChooseSchedule({ team, user }) {
 											>
 												<h2 className="mb-4 flex items-center gap-5">
 													{`Game ${week}`}{" "}
-													<span className="text-lg">
-														Time slots {gamesTakenString} are full and excluded
-														from the list
-													</span>
+													{gamesTaken.length > 0 && (
+														<span className="text-lg">
+															Time slots {gamesTakenString} are full and
+															excluded from the list
+														</span>
+													)}
 												</h2>
 												<div className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 													{gamesByWeek[week].map((game) => {
@@ -696,7 +708,7 @@ export default function ChooseSchedule({ team, user }) {
 									<DialogHeader className="text-center">
 										<DialogTitle className="text-primary flex items-center justify-center gap-1 text-center text-3xl">
 											Oops... It looks like team{" "}
-											{otherTeams[otherTeams.length - 1].teamName} has selected
+											{otherTeams[otherTeams.length - 1]?.teamName} has selected
 											their schedule before you.
 										</DialogTitle>
 										<DialogDescription className="text-center text-sm md:text-lg">
