@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
-import { getTeamById } from "@/api-helpers/controllers/teams-controller";
+import { getTeamByIdWithGames } from "@/api-helpers/controllers/teams-controller";
 import ChooseSchedule from "@/components/register/choose-schedule/ChooseSchedule";
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default async function Jersey({
 		redirect("/");
 	}
 
-	const resTeam = await getTeamById(params.id);
+	const resTeam = await getTeamByIdWithGames(params.id);
 	const { team } = await resTeam.json();
 
 	const resUser = await getCurrentUser(session.user.email);

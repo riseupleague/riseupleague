@@ -82,6 +82,7 @@ export default function FeaturedPlayerCard({ player }) {
 						>
 							{player.playerName}
 						</Link>
+						{player.instagram !== "" && <span>ig: {player.instagram}</span>}
 					</div>
 				</div>
 

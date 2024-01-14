@@ -123,6 +123,55 @@ export const getTeamById = async (teamId: string) => {
 	}
 };
 
+export const getTeamByIdWithGames = async (teamId: string) => {
+	try {
+		const team = await Team.findById(teamId)
+			.populate("players")
+			.populate({
+				path: "division",
+				populate: {
+					path: "games",
+					populate: [
+						{
+							path: "homeTeam",
+							select:
+								"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
+						},
+						{
+							path: "awayTeam",
+							select:
+								"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
+						},
+					],
+					select:
+						"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location week time",
+				},
+			})
+			.populate({
+				path: "division",
+				populate: {
+					path: "teamsWithSchedule",
+					select: "teamName teamNameShort",
+				},
+			})
+			.select(
+				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+			);
+
+		if (!team) {
+			return NextResponse.json(
+				{ message: "Player not found" },
+				{ status: 404 }
+			);
+		}
+		const teams = await Team.find().select("averageStats");
+
+		return NextResponse.json({ team: team }, { status: 200 });
+	} catch (e) {
+		return NextResponse.json({ message: e }, { status: 500 });
+	}
+};
+
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)

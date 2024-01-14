@@ -4,58 +4,102 @@ import LocationMarker from "@/components/general/icons/LocationMarker";
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 import { Separator } from "@ui/components/separator";
 import { Alert, AlertDescription, AlertTitle } from "@ui/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 import {
+	Sheet,
+	SheetClose,
+	SheetContent,
+	SheetDescription,
+	SheetFooter,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@ui/components/sheet";
+
+import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
-} from "@ui/components/ui/dialog";
-import { useState } from "react";
+} from "@ui/components/dialog";
+
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ChooseSchedule({ team, user }) {
-	const divisionTeams = team.division.teams;
-	const gamesMade = team.division.games;
-	console.log(gamesMade);
-	const scheduleAvailable = divisionTeams < 6 ? false : true;
-	// const scheduleAvailable = true;
+	const router = useRouter();
+	// const gamesMade = team.division.games;
+	const [gamesMade, setGamesMade] = useState(team.division.games);
+	const scheduleAvailable = gamesMade.length > 0 ? true : false;
+	const teamCaptain = team.players[0];
+	console.log("gamesMade:", gamesMade);
 
-	const teamCaptain = team.players.filter((player) => player.teamCaptain)[0];
-	// const isTeamCaptain = user._id === teamCaptain.user;
-	const isTeamCaptain = true;
+	// Create an object to store games by week
+	const gamesByWeek = {};
 
-	const otherTeams = divisionTeams.filter(
-		(otherTeam) => otherTeam !== team._id
+	// Iterate through the games and organize them by week
+	gamesMade.forEach((game) => {
+		const week = game.week;
+
+		if (!gamesByWeek[week]) {
+			gamesByWeek[week] = [];
+		}
+
+		gamesByWeek[week].push(game);
+	});
+
+	// Now gamesByWeek is an object where each key represents a week and the value is an array of games for that week
+	console.log(gamesByWeek);
+	const isTeamCaptain =
+		user._id === teamCaptain.user || user.name === teamCaptain.playerName;
+
+	// const isTeamCaptain = true;
+	const [teamsToRemove, setTeamsToRemove] = useState(
+		team.division.teamsWithSchedule ? team.division.teamsWithSchedule : []
 	);
 
-	const { startTime, endTime } = team.division;
+	const [otherTeams, setOtherTeams] = useState(
+		team.division.teamsWithSchedule ? team.division.teamsWithSchedule : []
+	);
+
+	// const otherTeams = team.division.teamsWithSchedule
+	// 	? team.division.teamsWithSchedule
+	// 	: [];
+
 	const [selectedGames, setSelectedGames] = useState([]);
-	// Function to convert time to seconds
-	const timeToSeconds = (time) => {
-		const [hours, minutes] = time.split(":").map(Number);
-		return hours * 3600 + minutes * 60;
-	};
+	const [isLoader, setIsLoader] = useState(false);
 
-	// Function to convert seconds to time (hh:mm)
-	const secondsToTime = (seconds) => {
-		const hours = Math.floor(seconds / 3600);
-		const minutes = Math.floor((seconds % 3600) / 60);
-		return `${hours.toString().padStart(2, "0")}:${minutes
-			.toString()
-			.padStart(2, "0")}`;
-	};
+	const [open, setOpen] = useState(false);
 
-	const handleGameSelect = (weekNumber, gameIndex, gameStartTime, homeTeam) => {
+	const handleGameSelect = (
+		weekNumber,
+		gameIndex,
+		opponentTeam,
+		team,
+		time
+	) => {
+		if (teamsToRemove[0]?._id === opponentTeam) {
+			const prevTeamsToRemove = teamsToRemove.filter((team) => {
+				return team._id !== opponentTeam;
+			});
+
+			setTeamsToRemove(prevTeamsToRemove);
+		}
+
 		const selectedGame = {
-			homeTeam: homeTeam,
+			team: team,
 			week: weekNumber,
 			index: gameIndex,
-			time: gameStartTime,
+			opponentTeam: opponentTeam,
+			status: true,
+			time: time,
 		};
 
 		// Check if the game is already selected for the same week, if yes, remove it; otherwise, add it
@@ -64,9 +108,62 @@ export default function ChooseSchedule({ team, user }) {
 		);
 
 		if (isGameSelectedInWeek) {
+			const FilteredGamesWithHomeTeamsSelected = gamesMade.filter((game) => {
+				if (game.week === selectedGame.week) {
+					return game.homeTeam?._id;
+				}
+			});
+			const teamToRemove = FilteredGamesWithHomeTeamsSelected.find((game) => {
+				return selectedGames.some((selected) => {
+					return (
+						selected.opponentTeam === game.homeTeam._id &&
+						selected.status === true &&
+						selected.week === selectedGame.week
+					);
+				});
+			});
+
+			if (teamToRemove) {
+				if (teamToRemove.homeTeam._id !== teamsToRemove[0]?._id) {
+					// The home team is in the otherTeams array
+					const teamToAdd = otherTeams.find(
+						(team) => team._id === teamToRemove.homeTeam._id
+					);
+
+					const prevTeamsToRemove = teamsToRemove.filter((team) => {
+						return team._id !== opponentTeam;
+					});
+					setTeamsToRemove([teamToAdd, ...prevTeamsToRemove]);
+					if (selectedGames.length === 7) {
+						const updatedSelectedGames = selectedGames.filter((game) => {
+							if (game.week !== 7) {
+								return game.week !== 7;
+							} else {
+								return game.week !== 6;
+							}
+						});
+						setSelectedGames(updatedSelectedGames);
+					}
+				}
+			}
+
 			setSelectedGames((prevSelectedGames) =>
 				prevSelectedGames.filter((game) => game.week !== selectedGame.week)
 			);
+		}
+		// Check if opponent team is already selected for a different week, if yes, remove it; otherwise, add it
+		if (opponentTeam !== "") {
+			const isOpponentSelectedInSchedule = selectedGames.some((game) => {
+				return game.opponentTeam === selectedGame.opponentTeam;
+			});
+
+			if (isOpponentSelectedInSchedule) {
+				setSelectedGames((prevSelectedGames) =>
+					prevSelectedGames.filter(
+						(game) => game.opponentTeam !== selectedGame.opponentTeam
+					)
+				);
+			}
 		}
 
 		setSelectedGames((prevSelectedGames) => [
@@ -74,125 +171,140 @@ export default function ChooseSchedule({ team, user }) {
 			selectedGame,
 		]);
 	};
+	const handleGameDeselect = (gameId) => {
+		const potentialTeamToAdd = selectedGames.find(
+			(game) => game.index === gameId
+		);
 
-	const generateGameSlots = (weekNumber) => {
-		const gameSlots = [];
-		const startTimeSeconds = timeToSeconds(startTime);
-		const endTimeSeconds = timeToSeconds(endTime);
-		const gameDurationSeconds = 3600; // Assuming each game is 1 hour
-
-		for (let i = 0; i < 4; i++) {
-			const gameStartTimeSeconds = startTimeSeconds + i * gameDurationSeconds;
-			const gameEndTimeSeconds = gameStartTimeSeconds + gameDurationSeconds;
-
-			const gameStartTime = secondsToTime(gameStartTimeSeconds);
-			const gameEndTime = secondsToTime(gameEndTimeSeconds);
-			const gameMade = gamesMade.find((game) => timeToSeconds(game.time));
-
-			if (gameMade && gameMade.homeTeam) {
-			}
-			gameSlots.push(
-				<article
-					key={`game-${weekNumber}-${i}`}
-					className={`flex flex-col rounded border ${
-						selectedGames.some(
-							(game) => game.week === weekNumber && game.index === i
-						)
-							? "border-primary" // Add red border if the game is selected
-							: "border-neutral-600"
-					} bg-neutral-700`}
-				>
-					<div className="flex-1">
-						<div className="grid grid-cols-3">
-							{/* home team */}
-							<div className="flex flex-col items-center gap-[10px] p-4">
-								<TeamLogo
-									primary={""}
-									secondary={""}
-									tertiary={""}
-									width={45}
-									height={44}
-									circleHeight={4}
-									circleWidth={4}
-								/>
-								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-									Home Team
-								</span>
-							</div>
-
-							{/* division / time / location */}
-							<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
-								<div className="mb-4 flex justify-center">
-									<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
-										{team.division.divisionName}
-									</p>
-								</div>
-								<p className="text-center">{`${gameStartTime} - ${gameEndTime}`}</p>
-							</div>
-
-							{/* away team */}
-							<div className="flex flex-col items-center gap-[10px] p-4">
-								<TeamLogo
-									primary={""}
-									secondary={""}
-									tertiary={""}
-									width={45}
-									height={44}
-									circleHeight={4}
-									circleWidth={4}
-								/>
-								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-									Away Team
-								</span>
-							</div>
-						</div>
-						<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
-							<div className="translate-y-[1px]">
-								<LocationMarker />
-							</div>
-							<p className="text-sm text-neutral-400">
-								{team.division.location}
-							</p>
-						</div>
-					</div>
-
-					{/* Select button */}
-					<div className="flex p-4">
-						<Button
-							className="w-full "
-							onClick={() =>
-								handleGameSelect(weekNumber, i, gameStartTime, false)
-							}
-						>
-							Select
-						</Button>
-					</div>
-				</article>
-			);
+		const teamToAdd = otherTeams.find(
+			(team) => team._id === potentialTeamToAdd.opponentTeam
+		);
+		if (teamToAdd) {
+			setTeamsToRemove([teamToAdd, ...teamsToRemove]);
 		}
+		const filteredSelectedGames = selectedGames.filter(
+			(game) => game.index !== gameId
+		);
+		setSelectedGames(filteredSelectedGames);
+	};
 
-		return gameSlots;
+	const handleSubmitGameSchedule = async () => {
+		setIsLoader(true);
+		const res = await fetch("/api/update-team-schedule", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				addedGames: selectedGames,
+				teamId: team._id,
+				divisionId: team.division._id,
+				otherTeamsCount: otherTeams.length,
+			}),
+		});
+		if (res.ok) {
+			const data = await res.json(); // Parse the JSON once
+
+			if (data.updated) {
+				setIsLoader(false);
+				router.push("/user"); // Use router.push instead of redirect
+			} else {
+				const { teamAddedFirst } = data;
+				setGamesMade(teamAddedFirst.division.games);
+				setOtherTeams(
+					teamAddedFirst.division.teamsWithSchedule
+						? teamAddedFirst.division.teamsWithSchedule
+						: []
+				);
+				setTeamsToRemove(
+					teamAddedFirst.division.teamsWithSchedule
+						? teamAddedFirst.division.teamsWithSchedule
+						: []
+				);
+				setSelectedGames([]);
+				setOpen(true);
+			}
+		}
 	};
 
 	// Generate calendar for weeks 1 to 7
-	const calendar = [];
-	for (let week = 1; week <= 7; week++) {
-		calendar.push(
-			<div key={`week-${week}`} className="mb-10">
-				<h2 className="mb-4">{`Week ${week}`}</h2>
-				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{generateGameSlots(week)}
-				</div>
-			</div>
+	const calendar = Array.from({ length: 7 }, (_, index) => index + 1);
+	const selectedWeeks = selectedGames.map((game) => game.week);
+	const allWeeks = [1, 2, 3, 4, 5, 6, 7];
+
+	const missingWeeks = allWeeks.filter((week) => !selectedWeeks.includes(week));
+
+	const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+	useEffect(() => {
+		// Function to handle window resize
+		const handleResize = () => {
+			setIsSmallScreen(window.innerWidth < 640); // Adjust the threshold as needed
+		};
+
+		// Add event listener for window resize
+		window.addEventListener("resize", handleResize);
+
+		// Call handleResize on initial mount
+		handleResize();
+
+		// Clean up the event listener on component unmount
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
+	useEffect(() => {
+		const sortedMissingWeeks = missingWeeks.sort(
+			(weekA, weekB) => weekA - weekB
 		);
-	}
+		const scrollToGame = gamesMade.find(
+			(game) => game.week === sortedMissingWeeks[0]
+		);
+		if (teamsToRemove.length > 0) {
+			const teamElement = document.getElementById(`${teamsToRemove[0]._id}`);
+			const container = teamElement?.closest(".teamContainer"); // Replace with the class or reference to your container
+			container?.scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+				inline: "center",
+			});
+		} else {
+			const weekElement = document.getElementById(`week-${scrollToGame?.week}`);
+			weekElement?.scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+				inline: "center",
+			});
+		}
+	}, [missingWeeks, gamesMade, teamsToRemove]);
+
+	const convertMilitaryToRegularTime = (militaryTime) => {
+		// Parse the military time
+		const [hours, minutes] = militaryTime.split(":").map(Number);
+
+		// Determine whether it's morning or afternoon
+		const period = hours < 12 ? "AM" : "PM";
+
+		// Convert hours to 12-hour format
+		const regularHours = hours % 12 || 12;
+
+		// Format the result
+		const regularTime = `${regularHours}:${String(minutes).padStart(
+			2,
+			"0"
+		)} ${period}`;
+
+		return regularTime;
+	};
 
 	return (
-		<div className="font-barlow">
+		<div className="font-barlow ">
 			<h3 className="text-center">Division: {team.division.divisionName}</h3>
 			<h6 className="my-2 text-center">
 				{team.division.day} @ {team.division.location} from{" "}
-				{team.division.startTime} - {team.division.endTime}
+				{convertMilitaryToRegularTime(team.division.startTime)} -{" "}
+				{convertMilitaryToRegularTime(team.division.endTime)}
 			</h6>
 
 			<Separator className="my-3 border border-neutral-500 sm:my-12" />
@@ -202,103 +314,398 @@ export default function ChooseSchedule({ team, user }) {
 					{isTeamCaptain ? (
 						// show schedule for team captain
 						<>
-							<p className="my-4 text-lg">
+							<p className="my-4 text-4xl font-semibold uppercase">
 								Every team must play every other team once.
 							</p>
+							<div className="relative">
+								{teamsToRemove.length > 0 && (
+									<Alert
+										variant="destructive"
+										className="border-primary sticky top-32 z-10 bg-neutral-900"
+									>
+										<div className="flex items-center gap-2">
+											<AlertCircle />
+											<AlertTitle>
+												Since you were not the first team to select your
+												schedule times, you must play the following team(s):
+											</AlertTitle>
+										</div>
 
-							<Alert variant="destructive" className="border-primary">
-								<div className="flex items-center gap-2">
-									<AlertCircle />
-									<AlertTitle>
-										Since you were not the first team to select your schedule
-										times, you must play the following team(s):
-									</AlertTitle>
+										<Separator className="z-10 mt-4 border border-neutral-500" />
+										<AlertDescription>
+											<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+												{teamsToRemove.map((team, index) => {
+													return (
+														<article key={index} className="text-lg">
+															<pre
+																className={`${
+																	index === 0 &&
+																	"text-primary text-3xl font-semibold"
+																}`}
+															>
+																{team.teamName}
+															</pre>
+														</article>
+													);
+												})}
+											</div>
+										</AlertDescription>
+									</Alert>
+								)}
+								<div className="my-20">
+									{Object.keys(gamesByWeek).map((week) => {
+										const gamesTaken = gamesByWeek[week].filter((game) => {
+											if (game.homeTeam && game.awayTeam) {
+												return game;
+											}
+										});
+										const gamesTakenString = (
+											<span>
+												{gamesTaken.length === 3
+													? gamesTaken
+															.map((game, i) =>
+																i === 2
+																	? `${convertMilitaryToRegularTime(game.time)}`
+																	: `${convertMilitaryToRegularTime(
+																			game.time
+																	  )}, `
+															)
+															.join(" and ")
+													: gamesTaken.length === 2
+													? gamesTaken
+															.map((game, i) =>
+																i === 1
+																	? `${convertMilitaryToRegularTime(game.time)}`
+																	: `${convertMilitaryToRegularTime(
+																			game.time
+																	  )} and `
+															)
+															.join(" ")
+													: convertMilitaryToRegularTime(gamesTaken[0].time)}
+											</span>
+										);
+										return (
+											<div
+												id={`week-${week}`}
+												key={`week-${week}`}
+												className="teamContainer mb-10"
+											>
+												<h2 className="mb-4 flex items-center gap-5">
+													{`Game ${week}`}{" "}
+													<span className="text-lg">
+														Time slots {gamesTakenString} are full and excluded
+														from the list
+													</span>
+												</h2>
+												<div className=" grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+													{gamesByWeek[week].map((game) => {
+														const [startHours, startMinutes] = game.time
+															.split(":")
+															.map(Number);
+														const gameEndTime = `${String(
+															startHours + 1
+														).padStart(2, "0")}:${startMinutes}`;
+
+														const isGameSelected = selectedGames.find(
+															(selectedGame) => {
+																return selectedGame.index === game._id;
+															}
+														);
+														let alreadySelectedTeam;
+														if (teamsToRemove.length === 0) {
+															alreadySelectedTeam = selectedGames.find(
+																(selectedGame) => {
+																	return (
+																		selectedGame.opponentTeam ===
+																		game.homeTeam?._id
+																	);
+																}
+															)?.week;
+														}
+														if (game.homeTeam && game.awayTeam) {
+															return;
+														}
+
+														return (
+															<article
+																id={
+																	game.homeTeam && game.awayTeam
+																		? undefined
+																		: `${game.homeTeam?._id}`
+																}
+																key={`game-${game._id}-${game.week}`}
+																className={`flex flex-col rounded border ${
+																	selectedGames.some(
+																		(selectedGame) =>
+																			selectedGame.index === game._id
+																	)
+																		? "border-primary" // Add red border if the game is selected
+																		: "border-neutral-600"
+																} bg-neutral-700`}
+															>
+																<div className="flex-1">
+																	<div className="grid grid-cols-3">
+																		{/* home team */}
+																		<div className="flex flex-col items-center gap-[10px] p-4">
+																			<TeamLogo
+																				primary={
+																					game.homeTeam
+																						? game.homeTeam.primaryColor
+																						: ""
+																				}
+																				secondary={
+																					game.homeTeam
+																						? game.homeTeam.secondaryColor
+																						: ""
+																				}
+																				tertiary={
+																					game.homeTeam
+																						? game.homeTeam.tertiaryColor
+																						: ""
+																				}
+																				width={45}
+																				height={44}
+																				circleHeight={4}
+																				circleWidth={4}
+																			/>
+
+																			<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+																				{game.homeTeam
+																					? game.homeTeam?.teamName
+																					: "Home Team"}
+																			</span>
+																		</div>
+
+																		{/* division / time / location */}
+																		<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
+																			{/* <div className="mb-4 flex justify-center">
+																			<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
+																				{team.division.divisionName}
+																			</p>
+																		</div> */}
+																			<p className="text-center text-3xl">{`${convertMilitaryToRegularTime(
+																				game.time
+																			)}`}</p>
+																		</div>
+
+																		{/* away team */}
+																		<div className="flex flex-col items-center gap-[10px] p-4">
+																			<TeamLogo
+																				primary={
+																					game.awayTeam
+																						? game.awayTeam.primaryColor
+																						: ""
+																				}
+																				secondary={
+																					game.awayTeam
+																						? game.awayTeam.secondaryColor
+																						: ""
+																				}
+																				tertiary={
+																					game.awayTeam
+																						? game.awayTeam.tertiaryColor
+																						: ""
+																				}
+																				width={45}
+																				height={44}
+																				circleHeight={4}
+																				circleWidth={4}
+																			/>
+																			<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+																				{game.awayTeam
+																					? game.awayTeam?.teamName
+																					: "Away Team"}
+																			</span>
+																		</div>
+																	</div>
+																</div>
+
+																{/* Select button */}
+																{game.homeTeam && game.awayTeam ? (
+																	<div className="flex p-4">
+																		<Button className="w-full " disabled>
+																			Taken
+																		</Button>
+																	</div>
+																) : (
+																	<div className="flex p-4">
+																		{isGameSelected ? (
+																			<Button
+																				onClick={() =>
+																					handleGameDeselect(game._id)
+																				}
+																				className="w-full "
+																			>
+																				Deselect
+																			</Button>
+																		) : (
+																			<>
+																				{teamsToRemove[0]?._id ===
+																				game.homeTeam?._id ? (
+																					<Button
+																						className="bg-primary hover:bg-primaryDark w-full text-white "
+																						onClick={() =>
+																							handleGameSelect(
+																								game.week,
+																								game._id,
+																								game.homeTeam
+																									? game.homeTeam?._id
+																									: "",
+																								team._id,
+																								game.time
+																							)
+																						}
+																					>
+																						Select
+																					</Button>
+																				) : (
+																					<Button className="w-full " disabled>
+																						{teamsToRemove.length !== 0
+																							? `Please select a ${teamsToRemove[0]?.teamNameShort}
+																				Game Next`
+																							: `You selected this team for game ${alreadySelectedTeam}`}
+																					</Button>
+																				)}
+																			</>
+																		)}
+																	</div>
+																)}
+															</article>
+														);
+													})}
+												</div>
+											</div>
+										);
+									})}
 								</div>
+							</div>
 
-								<Separator className="mt-4 border border-neutral-500" />
+							{selectedGames.length > 6 && teamsToRemove.length === 0 ? (
+								<Sheet>
+									<SheetTrigger asChild>
+										<Button className="w-full">Add Schedule</Button>
+									</SheetTrigger>
+									<SheetContent
+										side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
+										className={`w-full bg-neutral-900 ${
+											isSmallScreen ? "h-[85%]" : ""
+										}`}
+									>
+										<SheetHeader>
+											<SheetTitle className="font-barlow text-center text-4xl uppercase">
+												Summary
+											</SheetTitle>
+										</SheetHeader>
 
-								<AlertDescription>
-									<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-										{otherTeams.map((team, index) => (
-											<article key={index} className="text-lg">
-												Team #{index + 1}
-												<pre>{team}</pre>
-											</article>
-										))}
-									</div>
-								</AlertDescription>
-							</Alert>
-							<div className="my-20">{calendar}</div>
+										<ul className="my-20">
+											{selectedGames
+												.sort((gameA, gameB) => gameA.week - gameB.week)
+												.map((game) => {
+													return (
+														<li key={game.week} className="my-2 text-xl">
+															game {game.week} at{" "}
+															{convertMilitaryToRegularTime(game.time)}
+														</li>
+													);
+												})}
+										</ul>
 
-							{/* {schedule?.map((week, index) => (
-								<article key={index} className="my-10">
-									<h4>Week {index + 1}</h4>
-
-									<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-										{week.map((slot, idx) => {
-											let slotCounter = 0;
-
-											if (slot.homeTeam !== null) slotCounter++;
-											if (slot.awayTeam !== null) slotCounter++;
-
-											return (
-												<Dialog key={idx}>
+										<SheetFooter className="mt-10">
+											<div className="flex w-full flex-col gap-5">
+												<SheetClose asChild>
 													<Button
-														asChild
-														className="flex flex-col gap-2 text-neutral-900"
+														id="addScheduleButton"
+														className="w-full "
+														onClick={handleSubmitGameSchedule}
 													>
-														<DialogTrigger>
-															<p className="text-2xl">
-																{slot1Hours + idx}:{slot1Minutes} -{" "}
-																{slot1Hours + idx + 1}:{slot1Minutes}
-															</p>
-															<p className="text-base font-medium">
-																{slotCounter}/2 slots filled
-															</p>
-															<span className="font-medium">
-																{slot.homeTeam || "?"} vs {slot.awayTeam || "?"}
-															</span>
-														</DialogTrigger>
+														{isLoader ? (
+															<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+														) : (
+															"Add Schedule"
+														)}
 													</Button>
-													<DialogContent className="rounded border-neutral-400 bg-neutral-900">
-														<DialogHeader>
-															<DialogTitle>
-																<h4>
-																	{slot1Hours + idx}:{slot1Minutes} -{" "}
-																	{slot1Hours + idx + 1}:{slot1Minutes}
-																</h4>
-															</DialogTitle>
-															<DialogDescription>
-																<p className="text-lg">
-																	Select an available slot.
-																</p>
-															</DialogDescription>
-														</DialogHeader>
+												</SheetClose>
+												<SheetClose asChild>
+													<Button>Back</Button>
+												</SheetClose>
+											</div>
+										</SheetFooter>
+									</SheetContent>
+								</Sheet>
+							) : (
+								<>
+									{teamsToRemove.length === 0 ? (
+										<Alert
+											variant="destructive"
+											className="border-primary sticky top-32 z-10 bg-neutral-900"
+										>
+											<div className="flex items-center gap-2">
+												<AlertCircle />
+												<AlertTitle>
+													You are missing the following game(s) in your
+													schedule:
+												</AlertTitle>
+											</div>
 
-														<Separator className="border border-neutral-500" />
+											<Separator className="z-10 mt-4 border border-neutral-500" />
+											<AlertDescription>
+												<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+													{/* Display missing weeks */}
+													{missingWeeks.map((week) => (
+														<article
+															key={`missing-${week}`}
+															className="text-lg"
+														>
+															<pre>Game {week}</pre>
+														</article>
+													))}
+												</div>
+											</AlertDescription>
+										</Alert>
+									) : (
+										<Alert
+											variant="destructive"
+											className="border-primary sticky top-32 z-10 bg-neutral-900"
+										>
+											<div className="flex items-center gap-2">
+												<AlertCircle />
+												<AlertTitle>
+													You must play the following team(s):
+												</AlertTitle>
+											</div>
 
-														<p>Home Team:</p>
-														<Button
-															onClick={() => handleReserveSlot(slot, "home")}
-															className="disabled:bg-secondary font-medium disabled:cursor-not-allowed disabled:text-neutral-300"
-														>
-															Available
-														</Button>
-														<p>Away Team:</p>
-														<Button
-															onClick={() => handleReserveSlot(slot, "away")}
-															type="submit"
-															className="disabled:bg-secondary font-medium disabled:cursor-not-allowed disabled:text-neutral-300"
-														>
-															Available
-														</Button>
-													</DialogContent>
-												</Dialog>
-											);
-										})}
-									</div>
-								</article>
-							))} */}
+											<Separator className="z-10 mt-4 border border-neutral-500" />
+											<AlertDescription>
+												<div className="my-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+													{teamsToRemove.map((team, index) => {
+														return (
+															<article key={index} className="text-lg">
+																<pre>{team.teamName}</pre>
+															</article>
+														);
+													})}
+												</div>
+											</AlertDescription>
+										</Alert>
+									)}
+								</>
+							)}
+
+							<Dialog open={open} onOpenChange={setOpen}>
+								<DialogContent className=" bg-neutral-800 text-neutral-50 sm:max-w-md">
+									<DialogHeader className="text-center">
+										<DialogTitle className="text-primary flex items-center justify-center gap-1 text-center text-3xl">
+											Oops... It looks like team{" "}
+											{otherTeams[otherTeams.length - 1].teamName} has selected
+											their schedule before you.
+										</DialogTitle>
+										<DialogDescription className="text-center text-sm md:text-lg">
+											Please select your schedule again. We apologize for the
+											inconvenience.
+										</DialogDescription>
+									</DialogHeader>
+								</DialogContent>
+							</Dialog>
 						</>
 					) : (
 						// tell user that the schedule is only available for team captain
@@ -331,8 +738,8 @@ export default function ChooseSchedule({ team, user }) {
 				// division has less than 6 teams, show different messaging
 				<div className="mx-auto flex h-full max-w-3xl flex-col items-center justify-center gap-4 text-center">
 					<h3 className="text-primary ">
-						This division must have at least 6 teams in order for you to choose
-						your schedule.
+						This division does not have the schedules available yet. Please come
+						back later.
 					</h3>
 					<h4>Follow our Instagram for division updates!</h4>
 					<div className="flex gap-4">
@@ -353,120 +760,3 @@ export default function ChooseSchedule({ team, user }) {
 		</div>
 	);
 }
-
-// export default function ChooseSchedule({ team, user }) {
-// 	const { startTime, endTime } = team.division;
-
-// 	// Function to convert time to seconds
-// 	const timeToSeconds = (time) => {
-// 		const [hours, minutes] = time.split(":").map(Number);
-// 		return hours * 3600 + minutes * 60;
-// 	};
-
-// 	// Function to convert seconds to time (hh:mm)
-// 	const secondsToTime = (seconds) => {
-// 		const hours = Math.floor(seconds / 3600);
-// 		const minutes = Math.floor((seconds % 3600) / 60);
-// 		return `${hours.toString().padStart(2, "0")}:${minutes
-// 			.toString()
-// 			.padStart(2, "0")}`;
-// 	};
-
-// 	const generateGameSlots = (weekNumber) => {
-// 		const gameSlots = [];
-// 		const startTimeSeconds = timeToSeconds(startTime);
-// 		const endTimeSeconds = timeToSeconds(endTime);
-// 		const gameDurationSeconds = 3600; // Assuming each game is 1 hour
-
-// 		for (let i = 0; i < 4; i++) {
-// 			const gameStartTimeSeconds = startTimeSeconds + i * gameDurationSeconds;
-// 			const gameEndTimeSeconds = gameStartTimeSeconds + gameDurationSeconds;
-
-// 			const gameStartTime = secondsToTime(gameStartTimeSeconds);
-// 			const gameEndTime = secondsToTime(gameEndTimeSeconds);
-
-// 			gameSlots.push(
-// 				<article
-// 					key={`game-${weekNumber}-${i}`}
-// 					className="flex flex-col rounded border border-neutral-600 bg-neutral-700"
-// 				>
-// 					<div className="flex-1">
-// 						<div className="grid grid-cols-3">
-// 							{/* home team */}
-// 							<div className="flex flex-col items-center gap-[10px] p-4">
-// 								<TeamLogo
-// 									primary={""}
-// 									secondary={""}
-// 									tertiary={""}
-// 									width={45}
-// 									height={44}
-// 									circleHeight={4}
-// 									circleWidth={4}
-// 								/>
-// 								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-// 									Team A
-// 								</span>
-// 							</div>
-
-// 							{/* division / time / location */}
-// 							<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
-// 								<div className="mb-4 flex justify-center">
-// 									<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
-// 										{team.division.divisionName}
-// 									</p>
-// 								</div>
-// 								<p className="text-center">{`${gameStartTime} - ${gameEndTime}`}</p>
-// 							</div>
-
-// 							{/* away team */}
-// 							<div className="flex flex-col items-center gap-[10px] p-4">
-// 								<TeamLogo
-// 									primary={""}
-// 									secondary={""}
-// 									tertiary={""}
-// 									width={45}
-// 									height={44}
-// 									circleHeight={4}
-// 									circleWidth={4}
-// 								/>
-// 								<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-// 									Team B
-// 								</span>
-// 							</div>
-// 						</div>
-// 						<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
-// 							<div className="translate-y-[1px]">
-// 								<LocationMarker />
-// 							</div>
-// 							<p className="text-sm text-neutral-400">
-// 								{team.division.location}
-// 							</p>
-// 						</div>
-// 					</div>
-
-// 					{/* preview/summary button */}
-// 					<div className="flex p-4">
-// 						<Button className="w-full capitalize">Join Game</Button>
-// 					</div>
-// 				</article>
-// 			);
-// 		}
-
-// 		return gameSlots;
-// 	};
-
-// 	// Generate calendar for weeks 1 to 7
-// 	const calendar = [];
-// 	for (let week = 1; week <= 7; week++) {
-// 		calendar.push(
-// 			<div key={`week-${week}`} className="mb-10">
-// 				<h2 className="mb-4">{`Week ${week}`}</h2>
-// 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-// 					{generateGameSlots(week)}
-// 				</div>
-// 			</div>
-// 		);
-// 	}
-
-// 	return <div>{calendar}</div>;
-// }

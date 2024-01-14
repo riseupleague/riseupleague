@@ -11,7 +11,9 @@ const gameSchema = new Schema({
 	gameName: { type: String, required: true },
 	date: {
 		type: Date,
-		required: true,
+	},
+	time: {
+		type: String,
 	},
 	homeTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
 	awayTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
