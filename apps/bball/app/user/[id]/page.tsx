@@ -18,9 +18,11 @@ export const metadata: Metadata = {
 };
 
 export default async function User({
+	searchParams,
 	params,
 }: {
 	params: { id: string };
+	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
@@ -30,6 +32,11 @@ export default async function User({
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
+	const userScheduleParams =
+		typeof searchParams.userSchedule === "string"
+			? searchParams.userSchedule
+			: "";
+	console.log("userSchedule:", searchParams.userSchedule);
 	return (
 		<section className="container mx-auto">
 			<h1 className="mb-40">{session.user.name}&apos;s Profile</h1>
@@ -38,7 +45,11 @@ export default async function User({
 				later time.
 			</p> */}
 
-			<UserProfile session={session} user={user} />
+			<UserProfile
+				session={session}
+				user={user}
+				userSchedule={searchParams.userSchedule}
+			/>
 		</section>
 	);
 }

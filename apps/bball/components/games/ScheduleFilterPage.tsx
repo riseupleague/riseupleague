@@ -16,6 +16,8 @@ export default function ScheduleFilterPage({ gamesByDate }) {
 		weekday: "long",
 	});
 
+	console.log("gamesByDate:", gamesByDate);
+
 	return (
 		<div className="relative ">
 			<div className="">

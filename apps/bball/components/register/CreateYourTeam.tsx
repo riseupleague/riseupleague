@@ -40,6 +40,7 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 				break;
 			case "Nations Great":
 			case "Filipinos Beginners":
+			case "Intermediate":
 				markhamDivisions.push(division);
 				break;
 			// Add additional cases as needed

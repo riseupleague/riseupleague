@@ -22,15 +22,15 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
 						<TeamLogo
-							primary={game.homeTeam.primaryColor}
-							secondary={game.homeTeam.secondaryColor}
-							tertiary={game.homeTeam.tertiaryColor}
+							primary={game.homeTeam?.primaryColor || ""}
+							secondary={game.homeTeam?.secondaryColor || ""}
+							tertiary={game.homeTeam?.tertiaryColor || ""}
 							circleWidth={1.3}
 							circleHeight={1.3}
 							width={15}
 							height={14}
 						/>
-						<div>{game.homeTeam.teamNameShort}</div>
+						<div>{game.homeTeam?.teamNameShort}</div>
 					</div>
 					{game.status ? (
 						<p className="m-0 flex w-5 items-center gap-2">
@@ -54,15 +54,15 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
 						<TeamLogo
-							primary={game.awayTeam.primaryColor}
-							secondary={game.awayTeam.secondaryColor}
-							tertiary={game.awayTeam.tertiaryColor}
+							primary={game.awayTeam?.primaryColor || ""}
+							secondary={game.awayTeam?.secondaryColor || ""}
+							tertiary={game.awayTeam?.tertiaryColor || ""}
 							circleWidth={1.3}
 							circleHeight={1.3}
 							width={15}
 							height={14}
 						/>
-						<div>{game.awayTeam.teamNameShort}</div>
+						<div>{game.awayTeam?.teamNameShort}</div>
 					</div>
 
 					{game.status ? (
@@ -95,7 +95,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 				>
 					<span>{game.homeTeam.teamName}</span>
 					<span>vs.</span>
-					<span>{game.awayTeam.teamName}</span>
+					<span>{game.awayTeam?.teamName}</span>
 					<span className="text-sm capitalize">{gameStatus}</span>
 				</Link>
 			)}

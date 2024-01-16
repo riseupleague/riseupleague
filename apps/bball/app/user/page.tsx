@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();

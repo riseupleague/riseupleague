@@ -29,8 +29,14 @@ import {
 	SelectValue,
 } from "@ui/components/select";
 
-export default function UserProfile({ session, user }): JSX.Element {
-	const [selectedSection, setSelectedSection] = useState("overview");
+export default function UserProfile({
+	session,
+	user,
+	userSchedule,
+}): JSX.Element {
+	const [selectedSection, setSelectedSection] = useState(
+		userSchedule ? "previousGames" : "overview"
+	);
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 	const [playerJerseyName, setPlayerJerseyName] = useState("");

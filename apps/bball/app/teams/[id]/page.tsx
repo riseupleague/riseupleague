@@ -23,7 +23,7 @@ export default async function Players({
 	const resUpcoming = await getAllUpcomingGamesHeader();
 	const { allUpcomingGames } = await resUpcoming.json();
 
-	const upcomingTeamGames = allUpcomingGames.filter(
+	const upcomingTeamGames = allUpcomingGames?.filter(
 		(game) => game.homeTeam?._id === id || game.awayTeam?._id === id
 	);
 

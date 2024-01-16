@@ -59,9 +59,9 @@ export default function FeaturedPlayerCard({ player }) {
 				{/* pic / name / team / division */}
 				<div className="flex items-center justify-between gap-3 border-b border-neutral-600 px-2 py-3.5 md:min-h-[120px] md:px-6 2xl:min-h-0">
 					<TeamLogo
-						primary={player.team.primaryColor}
-						secondary={player.team.secondaryColor}
-						tertiary={player.team.tertiaryColor}
+						primary={player.team?.primaryColor || ""}
+						secondary={player.team?.secondaryColor || ""}
+						tertiary={player.team?.tertiaryColor || ""}
 						width={35}
 						height={34}
 						circleHeight={3}
