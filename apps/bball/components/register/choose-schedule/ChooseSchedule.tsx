@@ -5,6 +5,8 @@ import TeamLogo from "@/components/general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
+import { convertToEST } from "@/utils/convertToEST";
+import { format } from "date-fns";
 
 import { Separator } from "@ui/components/separator";
 import { Alert, AlertDescription, AlertTitle } from "@ui/components/ui/alert";
@@ -434,6 +436,10 @@ export default function ChooseSchedule({ team, user }) {
 																}
 															)?.week;
 														}
+
+														const date = convertToEST(new Date(game.date));
+														const formattedDate = format(date, "L/d");
+
 														if (game.homeTeam && game.awayTeam) {
 															return;
 														}
@@ -490,11 +496,14 @@ export default function ChooseSchedule({ team, user }) {
 
 																		{/* division / time / location */}
 																		<div className="font-barlow flex flex-col justify-center py-4 text-center uppercase">
-																			{/* <div className="mb-4 flex justify-center">
-																			<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
-																				{team.division.divisionName}
+																			<div className="mb-4 flex justify-center">
+																				<p className="w-fit rounded bg-neutral-600 px-2 py-1 text-center text-xs">
+																					{team.division.divisionName}
+																				</p>
+																			</div>
+																			<p className="text-center text-lg">
+																				{formattedDate}
 																			</p>
-																		</div> */}
 																			<p className="text-center text-3xl">{`${convertMilitaryToRegularTime(
 																				game.time
 																			)}`}</p>
