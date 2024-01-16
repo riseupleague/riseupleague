@@ -14,7 +14,13 @@ export async function PATCH(req: Request) {
 			await req.json();
 
 		// Check for required input fields
-		if (!teamId || !divisionId || !addedGames || !otherTeamsCount) {
+		if (
+			!teamId ||
+			!divisionId ||
+			!addedGames ||
+			otherTeamsCount === undefined ||
+			otherTeamsCount === null
+		) {
 			console.log("Invalid Inputs:", {
 				teamId,
 				divisionId,
