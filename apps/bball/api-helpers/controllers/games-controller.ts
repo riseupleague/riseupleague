@@ -3,6 +3,7 @@ import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 import { startOfDay, endOfDay, addHours } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {
@@ -22,6 +23,8 @@ export const getAllUpcomingGamesHeader = async () => {
 					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
 			})
 			.select("status homeTeam awayTeam division date gameName location");
+
+		revalidatePath("/", "layout");
 
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
@@ -78,6 +81,8 @@ export const getAllPastGames = async () => {
 			.sort({ date: -1 })
 			.limit(4)
 			.lean();
+
+		revalidatePath("/", "layout");
 
 		return NextResponse.json({ games });
 	} catch (e) {
@@ -199,6 +204,8 @@ export const getGameById = async (id) => {
 			})
 			.populate("division", "divisionName")
 			.populate("season", "seasonName");
+
+		revalidatePath("/", "layout");
 
 		if (!game) {
 			return NextResponse.json(

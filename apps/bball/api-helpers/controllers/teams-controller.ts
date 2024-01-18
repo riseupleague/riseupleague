@@ -3,6 +3,7 @@ import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import Game from "@/api-helpers/models/Game";
+import { revalidatePath } from "next/cache";
 
 export const getAllCurrentTeams = async (seasonId: string) => {
 	try {
@@ -12,55 +13,10 @@ export const getAllCurrentTeams = async (seasonId: string) => {
 			return NextResponse.json({ message: "No teams found" }, { status: 404 });
 		}
 
-		return NextResponse.json({ teams });
-	} catch (error) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-export const getAllRegisterTeams = async () => {
-	try {
-		const registerSeason = await Season.find({ register: "true" });
-
-		const teams = await Team.find({ season: registerSeason })
-			.populate("players")
-			.populate({
-				path: "division",
-				select: "divisionName",
-			});
-
-		if (!teams) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
+		revalidatePath("/", "layout");
 
 		return NextResponse.json({ teams });
 	} catch (error) {
-		console.error("Error:", error);
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-export const getAllCurrentTeamsNameAndId = async () => {
-	try {
-		const activeSeason = await Season.find({ active: "true" });
-
-		// Use select to retrieve only divisionName and _id fields
-		const teamsNameAndId = await Team.find({ season: activeSeason }).select(
-			"teamName _id"
-		);
-		if (!teamsNameAndId) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
-
-		return NextResponse.json({ teamsNameAndId });
-	} catch (error) {
-		console.error("Error:", error);
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 }
@@ -89,6 +45,8 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 		if (!teamsNameDivisionAndId) {
 			return NextResponse.json({ message: "No teams found" }, { status: 404 });
 		}
+
+		revalidatePath("/", "layout");
 
 		return NextResponse.json({ teamsNameDivisionAndId });
 	} catch (error) {
@@ -198,6 +156,8 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 			blocks: avgStats.blocks / teams?.length,
 			threesMade: avgStats.threesMade / teams?.length,
 		};
+
+		revalidatePath("/", "layout");
 
 		return NextResponse.json({ team, allAvg }, { status: 200 });
 	} catch (e) {
