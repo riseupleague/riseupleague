@@ -7,8 +7,6 @@ export const getAllSeasons = async () => {
 	try {
 		const seasons = await Season.find();
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ seasons });
 	} catch (e) {
 		return NextResponse.json(

@@ -24,8 +24,6 @@ export const getAllUpcomingGamesHeader = async () => {
 			})
 			.select("status homeTeam awayTeam division date gameName location");
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
 		});
@@ -81,8 +79,6 @@ export const getAllPastGames = async () => {
 			.sort({ date: -1 })
 			.limit(4)
 			.lean();
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ games });
 	} catch (e) {
@@ -204,8 +200,6 @@ export const getGameById = async (id) => {
 			})
 			.populate("division", "divisionName")
 			.populate("season", "seasonName");
-
-		revalidatePath("/", "layout");
 
 		if (!game) {
 			return NextResponse.json(

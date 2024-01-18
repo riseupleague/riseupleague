@@ -13,8 +13,6 @@ export const getAllCurrentTeams = async (seasonId: string) => {
 			return NextResponse.json({ message: "No teams found" }, { status: 404 });
 		}
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ teams });
 	} catch (error) {
 		return NextResponse.json(
@@ -45,8 +43,6 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 		if (!teamsNameDivisionAndId) {
 			return NextResponse.json({ message: "No teams found" }, { status: 404 });
 		}
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ teamsNameDivisionAndId });
 	} catch (error) {
@@ -156,8 +152,6 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 			blocks: avgStats.blocks / teams?.length,
 			threesMade: avgStats.threesMade / teams?.length,
 		};
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ team, allAvg }, { status: 200 });
 	} catch (e) {

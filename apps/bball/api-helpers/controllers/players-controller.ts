@@ -20,8 +20,6 @@ export const getAllCurrentPlayers = async () => {
 			])
 			.select("playerName team jerseyNumber division averageStats");
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ allPlayers });
 	} catch (e) {
 		return NextResponse.json(
@@ -77,8 +75,6 @@ export const getPlayerAllAvgFromId = async (playerId: string) => {
 			steals: avgStats.steals / players.length,
 			blocks: avgStats.blocks / players.length,
 		};
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ player, allAvg }, { status: 200 });
 	} catch (e) {

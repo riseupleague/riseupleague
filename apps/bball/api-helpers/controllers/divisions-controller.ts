@@ -43,8 +43,6 @@ export const getAllCurrentDivisions = async () => {
 			);
 		}
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ divisions });
 	} catch (error) {
 		console.error("Error:", error);
@@ -68,8 +66,6 @@ export const getAllRegisterDivisions = async () => {
 				{ status: 404 }
 			);
 		}
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ divisions });
 	} catch (error) {
@@ -129,8 +125,6 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 			);
 		}
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ divisionsWithStats });
 	} catch (error) {
 		console.error("Error:", error);
@@ -158,8 +152,6 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 			);
 		}
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ divisionsWithTeamNames });
 	} catch (error) {
 		console.error("Error:", error);
@@ -186,8 +178,6 @@ export const getAllUpcomingDivisionsWithTeamNames = async () => {
 				{ status: 404 }
 			);
 		}
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ divisionsWithTeamNames });
 	} catch (error) {
@@ -217,8 +207,6 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 				{ status: 404 }
 			);
 		}
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({ divisionsNameAndId });
 	} catch (error) {
@@ -263,8 +251,6 @@ export const getRegisterDivisionById = async (id: string) => {
 	if (!division) {
 		return NextResponse.json({ message: "No division found" }, { status: 404 });
 	}
-
-	revalidatePath("/", "layout");
 
 	return NextResponse.json({ division });
 };

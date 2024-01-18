@@ -17,8 +17,6 @@ export const addNewUser = async (name: string, email: string, type: string) => {
 		});
 		const savedUser = await user.save();
 
-		revalidatePath("/", "layout");
-
 		return NextResponse.json({ newUser: user }, { status: 201 });
 	} catch (e) {
 		return NextResponse.json(
@@ -44,8 +42,6 @@ export const getUserPlayerPayment = async (email: string) => {
 				},
 			],
 		});
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({
 			players: user.basketball,
@@ -86,8 +82,6 @@ export const getCurrentUser = async (email: string) => {
 			select:
 				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
 		});
-
-		revalidatePath("/", "layout");
 
 		return NextResponse.json({
 			user,
