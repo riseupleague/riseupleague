@@ -16,6 +16,8 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	});
 	const separatedGames = [];
 
+	console.log(convertToEST(new Date("2024-01-27T23:00:00.000+00:00")));
+
 	allGames?.forEach((game) => {
 		const gameDate = new Date(game.date);
 		const month = format(gameDate, "MMM");
