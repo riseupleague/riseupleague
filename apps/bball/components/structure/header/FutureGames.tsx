@@ -12,13 +12,11 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	const currentDate = startOfDay(new Date());
 
 	const allGames = allUpcomingGames?.filter((game) => {
-		return game.date >= currentDate;
+		return new Date(game.date) >= currentDate;
 	});
 	const separatedGames = [];
 
-	console.log(convertToEST(new Date("2024-01-27T23:00:00.000+00:00")));
-
-	allGames?.forEach((game) => {
+	allGames.forEach((game) => {
 		const gameDate = new Date(game.date);
 		const month = format(gameDate, "MMM");
 		const day = format(gameDate, "d");
