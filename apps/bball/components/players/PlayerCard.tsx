@@ -7,9 +7,9 @@ export default function PlayerCard({ player }) {
 			<div className="grid w-3/4 grid-cols-2 items-center gap-1">
 				<div className="flex  flex-row items-center gap-2 text-start ">
 					<TeamLogo
-						primary={player.team.primaryColor}
-						secondary={player.team.secondaryColor}
-						tertiary={player.team.tertiaryColor}
+						primary={player.team?.primaryColor || ""}
+						secondary={player.team?.secondaryColor || ""}
+						tertiary={player.team?.tertiaryColor || ""}
 						width={15}
 						height={14}
 						circleHeight={1.3}

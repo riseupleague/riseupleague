@@ -42,13 +42,13 @@ export default async function Preview({
 							{game.homeTeamScore}
 						</h2>
 						<Link
-							href={`/teams/${game.homeTeam._id}`}
+							href={`/teams/${game.homeTeam?._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
 						>
-							{game.homeTeam.teamNameShort}
+							{game.homeTeam?.teamNameShort}
 						</Link>
 						<h5>
-							{game.homeTeam.wins} - {game.homeTeam.losses}
+							{game.homeTeam?.wins} - {game.homeTeam?.losses}
 						</h5>
 					</div>
 
@@ -68,13 +68,13 @@ export default async function Preview({
 							{game.awayTeamScore}
 						</h2>
 						<Link
-							href={`/teams/${game.awayTeam._id}`}
+							href={`/teams/${game.awayTeam?._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
 						>
-							{game.awayTeam.teamNameShort}
+							{game.awayTeam?.teamNameShort}
 						</Link>
 						<h5>
-							{game.awayTeam.wins} - {game.awayTeam.losses}
+							{game.awayTeam?.wins} - {game.awayTeam?.losses}
 						</h5>
 					</div>
 				</div>

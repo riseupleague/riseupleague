@@ -20,7 +20,7 @@ export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 			<h3 className="my-6">players of the week</h3>
 			<hr />
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 xl:grid-cols-4">
-				{playerOfTheGames.map((player, index) => (
+				{playerOfTheGames?.map((player, index) => (
 					<FeaturedPlayerCard player={player} key={index} />
 				))}
 			</div>

@@ -13,7 +13,7 @@ import { Fragment, useState } from "react";
 import { Button } from "@ui/components/button";
 
 export default function PreviewMatchup({ game }) {
-	const [currentTeam, setCurrentTeam] = useState(game.homeTeam);
+	const [currentTeam, setCurrentTeam] = useState(game.homeTeam || []);
 
 	return (
 		<div>
@@ -21,24 +21,24 @@ export default function PreviewMatchup({ game }) {
 
 			<div className="my-8 flex justify-center">
 				<Button
-					onClick={() => setCurrentTeam(game.homeTeam)}
+					onClick={() => setCurrentTeam(game.homeTeam || [])}
 					className={`border-primary w-1/2 rounded-none border-0 px-0 text-xl md:px-12 ${
-						game.homeTeam.teamName === currentTeam.teamName &&
+						game.homeTeam?.teamName === currentTeam.teamName &&
 						"text-primary border-b"
 					}`}
 					variant="secondary"
 				>
-					{game.homeTeam.teamName}
+					{game.homeTeam?.teamName}
 				</Button>
 				<Button
-					onClick={() => setCurrentTeam(game.awayTeam)}
+					onClick={() => setCurrentTeam(game.awayTeam || [])}
 					className={`border-primary w-1/2 rounded-none border-0 px-0 text-xl md:px-12 ${
-						game.awayTeam.teamName === currentTeam.teamName &&
+						game.awayTeam?.teamName === currentTeam.teamName &&
 						"text-primary border-b"
 					}`}
 					variant="secondary"
 				>
-					{game.awayTeam.teamName}
+					{game.awayTeam?.teamName}
 				</Button>
 			</div>
 
@@ -56,7 +56,7 @@ export default function PreviewMatchup({ game }) {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{currentTeam.players.map((player, index) => {
+					{currentTeam.players?.map((player, index) => {
 						return (
 							<TableRow
 								key={index}
@@ -64,26 +64,26 @@ export default function PreviewMatchup({ game }) {
 							>
 								<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
 									<Link
-										href={`/players/${player._id}`}
+										href={`/players/${player?._id}`}
 										className="transition-all hover:underline"
 									>
-										{player.playerName}
+										{player?.playerName}
 									</Link>
 								</TableCell>
 								<TableCell className="w-1/12 p-1">
-									{player.averageStats.points.toFixed(1)}
+									{player?.averageStats.points.toFixed(1)}
 								</TableCell>
 								<TableCell className="w-1/12 p-1">
-									{player.averageStats.rebounds.toFixed(1)}
+									{player?.averageStats.rebounds.toFixed(1)}
 								</TableCell>
 								<TableCell className="w-1/12 p-1">
-									{player.averageStats.assists.toFixed(1)}
+									{player?.averageStats.assists.toFixed(1)}
 								</TableCell>
 								<TableCell className="w-1/12 p-1">
-									{player.averageStats.blocks.toFixed(1)}
+									{player?.averageStats.blocks.toFixed(1)}
 								</TableCell>
 								<TableCell className="w-1/12 p-1">
-									{player.averageStats.steals.toFixed(1)}
+									{player?.averageStats.steals.toFixed(1)}
 								</TableCell>
 							</TableRow>
 						);

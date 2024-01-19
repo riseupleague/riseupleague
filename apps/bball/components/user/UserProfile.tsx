@@ -29,8 +29,15 @@ import {
 	SelectValue,
 } from "@ui/components/select";
 
-export default function UserProfile({ session, user }): JSX.Element {
-	const [selectedSection, setSelectedSection] = useState("overview");
+export default function UserProfile({
+	session,
+	user,
+	userSchedule,
+}): JSX.Element {
+	const [selectedSection, setSelectedSection] = useState(
+		userSchedule ? "previousGames" : "overview"
+	);
+
 	const [isSmallScreen, setIsSmallScreen] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 	const [playerJerseyName, setPlayerJerseyName] = useState("");
@@ -47,8 +54,10 @@ export default function UserProfile({ session, user }): JSX.Element {
 		shortSize: "",
 	});
 
-	const [jerseyNumberError, setJerseyNumberError] = useState("");
+	const [profileName, setProfileName] = useState(user.name);
 
+	const [jerseyNumberError, setJerseyNumberError] = useState("");
+	console.log(user, session.user);
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
 			instagram: playerInstagram || player?.instagram || "",
@@ -63,6 +72,25 @@ export default function UserProfile({ session, user }): JSX.Element {
 	const handlePlayerInputChange = (field, value) => {
 		setPlayerFormObject((prev) => ({ ...prev, [field]: value }));
 	};
+
+	// const handleUpdateProfileName = async () => {
+	// 	setIsLoader(true);
+
+	// 	const res = await fetch("/api/update-user", {
+	// 		method: "PATCH",
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 		body: JSON.stringify({ name: profileName, userId: user._id }),
+	// 	});
+
+	// 	if (res.ok) {
+	// 		const { user } = await res.json();
+	// 		setProfileName(user.name);
+
+	// 		setIsLoader(false);
+	// 	}
+	// };
 
 	const handleEditPlayer = async (id: string) => {
 		const player = user.basketball.find((player) => player._id === id);
@@ -542,13 +570,13 @@ export default function UserProfile({ session, user }): JSX.Element {
 						/>{" "}
 						<p>You decide on what time your team will play in. </p>{" "}
 					</div>
-					{/* <Button
+					<Button
 						asChild
 						disabled
 						className="font-barlow mt-16 rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
 						<Link href="/choose-team-schedule">Select Dates</Link>
-					</Button> */}
+					</Button>
 				</div>
 			),
 		},
@@ -562,20 +590,17 @@ export default function UserProfile({ session, user }): JSX.Element {
 	return (
 		<div className="flex flex-col gap-10 lg:flex-row">
 			<div className="flex h-96 w-full flex-col border border-neutral-600 bg-neutral-700 p-5 lg:w-1/4">
-				<h2 className="mb-10 text-center">{session.user.name}</h2>
+				<h2 className="mb-10 text-center">{profileName}</h2>
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col gap-3">
-						<Label htmlFor="username" className="uppercase">
-							Name
+						<Label
+							htmlFor="username"
+							className="flex items-center justify-between uppercase"
+						>
+							Profile Name
 							{/* <Sheet>
 								<SheetTrigger asChild>
-									{isLoader ? (
-										<span className="h-[50px] w-[200px]">
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-										</span>
-									) : (
-										<span>Edit Profile</span>
-									)}
+									<span className="cursor-pointer text-sm underline">Edit</span>
 								</SheetTrigger>
 								<SheetContent
 									side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
@@ -585,13 +610,25 @@ export default function UserProfile({ session, user }): JSX.Element {
 								>
 									<SheetHeader>
 										<SheetTitle className="font-barlow text-2xl uppercase">
-											Edit Profile
+											Edit Name
 										</SheetTitle>
 									</SheetHeader>
-									<SheetDescription></SheetDescription>
+									<SheetDescription>
+										<div className="mt-10 flex flex-col gap-4">
+											<Label htmlFor="jerseyName" className="uppercase">
+												Profile Name
+											</Label>
+											<Input
+												className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+												value={profileName}
+												onChange={(e) => setProfileName(e.target.value)}
+												id="jerseyName"
+											/>
+										</div>
+									</SheetDescription>
 									<SheetFooter className="mt-10 flex gap-2">
 										<SheetClose asChild>
-											<Button>Submit</Button>
+											<Button onClick={handleUpdateProfileName}>Submit</Button>
 										</SheetClose>
 									</SheetFooter>
 								</SheetContent>
@@ -599,7 +636,7 @@ export default function UserProfile({ session, user }): JSX.Element {
 						</Label>
 						<Input
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-							value={session.user.name}
+							value={profileName}
 							disabled
 							id="username"
 						/>
