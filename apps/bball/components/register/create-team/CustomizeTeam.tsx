@@ -830,7 +830,7 @@ export default function CustomizeTeam({ division, session }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-										  );
+											);
 								}}
 							>
 								{isLoader ? (
@@ -916,11 +916,11 @@ export default function CustomizeTeam({ division, session }) {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-												  )
+													)
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-												  );
+													);
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"

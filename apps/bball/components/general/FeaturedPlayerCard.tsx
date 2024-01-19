@@ -6,6 +6,7 @@ import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { Button } from "@ui/components/button";
 import TeamLogo from "./icons/TeamLogo";
+import Instagram from "./icons/Instagram";
 
 export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
@@ -82,7 +83,15 @@ export default function FeaturedPlayerCard({ player }) {
 						>
 							{player.playerName}
 						</Link>
-						{player.instagram !== "" && <span>ig: {player.instagram}</span>}
+						{player.instagram !== "" && (
+							<Link
+								href={`https://www.instagram.com/${player.instagram}`}
+								target="_blank"
+								className="mt-1 flex w-fit gap-1 text-sm text-neutral-400 transition-all hover:text-neutral-200"
+							>
+								IG: <span className="lowercase">{player.instagram}</span>
+							</Link>
+						)}
 					</div>
 				</div>
 
