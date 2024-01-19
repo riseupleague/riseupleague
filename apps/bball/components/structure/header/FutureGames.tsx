@@ -12,18 +12,13 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	const currentDate = startOfDay(new Date());
 
 	const allGames = allUpcomingGames?.filter((game) => {
-		console.log(
-			new Date(game.date),
-			convertToEST(new Date(game.date)),
-			game.date
-		);
-
-		return new Date(game.date) >= currentDate;
+		console.log(convertToEST(game.date), new Date(game.date), game.date);
+		return convertToEST(game.date) >= currentDate;
 	});
 	const separatedGames = [];
 
 	allGames.forEach((game) => {
-		const gameDate = new Date(game.date);
+		const gameDate = convertToEST(new Date(game.date));
 		const month = format(gameDate, "MMM");
 		const day = format(gameDate, "d");
 		const formattedDate = `${month} ${day}`;
@@ -87,7 +82,7 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let date = game.date;
+								let date = convertToEST(game.date);
 								let torontoTime = format(new Date(date), "p");
 
 								return (
