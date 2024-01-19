@@ -56,7 +56,7 @@ export default function PreviewMatchup({ game }) {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{currentTeam.players.map((player, index) => {
+					{currentTeam.players?.map((player, index) => {
 						return (
 							<TableRow
 								key={index}
