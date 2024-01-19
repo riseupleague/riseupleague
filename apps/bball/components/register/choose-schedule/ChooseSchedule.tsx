@@ -301,11 +301,22 @@ export default function ChooseSchedule({ team, user }) {
 			const weekElement = document.getElementById(`week-${scrollToGame?.week}`);
 
 			if (isSmallScreen) {
-				weekElement?.scrollIntoView({
-					behavior: "smooth",
-					block: "start",
-					inline: "center",
-				});
+				const offset = -200; // set the desired offset in pixels
+
+				const targetScrollPosition = weekElement?.offsetTop - offset;
+				if (targetScrollPosition) {
+					window.scrollTo({
+						top: targetScrollPosition,
+						behavior: "smooth",
+					});
+				} else {
+					const addSchedule = document.getElementById(`addSchedule`);
+					addSchedule?.scrollIntoView({
+						behavior: "smooth",
+						block: "center",
+						inline: "center",
+					});
+				}
 			} else {
 				weekElement?.scrollIntoView({
 					behavior: "smooth",
@@ -640,7 +651,9 @@ export default function ChooseSchedule({ team, user }) {
 							{selectedGames.length > 6 && teamsToRemove.length === 0 ? (
 								<Sheet>
 									<SheetTrigger asChild>
-										<Button className="w-full">Add Schedule</Button>
+										<Button className="w-full" id="addSchedule">
+											Add Schedule
+										</Button>
 									</SheetTrigger>
 									<SheetContent
 										side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
@@ -662,12 +675,12 @@ export default function ChooseSchedule({ team, user }) {
 											</h6>
 										</SheetHeader>
 
-										<ul className="my-20">
+										<ul className="my-10">
 											{selectedGames
 												.sort((gameA, gameB) => gameA.week - gameB.week)
 												.map((game) => {
 													return (
-														<li key={game.week} className="my-2 text-xl">
+														<li key={game.week} className="my-2 py-1 text-xl">
 															Game {game.week} at{" "}
 															{convertMilitaryToRegularTime(game.time)}{" "}
 															{game.date && `on ${game.date}`}
