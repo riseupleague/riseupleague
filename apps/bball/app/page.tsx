@@ -27,7 +27,9 @@ export default async function Page(): Promise<JSX.Element> {
 			<SecondaryHeader />
 
 			<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
-				<h2 className="my-8">Check out the teams for the upcoming season!</h2>
+				<h2 className="my-8">
+					Season starting on Saturday, January 27th! View all teams below:
+				</h2>
 				<div className="w-full px-2">
 					<Link
 						href="/teams-upcoming"
