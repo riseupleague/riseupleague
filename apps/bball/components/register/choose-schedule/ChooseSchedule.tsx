@@ -32,7 +32,7 @@ import {
 	DialogTitle,
 } from "@ui/components/dialog";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ChooseSchedule({ team, user }) {
@@ -80,12 +80,14 @@ export default function ChooseSchedule({ team, user }) {
 
 	const [open, setOpen] = useState(false);
 
+	console.log(selectedGames);
 	const handleGameSelect = (
 		weekNumber,
 		gameIndex,
 		opponentTeam,
 		team,
-		time
+		time,
+		date
 	) => {
 		if (teamsToRemove[0]?._id === opponentTeam) {
 			const prevTeamsToRemove = teamsToRemove.filter((team) => {
@@ -95,14 +97,30 @@ export default function ChooseSchedule({ team, user }) {
 			setTeamsToRemove(prevTeamsToRemove);
 		}
 
-		const selectedGame = {
-			team: team,
-			week: weekNumber,
-			index: gameIndex,
-			opponentTeam: opponentTeam,
-			status: true,
-			time: time,
-		};
+		let selectedGame;
+
+		if (date !== "") {
+			const convertedDate = convertToEST(new Date(date));
+			const formattedDate = format(convertedDate, "MMMM do");
+			selectedGame = {
+				team: team,
+				week: weekNumber,
+				index: gameIndex,
+				opponentTeam: opponentTeam,
+				status: true,
+				time: time,
+				date: formattedDate,
+			};
+		} else {
+			selectedGame = {
+				team: team,
+				week: weekNumber,
+				index: gameIndex,
+				opponentTeam: opponentTeam,
+				status: true,
+				time: time,
+			};
+		}
 
 		// Check if the game is already selected for the same week, if yes, remove it; otherwise, add it
 		const isGameSelectedInWeek = selectedGames.some(
@@ -209,7 +227,7 @@ export default function ChooseSchedule({ team, user }) {
 
 			if (data.updated) {
 				setIsLoader(false);
-				router.push("/user"); // Use router.push instead of redirect
+				router.push(`/teams/${team._id}`); // Use router.push instead of redirect
 			} else {
 				const { teamAddedFirst } = data;
 				setGamesMade(teamAddedFirst.division.games);
@@ -266,20 +284,37 @@ export default function ChooseSchedule({ team, user }) {
 		if (teamsToRemove.length > 0) {
 			const teamElement = document.getElementById(`${teamsToRemove[0]._id}`);
 			const container = teamElement?.closest(".teamContainer"); // Replace with the class or reference to your container
-			container?.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-				inline: "center",
-			});
+			if (isSmallScreen) {
+				container?.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+					inline: "center",
+				});
+			} else {
+				container?.scrollIntoView({
+					behavior: "smooth",
+					block: "center",
+					inline: "center",
+				});
+			}
 		} else {
 			const weekElement = document.getElementById(`week-${scrollToGame?.week}`);
-			weekElement?.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
-				inline: "center",
-			});
+
+			if (isSmallScreen) {
+				weekElement?.scrollIntoView({
+					behavior: "smooth",
+					block: "start",
+					inline: "center",
+				});
+			} else {
+				weekElement?.scrollIntoView({
+					behavior: "smooth",
+					block: "center",
+					inline: "center",
+				});
+			}
 		}
-	}, [missingWeeks, gamesMade, teamsToRemove]);
+	}, [missingWeeks, gamesMade, teamsToRemove, isSmallScreen]);
 
 	const convertMilitaryToRegularTime = (militaryTime) => {
 		if (militaryTime) {
@@ -325,7 +360,7 @@ export default function ChooseSchedule({ team, user }) {
 								{teamsToRemove.length > 0 && (
 									<Alert
 										variant="destructive"
-										className="border-primary sticky top-32 z-10 bg-neutral-900"
+										className="border-primary  bg-neutral-900"
 									>
 										<div className="flex items-center gap-2">
 											<AlertCircle />
@@ -438,7 +473,7 @@ export default function ChooseSchedule({ team, user }) {
 														}
 
 														const date = convertToEST(new Date(game.date));
-														const formattedDate = format(date, "L/d");
+														const formattedDate = format(date, "MMMM do");
 
 														if (game.homeTeam && game.awayTeam) {
 															return;
@@ -573,7 +608,8 @@ export default function ChooseSchedule({ team, user }) {
 																									? game.homeTeam?._id
 																									: "",
 																								team._id,
-																								game.time
+																								game.time,
+																								game.date || ""
 																							)
 																						}
 																					>
@@ -613,9 +649,17 @@ export default function ChooseSchedule({ team, user }) {
 										}`}
 									>
 										<SheetHeader>
-											<SheetTitle className="font-barlow text-center text-4xl uppercase">
+											<SheetTitle className="font-barlow text-center text-4xl uppercase underline">
 												Summary
 											</SheetTitle>
+											<h4 className="text-center">
+												Division: {team.division.divisionName}
+											</h4>
+											<h6 className="my-2 text-center">
+												{team.division.day} @ {team.division.location} from{" "}
+												{convertMilitaryToRegularTime(team.division.startTime)}{" "}
+												- {convertMilitaryToRegularTime(team.division.endTime)}
+											</h6>
 										</SheetHeader>
 
 										<ul className="my-20">
@@ -624,8 +668,9 @@ export default function ChooseSchedule({ team, user }) {
 												.map((game) => {
 													return (
 														<li key={game.week} className="my-2 text-xl">
-															game {game.week} at{" "}
-															{convertMilitaryToRegularTime(game.time)}
+															Game {game.week} at{" "}
+															{convertMilitaryToRegularTime(game.time)}{" "}
+															{game.date && `on ${game.date}`}
 														</li>
 													);
 												})}
