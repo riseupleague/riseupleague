@@ -9,15 +9,15 @@ import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
 import { startOfDay } from "date-fns";
 
 export default function FutureGames({ allUpcomingGames }): JSX.Element {
-	const currentDate = convertToEST(startOfDay(new Date()));
+	const currentDate = startOfDay(new Date());
 
 	const allGames = allUpcomingGames?.filter((game) => {
-		return convertToEST(game.date) >= currentDate;
+		return game.date >= currentDate;
 	});
 	const separatedGames = [];
 
 	allGames?.forEach((game) => {
-		const gameDate = convertToEST(new Date(game.date));
+		const gameDate = new Date(game.date);
 		const month = format(gameDate, "MMM");
 		const day = format(gameDate, "d");
 		const formattedDate = `${month} ${day}`;
@@ -81,7 +81,7 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let date = convertToEST(game.date);
+								let date = game.date;
 								let torontoTime = format(new Date(date), "p");
 
 								return (
