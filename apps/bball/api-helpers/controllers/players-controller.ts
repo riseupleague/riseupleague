@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
+import { revalidatePath } from "next/cache";
 
 export const getAllCurrentPlayers = async () => {
 	try {
@@ -20,34 +21,6 @@ export const getAllCurrentPlayers = async () => {
 			.select("playerName team jerseyNumber division averageStats");
 
 		return NextResponse.json({ allPlayers });
-	} catch (e) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-export const getPlayerById = async (playerId: string) => {
-	try {
-		const player = await Player.findById(playerId)
-			.populate({
-				path: "team",
-				select: "teamName teamBanner",
-			})
-			.populate({ path: "allStats.game", select: "gameName status" })
-			.populate({
-				path: "division",
-				select: "divisionName",
-			});
-		if (!player) {
-			return NextResponse.json(
-				{ message: "Player not found" },
-				{ status: 404 }
-			);
-		}
-
-		return NextResponse.json({ player }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },

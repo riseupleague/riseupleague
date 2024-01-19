@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import Team from "@/api-helpers/models/Team";
+import { revalidatePath } from "next/cache";
 
 type Season = {
 	_id: string;
@@ -29,6 +30,7 @@ type Division = {
 	regularPriceFullId: string;
 	regularPriceInstalmentId: string;
 };
+
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -133,55 +135,6 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 	}
 };
 
-export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
-	try {
-		const activeSeason = await Season.find({ active: "true" });
-		const division = await Division.findOne({ _id: id, season: activeSeason })
-			.populate("teams", "teamName wins losses pointDifference teamBanner")
-			.select("divisionName teams");
-
-		// Calculate statistics for teams within this division
-		const teamsWithStats = division.teams?.map((team) => {
-			const { wins, losses, pointDifference, teamName } = team;
-			let gp, wpct;
-			if (!wins && !losses) {
-				gp = 0;
-				wpct = 0;
-			} else {
-				gp = wins + losses;
-				wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
-			}
-
-			return {
-				teamName,
-				wins,
-				losses,
-				pointDifference,
-				gp,
-				wpct,
-			};
-		});
-
-		// Now, you have the division with teams and stats in the 'teamsWithStats' variable
-		const divisionWithStats = {
-			_id: division._id,
-			divisionName: division.divisionName,
-			teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
-		};
-
-		if (!division) {
-			return NextResponse.json(
-				{ message: "Internal Server Error" },
-				{ status: 500 }
-			);
-		}
-
-		return NextResponse.json({ divisionWithStats }, { status: 200 });
-	} catch (error) {
-		return NextResponse.json({ message: error.message }, { status: 500 });
-	}
-};
-
 export const getAllCurrentDivisionsWithTeamNames = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -235,6 +188,7 @@ export const getAllUpcomingDivisionsWithTeamNames = async () => {
 		);
 	}
 };
+
 export const getAllCurrentDivisionsNameAndId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });

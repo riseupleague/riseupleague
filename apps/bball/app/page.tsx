@@ -28,7 +28,6 @@ export default async function Page(): Promise<JSX.Element> {
 
 			<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
 				<h2 className="my-8">Check out the teams for the upcoming season!</h2>
-				{/* <p className="mb-8 w-11/12">Winter season registration now open.</p> */}
 				<div className="w-full px-2">
 					<Link
 						href="/teams-upcoming"
@@ -52,3 +51,5 @@ export default async function Page(): Promise<JSX.Element> {
 		</div>
 	);
 }
+
+// build test

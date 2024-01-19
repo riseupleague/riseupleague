@@ -3,6 +3,7 @@ import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divis
 import LeadersTable from "@/components/leaders/LeadersTable";
 import { getAllCurrentPlayers } from "@/api-helpers/controllers/players-controller";
 import { Metadata } from "next";
+import { revalidatePath } from "next/cache";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | League Leaders",
@@ -26,6 +27,8 @@ export default async function Leaders(): Promise<JSX.Element> {
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();
+
+	revalidatePath("/leaders", "page");
 
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
