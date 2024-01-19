@@ -419,25 +419,27 @@ export default function ChooseSchedule({ team, user }) {
 																	i === 2
 																		? `${convertMilitaryToRegularTime(
 																				game.time
-																		  )}`
+																			)}`
 																		: `${convertMilitaryToRegularTime(
 																				game.time
-																		  )}, `
+																			)}, `
 																)
 																.join(" and ")
 														: gamesTaken.length === 2
-														? gamesTaken
-																.map((game, i) =>
-																	i === 1
-																		? `${convertMilitaryToRegularTime(
-																				game.time
-																		  )}`
-																		: `${convertMilitaryToRegularTime(
-																				game.time
-																		  )} and `
-																)
-																.join(" ")
-														: convertMilitaryToRegularTime(gamesTaken[0]?.time)}
+															? gamesTaken
+																	.map((game, i) =>
+																		i === 1
+																			? `${convertMilitaryToRegularTime(
+																					game.time
+																				)}`
+																			: `${convertMilitaryToRegularTime(
+																					game.time
+																				)} and `
+																	)
+																	.join(" ")
+															: convertMilitaryToRegularTime(
+																	gamesTaken[0]?.time
+																)}
 												</span>
 											);
 										}
