@@ -36,7 +36,6 @@ export default async function User({
 		typeof searchParams.userSchedule === "string"
 			? searchParams.userSchedule
 			: "";
-	console.log("userSchedule:", searchParams.userSchedule);
 	return (
 		<section className="container mx-auto">
 			<h1 className="mb-40">{session.user.name}&apos;s Profile</h1>
@@ -48,7 +47,7 @@ export default async function User({
 			<UserProfile
 				session={session}
 				user={user}
-				userSchedule={searchParams.userSchedule}
+				userSchedule={userScheduleParams}
 			/>
 		</section>
 	);

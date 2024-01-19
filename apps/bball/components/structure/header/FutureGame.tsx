@@ -93,7 +93,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 					href={`/games/${gameStatus}/${game._id}`}
 					className="text-primary absolute top-0 z-10 flex h-full w-full flex-col items-center justify-center bg-neutral-900 text-center"
 				>
-					<span>{game.homeTeam.teamName}</span>
+					<span>{game.homeTeam?.teamName}</span>
 					<span>vs.</span>
 					<span>{game.awayTeam?.teamName}</span>
 					<span className="text-sm capitalize">{gameStatus}</span>
