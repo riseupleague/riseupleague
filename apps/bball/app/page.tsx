@@ -27,13 +27,15 @@ export default async function Page(): Promise<JSX.Element> {
 			<SecondaryHeader />
 
 			<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
-				<h2 className="my-8">Check out the teams for the upcoming season!</h2>
+				<h2 className="my-8">
+					Choose your team schedule for the upcoming season!
+				</h2>
 				<div className="w-full px-2">
 					<Link
-						href="/teams-upcoming"
+						href="/choose-team-schedule"
 						className="font-barlow block w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
-						View Teams
+						Set Your Schedule
 					</Link>
 				</div>
 			</section>
