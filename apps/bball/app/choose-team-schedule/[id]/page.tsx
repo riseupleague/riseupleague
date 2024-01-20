@@ -5,6 +5,8 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamByIdWithGames } from "@/api-helpers/controllers/teams-controller";
 import ChooseSchedule from "@/components/register/choose-schedule/ChooseSchedule";
+import Teams from "@/app/teams/page";
+import Link from "next/link";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Choose Your Schedule",
@@ -31,10 +33,25 @@ export default async function Jersey({
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
+	console.log("team:", team);
+
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
-			<h1 className="mb-10">Choose Your Schedule</h1>
-			<ChooseSchedule team={team} user={user} />
+			<h1 className="mb-10">Choose Your Schedule 🗓️</h1>
+
+			{team.games.length > 0 ? (
+				<div>
+					<h3>You already selected your schedule for the upcoming season.</h3>
+					<p className="mt-10 text-xl">
+						Please check your team page for more info:{" "}
+						<Link className="underline" href={`/teams/${team._id}`}>
+							{team.teamName}
+						</Link>
+					</p>
+				</div>
+			) : (
+				<ChooseSchedule team={team} user={user} />
+			)}
 		</section>
 	);
 }
