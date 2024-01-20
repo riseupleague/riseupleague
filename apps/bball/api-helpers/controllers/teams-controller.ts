@@ -109,7 +109,7 @@ export const getTeamByIdWithGames = async (teamId: string) => {
 				},
 			})
 			.select(
-				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+				"division primaryColor secondaryColor tertiaryColor jerseyEdition players teamName games"
 			);
 
 		if (!team) {
