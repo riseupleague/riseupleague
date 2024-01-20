@@ -12,6 +12,8 @@ import SecondaryHeader from "@/components/structure/header/secondary-header";
 import { Metadata } from "next";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Link from "next/link";
+import { Button } from "@ui/components/button";
+import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -21,23 +23,12 @@ export const metadata: Metadata = {
 
 export default async function Page(): Promise<JSX.Element> {
 	await connectToDatabase();
+	// Function to open the dialog
 
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<SecondaryHeader />
-
-			<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
-				<h2 className="my-8">Check out the teams for the upcoming season!</h2>
-				{/* <p className="mb-8 w-11/12">Winter season registration now open.</p> */}
-				<div className="w-full px-2">
-					<Link
-						href="/teams-upcoming"
-						className="font-barlow block w-full rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
-					>
-						View Teams
-					</Link>
-				</div>
-			</section>
+			{/* <SetYourScheduleButton /> */}
 			<Hero />
 			<HomeRegister />
 			{/* 
@@ -52,5 +43,3 @@ export default async function Page(): Promise<JSX.Element> {
 		</div>
 	);
 }
-
-// build test

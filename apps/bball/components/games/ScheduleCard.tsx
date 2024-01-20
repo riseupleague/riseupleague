@@ -18,20 +18,20 @@ export default function ScheduleCard({ game }) {
 				<div className="grid grid-cols-3">
 					{/* home team */}
 					<Link
-						href={`/teams/${game.homeTeam._id}`}
+						href={`/teams/${game.homeTeam?._id}`}
 						className="flex flex-col items-center gap-[10px] p-4"
 					>
 						<TeamLogo
-							primary={game.homeTeam.primaryColor}
-							secondary={game.homeTeam.secondaryColor}
-							tertiary={game.homeTeam.tertiaryColor}
+							primary={game.homeTeam?.primaryColor || ""}
+							secondary={game.homeTeam?.secondaryColor || ""}
+							tertiary={game.homeTeam?.tertiaryColor || ""}
 							width={45}
 							height={44}
 							circleHeight={4}
 							circleWidth={4}
 						/>
 						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-							{game.homeTeam.teamName}
+							{game.homeTeam?.teamName || "Empty"}
 						</span>
 						{game.status && (
 							<p
@@ -63,16 +63,16 @@ export default function ScheduleCard({ game }) {
 						className="flex flex-col items-center gap-[10px] p-4"
 					>
 						<TeamLogo
-							primary={game.awayTeam.primaryColor}
-							secondary={game.awayTeam.secondaryColor}
-							tertiary={game.awayTeam.tertiaryColor}
+							primary={game.awayTeam?.primaryColor}
+							secondary={game.awayTeam?.secondaryColor}
+							tertiary={game.awayTeam?.tertiaryColor}
 							width={45}
 							height={44}
 							circleHeight={4}
 							circleWidth={4}
 						/>
 						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
-							{game.awayTeam?.teamName}
+							{game.awayTeam?.teamName || "Empty"}
 						</span>
 						{game.status && (
 							<p

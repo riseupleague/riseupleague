@@ -3,6 +3,7 @@ import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 import { startOfDay, endOfDay, addHours } from "date-fns";
+import { revalidatePath } from "next/cache";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {

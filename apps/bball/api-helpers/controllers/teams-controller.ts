@@ -3,6 +3,7 @@ import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import Game from "@/api-helpers/models/Game";
+import { revalidatePath } from "next/cache";
 
 export const getAllCurrentTeams = async (seasonId: string) => {
 	try {
@@ -14,53 +15,6 @@ export const getAllCurrentTeams = async (seasonId: string) => {
 
 		return NextResponse.json({ teams });
 	} catch (error) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-export const getAllRegisterTeams = async () => {
-	try {
-		const registerSeason = await Season.find({ register: "true" });
-
-		const teams = await Team.find({ season: registerSeason })
-			.populate("players")
-			.populate({
-				path: "division",
-				select: "divisionName",
-			});
-
-		if (!teams) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
-
-		return NextResponse.json({ teams });
-	} catch (error) {
-		console.error("Error:", error);
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-export const getAllCurrentTeamsNameAndId = async () => {
-	try {
-		const activeSeason = await Season.find({ active: "true" });
-
-		// Use select to retrieve only divisionName and _id fields
-		const teamsNameAndId = await Team.find({ season: activeSeason }).select(
-			"teamName _id"
-		);
-		if (!teamsNameAndId) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
-
-		return NextResponse.json({ teamsNameAndId });
-	} catch (error) {
-		console.error("Error:", error);
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 }
@@ -107,6 +61,55 @@ export const getTeamById = async (teamId: string) => {
 			.populate("division")
 			.select(
 				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+			);
+
+		if (!team) {
+			return NextResponse.json(
+				{ message: "Player not found" },
+				{ status: 404 }
+			);
+		}
+		const teams = await Team.find().select("averageStats");
+
+		return NextResponse.json({ team: team }, { status: 200 });
+	} catch (e) {
+		return NextResponse.json({ message: e }, { status: 500 });
+	}
+};
+
+export const getTeamByIdWithGames = async (teamId: string) => {
+	try {
+		const team = await Team.findById(teamId)
+			.populate("players")
+			.populate({
+				path: "division",
+				populate: {
+					path: "games",
+					populate: [
+						{
+							path: "homeTeam",
+							select:
+								"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
+						},
+						{
+							path: "awayTeam",
+							select:
+								"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
+						},
+					],
+					select:
+						"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location week time",
+				},
+			})
+			.populate({
+				path: "division",
+				populate: {
+					path: "teamsWithSchedule",
+					select: "teamName teamNameShort",
+				},
+			})
+			.select(
+				"division primaryColor secondaryColor tertiaryColor jerseyEdition players teamName games"
 			);
 
 		if (!team) {

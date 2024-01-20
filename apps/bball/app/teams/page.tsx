@@ -2,6 +2,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeamNames } from "@/api-helpers/controllers/divisions-controller";
 import TeamsFilterPage from "@/components/teams/TeamsFilterPage";
 import { Metadata } from "next";
+import { revalidatePath } from "next/cache";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Teams",
@@ -14,6 +15,8 @@ export default async function Teams(): Promise<JSX.Element> {
 
 	const resDivisionsWithTeamNames = await getAllCurrentDivisionsWithTeamNames();
 	const { divisionsWithTeamNames } = await resDivisionsWithTeamNames.json();
+
+	revalidatePath("/teams", "page");
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh]">

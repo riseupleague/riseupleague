@@ -52,9 +52,9 @@ export async function PATCH(req: Request) {
 		);
 
 		const newDivisionUniqueJersey = division.uniqueJersey.filter((jersey) => {
-			console.log(jersey, oldJerseyEdition);
 			return jersey !== oldJerseyEdition;
 		});
+
 		division.uniqueJersey = newDivisionUniqueJersey.concat(jerseyEdition);
 
 		await division.save();

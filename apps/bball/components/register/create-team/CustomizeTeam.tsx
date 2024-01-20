@@ -247,6 +247,27 @@ export default function CustomizeTeam({ division, session }) {
 	const thirdPayment = thirdPaymentDate.toLocaleDateString("en-US", options);
 	const fourthPayment = fourthPaymentDate.toLocaleDateString("en-US", options);
 
+	const convertMilitaryToRegularTime = (militaryTime) => {
+		if (militaryTime) {
+			// Parse the military time
+			const [hours, minutes] = militaryTime.split(":").map(Number);
+
+			// Determine whether it's morning or afternoon
+			const period = hours < 12 ? "AM" : "PM";
+
+			// Convert hours to 12-hour format
+			const regularHours = hours % 12 || 12;
+
+			// Format the result
+			const regularTime = `${regularHours}:${String(minutes).padStart(
+				2,
+				"0"
+			)} ${period}`;
+
+			return regularTime;
+		}
+	};
+
 	return (
 		<>
 			{!isSummary ? (
@@ -311,7 +332,8 @@ export default function CustomizeTeam({ division, session }) {
 										/>
 									</svg>{" "}
 									<p className="text-sm">
-										{division.startTime} - {division.endTime}{" "}
+										{convertMilitaryToRegularTime(division.startTime)} -{" "}
+										{convertMilitaryToRegularTime(division.endTime)}{" "}
 									</p>
 								</div>
 								<div className="flex  gap-2 md:flex-row">

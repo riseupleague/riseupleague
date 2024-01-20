@@ -12,6 +12,7 @@ const divisionSchema = new Schema({
 		ref: "Season",
 	},
 	teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
+	teamsWithSchedule: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
 	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
 	teamColors: { type: Array },
 	uniqueJersey: { type: Array },

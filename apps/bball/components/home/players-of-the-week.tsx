@@ -1,12 +1,15 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
 import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
+import { revalidatePath } from "next/cache";
 
 export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	const resGames = await getAllPastGames();
 	const { games } = await resGames.json();
+
+	revalidatePath("/");
 
 	const playerOfTheGames = games
 		?.map((game) => game.playerOfTheGame)
@@ -17,7 +20,7 @@ export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
 			<h3 className="my-6">players of the week</h3>
 			<hr />
 			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:px-0 lg:grid-cols-3 xl:grid-cols-4">
-				{playerOfTheGames.map((player, index) => (
+				{playerOfTheGames?.map((player, index) => (
 					<FeaturedPlayerCard player={player} key={index} />
 				))}
 			</div>
