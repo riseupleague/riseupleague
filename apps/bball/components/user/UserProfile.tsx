@@ -570,13 +570,13 @@ export default function UserProfile({
 						/>{" "}
 						<p>You decide on what time your team will play in. </p>{" "}
 					</div>
-					<Button
+					{/* <Button
 						asChild
 						disabled
 						className="font-barlow mt-16 rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
 						<Link href="/choose-team-schedule">Select Dates</Link>
-					</Button>
+					</Button> */}
 				</div>
 			),
 		},
