@@ -11,7 +11,7 @@ import { Metadata } from "next";
 import { connectToDatabase } from "@/api-helpers/utils";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
 import { Suspense } from "react";
-import Socials from "@/components/home/Socials";
+import SocialsSection from "@/components/home/SocialsSection";
 import FAQs from "@/components/home/FAQs";
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default async function Page(): Promise<JSX.Element> {
 			</Suspense>
 			<LatestGames />
 			{/* <MVPLadder /> */}
-			<Socials />
+			<SocialsSection />
 			<FAQs />
 			<ContactUs />
 		</div>
