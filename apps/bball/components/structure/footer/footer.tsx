@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import footerOptions from "@/lib/data/footerOptions.json";
-import packageJson from "../../../../../package.json";
+import packageJson from "../../../package.json";
 
 export default function Footer(): React.JSX.Element {
 	// for active class
