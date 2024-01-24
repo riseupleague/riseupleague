@@ -19,8 +19,6 @@ export default async function DivisionPage({
 	const slot1Hours = Number(division.startTime.slice(0, 2));
 	const slot1Minutes = Number(division.startTime.slice(3, 5));
 
-	console.log(division);
-
 	return (
 		<section>
 			<h1>

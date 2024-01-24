@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 
 export async function editDivisionAction(divisionData: any, id: string) {
 	try {
-		console.log(divisionData);
 		const division = await Division.findById(divisionData._id);
 		if (!division) return { status: 404 };
 

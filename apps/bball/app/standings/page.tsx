@@ -3,6 +3,7 @@ import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divis
 import StandingsTable from "@/components/standings/StandingsTable";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Standings",
@@ -30,7 +31,9 @@ export default async function Standings(): Promise<JSX.Element> {
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1>standings</h1>
-			<StandingsTable divisions={divisionsWithStats} />
+			<Suspense fallback={null}>
+				<StandingsTable divisions={divisionsWithStats} />
+			</Suspense>
 		</section>
 	);
 }

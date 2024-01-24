@@ -57,7 +57,6 @@ export default function UserProfile({
 	const [profileName, setProfileName] = useState(user.name);
 
 	const [jerseyNumberError, setJerseyNumberError] = useState("");
-	console.log(user, session.user);
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
 			instagram: playerInstagram || player?.instagram || "",

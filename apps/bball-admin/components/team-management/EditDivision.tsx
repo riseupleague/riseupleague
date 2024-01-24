@@ -48,10 +48,6 @@ export default function EditDivision({
 	const firstSlotHours = Number(division.startTime.slice(0, 2));
 	const firstSlotMinutes = Number(division.startTime.slice(3, 5));
 
-	const handleScheduleChange = (e) => {
-		console.log(e);
-	};
-
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

@@ -22,7 +22,6 @@ export async function PATCH(req: Request) {
 
 		// Check for required input fields
 		if (!teamId || !divisionId || !jerseyEdition) {
-			console.log("hi");
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
 		}
 
