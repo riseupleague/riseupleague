@@ -12,7 +12,6 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	const currentDate = startOfDay(new Date());
 
 	const allGames = allUpcomingGames?.filter((game) => {
-		console.log(convertToEST(game.date), new Date(game.date), game.date);
 		return convertToEST(game.date) >= currentDate;
 	});
 	const separatedGames = [];

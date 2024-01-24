@@ -33,8 +33,6 @@ export default async function Jersey({
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
-	console.log("team:", team);
-
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="mb-10">Choose Your Schedule 🗓️</h1>

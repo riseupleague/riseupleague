@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 
 const Overview = ({ team, upcomingGames }) => {
-	console.log(team);
 	const jerseyEdition = team?.jerseyEdition;
 	let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
 	if (jerseyEdition) {

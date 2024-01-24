@@ -54,9 +54,6 @@ interface FormErrors {
 }
 
 export default function CustomizeJersey({ team, session, division }) {
-	console.log("team:", team);
-	console.log("division:", division);
-
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 

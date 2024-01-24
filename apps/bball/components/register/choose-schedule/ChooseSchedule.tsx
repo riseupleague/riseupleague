@@ -41,7 +41,6 @@ export default function ChooseSchedule({ team, user }) {
 	const [gamesMade, setGamesMade] = useState(team.division.games);
 	const scheduleAvailable = gamesMade.length > 0 ? true : false;
 	const teamCaptain = team.players[0];
-	console.log("gamesMade:", gamesMade);
 
 	// Create an object to store games by week
 	const gamesByWeek = {};
@@ -58,7 +57,6 @@ export default function ChooseSchedule({ team, user }) {
 	});
 
 	// Now gamesByWeek is an object where each key represents a week and the value is an array of games for that week
-	console.log(gamesByWeek);
 	const isTeamCaptain =
 		user._id === teamCaptain.user || user.name === teamCaptain.playerName;
 
@@ -80,7 +78,6 @@ export default function ChooseSchedule({ team, user }) {
 
 	const [open, setOpen] = useState(false);
 
-	console.log(selectedGames);
 	const handleGameSelect = (
 		weekNumber,
 		gameIndex,

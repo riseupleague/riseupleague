@@ -1,19 +1,18 @@
 import Hero from "@/components/home/hero";
-import FeaturedSponsors from "@/components/home/featured-sponsors";
-import AboutRiseUp from "@/components/home/about-rise-up";
-import PlayersOfTheWeek from "@/components/home/players-of-the-week";
-import LatestGames from "@/components/home/latest-games";
-import MVPLadder from "@/components/home/mvp-ladder";
-import Socials from "@/components/home/socials";
-import FAQs from "@/components/home/faqs";
-import ContactUs from "@/components/home/contact-us";
-import HomeRegister from "@/components/home/home-register";
+import FeaturedSponsors from "@/components/home/FeaturedSponsors";
+import AboutRiseUp from "@/components/home/AboutRiseUp";
+import PlayersOfTheWeek from "@/components/home/PlayersOfTheWeek";
+import LatestGames from "@/components/home/LatestGames";
+import MVPLadder from "@/components/home/MVPLadder";
+import ContactUs from "@/components/home/ContactUs";
+import HomeRegister from "@/components/home/HomeRegister";
 import SecondaryHeader from "@/components/structure/header/secondary-header";
 import { Metadata } from "next";
 import { connectToDatabase } from "@/api-helpers/utils";
-import Link from "next/link";
-import { Button } from "@ui/components/button";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
+import { Suspense } from "react";
+import SocialsSection from "@/components/home/SocialsSection";
+import FaqSection from "@/components/home/FaqSection";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -23,22 +22,25 @@ export const metadata: Metadata = {
 
 export default async function Page(): Promise<JSX.Element> {
 	await connectToDatabase();
-	// Function to open the dialog
 
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
-			<SecondaryHeader />
+			<Suspense fallback={null}>
+				<SecondaryHeader />
+			</Suspense>
 			<SetYourScheduleButton />
 			<Hero />
 			<HomeRegister />
 			{/* 
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
-			<PlayersOfTheWeek />
+			<Suspense fallback={null}>
+				<PlayersOfTheWeek />
+			</Suspense>
 			<LatestGames />
 			{/* <MVPLadder /> */}
-			<Socials />
-			{/* <FAQs /> */}
+			<SocialsSection />
+			<FaqSection />
 			<ContactUs />
 		</div>
 	);
