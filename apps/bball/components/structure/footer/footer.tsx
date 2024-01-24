@@ -27,11 +27,7 @@ export default function Footer(): React.JSX.Element {
 							{option.links.map((link, index) => {
 								const isActive = path === link.href;
 
-								if (
-									link.label === "career" ||
-									link.label === "about us" ||
-									link.label === "contact us"
-								)
+								if (link.label === "career" || link.label === "about us")
 									return;
 
 								return (
