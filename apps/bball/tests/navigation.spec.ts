@@ -1,28 +1,26 @@
 import { test, expect } from "@playwright/test";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL as string;
-
 test.describe("navigation", () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto(baseUrl);
+		await page.goto("/");
 	});
 
 	test("home page", async ({ page }) => {
-		await expect(page).toHaveURL(baseUrl);
+		await expect(page).toHaveURL("/");
 	});
 
 	test("/standings page", async ({ page }) => {
-		await page.goto(`${baseUrl}/standings`);
-		await expect(page).toHaveURL(`${baseUrl}/standings`);
+		await page.goto("/standings");
+		await expect(page).toHaveURL("/standings");
 	});
 
 	test("/teams page", async ({ page }) => {
-		await page.goto(`${baseUrl}/teams`);
-		await expect(page).toHaveURL(`${baseUrl}/teams`);
+		await page.goto("/teams");
+		await expect(page).toHaveURL("/teams");
 	});
 
 	test("/players page", async ({ page }) => {
-		await page.goto(`${baseUrl}/players`);
-		await expect(page).toHaveURL(`${baseUrl}/players`);
+		await page.goto("/players");
+		await expect(page).toHaveURL("/players");
 	});
 });
