@@ -126,7 +126,6 @@ export default function JerseySelection({ team }) {
 			oldJerseyEdition: team.jerseyEdition ? team.jerseyEdition : "",
 		};
 
-		console.log(formObject);
 		const res = await fetch("/api/update-unique-jersey", {
 			method: "PATCH",
 			headers: {
@@ -137,7 +136,6 @@ export default function JerseySelection({ team }) {
 
 		if (res.ok) {
 			const { updatedDivision } = await res.json();
-			console.log(updatedDivision);
 			setIsLoader(false);
 			router.push("/user");
 		}
@@ -263,7 +261,6 @@ export default function JerseySelection({ team }) {
 													className="bg-transparent hover:bg-transparent"
 													onClick={() => {
 														if (team.players.length < 9) {
-															console.log(team.players.length);
 															openDialog();
 														} else {
 															openFormUniqueJersey(index + 1);

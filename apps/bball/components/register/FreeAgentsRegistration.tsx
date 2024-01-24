@@ -117,7 +117,6 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 	const [selectedDivision, setSelectedDivision] = useState(
 		initialSelectedDivision
 	);
-	console.log(selectedDivision);
 	const [isLocationSelected, setIsLocationSelected] = useState(false);
 	const [isDivisionSelected, setIsDivisionSelected] = useState(false);
 
@@ -260,7 +259,6 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 	};
 
 	const redirectToCheckout = async (items, formObject) => {
-		console.log(items);
 		try {
 			const response = await fetch("/api/checkout-sessions", {
 				method: "POST",

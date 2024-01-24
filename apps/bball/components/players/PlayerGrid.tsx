@@ -150,7 +150,7 @@ export default function PlayerGrid({
 			// Check if the playerName or teamName contains the searchValue
 			if (
 				player.playerName.toLowerCase().includes(searchValue) ||
-				player.team.teamName.toLowerCase().includes(searchValue)
+				player.team?.teamName?.toLowerCase().includes(searchValue)
 			) {
 				// Check if the player is not already in filteredPlayers
 				if (!filteredPlayers.some((p) => p._id === player._id)) {
