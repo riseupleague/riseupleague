@@ -12,7 +12,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
 import { Suspense } from "react";
 import SocialsSection from "@/components/home/SocialsSection";
-import FAQs from "@/components/home/FAQs";
+import FaqSection from "@/components/home/FaqSection";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -40,7 +40,7 @@ export default async function Page(): Promise<JSX.Element> {
 			<LatestGames />
 			{/* <MVPLadder /> */}
 			<SocialsSection />
-			<FAQs />
+			<FaqSection />
 			<ContactUs />
 		</div>
 	);

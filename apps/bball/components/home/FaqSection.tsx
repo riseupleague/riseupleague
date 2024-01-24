@@ -56,7 +56,7 @@ const faqsData = [
 	// Add more questions and answers as needed
 ];
 
-export default function FAQs(): JSX.Element {
+export default function FaqSection(): JSX.Element {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<Accordion type="single" collapsible className="w-full">
