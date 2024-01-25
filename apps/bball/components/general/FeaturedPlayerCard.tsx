@@ -4,6 +4,7 @@ import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { Button } from "@ui/components/button";
+import { Badge } from "@ui/components/badge";
 import TeamLogo from "./icons/TeamLogo";
 
 export default function FeaturedPlayerCard({ player }) {
@@ -75,9 +76,7 @@ export default function FeaturedPlayerCard({ player }) {
 							<h6 className="font-barlow text-xs font-medium uppercase text-neutral-500">
 								{player.team?.teamName} | #{player.jerseyNumber}
 							</h6>
-							<div className="font-barlow flex items-center justify-center rounded-md bg-neutral-600 px-1 text-center text-xs uppercase">
-								{player.division.divisionName}
-							</div>
+							<Badge variant="playerCard">{player.division.divisionName}</Badge>
 						</div>
 						<Link
 							href={`/players/${player._id}`}
