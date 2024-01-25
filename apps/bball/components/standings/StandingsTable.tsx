@@ -11,8 +11,11 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/ui/table";
+import { useRouter } from "next/navigation";
 
 export default function StandingsTable({ divisions }) {
+	const router = useRouter();
+
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
 	const divisionsNameAndId = divisions.map((division) => {
 		return {

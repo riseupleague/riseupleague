@@ -3,15 +3,15 @@ import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
-import { revalidatePath } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function LatestGames(): Promise<JSX.Element> {
+	noStore();
+
 	await connectToDatabase();
 
 	const resGames = await getAllPastGames();
 	const { games } = await resGames.json();
-
-	revalidatePath("/");
 
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
