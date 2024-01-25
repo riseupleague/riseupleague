@@ -1,10 +1,9 @@
 import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import React from "react";
 import FutureGames from "./FutureGames";
 import { revalidatePath } from "next/cache";
 
-export default async function SecondaryHeader(): Promise<React.JSX.Element> {
+export default async function SecondaryHeader(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	const resUpcoming = await getAllUpcomingGamesHeader();

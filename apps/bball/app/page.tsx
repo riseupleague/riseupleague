@@ -20,9 +20,7 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-export default async function Page(): Promise<JSX.Element> {
-	await connectToDatabase();
-
+export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<Suspense fallback={null}>
@@ -37,7 +35,9 @@ export default async function Page(): Promise<JSX.Element> {
 			<Suspense fallback={null}>
 				<PlayersOfTheWeek />
 			</Suspense>
-			<LatestGames />
+			<Suspense>
+				<LatestGames />
+			</Suspense>
 			{/* <MVPLadder /> */}
 			<SocialsSection />
 			<FaqSection />
