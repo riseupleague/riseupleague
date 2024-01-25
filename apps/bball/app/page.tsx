@@ -5,10 +5,11 @@ import PlayersOfTheWeek from "@/components/home/PlayersOfTheWeek";
 import LatestGames from "@/components/home/LatestGames";
 import ContactUs from "@/components/home/ContactUs";
 import HomeRegister from "@/components/home/HomeRegister";
-import SecondaryHeader from "@/components/structure/header/secondary-header";
+import SecondaryHeader from "@/components/structure/header/SecondaryHeader";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
 import SocialsSection from "@/components/home/SocialsSection";
 import FaqSection from "@/components/home/FaqSection";
+import SecondaryHeaderSkeleton from "@/components/skeleton/SecondaryHeaderSkeleton";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
 export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
-			<Suspense fallback={null}>
+			<Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense>
 			<SetYourScheduleButton />
