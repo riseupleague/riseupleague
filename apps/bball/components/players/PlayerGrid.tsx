@@ -141,29 +141,15 @@ export default function PlayerGrid({
 
 	const handleSearch = (e) => {
 		const searchValue = e.target.value.toLowerCase();
-		const filteredPlayers = [];
 
 		// empty search
 		if (searchValue === "") return setPlayers(allPlayers);
 
-		for (const player of players) {
-			// Check if the playerName or teamName contains the searchValue
-			if (
-				player.playerName.toLowerCase().includes(searchValue) ||
-				player.team?.teamName?.toLowerCase().includes(searchValue)
-			) {
-				// Check if the player is not already in filteredPlayers
-				if (!filteredPlayers.some((p) => p._id === player._id)) {
-					filteredPlayers.push(player);
-				}
-			}
-		}
+		const filteredPlayers = allPlayers.filter((player) =>
+			player.playerName.toLowerCase().includes(searchValue)
+		);
 
 		setPlayers(filteredPlayers);
-
-		// Update the URL with the query parameters
-		// const newUrl = `/players?search=${searchValue}`;
-		// window.history.pushState({}, "", newUrl);
 	};
 
 	return (
@@ -198,17 +184,6 @@ export default function PlayerGrid({
 					</div>
 				)}
 			</div>
-			{/* <div className="mb-10 flex flex-col gap-5 md:flex-row">
-				<FilterAll
-					divisions={divisionsNameAndId}
-					teams={teamsNameDivisionAndId}
-					onFilterChange={handleFilterChange}
-					teamCheckboxState={teamCheckboxState}
-					divisionCheckboxState={divisionCheckboxState}
-					setTeamCheckboxState={setTeamCheckboxState}
-					setDivisionCheckboxState={setDivisionCheckboxState}
-				/>
-			</div> */}
 			<div className="flex flex-wrap space-x-2">
 				{closeDivisions.map((division) => (
 					<Button
