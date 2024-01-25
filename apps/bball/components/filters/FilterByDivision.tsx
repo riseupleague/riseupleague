@@ -15,13 +15,14 @@ const FilterByDivision = ({
 	selectedDivision,
 	handleDivisionChange,
 	divisions,
+	placeholder = "All Divisions",
 }) => {
 	return (
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Division:</Label>
 			<Select onValueChange={handleDivisionChange}>
 				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-					<SelectValue placeholder="All Divisions" />
+					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {
