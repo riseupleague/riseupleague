@@ -31,9 +31,7 @@ export default async function Standings(): Promise<JSX.Element> {
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1>standings</h1>
-			<Suspense fallback={null}>
-				<StandingsTable divisions={divisionsWithStats} />
-			</Suspense>
+			<StandingsTable divisions={divisionsWithStats} />
 		</section>
 	);
 }
