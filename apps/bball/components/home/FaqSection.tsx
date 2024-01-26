@@ -59,6 +59,8 @@ const faqsData = [
 export default function FaqSection(): JSX.Element {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
+			<h3 className="my-6">FAQs 🤔</h3>
+			<hr />
 			<Accordion type="single" collapsible className="w-full">
 				{faqsData.map((faq, index) => (
 					<AccordionItem key={index} value={`item-${index}`}>
