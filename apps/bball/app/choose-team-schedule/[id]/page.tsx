@@ -5,7 +5,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamByIdWithGames } from "@/api-helpers/controllers/teams-controller";
 import ChooseSchedule from "@/components/register/choose-schedule/ChooseSchedule";
-import Teams from "@/app/teams/page";
 import Link from "next/link";
 
 export const metadata: Metadata = {

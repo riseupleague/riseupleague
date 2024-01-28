@@ -15,7 +15,7 @@ import JerseySelection from "@/components/register/custom-jersey/JerseySelection
 import CustomizeJersey from "@/components/register/custom-jersey/CustomizeJersey";
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Customize jersey",
+	title: "Rise Up League | Customize Jersey",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };

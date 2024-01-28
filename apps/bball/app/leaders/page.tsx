@@ -33,7 +33,6 @@ export default async function Leaders(): Promise<JSX.Element> {
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1>league leaders</h1>
-
 			<LeadersTable divisions={divisionsWithStats} />
 		</section>
 	);

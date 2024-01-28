@@ -4,12 +4,10 @@ import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
-
-import CustomizeJersey from "@/components/register/custom-jersey/CustomizeJersey";
 import OriginalJersey from "@/components/register/custom-jersey/OriginalJersey";
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Original",
+	title: "Rise Up League | Customize Jersey - Original",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };

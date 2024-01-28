@@ -16,10 +16,10 @@ import Classic7 from "@/lib/jersey-designs/classic/classic-7";
 import Classic8 from "@/lib/jersey-designs/classic/classic-8";
 import Classic9 from "@/lib/jersey-designs/classic/classic-9";
 import Classic10 from "@/lib/jersey-designs/classic/classic-10";
-
 import ClassicJersey from "@/components/register/custom-jersey/ClassicJersey";
+
 export const metadata: Metadata = {
-	title: "Rise Up League | Original",
+	title: "Rise Up League | Customize Jersey - Classic",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };

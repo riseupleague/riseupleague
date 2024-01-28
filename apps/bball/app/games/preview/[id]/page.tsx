@@ -4,13 +4,20 @@ import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Game Preview",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
+export async function generateMetadata({ params }) {
+	await connectToDatabase();
+
+	const { id } = params;
+	const resGame = await getGameById(id);
+	const { game } = await resGame.json();
+
+	return {
+		title: `Rise Up League | ${game.gameName}`,
+		description:
+			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+	};
+}
 
 export default async function Preview({
 	params,

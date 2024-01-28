@@ -1,14 +1,21 @@
 import { getTeamAllAvgFromId } from "@/api-helpers/controllers/teams-controller";
 import TeamSections from "@/components/teams/team/TeamSections";
 import { connectToDatabase } from "@/api-helpers/utils";
-import { Metadata } from "next";
 import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-controller";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Team",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
+export async function generateMetadata({ params }) {
+	await connectToDatabase();
+
+	const { id } = params;
+	const resTeam = await getTeamAllAvgFromId(id);
+	const { team } = await resTeam.json();
+
+	return {
+		title: `Rise Up League | ${team.teamName}`,
+		description:
+			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+	};
+}
 
 export default async function Players({
 	params,
