@@ -91,27 +91,27 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 					<div className="flex w-2/6 items-center text-sm sm:text-lg">Name</div>
 					<div className="flex w-2/6 items-center text-sm sm:text-lg">Team</div>
 					<div
-						className={`${currentStat === "points" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "points" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 					>
 						PPG
 					</div>
 					<div
-						className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 					>
 						RPG
 					</div>
 					<div
-						className={`${currentStat === "assists" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "assists" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 					>
 						APG
 					</div>
 					<div
-						className={`${currentStat === "steals" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "steals" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 					>
 						SPG
 					</div>
 					<div
-						className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 					>
 						BPG
 					</div>

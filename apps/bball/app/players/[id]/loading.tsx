@@ -14,7 +14,7 @@ export default function PlayerLoading() {
 
 				{/* grid */}
 				<div className="my-8 grid  grid-cols-1 gap-x-8 gap-y-4">
-					<div className="grid w-full gap-4  lg:grid-cols-2">
+					<div className="grid w-full gap-4 lg:grid-cols-2">
 						<div className="">
 							<Skeleton className="h-64 rounded-lg bg-neutral-700 " />
 						</div>

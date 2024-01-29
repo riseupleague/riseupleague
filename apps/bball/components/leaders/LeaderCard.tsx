@@ -33,27 +33,27 @@ export default function LeaderCard({ player, rank, currentStat }) {
 				</Link>
 			</div>
 			<div
-				className={`${currentStat === "points" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+				className={`${currentStat === "points" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 			>
 				{player.averageStats.points.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+				className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 			>
 				{player.averageStats.rebounds.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "assists" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+				className={`${currentStat === "assists" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 			>
 				{player.averageStats.assists.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "steals" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+				className={`${currentStat === "steals" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 			>
 				{player.averageStats.steals.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+				className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
 			>
 				{player.averageStats.blocks.toFixed(1)}
 			</div>
