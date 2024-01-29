@@ -1,6 +1,5 @@
 import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamByIdWithGames } from "@/api-helpers/controllers/teams-controller";
@@ -21,10 +20,8 @@ export default async function Jersey({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
 	const resTeam = await getTeamByIdWithGames(params.id);
 	const { team } = await resTeam.json();

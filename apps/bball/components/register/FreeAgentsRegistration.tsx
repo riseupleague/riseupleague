@@ -30,7 +30,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/select";
-
 import Link from "next/link";
 import getStripe from "@/utils/checkout";
 

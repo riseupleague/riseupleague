@@ -1,18 +1,10 @@
-import {
-	getCurrentUser,
-	getUserPlayerPayment,
-} from "@/api-helpers/controllers/users-controller";
-import { Separator } from "@ui/components/separator";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Button } from "@ui/components/button";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
-
 import JerseySelection from "@/components/register/custom-jersey/JerseySelection";
-import CustomizeJersey from "@/components/register/custom-jersey/CustomizeJersey";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Customize Jersey",
@@ -28,10 +20,8 @@ export default async function Jersey({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
 	const resTeam = await getTeamById(params.id);
 	const { team } = await resTeam.json();

@@ -18,12 +18,8 @@ export const metadata: Metadata = {
 
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-
-	if (!session || !session.user) {
-		redirect("/");
-	}
-
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 

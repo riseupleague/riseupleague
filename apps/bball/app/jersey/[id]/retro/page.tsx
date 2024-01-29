@@ -32,11 +32,8 @@ export default async function Retro({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
+	const session = await getServerSession();
 	const resTeam = await getTeamById(params.id);
 	const { team } = await resTeam.json();
 
@@ -51,9 +48,7 @@ export default async function Retro({
 	});
 
 	// isUserInTeam will be true if any player in user.basketball is in team.players, otherwise false
-	if (!isUserInTeam) {
-		redirect("/");
-	}
+	if (!isUserInTeam) redirect("/");
 
 	const numberToComponent = {
 		1: Retro1(),

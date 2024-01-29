@@ -1,23 +1,11 @@
 "use client";
+
 import { Progress } from "@ui/components/progress";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
-import { Input } from "@ui/components/input";
-import { Label } from "@ui/components/label";
 import { motion } from "framer-motion";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@ui/components/dialog";
-
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 
 export default function Hero(): JSX.Element {

@@ -1,10 +1,9 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Separator } from "@ui/components/separator";
@@ -19,15 +18,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@ui/components/select";
 
 export default function UserProfile({
 	session,

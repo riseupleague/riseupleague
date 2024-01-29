@@ -1,7 +1,8 @@
 "use client";
+
 import { Button } from "@ui/components/button";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { useState } from "react";
 
@@ -13,6 +14,7 @@ export default function HomeRegister() {
 	const openDialog = () => {
 		setOpen(true);
 	};
+
 	return (
 		<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
 			<h2 className="my-8">Ready to elevate your basketball experience?</h2>

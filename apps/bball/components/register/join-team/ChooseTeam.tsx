@@ -1,20 +1,17 @@
 "use client";
 
+import Link from "next/link";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Button } from "@ui/components/button";
+import { useState } from "react";
+import CustomizeJersey from "./CustomizeJersey";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import Link from "next/link";
-
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-
-import { Separator } from "@ui/components/separator";
-import { Button } from "@ui/components/button";
-import { useState } from "react";
-import CustomizeJersey from "./CustomizeJersey";
 
 export default function ChooseTeam({ division, session }) {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);

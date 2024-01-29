@@ -23,25 +23,21 @@ export default async function User({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-
-	if (!session || !session.user) redirect("/");
-
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
+
+	console.log(searchParams);
 
 	const userScheduleParams =
 		typeof searchParams.userSchedule === "string"
 			? searchParams.userSchedule
 			: "";
+
 	return (
 		<section className="container mx-auto">
 			<h1 className="mb-8 md:mb-40">{session.user.name}&apos;s Profile</h1>
-			{/* <p className="text-primary flex h-[50dvh] items-center justify-center text-center text-2xl">
-				We&apos;re still updating your personal user page. Please come back at a
-				later time.
-			</p> */}
-
 			<UserProfile
 				session={session}
 				user={user}
