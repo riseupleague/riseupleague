@@ -3,8 +3,6 @@
 import { Input } from "@ui/components/input";
 import PlayerCard from "@/components/players/PlayerCard";
 import { useState } from "react";
-import { Button } from "@ui/components/button";
-import CloseX from "../general/icons/CloseX";
 
 export default function PlayerGrid({ allPlayers }) {
 	const [players, setPlayers] = useState(allPlayers);

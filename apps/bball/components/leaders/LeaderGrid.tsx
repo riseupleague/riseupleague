@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@ui/components/input";
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByDivision from "../filters/FilterByDivision";
@@ -9,7 +8,7 @@ import FilterByStat from "../filters/FilterByStat";
 
 export default function LeaderGrid({ allPlayers, divisions }) {
 	const [players, setPlayers] = useState(allPlayers);
-	const [currentStat, setCurrentStat] = useState("Points");
+	const [currentStat, setCurrentStat] = useState("points");
 
 	let initialDivisions = divisions;
 	let filterPlaceholder = "All Divisions";
@@ -71,10 +70,11 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		);
 
 		setPlayers(rankedPlayers);
+		setCurrentStat(selectedStat);
 	};
 
 	return (
-		<>
+		<div className="relative">
 			<div className="items-left my-8 flex flex-col justify-between gap-4">
 				<FilterByDivision
 					selectedDivision={selectedDivision}
@@ -85,26 +85,49 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 				<FilterByStat handleStatChange={handleStatChange} />
 			</div>
 
-			<div className="grid grid-cols-1">
+			<div className="relative grid grid-cols-1 overflow-auto">
 				<article className="font-barlow flex rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase ">
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">
-						Rank #
-					</div>
+					<div className="flex w-1/12 items-center text-sm sm:text-lg">#</div>
 					<div className="flex w-2/6 items-center text-sm sm:text-lg">Name</div>
 					<div className="flex w-2/6 items-center text-sm sm:text-lg">Team</div>
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">PPG</div>
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">RPG</div>
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">APG</div>
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">SPG</div>
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">BPG</div>
+					<div
+						className={`${currentStat === "points" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+					>
+						PPG
+					</div>
+					<div
+						className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+					>
+						RPG
+					</div>
+					<div
+						className={`${currentStat === "assists" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+					>
+						APG
+					</div>
+					<div
+						className={`${currentStat === "steals" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+					>
+						SPG
+					</div>
+					<div
+						className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-10 items-center text-sm sm:w-1/12 sm:text-lg`}
+					>
+						BPG
+					</div>
 				</article>
 				{players
 					.map((player, index) => (
-						<LeaderCard player={player} key={index} rank={index + 1} />
+						<LeaderCard
+							player={player}
+							key={index}
+							rank={index + 1}
+							currentStat={currentStat}
+						/>
 					))
 					.slice(0, 10)}
 			</div>
-		</>
+		</div>
 	);
 }
 
