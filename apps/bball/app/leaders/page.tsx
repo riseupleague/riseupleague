@@ -1,9 +1,9 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
-import LeadersTable from "@/components/leaders/LeadersTable";
-import { getAllCurrentPlayers } from "@/api-helpers/controllers/players-controller";
+import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import LeaderGrid from "@/components/leaders/LeaderGrid";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | League Leaders",
@@ -21,7 +21,8 @@ type Division = {
 
 export default async function Leaders(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const resAllPlayers = await getAllCurrentPlayers();
+
+	const resAllPlayers = await getAllPlayersWithAvg();
 	const { allPlayers } = await resAllPlayers.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
@@ -31,9 +32,9 @@ export default async function Leaders(): Promise<JSX.Element> {
 	revalidatePath("/leaders", "page");
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1>league leaders</h1>
-			<LeadersTable divisions={divisionsWithStats} />
+			<LeaderGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
 		</section>
 	);
 }

@@ -11,18 +11,15 @@ import {
 } from "@ui/components/select";
 import { Label } from "@ui/components/label";
 
-const FilterByDivision = ({
-	selectedDivision,
-	handleDivisionChange,
-	divisions,
-	placeholder = "All Divisions",
-}) => {
+const FilterByStat = ({ handleStatChange }) => {
+	const stats = ["points", "rebounds", "assists", "steals", "blocks"];
+
 	return (
 		<div className="font-barlow flex flex-col gap-2">
-			<Label>Filter By Division:</Label>
-			<Select onValueChange={handleDivisionChange}>
-				<SelectTrigger className="font-barlow w-full text-lg md:w-[250px]">
-					<SelectValue placeholder={placeholder} />
+			<Label>Filter By Stat:</Label>
+			<Select onValueChange={handleStatChange}>
+				<SelectTrigger className="font-barlow w-full text-lg capitalize md:w-[250px]">
+					<SelectValue placeholder="Points" />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {
@@ -31,17 +28,17 @@ const FilterByDivision = ({
 							e.preventDefault();
 						};
 					}}
-					className="font-barlow text-lg"
+					className="font-barlow text-lg capitalize"
 				>
 					<SelectGroup>
-						<SelectLabel>Division:</SelectLabel>
-						{divisions.map((division, index) => (
+						<SelectLabel>Stat:</SelectLabel>
+						{stats.map((stat, index) => (
 							<SelectItem
-								className="text-sm sm:text-lg"
-								value={division._id || "default"}
+								className="text-sm capitalize sm:text-lg"
+								value={stat}
 								key={index}
 							>
-								{division.divisionName}
+								{stat}
 							</SelectItem>
 						))}
 					</SelectGroup>
@@ -51,4 +48,4 @@ const FilterByDivision = ({
 	);
 };
 
-export default FilterByDivision;
+export default FilterByStat;
