@@ -4,28 +4,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Button } from "@ui/components/button";
-import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
 import ProfileLink from "@/components/auth/ProfileLink";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import HomeIcon from "@/components/icons/HomeIcon";
 import CalendarIcon from "@/components/icons/CalendarIcon";
 import PodiumIcon from "@/components/icons/PodiumIcon";
 import TeamIcon from "@/components/icons/TeamIcon";
 import PlayerIcon from "@/components/icons/PlayerIcon";
 import TrophyIcon from "@/components/icons/TrophyIcon";
-import MenuIcon from "@/components/icons/MenuIcon";
-import QuestionIcon from "@/components/icons/QuestionIcon";
-import ChevronRight from "@/components/general/icons/ChevronRight";
-import ProfileIcon from "@/components/icons/ProfileIcon";
-import SignInDialog from "@/components/auth/SignInDialog";
-import {
-	Sheet,
-	SheetClose,
-	SheetContent,
-	SheetTrigger,
-} from "@ui/components/sheet";
 import SideNav from "./SideNav";
 
 export default function PrimaryHeader(): React.JSX.Element {
@@ -54,11 +41,11 @@ export default function PrimaryHeader(): React.JSX.Element {
 			dropdown: true,
 			icon: <PodiumIcon />,
 		},
-		// {
-		// 	label: "leaders",
-		// 	href: "/leaders",
-		// 	icon: <TrophyIcon />,
-		// },
+		{
+			label: "leaders",
+			href: "/leaders",
+			icon: <TrophyIcon />,
+		},
 		{
 			label: "teams",
 			href: "/teams",
@@ -158,9 +145,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 						>
 							<Link
 								href={option.href}
-								className={`flex flex-col items-center justify-center"${
-									isActive && "text-primary"
-								}`}
+								className={`${isActive && "text-primary"} flex flex-col items-center justify-center`}
 							>
 								{option.icon}
 								<span className="font-barlow text-base capitalize tracking-tighter">
@@ -171,7 +156,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 					) : null;
 				})}
 
-				<SideNav navPosition={"bottom"} />
+				<SideNav navPosition="bottom" />
 			</ul>
 		</nav>
 	);
