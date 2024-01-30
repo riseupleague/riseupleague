@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function LeaderCard({ player, rank, currentStat }) {
 	// remove any names with a number in it
-	let regex = /^[a-zA-Z]+$/;
+	let regex = /^[a-zA-Z0-9-_]+$/;
 	let nameArray = player.playerName.split(" ");
 	nameArray = nameArray.filter((name) => regex.test(name));
 

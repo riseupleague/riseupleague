@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByDivision from "../filters/FilterByDivision";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +10,23 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
-	const [currentStat, setCurrentStat] = useState("points");
+
+	let queryDivisionId = searchParams.get("divisionId");
+	let queryStat = searchParams.get("stat");
+
+	const initialDivisions = divisions.map((division) => {
+		return {
+			divisionName: division.divisionName,
+			_id: division._id,
+		};
+	});
+
+	initialDivisions.unshift({ divisionName: "All Divisions", _id: "default" });
+
+	const [currentStat, setCurrentStat] = useState(queryStat || "points");
+	const [selectedDivision, setSelectedDivision] = useState(
+		queryDivisionId || "default"
+	);
 
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
@@ -18,30 +34,19 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		)
 	);
 
-	let initialDivisions = divisions;
-	let filterPlaceholder = "All Divisions";
+	let divisionFilterPlaceholder = queryDivisionId
+		? initialDivisions[0].divisionName
+		: "All Divisions";
 
-	// if URL has a 'divisionId' param, filter divisions automatically
-	const divisionId = searchParams.get("divisionId");
-	if (divisionId && divisionId !== "default") {
-		initialDivisions = filterDivisions(divisions, divisionId);
-		filterPlaceholder = divisions[0].divisionName;
-	}
+	let statFilterPlaceholder = queryStat ? queryStat : "Points";
 
-	const divisionsNameAndId = divisions.map((division) => {
-		return {
-			divisionName: division.divisionName,
-			_id: division._id,
-		};
-	});
-
-	// Add "All Divisions" to the beginning of the array
-	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
-
-	let initialDivId = "default";
-	if (divisionId) initialDivId = divisionId;
-
-	const [selectedDivision, setSelectedDivision] = useState(initialDivId);
+	// update URL query when division changes
+	router.push(
+		`${pathname}?divisionId=${selectedDivision}&stat=${currentStat}`,
+		{
+			scroll: false,
+		}
+	);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -102,10 +107,13 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 				<FilterByDivision
 					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
-					divisions={divisionsNameAndId}
-					placeholder={filterPlaceholder}
+					divisions={initialDivisions}
+					placeholder={divisionFilterPlaceholder}
 				/>
-				<FilterByStat handleStatChange={handleStatChange} />
+				<FilterByStat
+					handleStatChange={handleStatChange}
+					filterPlaceholder={statFilterPlaceholder}
+				/>
 			</div>
 
 			<div className="relative grid grid-cols-1 overflow-auto">

@@ -11,7 +11,7 @@ import {
 } from "@ui/components/select";
 import { Label } from "@ui/components/label";
 
-const FilterByStat = ({ handleStatChange }) => {
+const FilterByStat = ({ handleStatChange, filterPlaceholder = "Points" }) => {
 	const stats = ["points", "rebounds", "assists", "steals", "blocks"];
 
 	return (
@@ -19,7 +19,7 @@ const FilterByStat = ({ handleStatChange }) => {
 			<Label>Filter By Stat:</Label>
 			<Select onValueChange={handleStatChange}>
 				<SelectTrigger className="font-barlow w-full text-lg capitalize md:w-[250px]">
-					<SelectValue placeholder="Points" />
+					<SelectValue placeholder={filterPlaceholder} />
 				</SelectTrigger>
 				<SelectContent
 					ref={(ref) => {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function MVPCard({ player, rank, mvpScore }) {
 	// remove any names with a number in it
-	let regex = /^[a-zA-Z]+$/;
+	let regex = /^[a-zA-Z0-9-_]+$/;
 	let nameArray = player.playerName.split(" ");
 	nameArray = nameArray.filter((name) => regex.test(name));
 
