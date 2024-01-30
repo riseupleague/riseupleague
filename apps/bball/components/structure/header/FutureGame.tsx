@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export default function FutureGame({ game, time, homeTeamWon }) {
 	const [isHovered, setIsHovered] = useState(false);
-	const gameStatus = time ? "preview" : "summary";
+	const gameStatus = game.status ? "summary" : "preview";
 
 	return (
 		<div
@@ -16,8 +16,8 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 			onMouseLeave={() => setIsHovered(false)}
 			className="relative"
 		>
-			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 pb-2 pt-4 uppercase">
-				<div>{time ? time : "Final"}</div>
+			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 py-4 pt-4 uppercase">
+				<div>{game.status ? "Final" : time}</div>
 				{/* home */}
 				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 						<div>{game.homeTeam?.teamNameShort}</div>
 					</div>
 					{game.status ? (
-						<p className="m-0 flex w-5 items-center gap-2">
+						<p className="m-0 flex w-5 items-center gap-2 lg:text-lg">
 							{game.homeTeamScore}
 							{homeTeamWon && (
 								<Image
@@ -66,7 +66,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 					</div>
 
 					{game.status ? (
-						<p className="m-0 flex w-5 items-center gap-2">
+						<p className="m-0 flex w-5 items-center gap-2 lg:text-lg">
 							{game.awayTeamScore}
 							{!homeTeamWon && (
 								<Image
@@ -86,6 +86,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 				{/* division */}
 				<div className="text-primary mt-1 w-fit text-sm font-semibold uppercase">
 					{game.division.divisionName}
+					{game.division.location}
 				</div>
 			</div>
 			{isHovered && (
