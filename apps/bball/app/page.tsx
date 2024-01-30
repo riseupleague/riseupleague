@@ -10,6 +10,7 @@ import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
 import SocialsSection from "@/components/home/SocialsSection";
 import FaqSection from "@/components/home/FaqSection";
 import SecondaryHeaderSkeleton from "@/components/skeleton/SecondaryHeaderSkeleton";
+import MVPLadder from "@/components/home/MVPLadder";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -35,7 +36,7 @@ export default function Page(): JSX.Element {
 			<Suspense>
 				<LatestGames />
 			</Suspense>
-			{/* <MVPLadder /> */}
+			<MVPLadder />
 			<SocialsSection />
 			<FaqSection />
 			<ContactUs />
