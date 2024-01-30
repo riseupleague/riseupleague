@@ -2,6 +2,11 @@ import TeamLogo from "@/components/general/icons/TeamLogo";
 import Link from "next/link";
 
 export default function LeaderCard({ player, rank, currentStat }) {
+	// remove any names with a number in it
+	let regex = /^[a-zA-Z]+$/;
+	let nameArray = player.playerName.split(" ");
+	nameArray = nameArray.filter((name) => regex.test(name));
+
 	return (
 		<article className="font-barlow flex justify-between border-b border-neutral-600 bg-neutral-700 px-4 py-2 sm:pr-6">
 			<div className="flex w-2 items-center text-sm sm:text-lg">{rank}</div>
@@ -10,7 +15,12 @@ export default function LeaderCard({ player, rank, currentStat }) {
 					href={`/players/${player._id}`}
 					className="font-barlow text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
 				>
-					{player.playerName}
+					<span className="block sm:hidden">
+						{nameArray[0]} {nameArray[1] && <span>{nameArray[1][0]}.</span>}
+					</span>
+					<span className="hidden sm:block">
+						{nameArray[0]} {nameArray[1] && <span>{nameArray[1]}</span>}
+					</span>
 				</Link>
 			</div>
 			<div className="flex w-1/6 items-center gap-1 text-sm sm:text-lg">
@@ -29,7 +39,8 @@ export default function LeaderCard({ player, rank, currentStat }) {
 					href={`/teams/${player.team?._id}`}
 					className="font-barlow w-fit text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
 				>
-					{player.team?.teamName}
+					<span className="block sm:hidden">{player.team?.teamNameShort}</span>
+					<span className="hidden sm:block">{player.team?.teamName}</span>
 				</Link>
 			</div>
 			<div

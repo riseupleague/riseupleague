@@ -1,30 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByDivision from "../filters/FilterByDivision";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterByStat from "../filters/FilterByStat";
 
 export default function LeaderGrid({ allPlayers, divisions }) {
+	const router = useRouter();
+	const pathname = usePathname();
+	const searchParams = useSearchParams();
+	const [currentStat, setCurrentStat] = useState("points");
+
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
-			a.averageStats?.points < b.averageStats?.points ? 1 : -1
+			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
 		)
 	);
-	const [currentStat, setCurrentStat] = useState("points");
 
 	let initialDivisions = divisions;
 	let filterPlaceholder = "All Divisions";
 
-	const router = useRouter();
-	const searchParams = useSearchParams();
-	const params = searchParams.get("divisionId");
-
 	// if URL has a 'divisionId' param, filter divisions automatically
-	if (params && !params.includes("default")) {
-		console.log(params);
-		initialDivisions = filterDivisions(divisions, params);
+	const divisionId = searchParams.get("divisionId");
+	if (divisionId && divisionId !== "default") {
+		initialDivisions = filterDivisions(divisions, divisionId);
 		filterPlaceholder = divisions[0].divisionName;
 	}
 
@@ -39,7 +39,7 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
 
 	let initialDivId = "default";
-	if (params) initialDivId = params;
+	if (divisionId) initialDivId = divisionId;
 
 	const [selectedDivision, setSelectedDivision] = useState(initialDivId);
 
@@ -48,7 +48,9 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		const selectedDivisionId = event;
 
 		// update URL query when division changes
-		router.push(`/leaders?divisionId=${event}?stat=${currentStat}`);
+		router.push(`${pathname}?divisionId=${event}&stat=${currentStat}`, {
+			scroll: false,
+		});
 
 		if (selectedDivisionId !== "default") {
 			const filteredPlayers = allPlayers.filter(
@@ -70,10 +72,23 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 
 	// Handle the select change event
 	const handleStatChange = (selectedStat) => {
-		// update URL query when division changes
-		router.push(`/leaders?divisionId=${selectedDivision}?stat=${selectedStat}`);
+		let currentPlayers = allPlayers;
 
-		const rankedPlayers = players.sort((a, b) =>
+		// update URL query when division changes
+		router.push(
+			`${pathname}?divisionId=${selectedDivision}&stat=${selectedStat}`,
+			{
+				scroll: false,
+			}
+		);
+
+		if (searchParams.get("divisionId") !== "default") {
+			currentPlayers = allPlayers.filter(
+				(player) => player.division._id === searchParams.get("divisionId")
+			);
+		}
+
+		const rankedPlayers = currentPlayers.sort((a, b) =>
 			a.averageStats[selectedStat] < b.averageStats[selectedStat] ? 1 : -1
 		);
 
