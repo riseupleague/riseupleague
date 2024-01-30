@@ -64,6 +64,11 @@ export default function SideNav({ navPosition }): React.JSX.Element {
 			href: "/players",
 			icon: <PlayerIcon />,
 		},
+		{
+			label: "MVP Ladder",
+			href: "/mvp-ladder",
+			icon: <TrophyIcon />,
+		},
 	];
 
 	return (

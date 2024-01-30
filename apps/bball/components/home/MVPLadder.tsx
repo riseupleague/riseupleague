@@ -4,8 +4,11 @@ import MVPGrid from "../mvp-ladder/MVPGrid";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function MVPLadder(): Promise<JSX.Element> {
+	noStore();
+
 	await connectToDatabase();
 
 	const resAllPlayers = await getAllPlayersWithAvg();

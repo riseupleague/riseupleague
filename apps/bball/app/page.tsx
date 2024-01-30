@@ -11,6 +11,9 @@ import SocialsSection from "@/components/home/SocialsSection";
 import FaqSection from "@/components/home/FaqSection";
 import SecondaryHeaderSkeleton from "@/components/skeleton/SecondaryHeaderSkeleton";
 import MVPLadder from "@/components/home/MVPLadder";
+import MVPLadderSkeleton from "@/components/skeleton/MVPLadderSkeleton";
+import PlayersOfTheWeekSkeleton from "@/components/skeleton/PlayersOfTheWeekSkeleton";
+import LatestGamesSkeleton from "@/components/skeleton/LatestGamesSkeleton";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -30,13 +33,13 @@ export default function Page(): JSX.Element {
 			{/* 
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
-			<Suspense fallback={null}>
+			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<PlayersOfTheWeek />
 			</Suspense>
-			<Suspense>
+			<Suspense fallback={<LatestGamesSkeleton />}>
 				<LatestGames />
 			</Suspense>
-			<Suspense fallback={null}>
+			<Suspense fallback={<MVPLadderSkeleton />}>
 				<MVPLadder />
 			</Suspense>
 			<SocialsSection />
