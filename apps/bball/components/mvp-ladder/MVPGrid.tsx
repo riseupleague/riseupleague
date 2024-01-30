@@ -6,23 +6,41 @@ import { useRouter, useSearchParams } from "next/navigation";
 import MVPCard from "./MVPCard";
 
 export default function MVPGrid({ allPlayers, divisions }) {
-	const [players, setPlayers] = useState(allPlayers);
+	// calculate mvp score and sort
+	const allPlayersWithScore = allPlayers
+		.map((player) => {
+			return {
+				...player,
+				mvpScore: calculateMvpScore(
+					player.averageStats,
+					player.team?.wins,
+					player.team?.losses
+				),
+			};
+		})
+		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
+		.filter((player) => player.mvpScore > 0);
+
+	const [players, setPlayers] = useState(
+		allPlayersWithScore.filter(
+			(player) =>
+				player.division._id === divisions[0]._id &&
+				player.playerName !== "Admin Test"
+		)
+	);
 
 	let initialDivisions = divisions;
-	let filterPlaceholder = "All Divisions";
+	let filterPlaceholder = divisions[0].divisionName;
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const params = searchParams.get("divisionId");
 
 	// if URL has a 'divisionId' param, filter divisions automatically
-	if (params && params !== "default") {
+	if (params) {
 		initialDivisions = filterDivisions(divisions, params);
 		filterPlaceholder = divisions[0].divisionName;
 	}
-
-	const [divisionsWithTeams, setDivisionsWithTeams] =
-		useState(initialDivisions);
 
 	const divisionsNameAndId = divisions.map((division) => {
 		return {
@@ -30,9 +48,6 @@ export default function MVPGrid({ allPlayers, divisions }) {
 			_id: division._id,
 		};
 	});
-
-	// Add "All Divisions" to the beginning of the array
-	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
 
 	let initialDivId = divisionsNameAndId[0]._id;
 	if (params) initialDivId = params;
@@ -47,9 +62,10 @@ export default function MVPGrid({ allPlayers, divisions }) {
 		router.push(`/mvp-ladder?divisionId=${event}`);
 
 		if (selectedDivisionId !== "default") {
-			const filteredPlayers = allPlayers.filter(
-				(player) => player?.division?._id === selectedDivisionId
-			);
+			const filteredPlayers = allPlayersWithScore
+				.filter((player) => player?.division?._id === selectedDivisionId)
+				.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1));
+
 			setPlayers(filteredPlayers);
 		} else {
 			setPlayers(allPlayers);
@@ -58,11 +74,70 @@ export default function MVPGrid({ allPlayers, divisions }) {
 
 	return (
 		<div className="relative">
-			<div className="text-xl">
+			<div className="items-left my-8 flex flex-col justify-between gap-4">
+				<FilterByDivision
+					selectedDivision={selectedDivision}
+					handleDivisionChange={handleDivisionChange}
+					divisions={divisionsNameAndId}
+					placeholder={filterPlaceholder}
+				/>
+			</div>
+
+			<div className="relative grid grid-cols-1 overflow-auto">
+				{players.length > 0 ? (
+					<>
+						<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase sm:pr-6">
+							<div className="flex w-2 items-center text-sm sm:text-lg">#</div>
+							<div className="flex w-1/6 items-center text-sm sm:text-lg">
+								Name
+							</div>
+							<div className="flex w-1/6 items-center text-sm sm:text-lg">
+								Team
+							</div>
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								PPG
+							</div>
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								RPG
+							</div>
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								APG
+							</div>
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								SPG
+							</div>
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								BPG
+							</div>
+							<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
+								Score
+							</div>
+						</article>
+						{players
+							.map((player, index) => (
+								<MVPCard
+									player={player}
+									key={index}
+									rank={index + 1}
+									mvpScore={player.mvpScore}
+								/>
+							))
+							.slice(0, 10)}
+					</>
+				) : (
+					<div>
+						<h3 className="text-primary mx-auto max-w-md text-center">
+							Not enough data for this division. <br /> Select another division
+							or come back at a later time!
+						</h3>
+					</div>
+				)}
+			</div>
+			<div className="text-sm sm:text-xl">
 				<p className="my-4">
 					At Rise Up League, we currently only track PTS, REB, AST, STL, and BLK
-					stats. We currently are not counting efficiency stats like FGM, 3PA,
-					FTA, etc.
+					stats. We currently are not counting efficiency stats like FGM/FGA,
+					3PM/3PA, FTA/FTM, etc.
 				</p>
 
 				<p className="my-4">
@@ -74,7 +149,9 @@ export default function MVPGrid({ allPlayers, divisions }) {
 						Player <span className="text-primary">must</span> have played in at
 						least 5 regular season games.
 					</li>
-					<li>Sum of the following multiplied by Team Win Percentage:</li>
+					<li>
+						<span className="text-primary">Sum</span> of the following:
+					</li>
 					<ul className="ml-4 flex list-inside list-disc flex-col gap-1">
 						<li>PPG * 3.0</li>
 						<li>RPG * 2.0</li>
@@ -82,11 +159,15 @@ export default function MVPGrid({ allPlayers, divisions }) {
 						<li>SPG * 2.0</li>
 						<li>BPG * 2.0</li>
 					</ul>
+					<li>
+						This sum is <span className="text-primary">multipled</span> by Team
+						Win Percentage.
+					</li>
 				</ul>
 
 				<p className="my-4">
 					Example: <br />A player averaging 22.4ppg, 10.2rpg, 3.4apg, 0.8bpg,
-					0.2spg - and his team has a 6-1 record.
+					0.2spg. <br /> His team has a 6-1 record.
 				</p>
 
 				<p className="my-4">Calculation:</p>
@@ -101,50 +182,25 @@ export default function MVPGrid({ allPlayers, divisions }) {
 					<li className="text-primary">Final MVP Score: 82.4434</li>
 				</ul>
 			</div>
-
-			<div className="items-left my-8 flex flex-col justify-between gap-4">
-				<FilterByDivision
-					selectedDivision={selectedDivision}
-					handleDivisionChange={handleDivisionChange}
-					divisions={divisionsNameAndId}
-					placeholder={filterPlaceholder}
-				/>
-			</div>
-
-			<div className="relative grid grid-cols-1 overflow-auto">
-				<article className="font-barlow flex rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase ">
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">#</div>
-					<div className="flex w-2/6 items-center text-sm sm:text-lg">Name</div>
-					<div className="flex w-2/6 items-center text-sm sm:text-lg">Team</div>
-					<div className="flex w-fit items-center text-sm sm:w-1/12 sm:text-lg">
-						PPG
-					</div>
-					<div className="flex w-fit items-center text-sm sm:w-1/12 sm:text-lg">
-						RPG
-					</div>
-					<div className="flex w-fit items-center text-sm sm:w-1/12 sm:text-lg">
-						APG
-					</div>
-					<div className="flex w-fit items-center text-sm sm:w-1/12 sm:text-lg">
-						SPG
-					</div>
-					<div className="flex w-fit items-center text-sm sm:w-1/12 sm:text-lg">
-						BPG
-					</div>
-					<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-1/12 sm:text-lg">
-						MVP Score
-					</div>
-				</article>
-				{players
-					.map((player, index) => (
-						<MVPCard player={player} key={index} rank={index + 1} />
-					))
-					.slice(0, 10)}
-			</div>
 		</div>
 	);
 }
 
 const filterDivisions = (divisions, id) => {
 	return divisions.filter((division) => division._id === id);
+};
+
+const calculateMvpScore = (avgStats, wins, losses) => {
+	let wpct;
+	const avgStatsSum =
+		avgStats.points * 3 +
+		avgStats.rebounds * 2 +
+		avgStats.assists * 2 +
+		avgStats.steals * 2 +
+		avgStats.blocks * 2;
+
+	if (!wins && !losses) wpct = 0;
+	else wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
+
+	return avgStatsSum * wpct;
 };

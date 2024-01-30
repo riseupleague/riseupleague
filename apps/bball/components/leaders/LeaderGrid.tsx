@@ -7,7 +7,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import FilterByStat from "../filters/FilterByStat";
 
 export default function LeaderGrid({ allPlayers, divisions }) {
-	const [players, setPlayers] = useState(allPlayers);
+	const [players, setPlayers] = useState(
+		allPlayers.sort((a, b) =>
+			a.averageStats?.points < b.averageStats?.points ? 1 : -1
+		)
+	);
 	const [currentStat, setCurrentStat] = useState("points");
 
 	let initialDivisions = divisions;
@@ -18,13 +22,11 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 	const params = searchParams.get("divisionId");
 
 	// if URL has a 'divisionId' param, filter divisions automatically
-	if (params && params !== "default") {
+	if (params && !params.includes("default")) {
+		console.log(params);
 		initialDivisions = filterDivisions(divisions, params);
 		filterPlaceholder = divisions[0].divisionName;
 	}
-
-	const [divisionsWithTeams, setDivisionsWithTeams] =
-		useState(initialDivisions);
 
 	const divisionsNameAndId = divisions.map((division) => {
 		return {
@@ -36,7 +38,7 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 	// Add "All Divisions" to the beginning of the array
 	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
 
-	let initialDivId = divisionsNameAndId[0]._id;
+	let initialDivId = "default";
 	if (params) initialDivId = params;
 
 	const [selectedDivision, setSelectedDivision] = useState(initialDivId);
@@ -52,9 +54,17 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 			const filteredPlayers = allPlayers.filter(
 				(player) => player?.division?._id === selectedDivisionId
 			);
-			setPlayers(filteredPlayers);
+			setPlayers(
+				filteredPlayers.sort((a, b) =>
+					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
+				)
+			);
 		} else {
-			setPlayers(allPlayers);
+			setPlayers(
+				allPlayers.sort((a, b) =>
+					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
+				)
+			);
 		}
 	};
 
@@ -63,10 +73,8 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		// update URL query when division changes
 		router.push(`/leaders?divisionId=${selectedDivision}?stat=${selectedStat}`);
 
-		const rankedPlayers = players.sort(
-			(a, b) =>
-				a.averageStats[selectedStat].toFixed(1) <
-				b.averageStats[selectedStat].toFixed(1)
+		const rankedPlayers = players.sort((a, b) =>
+			a.averageStats[selectedStat] < b.averageStats[selectedStat] ? 1 : -1
 		);
 
 		setPlayers(rankedPlayers);
@@ -86,32 +94,32 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 			</div>
 
 			<div className="relative grid grid-cols-1 overflow-auto">
-				<article className="font-barlow flex rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase ">
-					<div className="flex w-1/12 items-center text-sm sm:text-lg">#</div>
-					<div className="flex w-2/6 items-center text-sm sm:text-lg">Name</div>
-					<div className="flex w-2/6 items-center text-sm sm:text-lg">Team</div>
+				<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase sm:pr-6">
+					<div className="flex w-2 items-center text-sm sm:text-lg">#</div>
+					<div className="flex w-1/6 items-center text-sm sm:text-lg">Name</div>
+					<div className="flex w-1/6 items-center text-sm sm:text-lg">Team</div>
 					<div
-						className={`${currentStat === "points" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "points" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						PPG
 					</div>
 					<div
-						className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						RPG
 					</div>
 					<div
-						className={`${currentStat === "assists" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "assists" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						APG
 					</div>
 					<div
-						className={`${currentStat === "steals" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "steals" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						SPG
 					</div>
 					<div
-						className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-1/12 sm:text-lg`}
+						className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						BPG
 					</div>

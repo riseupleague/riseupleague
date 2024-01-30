@@ -93,7 +93,7 @@ export const getAllPlayersWithAvg = async () => {
 		const allPlayers = await Player.find({ season: activeSeason })
 			.populate({
 				path: "team",
-				select: "teamName teamBanner",
+				select: "teamName teamBanner wins losses",
 			})
 			.populate({ path: "allStats.game", select: "gameName status" })
 			.populate({

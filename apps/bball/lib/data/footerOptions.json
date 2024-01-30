@@ -15,12 +15,20 @@
 				"href": "/standings"
 			},
 			{
+				"label": "leaders",
+				"href": "/leaders"
+			},
+			{
 				"label": "teams",
 				"href": "/teams"
 			},
 			{
 				"label": "players",
 				"href": "/players"
+			},
+			{
+				"label": "mvp ladder",
+				"href": "/mvp-ladder"
 			}
 		]
 	},
