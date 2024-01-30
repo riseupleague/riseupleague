@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import FilterByDivision from "@/components/filters/FilterByDivision";
 import Link from "next/link";
@@ -13,7 +14,22 @@ import {
 } from "@ui/components/ui/table";
 
 export default function StandingsTable({ divisions }) {
-	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
+	let initialDivisions = divisions;
+	let filterPlaceholder = "All Divisions";
+
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const params = searchParams.get("divisionId");
+
+	// if URL has a 'divisionId' param, filter divisions automatically
+	if (params && params !== "default") {
+		initialDivisions = filterDivisions(divisions, params);
+		filterPlaceholder = initialDivisions[0].divisionName;
+	}
+
+	const [divisionsWithTeams, setDivisionsWithTeams] =
+		useState(initialDivisions);
+
 	const divisionsNameAndId = divisions.map((division) => {
 		return {
 			divisionName: division.divisionName,
@@ -23,19 +39,22 @@ export default function StandingsTable({ divisions }) {
 
 	// Add "All Divisions" to the beginning of the array
 	divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
-	const [selectedDivision, setSelectedDivision] = useState(
-		divisionsNameAndId[0]._id
-	);
+
+	let initialDivId = divisionsNameAndId[0]._id;
+	if (params) initialDivId = params;
+
+	const [selectedDivision, setSelectedDivision] = useState(initialDivId);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
 		const selectedDivisionId = event;
 
+		// update URL query when division changes
+		router.push(`/standings?divisionId=${event}`);
+
 		if (selectedDivisionId !== "default") {
-			// Filter the divisions based on the selected division name
-			const filteredDivisions = divisions.filter(
-				(division) => division._id === selectedDivisionId
-			);
+			// filter the divisions based on the selected division name
+			const filteredDivisions = filterDivisions(divisions, selectedDivisionId);
 
 			setSelectedDivision(selectedDivisionId);
 			setDivisionsWithTeams(filteredDivisions);
@@ -50,6 +69,7 @@ export default function StandingsTable({ divisions }) {
 				selectedDivision={selectedDivision}
 				handleDivisionChange={handleDivisionChange}
 				divisions={divisionsNameAndId}
+				placeholder={filterPlaceholder}
 			/>
 
 			<div className="mt-5 flex flex-col gap-10">
@@ -144,3 +164,7 @@ export default function StandingsTable({ divisions }) {
 		</div>
 	);
 }
+
+const filterDivisions = (divisions, id) => {
+	return divisions.filter((division) => division._id === id);
+};

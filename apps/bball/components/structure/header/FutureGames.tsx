@@ -54,7 +54,7 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	};
 
 	return (
-		<div className="flex ">
+		<div className="flex">
 			<button
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollLeft}

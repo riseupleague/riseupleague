@@ -33,9 +33,6 @@ export default async function Success({
 		return player.season.toString() === season;
 	});
 
-	console.log("selectedPlayer:", selectedPlayer);
-	console.log("division:", division);
-
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
 		if (timeString) {
@@ -56,7 +53,7 @@ export default async function Success({
 	// Example usage:
 	const startTimeAMPM = convertToAMPM(division?.startTime);
 	const endTimeAMPM = convertToAMPM(division?.endTime);
-	console.log("selectedPlayer:", selectedPlayer);
+
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
 			{selectedPlayer?.freeAgent ? (

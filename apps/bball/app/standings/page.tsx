@@ -3,6 +3,7 @@ import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divis
 import StandingsTable from "@/components/standings/StandingsTable";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Standings",

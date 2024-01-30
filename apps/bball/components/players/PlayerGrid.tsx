@@ -141,11 +141,11 @@ export default function PlayerGrid({
 	console.log(allPlayers);
 	const handleSearch = (e) => {
 		const searchValue = e.target.value.toLowerCase();
-		const filteredPlayers = [];
 
 		// empty search
 		if (searchValue === "") return setPlayers(allPlayers);
 
+<<<<<<< HEAD
 		for (const player of players) {
 			// Check if the playerName or teamName contains the searchValue
 			if (
@@ -158,12 +158,13 @@ export default function PlayerGrid({
 				}
 			}
 		}
+=======
+		const filteredPlayers = allPlayers.filter((player) =>
+			player.playerName.toLowerCase().includes(searchValue)
+		);
+>>>>>>> 6aca2180d61e8a8d42b50c053afbc7dbd4c560a8
 
 		setPlayers(filteredPlayers);
-
-		// Update the URL with the query parameters
-		// const newUrl = `/players?search=${searchValue}`;
-		// window.history.pushState({}, "", newUrl);
 	};
 
 	return (
@@ -198,17 +199,6 @@ export default function PlayerGrid({
 					</div>
 				)}
 			</div>
-			{/* <div className="mb-10 flex flex-col gap-5 md:flex-row">
-				<FilterAll
-					divisions={divisionsNameAndId}
-					teams={teamsNameDivisionAndId}
-					onFilterChange={handleFilterChange}
-					teamCheckboxState={teamCheckboxState}
-					divisionCheckboxState={divisionCheckboxState}
-					setTeamCheckboxState={setTeamCheckboxState}
-					setDivisionCheckboxState={setDivisionCheckboxState}
-				/>
-			</div> */}
 			<div className="flex flex-wrap space-x-2">
 				{closeDivisions.map((division) => (
 					<Button

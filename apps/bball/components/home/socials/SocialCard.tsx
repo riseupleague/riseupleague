@@ -1,5 +1,4 @@
 import ChevronRight from "@/components/general/icons/ChevronRight";
-import { Card } from "@ui/components/card";
 import Link from "next/link";
 
 export default function SocialCard({ link, text, icon }) {
