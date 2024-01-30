@@ -36,7 +36,9 @@ export default function Page(): JSX.Element {
 			<Suspense>
 				<LatestGames />
 			</Suspense>
-			<MVPLadder />
+			<Suspense fallback={null}>
+				<MVPLadder />
+			</Suspense>
 			<SocialsSection />
 			<FaqSection />
 			<ContactUs />

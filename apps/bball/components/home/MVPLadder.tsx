@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import MVPGrid from "../mvp-ladder/MVPGrid";
-import { Suspense } from "react";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
@@ -20,9 +19,7 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3>mvp ladder 🎖️</h3>
 			<hr />
-			<Suspense fallback={null}>
-				<MVPGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
-			</Suspense>
+			<MVPGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
 
 			<Link href="/mvp-ladder" className="w-full">
 				<Button className="w-full">View MVP Ladder Page</Button>
