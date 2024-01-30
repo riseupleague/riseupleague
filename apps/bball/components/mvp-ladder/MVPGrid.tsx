@@ -141,7 +141,8 @@ export default function MVPGrid({ allPlayers, divisions }) {
 				</p>
 
 				<p className="my-4">
-					The way that we calculate the MVP using these stats is as follows:
+					We calculate <span className="text-primary">MVP Score</span> with the
+					following:
 				</p>
 
 				<ul className="flex list-inside list-disc flex-col gap-1">
