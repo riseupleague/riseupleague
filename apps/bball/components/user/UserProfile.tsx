@@ -73,24 +73,24 @@ export default function UserProfile({
 		setPlayerFormObject((prev) => ({ ...prev, [field]: value }));
 	};
 
-	// const handleUpdateProfileName = async () => {
-	// 	setIsLoader(true);
+	const handleUpdateProfileName = async () => {
+		setIsLoader(true);
 
-	// 	const res = await fetch("/api/update-user", {
-	// 		method: "PATCH",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 		body: JSON.stringify({ name: profileName, userId: user._id }),
-	// 	});
+		const res = await fetch("/api/update-user", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name: profileName, userId: user._id }),
+		});
 
-	// 	if (res.ok) {
-	// 		const { user } = await res.json();
-	// 		setProfileName(user.name);
+		if (res.ok) {
+			const { user } = await res.json();
+			setProfileName(user.name);
 
-	// 		setIsLoader(false);
-	// 	}
-	// };
+			setIsLoader(false);
+		}
+	};
 
 	const handleEditPlayer = async (id: string) => {
 		const player = user.basketball.find((player) => player._id === id);
@@ -598,7 +598,7 @@ export default function UserProfile({
 							className="flex items-center justify-between uppercase"
 						>
 							Profile Name
-							{/* <Sheet>
+							<Sheet>
 								<SheetTrigger asChild>
 									<span className="cursor-pointer text-sm underline">Edit</span>
 								</SheetTrigger>
@@ -632,7 +632,7 @@ export default function UserProfile({
 										</SheetClose>
 									</SheetFooter>
 								</SheetContent>
-							</Sheet> */}
+							</Sheet>
 						</Label>
 						<Input
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"

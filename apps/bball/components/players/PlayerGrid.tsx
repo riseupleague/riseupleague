@@ -138,7 +138,7 @@ export default function PlayerGrid({
 			teams: updatedTeamState,
 		});
 	};
-
+	console.log(allPlayers);
 	const handleSearch = (e) => {
 		const searchValue = e.target.value.toLowerCase();
 		const filteredPlayers = [];
@@ -150,7 +150,7 @@ export default function PlayerGrid({
 			// Check if the playerName or teamName contains the searchValue
 			if (
 				player.playerName.toLowerCase().includes(searchValue) ||
-				player.team.teamName.toLowerCase().includes(searchValue)
+				player.team?.teamName.toLowerCase().includes(searchValue)
 			) {
 				// Check if the player is not already in filteredPlayers
 				if (!filteredPlayers.some((p) => p._id === player._id)) {

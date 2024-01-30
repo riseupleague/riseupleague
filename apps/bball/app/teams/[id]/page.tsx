@@ -22,7 +22,7 @@ export default async function Players({
 	const { team, allAvg } = await resTeam.json();
 	const resUpcoming = await getAllUpcomingGamesHeader();
 	const { allUpcomingGames } = await resUpcoming.json();
-
+	console.log("allUpcomingGames:", allUpcomingGames);
 	const upcomingTeamGames = allUpcomingGames?.filter(
 		(game) => game.homeTeam?._id === id || game.awayTeam?._id === id
 	);

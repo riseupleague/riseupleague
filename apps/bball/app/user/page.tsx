@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
+import { userRedirectMiddleware } from "../middleware";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | User",
@@ -20,3 +21,6 @@ export default async function User(): Promise<JSX.Element> {
 	if (!session || !session.user) redirect("/");
 	else redirect(`/user/${user._id}`);
 }
+
+// Attach the middleware to the page
+export const middleware = userRedirectMiddleware;
