@@ -695,7 +695,7 @@ export default function CustomizeJersey({ team, session, division }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-											);
+										  );
 								}}
 							>
 								{isLoader ? (
@@ -777,15 +777,17 @@ export default function CustomizeJersey({ team, session, division }) {
 									</Table>
 									<Button
 										onClick={() => {
-											division.earlyBirdOpen
-												? handleCreateTeamAndPlayer(
-														division.earlyBirdInstalmentId,
-														"four"
-													)
-												: handleCreateTeamAndPlayer(
-														division.regularPriceInstalmentId,
-														"four"
-													);
+											// division.earlyBirdOpen
+											// 	? handleCreateTeamAndPlayer(
+											// 			division.earlyBirdInstalmentId,
+											// 			"four"
+											// 		)
+											// 	:
+
+											handleCreateTeamAndPlayer(
+												division.regularPriceInstalmentId,
+												"four"
+											);
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"

@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
-
 import RetroJersey from "@/components/register/custom-jersey/RetroJersey";
 
 // import dynamic from "next/dynamic";
@@ -12,7 +11,6 @@ import Retro1 from "@/lib/jersey-designs/retro/retro-1";
 import Retro2 from "@/lib/jersey-designs/retro/retro-2";
 import Retro3 from "@/lib/jersey-designs/retro/retro-3";
 import Retro4 from "@/lib/jersey-designs/retro/retro-4";
-
 import Retro5 from "@/lib/jersey-designs/retro/retro-5";
 import Retro6 from "@/lib/jersey-designs/retro/retro-6";
 import Retro7 from "@/lib/jersey-designs/retro/retro-7";
@@ -21,7 +19,7 @@ import Retro9 from "@/lib/jersey-designs/retro/retro-9";
 import Retro10 from "@/lib/jersey-designs/retro/retro-10";
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Retro",
+	title: "Rise Up League | Customize Jersey - Retro",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
@@ -34,11 +32,8 @@ export default async function Retro({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
+	const session = await getServerSession();
 	const resTeam = await getTeamById(params.id);
 	const { team } = await resTeam.json();
 
@@ -53,9 +48,7 @@ export default async function Retro({
 	});
 
 	// isUserInTeam will be true if any player in user.basketball is in team.players, otherwise false
-	if (!isUserInTeam) {
-		redirect("/");
-	}
+	if (!isUserInTeam) redirect("/");
 
 	const numberToComponent = {
 		1: Retro1(),

@@ -1,11 +1,8 @@
 import Stripe from "stripe";
-import mongoose from "mongoose";
 import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import User from "@/api-helpers/models/User";
 import Division from "@/api-helpers/models/Division";
-
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { google } from "googleapis";

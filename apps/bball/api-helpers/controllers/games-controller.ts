@@ -7,7 +7,59 @@ import { revalidatePath } from "next/cache";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {
-		const allGames = await Game.find({ status: false })
+		const targetDate = new Date();
+
+		// Calculate the start and end dates for one week before the target date
+		const oneWeekBefore = new Date(
+			targetDate.getTime() - 7 * 24 * 60 * 60 * 1000
+		);
+
+		// Calculate the start and end dates for two weeks after the target date
+		const twoWeeksAfter = new Date(
+			targetDate.getTime() + 7 * 24 * 60 * 60 * 1000
+		);
+
+		const allGames = await Game.find({
+			date: {
+				$gte: oneWeekBefore,
+				$lt: twoWeeksAfter,
+			},
+		})
+			.populate({
+				path: "division",
+				select: "divisionName divisionColor",
+			})
+			.populate({
+				path: "homeTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.populate({
+				path: "awayTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.select(
+				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
+			);
+
+		return NextResponse.json({
+			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
+		});
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllUpcomingGamesByDivision = async (divisionId) => {
+	try {
+		const allGames = await Game.find({
+			status: false,
+			division: divisionId,
+		})
 			.populate({
 				path: "division",
 				select: "divisionName",

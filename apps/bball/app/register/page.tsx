@@ -1,4 +1,3 @@
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
@@ -15,17 +14,10 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-export default async function Register({
-	searchParams,
-}: {
-	searchParams: { [key: string]: string | string[] | undefined };
-}): Promise<JSX.Element> {
+export default async function Register(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
+	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 

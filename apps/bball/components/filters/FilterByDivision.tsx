@@ -21,7 +21,7 @@ const FilterByDivision = ({
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Division:</Label>
 			<Select onValueChange={handleDivisionChange}>
-				<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
+				<SelectTrigger className="font-barlow w-full text-lg md:w-[250px]">
 					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 				<SelectContent

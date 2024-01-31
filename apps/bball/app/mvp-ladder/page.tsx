@@ -3,7 +3,7 @@ import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divis
 import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
-import LeaderGrid from "@/components/leaders/LeaderGrid";
+import MVPGrid from "@/components/mvp-ladder/MVPGrid";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | League Leaders",
@@ -19,7 +19,7 @@ type Division = {
 	teams: any[]; // An array of Team objects
 };
 
-export default async function Leaders(): Promise<JSX.Element> {
+export default async function MVPLadder(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	const resAllPlayers = await getAllPlayersWithAvg();
@@ -29,12 +29,12 @@ export default async function Leaders(): Promise<JSX.Element> {
 	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
 		await resDivisions.json();
 
-	revalidatePath("/leaders", "page");
+	revalidatePath("/mvp-ladder", "page");
 
 	return (
 		<section className="container mx-auto min-h-fit">
-			<h1>league leaders</h1>
-			<LeaderGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
+			<h1>mvp ladder</h1>
+			<MVPGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
 		</section>
 	);
 }

@@ -1,10 +1,9 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Separator } from "@ui/components/separator";
@@ -19,21 +18,15 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@ui/components/select";
+import { useSession } from "next-auth/react";
 
 export default function UserProfile({
 	session,
 	user,
 	userSchedule,
 }): JSX.Element {
+	const { update } = useSession();
+
 	const [selectedSection, setSelectedSection] = useState(
 		userSchedule ? "previousGames" : "overview"
 	);
@@ -72,24 +65,31 @@ export default function UserProfile({
 		setPlayerFormObject((prev) => ({ ...prev, [field]: value }));
 	};
 
-	// const handleUpdateProfileName = async () => {
-	// 	setIsLoader(true);
+	const handleUpdateProfileName = async () => {
+		setIsLoader(true);
 
-	// 	const res = await fetch("/api/update-user", {
-	// 		method: "PATCH",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 		body: JSON.stringify({ name: profileName, userId: user._id }),
-	// 	});
+		const res = await fetch("/api/update-user", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ name: profileName, userId: user._id }),
+		});
 
-	// 	if (res.ok) {
-	// 		const { user } = await res.json();
-	// 		setProfileName(user.name);
+		if (res.ok) {
+			const { user } = await res.json();
+			await update({
+				...session,
+				user: {
+					...session?.user,
+					name: user.name,
+				},
+			});
 
-	// 		setIsLoader(false);
-	// 	}
-	// };
+			setProfileName(user.name);
+			setIsLoader(false);
+		}
+	};
 
 	const handleEditPlayer = async (id: string) => {
 		const player = user.basketball.find((player) => player._id === id);
@@ -591,13 +591,13 @@ export default function UserProfile({
 			<div className="flex h-96 w-full flex-col border border-neutral-600 bg-neutral-700 p-5 lg:w-1/4">
 				<h2 className="mb-10 text-center">{profileName}</h2>
 				<div className="flex flex-col gap-4">
-					<div className="flex flex-col gap-3">
+					<div className="font-barlow flex flex-col gap-3">
 						<Label
 							htmlFor="username"
 							className="flex items-center justify-between uppercase"
 						>
 							Profile Name
-							{/* <Sheet>
+							<Sheet>
 								<SheetTrigger asChild>
 									<span className="cursor-pointer text-sm underline">Edit</span>
 								</SheetTrigger>
@@ -631,7 +631,7 @@ export default function UserProfile({
 										</SheetClose>
 									</SheetFooter>
 								</SheetContent>
-							</Sheet> */}
+							</Sheet>
 						</Label>
 						<Input
 							className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
@@ -640,7 +640,7 @@ export default function UserProfile({
 							id="username"
 						/>
 					</div>
-					<div className="flex flex-col gap-3">
+					<div className="font-barlow flex flex-col gap-3">
 						<Label htmlFor="email" className="uppercase">
 							Email
 						</Label>
