@@ -145,24 +145,9 @@ export default function PlayerGrid({
 		// empty search
 		if (searchValue === "") return setPlayers(allPlayers);
 
-<<<<<<< HEAD
-		for (const player of players) {
-			// Check if the playerName or teamName contains the searchValue
-			if (
-				player.playerName.toLowerCase().includes(searchValue) ||
-				player.team?.teamName.toLowerCase().includes(searchValue)
-			) {
-				// Check if the player is not already in filteredPlayers
-				if (!filteredPlayers.some((p) => p._id === player._id)) {
-					filteredPlayers.push(player);
-				}
-			}
-		}
-=======
 		const filteredPlayers = allPlayers.filter((player) =>
 			player.playerName.toLowerCase().includes(searchValue)
 		);
->>>>>>> 6aca2180d61e8a8d42b50c053afbc7dbd4c560a8
 
 		setPlayers(filteredPlayers);
 	};
