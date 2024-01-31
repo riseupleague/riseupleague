@@ -1,21 +1,19 @@
-import {
-	getCurrentUser,
-	getUserPlayerPayment,
-} from "@/api-helpers/controllers/users-controller";
-import { Separator } from "@ui/components/separator";
+import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Button } from "@ui/components/button";
 import { connectToDatabase } from "@/api-helpers/utils";
-import { Metadata } from "next";
 import UserProfile from "@/components/user/UserProfile";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | User",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
+export async function generateMetadata() {
+	const session = await getServerSession();
+	if (!session || !session.user) redirect("/");
+
+	return {
+		title: `Rise Up League | ${session.user.name}'s Profile`,
+		description:
+			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+	};
+}
 
 export default async function User({
 	searchParams,
@@ -25,8 +23,8 @@ export default async function User({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-	console.log("session:", session);
 	if (!session || !session.user) redirect("/");
 
 	const resUser = await getCurrentUser(session.user.email);
@@ -36,6 +34,7 @@ export default async function User({
 		typeof searchParams.userSchedule === "string"
 			? searchParams.userSchedule
 			: "";
+
 	return (
 		<section className="container mx-auto">
 			<h1 className="mb-40">{user.name}&apos;s Profile</h1>
@@ -44,6 +43,7 @@ export default async function User({
 				later time.
 			</p> */}
 
+			<h1 className="mb-8 md:mb-40">{session.user.name}&apos;s Profile</h1>
 			<UserProfile
 				session={session}
 				user={user}

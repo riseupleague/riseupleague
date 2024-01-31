@@ -1,7 +1,6 @@
 import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 
@@ -13,11 +12,8 @@ export const metadata: Metadata = {
 
 export default async function Jersey(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
+	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 

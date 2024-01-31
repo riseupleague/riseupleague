@@ -9,13 +9,6 @@ import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
 import { startOfDay } from "date-fns";
 
 export default function FutureGames({ allUpcomingGames }): JSX.Element {
-	const currentDate = startOfDay(new Date());
-	console.log("allUpcomingGames:", allUpcomingGames.length);
-
-	// const allGames = allUpcomingGames?.filter((game) => {
-	// 	return convertToEST(game.date) >= currentDate;
-	// });
-
 	const separatedGames = [];
 
 	allUpcomingGames.forEach((game) => {

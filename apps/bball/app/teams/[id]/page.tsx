@@ -4,11 +4,19 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getAllUpcomingGamesByDivision } from "@/api-helpers/controllers/games-controller";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Team",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
+export async function generateMetadata({ params }) {
+	await connectToDatabase();
+
+	const { id } = params;
+	const resTeam = await getTeamAllAvgFromId(id);
+	const { team } = await resTeam.json();
+
+	return {
+		title: `Rise Up League | ${team.teamName}`,
+		description:
+			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+	};
+}
 
 export default async function Players({
 	params,
@@ -20,7 +28,6 @@ export default async function Players({
 	const { id } = params;
 	const resTeam = await getTeamAllAvgFromId(id);
 	const { team, allAvg } = await resTeam.json();
-	console.log("team:", team);
 	const resUpcoming = await getAllUpcomingGamesByDivision(team.division._id);
 	const { allUpcomingGames } = await resUpcoming.json();
 	const upcomingTeamGames = allUpcomingGames?.filter(

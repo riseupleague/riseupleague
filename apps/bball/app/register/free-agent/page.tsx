@@ -19,12 +19,8 @@ export const metadata: Metadata = {
 
 export default async function FreeAgents(): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
-
-	if (!session || !session.user) {
-		redirect("/");
-	}
-
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
@@ -47,6 +43,7 @@ export default async function FreeAgents(): Promise<JSX.Element> {
 			});
 		});
 	}
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">

@@ -23,15 +23,11 @@ const authOptions = {
 				try {
 					const user = await User.findOne({ email });
 
-					if (!user) {
-						return null;
-					}
+					if (!user) return null;
 
 					const passwordsMatch = await bcrypt.compare(password, user.password);
 
-					if (!passwordsMatch) {
-						return null;
-					}
+					if (!passwordsMatch) return null;
 
 					return user;
 				} catch (e) {
@@ -62,6 +58,7 @@ const authOptions = {
 		async signIn({ user, account }) {
 			if (account.provider === "google") {
 				const { name, email } = user;
+
 				try {
 					const userExists = await User.findOne({ email, type: "google" });
 
@@ -74,6 +71,9 @@ const authOptions = {
 			}
 
 			return user;
+		},
+		async session({ session, user, token }) {
+			return session;
 		},
 	},
 };

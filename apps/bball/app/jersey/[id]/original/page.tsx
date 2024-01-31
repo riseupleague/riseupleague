@@ -4,12 +4,10 @@ import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
-
-import CustomizeJersey from "@/components/register/custom-jersey/CustomizeJersey";
 import OriginalJersey from "@/components/register/custom-jersey/OriginalJersey";
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Original",
+	title: "Rise Up League | Customize Jersey - Original",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
@@ -34,11 +32,8 @@ export default async function Original({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	if (!session || !session.user) {
-		redirect("/");
-	}
 
+	const session = await getServerSession();
 	const resTeam = await getTeamById(params.id);
 	const { team } = await resTeam.json();
 
@@ -53,9 +48,7 @@ export default async function Original({
 	});
 
 	// isUserInTeam will be true if any player in user.basketball is in team.players, otherwise false
-	if (!isUserInTeam) {
-		redirect("/");
-	}
+	if (!isUserInTeam) redirect("/");
 
 	const selectedNumber =
 		typeof searchParams.number === "string" ? searchParams.number : "";

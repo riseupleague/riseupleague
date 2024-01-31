@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { Stripe } from "stripe";
-import Division from "@/api-helpers/models/Division";
 import { connectToDatabase } from "@/api-helpers/utils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);

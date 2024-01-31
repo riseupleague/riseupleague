@@ -1,11 +1,10 @@
 "use client";
 
 import MenuIcon from "@/components/icons/MenuIcon";
-import ProfileIcon from "@/components/icons/ProfileIcon";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import React, { useState } from "react";
 import ChevronRight from "@/components/general/icons/ChevronRight";
 import HomeIcon from "@/components/icons/HomeIcon";
@@ -21,6 +20,8 @@ import {
 	SheetContent,
 	SheetTrigger,
 } from "@ui/components/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import TrophyIcon from "@/components/icons/TrophyIcon";
 
 export default function SideNav({ navPosition }): React.JSX.Element {
 	const path = usePathname();
@@ -48,11 +49,11 @@ export default function SideNav({ navPosition }): React.JSX.Element {
 			dropdown: true,
 			icon: <PodiumIcon />,
 		},
-		// {
-		// 	label: "leaders",
-		// 	href: "/leaders",
-		// 	icon: <TrophyIcon />,
-		// },
+		{
+			label: "leaders",
+			href: "/leaders",
+			icon: <TrophyIcon />,
+		},
 		{
 			label: "teams",
 			href: "/teams",
@@ -62,6 +63,11 @@ export default function SideNav({ navPosition }): React.JSX.Element {
 			label: "players",
 			href: "/players",
 			icon: <PlayerIcon />,
+		},
+		{
+			label: "MVP Ladder",
+			href: "/mvp-ladder",
+			icon: <TrophyIcon />,
 		},
 	];
 
@@ -94,7 +100,12 @@ export default function SideNav({ navPosition }): React.JSX.Element {
 										onClick={() => router.push("/user")}
 									>
 										<div className="flex flex-1 gap-2">
-											<ProfileIcon />
+											<Avatar>
+												<AvatarImage src={`${session.user.image}`} />
+												<AvatarFallback className="bg-neutral-400 uppercase">
+													{session?.user?.name[0]}
+												</AvatarFallback>
+											</Avatar>
 											<div className="font-barlow flex flex-col items-start">
 												<h5 className="m-0 text-base font-medium">
 													{session.user.name}

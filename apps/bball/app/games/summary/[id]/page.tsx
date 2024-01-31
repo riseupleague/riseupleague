@@ -1,21 +1,23 @@
 import { getGameById } from "@/api-helpers/controllers/games-controller";
-import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
-import AverageStatistics from "@/components/players/player/AverageStatistics";
-import PlayerSections from "@/components/players/player/PlayerSections";
-import PreviousGames from "@/components/players/player/PreviousGames";
-import { utcToZonedTime } from "date-fns-tz";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Game Summary",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
+export async function generateMetadata({ params }) {
+	await connectToDatabase();
+
+	const { id } = params;
+	const resGame = await getGameById(id);
+	const { game } = await resGame.json();
+
+	return {
+		title: `Rise Up League | ${game.gameName}`,
+		description:
+			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+	};
+}
 
 export default async function Summary({
 	params,
