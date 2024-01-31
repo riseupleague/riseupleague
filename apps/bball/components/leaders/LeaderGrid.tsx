@@ -28,6 +28,8 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		queryDivisionId || "default"
 	);
 
+	console.log("division: ", selectedDivision);
+
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
 			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
@@ -53,9 +55,12 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		const selectedDivisionId = event;
 
 		// update URL query when division changes
-		router.push(`${pathname}?divisionId=${event}&stat=${currentStat}`, {
-			scroll: false,
-		});
+		router.push(
+			`${pathname}?divisionId=${selectedDivisionId}&stat=${currentStat}`,
+			{
+				scroll: false,
+			}
+		);
 
 		if (selectedDivisionId !== "default") {
 			const filteredPlayers = allPlayers.filter(
@@ -66,12 +71,16 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
 				)
 			);
+
+			setSelectedDivision(selectedDivisionId);
 		} else {
 			setPlayers(
 				allPlayers.sort((a, b) =>
 					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
 				)
 			);
+
+			setSelectedDivision("default");
 		}
 	};
 
