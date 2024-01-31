@@ -3,7 +3,7 @@ import Instagram from "../general/icons/Instagram";
 import YouTube from "../general/icons/YouTube";
 import TikTok from "../general/icons/TikTok";
 
-export default function SocialsSection(): JSX.Element {
+export default function HomeSocials(): JSX.Element {
 	const socialLinks = [
 		{
 			text: "Instagram - @riseup.bball",

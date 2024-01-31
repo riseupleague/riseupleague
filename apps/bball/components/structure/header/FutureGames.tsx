@@ -6,7 +6,6 @@ import { format } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
 import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
 import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
-import { startOfDay } from "date-fns";
 
 export default function FutureGames({ allUpcomingGames }): JSX.Element {
 	const separatedGames = [];
