@@ -28,12 +28,15 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/select";
+import { useSession } from "next-auth/react";
 
 export default function UserProfile({
 	session,
 	user,
 	userSchedule,
 }): JSX.Element {
+	const { update } = useSession();
+
 	const [selectedSection, setSelectedSection] = useState(
 		userSchedule ? "previousGames" : "overview"
 	);
@@ -85,6 +88,17 @@ export default function UserProfile({
 
 		if (res.ok) {
 			const { user } = await res.json();
+			await update({
+				...session,
+				user: {
+					...session?.user,
+					name: user.name,
+				},
+			});
+
+			console.log("session front:", session);
+			console.log("user.name:", user.name);
+
 			setProfileName(user.name);
 
 			setIsLoader(false);

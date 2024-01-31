@@ -23,13 +23,6 @@ export async function PATCH(req: Request) {
 			{ new: true } // Return the updated player
 		);
 
-		// Update the session with the new user information
-		const session = await getSession({ req });
-		session.user.name = existingUser.name;
-
-		// Save the updated session
-		await session.save();
-
 		return NextResponse.json({ user: existingUser }, { status: 201 });
 	} catch (error) {
 		console.error("Error during team update:", error);

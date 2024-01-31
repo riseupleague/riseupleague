@@ -26,7 +26,7 @@ export default async function User({
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
-
+	console.log("session:", session);
 	if (!session || !session.user) redirect("/");
 
 	const resUser = await getCurrentUser(session.user.email);
