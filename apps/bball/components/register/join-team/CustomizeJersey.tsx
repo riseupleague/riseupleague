@@ -695,7 +695,7 @@ export default function CustomizeJersey({ team, session, division }) {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-										  );
+											);
 								}}
 							>
 								{isLoader ? (
