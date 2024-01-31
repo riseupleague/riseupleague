@@ -26,6 +26,8 @@ const ProfileLink = () => {
 	const [open, setOpen] = useState(false);
 	const { toast } = useToast();
 
+	console.log("session:", session);
+
 	const openDialog = () => {
 		setOpen(true);
 	};

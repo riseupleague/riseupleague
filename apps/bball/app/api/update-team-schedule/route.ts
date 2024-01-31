@@ -105,18 +105,12 @@ export async function PATCH(req: Request) {
 				gamesToAdd.push(game);
 			}
 
-			console.log("Updated Games:", gamesToAdd);
-
 			updatedTeam.games = gamesToAdd;
 			await updatedTeam.save();
-
-			console.log("Updated Team:", updatedTeam);
 
 			updatedDivision.teamsWithSchedule =
 				updatedDivision.teamsWithSchedule.concat(updatedTeam._id);
 			await updatedDivision.save();
-
-			console.log("Updated Division:", updatedDivision);
 
 			if (!updatedTeam) {
 				console.log("Team not found");
