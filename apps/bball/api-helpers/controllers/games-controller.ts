@@ -27,7 +27,7 @@ export const getAllUpcomingGamesHeader = async () => {
 		})
 			.populate({
 				path: "division",
-				select: "divisionName",
+				select: "divisionName divisionColor",
 			})
 			.populate({
 				path: "homeTeam",
@@ -43,8 +43,6 @@ export const getAllUpcomingGamesHeader = async () => {
 				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
 			);
 
-		console.log("allGames:", allGames.length);
-
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
 		});
@@ -56,40 +54,38 @@ export const getAllUpcomingGamesHeader = async () => {
 	}
 };
 
-// export const getAllUpcomingGamesHeader = async () => {
-// 	try {
-// 		const currentDate = new Date();
-// 		const seasons = await Season.find({active:true});
+export const getAllUpcomingGamesByDivision = async (divisionId) => {
+	try {
+		const allGames = await Game.find({
+			status: false,
+			division: divisionId,
+		})
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.populate({
+				path: "awayTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.select("status homeTeam awayTeam division date gameName location");
 
-// 		const allGames = await Game.find({
-// 			date: { $gte: currentDate }, // Fetch games where the date is greater than or equal to the current date
-// 		})
-// 			.populate({
-// 				path: "division",
-// 				select: "divisionName",
-// 			})
-// 			.populate({
-// 				path: "homeTeam",
-// 				select:
-// 					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
-// 			})
-// 			.populate({
-// 				path: "awayTeam",
-// 				select:
-// 					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
-// 			})
-// 			.select("status homeTeam awayTeam division date gameName location");
-
-// 		return NextResponse.json({
-// 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
-// 		});
-// 	} catch (e) {
-// 		return NextResponse.json(
-// 			{ message: "Internal Server Error" },
-// 			{ status: 500 }
-// 		);
-// 	}
-// };
+		return NextResponse.json({
+			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
+		});
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
 
 export const getAllPastGames = async () => {
 	try {

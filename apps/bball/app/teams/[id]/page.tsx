@@ -2,7 +2,7 @@ import { getTeamAllAvgFromId } from "@/api-helpers/controllers/teams-controller"
 import TeamSections from "@/components/teams/team/TeamSections";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
-import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-controller";
+import { getAllUpcomingGamesByDivision } from "@/api-helpers/controllers/games-controller";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Team",
@@ -20,9 +20,9 @@ export default async function Players({
 	const { id } = params;
 	const resTeam = await getTeamAllAvgFromId(id);
 	const { team, allAvg } = await resTeam.json();
-	const resUpcoming = await getAllUpcomingGamesHeader();
+	console.log("team:", team);
+	const resUpcoming = await getAllUpcomingGamesByDivision(team.division._id);
 	const { allUpcomingGames } = await resUpcoming.json();
-	console.log("allUpcomingGames:", allUpcomingGames);
 	const upcomingTeamGames = allUpcomingGames?.filter(
 		(game) => game.homeTeam?._id === id || game.awayTeam?._id === id
 	);

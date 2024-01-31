@@ -18,6 +18,7 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 		>
 			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 py-4 pt-4 uppercase">
 				<div>{game.status ? "Final" : time}</div>
+
 				{/* home */}
 				<div className="flex w-full justify-between gap-[100px] font-bold">
 					<div className="flex items-center gap-2">
@@ -84,9 +85,14 @@ export default function FutureGame({ game, time, homeTeamWon }) {
 					)}
 				</div>
 				{/* division */}
-				<div className="text-primary mt-1 w-fit text-sm font-semibold uppercase">
+				<div
+					className={`${
+						game.division.divisionColor && game.division.divisionColor !== ""
+							? game.division.divisionColor
+							: "text-primary"
+					} mt-1 w-fit text-sm font-semibold uppercase`}
+				>
 					{game.division.divisionName}
-					{game.division.location}
 				</div>
 			</div>
 			{isHovered && (
