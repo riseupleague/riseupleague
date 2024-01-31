@@ -9,9 +9,28 @@ export default function MVPGrid({ allPlayers, divisions }) {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const pathname = usePathname();
-	const params = searchParams.get("divisionId");
 
+	const divisionIdParam = searchParams.get("divisionId");
 	const numberOfPlayers = pathname.includes("mvp-ladder") ? 10 : 3;
+
+	let filterPlaceholder = divisions[0].divisionName;
+	let initialDivisions = divisions.map((division) => {
+		return {
+			divisionName: division.divisionName,
+			_id: division._id,
+		};
+	});
+
+	// if URL param exists, set initial division ID
+	if (divisionIdParam) {
+		initialDivisions = filterDivisions(divisions, divisionIdParam);
+		filterPlaceholder = initialDivisions[0].divisionName;
+	}
+
+	// set initial division
+	const [selectedDivision, setSelectedDivision] = useState(
+		initialDivisions[0]._id
+	);
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
@@ -28,34 +47,14 @@ export default function MVPGrid({ allPlayers, divisions }) {
 		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
 		.filter((player) => player.mvpScore > 0);
 
+	// set initial player list
 	const [players, setPlayers] = useState(
 		allPlayersWithScore.filter(
 			(player) =>
-				player.division._id === divisions[0]._id &&
+				player.division._id === selectedDivision &&
 				player.playerName !== "Admin Test"
 		)
 	);
-
-	let initialDivisions = divisions;
-	let filterPlaceholder = divisions[0].divisionName;
-
-	// if URL has a 'divisionId' param, filter divisions automatically
-	if (params) {
-		initialDivisions = filterDivisions(divisions, params);
-		filterPlaceholder = divisions[0].divisionName;
-	}
-
-	const divisionsNameAndId = divisions.map((division) => {
-		return {
-			divisionName: division.divisionName,
-			_id: division._id,
-		};
-	});
-
-	let initialDivId = divisionsNameAndId[0]._id;
-	if (params) initialDivId = params;
-
-	const [selectedDivision, setSelectedDivision] = useState(initialDivId);
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -81,7 +80,7 @@ export default function MVPGrid({ allPlayers, divisions }) {
 				<FilterByDivision
 					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
-					divisions={divisionsNameAndId}
+					divisions={divisions}
 					placeholder={filterPlaceholder}
 				/>
 			</div>

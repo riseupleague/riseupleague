@@ -18,9 +18,7 @@ export default function LeaderCard({ player, rank, currentStat }) {
 					<span className="block sm:hidden">
 						{nameArray[0]} {nameArray[1] && <span>{nameArray[1][0]}.</span>}
 					</span>
-					<span className="hidden sm:block">
-						{nameArray[0]} {nameArray[1] && <span>{nameArray[1]}</span>}
-					</span>
+					<span className="hidden sm:block">{player.playerName}</span>
 				</Link>
 			</div>
 			<div className="flex w-1/6 items-center gap-1 text-sm sm:text-lg">

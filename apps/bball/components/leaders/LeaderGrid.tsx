@@ -28,8 +28,6 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		queryDivisionId || "default"
 	);
 
-	console.log("division: ", selectedDivision);
-
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
 			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
