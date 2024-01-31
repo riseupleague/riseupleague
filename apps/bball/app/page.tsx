@@ -14,6 +14,8 @@ import MVPLadder from "@/components/home/MVPLadder";
 import MVPLadderSkeleton from "@/components/skeleton/MVPLadderSkeleton";
 import PlayersOfTheWeekSkeleton from "@/components/skeleton/PlayersOfTheWeekSkeleton";
 import LatestGamesSkeleton from "@/components/skeleton/LatestGamesSkeleton";
+import HomeLeaders from "@/components/home/HomeLeaders";
+import HomeLeadersSkeleton from "@/components/skeleton/HomeLeadersSkeleton";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -36,8 +38,8 @@ export default function Page(): JSX.Element {
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<PlayersOfTheWeek />
 			</Suspense>
-			<Suspense fallback={<LatestGamesSkeleton />}>
-				<LatestGames />
+			<Suspense fallback={<HomeLeadersSkeleton />}>
+				<HomeLeaders />
 			</Suspense>
 			<Suspense fallback={<MVPLadderSkeleton />}>
 				<MVPLadder />
