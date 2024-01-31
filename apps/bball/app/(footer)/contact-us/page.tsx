@@ -1,4 +1,4 @@
-import ContactUs from "@/components/home/ContactUs";
+import ContactUs from "@/components/home/HomeContactUs";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

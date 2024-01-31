@@ -1,4 +1,4 @@
-import FAQs from "@/components/home/FaqSection";
+import FAQs from "@/components/home/HomeFaq";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
