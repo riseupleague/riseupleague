@@ -52,6 +52,13 @@ const authOptions = {
 		signIn: "/",
 	},
 	callbacks: {
+		async jwt({ token, user, trigger, session }) {
+			if (trigger === "update") {
+				return { ...token, ...session.user };
+			}
+			return { ...token, ...user };
+		},
+
 		async signIn({ user, account }) {
 			if (account.provider === "google") {
 				const { name, email } = user;
@@ -71,6 +78,6 @@ const authOptions = {
 	},
 };
 
-const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions as any); // @ts-ignore
 
 export { handler as GET, handler as POST };

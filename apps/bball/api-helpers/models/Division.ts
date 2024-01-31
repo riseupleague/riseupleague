@@ -29,6 +29,7 @@ const divisionSchema = new Schema({
 	earlyBirdInstalmentId: { type: String },
 	regularPriceFullId: { type: String },
 	regularPriceInstalmentId: { type: String },
+	divisionColor: { type: String },
 });
 
 export default mongoose.models.Division ||

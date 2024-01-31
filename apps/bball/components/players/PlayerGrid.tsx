@@ -138,7 +138,7 @@ export default function PlayerGrid({
 			teams: updatedTeamState,
 		});
 	};
-
+	console.log(allPlayers);
 	const handleSearch = (e) => {
 		const searchValue = e.target.value.toLowerCase();
 

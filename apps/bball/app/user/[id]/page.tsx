@@ -26,7 +26,7 @@ export default async function User({
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
-
+	console.log("session:", session);
 	if (!session || !session.user) redirect("/");
 
 	const resUser = await getCurrentUser(session.user.email);
@@ -38,7 +38,7 @@ export default async function User({
 			: "";
 	return (
 		<section className="container mx-auto">
-			<h1 className="mb-40">{session.user.name}&apos;s Profile</h1>
+			<h1 className="mb-40">{user.name}&apos;s Profile</h1>
 			{/* <p className="text-primary flex h-[50dvh] items-center justify-center text-center text-2xl">
 				We&apos;re still updating your personal user page. Please come back at a
 				later time.
