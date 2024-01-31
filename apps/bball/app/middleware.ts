@@ -5,16 +5,18 @@ import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { connectToDatabase } from "@/api-helpers/utils";
 
-export async function userRedirectMiddleware(request: NextRequest) {
-	await connectToDatabase();
+export async function middleware(request: NextRequest) {
+	if (request.nextUrl.pathname.startsWith("/user")) {
+		await connectToDatabase();
 
-	const session = await getServerSession();
-	const resUser = await getCurrentUser(session.user.email);
-	const { user } = await resUser.json();
+		const session = await getServerSession();
+		const resUser = await getCurrentUser(session.user.email);
+		const { user } = await resUser.json();
 
-	if (!session || !session.user) {
-		return NextResponse.redirect("/");
+		if (!session || !session.user) {
+			return NextResponse.redirect("/");
+		}
+
+		return NextResponse.rewrite(new URL(`/user/${user._id}`, request.url));
 	}
-
-	return NextResponse.redirect(`/user/${user._id}`);
 }
