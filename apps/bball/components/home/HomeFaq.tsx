@@ -56,7 +56,7 @@ const faqsData = [
 	// Add more questions and answers as needed
 ];
 
-export default function FaqSection(): JSX.Element {
+export default function HomeFaq(): JSX.Element {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3 className="my-6">FAQs 🤔</h3>

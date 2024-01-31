@@ -1,19 +1,19 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import Hero from "@/components/home/hero";
-import PlayersOfTheWeek from "@/components/home/PlayersOfTheWeek";
-import LatestGames from "@/components/home/LatestGames";
-import ContactUs from "@/components/home/ContactUs";
 import HomeRegister from "@/components/home/HomeRegister";
 import SecondaryHeader from "@/components/structure/header/SecondaryHeader";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
-import SocialsSection from "@/components/home/SocialsSection";
-import FaqSection from "@/components/home/FaqSection";
 import SecondaryHeaderSkeleton from "@/components/skeleton/SecondaryHeaderSkeleton";
-import MVPLadder from "@/components/home/MVPLadder";
 import MVPLadderSkeleton from "@/components/skeleton/MVPLadderSkeleton";
 import PlayersOfTheWeekSkeleton from "@/components/skeleton/PlayersOfTheWeekSkeleton";
-import LatestGamesSkeleton from "@/components/skeleton/LatestGamesSkeleton";
+import HomeLeaders from "@/components/home/HomeLeaders";
+import HomeLeadersSkeleton from "@/components/skeleton/HomeLeadersSkeleton";
+import HomeMVPLadder from "@/components/home/HomeMVPLadder";
+import HomePlayersOfTheWeek from "@/components/home/HomePlayersOfTheWeek";
+import HomeSocials from "@/components/home/HomeSocials";
+import HomeFaq from "@/components/home/HomeFaq";
+import HomeContactUs from "@/components/home/HomeContactUs";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -34,17 +34,17 @@ export default function Page(): JSX.Element {
 			<FeaturedSponsors />
 			<AboutRiseUp /> */}
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
-				<PlayersOfTheWeek />
+				<HomePlayersOfTheWeek />
 			</Suspense>
-			<Suspense fallback={<LatestGamesSkeleton />}>
-				<LatestGames />
+			<Suspense fallback={<HomeLeadersSkeleton />}>
+				<HomeLeaders />
 			</Suspense>
 			<Suspense fallback={<MVPLadderSkeleton />}>
-				<MVPLadder />
+				<HomeMVPLadder />
 			</Suspense>
-			<SocialsSection />
-			<FaqSection />
-			<ContactUs />
+			<HomeSocials />
+			<HomeFaq />
+			<HomeContactUs />
 		</div>
 	);
 }

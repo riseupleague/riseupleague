@@ -3,7 +3,7 @@ import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
 import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
 import { unstable_noStore as noStore } from "next/cache";
 
-export default async function PlayersOfTheWeek(): Promise<JSX.Element> {
+export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 	noStore();
 
 	await connectToDatabase();
