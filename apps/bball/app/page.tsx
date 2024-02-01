@@ -14,6 +14,7 @@ import HomePlayersOfTheWeek from "@/components/home/HomePlayersOfTheWeek";
 import HomeSocials from "@/components/home/HomeSocials";
 import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
+import Image from "next/image";
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
@@ -24,15 +25,12 @@ export const metadata: Metadata = {
 export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
-			<Suspense fallback={<SecondaryHeaderSkeleton />}>
+			{/* <Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense>
 			<SetYourScheduleButton />
 			<Hero />
 			<HomeRegister />
-			{/* 
-			<FeaturedSponsors />
-			<AboutRiseUp /> */}
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
@@ -44,7 +42,20 @@ export default function Page(): JSX.Element {
 			</Suspense>
 			<HomeSocials />
 			<HomeFaq />
-			<HomeContactUs />
+			<HomeContactUs /> */}
+			<div className="flex h-[90dvh] flex-col items-center justify-center gap-2">
+				<Image
+					alt="Rise Up Logo"
+					src="/images/riseup-logo.png"
+					width={200}
+					height={100}
+					priority
+				/>
+				<h1>
+					Site is currently under maintenance! <br /> Sorry for the
+					inconvenience, please come back at a later time.
+				</h1>
+			</div>
 		</div>
 	);
 }

@@ -5,6 +5,7 @@ import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controll
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { unstable_noStore as noStore } from "next/cache";
 import HomeMVPGrid from "../mvp-ladder/HomeMVPGrid";
+import { DivisionWithStats } from "@/types";
 
 export default async function MVPLadder(): Promise<JSX.Element> {
 	noStore();
@@ -15,7 +16,7 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 	const { allPlayers } = await resAllPlayers.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
-	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
+	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
 		await resDivisions.json();
 
 	return (
@@ -30,10 +31,3 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 		</section>
 	);
 }
-
-type Division = {
-	_id: string;
-	divisionName: string;
-	season: string;
-	teams: any[];
-};

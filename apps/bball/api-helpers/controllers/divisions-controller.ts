@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
-import Team from "@/api-helpers/models/Team";
-import { revalidatePath } from "next/cache";
 
 type Season = {
 	_id: string;

@@ -4,19 +4,12 @@ import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controll
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import MVPGrid from "@/components/mvp-ladder/MVPGrid";
+import { DivisionWithStats } from "@/types";
 
 export const metadata: Metadata = {
-	title: "Rise Up League | League Leaders",
+	title: "Rise Up League | MVP Ladder",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
-// Define the type for a Division object
-type Division = {
-	_id: string; // Assuming _id is a string
-	divisionName: string;
-	season: string; // Assuming season is a string (ObjectId.toString())
-	teams: any[]; // An array of Team objects
 };
 
 export default async function MVPLadder(): Promise<JSX.Element> {
@@ -26,7 +19,7 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 	const { allPlayers } = await resAllPlayers.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
-	const { divisionsWithStats }: { divisionsWithStats: Division[] } =
+	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
 		await resDivisions.json();
 
 	revalidatePath("/mvp-ladder", "page");
