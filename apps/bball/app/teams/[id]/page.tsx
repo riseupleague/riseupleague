@@ -4,7 +4,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import { getAllUpcomingGamesByDivision } from "@/api-helpers/controllers/games-controller";
 
-export default async function Players({
+export default async function Teams({
 	params,
 }: {
 	params: { id: string };
