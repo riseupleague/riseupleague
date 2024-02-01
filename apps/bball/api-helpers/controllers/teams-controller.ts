@@ -128,6 +128,8 @@ export const getTeamByIdWithGames = async (teamId: string) => {
 
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
+		const activeSeason = await Season.find({ active: "true" });
+
 		const team = await Team.findById(teamId)
 			.populate("players")
 			.populate({
@@ -173,7 +175,9 @@ export const getTeamAllAvgFromId = async (teamId: string) => {
 				{ status: 404 }
 			);
 		}
-		const teams = await Team.find().select("averageStats");
+		const teams = await Team.find({ season: activeSeason[0]._id }).select(
+			"averageStats"
+		);
 
 		const avgStats = {
 			points: 0,

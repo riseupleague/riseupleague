@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
 	};
 }
 
-export default async function Players({
+export default async function Teams({
 	params,
 }: {
 	params: { id: string };
