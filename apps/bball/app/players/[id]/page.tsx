@@ -1,21 +1,8 @@
 import { getPlayerAllAvgFromId } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerSections from "@/components/players/player/PlayerSections";
+import { Metadata } from "next";
 import Link from "next/link";
-
-export async function generateMetadata({ params }) {
-	await connectToDatabase();
-
-	const { id } = params;
-	const resPlayer = await getPlayerAllAvgFromId(id);
-	const { player } = await resPlayer.json();
-
-	return {
-		title: `Rise Up League | ${player.playerName}`,
-		description:
-			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-	};
-}
 
 export default async function Players({
 	params,
@@ -49,3 +36,21 @@ export default async function Players({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Player",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
+
+// export async function generateMetadata({ params }): Promise<Metadata> {
+// 	const { id } = params;
+// 	const resPlayer = await getPlayerAllAvgFromId(id);
+// 	const { player } = await resPlayer.json();
+
+// 	return {
+// 		title: `Rise Up League | ${player.playerName}`,
+// 		description:
+// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+// 	};
+// }

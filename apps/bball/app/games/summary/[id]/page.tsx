@@ -4,20 +4,7 @@ import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
 import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
-
-export async function generateMetadata({ params }) {
-	await connectToDatabase();
-
-	const { id } = params;
-	const resGame = await getGameById(id);
-	const { game } = await resGame.json();
-
-	return {
-		title: `Rise Up League | ${game.gameName}`,
-		description:
-			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-	};
-}
+import { Metadata } from "next";
 
 export default async function Summary({
 	params,
@@ -106,3 +93,23 @@ export default async function Summary({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Summary",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
+
+// export async function generateMetadata({ params }) {
+// 	await connectToDatabase();
+
+// 	const { id } = params;
+// 	const resGame = await getGameById(id);
+// 	const { game } = await resGame.json();
+
+// 	return {
+// 		title: `Rise Up League | ${game.gameName}`,
+// 		description:
+// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+// 	};
+// }
