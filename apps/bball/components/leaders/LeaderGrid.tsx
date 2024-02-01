@@ -3,17 +3,9 @@
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByDivision from "../filters/FilterByDivision";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterByStat from "../filters/FilterByStat";
 
 export default function LeaderGrid({ allPlayers, divisions }) {
-	const router = useRouter();
-	const pathname = usePathname();
-	const searchParams = useSearchParams();
-
-	let queryDivisionId = searchParams.get("divisionId");
-	let queryStat = searchParams.get("stat");
-
 	const initialDivisions = divisions.map((division) => {
 		return {
 			divisionName: division.divisionName,
@@ -23,10 +15,8 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 
 	initialDivisions.unshift({ divisionName: "All Divisions", _id: "default" });
 
-	const [currentStat, setCurrentStat] = useState(queryStat || "points");
-	const [selectedDivision, setSelectedDivision] = useState(
-		queryDivisionId || "default"
-	);
+	const [currentStat, setCurrentStat] = useState("points");
+	const [selectedDivision, setSelectedDivision] = useState("default");
 
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
@@ -34,36 +24,18 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 		)
 	);
 
-	let divisionFilterPlaceholder = queryDivisionId
-		? initialDivisions[0].divisionName
-		: "All Divisions";
-
-	let statFilterPlaceholder = queryStat ? queryStat : "Points";
-
-	// update URL query when division changes
-	router.push(
-		`${pathname}?divisionId=${selectedDivision}&stat=${currentStat}`,
-		{
-			scroll: false,
-		}
-	);
+	let divisionFilterPlaceholder = "All Divisions";
+	let statFilterPlaceholder = "Points";
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
 		const selectedDivisionId = event;
 
-		// update URL query when division changes
-		router.push(
-			`${pathname}?divisionId=${selectedDivisionId}&stat=${currentStat}`,
-			{
-				scroll: false,
-			}
-		);
-
 		if (selectedDivisionId !== "default") {
 			const filteredPlayers = allPlayers.filter(
 				(player) => player?.division?._id === selectedDivisionId
 			);
+
 			setPlayers(
 				filteredPlayers.sort((a, b) =>
 					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
@@ -86,17 +58,9 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 	const handleStatChange = (selectedStat) => {
 		let currentPlayers = allPlayers;
 
-		// update URL query when division changes
-		router.push(
-			`${pathname}?divisionId=${selectedDivision}&stat=${selectedStat}`,
-			{
-				scroll: false,
-			}
-		);
-
-		if (searchParams.get("divisionId") !== "default") {
+		if (selectedDivision !== "default") {
 			currentPlayers = allPlayers.filter(
-				(player) => player.division._id === searchParams.get("divisionId")
+				(player) => player.division._id === selectedDivision
 			);
 		}
 
