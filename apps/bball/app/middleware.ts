@@ -5,8 +5,6 @@ import { getServerSession } from "next-auth";
 import { connectToDatabase } from "@/api-helpers/utils";
 
 export async function middleware(request: NextRequest) {
-	return NextResponse.redirect("/");
-
 	if (request.nextUrl.pathname.startsWith("/user")) {
 		await connectToDatabase();
 
