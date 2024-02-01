@@ -33,9 +33,9 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 					<GoogleAnalytics ga_id={process.env.GOOGLE_ANALYTICS_ID} />
 				) : null}
 				<NextAuthProvider>
-					{/* <Header /> */}
+					<Header />
 					<main className="bball">{children}</main>
-					{/* <Footer /> */}
+					<Footer />
 					<Toaster />
 				</NextAuthProvider>
 			</body>
