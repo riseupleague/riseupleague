@@ -1,12 +1,6 @@
 import Login from "@/components/login/Login";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Log In",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Page(): Promise<JSX.Element> {
 	return (
 		<div className="font-barlow container  mx-auto min-h-[100dvh] text-black">
@@ -14,3 +8,9 @@ export default async function Page(): Promise<JSX.Element> {
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Log In",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

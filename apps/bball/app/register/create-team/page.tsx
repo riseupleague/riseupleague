@@ -10,12 +10,6 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import CreateYourTeam from "@/components/register/CreateYourTeam";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Create a Team",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -57,3 +51,9 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 		</main>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Create a Team",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

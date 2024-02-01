@@ -3,12 +3,6 @@ import { getAllUpcomingDivisionsWithTeamNames } from "@/api-helpers/controllers/
 import TeamsFilterPage from "@/components/teams/TeamsFilterPage";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Upcoming Teams",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function RegisteredTeams(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -23,3 +17,9 @@ export default async function RegisteredTeams(): Promise<JSX.Element> {
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Upcoming Teams",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

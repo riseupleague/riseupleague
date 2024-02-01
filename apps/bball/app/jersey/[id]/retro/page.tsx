@@ -18,12 +18,6 @@ import Retro8 from "@/lib/jersey-designs/retro/retro-8";
 import Retro9 from "@/lib/jersey-designs/retro/retro-9";
 import Retro10 from "@/lib/jersey-designs/retro/retro-10";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Customize Jersey - Retro",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Retro({
 	params,
 	searchParams,
@@ -79,3 +73,9 @@ export default async function Retro({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Customize Jersey - Retro",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

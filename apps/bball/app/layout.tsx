@@ -16,12 +16,6 @@ const barlow = Barlow_Condensed({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Home",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 	return (
 		<html
@@ -42,3 +36,9 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 		</html>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Home",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

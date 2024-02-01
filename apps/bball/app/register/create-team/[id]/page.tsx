@@ -9,12 +9,6 @@ import {
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Create a Team",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function JoinTeam({
 	params,
 }: {
@@ -44,3 +38,9 @@ export default async function JoinTeam({
 		</main>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Create a Team",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

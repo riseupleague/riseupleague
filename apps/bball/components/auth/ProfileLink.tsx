@@ -9,8 +9,6 @@ import { LogOut } from "lucide-react";
 import SignInDialog from "@/components/auth/SignInDialog";
 import PlayerIcon from "../icons/PlayerIcon";
 import DownChevronIcon from "../icons/DownChevronIcon";
-import { useToast } from "@ui/components/use-toast";
-// import { ToastAction } from "@ui/components/toast";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -24,7 +22,6 @@ import {
 const ProfileLink = () => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
-	const { toast } = useToast();
 
 	const openDialog = () => {
 		setOpen(true);

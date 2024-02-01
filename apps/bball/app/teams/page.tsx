@@ -5,12 +5,6 @@ import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Teams",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Teams(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -28,3 +22,9 @@ export default async function Teams(): Promise<JSX.Element> {
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Teams",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

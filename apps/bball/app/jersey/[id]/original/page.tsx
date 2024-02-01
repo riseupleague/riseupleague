@@ -6,12 +6,6 @@ import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import OriginalJersey from "@/components/register/custom-jersey/OriginalJersey";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Customize Jersey - Original",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 // import dynamic from "next/dynamic";
 import Original1 from "@/lib/jersey-designs/original/original-1";
 import Original2 from "@/lib/jersey-designs/original/original-2";
@@ -79,3 +73,9 @@ export default async function Original({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Customize Jersey - Original",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

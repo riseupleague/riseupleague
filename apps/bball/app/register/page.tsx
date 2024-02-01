@@ -8,11 +8,6 @@ import {
 	getCurrentUser,
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
-export const metadata: Metadata = {
-	title: "Rise Up League | Register",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
 
 export default async function Register(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -103,3 +98,9 @@ export default async function Register(): Promise<JSX.Element> {
 		</main>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Register",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

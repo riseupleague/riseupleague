@@ -6,12 +6,6 @@ import { Metadata } from "next";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import JerseySelection from "@/components/register/custom-jersey/JerseySelection";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Customize Jersey",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Jersey({
 	params,
 	searchParams,
@@ -67,3 +61,9 @@ export default async function Jersey({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Customize Jersey",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

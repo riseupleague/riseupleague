@@ -1,11 +1,5 @@
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Refund Policy",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default function RefundPolicy(): JSX.Element {
 	return (
 		<section className="container mx-auto">
@@ -140,3 +134,9 @@ export default function RefundPolicy(): JSX.Element {
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Refund Policy",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

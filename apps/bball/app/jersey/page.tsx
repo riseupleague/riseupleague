@@ -4,12 +4,6 @@ import Link from "next/link";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Jersey Selection",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Jersey(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -34,8 +28,12 @@ export default async function Jersey(): Promise<JSX.Element> {
 					</Link>
 				))}
 			</div>
-
-			{/* <JerseySelection team={team?._id} /> */}
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Jersey Selection",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

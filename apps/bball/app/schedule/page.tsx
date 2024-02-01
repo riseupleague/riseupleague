@@ -1,12 +1,6 @@
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Schedule",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Schedule(): Promise<JSX.Element> {
 	// Get the current date and time
 	const currentDate = new Date();
@@ -22,3 +16,9 @@ export default async function Schedule(): Promise<JSX.Element> {
 		</main>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Schedule",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

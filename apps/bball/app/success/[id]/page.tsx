@@ -7,12 +7,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Success!",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Success({
 	params,
 }: {
@@ -148,3 +142,9 @@ export default async function Success({
 		</main>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Success!",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

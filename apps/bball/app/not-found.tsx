@@ -2,12 +2,6 @@ import { Button } from "@ui/components/button";
 import { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Error",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default function NotFound() {
 	return (
 		<div className="container mx-auto flex min-h-[50dvh] flex-col items-center justify-center gap-4 text-center">
@@ -33,3 +27,9 @@ export default function NotFound() {
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Error",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

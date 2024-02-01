@@ -15,12 +15,6 @@ import HomeSocials from "@/components/home/HomeSocials";
 import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Home",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default function Page(): JSX.Element {
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
@@ -45,3 +39,9 @@ export default function Page(): JSX.Element {
 		</div>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Home",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

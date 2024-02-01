@@ -3,12 +3,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerGrid from "@/components/players/PlayerGrid";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | Players",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function Players(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -22,3 +16,9 @@ export default async function Players(): Promise<JSX.Element> {
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | Players",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};

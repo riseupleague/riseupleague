@@ -6,12 +6,6 @@ import { revalidatePath } from "next/cache";
 import MVPGrid from "@/components/mvp-ladder/MVPGrid";
 import { DivisionWithStats } from "@/types";
 
-export const metadata: Metadata = {
-	title: "Rise Up League | MVP Ladder",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
-
 export default async function MVPLadder(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -31,3 +25,9 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up League | MVP Ladder",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
