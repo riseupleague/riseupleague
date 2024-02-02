@@ -14,8 +14,10 @@ import HomePlayersOfTheWeek from "@/components/home/HomePlayersOfTheWeek";
 import HomeSocials from "@/components/home/HomeSocials";
 import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
+import { connectToDatabase } from "@/api-helpers/utils";
 
-export default function Page(): JSX.Element {
+export default async function Page(): Promise<JSX.Element> {
+	await connectToDatabase();
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
 			<Suspense fallback={<SecondaryHeaderSkeleton />}>
