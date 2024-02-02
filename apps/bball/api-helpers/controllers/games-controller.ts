@@ -141,6 +141,54 @@ export const getAllPastGames = async () => {
 	}
 };
 
+export const getAllRecentPlayerOfTheGames = async () => {
+	try {
+		const targetDate = new Date();
+
+		// Calculate the start and end dates for one week before the target date
+		const oneWeekBefore = new Date(
+			targetDate.getTime() - 7 * 24 * 60 * 60 * 1000
+		);
+
+		// Calculate the start and end dates for two weeks after the target date
+		const twoWeeksAfter = new Date(
+			targetDate.getTime() + 7 * 24 * 60 * 60 * 1000
+		);
+
+		const games = await Game.find({
+			date: {
+				$gte: oneWeekBefore,
+				$lt: targetDate,
+			},
+		})
+
+			.populate({
+				path: "playerOfTheGame",
+				populate: [
+					{
+						path: "division",
+						select: "divisionName",
+					},
+					{
+						path: "team",
+						select: "teamName  primaryColor secondaryColor tertiaryColor",
+					},
+				],
+			})
+			.select("playerOfTheGame")
+			.sort({ date: -1 })
+			.limit(12)
+			.lean();
+
+		return NextResponse.json({ games });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getGamesByDate = async (selectedDate) => {
 	try {
 		const date = new Date(selectedDate * 1000);
