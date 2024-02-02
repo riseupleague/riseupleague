@@ -1,12 +1,9 @@
-import { connectToDatabase } from "@/api-helpers/utils";
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
 import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 	noStore();
-
-	await connectToDatabase();
 
 	const resGames = await getAllPastGames();
 	const { games } = await resGames.json();

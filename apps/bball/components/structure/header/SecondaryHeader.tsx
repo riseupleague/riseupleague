@@ -1,12 +1,9 @@
 import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
 import FutureGames from "./FutureGames";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function SecondaryHeader(): Promise<JSX.Element> {
 	noStore();
-
-	await connectToDatabase();
 
 	const resUpcoming = await getAllUpcomingGamesHeader();
 	const { allUpcomingGames } = await resUpcoming.json();
