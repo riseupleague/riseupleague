@@ -304,6 +304,7 @@ export default function UserProfile({
 																			)
 																		}
 																		id="jerseyName"
+																		disabled
 																	/>
 																</div>
 
@@ -324,6 +325,7 @@ export default function UserProfile({
 																			)
 																		}
 																		id="jerseyNumber"
+																		disabled
 																	/>
 																</div>
 																<div className="flex flex-col gap-3">
@@ -341,6 +343,7 @@ export default function UserProfile({
 																		id="jerseySize"
 																		value={playerFormObject?.jerseySize}
 																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
+																		disabled
 																	>
 																		<option value="SM">SM</option>
 																		<option value="MD">MD</option>
@@ -369,6 +372,7 @@ export default function UserProfile({
 																		id="shortSize"
 																		value={playerFormObject?.shortSize}
 																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
+																		disabled
 																	>
 																		<option value="SM">SM</option>
 																		<option value="MD">MD</option>
@@ -449,12 +453,12 @@ export default function UserProfile({
 												<div className="flex flex-col">
 													<h3 className="mt-10 flex items-center justify-center gap-2 text-center">
 														{player.team.jerseyEdition}{" "}
-														<Link
+														{/* <Link
 															className="text-sm underline"
 															href={`/jersey/${player.team._id}`}
 														>
 															Edit
-														</Link>
+														</Link> */}
 													</h3>
 													<DynamicComponent />
 													<div className=" m-4 flex justify-between rounded border border-neutral-600 p-4">
