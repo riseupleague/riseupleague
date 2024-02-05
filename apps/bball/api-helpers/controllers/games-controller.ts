@@ -262,7 +262,7 @@ export const getGameById = async (id) => {
 				populate: [
 					{
 						path: "players",
-						select: "playerName averageStats jerseyNumber",
+						select: "playerName averageStats jerseyNumber instagram",
 						options: { sort: { date: -1 } },
 						populate: {
 							path: "allStats",
@@ -283,7 +283,7 @@ export const getGameById = async (id) => {
 				populate: [
 					{
 						path: "players",
-						select: "playerName averageStats jerseyNumber",
+						select: "playerName averageStats jerseyNumber instagram",
 						options: { sort: { date: -1 } },
 						populate: {
 							path: "allStats",

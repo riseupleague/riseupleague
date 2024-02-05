@@ -8,7 +8,6 @@ export async function POST(req: Request) {
 
 	const { items, formObject } = await req.json();
 	const parsedFormObject = JSON.parse(formObject);
-	console.log("formObject:", formObject);
 
 	// const testClock = await stripe.testHelpers.testClocks.create({
 	// 	frozen_time: Math.floor(Date.now() / 1000),

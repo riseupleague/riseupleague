@@ -32,16 +32,6 @@ export async function PATCH(req: Request) {
 
 		const updatedDivision = await Division.findById(divisionId);
 
-		console.log(
-			otherTeamsCount,
-			updatedDivision.teamsWithSchedule.length,
-			otherTeamsCount === updatedDivision.teamsWithSchedule.length,
-			updatedDivision.teamsWithSchedule,
-			updatedDivision.teamsWithSchedule[
-				updatedDivision.teamsWithSchedule.length - 1
-			]
-		);
-
 		if (otherTeamsCount !== updatedDivision.teamsWithSchedule.length) {
 			const teamAddedFirstString =
 				updatedDivision.teamsWithSchedule[
@@ -77,7 +67,6 @@ export async function PATCH(req: Request) {
 					},
 				})
 				.select("division");
-			console.log("teamAddedFirst:", teamAddedFirst);
 
 			return NextResponse.json(
 				{ teamAddedFirst: teamAddedFirst, updated: false },
