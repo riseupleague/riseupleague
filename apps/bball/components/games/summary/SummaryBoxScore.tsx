@@ -51,7 +51,7 @@ export default function SummaryBoxScore({ game }) {
 							>
 								{potgTeam.teamName}
 							</Link>{" "}
-							| # {playerOfTheGame.jerseyNumber}
+							| #{playerOfTheGame.jerseyNumber}
 						</p>
 						<Link
 							href={`/players/${playerOfTheGame._id}`}
