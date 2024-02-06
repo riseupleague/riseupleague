@@ -10,7 +10,7 @@ export default function SummaryPOTG({ game, allPlayers }) {
 
 	// get team name
 	const potgTeam =
-		playerOfTheGame._id === game.homeTeam._id ? game.homeTeam : game.awayTeam;
+		playerOfTheGame._id === game.homeTeam._id ? game.awayTeam : game.homeTeam;
 
 	// get stats
 	const potgStats = playerOfTheGame.allStats.filter(
