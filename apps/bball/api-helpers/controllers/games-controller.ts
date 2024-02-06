@@ -121,7 +121,7 @@ export const getAllPastGames = async () => {
 					},
 					{
 						path: "team",
-						select: "teamName  primaryColor secondaryColor tertiaryColor",
+						select: "teamName primaryColor secondaryColor tertiaryColor",
 					},
 				],
 			})
@@ -299,8 +299,17 @@ export const getGameById = async (id) => {
 				],
 			})
 			.populate("division", "divisionName")
-			.populate("season", "seasonName");
-
+			.populate("season", "seasonName")
+			.populate({
+				path: "playerOfTheGame",
+				populate: [
+					{
+						path: "team",
+						select: "teamName primaryColor secondaryColor tertiaryColor",
+					},
+				],
+			});
+		// .populate("playerOfTheGame", "team");
 		if (!game) {
 			return NextResponse.json(
 				{ message: "Internal Server Error" },
