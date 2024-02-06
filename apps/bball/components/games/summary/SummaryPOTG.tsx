@@ -2,17 +2,8 @@
 
 import Link from "next/link";
 
-export default function SummaryPOTG({ game, allPlayers }) {
-	// get potg
-	const playerOfTheGame = allPlayers.filter(
-		(player) => player._id === game.playerOfTheGame
-	)[0];
-
-	// get team name
-	const potgTeam =
-		playerOfTheGame._id === game.homeTeam._id ? game.homeTeam : game.awayTeam;
-
-	// get stats
+export default function SummaryPOTG({ playerOfTheGame, game }) {
+	// get game stats
 	const potgStats = playerOfTheGame.allStats.filter(
 		(playerGame) => playerGame.game === game._id
 	)[0];
@@ -29,10 +20,10 @@ export default function SummaryPOTG({ game, allPlayers }) {
 				<div className="font-barlow flex w-full flex-col justify-center gap-1 md:w-1/2">
 					<p className="text-base text-neutral-500">
 						<Link
-							href={`/teams/${potgTeam._id}`}
+							href={`/teams/${playerOfTheGame._id}`}
 							className="uppercase transition-all hover:text-neutral-300"
 						>
-							{potgTeam.teamName}
+							{playerOfTheGame.team.teamName}
 						</Link>{" "}
 						| #{playerOfTheGame.jerseyNumber}
 					</p>

@@ -15,14 +15,13 @@ import SummaryPOTG from "./SummaryPOTG";
 
 export default function SummaryBoxScore({ game }) {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam);
-	const allPlayers = [...game.homeTeam.players, ...game.awayTeam.players];
 
 	return (
 		<div>
 			<h2 className="text-center">Box Score</h2>
 
 			{game.playerOfTheGame && (
-				<SummaryPOTG game={game} allPlayers={allPlayers} />
+				<SummaryPOTG playerOfTheGame={game.playerOfTheGame} game={game} />
 			)}
 
 			{/* team tabs */}
