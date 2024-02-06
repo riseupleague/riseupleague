@@ -81,6 +81,7 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 								return (
 									<FutureGame
 										key={index}
+										date={date}
 										game={game}
 										time={torontoTime}
 										homeTeamWon={homeTeamWon}
