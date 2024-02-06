@@ -27,6 +27,8 @@ export default async function Summary({
 	});
 	const time = format(date, "h:mm a");
 
+	const liveGame = isLiveGame(date);
+
 	return (
 		<section className="container mx-auto min-h-[100dvh]">
 			<div className="mb-8 mt-16">
@@ -55,7 +57,9 @@ export default async function Summary({
 
 					{/* game info */}
 					<div className="font-oswald my-4 flex w-full flex-col items-center text-center">
-						<h2 className="my-8">Final</h2>
+						<h2 className={`${liveGame && "text-primary"} my-8`}>
+							{liveGame ? "LIVE" : "Final"}
+						</h2>
 						<h4>
 							{day} {monthDay} @ {time}
 						</h4>
@@ -113,3 +117,10 @@ export const metadata: Metadata = {
 // 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 // 	};
 // }
+
+const isLiveGame = (date) => {
+	const HOUR = 1000 * 60 * 60;
+	const anHourAgo = Date.now() - HOUR;
+
+	return date > anHourAgo && Date.now() > date;
+};
