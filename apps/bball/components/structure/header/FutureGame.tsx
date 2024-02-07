@@ -6,7 +6,7 @@ import Image from "next/image";
 import WinnerIcon from "@/public/images/winner-icon.png";
 import { useState } from "react";
 
-export default function FutureGame({ date, game, time, homeTeamWon }) {
+const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 	const [isHovered, setIsHovered] = useState(false);
 	const gameStatus = game.status ? "summary" : "preview";
 
@@ -19,7 +19,7 @@ export default function FutureGame({ date, game, time, homeTeamWon }) {
 			className="relative"
 		>
 			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 py-4 pt-4 uppercase">
-				<div className={liveGame && "text-primary"}>
+				<div className={liveGame ? "text-primary" : ""}>
 					{game.status ? <>{liveGame ? "LIVE" : "Final"}</> : time}
 				</div>
 
@@ -112,7 +112,7 @@ export default function FutureGame({ date, game, time, homeTeamWon }) {
 			)}
 		</div>
 	);
-}
+};
 
 const isLiveGame = (date) => {
 	const HOUR = 1000 * 60 * 60;
@@ -120,3 +120,5 @@ const isLiveGame = (date) => {
 
 	return date > anHourAgo && Date.now() > date;
 };
+
+export default FutureGame;

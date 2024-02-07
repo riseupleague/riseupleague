@@ -1,18 +1,25 @@
+import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
+import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export default async function Schedule(): Promise<JSX.Element> {
-	// Get the current date and time
-	const currentDate = new Date();
+	// get current date -> convert into seconds
+	let currentDate = new Date();
+	const currentDateInSeconds = currentDate
+		.setUTCHours(0, 0, 0, 0)
+		.toString()
+		.slice(0, 10);
 
-	// Convert the date to seconds
-	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
+	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
+	const { gamesByDate } = await resAllUpcomingGames.json();
 
-	redirect(`/schedule/${currentDateInSeconds}`);
+	revalidatePath("/schedule", "page");
 
 	return (
-		<main className="container mx-auto min-h-[100dvh]">
-			<h1>Welcome to rise up basketball</h1>
+		<main className="font-barlow container mx-auto min-h-[100dvh]">
+			<h1>Schedule</h1>
+			<ScheduleFilterPage gamesByDate={gamesByDate} />
 		</main>
 	);
 }

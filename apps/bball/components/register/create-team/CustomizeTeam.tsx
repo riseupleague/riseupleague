@@ -18,7 +18,6 @@ import {
 	SelectContent,
 	SelectGroup,
 	SelectItem,
-	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/select";
@@ -51,7 +50,7 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeTeam({ division, session }) {
+const CustomizeTeam = ({ division, session }): JSX.Element => {
 	const [isLoader, setIsLoader] = useState(false);
 
 	const [isSummary, setIsSummary] = useState(false);
@@ -949,4 +948,6 @@ export default function CustomizeTeam({ division, session }) {
 			)}
 		</>
 	);
-}
+};
+
+export default CustomizeTeam;

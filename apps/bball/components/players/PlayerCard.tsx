@@ -1,7 +1,7 @@
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import Link from "next/link";
 
-export default function PlayerCard({ player }) {
+const PlayerCard = ({ player }): JSX.Element => {
 	return (
 		<article className="font-barlow flex justify-between border-b border-neutral-600 bg-neutral-700 px-4 py-2">
 			<div className="grid w-3/4 grid-cols-2 items-center gap-1">
@@ -37,4 +37,6 @@ export default function PlayerCard({ player }) {
 			</div>
 		</article>
 	);
-}
+};
+
+export default PlayerCard;

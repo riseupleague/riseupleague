@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function ScheduleLoading() {
+const ScheduleLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
@@ -25,4 +25,6 @@ export default function ScheduleLoading() {
 			</div>
 		</section>
 	);
-}
+};
+
+export default ScheduleLoading;

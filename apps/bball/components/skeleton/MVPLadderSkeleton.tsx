@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function MVPLadderSkeleton(): JSX.Element {
+const MVPLadderSkeleton = (): JSX.Element => {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3>mvp ladder 🎖️</h3>
@@ -18,4 +18,6 @@ export default function MVPLadderSkeleton(): JSX.Element {
 			</Link>
 		</section>
 	);
-}
+};
+
+export default MVPLadderSkeleton;

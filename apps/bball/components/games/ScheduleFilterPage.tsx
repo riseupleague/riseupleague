@@ -3,7 +3,7 @@
 import CalendarGames from "./CalendarGames";
 import ScheduleCard from "./ScheduleCard";
 
-export default function ScheduleFilterPage({ gamesByDate }) {
+const ScheduleFilterPage = ({ gamesByDate }): JSX.Element => {
 	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
 
 	const currentDate = new Date();
@@ -17,8 +17,8 @@ export default function ScheduleFilterPage({ gamesByDate }) {
 	});
 
 	return (
-		<div className="relative ">
-			<div className="">
+		<div className="relative">
+			<div>
 				<CalendarGames linkDate={linkDate} />
 			</div>
 
@@ -40,4 +40,6 @@ export default function ScheduleFilterPage({ gamesByDate }) {
 			)}
 		</div>
 	);
-}
+};
+
+export default ScheduleFilterPage;

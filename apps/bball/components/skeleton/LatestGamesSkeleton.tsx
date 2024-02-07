@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function LatestGamesSkeleton(): JSX.Element {
+const LatestGamesSkeleton = (): JSX.Element => {
 	const array3 = new Array(3).fill("");
 
 	return (
@@ -15,4 +15,6 @@ export default function LatestGamesSkeleton(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
+
+export default LatestGamesSkeleton;

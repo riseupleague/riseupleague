@@ -3,14 +3,11 @@
 import ScheduleCard from "@/components/games/ScheduleCard";
 import FeaturedPlayerCard from "@/components/general/FeaturedPlayerCard";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 
-const Overview = ({ team, upcomingGames }) => {
+const Overview = ({ team, upcomingGames }): JSX.Element => {
 	const jerseyEdition = team?.jerseyEdition;
-	let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
-	if (jerseyEdition) {
-		edition = jerseyEdition.split("-")[0];
-	}
+	let edition;
+	if (jerseyEdition) edition = jerseyEdition.split("-")[0];
 
 	// Dynamic import of the component
 	const DynamicComponent = dynamic(
@@ -20,6 +17,7 @@ const Overview = ({ team, upcomingGames }) => {
 			ssr: false, // Set to false if you want to disable server-side rendering for this component
 		}
 	);
+
 	return (
 		<div>
 			<div>

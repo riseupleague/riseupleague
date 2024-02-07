@@ -5,7 +5,7 @@ import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PreviousGames from "@/components/players/player/PreviousGames";
 import Overview from "@/components/players/player/Overview";
 
-export default function PlayerSections({ player, allAvg }) {
+const PlayerSections = ({ player, allAvg }): JSX.Element => {
 	const [selectedSection, setSelectedSection] = useState("stats");
 
 	const handleNavClick = (sectionId) => {
@@ -59,4 +59,6 @@ export default function PlayerSections({ player, allAvg }) {
 			<section>{selectedNavItem && selectedNavItem.component}</section>
 		</div>
 	);
-}
+};
+
+export default PlayerSections;

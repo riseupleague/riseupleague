@@ -5,7 +5,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllPastGames } from "@/api-helpers/controllers/games-controller";
 import { unstable_noStore as noStore } from "next/cache";
 
-export default async function LatestGames(): Promise<JSX.Element> {
+const LatestGames = async (): Promise<JSX.Element> => {
 	noStore();
 
 	await connectToDatabase();
@@ -27,4 +27,6 @@ export default async function LatestGames(): Promise<JSX.Element> {
 			</div>
 		</section>
 	);
-}
+};
+
+export default LatestGames;

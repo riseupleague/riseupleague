@@ -1,6 +1,6 @@
 import SidebarContent from "./SidebarContent";
 
-export default function Sidebar(): JSX.Element {
+const Sidebar = (): JSX.Element => {
 	const sidebarLinks = [
 		{
 			title: "dashboard",
@@ -37,4 +37,6 @@ export default function Sidebar(): JSX.Element {
 			<SidebarContent sidebarLinks={sidebarLinks} />
 		</aside>
 	);
-}
+};
+
+export default Sidebar;

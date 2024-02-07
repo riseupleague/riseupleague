@@ -1,13 +1,13 @@
 "use client";
 
-import LocationMarker from "@/components/general/icons/LocationMarker";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { convertToEST } from "@/utils/convertToEST";
 import { format } from "date-fns";
-
 import { Separator } from "@ui/components/separator";
 import { Alert, AlertDescription, AlertTitle } from "@ui/components/ui/alert";
 import { AlertCircle } from "lucide-react";
@@ -15,27 +15,20 @@ import {
 	Sheet,
 	SheetClose,
 	SheetContent,
-	SheetDescription,
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-
 import {
 	Dialog,
-	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@ui/components/dialog";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-
-export default function ChooseSchedule({ team, user }) {
+const ChooseSchedule = ({ team, user }): JSX.Element => {
 	const router = useRouter();
 	// const gamesMade = team.division.games;
 	const [gamesMade, setGamesMade] = useState(team.division.games);
@@ -837,4 +830,6 @@ export default function ChooseSchedule({ team, user }) {
 			)}
 		</div>
 	);
-}
+};
+
+export default ChooseSchedule;

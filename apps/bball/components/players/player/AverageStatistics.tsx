@@ -5,20 +5,14 @@ import BarChart from "./BarChart";
 import PointsCircle from "./PointsCircle";
 import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
 
-const AverageStatistics = ({ player, allAvg }) => {
+const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 	return (
 		<div className="font-barlow">
-			<div
-				style={{ borderColor: "#282828" }}
-				className="mb-10 flex items-center justify-between border-b pb-5 pt-10"
-			>
+			<div className="mb-10 flex items-center justify-between border-b border-[#282828] pb-5 pt-10">
 				<h3>Average Statistics</h3>
 			</div>
 			<div className="grid gap-4 lg:grid-cols-2">
-				<div
-					className="flex items-center justify-between border p-4 text-center"
-					style={{ borderColor: "#292929" }}
-				>
+				<div className="flex items-center justify-between border border-[#292929] p-4 text-center">
 					<div className="-ml-2 sm:ml-0">
 						<PointsCircle
 							player={player}
@@ -28,10 +22,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 					<ul className="flex flex-1 flex-col justify-between pl-4 sm:flex-row">
 						<li className="mb-4 flex flex-1 flex-col items-center sm:mb-0">
 							<div className="text-sm text-gray-300">
-								<span
-									style={{ backgroundColor: "#E16B3D" }}
-									className=" mr-2 inline-block h-2 w-2 rounded-full"
-								></span>
+								<span className=" mr-2 inline-block h-2 w-2 rounded-full bg-[#E16B3D]"></span>
 								2PG
 							</div>
 							<span className="text-lg font-bold text-gray-300">
@@ -40,10 +31,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 						</li>
 						<li className="mb-4 flex flex-1 flex-col items-center sm:mb-0">
 							<div className="text-sm text-gray-300">
-								<span
-									className=" mr-2 inline-block h-2 w-2 rounded-full"
-									style={{ backgroundColor: "    #FAFAFA" }}
-								></span>
+								<span className="mr-2 inline-block h-2 w-2 rounded-full bg-[#fafafa]"></span>
 								3PG
 							</div>
 							<span className="text-lg font-bold text-gray-300">
@@ -52,10 +40,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 						</li>
 						<li className="mb-4 flex flex-1 flex-col items-center sm:mb-0">
 							<div className="text-sm text-gray-300">
-								<span
-									style={{ backgroundColor: "#6366F1" }}
-									className=" mr-2 inline-block h-2 w-2 rounded-full"
-								></span>
+								<span className=" mr-2 inline-block h-2 w-2 rounded-full bg-[#6366f1]"></span>
 								FTM/G
 							</div>
 							<span className="text-lg font-bold text-gray-300">
@@ -66,10 +51,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 				</div>
 
 				<div className="grid grid-cols-2 gap-4">
-					<div
-						className="border p-4 text-center"
-						style={{ borderColor: "#292929" }}
-					>
+					<div className="border border-[#292929] p-4 text-center">
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{player.averageStats.rebounds.toFixed(1)}
 							<span className="absolute">
@@ -86,10 +68,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 							RPG
 						</div>
 					</div>
-					<div
-						className="border p-4 text-center"
-						style={{ borderColor: "#292929" }}
-					>
+					<div className="border border-[#292929] p-4 text-center">
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{player.averageStats.assists.toFixed(1)}{" "}
 							<span className="absolute">
@@ -105,10 +84,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 							APG
 						</div>
 					</div>
-					<div
-						className="border p-4 text-center"
-						style={{ borderColor: "#292929" }}
-					>
+					<div className="border border-[#292929] p-4 text-center">
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{player.averageStats.blocks.toFixed(1)}{" "}
 							<span className="absolute">
@@ -124,10 +100,7 @@ const AverageStatistics = ({ player, allAvg }) => {
 							BPG
 						</div>
 					</div>
-					<div
-						className="border p-4 text-center"
-						style={{ borderColor: "#292929" }}
-					>
+					<div className="border border-[#292929] p-4 text-center">
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{player.averageStats.steals.toFixed(1)}{" "}
 							<span className="absolute">

@@ -12,7 +12,6 @@ import {
 	Select,
 	SelectContent,
 	SelectGroup,
-	SelectItem,
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/ui/select";
@@ -26,11 +25,7 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 
-export default function EditDivision({
-	division,
-}: {
-	division: any;
-}): JSX.Element {
+const EditDivision = ({ division }: { division: any }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [divisionData, setDivisionData] = useState(division);
 	const [currentWeek, setCurrentWeek] = useState(0);
@@ -277,4 +272,6 @@ export default function EditDivision({
 			</DialogContent>
 		</Dialog>
 	);
-}
+};
+
+export default EditDivision;

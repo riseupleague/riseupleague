@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+
+import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-
 import {
 	Table,
 	TableBody,
@@ -14,7 +14,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/table";
-import Link from "next/link";
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;
@@ -26,11 +25,7 @@ interface FormData {
 	refundChecked: boolean;
 }
 
-export default function SummaryPayment({
-	formData,
-}: {
-	formData: FormData;
-}): JSX.Element {
+const SummaryPayment = ({ formData }: { formData: FormData }): JSX.Element => {
 	return (
 		<>
 			<h3 className="mt-20  text-3xl uppercase">Summary:</h3>
@@ -207,4 +202,6 @@ export default function SummaryPayment({
 			</div>
 		</>
 	);
-}
+};
+
+export default SummaryPayment;

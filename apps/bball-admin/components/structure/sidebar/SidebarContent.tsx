@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function SidebarContent({ sidebarLinks }): JSX.Element {
+const SidebarContent = ({ sidebarLinks }): JSX.Element => {
 	const pathname = usePathname();
 
 	return (
@@ -21,4 +21,6 @@ export default function SidebarContent({ sidebarLinks }): JSX.Element {
 			})}
 		</ul>
 	);
-}
+};
+
+export default SidebarContent;

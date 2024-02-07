@@ -10,7 +10,7 @@ import {
 	TableRow,
 } from "@ui/components/table";
 
-const PreviousGames = ({ player }) => {
+const PreviousGames = ({ player }): JSX.Element => {
 	return (
 		<div className="mt-10">
 			<h3 className="my-6">Previous Games</h3>

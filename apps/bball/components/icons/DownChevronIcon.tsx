@@ -1,4 +1,4 @@
-export default function DownChevronIcon() {
+const DownChevronIcon = (): JSX.Element => {
 	return (
 		<svg
 			className="h-5 w-5 -rotate-90"
@@ -15,4 +15,6 @@ export default function DownChevronIcon() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default DownChevronIcon;

@@ -13,7 +13,7 @@ import {
 	TableRow,
 } from "@ui/components/ui/table";
 
-export default function StandingsTable({ divisions }) {
+const StandingsTable = ({ divisions }): JSX.Element => {
 	let initialDivisions = divisions;
 	let filterPlaceholder = "All Divisions";
 
@@ -163,8 +163,10 @@ export default function StandingsTable({ divisions }) {
 			</div>
 		</div>
 	);
-}
+};
 
 const filterDivisions = (divisions, id) => {
 	return divisions.filter((division) => division._id === id);
 };
+
+export default StandingsTable;

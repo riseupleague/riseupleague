@@ -1,4 +1,4 @@
-export default function UI(): JSX.Element {
+const UI = (): JSX.Element => {
 	return (
 		<section className="container mx-auto">
 			<h1>UI Style Guide</h1>
@@ -128,4 +128,6 @@ export default function UI(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
+
+export default UI;

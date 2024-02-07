@@ -5,7 +5,7 @@ import LeaderCard from "./LeaderCard";
 import FilterByDivision from "../filters/FilterByDivision";
 import FilterByStat from "../filters/FilterByStat";
 
-export default function LeaderGrid({ allPlayers, divisions }) {
+const LeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 	const initialDivisions = divisions.map((division) => {
 		return {
 			divisionName: division.divisionName,
@@ -131,4 +131,6 @@ export default function LeaderGrid({ allPlayers, divisions }) {
 			</div>
 		</div>
 	);
-}
+};
+
+export default LeaderGrid;
