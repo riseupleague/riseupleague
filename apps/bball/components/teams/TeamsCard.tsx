@@ -3,7 +3,7 @@
 import Link from "next/link";
 import TeamLogo from "@/components/general/icons/TeamLogo";
 
-export default function TeamsCard({ team }) {
+const TeamsCard = ({ team }): JSX.Element => {
 	return (
 		<Link
 			href={`/teams/${team?._id}`}
@@ -26,4 +26,6 @@ export default function TeamsCard({ team }) {
 			</span>
 		</Link>
 	);
-}
+};
+
+export default TeamsCard;

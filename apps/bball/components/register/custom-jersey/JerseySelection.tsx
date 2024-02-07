@@ -2,21 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
 import { useState } from "react";
+import { Button } from "@ui/components/button";
+import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "@ui/components/dialog";
-import { Button } from "@ui/components/button";
-import { useRouter } from "next/navigation";
 
-const PleaseCreateYourTeamDialog = ({ open, onOpenChange }) => {
+const PleaseCreateYourTeamDialog = ({ open, onOpenChange }): JSX.Element => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="bg-neutral-800 text-white sm:max-w-md">
@@ -38,7 +36,7 @@ const SubmitUniqueJerseyFormDialog = ({
 	open,
 	onOpenChange,
 	onSubmit,
-}) => {
+}): JSX.Element => {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
 			<DialogContent className="bg-neutral-800 text-white sm:max-w-md">
@@ -80,7 +78,7 @@ const SubmitUniqueJerseyFormDialog = ({
 	);
 };
 
-export default function JerseySelection({ team }) {
+const JerseySelection = ({ team }): JSX.Element => {
 	const router = useRouter();
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);
@@ -387,4 +385,6 @@ export default function JerseySelection({ team }) {
 			)}
 		</>
 	);
-}
+};
+
+export default JerseySelection;

@@ -15,7 +15,7 @@ const barlow = Barlow_Condensed({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function RootLayout({ children }: ChildrenProps): JSX.Element {
+const RootLayout = ({ children }: ChildrenProps): JSX.Element => {
 	return (
 		<html
 			className={`${oswald.variable} ${inter.variable} ${barlow.variable}`}
@@ -34,4 +34,6 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;

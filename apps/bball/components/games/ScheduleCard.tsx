@@ -5,7 +5,7 @@ import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 
-export default function ScheduleCard({ game }) {
+const ScheduleCard = ({ game }) => {
 	const gameStatus = game.status ? "summary" : "preview";
 
 	const date = convertToEST(new Date(game.date));
@@ -105,7 +105,7 @@ export default function ScheduleCard({ game }) {
 			</div>
 		</article>
 	);
-}
+};
 
 const isLiveGame = (date) => {
 	const HOUR = 1000 * 60 * 60;
@@ -113,3 +113,5 @@ const isLiveGame = (date) => {
 
 	return date > anHourAgo && Date.now() > date;
 };
+
+export default ScheduleCard;

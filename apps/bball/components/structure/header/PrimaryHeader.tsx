@@ -12,7 +12,7 @@ import PlayerIcon from "@/components/icons/PlayerIcon";
 import TrophyIcon from "@/components/icons/TrophyIcon";
 import SideNav from "./SideNav";
 
-export default function PrimaryHeader(): React.JSX.Element {
+const PrimaryHeader = (): JSX.Element => {
 	const path = usePathname();
 
 	const headerOptions = [
@@ -151,4 +151,6 @@ export default function PrimaryHeader(): React.JSX.Element {
 			</ul>
 		</nav>
 	);
-}
+};
+
+export default PrimaryHeader;

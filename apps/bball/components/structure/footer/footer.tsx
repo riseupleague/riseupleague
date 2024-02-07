@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { footerOptions } from "@/lib/data/footerOptions";
 import packageJson from "../../../package.json";
 
-export default function Footer(): React.JSX.Element {
+const Footer = (): JSX.Element => {
 	// for active class
 	const path = usePathname();
 	const versionNumber = packageJson.version;
@@ -91,4 +90,6 @@ export default function Footer(): React.JSX.Element {
 			</section> */}
 		</footer>
 	);
-}
+};
+
+export default Footer;

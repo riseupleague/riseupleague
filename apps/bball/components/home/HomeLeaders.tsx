@@ -6,7 +6,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import HomeLeaderGrid from "../leaders/HomeLeaderGrid";
 import { DivisionWithStats } from "@/types";
 
-export default async function HomeLeaders(): Promise<JSX.Element> {
+const HomeLeaders = async (): Promise<JSX.Element> => {
 	noStore();
 
 	const resAllPlayers = await getAllPlayersWithAvg();
@@ -33,4 +33,6 @@ export default async function HomeLeaders(): Promise<JSX.Element> {
 			</Link>
 		</section>
 	);
-}
+};
+
+export default HomeLeaders;

@@ -1,4 +1,4 @@
-export default function LocationMarker() {
+const LocationMarker = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -23,4 +23,6 @@ export default function LocationMarker() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default LocationMarker;

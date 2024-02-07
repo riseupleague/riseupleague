@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function PreviewLoading() {
+const PreviewLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
@@ -26,3 +26,5 @@ export default function PreviewLoading() {
 		</section>
 	);
 }
+
+export default PreviewLoading

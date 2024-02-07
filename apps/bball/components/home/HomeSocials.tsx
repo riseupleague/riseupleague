@@ -3,7 +3,7 @@ import Instagram from "../general/icons/Instagram";
 import YouTube from "../general/icons/YouTube";
 import TikTok from "../general/icons/TikTok";
 
-export default function HomeSocials(): JSX.Element {
+const HomeSocials = (): JSX.Element => {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3 className="my-6">socials 📱</h3>
@@ -20,7 +20,7 @@ export default function HomeSocials(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
 
 const socialLinks = [
 	{
@@ -39,3 +39,5 @@ const socialLinks = [
 		icon: <TikTok />,
 	},
 ];
+
+export default HomeSocials;

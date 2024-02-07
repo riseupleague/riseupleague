@@ -1,7 +1,7 @@
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 
-export default function HomeContactUs() {
+const HomeContactUs = () => {
 	return (
 		<section className="font-barlow container mx-auto flex flex-col rounded bg-neutral-600 px-5 py-12 text-center">
 			<h3 className="mb-4 text-2xl uppercase">
@@ -31,4 +31,6 @@ export default function HomeContactUs() {
 			</div>
 		</section>
 	);
-}
+};
+
+export default HomeContactUs;

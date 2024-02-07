@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-export default function LeagueRules(): JSX.Element {
+const LeagueRules = (): JSX.Element => {
 	return (
 		<section className="container mx-auto">
 			<h1>league rules</h1>
@@ -152,10 +152,12 @@ export default function LeagueRules(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | League Rules",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default LeagueRules;

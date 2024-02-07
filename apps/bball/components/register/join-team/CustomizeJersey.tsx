@@ -7,8 +7,8 @@ import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
 import { Loader2 } from "lucide-react";
-import { convertToEST } from "@/utils/convertToEST";
-
+import Link from "next/link";
+import getStripe from "@/utils/checkout";
 import {
 	Table,
 	TableBody,
@@ -25,9 +25,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/select";
-
-import Link from "next/link";
-import getStripe from "@/utils/checkout";
 
 interface FormData {
 	teamName: string;
@@ -53,7 +50,7 @@ interface FormErrors {
 	refundChecked?: string;
 }
 
-export default function CustomizeJersey({ team, session, division }) {
+const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 
@@ -817,4 +814,6 @@ export default function CustomizeJersey({ team, session, division }) {
 			)}
 		</>
 	);
-}
+};
+
+export default CustomizeJersey;

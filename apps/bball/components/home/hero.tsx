@@ -9,7 +9,7 @@ import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { heroSlides } from "@/lib/data/home/heroSlides";
 
-export default function Hero(): JSX.Element {
+const Hero = (): JSX.Element => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [progress, setProgress] = useState(0); // Initialize the progress at 100%
 	const [isAnimating, setIsAnimating] = useState(false);
@@ -147,4 +147,6 @@ export default function Hero(): JSX.Element {
 			<SignInDialog open={open} onOpenChange={setOpen} />
 		</section>
 	);
-}
+};
+
+export default Hero;

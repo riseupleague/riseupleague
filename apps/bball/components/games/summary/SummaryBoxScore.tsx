@@ -13,7 +13,7 @@ import { Fragment, useState } from "react";
 import { Button } from "@ui/components/button";
 import SummaryPOTG from "./SummaryPOTG";
 
-export default function SummaryBoxScore({ game }) {
+const SummaryBoxScore = ({ game }) => {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam);
 
 	return (
@@ -134,4 +134,6 @@ export default function SummaryBoxScore({ game }) {
 			</Table>
 		</div>
 	);
-}
+};
+
+export default SummaryBoxScore;

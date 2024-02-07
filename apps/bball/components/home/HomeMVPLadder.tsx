@@ -6,7 +6,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import HomeMVPGrid from "../mvp-ladder/HomeMVPGrid";
 import { DivisionWithStats } from "@/types";
 
-export default async function MVPLadder(): Promise<JSX.Element> {
+const HomeMVPLadder = async (): Promise<JSX.Element> => {
 	noStore();
 
 	const resAllPlayers = await getAllPlayersWithAvg();
@@ -27,4 +27,6 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 			</Link>
 		</section>
 	);
-}
+};
+
+export default HomeMVPLadder;

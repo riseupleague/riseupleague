@@ -1,4 +1,4 @@
-export default function YouTube() {
+const YouTube = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +13,6 @@ export default function YouTube() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default YouTube;

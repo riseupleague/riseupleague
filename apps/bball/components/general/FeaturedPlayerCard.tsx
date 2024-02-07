@@ -7,7 +7,7 @@ import { Button } from "@ui/components/button";
 import { Badge } from "@ui/components/badge";
 import TeamLogo from "./icons/TeamLogo";
 
-export default function FeaturedPlayerCard({ player }) {
+const FeaturedPlayerCard = ({ player }) => {
 	let badges = new Array(5).fill("");
 	let playerIg = player.instagram;
 
@@ -152,4 +152,6 @@ export default function FeaturedPlayerCard({ player }) {
 			</div>
 		</div>
 	);
-}
+};
+
+export default FeaturedPlayerCard;

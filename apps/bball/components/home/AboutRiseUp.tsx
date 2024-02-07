@@ -1,7 +1,7 @@
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 
-export default function AboutRiseUp(): JSX.Element {
+const AboutRiseUp = (): JSX.Element => {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h2>about rise up</h2>
@@ -20,4 +20,6 @@ export default function AboutRiseUp(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
+
+export default AboutRiseUp;

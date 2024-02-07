@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function SummaryPOTG({ playerOfTheGame, game }) {
+const SummaryPOTG = ({ playerOfTheGame, game }) => {
 	// get game stats
 	const potgStats = playerOfTheGame.allStats.filter(
 		(playerGame) => playerGame.game === game._id
@@ -61,4 +61,5 @@ export default function SummaryPOTG({ playerOfTheGame, game }) {
 			</div>
 		</div>
 	);
-}
+};
+export default SummaryPOTG;

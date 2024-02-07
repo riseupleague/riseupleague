@@ -1,4 +1,4 @@
-export default function Instagram() {
+const ChevronRight = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,6 @@ export default function Instagram() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default ChevronRight;

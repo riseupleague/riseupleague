@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
+import { useSession } from "next-auth/react";
 import {
 	Sheet,
 	SheetClose,
@@ -18,13 +19,8 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import { useSession } from "next-auth/react";
 
-export default function UserProfile({
-	session,
-	user,
-	userSchedule,
-}): JSX.Element {
+const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 	const { update } = useSession();
 
 	const [selectedSection, setSelectedSection] = useState(
@@ -678,4 +674,6 @@ export default function UserProfile({
 			</div>
 		</div>
 	);
-}
+};
+
+export default UserProfile;

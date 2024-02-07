@@ -1,7 +1,7 @@
 import ChevronRight from "@/components/general/icons/ChevronRight";
 import Link from "next/link";
 
-export default function SocialCard({ link, text, icon }) {
+const SocialCard = ({ link, text, icon }) => {
 	return (
 		<div className="flex items-center justify-between rounded-sm border border-neutral-600 bg-neutral-800 transition hover:opacity-80">
 			<Link
@@ -27,4 +27,6 @@ export default function SocialCard({ link, text, icon }) {
 			</div>
 		</div>
 	);
-}
+};
+
+export default SocialCard;

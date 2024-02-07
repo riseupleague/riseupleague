@@ -7,7 +7,7 @@ import { convertToEST } from "@/utils/convertToEST";
 import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
 import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
 
-export default function FutureGames({ allUpcomingGames }): JSX.Element {
+const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 	const separatedGames = [];
 
 	allUpcomingGames.forEach((game) => {
@@ -100,4 +100,6 @@ export default function FutureGames({ allUpcomingGames }): JSX.Element {
 			</button>
 		</div>
 	);
-}
+};
+
+export default FutureGames;

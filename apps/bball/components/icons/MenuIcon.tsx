@@ -1,4 +1,4 @@
-export default function MenuIcon() {
+const MenuIcon = (): JSX.Element => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,6 @@ export default function MenuIcon() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default MenuIcon;

@@ -9,7 +9,7 @@ import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import { Button } from "@ui/components/button";
 
-export default function Login(): JSX.Element {
+const Login = (): JSX.Element => {
 	const [isEmail, setIsEmail] = useState(false);
 	const [isCreateAccount, setIsCreateAccount] = useState(false);
 	const [isPassword, setIsPassword] = useState(false);
@@ -283,4 +283,6 @@ export default function Login(): JSX.Element {
 			)}
 		</div>
 	);
-}
+};
+
+export default Login;

@@ -1,4 +1,4 @@
-export default function TikTok() {
+const TikTok = () => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +13,6 @@ export default function TikTok() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default TikTok;

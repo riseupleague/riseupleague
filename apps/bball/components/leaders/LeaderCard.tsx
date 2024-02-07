@@ -1,7 +1,7 @@
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import Link from "next/link";
 
-export default function LeaderCard({ player, rank, currentStat }) {
+const LeaderCard = ({ player, rank, currentStat }): JSX.Element => {
 	// remove any names with a number in it
 	let regex = /^[a-zA-Z0-9-_]+$/;
 	let nameArray = player.playerName.split(" ");
@@ -68,4 +68,6 @@ export default function LeaderCard({ player, rank, currentStat }) {
 			</div>
 		</article>
 	);
-}
+};
+
+export default LeaderCard;

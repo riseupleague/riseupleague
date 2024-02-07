@@ -9,10 +9,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/ui/table";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { Button } from "@ui/components/button";
 
-export default function PreviewMatchup({ game }) {
+const PreviewMatchup = ({ game }) => {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam || []);
 
 	return (
@@ -92,4 +92,6 @@ export default function PreviewMatchup({ game }) {
 			</Table>
 		</div>
 	);
-}
+};
+
+export default PreviewMatchup;

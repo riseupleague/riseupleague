@@ -6,7 +6,7 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 
-export default function HomeFaq(): JSX.Element {
+const HomeFaq = (): JSX.Element => {
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
 			<h3 className="my-6">FAQs 🤔</h3>
@@ -21,4 +21,6 @@ export default function HomeFaq(): JSX.Element {
 			</Accordion>
 		</section>
 	);
-}
+};
+
+export default HomeFaq;

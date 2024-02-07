@@ -3,7 +3,7 @@
 import CalendarGames from "./CalendarGames";
 import ScheduleCard from "./ScheduleCard";
 
-export default function ScheduleFilterPage({ gamesByDate }) {
+const ScheduleFilterPage = ({ gamesByDate }) => {
 	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
 
 	const currentDate = new Date();
@@ -40,4 +40,6 @@ export default function ScheduleFilterPage({ gamesByDate }) {
 			)}
 		</div>
 	);
-}
+};
+
+export default ScheduleFilterPage;

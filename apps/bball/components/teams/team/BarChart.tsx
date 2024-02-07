@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { Chart } from "chart.js/auto";
 
-const BarChart = ({ stats, allAvg, label, avgLabel }) => {
+const BarChart = ({ stats, allAvg, label, avgLabel }): JSX.Element => {
 	const chartRef = useRef<HTMLCanvasElement | null>(null); // Add type annotation for HTMLCanvasElement
 
 	useEffect(() => {
