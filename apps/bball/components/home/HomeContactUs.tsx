@@ -18,14 +18,17 @@ export default function HomeContactUs() {
 				</Link>{" "}
 				IG account, and we will get back to you ASAP.
 			</p>
-			<Link href="https://instagram.com/riseup.web" target="_blank">
+			<div className="flex justify-center">
 				<Button
 					variant="ghost"
-					className="border border-neutral-100 uppercase transition hover:opacity-80"
+					className="w-fit border border-neutral-100 uppercase transition hover:opacity-80"
+					asChild
 				>
-					@riseup.web
+					<Link href="https://instagram.com/riseup.web" target="_blank">
+						@riseup.web
+					</Link>
 				</Button>
-			</Link>
+			</div>
 		</section>
 	);
 }

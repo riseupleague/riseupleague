@@ -12,6 +12,8 @@ export default function Footer(): React.JSX.Element {
 	const path = usePathname();
 	const versionNumber = packageJson.version;
 
+	const year = new Date().getFullYear();
+
 	return (
 		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
 			<hr />
@@ -63,7 +65,7 @@ export default function Footer(): React.JSX.Element {
 				</Link>
 				<div className="font-barlow my-7 text-sm text-neutral-200">
 					<p className="text-sm">
-						Copyright© 2023. Rise Up Sports League. All Rights Reserved.
+						Copyright© {year}. Rise Up Sports League. All Rights Reserved.
 					</p>
 					<Link
 						href="https://github.com/n9d0g/riseupleague/releases"

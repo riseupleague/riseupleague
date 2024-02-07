@@ -1,5 +1,4 @@
 import "../../../packages/ui/styles/globals.css";
-import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import Header from "../components/structure/header/header";
 import Footer from "../components/structure/footer/footer";
@@ -36,9 +35,3 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 		</html>
 	);
 }
-
-export const metadata: Metadata = {
-	title: "Rise Up League | Home",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-};
