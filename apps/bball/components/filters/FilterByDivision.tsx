@@ -16,39 +16,37 @@ const FilterByDivision = ({
 	handleDivisionChange,
 	divisions,
 	placeholder = "All Divisions",
-}) => {
-	return (
-		<div className="font-barlow flex flex-col gap-2">
-			<Label>Filter By Division:</Label>
-			<Select onValueChange={handleDivisionChange}>
-				<SelectTrigger className="font-barlow w-full text-lg md:w-[250px]">
-					<SelectValue placeholder={placeholder} />
-				</SelectTrigger>
-				<SelectContent
-					ref={(ref) => {
-						if (!ref) return;
-						ref.ontouchstart = (e) => {
-							e.preventDefault();
-						};
-					}}
-					className="font-barlow text-lg"
-				>
-					<SelectGroup>
-						<SelectLabel>Division:</SelectLabel>
-						{divisions.map((division, index) => (
-							<SelectItem
-								className="text-sm sm:text-lg"
-								value={division._id || "default"}
-								key={index}
-							>
-								{division.divisionName}
-							</SelectItem>
-						))}
-					</SelectGroup>
-				</SelectContent>
-			</Select>
-		</div>
-	);
-};
+}): JSX.Element => (
+	<div className="font-barlow flex flex-col gap-2">
+		<Label>Filter By Division:</Label>
+		<Select onValueChange={handleDivisionChange}>
+			<SelectTrigger className="font-barlow w-full text-lg md:w-[250px]">
+				<SelectValue placeholder={placeholder} />
+			</SelectTrigger>
+			<SelectContent
+				ref={(ref) => {
+					if (!ref) return;
+					ref.ontouchstart = (e) => {
+						e.preventDefault();
+					};
+				}}
+				className="font-barlow text-lg"
+			>
+				<SelectGroup>
+					<SelectLabel>Division:</SelectLabel>
+					{divisions.map((division, index) => (
+						<SelectItem
+							className="text-sm sm:text-lg"
+							value={division._id || "default"}
+							key={index}
+						>
+							{division.divisionName}
+						</SelectItem>
+					))}
+				</SelectGroup>
+			</SelectContent>
+		</Select>
+	</div>
+);
 
 export default FilterByDivision;

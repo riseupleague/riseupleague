@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const SummaryPOTG = ({ playerOfTheGame, game }) => {
+const SummaryPOTG = ({ playerOfTheGame, game }): JSX.Element => {
 	// get game stats
 	const potgStats = playerOfTheGame.allStats.filter(
 		(playerGame) => playerGame.game === game._id

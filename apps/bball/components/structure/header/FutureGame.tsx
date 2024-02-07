@@ -51,7 +51,9 @@ const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 								/>
 							)}
 						</p>
-					) : null}
+					) : (
+						<p className="m-0 flex w-5 items-center gap-2"></p>
+					)}
 				</div>
 				{/* away */}
 				<div className="flex w-full justify-between gap-[100px] font-bold">
@@ -82,7 +84,9 @@ const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 								/>
 							)}
 						</p>
-					) : null}
+					) : (
+						<p className="m-0 flex w-5 items-center gap-2"></p>
+					)}
 				</div>
 				{/* division */}
 				<div

@@ -7,7 +7,7 @@ import { Button } from "@ui/components/button";
 import { Badge } from "@ui/components/badge";
 import TeamLogo from "./icons/TeamLogo";
 
-const FeaturedPlayerCard = ({ player }) => {
+const FeaturedPlayerCard = ({ player }): JSX.Element => {
 	let badges = new Array(5).fill("");
 	let playerIg = player.instagram;
 

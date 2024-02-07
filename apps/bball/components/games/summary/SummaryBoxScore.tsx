@@ -13,7 +13,7 @@ import { Fragment, useState } from "react";
 import { Button } from "@ui/components/button";
 import SummaryPOTG from "./SummaryPOTG";
 
-const SummaryBoxScore = ({ game }) => {
+const SummaryBoxScore = ({ game }): JSX.Element => {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam);
 
 	return (

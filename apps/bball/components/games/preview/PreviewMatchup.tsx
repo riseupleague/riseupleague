@@ -12,7 +12,7 @@ import {
 import { useState } from "react";
 import { Button } from "@ui/components/button";
 
-const PreviewMatchup = ({ game }) => {
+const PreviewMatchup = ({ game }): JSX.Element => {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam || []);
 
 	return (

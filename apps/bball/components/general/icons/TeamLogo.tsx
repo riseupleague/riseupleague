@@ -6,7 +6,7 @@ const TeamLogo = ({
 	height,
 	circleWidth,
 	circleHeight,
-}) => {
+}): JSX.Element => {
 	return (
 		<div
 			style={{

@@ -1,7 +1,7 @@
 import ChevronRight from "@/components/general/icons/ChevronRight";
 import Link from "next/link";
 
-const SocialCard = ({ link, text, icon }) => {
+const SocialCard = ({ link, text, icon }): JSX.Element => {
 	return (
 		<div className="flex items-center justify-between rounded-sm border border-neutral-600 bg-neutral-800 transition hover:opacity-80">
 			<Link

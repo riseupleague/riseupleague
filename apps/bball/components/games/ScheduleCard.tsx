@@ -5,7 +5,7 @@ import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 
-const ScheduleCard = ({ game }) => {
+const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
 
 	const date = convertToEST(new Date(game.date));

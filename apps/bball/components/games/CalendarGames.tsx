@@ -11,7 +11,7 @@ import {
 } from "date-fns";
 import Link from "next/link";
 
-const CalendarGames = ({ linkDate }) => {
+const CalendarGames = ({ linkDate }): JSX.Element => {
 	const [currentMonth, setCurrentMonth] = useState(new Date());
 	const [selectedDate, setSelectedDate] = useState(new Date());
 

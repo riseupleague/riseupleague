@@ -3,7 +3,7 @@
 import CalendarGames from "./CalendarGames";
 import ScheduleCard from "./ScheduleCard";
 
-const ScheduleFilterPage = ({ gamesByDate }) => {
+const ScheduleFilterPage = ({ gamesByDate }): JSX.Element => {
 	const gameSchedule = gamesByDate.length > 0 ? gamesByDate[0] : {};
 
 	const currentDate = new Date();
