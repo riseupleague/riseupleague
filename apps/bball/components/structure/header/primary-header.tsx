@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
 import ProfileLink from "@/components/auth/ProfileLink";
-import { useSession } from "next-auth/react";
 import HomeIcon from "@/components/icons/HomeIcon";
 import CalendarIcon from "@/components/icons/CalendarIcon";
 import PodiumIcon from "@/components/icons/PodiumIcon";
@@ -17,13 +14,7 @@ import SideNav from "./SideNav";
 
 export default function PrimaryHeader(): React.JSX.Element {
 	const path = usePathname();
-	const router = useRouter();
-	const currentDate = new Date();
-	const { status, data: session } = useSession();
-	const [open, setOpen] = useState(false);
 
-	// Convert the date to seconds
-	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
 	const headerOptions = [
 		{
 			label: "home",
@@ -32,7 +23,7 @@ export default function PrimaryHeader(): React.JSX.Element {
 		},
 		{
 			label: "schedule",
-			href: `/schedule/${currentDateInSeconds}`,
+			href: `/schedule`,
 			icon: <CalendarIcon />,
 		},
 		{
