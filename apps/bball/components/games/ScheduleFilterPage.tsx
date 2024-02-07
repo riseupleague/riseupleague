@@ -17,8 +17,8 @@ export default function ScheduleFilterPage({ gamesByDate }) {
 	});
 
 	return (
-		<div className="relative ">
-			<div className="">
+		<div className="relative">
+			<div>
 				<CalendarGames linkDate={linkDate} />
 			</div>
 

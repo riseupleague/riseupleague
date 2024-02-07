@@ -19,7 +19,7 @@ export default function FutureGame({ date, game, time, homeTeamWon }) {
 			className="relative"
 		>
 			<div className="flex w-fit flex-col gap-2 bg-neutral-900 px-5 py-4 pt-4 uppercase">
-				<div className={liveGame && "text-primary"}>
+				<div className={liveGame ? "text-primary" : ""}>
 					{game.status ? <>{liveGame ? "LIVE" : "Final"}</> : time}
 				</div>
 
@@ -51,9 +51,7 @@ export default function FutureGame({ date, game, time, homeTeamWon }) {
 								/>
 							)}
 						</p>
-					) : (
-						<p className="m-0 flex w-5 items-center gap-2"></p>
-					)}
+					) : null}
 				</div>
 				{/* away */}
 				<div className="flex w-full justify-between gap-[100px] font-bold">
@@ -84,9 +82,7 @@ export default function FutureGame({ date, game, time, homeTeamWon }) {
 								/>
 							)}
 						</p>
-					) : (
-						<p className="m-0 flex w-5 items-center gap-2"></p>
-					)}
+					) : null}
 				</div>
 				{/* division */}
 				<div

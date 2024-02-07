@@ -7,53 +7,21 @@ import { Button } from "@ui/components/button";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
+import { heroSlides } from "@/lib/data/home/heroSlides";
 
 export default function Hero(): JSX.Element {
-	const slides = [
-		{
-			url: "/images/home/early-bird.jpg",
-			title: "Winter registration now open!",
-			description: "Holiday special - Four instalments of $55 bi-weekly!",
-			cta: "Register Now",
-			link: "/register",
-		},
-		{
-			url: "/images/home/photos.jpg",
-			title: "Check Out Your Game Photos",
-			description:
-				"We upload your game photos every week! Don't forget to tag us!",
-			cta: "Check Photos",
-			link: "https://drive.google.com/drive/u/1/folders/1bGVX8fo7WJwfx2IOEp_ZgEfHb21qsdx-",
-		},
-		{
-			url: "/images/home/volunteer.jpg",
-			title: "Be Part Of Our Team!",
-			description:
-				"We are accepting volunteers for Basketball and Volleyball. Let us know!",
-			cta: "",
-			link: "",
-		},
-		{
-			url: "/images/home/league-rules.jpg",
-			title: "League Rules",
-			description: "Visit our league rules.",
-			cta: "Our Rules",
-			link: "/league-rules",
-		},
-	];
-
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [progress, setProgress] = useState(0); // Initialize the progress at 100%
 	const [isAnimating, setIsAnimating] = useState(false);
 
 	const prevSlide = () => {
 		const isFirstSlide = currentIndex === 0;
-		const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
+		const newIndex = isFirstSlide ? heroSlides.length - 1 : currentIndex - 1;
 		setCurrentIndex(newIndex);
 	};
 
 	const nextSlide = () => {
-		const isLastSlide = currentIndex === slides.length - 1;
+		const isLastSlide = currentIndex === heroSlides.length - 1;
 		const newIndex = isLastSlide ? 0 : currentIndex + 1;
 		setCurrentIndex(newIndex);
 	};
@@ -101,18 +69,13 @@ export default function Hero(): JSX.Element {
 		setOpen(true);
 	};
 
-	// Function to close the dialog
-	const closeDialog = () => {
-		setOpen(false);
-	};
-
 	const { status, data: session } = useSession();
 
 	return (
-		<section className="group relative  mb-8  mt-16 h-[450px] w-full  sm:h-[650px] lg:my-16 ">
-			<figure
-				className="repeat-0   relative  h-full w-full items-center bg-cover bg-center duration-500"
-				style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+		<section className="group relative mb-8 mt-16 h-[450px] w-full sm:h-[650px] lg:my-16">
+			<div
+				className="repeat-0 relative h-full w-full items-center bg-cover bg-center duration-500"
+				style={{ backgroundImage: `url(${heroSlides[currentIndex].url})` }}
 			>
 				<div className="flex h-5/6 w-full items-end bg-opacity-80 bg-gradient-to-t from-black via-transparent px-5 pb-10 sm:h-full sm:w-1/2 sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
 					{isAnimating && (
@@ -122,19 +85,22 @@ export default function Hero(): JSX.Element {
 							exit={{ opacity: 0, x: -10 }}
 							transition={{ duration: 0.5 }}
 						>
-							<h1 className="text-left">{slides[currentIndex].title}</h1>
-							<p>{slides[currentIndex].description}</p>
+							<h1 className="text-left">{heroSlides[currentIndex].title}</h1>
+							<p>{heroSlides[currentIndex].description}</p>
 							<div className="relative z-10 my-4">
-								{slides[currentIndex].link === "/register" ? (
+								{heroSlides[currentIndex].link === "/register" ? (
 									<>
 										{!session || !session.user ? (
 											<Button onClick={openDialog}>
-												{slides[currentIndex].cta}
+												{heroSlides[currentIndex].cta}
 											</Button>
 										) : (
-											<Link href={slides[currentIndex].link} target="_blank">
-												{slides[currentIndex].cta !== "" ? (
-													<Button>{slides[currentIndex].cta}</Button>
+											<Link
+												href={heroSlides[currentIndex].link}
+												target="_blank"
+											>
+												{heroSlides[currentIndex].cta !== "" ? (
+													<Button>{heroSlides[currentIndex].cta}</Button>
 												) : (
 													""
 												)}
@@ -142,9 +108,9 @@ export default function Hero(): JSX.Element {
 										)}
 									</>
 								) : (
-									<Link href={slides[currentIndex].link} target="_blank">
-										{slides[currentIndex].cta !== "" ? (
-											<Button>{slides[currentIndex].cta}</Button>
+									<Link href={heroSlides[currentIndex].link} target="_blank">
+										{heroSlides[currentIndex].cta !== "" ? (
+											<Button>{heroSlides[currentIndex].cta}</Button>
 										) : (
 											""
 										)}
@@ -154,13 +120,13 @@ export default function Hero(): JSX.Element {
 						</motion.div>
 					)}
 				</div>
-				<div className="absolute bottom-0  w-full bg-gradient-to-t from-black via-black px-5 pb-10 pt-20">
+				<div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black px-5 pb-10 pt-20">
 					<div className="flex justify-between gap-5">
-						{slides.map((slide, slideIndex) => (
+						{heroSlides.map((slide, slideIndex) => (
 							<div
 								key={slideIndex}
 								onClick={() => goToSlide(slideIndex)}
-								className={`relative flex-1 cursor-pointer  text-xl  uppercase ${
+								className={`relative flex-1 cursor-pointer text-xl uppercase ${
 									currentIndex === slideIndex ? "text-primary" : "text-gray-500"
 								}`}
 							>
@@ -172,11 +138,10 @@ export default function Hero(): JSX.Element {
 						))}
 					</div>
 					<p className="font-barlow mt-5 block w-full sm:hidden">
-						{" "}
-						{slides[currentIndex].title}
+						{heroSlides[currentIndex].title}
 					</p>
 				</div>
-			</figure>
+			</div>
 			{/* Dialog component */}
 
 			<SignInDialog open={open} onOpenChange={setOpen} />

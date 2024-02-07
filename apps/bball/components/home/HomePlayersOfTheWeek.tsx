@@ -1,19 +1,14 @@
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
-import {
-	getAllPastGames,
-	getAllRecentPlayerOfTheGames,
-} from "@/api-helpers/controllers/games-controller";
+import { getAllRecentPlayerOfTheGames } from "@/api-helpers/controllers/games-controller";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 	noStore();
 
-	const resGames = await getAllPastGames();
+	const resGames = await getAllRecentPlayerOfTheGames();
 	const { games } = await resGames.json();
-	const resGames2 = await getAllRecentPlayerOfTheGames();
-	const data = await resGames2.json();
 
-	const playerOfTheGames = data.games
+	const playerOfTheGames = games
 		?.map((game) => game.playerOfTheGame)
 		.filter((player) => player !== undefined);
 
