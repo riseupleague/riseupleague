@@ -8,8 +8,6 @@ import { unstable_noStore as noStore } from "next/cache";
 export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 	noStore();
 
-	const resGames = await getAllPastGames();
-	const { games } = await resGames.json();
 	const resGames2 = await getAllRecentPlayerOfTheGames();
 	const data = await resGames2.json();
 	console.log("getAllRecentPlayerOfTheGames:", data);
