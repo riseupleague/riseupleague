@@ -20,7 +20,6 @@ const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
-			nate change
 			<Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense>
