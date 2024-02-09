@@ -1,7 +1,7 @@
 import { Button } from "@ui/components/button";
 import Link from "next/link";
 
-export default function HomeContactUs() {
+const HomeContactUs = (): JSX.Element => {
 	return (
 		<section className="font-barlow container mx-auto flex flex-col rounded bg-neutral-600 px-5 py-12 text-center">
 			<h3 className="mb-4 text-2xl uppercase">
@@ -18,14 +18,19 @@ export default function HomeContactUs() {
 				</Link>{" "}
 				IG account, and we will get back to you ASAP.
 			</p>
-			<Link href="https://instagram.com/riseup.web" target="_blank">
+			<div className="flex justify-center">
 				<Button
 					variant="ghost"
-					className="border border-neutral-100 uppercase transition hover:opacity-80"
+					className="w-fit border border-neutral-100 uppercase transition hover:opacity-80"
+					asChild
 				>
-					@riseup.web
+					<Link href="https://instagram.com/riseup.web" target="_blank">
+						@riseup.web
+					</Link>
 				</Button>
-			</Link>
+			</div>
 		</section>
 	);
-}
+};
+
+export default HomeContactUs;

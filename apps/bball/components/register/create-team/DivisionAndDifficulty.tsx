@@ -1,17 +1,19 @@
 "use client";
 
+import { Separator } from "@ui/components/separator";
+import { Button } from "@ui/components/button";
+import Image from "next/image";
+import { useState } from "react";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import { Separator } from "@ui/components/separator";
-import { Button } from "@ui/components/button";
-import Image from "next/image";
-import { useState } from "react";
-export default function DivisionAndDifficulty({ onCreateTeam }) {
+
+const DivisionAndDifficulty = ({ onCreateTeam }): JSX.Element => {
 	const [isDivision, setIsDivision] = useState(false);
+
 	return (
 		<>
 			{!isDivision ? (
@@ -586,4 +588,6 @@ export default function DivisionAndDifficulty({ onCreateTeam }) {
 			)}
 		</>
 	);
-}
+};
+
+export default DivisionAndDifficulty;

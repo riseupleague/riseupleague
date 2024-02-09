@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import LeaderGrid from "@/components/leaders/LeaderGrid";
 import { DivisionWithStats } from "@/types";
 
-export default async function Leaders(): Promise<JSX.Element> {
+const Leaders = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	const resAllPlayers = await getAllPlayersWithAvg();
@@ -24,10 +24,12 @@ export default async function Leaders(): Promise<JSX.Element> {
 			<LeaderGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
 		</section>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | League Leaders",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default Leaders;

@@ -1,6 +1,10 @@
 "use client";
 
 import { Button } from "@ui/components/button";
+import { Separator } from "@ui/components/separator";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Checkbox } from "@ui/components/checkbox";
 import {
 	Dialog,
 	DialogContent,
@@ -10,12 +14,8 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { Separator } from "@ui/components/separator";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
 
-export default function AddSeason(): JSX.Element {
+const AddSeason = (): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -56,4 +56,6 @@ export default function AddSeason(): JSX.Element {
 			</DialogContent>
 		</Dialog>
 	);
-}
+};
+
+export default AddSeason;

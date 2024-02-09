@@ -1,4 +1,4 @@
-export default function TeamIcon() {
+const TeamIcon = (): JSX.Element => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -16,4 +16,6 @@ export default function TeamIcon() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default TeamIcon;

@@ -18,7 +18,7 @@ import { editSeasonAction } from "@/actions/editSeasonAction";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
-export default function EditSeason({ season, id }): JSX.Element {
+const EditSeason = ({ season, id }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [open, setOpen] = useState(false);
 	const [seasonData, setSeasonData] = useState(season);
@@ -118,4 +118,6 @@ export default function EditSeason({ season, id }): JSX.Element {
 			</DialogContent>
 		</Dialog>
 	);
-}
+};
+
+export default EditSeason;

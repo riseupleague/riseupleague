@@ -13,7 +13,7 @@ const barlow = Barlow_Condensed({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }): JSX.Element => {
 	return (
 		<html
 			className={`${oswald.variable} ${inter.variable} ${barlow.variable}`}
@@ -31,9 +31,11 @@ export default function RootLayout({ children }) {
 			</body>
 		</html>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Admin",
 	description: "Rise Up League Admin Site",
 };
+
+export default RootLayout;

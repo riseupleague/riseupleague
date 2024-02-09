@@ -4,7 +4,7 @@ import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { connectToDatabase } from "@/api-helpers/utils";
 
-export async function middleware(request: NextRequest) {
+const middleware = async (request: NextRequest) => {
 	if (request.nextUrl.pathname.startsWith("/user")) {
 		await connectToDatabase();
 
@@ -18,4 +18,6 @@ export async function middleware(request: NextRequest) {
 
 		return NextResponse.rewrite(new URL(`/user/${user._id}`, request.url));
 	}
-}
+};
+
+export default middleware;

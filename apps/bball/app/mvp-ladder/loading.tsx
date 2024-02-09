@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function LeadersLoading() {
+const MVPLadderLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
@@ -25,4 +25,6 @@ export default function LeadersLoading() {
 			</div>
 		</section>
 	);
-}
+};
+
+export default MVPLadderLoading;

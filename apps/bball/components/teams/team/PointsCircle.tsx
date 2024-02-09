@@ -1,7 +1,8 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 
-const PointsCircle = ({ team, pointsAverage }) => {
+const PointsCircle = ({ team, pointsAverage }): JSX.Element => {
 	const canvasRef = useRef(null);
 
 	const data = [

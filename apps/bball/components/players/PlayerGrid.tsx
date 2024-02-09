@@ -4,7 +4,7 @@ import { Input } from "@ui/components/input";
 import PlayerCard from "@/components/players/PlayerCard";
 import { useState } from "react";
 
-export default function PlayerGrid({ allPlayers }) {
+const PlayerGrid = ({ allPlayers }): JSX.Element => {
 	const [players, setPlayers] = useState(allPlayers);
 	const playersPerPage = 50;
 	const totalPlayers = players.length;
@@ -110,4 +110,6 @@ export default function PlayerGrid({ allPlayers }) {
 			)}
 		</>
 	);
-}
+};
+
+export default PlayerGrid;

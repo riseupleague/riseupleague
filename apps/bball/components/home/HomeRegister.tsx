@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { useState } from "react";
 
-export default function HomeRegister() {
+const HomeRegister = (): JSX.Element => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
@@ -32,4 +32,6 @@ export default function HomeRegister() {
 			<SignInDialog open={open} onOpenChange={setOpen} />
 		</section>
 	);
-}
+};
+
+export default HomeRegister;

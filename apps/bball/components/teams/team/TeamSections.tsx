@@ -5,7 +5,7 @@ import PreviousGames from "./PreviousGames";
 import Statistics from "./Statistics";
 import Overview from "./Overview";
 
-export default function TeamSections({ team, allAvg, upcomingGames }) {
+const TeamSections = ({ team, allAvg, upcomingGames }): JSX.Element => {
 	const [selectedSection, setSelectedSection] = useState("overview");
 
 	const handleNavClick = (sectionId) => {
@@ -55,4 +55,6 @@ export default function TeamSections({ team, allAvg, upcomingGames }) {
 			<section>{selectedNavItem && selectedNavItem.component}</section>
 		</div>
 	);
-}
+};
+
+export default TeamSections;

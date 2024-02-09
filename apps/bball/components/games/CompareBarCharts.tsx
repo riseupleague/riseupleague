@@ -1,8 +1,9 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import { Chart } from "chart.js/auto";
 
-const CompareBarCharts = ({ one, two, oneName, twoName }) => {
+const CompareBarCharts = ({ one, two, oneName, twoName }): JSX.Element => {
 	const chartRef = useRef<HTMLCanvasElement | null>(null); // Add type annotation for HTMLCanvasElement
 
 	useEffect(() => {

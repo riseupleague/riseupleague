@@ -21,7 +21,7 @@ import {
 	DialogTitle,
 } from "@ui/components/dialog";
 
-const SignInDialog = ({ open, onOpenChange }) => {
+const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 	const router = useRouter();
 	const [isEmail, setIsEmail] = useState(false);
 	const [isCreateAccount, setIsCreateAccount] = useState(false);

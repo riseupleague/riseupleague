@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Separator } from "@ui/components/separator";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import { Separator } from "@ui/components/separator";
-import { Button } from "@ui/components/button";
 
-export default function CreateYourTeam({ divisions, category }): JSX.Element {
+const CreateYourTeam = ({ divisions, category }): JSX.Element => {
 	const [selectedDivision, setSelectedDivision] = useState([]);
 	const [isLocationSelected, setIsLocationSelected] = useState(false);
 	// Initialize arrays for each location
@@ -343,4 +342,6 @@ export default function CreateYourTeam({ divisions, category }): JSX.Element {
 			)}
 		</>
 	);
-}
+};
+
+export default CreateYourTeam;

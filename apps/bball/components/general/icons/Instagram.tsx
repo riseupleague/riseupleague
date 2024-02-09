@@ -1,4 +1,4 @@
-export default function Instagram() {
+const Instagram = (): JSX.Element => {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -21,4 +21,6 @@ export default function Instagram() {
 			/>
 		</svg>
 	);
-}
+};
+
+export default Instagram;

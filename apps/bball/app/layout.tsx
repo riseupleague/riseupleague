@@ -1,5 +1,4 @@
 import "../../../packages/ui/styles/globals.css";
-import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import Header from "../components/structure/header/header";
 import Footer from "../components/structure/footer/footer";
@@ -16,7 +15,7 @@ const barlow = Barlow_Condensed({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-export default function RootLayout({ children }: ChildrenProps): JSX.Element {
+const RootLayout = ({ children }: ChildrenProps): JSX.Element => {
 	return (
 		<html
 			className={`${oswald.variable} ${inter.variable} ${barlow.variable}`}
@@ -35,10 +34,6 @@ export default function RootLayout({ children }: ChildrenProps): JSX.Element {
 			</body>
 		</html>
 	);
-}
-
-export const metadata: Metadata = {
-	title: "Rise Up League | Home",
-	description:
-		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default RootLayout;

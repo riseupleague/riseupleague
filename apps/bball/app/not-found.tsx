@@ -2,7 +2,7 @@ import { Button } from "@ui/components/button";
 import { Metadata } from "next";
 import Link from "next/link";
 
-export default function NotFound() {
+const NotFound = () => {
 	return (
 		<div className="container mx-auto flex min-h-[50dvh] flex-col items-center justify-center gap-4 text-center">
 			<h2>This page is out of bounds! 🏀🙅‍♂️</h2>
@@ -26,10 +26,12 @@ export default function NotFound() {
 			</Button>
 		</div>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Error",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default NotFound;

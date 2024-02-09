@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function PlayersOfTheWeekSkeleton(): JSX.Element {
+const PlayersOfTheWeekSkeleton = (): JSX.Element => {
 	const array3 = new Array(3).fill("");
 
 	return (
@@ -15,4 +15,6 @@ export default function PlayersOfTheWeekSkeleton(): JSX.Element {
 			</div>
 		</section>
 	);
-}
+};
+
+export default PlayersOfTheWeekSkeleton;

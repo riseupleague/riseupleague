@@ -10,7 +10,7 @@ export default async function Schedule({
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const { id } = params; // Destructure the 'id' property from 'params'
+	const { id } = params;
 
 	const resAllUpcomingGames = await getGamesByDate(id);
 	const { gamesByDate } = await resAllUpcomingGames.json();

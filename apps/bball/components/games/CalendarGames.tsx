@@ -11,39 +11,24 @@ import {
 } from "date-fns";
 import Link from "next/link";
 
-const CalendarGames = ({ linkDate }) => {
+const CalendarGames = ({ linkDate }): JSX.Element => {
 	const [currentMonth, setCurrentMonth] = useState(new Date());
-	//   const [currentWeek, setCurrentWeek] = useState(getWeek(currentMonth));
 	const [selectedDate, setSelectedDate] = useState(new Date());
-
-	// useEffect(() => {
-	// 	const currentDate = new Date();
-	// 	const formattedDate = format(currentDate, "ccc dd MMM yy");
-	// 	showDetailsHandle(formattedDate);
-	// }, []);
 
 	const changeWeekHandle = (btnType) => {
 		if (btnType === "prev") {
 			setCurrentMonth(subWeeks(currentMonth, 1));
-			//   setCurrentWeek(getWeek(subWeeks(currentMonth, 1)));
 		}
 		if (btnType === "next") {
 			setCurrentMonth(addWeeks(currentMonth, 1));
-			//   setCurrentWeek(getWeek(addWeeks(currentMonth, 1)));
 		}
 	};
-
-	// const onDateClickHandle = (day, dayStr) => {
-	// 	setSelectedDate(day);
-	// 	showDetailsHandle(dayStr);
-	// };
 
 	const renderHeader = () => {
 		const dateFormat = "MMM yyyy";
 		return (
 			<div className="my-5 flex items-center justify-between py-2">
-				<div className="mb-8 flex w-full items-center justify-between">
-					<h1>Schedule</h1>
+				<div className="mb-8 flex w-full items-center justify-end">
 					<div className="flex items-center">
 						<button
 							onClick={() => changeWeekHandle("prev")}

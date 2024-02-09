@@ -7,7 +7,8 @@ import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
 import { Loader2 } from "lucide-react";
-import { convertToEST } from "@/utils/convertToEST";
+import Link from "next/link";
+import getStripe from "@/utils/checkout";
 import {
 	Accordion,
 	AccordionContent,
@@ -30,8 +31,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@ui/components/select";
-import Link from "next/link";
-import getStripe from "@/utils/checkout";
 
 interface FormData {
 	jerseyName: string;
@@ -77,7 +76,7 @@ interface Division {
 	_id: string;
 }
 
-export default function FreeAgentsRegistration({ session, divisions }) {
+const FreeAgentsRegistration = ({ session, divisions }): JSX.Element => {
 	const [isSummary, setIsSummary] = useState(false);
 	const [isLoader, setIsLoader] = useState(false);
 
@@ -1174,4 +1173,6 @@ export default function FreeAgentsRegistration({ session, divisions }) {
 			)}
 		</>
 	);
-}
+};
+
+export default FreeAgentsRegistration;

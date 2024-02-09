@@ -4,7 +4,7 @@ import { useState } from "react";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
-export default function MVPGrid({ allPlayers, divisions }) {
+const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 	let filterPlaceholder = divisions[0].divisionName;
 	let initialDivisions = divisions.map((division) => {
 		return {
@@ -163,7 +163,7 @@ export default function MVPGrid({ allPlayers, divisions }) {
 					<li>10.2 RPG * 2.0 = 20.4</li>
 					<li>3.4 APG * 2.0 = 6.8</li>
 					<li>0.8 SPG * 2.0 = 1.6</li>
-					<li>0.2 BPG * 2.0 = 0.2</li>
+					<li>0.2 BPG * 2.0 = 0.4</li>
 					<hr />
 					<li>96.2 * Team Win Percentage (0.857%) = 82.4434</li>
 					<li className="text-primary">Final MVP Score: 82.4434</li>
@@ -171,7 +171,7 @@ export default function MVPGrid({ allPlayers, divisions }) {
 			</div>
 		</div>
 	);
-}
+};
 
 const filterDivisions = (divisions, id) => {
 	return divisions.filter((division) => division._id === id);
@@ -191,3 +191,5 @@ const calculateMvpScore = (avgStats, wins, losses) => {
 
 	return avgStatsSum * wpct;
 };
+
+export default MVPGrid;
