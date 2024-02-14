@@ -1,11 +1,10 @@
 {
 	"name": "riseupleague",
-	"version": "1.1.10",
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
 		"build:bball": "turbo build --filter=bball",
-		"build:vball": "turbo build --filter=bball-vball",
+		"build:vball": "turbo build --filter=vball",
 		"build:admin": "turbo build --filter=admin",
 		"dev": "turbo dev",
 		"dev:bball": "turbo dev --filter=bball",
