@@ -71,7 +71,7 @@ const Footer = (): JSX.Element => {
 						target="_blank"
 						className="hover:text-primary transition-all hover:underline"
 					>
-						v{versionNumber}
+						{versionNumber}
 					</Link>
 				</div>
 			</section>
