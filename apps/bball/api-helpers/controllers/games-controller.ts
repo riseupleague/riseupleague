@@ -175,7 +175,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
 					},
 				],
 			})
-			.select("playerOfTheGame")
+			.select("playerOfTheGame potg")
 			.sort({ date: -1 })
 			.limit(12)
 			.lean();

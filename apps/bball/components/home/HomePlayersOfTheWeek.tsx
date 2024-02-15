@@ -10,11 +10,16 @@ export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 
 	const resGames2 = await getAllRecentPlayerOfTheGames();
 	const data = await resGames2.json();
-	console.log("getAllRecentPlayerOfTheGames:", data);
 
 	const playerOfTheGames = data.games
-		?.map((game) => game.playerOfTheGame)
-		.filter((player) => player !== undefined);
+		?.map((game) => ({
+			...game.playerOfTheGame,
+			currentGame: game._id,
+			potg: game.potg,
+		}))
+		.filter((player) => player._id !== undefined);
+
+	console.log("playerOfTheGames:", playerOfTheGames);
 
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
