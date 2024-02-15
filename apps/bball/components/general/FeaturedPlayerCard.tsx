@@ -59,8 +59,6 @@ export default function FeaturedPlayerCard({ player }) {
 	// 	badges.pop();
 	// }
 
-	console.log("player:", player);
-
 	const currentGame = player.allStats.find(
 		(stat) => stat.game === player.currentGame
 	);

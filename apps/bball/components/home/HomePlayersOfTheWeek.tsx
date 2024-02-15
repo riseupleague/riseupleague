@@ -10,16 +10,33 @@ export default async function HomePlayersOfTheWeek(): Promise<JSX.Element> {
 
 	const resGames2 = await getAllRecentPlayerOfTheGames();
 	const data = await resGames2.json();
-
 	const playerOfTheGames = data.games
 		?.map((game) => ({
 			...game.playerOfTheGame,
 			currentGame: game._id,
 			potg: game.potg,
 		}))
-		.filter((player) => player._id !== undefined);
+		.filter((player) => {
+			if (player._id !== undefined) {
+				const currentGame = player.allStats.find((stat) => {
+					return stat.game === player.currentGame;
+				});
+				if (currentGame) {
+					const total =
+						currentGame.points +
+						currentGame.rebounds +
+						currentGame.assists +
+						currentGame.blocks +
+						currentGame.steals;
 
-	console.log("playerOfTheGames:", playerOfTheGames);
+					if (Number(total) >= 25) {
+						return player;
+					}
+				}
+			}
+			// If any condition fails or if player._id is undefined, return false
+			return false;
+		});
 
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
