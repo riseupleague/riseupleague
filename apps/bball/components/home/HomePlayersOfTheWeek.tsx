@@ -34,12 +34,6 @@ const HomePlayersOfTheWeek = async (): Promise<JSX.Element> => {
 			// If any condition fails or if player._id is undefined, return false
 			return false;
 		});
-	const resGames = await getAllRecentPlayerOfTheGames();
-	const { games } = await resGames.json();
-
-	const playerOfTheGames = games
-		?.map((game) => game.playerOfTheGame)
-		.filter((player) => player !== undefined);
 
 	return (
 		<section className="font-barlow mb-8 text-neutral-100">
