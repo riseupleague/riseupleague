@@ -3,15 +3,14 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-
+import { Button } from "@ui/components/button";
+import { useRouter } from "next/navigation";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import { Button } from "@ui/components/button";
-import { useRouter } from "next/navigation";
 
 interface FormErrors {
 	primaryColor?: string;
@@ -19,12 +18,12 @@ interface FormErrors {
 	tertiaryColor?: string;
 }
 
-export default function RetroJersey({
+const RetroJersey = ({
 	edition,
 	number,
 	team,
 	numberToComponent,
-}) {
+}): JSX.Element => {
 	const [primaryColor, setPrimaryColor] = useState(
 		`${team.primaryColor && team.primaryColor !== "" ? team.primaryColor : ""}`
 	); // Default to a specific color
@@ -398,4 +397,6 @@ export default function RetroJersey({
 			</div>
 		</>
 	);
-}
+};
+
+export default RetroJersey;

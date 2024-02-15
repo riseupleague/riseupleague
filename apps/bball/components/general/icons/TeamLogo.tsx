@@ -1,4 +1,4 @@
-export default function TeamLogo({
+const TeamLogo = ({
 	primary,
 	secondary,
 	tertiary,
@@ -6,7 +6,7 @@ export default function TeamLogo({
 	height,
 	circleWidth,
 	circleHeight,
-}) {
+}): JSX.Element => {
 	return (
 		<div
 			style={{
@@ -50,4 +50,6 @@ export default function TeamLogo({
 			</svg>
 		</div>
 	);
-}
+};
+
+export default TeamLogo;

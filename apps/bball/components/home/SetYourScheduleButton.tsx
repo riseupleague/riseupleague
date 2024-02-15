@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { useState } from "react";
 
-const SetYourScheduleButton = () => {
+const SetYourScheduleButton = (): JSX.Element => {
 	const { data: session } = useSession();
 	const [open, setOpen] = useState(false);
 

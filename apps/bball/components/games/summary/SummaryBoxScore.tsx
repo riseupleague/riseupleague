@@ -11,14 +11,20 @@ import {
 } from "@ui/components/ui/table";
 import { Fragment, useState } from "react";
 import { Button } from "@ui/components/button";
+import SummaryPOTG from "./SummaryPOTG";
 
-export default function SummaryBoxScore({ game }) {
+const SummaryBoxScore = ({ game }): JSX.Element => {
 	const [currentTeam, setCurrentTeam] = useState(game.homeTeam);
 
 	return (
 		<div>
 			<h2 className="text-center">Box Score</h2>
 
+			{game.playerOfTheGame && (
+				<SummaryPOTG playerOfTheGame={game.playerOfTheGame} game={game} />
+			)}
+
+			{/* team tabs */}
 			<div className="my-8 flex justify-center">
 				<Button
 					onClick={() => setCurrentTeam(game.homeTeam)}
@@ -42,6 +48,7 @@ export default function SummaryBoxScore({ game }) {
 				</Button>
 			</div>
 
+			{/* box score table */}
 			<Table className="font-barlow">
 				<TableHeader>
 					<TableRow className="md:text-md h-10 border-b-neutral-500 text-sm uppercase md:text-lg">
@@ -57,10 +64,17 @@ export default function SummaryBoxScore({ game }) {
 				</TableHeader>
 				<TableBody>
 					{currentTeam.players.map((player, index) => {
+						// DNP stat
+						let DNP = player.allStats.filter(
+							(playerGame) => playerGame.game === game._id
+						)[0]
+							? false
+							: true;
+
 						return (
 							<TableRow
 								key={index}
-								className="h-10 border-b-neutral-500 text-sm md:text-lg"
+								className="h-10 border-b-neutral-500 text-sm capitalize md:text-lg"
 							>
 								<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
 									<Link
@@ -70,29 +84,49 @@ export default function SummaryBoxScore({ game }) {
 										{player.playerName}
 									</Link>
 								</TableCell>
-								{player.allStats.map((stat, index) => {
-									if (stat.game === game._id) {
-										return (
-											<Fragment key={index}>
-												<TableCell className="w-1/12 p-1">
-													{stat.points === null ? "DNP" : stat.points}
-												</TableCell>
-												<TableCell className="w-1/12 p-1">
-													{stat.rebounds}
-												</TableCell>
-												<TableCell className="w-1/12 p-1">
-													{stat.assists}
-												</TableCell>
-												<TableCell className="w-1/12 p-1">
-													{stat.blocks}
-												</TableCell>
-												<TableCell className="w-1/12 p-1">
-													{stat.steals}
-												</TableCell>
-											</Fragment>
-										);
-									}
-								})}
+								{!DNP ? (
+									player.allStats.map((stat, index) => {
+										if (stat.game === game._id) {
+											return (
+												<Fragment key={index}>
+													<TableCell className="w-1/12 p-1">
+														{stat.points === null ? "DNP" : stat.points}
+													</TableCell>
+													<TableCell className="w-1/12 p-1">
+														{stat.rebounds}
+													</TableCell>
+													<TableCell className="w-1/12 p-1">
+														{stat.assists}
+													</TableCell>
+													<TableCell className="w-1/12 p-1">
+														{stat.blocks}
+													</TableCell>
+													<TableCell className="w-1/12 p-1">
+														{stat.steals}
+													</TableCell>
+												</Fragment>
+											);
+										}
+									})
+								) : (
+									<Fragment key={index}>
+										<TableCell className="w-1/12 p-1 text-neutral-500">
+											DNP
+										</TableCell>
+										<TableCell className="w-1/12 p-1 text-neutral-500">
+											DNP
+										</TableCell>
+										<TableCell className="w-1/12 p-1 text-neutral-500">
+											DNP
+										</TableCell>
+										<TableCell className="w-1/12 p-1 text-neutral-500">
+											DNP
+										</TableCell>
+										<TableCell className="w-1/12 p-1 text-neutral-500">
+											DNP
+										</TableCell>
+									</Fragment>
+								)}
 							</TableRow>
 						);
 					})}
@@ -100,4 +134,6 @@ export default function SummaryBoxScore({ game }) {
 			</Table>
 		</div>
 	);
-}
+};
+
+export default SummaryBoxScore;

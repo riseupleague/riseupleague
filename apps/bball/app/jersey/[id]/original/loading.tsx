@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function UserLoading() {
+const JerseyLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
@@ -25,4 +25,6 @@ export default function UserLoading() {
 			</div>
 		</section>
 	);
-}
+};
+
+export default JerseyLoading;

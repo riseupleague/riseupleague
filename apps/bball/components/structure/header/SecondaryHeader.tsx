@@ -2,7 +2,7 @@ import { getAllUpcomingGamesHeader } from "@/api-helpers/controllers/games-contr
 import FutureGames from "./FutureGames";
 import { unstable_noStore as noStore } from "next/cache";
 
-export default async function SecondaryHeader(): Promise<JSX.Element> {
+const SecondaryHeader = async (): Promise<JSX.Element> => {
 	noStore();
 
 	const resUpcoming = await getAllUpcomingGamesHeader();
@@ -13,4 +13,6 @@ export default async function SecondaryHeader(): Promise<JSX.Element> {
 			<FutureGames allUpcomingGames={allUpcomingGames} />
 		</section>
 	);
-}
+};
+
+export default SecondaryHeader;

@@ -19,7 +19,7 @@ import {
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
 
-const ProfileLink = () => {
+const ProfileLink = (): JSX.Element => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 

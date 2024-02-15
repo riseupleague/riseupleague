@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-export default function SecondaryHeaderSkeleton() {
+const SecondaryHeaderSkeleton = (): JSX.Element => {
 	const array10 = Array(10).fill("");
 
 	return (
@@ -17,4 +17,6 @@ export default function SecondaryHeaderSkeleton() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default SecondaryHeaderSkeleton;

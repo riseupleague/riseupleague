@@ -11,7 +11,10 @@ import {
 } from "@ui/components/select";
 import { Label } from "@ui/components/label";
 
-const FilterByStat = ({ handleStatChange, filterPlaceholder = "Points" }) => {
+const FilterByStat = ({
+	handleStatChange,
+	filterPlaceholder = "Points",
+}): JSX.Element => {
 	const stats = ["points", "rebounds", "assists", "steals", "blocks"];
 
 	return (

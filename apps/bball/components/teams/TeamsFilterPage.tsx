@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FilterByDivision from "../filters/FilterByDivision";
 import TeamsCard from "./TeamsCard";
 
-export default function TeamsFilterPage({ divisions }) {
+const TeamsFilterPage = ({ divisions }): JSX.Element => {
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
 	const divisionsNameAndId = divisions.map((division) => {
 		return {
@@ -72,4 +72,6 @@ export default function TeamsFilterPage({ divisions }) {
 			))}
 		</div>
 	);
-}
+};
+
+export default TeamsFilterPage;

@@ -13,7 +13,7 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 
-export default function ChooseTeam({ division, session }) {
+const ChooseTeam = ({ division, session }): JSX.Element => {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);
 	const [teamCode, setTeamCode] = useState("");
 	const [selectedTeamIndex, setSelectedTeamIndex] = useState(null);
@@ -200,4 +200,6 @@ export default function ChooseTeam({ division, session }) {
 			)}
 		</>
 	);
-}
+};
+
+export default ChooseTeam;

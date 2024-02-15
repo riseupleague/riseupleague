@@ -5,15 +5,19 @@ import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 
-export default function ScheduleCard({ game }) {
+const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
 
 	const date = convertToEST(new Date(game.date));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mm a");
 
+	const liveGame = isLiveGame(date);
+
 	return (
-		<article className="flex flex-col rounded border border-neutral-600 bg-neutral-700">
+		<article
+			className={`${liveGame ? "border-primary" : "border-neutral-600"} flex flex-col rounded border bg-neutral-700`}
+		>
 			<div className="flex-1">
 				<div className="grid grid-cols-3">
 					{/* home team */}
@@ -53,7 +57,7 @@ export default function ScheduleCard({ game }) {
 						</div>
 						<p className="my-2 text-xs text-neutral-400">{dateFormatted}</p>
 						<p className="mb-3 text-xl xl:text-[31px]">
-							{game.status ? "Final" : time}
+							{game.status ? <>{liveGame ? "LIVE" : "Final"}</> : time}
 						</p>
 					</div>
 
@@ -101,4 +105,13 @@ export default function ScheduleCard({ game }) {
 			</div>
 		</article>
 	);
-}
+};
+
+const isLiveGame = (date) => {
+	const HOUR = 1000 * 60 * 60;
+	const anHourAgo = Date.now() - HOUR;
+
+	return date > anHourAgo && Date.now() > date;
+};
+
+export default ScheduleCard;

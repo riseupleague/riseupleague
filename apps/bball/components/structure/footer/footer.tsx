@@ -1,16 +1,17 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import footerOptions from "@/lib/data/footerOptions.json";
+import { footerOptions } from "@/lib/data/footerOptions";
 import packageJson from "../../../package.json";
 
-export default function Footer(): React.JSX.Element {
+const Footer = (): JSX.Element => {
 	// for active class
 	const path = usePathname();
 	const versionNumber = packageJson.version;
+
+	const year = new Date().getFullYear();
 
 	return (
 		<footer className="container mx-auto mb-40 flex flex-col gap-8 px-4 py-8 md:mb-0">
@@ -63,14 +64,14 @@ export default function Footer(): React.JSX.Element {
 				</Link>
 				<div className="font-barlow my-7 text-sm text-neutral-200">
 					<p className="text-sm">
-						Copyright© 2023. Rise Up Sports League. All Rights Reserved.
+						Copyright© {year}. Rise Up Sports League. All Rights Reserved.
 					</p>
 					<Link
 						href="https://github.com/n9d0g/riseupleague/releases"
 						target="_blank"
 						className="hover:text-primary transition-all hover:underline"
 					>
-						v{versionNumber}
+						{versionNumber}
 					</Link>
 				</div>
 			</section>
@@ -89,4 +90,6 @@ export default function Footer(): React.JSX.Element {
 			</section> */}
 		</footer>
 	);
-}
+};
+
+export default Footer;

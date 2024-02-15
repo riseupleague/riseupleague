@@ -1,4 +1,4 @@
-export default function ScrollRightIcon() {
+const ScrollRightIcon = (): JSX.Element => {
 	return (
 		<svg
 			className="h-6 w-6 fill-current"
@@ -9,4 +9,6 @@ export default function ScrollRightIcon() {
 			<path d="M15 19l-7-7 7-7" />
 		</svg>
 	);
-}
+};
+
+export default ScrollRightIcon;

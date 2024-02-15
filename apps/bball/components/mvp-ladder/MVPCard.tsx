@@ -1,7 +1,7 @@
 import TeamLogo from "@/components/general/icons/TeamLogo";
 import Link from "next/link";
 
-export default function MVPCard({ player, rank, mvpScore }) {
+const MVPCard = ({ player, rank, mvpScore }): JSX.Element => {
 	// remove any names with a number in it
 	let regex = /^[a-zA-Z0-9-_]+$/;
 	let nameArray = player.playerName.split(" ");
@@ -61,4 +61,6 @@ export default function MVPCard({ player, rank, mvpScore }) {
 			</div>
 		</article>
 	);
-}
+};
+
+export default MVPCard;

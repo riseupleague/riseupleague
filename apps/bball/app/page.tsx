@@ -16,7 +16,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
 
-export default async function Page(): Promise<JSX.Element> {
+const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 	return (
 		<div className="container mx-auto min-h-[100dvh]">
@@ -40,10 +40,12 @@ export default async function Page(): Promise<JSX.Element> {
 			<HomeContactUs />
 		</div>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Home",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default Page;

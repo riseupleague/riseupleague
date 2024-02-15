@@ -1,14 +1,15 @@
 {
 	"name": "riseupleague",
-	"version": "1.1.6",
 	"private": true,
 	"scripts": {
 		"build": "turbo build",
 		"build:bball": "turbo build --filter=bball",
-		"build:admin": "turbo build --filter=bball-admin",
+		"build:vball": "turbo build --filter=vball",
+		"build:admin": "turbo build --filter=admin",
 		"dev": "turbo dev",
 		"dev:bball": "turbo dev --filter=bball",
-		"dev:admin": "turbo dev --filter=bball-admin",
+		"dev:vball": "turbo dev --filter=vball",
+		"dev:admin": "turbo dev --filter=admin",
 		"lint": "turbo lint",
 		"ui:add": "cd packages/ui && npm run ui:add",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
@@ -16,6 +17,7 @@
 		"fresh": "npm run clean:cache && npm i && npm run format",
 		"fresh:start": "npm run fresh && npm run dev",
 		"fresh:start:bball": "npm run fresh && npm run dev:bball",
+		"fresh:start:vball": "npm run fresh && npm run dev:vball",
 		"fresh:start:admin": "npm run fresh && npm run dev:admin"
 	},
 	"devDependencies": {

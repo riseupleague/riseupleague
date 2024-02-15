@@ -14,16 +14,16 @@ import TeamIcon from "@/components/icons/TeamIcon";
 import PlayerIcon from "@/components/icons/PlayerIcon";
 import { usePathname } from "next/navigation";
 import SignInDialog from "@/components/auth/SignInDialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import TrophyIcon from "@/components/icons/TrophyIcon";
 import {
 	Sheet,
 	SheetClose,
 	SheetContent,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
-import TrophyIcon from "@/components/icons/TrophyIcon";
 
-export default function SideNav({ navPosition }): React.JSX.Element {
+const SideNav = ({ navPosition }): React.JSX.Element => {
 	const path = usePathname();
 	const router = useRouter();
 	const currentDate = new Date();
@@ -184,4 +184,6 @@ export default function SideNav({ navPosition }): React.JSX.Element {
 			</SheetContent>
 		</Sheet>
 	);
-}
+};
+
+export default SideNav;

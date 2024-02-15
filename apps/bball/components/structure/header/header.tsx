@@ -1,10 +1,12 @@
 import React from "react";
-import PrimaryHeader from "./primary-header";
+import PrimaryHeader from "./PrimaryHeader";
 
-export default function Header(): JSX.Element {
+const Header = (): JSX.Element => {
 	return (
 		<header className="sticky top-0 z-20 bg-neutral-900">
 			<PrimaryHeader />
 		</header>
 	);
-}
+};
+
+export default Header;
