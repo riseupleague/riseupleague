@@ -177,7 +177,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
 			})
 			.select("playerOfTheGame potg")
 			.sort({ date: -1 })
-			.limit(12)
+			.limit(30)
 			.lean();
 
 		return NextResponse.json({ games });

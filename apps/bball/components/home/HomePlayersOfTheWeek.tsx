@@ -26,7 +26,7 @@ const HomePlayersOfTheWeek = async (): Promise<JSX.Element> => {
 						currentGame.blocks +
 						currentGame.steals;
 
-					if (Number(total) >= 25) {
+					if (Number(total) >= 35) {
 						return player;
 					}
 				}
