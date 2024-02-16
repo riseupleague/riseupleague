@@ -28,6 +28,12 @@ const gameSchema = new Schema({
 	location: { type: String, required: true }, // Add the location field
 	players: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
 	playerOfTheGame: { type: mongoose.Schema.Types.ObjectId, ref: "Player" },
+	potg: {
+		type: {
+			image: String,
+			id: String,
+		},
+	},
 	playByPlay: [
 		{
 			type: {
