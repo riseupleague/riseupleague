@@ -17,6 +17,9 @@ const playerSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	playerImage: {
+		type: String,
+	},
 	instagram: {
 		type: String,
 	},

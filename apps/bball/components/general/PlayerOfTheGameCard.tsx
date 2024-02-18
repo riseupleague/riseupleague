@@ -15,7 +15,10 @@ export default function playerOfTheGame({ player }) {
 	);
 
 	return (
-		<div className="rounded-lg bg-[#11161F] p-5 ">
+		<Link
+			href={`/players/${player._id}`}
+			className="rounded-lg bg-[#11161F] p-5 transition duration-300 ease-in-out hover:bg-gray-800"
+		>
 			<div className="relative rounded-bl-3xl border-8 border-blue-500">
 				<Image
 					className=""
@@ -80,6 +83,6 @@ export default function playerOfTheGame({ player }) {
 					</div>
 				</div>
 			</div>
-		</div>
+		</Link>
 	);
 }
