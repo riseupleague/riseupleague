@@ -67,13 +67,11 @@ export default function FeaturedPlayerCard({ player }) {
 			<div className="flex flex-col">
 				{/* Image */}
 
-				{player.jerseyNumber === 6 ? (
+				{player.playerImage && player.playerImage !== "" ? (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-blue-500">
 						<Image
 							className=""
-							src={
-								"https://res.cloudinary.com/djkz1rfaq/image/upload/v1708047365/riseup-potg/bspkzsvjdqerdpnsvvqs.jpg"
-							}
+							src={player.playerImage}
 							alt="preview player of the game image"
 							style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
 							width={200}
