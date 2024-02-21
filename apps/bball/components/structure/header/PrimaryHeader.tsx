@@ -15,40 +15,6 @@ import SideNav from "./SideNav";
 const PrimaryHeader = (): JSX.Element => {
 	const path = usePathname();
 
-	const headerOptions = [
-		{
-			label: "home",
-			href: "/",
-			icon: <HomeIcon />,
-		},
-		{
-			label: "schedule",
-			href: `/schedule`,
-			icon: <CalendarIcon />,
-		},
-		{
-			label: "standings",
-			href: "/standings",
-			dropdown: true,
-			icon: <PodiumIcon />,
-		},
-		{
-			label: "leaders",
-			href: "/leaders",
-			icon: <TrophyIcon />,
-		},
-		{
-			label: "teams",
-			href: "/teams",
-			icon: <TeamIcon />,
-		},
-		{
-			label: "players",
-			href: "/players",
-			icon: <PlayerIcon />,
-		},
-	];
-
 	return (
 		<nav>
 			<div className="container mx-auto grid grid-cols-3 py-4 lg:py-8">
@@ -152,5 +118,39 @@ const PrimaryHeader = (): JSX.Element => {
 		</nav>
 	);
 };
+
+const headerOptions = [
+	{
+		label: "home",
+		href: "/",
+		icon: <HomeIcon />,
+	},
+	{
+		label: "schedule",
+		href: `/schedule`,
+		icon: <CalendarIcon />,
+	},
+	{
+		label: "standings",
+		href: "/standings",
+		dropdown: true,
+		icon: <PodiumIcon />,
+	},
+	{
+		label: "leaders",
+		href: "/leaders",
+		icon: <TrophyIcon />,
+	},
+	{
+		label: "teams",
+		href: "/teams",
+		icon: <TeamIcon />,
+	},
+	{
+		label: "players",
+		href: "/players",
+		icon: <PlayerIcon />,
+	},
+];
 
 export default PrimaryHeader;
