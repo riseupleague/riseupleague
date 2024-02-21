@@ -22,7 +22,7 @@ const HomeMVPLadder = async (): Promise<JSX.Element> => {
 			<hr />
 			<HomeMVPGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
 
-			<Link href="/mvp-ladder" className="w-full">
+			<Link href="/leaders/mvp-ladder" className="w-full">
 				<Button className="w-full">View MVP Ladder Page</Button>
 			</Link>
 		</section>

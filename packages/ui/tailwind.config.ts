@@ -15,6 +15,7 @@ module.exports = {
 			oswald: ["Oswald"],
 			inter: ["Inter"],
 			barlow: ["Barlow"],
+			abolition: ["Abolition"],
 		},
 		colors: {
 			primary: "#ff422e",
@@ -49,6 +50,7 @@ module.exports = {
 				oswald: ["var(--font-oswald)"],
 				inter: ["var(--font-inter)"],
 				barlow: ["var(--font-barlow)"],
+				abolition: ["var(--font-abolition)"],
 			},
 			keyframes: {
 				"accordion-down": {

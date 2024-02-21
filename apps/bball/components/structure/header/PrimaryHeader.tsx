@@ -11,6 +11,8 @@ import TeamIcon from "@/components/icons/TeamIcon";
 import PlayerIcon from "@/components/icons/PlayerIcon";
 import TrophyIcon from "@/components/icons/TrophyIcon";
 import SideNav from "./SideNav";
+import MiddleNav from "./MiddleNav";
+import MobileBottomNav from "./MobileBottomNav";
 
 const PrimaryHeader = (): JSX.Element => {
 	const path = usePathname();
@@ -46,75 +48,15 @@ const PrimaryHeader = (): JSX.Element => {
 						</Link>
 					</figure>
 				</div>
-				<div className="hidden items-center gap-7 lg:flex lg:justify-center">
-					{headerOptions.map((option, index) => {
-						let isActive;
 
-						// if homepage, make active class exact
-						if (option.label === "home") {
-							isActive = path === option.href;
-						}
-						// schedule
-						else if (option.label === "schedule") {
-							isActive = path.includes("/schedule");
-						}
-						// else just .includes()
-						else {
-							isActive = path.includes(option.href);
-						}
+				<MiddleNav headerOptions={headerOptions} path={path} />
 
-						return option.label !== "home" ? (
-							<Link
-								href={option.href}
-								className={`font-oswald hover:text-primary cursor-pointer p-2 font-medium uppercase transition hover:scale-110 ${
-									isActive && "text-primary underline"
-								}`}
-								key={index}
-							>
-								{option.label}
-							</Link>
-						) : null;
-					})}
-				</div>
 				<div className="flex items-center justify-end">
 					<ProfileLink />
 				</div>
 			</div>
 
-			{/* mobile bottom nav */}
-			<ul className="fixed bottom-0 left-0 z-20 flex w-full items-center justify-around border border-neutral-600 bg-neutral-700 px-[15px] pb-[25px] pt-[15px] backdrop-blur-md md:hidden">
-				{headerOptions.map((option, index) => {
-					let isActive;
-
-					// if homepage, make active class exact
-					if (option.label === "home") {
-						isActive = path === option.href;
-
-						// else just .includes()
-					} else {
-						isActive = path.includes(option.href);
-					}
-
-					return option.label !== "teams" && option.label !== "players" ? (
-						<li
-							className="flex flex-col items-center justify-center"
-							key={index}
-						>
-							<Link
-								href={option.href}
-								className={`${isActive && "text-primary"} flex flex-col items-center justify-center`}
-							>
-								{option.icon}
-								<span className="font-barlow text-base capitalize tracking-tighter">
-									{option.label}
-								</span>
-							</Link>
-						</li>
-					) : null;
-				})}
-
-				<SideNav navPosition="bottom" />
-			</ul>
+			<MobileBottomNav headerOptions={headerOptions} path={path} />
 		</nav>
 	);
 };
@@ -133,13 +75,7 @@ const headerOptions = [
 	{
 		label: "standings",
 		href: "/standings",
-		dropdown: true,
 		icon: <PodiumIcon />,
-	},
-	{
-		label: "leaders",
-		href: "/leaders",
-		icon: <TrophyIcon />,
 	},
 	{
 		label: "teams",
@@ -147,9 +83,49 @@ const headerOptions = [
 		icon: <TeamIcon />,
 	},
 	{
-		label: "players",
-		href: "/players",
+		label: "leaders",
+		href: "/leaders",
+		icon: <TrophyIcon />,
+		submenu: [
+			{
+				label: "Stats",
+				href: "/leaders",
+			},
+			{
+				label: "MVP Ladder",
+				href: "/leaders/mvp-ladder",
+			},
+		],
+	},
+	{
+		label: "league",
 		icon: <PlayerIcon />,
+		submenu: [
+			{
+				label: "All Players",
+				href: "/players",
+			},
+			{
+				label: "League Rules",
+				href: "/league-rules",
+			},
+			{
+				label: "Terms and Conditions",
+				href: "/terms-and-conditions",
+			},
+			{
+				label: "Refund Policy",
+				href: "/refund-policy",
+			},
+			{
+				label: "FAQ",
+				href: "/faq",
+			},
+			{
+				label: "Contact Us",
+				href: "/contact-us",
+			},
+		],
 	},
 ];
 
