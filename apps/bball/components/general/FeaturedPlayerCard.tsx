@@ -9,7 +9,7 @@ import TeamLogo from "./icons/TeamLogo";
 import { extractInstagramUsername } from "@/utils/extractInstagram";
 import Image from "next/image";
 
-export default function FeaturedPlayerCard({ player }) {
+const FeaturedPlayerCard = ({ player }): JSX.Element => {
 	// let badges = new Array(5).fill("");
 	// let playerIg = player.instagram;
 
@@ -221,4 +221,6 @@ export default function FeaturedPlayerCard({ player }) {
 			)}
 		</>
 	);
-}
+};
+
+export default FeaturedPlayerCard;
