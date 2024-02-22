@@ -24,9 +24,10 @@ export default async function Register(): Promise<JSX.Element> {
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<h1>Welcome to rise up basketball</h1>
-			<h2 className="mt-2 text-center text-2xl font-semibold uppercase text-neutral-300 md:text-3xl">
-				Winter Season 2024
+			<p className="mb-0  mt-2 text-center text-xl md:text-3xl">Season 5</p>
+			<h1 className="mt-1">Welcome to rise up basketball</h1>
+			<h2 className="text-center text-xl font-semibold uppercase text-neutral-300 md:text-4xl">
+				League with the best player experience
 			</h2>
 			<section className="mt-20 flex flex-col gap-10 md:flex-row">
 				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
@@ -39,9 +40,8 @@ export default async function Register(): Promise<JSX.Element> {
 							className="mb-3 mt-1 bg-white"
 						/>{" "}
 						<p>
-							Interested in hitting the court but you don’t have a full squad or
-							have less than 5 players but still want to hoop with your friends?
-							This is the perfect pick for you.{" "}
+							Don’t have a full squad? This is the perfect pick for you. Join as
+							a solo player or groups of 4 or less players.
 						</p>
 					</div>
 					<Link
@@ -61,12 +61,8 @@ export default async function Register(): Promise<JSX.Element> {
 							className="mb-3 mt-1 bg-white"
 						/>{" "}
 						<p>
-							As a team captain, you can invite your friends to create your
-							dream team. To join as a full team, you will need a minimum of 9
-							players to lock in your team. This means, no free agents will be
-							added to your team. If you have less than 9 players before the
-							deadline, free agents will be added to your team (up to a MINIMUM
-							of 9 players).{" "}
+							Recruit a full team of at least 9 players to secure your roster.
+							Less than 9 players by the deadline, free agents will be added.
 						</p>
 					</div>
 					<Link

@@ -20,7 +20,7 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 
 	return (
 		<div>
-			<div>
+			{/* <div>
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
 					Jersey Design
 				</h2>
@@ -64,7 +64,7 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 						time.
 					</h6>
 				)}
-			</div>
+			</div> */}
 			{/* upcoming games grid */}
 			<div>
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
