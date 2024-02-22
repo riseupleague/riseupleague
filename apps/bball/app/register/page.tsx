@@ -9,6 +9,16 @@ import {
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
 
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
+import Image from "next/image";
+
 export default async function Register(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -29,8 +39,79 @@ export default async function Register(): Promise<JSX.Element> {
 			<h2 className="text-center text-xl font-semibold uppercase text-neutral-300 md:text-4xl">
 				League with the best player experience
 			</h2>
-			<section className="mt-20 flex flex-col gap-10 md:flex-row">
-				<div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
+			<section className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">
+				<Card className="relative flex h-[494px] flex-col   justify-end bg-transparent">
+					<Image
+						src={"/images/register/joinFreeAgent.jpg"}
+						alt="join as a free agent photo"
+						layout="fill"
+						objectFit="cover"
+						className="absolute inset-0 -z-10 bg-gradient-to-b opacity-50"
+					/>
+					<CardHeader>
+						<CardTitle> JOIN AS A FREE AGENT</CardTitle>
+						<CardDescription>
+							Don’t have a full squad? This is the perfect pick for you. Join as
+							a solo player or groups of 4 or less players.
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="text-center">
+						<Link
+							href={"/register/free-agent"}
+							className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+						>
+							Join as a free agent Now
+						</Link>
+					</CardContent>
+				</Card>
+				<Card className="relative flex h-[494px] flex-col   justify-end bg-transparent">
+					<Image
+						src={"/images/register/createteam.jpg"}
+						alt="join as a free agent photo"
+						layout="fill"
+						objectFit="cover"
+						className="absolute inset-0 -z-10 bg-gradient-to-b opacity-50"
+					/>
+					<CardHeader>
+						<CardTitle> Create a team</CardTitle>
+						<CardDescription>
+							Recruit a full team of at least 9 players to secure your roster.
+							Less than 9 players by the deadline, free agents will be added.
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="text-center">
+						<Link
+							href={"/register/create-team"}
+							className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+						>
+							Create Team Now
+						</Link>
+					</CardContent>
+				</Card>
+				<Card className="relative flex h-[494px] flex-col   justify-end bg-transparent">
+					<Image
+						src={"/images/register/joinTeam.jpg"}
+						alt="join as a free agent photo"
+						layout="fill"
+						objectFit="cover"
+						className="absolute inset-0 -z-10 bg-gradient-to-b opacity-50"
+					/>
+					<CardHeader>
+						<CardTitle> Join A team</CardTitle>
+						<CardDescription>
+							Find your squad and enter the code your team captain has received.{" "}
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="text-center">
+						<Link
+							href={"/register/join-team"}
+							className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
+						>
+							Join a team now
+						</Link>
+					</CardContent>
+				</Card>
+				{/* <div className="flex flex-1 flex-col justify-between gap-3 rounded-md border border-neutral-600 bg-neutral-700 px-[16px] py-[26px]">
 					<div>
 						<h3 className=" text-2xl font-semibold uppercase ">
 							JOIN AS A FREE AGENT
@@ -89,7 +170,7 @@ export default async function Register(): Promise<JSX.Element> {
 					>
 						Join a team now
 					</Link>
-				</div>
+				</div> */}
 			</section>
 		</main>
 	);
