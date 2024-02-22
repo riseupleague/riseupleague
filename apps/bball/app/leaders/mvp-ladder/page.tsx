@@ -16,7 +16,7 @@ export default async function MVPLadder(): Promise<JSX.Element> {
 	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
 		await resDivisions.json();
 
-	revalidatePath("/mvp-ladder", "page");
+	revalidatePath("/leaders/mvp-ladder", "page");
 
 	return (
 		<section className="container mx-auto min-h-fit">

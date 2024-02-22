@@ -108,3 +108,5 @@ export default function FeaturedPlayerCard({ player }) {
 		</Link>
 	);
 }
+
+export default FeaturedPlayerCard;
