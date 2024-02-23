@@ -9,6 +9,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import CreateYourTeam from "@/components/register/CreateYourTeam";
+import JoinTeamCode from "@/components/register/join-team/JoinTeamCode";
 
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -39,11 +40,13 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
-				Join a team
-			</h1>
+			<p className="font-barlow  mb-0 mt-10 text-center text-xl md:text-3xl">
+				Season 5
+			</p>
+			<h1 className="font-abolition mb-10 text-7xl ">Join a team</h1>
+			<JoinTeamCode />
 
-			<CreateYourTeam divisions={filteredDivisions} />
+			{/* <CreateYourTeam divisions={filteredDivisions} /> */}
 		</main>
 	);
 }
