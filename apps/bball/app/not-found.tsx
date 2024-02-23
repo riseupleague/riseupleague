@@ -2,7 +2,7 @@ import { Button } from "@ui/components/button";
 import { Metadata } from "next";
 import Link from "next/link";
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
 	return (
 		<div className="container mx-auto flex min-h-[50dvh] flex-col items-center justify-center gap-4 text-center">
 			<h2>This page is out of bounds! 🏀🙅‍♂️</h2>

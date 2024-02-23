@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
-
 import { useState } from "react";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";

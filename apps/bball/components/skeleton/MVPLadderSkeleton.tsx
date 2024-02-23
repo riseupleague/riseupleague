@@ -13,7 +13,7 @@ const MVPLadderSkeleton = (): JSX.Element => {
 				<Skeleton className="h-10 w-full bg-neutral-700" />
 			</div>
 
-			<Link href="/mvp-ladder" className="w-full">
+			<Link href="/leaders/mvp-ladder" className="w-full">
 				<Button className="w-full">View MVP Ladder Page</Button>
 			</Link>
 		</section>

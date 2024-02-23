@@ -25,6 +25,6 @@ const PreviewLoading = (): JSX.Element => {
 			</div>
 		</section>
 	);
-}
+};
 
-export default PreviewLoading
+export default PreviewLoading;
