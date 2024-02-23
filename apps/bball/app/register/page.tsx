@@ -34,9 +34,13 @@ export default async function Register(): Promise<JSX.Element> {
 
 	return (
 		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
-			<p className="mb-0  mt-2 text-center text-xl md:text-3xl">Season 5</p>
-			<h1 className="mt-1">Welcome to rise up basketball</h1>
-			<h2 className="text-center text-xl font-semibold uppercase text-neutral-300 md:text-4xl">
+			<p className="font-barlow  mb-0 mt-10 text-center text-xl md:text-3xl">
+				Season 5
+			</p>
+			<h1 className="font-abolition mt-1 text-7xl ">
+				Welcome to rise up basketball
+			</h1>
+			<h2 className="text-center text-xl font-semibold uppercase text-neutral-300 md:text-3xl">
 				League with the best player experience
 			</h2>
 			<section className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-3">

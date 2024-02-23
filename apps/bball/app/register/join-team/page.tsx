@@ -43,7 +43,7 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 				Join a team
 			</h1>
 
-			<CreateYourTeam divisions={filteredDivisions} category="join" />
+			<CreateYourTeam divisions={filteredDivisions} />
 		</main>
 	);
 }

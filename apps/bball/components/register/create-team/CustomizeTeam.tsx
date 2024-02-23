@@ -26,45 +26,45 @@ import { useState } from "react";
 import getStripe from "@/utils/checkout";
 import { Loader2 } from "lucide-react";
 
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
+
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;
 	teamCode?: string;
-	jerseyName: string;
-	jerseyNumber: string;
 	instagram: string;
-	jerseySize: string;
-	shortSize: string;
-	termsChecked: boolean;
-	refundChecked: boolean;
+	phoneNumber: string;
+	// termsChecked: boolean;
+	// refundChecked: boolean;
 }
 interface FormErrors {
 	teamName?: string;
 	teamNameShort?: string;
 	teamCode?: string;
-	jerseyName?: string;
-	jerseyNumber?: string;
-	jerseySize?: string;
-	shortSize?: string;
-	termsChecked?: string;
-	refundChecked?: string;
+	phoneNumber?: string;
+	// termsChecked?: string;
+	// refundChecked?: string;
 }
 
 const CustomizeTeam = ({ division, session }): JSX.Element => {
 	const [isLoader, setIsLoader] = useState(false);
-
+	console.log(division);
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",
 		teamNameShort: "",
 		teamCode: "",
-		jerseyName: "",
 		instagram: "",
-		jerseyNumber: "",
-		jerseySize: "",
-		shortSize: "",
-		termsChecked: false,
-		refundChecked: false,
+		phoneNumber: "",
+		// termsChecked: false,
+		// refundChecked: false,
 	});
 	const [formErrors, setFormErrors] = useState<FormErrors>({});
 
@@ -82,29 +82,29 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		if (!formData.teamCode) {
 			errors.teamCode = "Team code is required";
 		}
-		if (!formData.jerseyName) {
-			errors.jerseyName = "Name on the back of the jersey is required";
+		if (!formData.phoneNumber) {
+			errors.phoneNumber = "Phone number is required";
 		}
 
-		if (!formData.jerseyNumber) {
-			errors.jerseyNumber = "Jersey number is required";
-		}
+		// if (!formData.jerseyNumber) {
+		// 	errors.jerseyNumber = "Jersey number is required";
+		// }
 
-		if (!formData.jerseySize) {
-			errors.jerseySize = "Jersey top size is required";
-		}
+		// if (!formData.jerseySize) {
+		// 	errors.jerseySize = "Jersey top size is required";
+		// }
 
-		if (!formData.shortSize) {
-			errors.shortSize = "Jersey bottom size is required";
-		}
+		// if (!formData.shortSize) {
+		// 	errors.shortSize = "Jersey bottom size is required";
+		// }
 
-		if (!formData.termsChecked) {
-			errors.termsChecked = "You must agree to the terms and conditions";
-		}
+		// if (!formData.termsChecked) {
+		// 	errors.termsChecked = "You must agree to the terms and conditions";
+		// }
 
-		if (!formData.refundChecked) {
-			errors.refundChecked = "You must agree to the refund policy";
-		}
+		// if (!formData.refundChecked) {
+		// 	errors.refundChecked = "You must agree to the refund policy";
+		// }
 
 		return errors;
 	};
@@ -120,17 +120,18 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 				behavior: "smooth", // This enables smooth scrolling
 			});
 		} else {
+			console.log(Object.keys(errors));
 			setFormErrors(errors);
 		}
 	};
 
-	const handleJerseySize = (value: string) => {
-		setFormData({ ...formData, jerseySize: value });
-	};
+	// const handleJerseySize = (value: string) => {
+	// 	setFormData({ ...formData, jerseySize: value });
+	// };
 
-	const handleShortSize = (value: string) => {
-		setFormData({ ...formData, shortSize: value });
-	};
+	// const handleShortSize = (value: string) => {
+	// 	setFormData({ ...formData, shortSize: value });
+	// };
 
 	const handleCreateTeamAndPlayer = async (
 		itemPriceId: string,
@@ -141,11 +142,9 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		const {
 			teamName,
 			teamNameShort,
-			jerseyName,
-			jerseyNumber,
-			jerseySize,
-			shortSize,
+
 			instagram,
+			phoneNumber,
 			teamCode,
 		} = formData;
 
@@ -167,11 +166,9 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 				teamNameShort: teamNameShort,
 				teamCode: teamCode,
 				payment: payment,
-				jerseyNumber,
-				jerseySize,
-				shortSize,
-				jerseyName,
+
 				instagram,
+				phoneNumber,
 				playerName: session.user.name,
 				email: session.user.email,
 				division: division._id,
@@ -292,311 +289,136 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 						</svg>
 						Back
 					</Link>
-					<h3 className="mt-10  text-3xl uppercase">
-						Customizing your team in:
-					</h3>
 
 					<form onSubmit={handleFormSubmit}>
-						<div className="mt-5 flex flex-col gap-5 rounded-md bg-neutral-700 px-3 py-6">
-							<p className="py-1 text-lg uppercase text-neutral-300 ">
-								Division Details
-							</p>
-							<Separator orientation="horizontal" className="bg-neutral-600" />
-							<div className="bg-register-card col-span-1 flex flex-col gap-7">
-								<div className="flex  gap-2  md:flex-row">
-									<svg
-										width="25"
-										height="25"
-										viewBox="0 0 24 24"
-										stroke="#ff422d"
-									>
-										<path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602" />
-									</svg>
-									<p className="text-sm">{division.location}</p>
-								</div>
-								<div className="flex  gap-2 md:flex-row">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="22"
-										height="22"
-										viewBox="0 0 16 16"
-										fill="none"
-									>
-										<path
-											d="M8 4.88889V8L10.3333 10.3333M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z"
-											stroke="#ff422d"
-											strokeWidth="1.67"
-											strokeLinecap="round"
-											strokeLinejoin="round"
+						<h3 className="mt-10  text-3xl uppercase">
+							Fill up your team details:
+						</h3>
+
+						<Card className="my-4 flex items-center justify-between">
+							<CardHeader className="w-full">
+								<CardContent>
+									<section className="my-3">
+										<Label className="mb-3 block uppercase">Team Name</Label>
+										<Input
+											type="text"
+											placeholder="ex: Lakers"
+											className={`bg-neutral-700 py-[16px] ${
+												formErrors.teamName
+													? "border-primary"
+													: "border-neutral-500"
+											}`}
+											value={formData.teamName}
+											onChange={(e) =>
+												setFormData({ ...formData, teamName: e.target.value })
+											}
 										/>
-									</svg>{" "}
-									<p className="text-sm">
-										{convertMilitaryToRegularTime(division.startTime)} -{" "}
-										{convertMilitaryToRegularTime(division.endTime)}{" "}
-									</p>
-								</div>
-								<div className="flex  gap-2 md:flex-row">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="22"
-										height="22"
-										viewBox="0 0 16 16"
-										fill="none"
-									>
-										<path
-											d="M4.88889 4.11111V1M11.1111 4.11111V1M4.11111 7.22222H11.8889M2.55556 15H13.4444C14.3036 15 15 14.3036 15 13.4444V4.11111C15 3.252 14.3036 2.55556 13.4444 2.55556H2.55556C1.69645 2.55556 1 3.252 1 4.11111V13.4444C1 14.3036 1.69645 15 2.55556 15Z"
-											stroke="#ff422d"
-											strokeWidth="1.67"
-											strokeLinecap="round"
-											strokeLinejoin="round"
+									</section>
+									<section className="my-3">
+										<Label className="mb-3 block uppercase">
+											Team Name Short
+										</Label>
+										<Input
+											type="text"
+											className={`bg-neutral-700 py-[16px] ${
+												formErrors.teamNameShort
+													? "border-primary"
+													: "border-neutral-500"
+											}`}
+											value={formData.teamNameShort}
+											placeholder="ex: LAL"
+											onChange={(e) => {
+												const inputValue = e.target.value;
+												if (inputValue.length <= 4) {
+													setFormData({
+														...formData,
+														teamNameShort: inputValue,
+													});
+													// Clear any previous error message
+													setFormErrors({ ...formErrors, teamNameShort: "" });
+												} else {
+													// Set an error message if the input has more than 4 characters
+													setFormErrors({
+														...formErrors,
+														teamNameShort: "Max 4 letters allowed",
+													});
+												}
+											}}
 										/>
-									</svg>{" "}
-									<p className="text-sm">{division.day}</p>
-								</div>
-							</div>
-							<Separator orientation="horizontal" className="bg-neutral-600" />
-							<h4 className="text-lg uppercase underline">Team Identity:</h4>
+									</section>
+									<section className="my-3">
+										<Label className="mb-3 block uppercase">Team Code</Label>
+										<Input
+											type="text"
+											placeholder="ex: LAL123"
+											className={`bg-neutral-700 py-[16px] ${
+												formErrors.teamCode
+													? "border-primary"
+													: "border-neutral-500"
+											}`}
+											value={formData.teamCode}
+											onChange={(e) =>
+												setFormData({ ...formData, teamCode: e.target.value })
+											}
+										/>
+									</section>
+								</CardContent>
+							</CardHeader>
+						</Card>
 
-							<section>
-								<Label className="uppercase">Team Name</Label>
-								<Input
-									type="text"
-									placeholder="ex: Lakers"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.teamName
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.teamName}
-									onChange={(e) =>
-										setFormData({ ...formData, teamName: e.target.value })
-									}
-								/>
-							</section>
-							<section>
-								<Label className="uppercase">Team Name Short</Label>
-								<Input
-									type="text"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.teamNameShort
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.teamNameShort}
-									placeholder="ex: LAL"
-									onChange={(e) => {
-										const inputValue = e.target.value;
-										if (inputValue.length <= 4) {
-											setFormData({ ...formData, teamNameShort: inputValue });
-											// Clear any previous error message
-											setFormErrors({ ...formErrors, teamNameShort: "" });
-										} else {
-											// Set an error message if the input has more than 4 characters
-											setFormErrors({
-												...formErrors,
-												teamNameShort: "Max 4 letters allowed",
-											});
-										}
-									}}
-								/>
-							</section>
+						<h3 className="mt-10  text-3xl uppercase">Team Captain Details:</h3>
 
-							<section>
-								<Label className="uppercase">Team Code</Label>
-								<Input
-									type="text"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.teamCode
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.teamCode}
-									onChange={(e) =>
-										setFormData({ ...formData, teamCode: e.target.value })
-									}
-								/>
-							</section>
+						<Card className="my-4 flex items-center justify-between">
+							<CardHeader className="w-full">
+								<CardContent>
+									<section className="my-3">
+										<Label className="mb-3 block uppercase">
+											Instagram Handle
+										</Label>
+										<Input
+											type="text"
+											placeholder="ex: @riseup.bball"
+											className={`bg-neutral-700 py-[16px] `}
+											value={formData.instagram}
+											onChange={(e) =>
+												setFormData({ ...formData, instagram: e.target.value })
+											}
+										/>
+										<p className="mt-2 text-xs text-neutral-500">
+											INSTAGRAM HANDLE WILL BE USED TO TAG YOU FOR HIGHLIGHTS
+											AND PHOTOS. WE WILL ALSO CONTACT YOU THROUGH INSTAGRAM.
+										</p>
+									</section>
+									<section className="my-3">
+										<Label className="mb-3 block uppercase">
+											Phone Number*
+										</Label>
+										<Input
+											type="text"
+											className={`bg-neutral-700 py-[16px] ${
+												formErrors.phoneNumber
+													? "border-primary"
+													: "border-neutral-500"
+											}`}
+											value={formData.phoneNumber}
+											onChange={(e) =>
+												setFormData({
+													...formData,
+													phoneNumber: e.target.value,
+												})
+											}
+										/>
+										<p className="mt-2 text-xs uppercase text-neutral-500">
+											*We will use your phone number if your instagram is not
+											available for communication. We would like to keep in
+											constant communication with you that way we are always on
+											the same page.
+										</p>
+									</section>
+								</CardContent>
+							</CardHeader>
+						</Card>
 
-							<Separator
-								orientation="horizontal"
-								className="my-5 bg-neutral-600"
-							/>
-
-							<h4 className="text-lg uppercase underline">Your Own Jersey:</h4>
-							{/* for early birds only */}
-							<section>
-								<Label className="uppercase">
-									Name on the back of the Jersey
-								</Label>
-								<Input
-									type="text"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.jerseyName
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.jerseyName}
-									onChange={(e) =>
-										setFormData({ ...formData, jerseyName: e.target.value })
-									}
-								/>
-								<p className="mt-1 text-xs text-neutral-100">
-									Note: Only available for Early Bird Special
-								</p>
-							</section>
-							<section>
-								<Label className="uppercase">Jersey Number</Label>
-								<Input
-									type="text"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.jerseyNumber
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.jerseyNumber}
-									onChange={(e) => {
-										const input = e.target.value;
-
-										if (input === "" || input.match(/^\d*$/)) {
-											setFormErrors({
-												...formErrors,
-												jerseyNumber: undefined, // Clear the error
-											});
-											setFormData({ ...formData, jerseyNumber: input });
-										} else {
-											setFormErrors({
-												...formErrors,
-												jerseyNumber: "Jersey number must be a valid number",
-											});
-										}
-									}}
-								/>
-								{formErrors.jerseyNumber &&
-									formErrors.jerseyNumber ===
-										"Jersey number must be a valid number" && (
-										<p className="text-primary">{formErrors.jerseyNumber}</p>
-									)}
-							</section>
-
-							<section>
-								<Label className="uppercase">Jersey Top Size</Label>
-								<Select onValueChange={handleJerseySize}>
-									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder={formData.jerseySize} />
-									</SelectTrigger>
-									<SelectContent className="font-barlow text-lg">
-										<SelectGroup>
-											<SelectItem value="SM">SM</SelectItem>
-											<SelectItem value="MD">MD</SelectItem>
-											<SelectItem value="LG">LG</SelectItem>
-											<SelectItem value="XL">XL</SelectItem>
-											<SelectItem value="XXL">XXL</SelectItem>
-											<SelectItem value="XXXL">XXXL</SelectItem>
-											<SelectItem value="XXXXL">XXXXL</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</section>
-							<section>
-								<Label className="uppercase">Jersey Bottom Size</Label>
-								<Select onValueChange={handleShortSize}>
-									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder={formData.shortSize} />
-									</SelectTrigger>
-									<SelectContent className="font-barlow text-lg">
-										<SelectGroup>
-											<SelectItem value="SM">SM</SelectItem>
-											<SelectItem value="MD">MD</SelectItem>
-											<SelectItem value="LG">LG</SelectItem>
-											<SelectItem value="XL">XL</SelectItem>
-											<SelectItem value="XXL">XXL</SelectItem>
-											<SelectItem value="XXXL">XXXL</SelectItem>
-											<SelectItem value="XXXXL">XXXXL</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</section>
-
-							<Separator
-								orientation="horizontal"
-								className="my-5 bg-neutral-600"
-							/>
-
-							<h4 className="text-lg uppercase underline">Personal:</h4>
-							{/* for early birds only */}
-							<section>
-								<Label className="uppercase">Instagram</Label>
-								<Input
-									type="text"
-									className="border-neutral-500 bg-neutral-700 
-											py-[16px]"
-									value={formData.instagram}
-									onChange={(e) =>
-										setFormData({ ...formData, instagram: e.target.value })
-									}
-								/>
-								<p className="mt-1 text-xs text-neutral-100">
-									Instagram is not required. It will be used for media purposes,
-									highlights, shoutouts, etc.
-								</p>
-							</section>
-							<section className="mt-10 flex flex-col gap-3">
-								<div className="flex items-center">
-									<Checkbox
-										id="checkBoxTerms"
-										className="!mr-4 border-white"
-										checked={formData.termsChecked}
-										onCheckedChange={() =>
-											setFormData({
-												...formData,
-												termsChecked: !formData.termsChecked,
-											})
-										}
-									/>
-									<Label
-										htmlFor="checkBoxTerms"
-										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-									>
-										I have read and agree to the{" "}
-										<Link
-											className="text-primary transition-all hover:underline"
-											href="/terms-and-conditions"
-											target="_blank"
-										>
-											Terms and Conditions
-										</Link>
-										.
-									</Label>
-								</div>
-								<div className="flex items-center">
-									<Checkbox
-										id="checkBoxRefund"
-										className="!mr-4 border-white"
-										checked={formData.refundChecked}
-										onCheckedChange={() =>
-											setFormData({
-												...formData,
-												refundChecked: !formData.refundChecked,
-											})
-										}
-									/>
-									<Label
-										htmlFor="checkBoxRefund"
-										className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-									>
-										I have read and agree to the{" "}
-										<Link
-											className="text-primary transition-all hover:underline"
-											href="/refund-policy"
-											target="_blank"
-										>
-											Refund Policy
-										</Link>
-										.
-									</Label>
-								</div>
-							</section>
-						</div>
 						{/* Error messages */}
 						{formErrors.teamName && (
 							<p className="text-primary  rounded-md p-2">
@@ -612,36 +434,6 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 						{formErrors.teamCode && (
 							<p className="text-primary  rounded-md p-2">
 								{formErrors.teamCode}
-							</p>
-						)}
-						{formErrors.jerseyName && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.jerseyName}
-							</p>
-						)}
-						{formErrors.jerseyNumber && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.jerseyNumber}
-							</p>
-						)}
-						{formErrors.jerseySize && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.jerseySize}
-							</p>
-						)}
-						{formErrors.shortSize && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.shortSize}
-							</p>
-						)}
-						{formErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.termsChecked}
-							</p>
-						)}
-						{formErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.refundChecked}
 							</p>
 						)}
 
@@ -674,12 +466,80 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 						Back
 					</button>
 					<h3 className="mt-10  text-3xl uppercase">Summary:</h3>
-					<div>
+					<div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+						<div className="h-3/4 ">
+							<div className="h-full border border-b border-t"></div>
+						</div>
+						<Card className="">
+							<CardHeader>
+								<CardTitle>Please Check All Boxes Before Proceeding.</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<section className="flex flex-col gap-3">
+									<div className="flex items-center">
+										<Checkbox
+											id="checkBoxTerms"
+											className="!mr-4 border-white"
+											// checked={formData.termsChecked}
+										/>
+										<Label
+											htmlFor="checkBoxTerms"
+											className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+										>
+											I have read and agree to the{" "}
+											<Link
+												className="text-primary transition-all hover:underline"
+												href="/terms-and-conditions"
+												target="_blank"
+											>
+												Terms and Conditions
+											</Link>
+											.
+										</Label>
+									</div>
+									<div className="flex items-center">
+										<Checkbox
+											id="checkBoxRefund"
+											className="!mr-4 border-white"
+											// checked={formData.refundChecked}
+										/>
+										<Label
+											htmlFor="checkBoxRefund"
+											className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+										>
+											I have read and agree to the{" "}
+											<Link
+												className="text-primary transition-all hover:underline"
+												href="/refund-policy"
+												target="_blank"
+											>
+												Refund Policy
+											</Link>
+											.
+										</Label>
+									</div>
+								</section>
+								{division.earlyBirdOpen ? (
+									<section>
+										<p className="mt-4">Overall Total:</p>
+										<p>{division.earlyBirdPrice}</p>
+									</section>
+								) : (
+									<section>
+										<p className="mt-4">Overall Total:</p>
+										<p>{division.earlyBirdPrice}</p>
+									</section>
+								)}
+								<p>{division.price}</p>
+							</CardContent>
+						</Card>
+					</div>
+					{/* <div>
 						<div className="mt-5 flex flex-col gap-5 rounded-md bg-neutral-700 px-3 py-6">
 							<h4 className="text-lg uppercase underline">Team Identity:</h4>
 
 							<section className="flex items-center">
-								<Label className="uppercase">Team Name:</Label>
+								<Label className="uppercase mb-3 block">Team Name:</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -688,7 +548,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								/>
 							</section>
 							<section className="flex items-center">
-								<Label className="uppercase">Abbreviation:</Label>
+								<Label className="uppercase mb-3 block">Abbreviation:</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -697,7 +557,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								/>
 							</section>
 							<section className="flex items-center">
-								<Label className="uppercase">Team Code</Label>
+								<Label className="uppercase mb-3 block">Team Code</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -712,11 +572,10 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 							/>
 
 							<h4 className="text-lg uppercase underline">Your Own Jersey:</h4>
-							{/* for early birds only */}
 
 							{division.earlyBirdOpen && (
 								<section className="flex items-center">
-									<Label className="uppercase">
+									<Label className="uppercase mb-3 block">
 										Name on the back of the Jersey
 									</Label>
 									<Input
@@ -728,7 +587,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								</section>
 							)}
 							<section className="flex items-center">
-								<Label className="uppercase">Jersey Number</Label>
+								<Label className="uppercase mb-3 block">Jersey Number</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -738,7 +597,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 							</section>
 
 							<section className="flex items-center">
-								<Label className="uppercase">Jersey Top Size</Label>
+								<Label className="uppercase mb-3 block">Jersey Top Size</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -747,7 +606,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								/>
 							</section>
 							<section className="flex items-center">
-								<Label className="uppercase">Jersey Bottom Size</Label>
+								<Label className="uppercase mb-3 block">Jersey Bottom Size</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -756,9 +615,8 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								/>
 							</section>
 							<h4 className="text-lg uppercase underline">Personal:</h4>
-							{/* for early birds only */}
 							<section>
-								<Label className="uppercase">Instagram</Label>
+								<Label className="uppercase mb-3 block">Instagram</Label>
 								<Input
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
@@ -829,7 +687,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 										: handleCreateTeamAndPlayer(
 												division.regularPriceFullId,
 												"full"
-											);
+										  );
 								}}
 							>
 								{isLoader ? (
@@ -915,11 +773,11 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 												? handleCreateTeamAndPlayer(
 														division.earlyBirdInstalmentId,
 														"four"
-													)
+												  )
 												: handleCreateTeamAndPlayer(
 														division.regularPriceInstalmentId,
 														"four"
-													);
+												  );
 										}}
 										variant="secondary"
 										className="uppercase text-neutral-300"
@@ -943,7 +801,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 								</>
 							)}
 						</div>
-					</div>
+					</div> */}
 				</>
 			)}
 		</>

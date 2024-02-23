@@ -53,19 +53,42 @@ export const getAllCurrentDivisions = async () => {
 
 export const getAllRegisterDivisions = async () => {
 	try {
+		// Fetch the register season
 		const registerSeason = await Season.find({ register: "true" });
+
+		// Fetch divisions for the register season
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
+			"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
 		);
 
-		if (!divisions) {
+		// Check if divisions were found
+		if (!divisions || divisions.length === 0) {
 			return NextResponse.json(
 				{ message: "No divisions found" },
 				{ status: 404 }
 			);
 		}
 
-		return NextResponse.json({ divisions });
+		// Organize divisions by cities
+		const divisionsByCity = divisions.reduce((acc, division) => {
+			const { city, ...rest } = division.toObject();
+
+			// Check if the city already exists in the accumulator
+			if (!acc[city]) {
+				// If the city doesn't exist, create a new entry with the city and an array containing the division
+				acc[city] = { city, divisions: [rest] };
+			} else {
+				// If the city already exists, push the division to the existing array
+				acc[city].divisions.push(rest);
+			}
+
+			return acc;
+		}, {});
+
+		// Convert the object into an array of cities with divisions
+		const result = Object.values(divisionsByCity);
+
+		return NextResponse.json({ divisions: result });
 	} catch (error) {
 		console.error("Error:", error);
 		return NextResponse.json(
