@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Card,
 	CardContent,
@@ -14,11 +14,6 @@ import Image from "next/image";
 import { Button } from "@ui/components/button";
 import { Loader2 } from "lucide-react";
 
-interface CheckboxErrors {
-	termsChecked?: string;
-	refundChecked?: string;
-}
-
 const CreateTeamSummary = ({
 	setIsSummary,
 	division,
@@ -26,54 +21,6 @@ const CreateTeamSummary = ({
 	handleCreateTeamAndPlayer,
 	isLoader,
 }) => {
-	const [terms, setTerms] = useState(false);
-	const [refund, setRefund] = useState(false);
-
-	const [checkboxErrors, setCheckboxErrors] = useState<CheckboxErrors>({});
-	const validateForm = (): CheckboxErrors => {
-		const errors: CheckboxErrors = {};
-
-		if (!terms) {
-			errors.termsChecked = "You must agree to the terms and conditions";
-		}
-
-		if (!refund) {
-			errors.refundChecked = "You must agree to the refund policy";
-		}
-
-		return errors;
-	};
-
-	const handlePayIndividual = (e) => {
-		e.preventDefault();
-		const errors = validateForm();
-
-		if (Object.keys(errors).length === 0) {
-			setIsSummary(true);
-
-			division.earlyBirdOpen
-				? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
-				: handleCreateTeamAndPlayer(division.regularPriceFullId, "full");
-		} else {
-			console.log(Object.keys(errors));
-			setCheckboxErrors(errors);
-		}
-	};
-
-	const handlePayTeam = (e) => {
-		e.preventDefault();
-		const errors = validateForm();
-
-		if (Object.keys(errors).length === 0) {
-			setIsSummary(true);
-
-			handleCreateTeamAndPlayer(division.fullTeamPriceId, "full");
-		} else {
-			console.log(Object.keys(errors));
-			setCheckboxErrors(errors);
-		}
-	};
-
 	// instalment payments dates
 	// Function to convert a date to Eastern Standard Time (EST)
 	const convertToEST = (date) => {
@@ -170,7 +117,7 @@ const CreateTeamSummary = ({
 								height={250}
 							/>
 						</div>
-						<div className="flex w-full flex-col">
+						<div className="flex flex-col">
 							<p className="text-md flex flex-col md:flex-row md:gap-4 md:text-3xl">
 								<span>Create a Team: {formData.teamName}</span>
 								<span>Division: {division.divisionName}</span>
@@ -181,7 +128,7 @@ const CreateTeamSummary = ({
 								{convertMilitaryToRegularTime(division.startTime)} -{" "}
 								{convertMilitaryToRegularTime(division.endTime)}
 							</p>
-							<p className="capitalize">{division.day}</p>
+							<p>{division.day}</p>
 							<p className="mb-10 mt-2">{division.description}</p>
 							{division.earlyBirdOpen ? (
 								<p className="text-right">
@@ -205,8 +152,7 @@ const CreateTeamSummary = ({
 								<Checkbox
 									id="checkBoxTerms"
 									className="!mr-4 border-white"
-									checked={terms}
-									onCheckedChange={() => setTerms(true)}
+									// checked={formData.termsChecked}
 								/>
 								<Label
 									htmlFor="checkBoxTerms"
@@ -227,8 +173,7 @@ const CreateTeamSummary = ({
 								<Checkbox
 									id="checkBoxRefund"
 									className="!mr-4 border-white"
-									checked={refund}
-									onCheckedChange={() => setRefund(true)}
+									// checked={formData.refundChecked}
 								/>
 								<Label
 									htmlFor="checkBoxRefund"
@@ -253,7 +198,17 @@ const CreateTeamSummary = ({
 									<p>${division.earlyBirdPrice}</p>
 									<Button
 										className="mt-10  flex w-full justify-center text-center"
-										onClick={handlePayIndividual}
+										onClick={() => {
+											division.earlyBirdOpen
+												? handleCreateTeamAndPlayer(
+														division.earlyBirdId,
+														"full"
+												  )
+												: handleCreateTeamAndPlayer(
+														division.regularPriceFullId,
+														"full"
+												  );
+										}}
 									>
 										{isLoader ? (
 											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -267,7 +222,9 @@ const CreateTeamSummary = ({
 									<p>$2000</p>
 									<Button
 										className="mt-10  flex w-full justify-center text-center"
-										onClick={handlePayTeam}
+										onClick={() => {
+											handleCreateTeamAndPlayer(division.earlyBirdId, "full");
+										}}
 									>
 										{isLoader ? (
 											<Loader2 className=" h-4 w-4 animate-spin" />
@@ -282,19 +239,6 @@ const CreateTeamSummary = ({
 								<p className="mt-4">Overall Total:</p>
 								<p>${division.regularPrice}</p>
 							</section>
-						)}
-
-						{/* Error messages */}
-						{checkboxErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
-								{checkboxErrors.termsChecked}
-							</p>
-						)}
-
-						{checkboxErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
-								{checkboxErrors.refundChecked}
-							</p>
 						)}
 					</CardContent>
 				</Card>

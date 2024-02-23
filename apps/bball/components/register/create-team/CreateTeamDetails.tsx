@@ -141,6 +141,17 @@ const CreateTeamDetails = ({
 					<CardHeader className="w-full">
 						<CardContent>
 							<section className="my-3">
+								<Label className="mb-3 block uppercase">Player Name</Label>
+								<Input
+									type="text"
+									className={`bg-neutral-700 py-[16px] `}
+									value={formData.playerName}
+									onChange={(e) =>
+										setFormData({ ...formData, playerName: e.target.value })
+									}
+								/>
+							</section>
+							<section className="my-3">
 								<Label className="mb-3 block uppercase">Instagram Handle</Label>
 								<Input
 									type="text"
@@ -157,7 +168,7 @@ const CreateTeamDetails = ({
 								</p>
 							</section>
 							<section className="my-3">
-								<Label className="mb-3 block uppercase">Phone Number*</Label>
+								<Label className="mb-3 block uppercase">Phone Number</Label>
 								<Input
 									type="text"
 									className={`bg-neutral-700 py-[16px] ${

@@ -28,6 +28,8 @@ interface FormData {
 	teamCode?: string;
 	instagram: string;
 	phoneNumber: string;
+	playerName: string;
+
 	// termsChecked: boolean;
 	// refundChecked: boolean;
 }
@@ -36,6 +38,8 @@ interface FormErrors {
 	teamNameShort?: string;
 	teamCode?: string;
 	phoneNumber?: string;
+	playerName?: string;
+
 	// termsChecked?: string;
 	// refundChecked?: string;
 }
@@ -50,6 +54,8 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		teamCode: "",
 		instagram: "",
 		phoneNumber: "",
+		playerName: "",
+
 		// termsChecked: false,
 		// refundChecked: false,
 	});
@@ -62,8 +68,12 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 			errors.teamName = "Team name is required";
 		}
 
-		if (!formData.teamName) {
+		if (!formData.teamNameShort) {
 			errors.teamNameShort = "Team name short is required";
+		}
+
+		if (!formData.playerName) {
+			errors.playerName = "Player name short is required";
 		}
 
 		if (!formData.teamCode) {
@@ -129,14 +139,8 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 	) => {
 		setIsLoader(true);
 
-		const {
-			teamName,
-			teamNameShort,
-
-			instagram,
-			phoneNumber,
-			teamCode,
-		} = formData;
+		const { teamName, teamNameShort, instagram, phoneNumber, teamCode } =
+			formData;
 
 		// Check for required input fields
 		if (
