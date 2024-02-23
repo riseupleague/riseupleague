@@ -4,7 +4,9 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 
-const NewSchedule = ({ divisionsWithStats }): JSX.Element => {
+const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
+	console.log(gamesByDate);
+
 	let initialDivisions = divisionsWithStats;
 	let filterPlaceholder = "All Divisions";
 	const [divisionsWithTeams, setDivisionsWithTeams] =
@@ -53,6 +55,9 @@ const NewSchedule = ({ divisionsWithStats }): JSX.Element => {
 					placeholder={filterPlaceholder}
 				/>
 			</div>
+
+			{/* render schedule games */}
+			<div className="my-8">games</div>
 		</section>
 	);
 };
