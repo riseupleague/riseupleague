@@ -63,10 +63,7 @@ const CreateTeamSummary = ({
 		const errors = validateForm();
 
 		if (Object.keys(errors).length === 0) {
-			handleCreateTeamAndPlayer(
-				process.env.NEXT_PUBLIC_FULL_TEAM_PRICE,
-				"teamPaidFull"
-			);
+			handleCreateTeamAndPlayer(division.season.fullTeamPrice, "teamPaidFull");
 		} else {
 			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
@@ -172,7 +169,7 @@ const CreateTeamSummary = ({
 						<div className="flex w-full flex-col">
 							<p className="text-md flex flex-col md:flex-row md:gap-4 md:text-3xl">
 								<span>Create a Team: {formData.teamName}</span>
-								<span>Division: {division.divisionName}</span>
+								<span>Division: {division?.divisionName}</span>
 							</p>
 							<p className="text-md">
 								Team Captain:{" "}

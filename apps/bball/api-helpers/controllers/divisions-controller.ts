@@ -268,8 +268,9 @@ export const getRegisterDivisionById = async (id: string) => {
 				select: "freePrice",
 			},
 		])
+		.populate({ path: "season", select: "fullTeamPrice" })
 		.select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId season"
 		);
 
 	if (!division) {
