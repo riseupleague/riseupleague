@@ -12,15 +12,43 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import React from "react";
+import React, { useState } from "react";
 
-const JoinTeamCode = () => {
+const JoinTeamCode = ({ teams }) => {
+	const [teamCode, setTeamCode] = useState("");
+	const [teamCodeError, setTeamCodeError] = useState("");
+	console.log(teams);
+	const handleJoinTeam = (e) => {
+		e.preventDefault();
+		const isTeamCodeActive = teams.find((team) => team.teamCode === teamCode);
+		if (isTeamCodeActive) {
+			console.log("isTeamCodeActive:", isTeamCodeActive);
+
+			console.log(
+				"Redirecting to:",
+				`/register/join-team/${isTeamCodeActive._id}`
+			);
+			const redirectUrl = `/register/join-team/${isTeamCodeActive._id}`;
+			console.log("Redirecting to:", redirectUrl);
+			window.location.href = redirectUrl; // Simple JavaScript redirection
+		} else {
+			setTeamCodeError("Code doesn't exist");
+		}
+
+		console.log("isTeamCodeActive:", isTeamCodeActive);
+	};
+
 	return (
 		<div className="mx-auto mb-10 mt-20  w-full border border-neutral-500 p-10 md:w-1/2">
 			<h3 className="text-center uppercase">Join a team with a code</h3>
-			<section className="mx-auto  mt-16 flex  flex-col justify-center ">
+
+			<form
+				onSubmit={handleJoinTeam}
+				className="mx-auto  mt-16 flex  flex-col justify-center "
+			>
 				<Label className=" mb-3 hidden uppercase">Team Code</Label>
 				<Input
+					onChange={(e) => setTeamCode(e.target.value)}
 					type="text"
 					placeholder="Enter Code"
 					className={`bg-neutral-700 py-[16px] `}
@@ -53,10 +81,12 @@ const JoinTeamCode = () => {
 						</DialogContent>
 					</Dialog>
 				</p>
-				<Button type="submit" className="mt-8 ">
-					Join Your Team Now
-				</Button>
-			</section>
+				<Button className="mt-8 ">Join Your Team Now</Button>
+
+				{teamCodeError !== "" && (
+					<p className="text-primary mt-2">{teamCodeError}</p>
+				)}
+			</form>
 		</div>
 	);
 };

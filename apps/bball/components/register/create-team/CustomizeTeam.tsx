@@ -139,8 +139,14 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 	) => {
 		setIsLoader(true);
 
-		const { teamName, teamNameShort, instagram, phoneNumber, teamCode } =
-			formData;
+		const {
+			teamName,
+			teamNameShort,
+			instagram,
+			phoneNumber,
+			teamCode,
+			playerName,
+		} = formData;
 
 		// Check for required input fields
 		if (
@@ -154,20 +160,37 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		}
 
 		try {
-			const formObject = {
-				status: "createTeam",
-				teamName: teamName,
-				teamNameShort: teamNameShort,
-				teamCode: teamCode,
-				payment: payment,
-
-				instagram,
-				phoneNumber,
-				playerName: session.user.name,
-				email: session.user.email,
-				division: division._id,
-				divisionName: division.divisionName,
-			};
+			let formObject;
+			if (payment === "teamPaidFull") {
+				formObject = {
+					status: "createTeam",
+					teamName: teamName,
+					teamNameShort: teamNameShort,
+					teamCode: teamCode,
+					payment: "full",
+					paid: true,
+					instagram,
+					phoneNumber,
+					playerName,
+					email: session.user.email,
+					division: division._id,
+					divisionName: division.divisionName,
+				};
+			} else {
+				formObject = {
+					status: "createTeam",
+					teamName: teamName,
+					teamNameShort: teamNameShort,
+					teamCode: teamCode,
+					payment: payment,
+					instagram,
+					phoneNumber,
+					playerName,
+					email: session.user.email,
+					division: division._id,
+					divisionName: division.divisionName,
+				};
+			}
 
 			redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
 		} catch (error) {

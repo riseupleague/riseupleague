@@ -73,13 +73,16 @@ export const getAllRegisterDivisions = async () => {
 		const divisionsByCity = divisions.reduce((acc, division) => {
 			const { city, ...rest } = division.toObject();
 
+			// Make the city lowercase
+			const lowercaseCity = city.toLowerCase();
+
 			// Check if the city already exists in the accumulator
-			if (!acc[city]) {
+			if (!acc[lowercaseCity]) {
 				// If the city doesn't exist, create a new entry with the city and an array containing the division
-				acc[city] = { city, divisions: [rest] };
+				acc[lowercaseCity] = { city: lowercaseCity, divisions: [rest] };
 			} else {
 				// If the city already exists, push the division to the existing array
-				acc[city].divisions.push(rest);
+				acc[lowercaseCity].divisions.push(rest);
 			}
 
 			return acc;

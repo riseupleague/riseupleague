@@ -51,7 +51,7 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 			{/* <h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Create a team
 			</h1> */}
-			<CreateYourTeam divisions={divisions} />
+			<CreateYourTeam divisions={divisions} user={user} />
 		</main>
 	);
 }

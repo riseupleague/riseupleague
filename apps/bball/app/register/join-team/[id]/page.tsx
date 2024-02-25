@@ -8,6 +8,8 @@ import {
 	getCurrentUser,
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
+import JoinTeamSummary from "@/components/register/join-team/JoinTeamSummary";
+import { getRegisterTeamById } from "@/api-helpers/controllers/teams-controller";
 
 export default async function JoinTeam({
 	params,
@@ -25,9 +27,8 @@ export default async function JoinTeam({
 
 		redirect("/");
 	}
-
-	const resDivision = await getRegisterDivisionById(params.id);
-	const { division } = await resDivision.json();
+	const resTeam = await getRegisterTeamById(params.id);
+	const { team } = await resTeam.json();
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
@@ -35,7 +36,7 @@ export default async function JoinTeam({
 				Join a team
 			</h1>
 
-			<ChooseTeam division={division} session={session} />
+			<JoinTeamSummary team={team} session={session} />
 		</main>
 	);
 }

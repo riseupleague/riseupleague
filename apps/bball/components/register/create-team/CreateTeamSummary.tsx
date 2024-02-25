@@ -49,8 +49,6 @@ const CreateTeamSummary = ({
 		const errors = validateForm();
 
 		if (Object.keys(errors).length === 0) {
-			setIsSummary(true);
-
 			division.earlyBirdOpen
 				? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
 				: handleCreateTeamAndPlayer(division.regularPriceFullId, "full");
@@ -65,9 +63,10 @@ const CreateTeamSummary = ({
 		const errors = validateForm();
 
 		if (Object.keys(errors).length === 0) {
-			setIsSummary(true);
-
-			handleCreateTeamAndPlayer(division.fullTeamPriceId, "full");
+			handleCreateTeamAndPlayer(
+				process.env.NEXT_PUBLIC_FULL_TEAM_PRICE,
+				"teamPaidFull"
+			);
 		} else {
 			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
@@ -175,7 +174,10 @@ const CreateTeamSummary = ({
 								<span>Create a Team: {formData.teamName}</span>
 								<span>Division: {division.divisionName}</span>
 							</p>
-							<p className="text-md">Team Captain: {formData.playerName}</p>
+							<p className="text-md">
+								Team Captain:{" "}
+								<span className="capitalize">{formData.playerName}</span>
+							</p>
 							<p>{division.location}</p>
 							<p>
 								{convertMilitaryToRegularTime(division.startTime)} -{" "}
@@ -250,7 +252,10 @@ const CreateTeamSummary = ({
 							<>
 								<section>
 									<p className="mt-4">Overall Total:</p>
-									<p>${division.earlyBirdPrice}</p>
+									<p>
+										${division.earlyBirdPrice}{" "}
+										<span className="text-sm">+ tax</span>
+									</p>
 									<Button
 										className="mt-10  flex w-full justify-center text-center"
 										onClick={handlePayIndividual}

@@ -10,6 +10,8 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import CreateYourTeam from "@/components/register/CreateYourTeam";
 import JoinTeamCode from "@/components/register/join-team/JoinTeamCode";
+import { getAllRegisterTeams } from "@/api-helpers/controllers/teams-controller";
+import Link from "next/link";
 
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -23,20 +25,11 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 
 		redirect("/");
 	}
-	const resDivisions = await getAllRegisterDivisions();
-	const { divisions } = await resDivisions.json();
+	const resRegisterTeams = await getAllRegisterTeams();
+	const { teams } = await resRegisterTeams.json();
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-	let filteredDivisions = [...divisions];
-	if (players && players.length > 0) {
-		filteredDivisions = filteredDivisions.filter((division) => {
-			// Check if every players division is not equal to the current division
-			return players.every((player) => {
-				return player.division?._id !== division._id;
-			});
-		});
-	}
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
@@ -44,7 +37,29 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 				Season 5
 			</p>
 			<h1 className="font-abolition mb-10 text-7xl ">Join a team</h1>
-			<JoinTeamCode />
+			<Link
+				href={"/register/"}
+				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="15"
+					height="20"
+					viewBox="0 0 15 20"
+					fill="none"
+				>
+					<path
+						d="M8.125 16.25L1.875 10L8.125 3.75"
+						stroke="#ABAFB3"
+						strokeWidth="1.5"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
+				Back
+			</Link>
+
+			<JoinTeamCode teams={teams} />
 
 			{/* <CreateYourTeam divisions={filteredDivisions} /> */}
 		</main>
