@@ -347,7 +347,9 @@ const FreeAgentsRegistration = ({ session, divisions }): JSX.Element => {
 								Back
 							</Link>
 
-							<h3 className="mt-10  text-3xl uppercase">Choose your city:</h3>
+							<h3 className="mt-10 text-3xl font-medium uppercase">
+								Choose your city:
+							</h3>
 
 							<div className="mt-10 flex flex-col gap-10 ">
 								<button
@@ -407,7 +409,7 @@ const FreeAgentsRegistration = ({ session, divisions }): JSX.Element => {
 								Back
 							</button>
 
-							<h3 className="mt-10  text-3xl uppercase">
+							<h3 className="mt-10 text-3xl font-medium uppercase">
 								Choose your difficulty:
 							</h3>
 

@@ -1,29 +1,23 @@
-import { useState } from "react";
 import Link from "next/link";
-import { Separator } from "@ui/components/separator";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@ui/components/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
+import LocationIcon from "../icons/LocationIcon";
+import ClockIcon from "../icons/ClockIcon";
+import CalendarRegisterIcon from "../icons/CalendarRegisterIcon";
+import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
+
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 	const userDivisions = user.basketball.map((player) => player.division._id);
-	console.log("divisions:", divisions);
 
-	console.log("userDivisions:", userDivisions);
 	return (
 		<>
 			<Link
-				href={"/register"}
+				href="/register"
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
 			>
 				<svg
@@ -44,13 +38,19 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 				Back
 			</Link>
 
-			<h3 className="mt-10  text-3xl uppercase">Pick a city & division:</h3>
+			<h3 className="mt-10 text-3xl font-normal uppercase">
+				Pick a city & division:
+			</h3>
 
 			<Accordion type="single" collapsible className="my-10 w-full">
 				{divisions.map((divCity, index) => {
 					return (
-						<AccordionItem key={index} value={`item-${index}`}>
-							<AccordionTrigger className="text-4xl uppercase">
+						<AccordionItem
+							key={index}
+							value={`item-${index}`}
+							className="border-neutral-600"
+						>
+							<AccordionTrigger className="text-2xl capitalize">
 								{divCity.city}
 							</AccordionTrigger>
 							<AccordionContent>
@@ -58,30 +58,46 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 									const isDivisionJoined = userDivisions.find(
 										(userDiv) => userDiv === division._id
 									);
-									console.log("isDivisionJoined:", isDivisionJoined);
+
 									return (
 										<>
 											{isDivisionJoined && isDivisionJoined !== "" ? (
 												<div key={division._id}>
-													<Card className="my-4 flex items-center justify-between">
+													<Card className="my-4 flex items-center justify-between bg-[#111827]">
 														<CardHeader>
-															<CardTitle>{division.divisionName}</CardTitle>
-															<CardDescription className="flex flex-col gap-4">
-																<div className="flex items-center gap-2">
-																	<svg
-																		width="20"
-																		height="20"
-																		viewBox="0 0 24 24"
-																		stroke="#ff422d"
-																	>
-																		<path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602" />
-																	</svg>
-																	<p className="text-lg">{division.location}</p>
+															<CardTitle className="text-2xl font-medium capitalize">
+																{division.divisionName}
+															</CardTitle>
+															<CardContent className="flex flex-col gap-4 p-0">
+																<div className="flex flex-col items-start gap-2 text-neutral-200 md:flex-row md:items-center">
+																	<div className="flex items-center gap-1">
+																		<LocationIcon />
+																		<p className="text-sm">
+																			{division.location}
+																		</p>
+																	</div>
+																	<div className="flex items-center gap-1">
+																		<ClockIcon />
+																		<p className="text-sm">
+																			{convertMilitaryToRegularTime(
+																				division.startTime
+																			)}{" "}
+																			-{" "}
+																			{convertMilitaryToRegularTime(
+																				division.endTime
+																			)}
+																		</p>
+																	</div>
+																	<div className="flex items-center gap-1">
+																		<CalendarRegisterIcon />
+																		<p className="text-sm">{division.day}</p>
+																	</div>
 																</div>
-																<p className="text-sm">
+
+																<p className="text-sm md:text-xl">
 																	{division.description}
 																</p>
-															</CardDescription>
+															</CardContent>
 														</CardHeader>
 														<div className="pr-5">
 															<p className="text-primary text-4xl font-semibold uppercase">
@@ -95,25 +111,41 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 													key={division._id}
 													href={`/register/create-team/${division._id}`}
 												>
-													<Card className="my-4 flex items-center justify-between">
+													<Card className="my-4 flex items-center justify-between bg-[#111827] transition-all hover:bg-neutral-600">
 														<CardHeader>
-															<CardTitle>{division.divisionName}</CardTitle>
-															<CardDescription className="flex flex-col gap-4">
-																<div className="flex items-center gap-2">
-																	<svg
-																		width="20"
-																		height="20"
-																		viewBox="0 0 24 24"
-																		stroke="#ff422d"
-																	>
-																		<path d="M12 10c-1.104 0-2-.896-2-2s.896-2 2-2 2 .896 2 2-.896 2-2 2m0-5c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3m-7 2.602c0-3.517 3.271-6.602 7-6.602s7 3.085 7 6.602c0 3.455-2.563 7.543-7 14.527-4.489-7.073-7-11.072-7-14.527m7-7.602c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602" />
-																	</svg>
-																	<p className="text-lg">{division.location}</p>
+															<CardTitle className="text-2xl font-medium capitalize">
+																{division.divisionName}
+															</CardTitle>
+															<CardContent className="flex flex-col gap-4 p-0">
+																<div className="flex flex-col items-start gap-2 text-neutral-200 md:flex-row md:items-center">
+																	<div className="flex items-center gap-1">
+																		<LocationIcon />
+																		<p className="text-sm">
+																			{division.location}
+																		</p>
+																	</div>
+																	<div className="flex items-center gap-1">
+																		<ClockIcon />
+																		<p className="text-sm">
+																			{convertMilitaryToRegularTime(
+																				division.startTime
+																			)}{" "}
+																			-{" "}
+																			{convertMilitaryToRegularTime(
+																				division.endTime
+																			)}
+																		</p>
+																	</div>
+																	<div className="flex items-center gap-1">
+																		<CalendarRegisterIcon />
+																		<p className="text-sm">{division.day}</p>
+																	</div>
 																</div>
-																<p className="text-sm">
+
+																<p className="text-sm md:text-xl">
 																	{division.description}
 																</p>
-															</CardDescription>
+															</CardContent>
 														</CardHeader>
 														<div className="pr-5">
 															<svg
@@ -126,9 +158,9 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																<path
 																	d="M11.5 1L19 8.5M19 8.5L11.5 16M19 8.5H1"
 																	stroke="#D1D5DB"
-																	stroke-width="1.5"
-																	stroke-linecap="round"
-																	stroke-linejoin="round"
+																	strokeWidth="1.5"
+																	strokeLinecap="round"
+																	strokeLinejoin="round"
 																/>
 															</svg>
 														</div>

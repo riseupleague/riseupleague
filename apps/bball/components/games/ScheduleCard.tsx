@@ -34,7 +34,7 @@ const ScheduleCard = ({ game }): JSX.Element => {
 							circleHeight={4}
 							circleWidth={4}
 						/>
-						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm transition hover:opacity-80 lg:h-10">
+						<span className="font-barlow flex items-center justify-center text-center align-middle text-sm capitalize transition hover:opacity-80 lg:h-10">
 							{game.homeTeam?.teamName || "Empty"}
 						</span>
 						{game.status && (

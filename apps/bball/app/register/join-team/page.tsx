@@ -1,5 +1,4 @@
 import { connectToDatabase } from "@/api-helpers/utils";
-import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
 import {
 	getUserPlayerPayment,
 	getCurrentUser,
@@ -8,7 +7,6 @@ import {
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
-import CreateYourTeam from "@/components/register/CreateYourTeam";
 import JoinTeamCode from "@/components/register/join-team/JoinTeamCode";
 import { getAllRegisterTeams } from "@/api-helpers/controllers/teams-controller";
 import Link from "next/link";
@@ -32,11 +30,13 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	const { players, season } = await resPlayer.json();
 
 	return (
-		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
-			<p className="font-barlow  mb-0 mt-10 text-center text-xl md:text-3xl">
+		<main className="font-barlow container mx-auto my-10 min-h-[100dvh] text-white">
+			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
 				Season 5
 			</p>
-			<h1 className="font-abolition mb-10 text-7xl ">Join a team</h1>
+			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
+				Join a team
+			</h1>
 			<Link
 				href={"/register/"}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
