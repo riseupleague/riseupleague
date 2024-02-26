@@ -2,7 +2,7 @@
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
 	Card,
@@ -37,6 +37,23 @@ const CreateTeamDetails = ({
 			setFormErrors(errors);
 		}
 	};
+
+	const [code, setCode] = useState("");
+
+	useEffect(() => {
+		const generateCode = () => {
+			const characters =
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			let generatedCode = "";
+			for (let i = 0; i < 5; i++) {
+				const randomIndex = Math.floor(Math.random() * characters.length);
+				generatedCode += characters[randomIndex];
+			}
+			setCode(generatedCode);
+			setFormData({ ...formData, teamCode: generatedCode });
+		};
+		generateCode();
+	}, []);
 	return (
 		<>
 			<Link
@@ -117,19 +134,11 @@ const CreateTeamDetails = ({
 							</section>
 							<section className="my-3">
 								<Label className="mb-3 block uppercase">Team Code</Label>
-								<Input
-									type="text"
-									placeholder="ex: LAL123"
-									className={`bg-neutral-700 py-[16px] ${
-										formErrors.teamCode
-											? "border-primary"
-											: "border-neutral-500"
-									}`}
-									value={formData.teamCode}
-									onChange={(e) =>
-										setFormData({ ...formData, teamCode: e.target.value })
-									}
-								/>
+								<Input type="text" disabled value={code} className="text-xl " />
+								<p className="text-md mt-2 font-semibold uppercase text-neutral-500">
+									Team code is generated at random and will be used by teammates
+									to join the roster. It will be saved on your user page.
+								</p>
 							</section>
 						</CardContent>
 					</CardHeader>
@@ -205,9 +214,7 @@ const CreateTeamDetails = ({
 						{formErrors.teamNameShort}
 					</p>
 				)}
-				{formErrors.teamCode && (
-					<p className="text-primary  rounded-md p-2">{formErrors.teamCode}</p>
-				)}
+
 				{formErrors.phoneNumber && (
 					<p className="text-primary  rounded-md p-2">
 						{formErrors.phoneNumber}

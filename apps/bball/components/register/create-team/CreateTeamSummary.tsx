@@ -172,9 +172,14 @@ const CreateTeamSummary = ({
 								<span>Division: {division?.divisionName}</span>
 							</p>
 							<p className="text-md">
-								Team Captain:{" "}
+								Team Code:{" "}
+								<span className="capitalize">{formData.teamCode}</span>
+							</p>
+							<p className="text-md">
+								Captain:{" "}
 								<span className="capitalize">{formData.playerName}</span>
 							</p>
+
 							<p>{division.location}</p>
 							<p>
 								{convertMilitaryToRegularTime(division.startTime)} -{" "}

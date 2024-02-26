@@ -36,7 +36,6 @@ interface FormData {
 interface FormErrors {
 	teamName?: string;
 	teamNameShort?: string;
-	teamCode?: string;
 	phoneNumber?: string;
 	playerName?: string;
 
@@ -55,7 +54,6 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		instagram: "",
 		phoneNumber: "",
 		playerName: "",
-
 		// termsChecked: false,
 		// refundChecked: false,
 	});
@@ -76,9 +74,6 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 			errors.playerName = "Player name short is required";
 		}
 
-		if (!formData.teamCode) {
-			errors.teamCode = "Team code is required";
-		}
 		if (!formData.phoneNumber) {
 			errors.phoneNumber = "Phone number is required";
 		}
