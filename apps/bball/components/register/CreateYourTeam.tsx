@@ -102,7 +102,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 														</CardHeader>
 														<div className="pr-5">
 															<p className="text-primary text-4xl font-semibold uppercase">
-																Joined
+																Full
 															</p>
 														</div>
 													</Card>
