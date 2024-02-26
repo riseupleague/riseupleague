@@ -160,6 +160,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
 				$gte: oneWeekBefore,
 				$lt: targetDate,
 			},
+			potg: { $exists: true }, // Only retrieve games with defined potg
 		})
 
 			.populate({

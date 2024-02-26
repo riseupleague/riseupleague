@@ -17,12 +17,14 @@ const playerSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	playerImage: {
+		type: String,
+	},
 	instagram: {
 		type: String,
 	},
 	jerseyNumber: {
 		type: Number,
-		required: true,
 	},
 	jerseyNumberTwo: {
 		type: Number,
@@ -32,11 +34,9 @@ const playerSchema = new Schema({
 	},
 	jerseySize: {
 		type: String,
-		required: true,
 	},
 	shortSize: {
 		type: String,
-		required: true,
 	},
 	jerseyName: {
 		type: String,

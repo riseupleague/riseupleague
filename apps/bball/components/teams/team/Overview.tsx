@@ -20,7 +20,7 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 
 	return (
 		<div>
-			<div>
+			{/* <div>
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
 					Jersey Design
 				</h2>
@@ -64,7 +64,7 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 						time.
 					</h6>
 				)}
-			</div>
+			</div> */}
 			{/* upcoming games grid */}
 			<div>
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
@@ -86,9 +86,9 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 			{/* players grid */}
 			<div>
 				<h2 className="font-barlow my-8 text-center text-4xl uppercase">
-					Players
+					Roster
 				</h2>
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+				<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 					{team?.players.map((player, index) => {
 						return <FeaturedPlayerCard player={player} key={index} />;
 					})}
