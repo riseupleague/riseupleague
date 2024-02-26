@@ -92,9 +92,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																		<p className="text-sm">{division.day}</p>
 																	</div>
 																</div>
-																<p className="text-sm md:text-xl">
-																	{division.teams.length}
-																</p>
+
 																<p className="text-sm md:text-xl">
 																	{division.description}
 																</p>
