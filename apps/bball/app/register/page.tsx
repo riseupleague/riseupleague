@@ -106,7 +106,7 @@ const cardData = [
 		title: "Create A team",
 		description:
 			"Recruit a full team of at least 9 players to secure your roster. Less than 9 players by the deadline, free agents will be added.",
-		imgSrc: "/images/register/createteam.jpg",
+		imgSrc: "/images/register/createTeam.jpg",
 		imgAlt: "Create a team now",
 		btnText: "Create a Team now",
 		href: "/register/create-team",
