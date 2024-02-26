@@ -15,6 +15,7 @@ import {
 	CardTitle,
 } from "@ui/components/card";
 import Image from "next/image";
+import { Button } from "@ui/components/button";
 
 export default async function Register(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -30,7 +31,7 @@ export default async function Register(): Promise<JSX.Element> {
 	}
 
 	return (
-		<main className="font-barlow container mx-auto min-h-[100dvh] text-white">
+		<main className="font-barlow container mx-auto min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl font-medium uppercase md:text-3xl">
 				Season 5
 			</p>
@@ -62,12 +63,21 @@ export default async function Register(): Promise<JSX.Element> {
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="text-center">
-							<Link
-								href={card.href}
-								className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
-							>
-								{card.btnText}
-							</Link>
+							{card.btnText === "Coming soon" ? (
+								<Button
+									disabled
+									className="font-barlow block w-full cursor-not-allowed rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+								>
+									Coming Soon!
+								</Button>
+							) : (
+								<Link
+									href={card.href}
+									className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+								>
+									{card.btnText}
+								</Link>
+							)}
 						</CardContent>
 					</Card>
 				))}
@@ -89,7 +99,7 @@ const cardData = [
 			"Don’t have a full squad? This is the perfect pick for you. Join as a solo player or groups of 4 or less players.",
 		imgSrc: "/images/register/joinFreeAgent.jpg",
 		imgAlt: "Join as a free agent Now",
-		btnText: "Join as a free agent Now",
+		btnText: "Coming soon",
 		href: "/register/free-agent",
 	},
 	{

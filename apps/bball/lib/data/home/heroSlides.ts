@@ -1,8 +1,8 @@
 export const heroSlides = [
 	{
 		url: "/images/home/early-bird.jpg",
-		title: "Winter registration now open!",
-		description: "Holiday special - Four instalments of $55 bi-weekly!",
+		title: "Spring registration now open!",
+		description: "Register your team now!",
 		cta: "Register Now",
 		link: "/register",
 	},
