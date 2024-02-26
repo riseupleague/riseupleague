@@ -3,7 +3,6 @@ import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import NewSchedule from "@/components/games/NewSchedule";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import { DivisionWithStats } from "@/types";
-import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
@@ -27,11 +26,11 @@ export default async function Schedule(): Promise<JSX.Element> {
 	return (
 		<main className="font-barlow container mx-auto min-h-[100dvh]">
 			<h1>Schedule</h1>
-			{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
-			<NewSchedule
+			<ScheduleFilterPage gamesByDate={gamesByDate} />
+			{/* <NewSchedule
 				gamesByDate={gamesByDate}
 				divisionsWithStats={divisionsWithStats}
-			/>
+			/> */}
 		</main>
 	);
 }

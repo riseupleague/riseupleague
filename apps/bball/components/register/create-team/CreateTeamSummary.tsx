@@ -13,6 +13,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@ui/components/button";
 import { Loader2 } from "lucide-react";
+import LocationIcon from "@/components/icons/LocationIcon";
+import ClockIcon from "@/components/icons/ClockIcon";
+import CalendarRegisterIcon from "@/components/icons/CalendarRegisterIcon";
+import { Separator } from "@ui/components/separator";
 
 interface CheckboxErrors {
 	termsChecked?: string;
@@ -154,41 +158,54 @@ const CreateTeamSummary = ({
 				</svg>
 				Back
 			</button>
-			<h3 className="my-10  text-3xl uppercase">Summary:</h3>
+			<h3 className="my-10 text-3xl uppercase">Summary</h3>
 			<div className="flex flex-col gap-10 md:flex-row">
-				<div className="w-full  md:w-3/4">
-					<div className="flex items-start  gap-4  border-b border-t py-4">
+				<div className="w-full md:w-3/4">
+					<div className="flex items-start gap-4 border-b border-t border-[#374151] py-8">
 						<div>
 							<Image
-								src={"/images/register/createTeam.jpg"}
+								src="/images/register/createTeam.jpg"
 								alt="create a team image"
 								width={250}
 								height={250}
 							/>
 						</div>
 						<div className="flex w-full flex-col">
-							<p className="text-md flex flex-col md:flex-row md:gap-4 md:text-3xl">
+							<p className="mb-2.5 flex flex-col text-xl text-neutral-100 md:flex-row md:gap-4 md:text-2xl">
 								<span>Create a Team: {formData.teamName}</span>
-								<span>Division: {division?.divisionName}</span>
 							</p>
-							<p className="text-md">
+							<p className="mb-2.5">
+								Division:{" "}
+								<span className="capitalize">{division?.divisionName}</span>
+							</p>
+							<p className="mb-4 text-xl">
 								Team Captain:{" "}
 								<span className="capitalize">{formData.playerName}</span>
 							</p>
-							<p>{division.location}</p>
-							<p>
-								{convertMilitaryToRegularTime(division.startTime)} -{" "}
-								{convertMilitaryToRegularTime(division.endTime)}
-							</p>
-							<p className="capitalize">{division.day}</p>
-							<p className="mb-10 mt-2">{division.description}</p>
+							<div className="mb-3 flex items-center gap-1">
+								<LocationIcon />
+								<p className="text-xl">{division.location}</p>
+							</div>
+							<div className="mb-3 flex items-center gap-1">
+								<ClockIcon />
+								<p className="text-xl">
+									{convertMilitaryToRegularTime(division.startTime)} -{" "}
+									{convertMilitaryToRegularTime(division.endTime)}
+								</p>
+							</div>
+							<div className="mb-6 flex items-center gap-1">
+								<CalendarRegisterIcon />
+								<p className="text-xl">{division.day}</p>
+							</div>
+							<p className="mb-10 mt-2 text-xl">{division.description}</p>
 							{division.earlyBirdOpen ? (
 								<p className="text-right">
-									Early Bird Registration Fee: ${division.earlyBirdPrice}
+									Early Bird Registration Fee: $
+									{division.earlyBirdPrice + ".00"}
 								</p>
 							) : (
 								<p className="text-right">
-									Registration Fee: ${division.regularPrice}
+									Registration Fee: ${division.regularPrice + ".00"}
 								</p>
 							)}
 						</div>
@@ -196,7 +213,9 @@ const CreateTeamSummary = ({
 				</div>
 				<Card className="w-full md:w-1/4">
 					<CardHeader>
-						<CardTitle>Please Check All Boxes Before Proceeding.</CardTitle>
+						<CardTitle className="text-base">
+							Please Check All Boxes Before Proceeding.
+						</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<section className="flex flex-col gap-3">
@@ -209,7 +228,7 @@ const CreateTeamSummary = ({
 								/>
 								<Label
 									htmlFor="checkBoxTerms"
-									className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+									className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 								>
 									I have read and agree to the{" "}
 									<Link
@@ -231,7 +250,7 @@ const CreateTeamSummary = ({
 								/>
 								<Label
 									htmlFor="checkBoxRefund"
-									className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+									className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 								>
 									I have read and agree to the{" "}
 									<Link
@@ -248,13 +267,14 @@ const CreateTeamSummary = ({
 						{division.earlyBirdOpen ? (
 							<>
 								<section>
-									<p className="mt-4">Overall Total:</p>
-									<p>
-										${division.earlyBirdPrice}{" "}
+									<Separator className="my-4 border-b border-neutral-600" />
+									<p className="my-4 text-base font-bold">Overall Total:</p>
+									<p className="mb-4 text-base">
+										${division.earlyBirdPrice + ".00"}{" "}
 										<span className="text-sm">+ tax</span>
 									</p>
 									<Button
-										className="mt-10  flex w-full justify-center text-center"
+										className="flex w-full justify-center text-center text-sm font-semibold capitalize"
 										onClick={handlePayIndividual}
 									>
 										{isLoader ? (
@@ -264,11 +284,16 @@ const CreateTeamSummary = ({
 										)}
 									</Button>
 								</section>
+
+								<Separator className="my-4 border-b border-neutral-600" />
+
 								<section>
-									<p className="mt-4">Pay For My Whole Team:</p>
-									<p>$2000</p>
+									<p className="font-barlow my-4 text-base capitalize">
+										Pay For My Whole Team:
+									</p>
+									<p className="mb-4 text-base">$2000.00</p>
 									<Button
-										className="mt-10  flex w-full justify-center text-center"
+										className="mt-2 flex w-full justify-center text-center text-sm font-semibold capitalize"
 										onClick={handlePayTeam}
 									>
 										{isLoader ? (

@@ -17,43 +17,37 @@ import React, { useState } from "react";
 const JoinTeamCode = ({ teams }) => {
 	const [teamCode, setTeamCode] = useState("");
 	const [teamCodeError, setTeamCodeError] = useState("");
-	console.log(teams);
+
 	const handleJoinTeam = (e) => {
 		e.preventDefault();
 		const isTeamCodeActive = teams.find((team) => team.teamCode === teamCode);
-		if (isTeamCodeActive) {
-			console.log("isTeamCodeActive:", isTeamCodeActive);
 
-			console.log(
-				"Redirecting to:",
-				`/register/join-team/${isTeamCodeActive._id}`
-			);
+		if (isTeamCodeActive) {
 			const redirectUrl = `/register/join-team/${isTeamCodeActive._id}`;
-			console.log("Redirecting to:", redirectUrl);
 			window.location.href = redirectUrl; // Simple JavaScript redirection
 		} else {
 			setTeamCodeError("Code doesn't exist");
 		}
-
-		console.log("isTeamCodeActive:", isTeamCodeActive);
 	};
 
 	return (
-		<div className="mx-auto mb-10 mt-20  w-full border border-neutral-500 p-10 md:w-1/2">
-			<h3 className="text-center uppercase">Join a team with a code</h3>
+		<div className="mx-auto mb-10 mt-6 w-full rounded border border-neutral-600 p-10 md:mt-20 md:w-1/2">
+			<h3 className="font-barlow text-center font-normal uppercase">
+				Join a team with a code
+			</h3>
 
 			<form
 				onSubmit={handleJoinTeam}
-				className="mx-auto  mt-16 flex  flex-col justify-center "
+				className="mx-auto mt-10 flex flex-col justify-center"
 			>
-				<Label className=" mb-3 hidden uppercase">Team Code</Label>
+				<Label className="mb-3 hidden uppercase">Team Code</Label>
 				<Input
 					onChange={(e) => setTeamCode(e.target.value)}
 					type="text"
 					placeholder="Enter Code"
-					className={`bg-neutral-700 py-[16px] `}
+					className="mx-auto mb-3 border-neutral-600 bg-neutral-700 py-6"
 				/>
-				<p className="mt-2 flex items-center gap-1 text-lg">
+				<p className="mb-8 flex items-center gap-1 text-sm md:text-xl">
 					Got a code to join a team? Enter it above{" "}
 					<Dialog>
 						<DialogTrigger asChild>
@@ -81,7 +75,7 @@ const JoinTeamCode = ({ teams }) => {
 						</DialogContent>
 					</Dialog>
 				</p>
-				<Button className="mt-8 ">Join Your Team Now</Button>
+				<Button>Join Your Team Now</Button>
 
 				{teamCodeError !== "" && (
 					<p className="text-primary mt-2">{teamCodeError}</p>
