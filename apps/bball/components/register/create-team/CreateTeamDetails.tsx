@@ -137,6 +137,10 @@ const CreateTeamDetails = ({
 									setFormData({ ...formData, teamCode: e.target.value })
 								}
 							/>
+							<p className="mt-2 text-xs text-neutral-500">
+								Team code is randomly generated and will be used by your
+								teammates to join the roster.
+							</p>
 						</section>
 					</CardContent>
 				</Card>
