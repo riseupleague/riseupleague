@@ -30,6 +30,23 @@ const CreateTeamDetails = ({
 			setFormErrors(errors);
 		}
 	};
+
+	const [code, setCode] = useState("");
+
+	useEffect(() => {
+		const generateCode = () => {
+			const characters =
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			let generatedCode = "";
+			for (let i = 0; i < 5; i++) {
+				const randomIndex = Math.floor(Math.random() * characters.length);
+				generatedCode += characters[randomIndex];
+			}
+			setCode(generatedCode);
+			setFormData({ ...formData, teamCode: generatedCode });
+		};
+		generateCode();
+	}, []);
 	return (
 		<>
 			<Link
