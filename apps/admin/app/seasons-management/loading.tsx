@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-const SeasonsMangaementLoading = () => {
+const SeasonsMangaementLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (

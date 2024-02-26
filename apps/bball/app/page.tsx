@@ -23,17 +23,17 @@ const Page = async (): Promise<JSX.Element> => {
 			<Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense>
-			<SetYourScheduleButton />
+			{/* <SetYourScheduleButton /> */}
 			<Hero />
 			<HomeRegister />
-			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
-				<HomePlayersOfTheWeek />
-			</Suspense>
 			<Suspense fallback={<HomeLeadersSkeleton />}>
 				<HomeLeaders />
 			</Suspense>
 			<Suspense fallback={<MVPLadderSkeleton />}>
 				<HomeMVPLadder />
+			</Suspense>
+			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
+				<HomePlayersOfTheWeek />
 			</Suspense>
 			<HomeSocials />
 			<HomeFaq />

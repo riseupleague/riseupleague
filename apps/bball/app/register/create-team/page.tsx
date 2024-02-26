@@ -28,26 +28,15 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
-	let filteredDivisions = [...divisions];
-	filteredDivisions = filteredDivisions.filter((division) => {
-		return division.teams.length < 8;
-	});
-
-	if (players && players.length > 0) {
-		filteredDivisions = filteredDivisions.filter((division) => {
-			// Check if every players division is not equal to the current division
-			return players.every((player) => {
-				return player.division?._id !== division._id;
-			});
-		});
-	}
-
 	return (
-		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
+		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
+			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
+				Season 5
+			</p>
+			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Create a team
 			</h1>
-			<CreateYourTeam divisions={filteredDivisions} category="create" />
+			<CreateYourTeam divisions={divisions} user={user} />
 		</main>
 	);
 }

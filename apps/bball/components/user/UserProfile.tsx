@@ -207,6 +207,10 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 												<span>Team:</span>
 												<span>{player.team?.teamName}</span>
 											</li>
+											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
+												<span>Team Code:</span>
+												<span>{player.team?.teamCode}</span>
+											</li>
 											<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
 												<div className="flex justify-between">
 													<span>Custom Jersey Name:</span>

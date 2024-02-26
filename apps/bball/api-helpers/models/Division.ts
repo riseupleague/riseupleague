@@ -17,6 +17,7 @@ const divisionSchema = new Schema({
 	teamColors: { type: Array },
 	uniqueJersey: { type: Array },
 	location: { type: String, required: true },
+	city: { type: String },
 	day: { type: String, required: true },
 	startTime: { type: String, required: true },
 	endTime: { type: String, required: true },

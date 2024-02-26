@@ -160,6 +160,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
 				$gte: oneWeekBefore,
 				$lt: targetDate,
 			},
+			potg: { $exists: true }, // Only retrieve games with defined potg
 		})
 
 			.populate({
@@ -175,9 +176,9 @@ export const getAllRecentPlayerOfTheGames = async () => {
 					},
 				],
 			})
-			.select("playerOfTheGame")
+			.select("playerOfTheGame potg")
 			.sort({ date: -1 })
-			.limit(12)
+			.limit(30)
 			.lean();
 
 		return NextResponse.json({ games });

@@ -6,8 +6,10 @@ import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { Button } from "@ui/components/button";
 import { Badge } from "@ui/components/badge";
 import TeamLogo from "./icons/TeamLogo";
+import { extractInstagramUsername } from "@/utils/extractInstagram";
+import Image from "next/image";
 
-const FeaturedPlayerCard = ({ player }): JSX.Element => {
+export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
 	let playerIg = player.instagram;
 
@@ -58,100 +60,51 @@ const FeaturedPlayerCard = ({ player }): JSX.Element => {
 	}
 
 	return (
-		<div className="h-full rounded border border-neutral-600 bg-neutral-700">
+		<Link
+			href={`/players/${player._id}`}
+			className="r ounded border border-neutral-600 bg-neutral-700 transition duration-300 ease-in-out hover:bg-gray-800"
+		>
 			<div className="flex flex-col">
-				{/* pic / name / team / division */}
-				<div className="flex items-center justify-between gap-3 border-b border-neutral-600 px-2 py-3.5 md:min-h-[120px] md:px-6 2xl:min-h-0">
-					<TeamLogo
-						primary={player.team?.primaryColor || ""}
-						secondary={player.team?.secondaryColor || ""}
-						tertiary={player.team?.tertiaryColor || ""}
-						width={35}
-						height={34}
-						circleHeight={3}
-						circleWidth={4}
-					/>
-					<div className="flex w-full flex-col">
-						<div className="flex w-full justify-between">
-							<h6 className="font-barlow text-xs font-medium uppercase text-neutral-500">
-								{player.team?.teamName} | #{player.jerseyNumber}
-							</h6>
-							<Badge variant="playerCard">{player.division.divisionName}</Badge>
-						</div>
-						<Link
-							href={`/players/${player._id}`}
-							className="font-barlow w-fit truncate text-lg uppercase text-neutral-100 transition hover:opacity-80"
-						>
-							{player.playerName}
-						</Link>
-						{player.instagram !== "" && (
-							<Link
-								href={`https://www.instagram.com/${playerIg}`}
-								target="_blank"
-								className="font-barlow mt-1 flex w-fit gap-1 text-sm text-neutral-400 transition-all hover:text-neutral-200"
-							>
-								IG: <span className="lowercase">{playerIg}</span>
-							</Link>
-						)}
+				{/* Image */}
+
+				{player.playerImage && player.playerImage !== "" ? (
+					<div className="relative m-3 rounded-bl-3xl border-8 border-blue-500">
+						<Image
+							className=""
+							src={player.playerImage}
+							alt="preview player of the game image"
+							style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
+							width={200}
+							height={300}
+						/>
 					</div>
-				</div>
+				) : (
+					<div className="relative m-3  rounded-bl-3xl border-8 border-blue-500 ">
+						<Image
+							className="mt-32 rounded-bl-2xl"
+							src={"/images/default-profile-pic.png"}
+							alt="preview player of the game image"
+							style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
+							width={300}
+							height={500}
+						/>
+					</div>
+				)}
 
-				{/* stats table */}
-				<div className="h-fit border-b border-neutral-600"></div>
-
-				{/* badges */}
-				{/* <div className="flex justify-center gap-x-2 border-b border-neutral-600 px-5 py-3">
-				{badges.map((badge, index) => {
-					const hasBadge = badge.length > 0;
-
-					return (
-						<div
-							className={`flex h-[60px] w-[60px] justify-center rounded-xl bg-neutral-600 ${
-								hasBadge &&
-								"cursor-pointer transition hover:scale-150 hover:border hover:border-neutral-300"
-							}`}
-							key={index}
-						>
-							{hasBadge ? (
-								<Image
-									src={badge}
-									alt={""}
-									width={200}
-									height={200}
-									className="h-full w-auto"
-								/>
-							) : (
-								""
-							)}
-						</div>
-					);
-				})}
-			</div> */}
-
-				{/* avg stats */}
-				<div className="flex justify-center gap-2 border-b border-neutral-600 px-4 py-3 md:gap-4">
-					{avgStats.slice(0, 3).map((stat, index) => (
-						<div
-							key={index}
-							className="font-barlow flex w-full flex-col justify-center rounded-lg bg-neutral-600 py-4"
-						>
-							<h6 className="text-center">{stat.label}</h6>
-							<h3 className="text-center text-[31px] font-medium">
-								{stat.average.toFixed(1)}
-							</h3>
-						</div>
-					))}
+				<div className="m-2">
+					<p className="font-barlow overflow-hidden whitespace-nowrap text-4xl">
+						#{player.jerseyNumber}
+					</p>
+					<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl">
+						{player.playerName}
+					</p>
+					{player.instagram && (
+						<p className="text-lg text-neutral-500">
+							IG: {extractInstagramUsername(player.instagram)}
+						</p>
+					)}
 				</div>
 			</div>
-
-			{/* view player profile */}
-			<div className="px-2.5 py-4">
-				<Link href={`/players/${player._id}`}>
-					<Button className="w-full">View Player Profile</Button>
-				</Link>
-			</div>
-		</div>
+		</Link>
 	);
-};
-
-export default FeaturedPlayerCard;
+}

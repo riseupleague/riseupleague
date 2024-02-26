@@ -15,7 +15,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 		<section className="container mx-auto min-h-[100dvh]">
 			<h1 className="mb-10">Choose Your Team Schedule</h1>
 
-			<h3 className="mt-10  text-3xl uppercase">Select Your Team</h3>
+			<h3 className="mt-10 text-3xl font-medium uppercase">Select Your Team</h3>
 
 			<div className="mt-10 flex flex-col gap-10 md:flex-row ">
 				{user.basketball.map((player) => (
