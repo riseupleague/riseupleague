@@ -286,7 +286,14 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 															</SheetTitle>
 														</SheetHeader>
 														<SheetDescription>
-															<div className="mt-10 flex flex-col gap-4">
+															<div className="mt-4 flex flex-col gap-4">
+																<p className="text-sm text-neutral-500">
+																	Please note that there will be a deadline
+																	(TBD) to change your custom jersey
+																	information. After this deadline, we will not
+																	be able to change it. Stay tuned to our
+																	socials to be notified!
+																</p>
 																<div className="flex flex-col gap-3">
 																	<Label
 																		htmlFor="jerseyName"
@@ -304,7 +311,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 																			)
 																		}
 																		id="jerseyName"
-																		disabled
 																	/>
 																</div>
 
@@ -325,7 +331,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 																			)
 																		}
 																		id="jerseyNumber"
-																		disabled
 																	/>
 																</div>
 																<div className="flex flex-col gap-3">
@@ -343,7 +348,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 																		id="jerseySize"
 																		value={playerFormObject?.jerseySize}
 																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
-																		disabled
 																	>
 																		<option value="SM">SM</option>
 																		<option value="MD">MD</option>
@@ -372,7 +376,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 																		id="shortSize"
 																		value={playerFormObject?.shortSize}
 																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
-																		disabled
 																	>
 																		<option value="SM">SM</option>
 																		<option value="MD">MD</option>
