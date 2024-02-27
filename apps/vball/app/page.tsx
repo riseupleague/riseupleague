@@ -1,8 +1,8 @@
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import Image from "next/image";
-import vballImg from ".next/static/imgs/img.png"
-import logo from ".next/static/imgs/riseup_volleyball.png"
+import logo from "imgs/riseup_volleyball.png"
+import vballImg from "imgs/img.png"
 
 const VballNewsLetter = (): JSX.Element => {
 	return (
