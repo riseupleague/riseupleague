@@ -3,7 +3,11 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerSections from "@/components/players/player/PlayerSections";
 import { Metadata } from "next";
 import Link from "next/link";
-
+import Image from "next/image";
+import { Badge } from "@ui/components/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
+import TeamLogo from "@/components/general/icons/TeamLogo";
+import ComparePopup from "@/components/players/player/ComparePopup";
 export default async function Players({
 	params,
 }: {
@@ -17,19 +21,31 @@ export default async function Players({
 
 	return (
 		<section className="container mx-auto  min-h-[100dvh] ">
-			<div className="mb-8 mt-16">
-				<h1>{player?.playerName}</h1>
-				<div className="my-4 text-center text-neutral-50">
-					<Link href={`/teams/${player?.team._id}`} className="text-xl">
-						<span className="font-barlow hover:underline">
-							{player?.team.teamName} | #{player?.jerseyNumber}
-						</span>
-					</Link>
+			<div className="mb-8 mt-16 flex items-start">
+				<div className="w-1/2 md:w-1/4">
+					{player.playerImage && player.playerImage !== "" ? (
+						<Avatar className="h-full w-full">
+							<AvatarImage src={player.playerImage} alt="player image" />
+						</Avatar>
+					) : (
+						<Avatar className="h-full w-full">
+							<AvatarImage src="/images/logo-gray.svg" alt="player image" />
+						</Avatar>
+					)}
 				</div>
-				<div className="flex justify-center">
-					<h6 className="rounded bg-neutral-500 p-1">
+				<div className="flex w-1/2 flex-col items-center justify-center md:w-3/4">
+					<Badge className=" font-barlow mx-auto rounded border border-neutral-500 bg-neutral-500 px-5 py-1 text-center text-sm font-semibold uppercase text-white hover:bg-neutral-500 md:px-10 md:py-3 md:text-4xl">
 						{player.division.divisionName}
-					</h6>
+					</Badge>
+					<h1 className="text-4xl md:text-8xl">{player?.playerName}</h1>
+					<Link
+						href={`/teams/${player?.team._id}`}
+						className="font-barlow block w-full text-center text-xl md:text-4xl"
+					>
+						{player?.team.teamName} | #{player?.jerseyNumber}
+					</Link>
+
+					{/* <ComparePopup /> */}
 				</div>
 			</div>
 			<PlayerSections player={player} allAvg={allAvg} />

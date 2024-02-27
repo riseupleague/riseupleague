@@ -26,6 +26,7 @@ const CalendarGames = ({ linkDate }): JSX.Element => {
 
 	const renderHeader = () => {
 		const dateFormat = "MMM yyyy";
+
 		return (
 			<div className="my-5 flex items-center justify-between py-2">
 				<div className="mb-8 flex w-full items-center justify-end">

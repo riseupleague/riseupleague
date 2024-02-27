@@ -167,7 +167,9 @@ const JerseySelection = ({ team }): JSX.Element => {
 						</svg>
 						Back
 					</Link>
-					<h3 className="mt-10  text-3xl uppercase ">Select Your Edition</h3>
+					<h3 className="mt-10 text-3xl font-medium uppercase ">
+						Select Your Edition
+					</h3>
 
 					<div className="mt-10 flex flex-col gap-10 md:flex-row ">
 						<button
@@ -239,7 +241,7 @@ const JerseySelection = ({ team }): JSX.Element => {
 						</svg>
 						Back
 					</button>
-					<h3 className="mt-10  text-3xl uppercase ">
+					<h3 className="mt-10 text-3xl font-medium uppercase ">
 						{selectedEdition} Edition{" "}
 					</h3>
 					<div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">

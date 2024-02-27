@@ -28,9 +28,9 @@ const ScheduleFilterPage = ({ gamesByDate }): JSX.Element => {
 					<hr />
 
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-						{gameSchedule.games?.map((game) => {
-							return <ScheduleCard game={game} key={game._id} />;
-						})}
+						{gameSchedule.games?.map((game) => (
+							<ScheduleCard game={game} key={game._id} />
+						))}
 					</div>
 				</div>
 			)}

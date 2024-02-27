@@ -8,6 +8,9 @@ import {
 	getCurrentUser,
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
+import JoinTeamSummary from "@/components/register/join-team/JoinTeamSummary";
+import { getRegisterTeamById } from "@/api-helpers/controllers/teams-controller";
+import RegistrationSuccess from "@/components/register/RegistrationSuccess";
 
 export default async function JoinTeam({
 	params,
@@ -25,17 +28,22 @@ export default async function JoinTeam({
 
 		redirect("/");
 	}
+	const resTeam = await getRegisterTeamById(params.id);
+	const { team } = await resTeam.json();
+	console.log(user.basketball);
 
-	const resDivision = await getRegisterDivisionById(params.id);
-	const { division } = await resDivision.json();
-
+	const isTeamJoined = user.basketball.find(
+		(player) => player.team._id === params.id
+	);
+	console.log("isTeamJoined:", isTeamJoined);
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
 
-			<ChooseTeam division={division} session={session} />
+			{isTeamJoined && <RegistrationSuccess team={isTeamJoined} />}
+			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />}
 		</main>
 	);
 }

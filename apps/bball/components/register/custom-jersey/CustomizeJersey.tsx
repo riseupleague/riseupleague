@@ -127,7 +127,7 @@ const CustomizeJersey = ({ edition, number, team }): JSX.Element => {
 				</svg>
 				Back
 			</Link>
-			<h3 className="mt-10  text-3xl uppercase ">
+			<h3 className="mt-10 text-3xl font-medium uppercase ">
 				{edition} {number}
 			</h3>
 			<style id="dynamicStyles"></style>

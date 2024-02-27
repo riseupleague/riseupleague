@@ -9,6 +9,7 @@ const seasonSchema = new Schema({
 	register: { type: Boolean },
 	divisions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Division" }],
 	freePrice: { type: String },
+	fullTeamPrice: { type: String },
 });
 
 export default mongoose.models.Season || mongoose.model("Season", seasonSchema);
