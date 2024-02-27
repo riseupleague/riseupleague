@@ -268,7 +268,7 @@ const JoinTeamSummary = ({ team, session }) => {
 								<span>Team: {team.teamName}</span>
 								<span>Division: {division?.divisionName}</span>
 							</p>
-							<p className="text-md">Team Captain: {teamCaptain.playerName}</p>
+							<p className="text-md">Team Captain: {teamCaptain?.playerName}</p>
 							<p>{division?.location}</p>
 							<p>
 								{convertMilitaryToRegularTime(division?.startTime)} -{" "}
