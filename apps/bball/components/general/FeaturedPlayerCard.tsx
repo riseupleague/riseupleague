@@ -91,18 +91,20 @@ export default function FeaturedPlayerCard({ player }) {
 					</div>
 				)}
 
-				<div className="m-2">
-					<p className="font-barlow overflow-hidden whitespace-nowrap text-4xl">
+				<div className="m-2 flex items-center justify-between">
+					<div>
+						<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl uppercase">
+							{player.playerName}
+						</p>
+						{player.instagram && (
+							<p className="text-sm text-neutral-500">
+								IG: {extractInstagramUsername(player.instagram)}
+							</p>
+						)}
+					</div>
+					<p className="font-barlow overflow-hidden whitespace-nowrap text-4xl text-neutral-500">
 						#{player.jerseyNumber}
 					</p>
-					<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl">
-						{player.playerName}
-					</p>
-					{player.instagram && (
-						<p className="text-lg text-neutral-500">
-							IG: {extractInstagramUsername(player.instagram)}
-						</p>
-					)}
 				</div>
 			</div>
 		</Link>
