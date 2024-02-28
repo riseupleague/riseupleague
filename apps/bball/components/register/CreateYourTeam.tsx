@@ -75,7 +75,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																			{division.location}
 																		</p>
 																	</div>
-																	<div className="flex items-center gap-1">
+																	{/* <div className="flex items-center gap-1">
 																		<ClockIcon />
 																		<p className="text-sm">
 																			{convertMilitaryToRegularTime(
@@ -86,7 +86,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																				division.endTime
 																			)}
 																		</p>
-																	</div>
+																	</div> */}
 																	<div className="flex items-center gap-1">
 																		<CalendarRegisterIcon />
 																		<p className="text-sm">{division.day}</p>
@@ -172,7 +172,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																					{division.location}
 																				</p>
 																			</div>
-																			<div className="flex items-center gap-1">
+																			{/* <div className="flex items-center gap-1">
 																				<ClockIcon />
 																				<p className="text-sm">
 																					{convertMilitaryToRegularTime(
@@ -183,7 +183,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																						division.endTime
 																					)}
 																				</p>
-																			</div>
+																			</div> */}
 																			<div className="flex items-center gap-1">
 																				<CalendarRegisterIcon />
 																				<p className="text-sm">
