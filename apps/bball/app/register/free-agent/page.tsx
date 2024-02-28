@@ -27,24 +27,17 @@ export default async function FreeAgents(): Promise<JSX.Element> {
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-	let filteredDivisions = [...divisions];
-
-	if (players && players.length > 0) {
-		filteredDivisions = filteredDivisions.filter((division) => {
-			// Check if every players division is not equal to the current division
-			return players.every((player) => {
-				return player.division?._id !== division._id;
-			});
-		});
-	}
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
-				Join as a free agent
+			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
+				Season 5
+			</p>
+			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
+				Join as a Free Agent
 			</h1>
 
-			<FreeAgentsRegistration divisions={filteredDivisions} session={session} />
+			<FreeAgentsRegistration divisions={divisions} user={user} />
 		</main>
 	);
 }
