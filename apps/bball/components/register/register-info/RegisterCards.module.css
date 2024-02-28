@@ -1,0 +1,160 @@
+.cs-title {
+	font-size: 48px;
+	font-weight: 900;
+	line-height: 1.2em;
+	text-align: inherit;
+	max-width: 43.75rem;
+	margin: 0 0 1rem 0;
+	position: relative;
+}
+
+.cs-text {
+	line-height: 1.5em;
+	text-align: inherit;
+	width: 100%;
+	max-width: 40.625rem;
+	margin: 0;
+}
+
+.cs-topper {
+	font-size: clamp(0.8125rem, 1.6vw, 1rem);
+	line-height: 1.2em;
+	text-transform: uppercase;
+	text-align: inherit;
+	letter-spacing: 0.1em;
+	font-weight: 700;
+	color: #ff422e;
+	margin-bottom: 0.25rem;
+	display: block;
+}
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+	#services-1644 {
+		padding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+	}
+	#services-1644 .cs-container {
+		width: 100%;
+		max-width: 80rem;
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* 48px - 64px */
+		gap: clamp(2.5rem, 4vw, 4rem);
+	}
+	#services-1644 .cs-content {
+		/* set text align to left if content needs to be left aligned */
+		text-align: center;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		/* centers content horizontally, set to flex-start to left align */
+		align-items: center;
+	}
+	#services-1644 .cs-title {
+		max-width: none;
+	}
+	#services-1644 .cs-text {
+		max-width: 60ch;
+	}
+	#services-1644 .cs-card-group {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
+	#services-1644 .cs-item {
+		list-style: none;
+		width: 100%;
+		box-sizing: border-box;
+		/* resets at tablet */
+		padding: 2rem 1rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		/* 24px - 40px */
+		gap: clamp(1.5rem, 3vw, 2.5rem);
+		position: relative;
+		z-index: 1;
+	}
+	#services-1644 .cs-item:last-of-type:before {
+		display: none;
+	}
+	#services-1644 .cs-item:before {
+		/* gradient line divider */
+		content: "";
+		width: 100%;
+		height: 1px;
+		background: linear-gradient(
+			to right,
+			rgba(255, 255, 255, 0) 0%,
+			#bababa 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		opacity: 0.6;
+		position: absolute;
+		display: block;
+		bottom: 0;
+		left: 0;
+	}
+	#services-1644 .cs-item:first-of-type {
+		padding-top: 0;
+	}
+	#services-1644 .cs-item:last-of-type {
+		padding-bottom: 0;
+		border: none;
+	}
+	#services-1644 .cs-image-group {
+		position: relative;
+	}
+	#services-1644 .cs-icon {
+		width: 3rem;
+		height: auto;
+	}
+	#services-1644 .cs-h2 {
+		/* 20px - 25px */
+		font-size: clamp(1.25rem, 2.5vw, 1.5625rem);
+		text-align: inherit;
+		line-height: 1.2em;
+		font-weight: 700;
+		margin: 0 0 1rem 0;
+		color: var(--headerColor);
+	}
+	#services-1644 .cs-item-text {
+		/* 14px - 16px */
+		font-size: clamp(0.875rem, 1.6vw, 1rem);
+		text-align: inherit;
+		line-height: 1.5em;
+		margin: 0;
+		color: var(--bodyTextColor);
+	}
+}
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+	#services-1644 .cs-container {
+		max-width: 120rem;
+	}
+	#services-1644 .cs-card-group {
+		flex-direction: row;
+		justify-content: center;
+	}
+	#services-1644 .cs-item {
+		/* 24px - 60px */
+		padding: 0rem clamp(1.5rem, 3vw, 3.75rem);
+	}
+	#services-1644 .cs-item:before {
+		width: 1px;
+		height: 100%;
+		background: linear-gradient(
+			to bottom,
+			rgba(255, 255, 255, 0) 0%,
+			#bababa 50%,
+			rgba(255, 255, 255, 0) 100%
+		);
+		left: auto;
+		right: 0;
+	}
+}
