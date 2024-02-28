@@ -16,6 +16,7 @@ import { Button } from "@ui/components/button";
 import { Loader2 } from "lucide-react";
 import getStripe from "@/utils/checkout";
 import { Input } from "@ui/components/input";
+import BackButton from "@/components/general/buttons/BackButton";
 
 interface CheckboxErrors {
 	termsChecked?: string;
@@ -229,28 +230,7 @@ const JoinTeamSummary = ({ team, session }) => {
 
 	return (
 		<>
-			{" "}
-			<Link
-				href={"/register/join-team"}
-				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="15"
-					height="20"
-					viewBox="0 0 15 20"
-					fill="none"
-				>
-					<path
-						d="M8.125 16.25L1.875 10L8.125 3.75"
-						stroke="#ABAFB3"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-				Back
-			</Link>
+			<BackButton href="/register/join-team" />
 			<h3 className="my-10  text-3xl uppercase">Summary:</h3>
 			<div className="flex flex-col gap-10 md:flex-row">
 				<div className="w-full  md:w-3/4">

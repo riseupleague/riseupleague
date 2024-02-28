@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@ui/components/card";
 import { Button } from "@ui/components/button";
+import BackButton from "@/components/general/buttons/BackButton";
 
 const CreateTeamDetails = ({
 	setIsSummary,
@@ -49,27 +50,7 @@ const CreateTeamDetails = ({
 	}, []);
 	return (
 		<>
-			<Link
-				href="/register/create-team"
-				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="15"
-					height="20"
-					viewBox="0 0 15 20"
-					fill="none"
-				>
-					<path
-						d="M8.125 16.25L1.875 10L8.125 3.75"
-						stroke="#ABAFB3"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-				Back
-			</Link>
+			<BackButton href="/register/create-team" />
 
 			<form onSubmit={handleFormSubmit}>
 				<h3 className="mt-10 text-3xl font-medium uppercase">

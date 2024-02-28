@@ -12,6 +12,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
+import BackButton from "@/components/general/buttons/BackButton";
 
 const ChooseTeam = ({ division, session }): JSX.Element => {
 	const [isTeamSelected, setIsTeamSelected] = useState(false);
@@ -44,54 +45,16 @@ const ChooseTeam = ({ division, session }): JSX.Element => {
 				<>
 					{division.teams?.length === 0 ? (
 						<>
-							<Link
-								href={"/register/join-team"}
-								className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="15"
-									height="20"
-									viewBox="0 0 15 20"
-									fill="none"
-								>
-									<path
-										d="M8.125 16.25L1.875 10L8.125 3.75"
-										stroke="#ABAFB3"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-								Back
-							</Link>
+							<BackButton href={"/register/join-team"} />
+
 							<h3 className="mt-20  text-3xl uppercase">
 								No teams have been created in this division yet.
 							</h3>
 						</>
 					) : (
 						<>
-							<Link
-								href={"/register/join-team"}
-								className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="15"
-									height="20"
-									viewBox="0 0 15 20"
-									fill="none"
-								>
-									<path
-										d="M8.125 16.25L1.875 10L8.125 3.75"
-										stroke="#ABAFB3"
-										strokeWidth="1.5"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-								Back
-							</Link>
+							<BackButton href={"/register/join-team"} />
+
 							<h3 className="mt-10 text-3xl font-medium uppercase">
 								Choose your team:
 							</h3>
