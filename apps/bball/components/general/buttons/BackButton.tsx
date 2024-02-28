@@ -2,16 +2,15 @@ import Link from "next/link";
 
 interface BackButtonProps {
 	href: string;
-	onClick?: () => void;
 }
 
-const BackButton = ({ href, onClick }: BackButtonProps) => (
+const BackButton = ({ href }: BackButtonProps) => (
 	<Link
 		href={href}
-		onClick={onClick}
-		className="my-2 flex items-center gap-3 text-xl text-neutral-300"
+		className="group my-2 flex w-fit items-center gap-3 text-xl"
 	>
 		<svg
+			className="translate-y-[1px] stroke-neutral-300 transition-all group-hover:stroke-neutral-200"
 			xmlns="http://www.w3.org/2000/svg"
 			width="15"
 			height="20"
@@ -20,13 +19,14 @@ const BackButton = ({ href, onClick }: BackButtonProps) => (
 		>
 			<path
 				d="M8.125 16.25L1.875 10L8.125 3.75"
-				stroke="#ABAFB3"
 				strokeWidth="1.5"
 				strokeLinecap="round"
 				strokeLinejoin="round"
 			/>
 		</svg>
-		Back
+		<span className="text-neutral-300 transition-all group-hover:text-neutral-200">
+			Back
+		</span>
 	</Link>
 );
 

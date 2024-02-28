@@ -9,8 +9,13 @@ import {
 	getCurrentUser,
 	addNewUser,
 } from "@/api-helpers/controllers/users-controller";
+import FreeAgentsPlayerType from "@/components/register/free-agent/FreeAgentsPlayerType";
 
-export default async function FreeAgents(): Promise<JSX.Element> {
+const FreeAgents = async ({
+	params,
+}: {
+	params: { id: string };
+}): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	const session = await getServerSession();
@@ -36,14 +41,17 @@ export default async function FreeAgents(): Promise<JSX.Element> {
 			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Join as a Free Agent
 			</h1>
+			<h3 className="text-center">City: {params.id}</h3>
 
-			<FreeAgentsRegistration divisions={divisions} user={user} />
+			<FreeAgentsPlayerType city={params.id} />
 		</main>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Join as a Free Agent",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
+
+export default FreeAgents;

@@ -31,7 +31,7 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	const { players, season } = await resPlayer.json();
 
 	return (
-		<main className="font-barlow container mx-auto my-10 min-h-[100dvh] text-white">
+		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
 				Season 5
 			</p>

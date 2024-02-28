@@ -11,7 +11,7 @@ export default async function RegisteredTeams(): Promise<JSX.Element> {
 	const { divisionsWithTeamNames } = await resDivisionsWithTeamNames.json();
 
 	return (
-		<section className="container mx-auto  min-h-[100dvh]">
+		<section className="container mx-auto  min-h-fit">
 			<h1>Upcoming Teams</h1>
 			<TeamsFilterPage divisions={divisionsWithTeamNames} />
 		</section>

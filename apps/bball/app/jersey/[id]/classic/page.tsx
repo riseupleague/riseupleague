@@ -61,7 +61,7 @@ export default async function Classic({
 		typeof searchParams.number === "string" ? searchParams.number : "";
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1 className="mb-10">Jersey Locker</h1>
 			<ClassicJersey
 				edition={"classic"}

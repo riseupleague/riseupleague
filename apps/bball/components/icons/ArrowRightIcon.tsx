@@ -1,4 +1,4 @@
-const HomeIcon = (): JSX.Element => (
+const ArrowRightIcon = (): JSX.Element => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="20"
@@ -16,4 +16,4 @@ const HomeIcon = (): JSX.Element => (
 	</svg>
 );
 
-export default HomeIcon;
+export default ArrowRightIcon;
