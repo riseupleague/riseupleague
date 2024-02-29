@@ -22,18 +22,14 @@ export default function playerOfTheGame({ player }) {
 			<div className="p-5">
 				<div className="relative rounded-bl-3xl border-8 border-blue-500">
 					<Image
-						className=""
+						className="!h-full !w-full"
 						src={player.potg?.image}
 						alt="preview player of the game image"
-						style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
 						width={400}
 						height={600}
 					/>
 
-					<Badge
-						className="absolute left-1/2 top-0 z-10 block -translate-x-1/2 -translate-y-1/2 transform rounded border border-neutral-500 bg-neutral-500 px-10 py-3 uppercase text-white hover:bg-neutral-500"
-						style={{ whiteSpace: "nowrap" }}
-					>
+					<Badge className="absolute left-1/2 top-0 z-10 block -translate-x-1/2 -translate-y-1/2 transform whitespace-nowrap rounded border border-neutral-500 bg-neutral-500 px-10 py-3 uppercase text-white hover:bg-neutral-500">
 						{" "}
 						{player.division.divisionName}
 					</Badge>
