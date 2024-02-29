@@ -24,7 +24,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 	revalidatePath("/schedule", "page");
 
 	return (
-		<main className="font-barlow container mx-auto min-h-[100dvh]">
+		<main className="font-barlow container mx-auto min-h-fit">
 			<h1>Schedule</h1>
 			<ScheduleFilterPage gamesByDate={gamesByDate} />
 			{/* <NewSchedule

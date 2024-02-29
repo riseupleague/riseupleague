@@ -10,6 +10,7 @@ import { Metadata } from "next";
 import JoinTeamCode from "@/components/register/join-team/JoinTeamCode";
 import { getAllRegisterTeams } from "@/api-helpers/controllers/teams-controller";
 import Link from "next/link";
+import BackButton from "@/components/general/buttons/BackButton";
 
 export default async function JoinTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -30,34 +31,15 @@ export default async function JoinTeam(): Promise<JSX.Element> {
 	const { players, season } = await resPlayer.json();
 
 	return (
-		<main className="font-barlow container mx-auto my-10 min-h-[100dvh] text-white">
+		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
 				Season 5
 			</p>
 			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Join a team
 			</h1>
-			<Link
-				href={"/register/"}
-				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="15"
-					height="20"
-					viewBox="0 0 15 20"
-					fill="none"
-				>
-					<path
-						d="M8.125 16.25L1.875 10L8.125 3.75"
-						stroke="#ABAFB3"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-				Back
-			</Link>
+
+			<BackButton href="/register" />
 
 			<JoinTeamCode teams={teams} />
 

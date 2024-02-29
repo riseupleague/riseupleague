@@ -20,7 +20,7 @@ export default async function Players({
 	const { player, allAvg } = await resPlayer.json();
 
 	return (
-		<section className="container mx-auto  min-h-[100dvh] ">
+		<section className="container mx-auto  min-h-fit ">
 			<div className="mb-8 mt-16 flex items-start">
 				<div className="w-1/2 md:w-1/4">
 					{player.playerImage && player.playerImage !== "" ? (

@@ -46,7 +46,7 @@ export default async function Success({
 	const endTimeAMPM = convertToAMPM(division?.endTime);
 
 	return (
-		<main className="font-barlow container  mx-auto min-h-[100dvh] text-white">
+		<main className="font-barlow container  mx-auto min-h-fit text-white">
 			{selectedPlayer?.freeAgent ? (
 				<h1 className=" mt-10 text-center text-4xl font-bold uppercase md:mt-20 md:text-6xl">
 					You have successfully registered as a Free Agent in{" "}
