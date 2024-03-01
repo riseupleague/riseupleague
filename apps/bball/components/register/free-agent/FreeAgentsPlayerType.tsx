@@ -4,9 +4,13 @@ import BackButton from "@/components/general/buttons/BackButton";
 import { Button } from "@ui/components/button";
 import { useState } from "react";
 import FreeAgentsSummary from "./FreeAgentsSummary";
+import { Input } from "@ui/components/input";
 
 const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 	const rating = new Array(5).fill("");
+	const positions = ["Guard", "Forward", "Center"];
+	const [heightConfirmed, setHeightConfirmed] = useState(false);
+
 	const [skills, setSkills] = useState({
 		shooting: null,
 		dribbling: null,
@@ -14,6 +18,8 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 		fitness: null,
 		understanding: null,
 		years: null,
+		position: null,
+		height: "",
 	});
 
 	const playerSkillsSum =
@@ -26,6 +32,13 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 
 	const handleSetSkills = (skill, rating) => {
 		setSkills({ ...skills, [skill]: rating });
+	};
+
+	const handleHeightChange = (e) => {
+		const { value } = e.target;
+		const regex = /^[0-9'"]*$/;
+
+		if (regex.test(value)) setSkills({ ...skills, height: value });
 	};
 
 	return (
@@ -41,7 +54,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 			{/* shooting */}
 			{skills.shooting === null && (
 				<div className="flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8">
-					<h4 className="m-0 text-neutral-400">1/6</h4>
+					<h4 className="m-0 text-neutral-400">1/8</h4>
 					<p className="text-xl uppercase">Rate your shooting accuracy</p>
 
 					<div className="space-x-2.5">
@@ -63,7 +76,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				<div
 					className={`${skills.dribbling !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 				>
-					<h4 className="m-0 text-neutral-400">2/6</h4>
+					<h4 className="m-0 text-neutral-400">2/8</h4>
 					<p className="text-xl uppercase">Rate your dribbling skills</p>
 
 					<div className="space-x-2.5">
@@ -85,7 +98,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				<div
 					className={`${skills.defense !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 				>
-					<h4 className="m-0 text-neutral-400">3/6</h4>
+					<h4 className="m-0 text-neutral-400">3/8</h4>
 					<p className="text-xl uppercase">Rate your defensive skills</p>
 
 					<div className="space-x-2.5">
@@ -107,7 +120,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				<div
 					className={`${skills.fitness !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 				>
-					<h4 className="m-0 text-neutral-400">4/6</h4>
+					<h4 className="m-0 text-neutral-400">4/8</h4>
 					<p className="text-xl uppercase">Rate your overall fitness</p>
 
 					<div className="space-x-2.5">
@@ -129,7 +142,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				<div
 					className={`${skills.understanding !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 				>
-					<h4 className="m-0 text-neutral-400">5/6</h4>
+					<h4 className="m-0 text-neutral-400">5/8</h4>
 					<p className="text-xl uppercase">
 						Rate your understanding of the game
 					</p>
@@ -153,7 +166,7 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				<div
 					className={`${skills.years !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 				>
-					<h4 className="m-0 text-neutral-400">6/6</h4>
+					<h4 className="m-0 text-neutral-400">6/8</h4>
 					<p className="text-xl uppercase">
 						number of years playing basketball
 					</p>
@@ -173,9 +186,56 @@ const FreeAgentsPlayerType = ({ city }): JSX.Element => {
 				</div>
 			)}
 
+			{/* position */}
 			{skills.years !== null && (
-				<FreeAgentsSummary skillsSum={playerSkillsSum} city={city} />
+				<div
+					className={`${skills.position !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
+				>
+					<h4 className="m-0 text-neutral-400">7/8</h4>
+					<p className="text-xl uppercase">Select your preferred position</p>
+
+					<div className="space-x-2.5">
+						{positions.map((position, index) => (
+							<Button
+								className="size-[52px] rounded bg-neutral-500 p-3 text-xl font-normal text-white transition-all hover:bg-neutral-400 sm:size-[75px] sm:p-6"
+								onClick={() => handleSetSkills("position", position)}
+								key={index}
+							>
+								{position}
+							</Button>
+						))}
+					</div>
+				</div>
 			)}
+
+			{/* height */}
+			{skills.position !== null && (
+				<div
+					className={`${heightConfirmed && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
+				>
+					<h4 className="m-0 text-neutral-400">8/8</h4>
+					<p className="text-xl uppercase">
+						Enter your height (only numbers and apostraphes)
+					</p>
+
+					<div className="flex gap-2">
+						<Input
+							placeholder="ie. 5'9"
+							className="border border-neutral-600 bg-neutral-800 p-6 text-xl"
+							value={skills.height}
+							onChange={handleHeightChange}
+						/>
+						<Button
+							disabled={skills.height === null || skills.height.length === 0}
+							onClick={() => setHeightConfirmed(true)}
+						>
+							Continue
+						</Button>
+					</div>
+				</div>
+			)}
+
+			{heightConfirmed && <FreeAgentsSummary skills={skills} city={city} />}
 		</div>
 	);
 };
