@@ -3,7 +3,7 @@ import styles from "./RegisterPrice.module.css"; // Import CSS module
 
 const RegisterPrice = () => {
 	return (
-		<section id="sbsr-1100" className={styles["sbsr-1100"]}>
+		<section id={styles["sbsr-1100"]} className={styles["sbsr-1100"]}>
 			<div className={`${styles["cs-container"]} container mx-auto`}>
 				<div className={styles["cs-image-group"]}>
 					<picture
