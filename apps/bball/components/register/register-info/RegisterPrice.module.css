@@ -87,13 +87,11 @@
 }
 
 .cs-li-text {
-	font-size: var(--bodyFontSize);
 	line-height: 1.5em;
 	text-align: inherit;
 	width: 100%;
 	max-width: 39.375rem;
 	margin: 0;
-	color: var(--bodyTextColor);
 }
 
 .cs-image-group {
