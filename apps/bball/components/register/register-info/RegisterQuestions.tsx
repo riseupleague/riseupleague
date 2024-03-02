@@ -1,5 +1,3 @@
-"use client";
-import React, { useState } from "react";
 import styles from "./RegisterQuestions.module.css"; // Import CSS module
 import Image from "next/image";
 import {
@@ -9,11 +7,6 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 const RegisterQuestions = () => {
-	const [open, setOpen] = useState(0);
-
-	const handleClick = (index) => {
-		setOpen(index);
-	};
 	const faqItems = [
 		{
 			question: "Season Length",

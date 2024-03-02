@@ -14,7 +14,13 @@ const RegisterPageInfo = () => {
 			<RegisterServices />
 			<RegisterCards />
 			<RegisterQuestions />
-			<RegisterCTABanner />
+			<RegisterCTABanner
+				description={
+					"Join Rise Up league today - Elevate your Overall Player Experience."
+				}
+				ctaLink={"/register"}
+				ctaText={"Register Now"}
+			/>
 		</>
 	);
 };

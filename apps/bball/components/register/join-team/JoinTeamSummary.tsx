@@ -413,24 +413,24 @@ const JoinTeamSummary = ({ team, session }) => {
 						{/* Error messages */}
 
 						{checkboxErrors.playerName && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.playerName}
 							</p>
 						)}
 
 						{checkboxErrors.phoneNumber && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.phoneNumber}
 							</p>
 						)}
 						{checkboxErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.termsChecked}
 							</p>
 						)}
 
 						{checkboxErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.refundChecked}
 							</p>
 						)}

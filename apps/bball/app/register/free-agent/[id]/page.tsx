@@ -29,10 +29,11 @@ const FreeAgents = async ({
 	}
 	const resDivisions = await getAllRegisterDivisions();
 	const { divisions } = await resDivisions.json();
-
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
-
+	const selectedDivision = divisions.find((div) => div.city === params.id);
+	if (!selectedDivision) redirect("/");
+	const divisionPricePurposes = selectedDivision.divisions[0];
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
@@ -43,7 +44,10 @@ const FreeAgents = async ({
 			</h1>
 			<h3 className="text-center">City: {params.id}</h3>
 
-			<FreeAgentsPlayerType city={params.id} />
+			<FreeAgentsPlayerType
+				city={params.id}
+				divisionPricePurposes={divisionPricePurposes}
+			/>
 		</main>
 	);
 };

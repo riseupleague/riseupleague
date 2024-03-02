@@ -44,7 +44,6 @@ export async function POST(req: Request) {
 
 		if (metadata.status === "freeAgent") {
 			const updatedUser = await User.findOne({ email: metadata.email });
-			const selectedDivision = await Division.findById(metadata.division);
 
 			// Register player
 			let registeredPlayer;
@@ -52,8 +51,7 @@ export async function POST(req: Request) {
 				registeredPlayer = new Player({
 					freeAgent: metadata.freeAgent,
 					customerId: session.customer,
-					season: selectedDivision.season.toString(),
-					division: selectedDivision._id.toString(),
+					season: metadata.season,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyName: metadata.jerseyName,
@@ -77,16 +75,10 @@ export async function POST(req: Request) {
 			} else {
 				registeredPlayer = new Player({
 					freeAgent: metadata.freeAgent,
-					season: selectedDivision.season.toString(),
-					division: selectedDivision._id.toString(),
+					season: metadata.season,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
 					jerseyName: metadata.jerseyName,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyNumberTwo: metadata.jerseyNumberTwo,
-					jerseyNumberThree: metadata.jerseyNumberThree,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
