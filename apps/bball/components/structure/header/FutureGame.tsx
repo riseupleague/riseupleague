@@ -42,12 +42,11 @@ const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 							{game.homeTeamScore}
 							{homeTeamWon && (
 								<Image
+									className="h-3 w-5 object-contain"
 									src={WinnerIcon.src}
 									alt="Winner icon"
 									width={540}
 									height={480}
-									style={{ objectFit: "contain" }}
-									className="h-3 w-5"
 								/>
 							)}
 						</p>

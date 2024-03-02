@@ -70,10 +70,9 @@ export default function FeaturedPlayerCard({ player }) {
 				{player.playerImage && player.playerImage !== "" ? (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-blue-500">
 						<Image
-							className=""
+							className="!h-full !w-full"
 							src={player.playerImage}
 							alt="preview player of the game image"
-							style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
 							width={200}
 							height={300}
 						/>
@@ -81,10 +80,9 @@ export default function FeaturedPlayerCard({ player }) {
 				) : (
 					<div className="relative m-3  rounded-bl-3xl border-8 border-blue-500 ">
 						<Image
-							className="mt-32 rounded-bl-2xl"
+							className="mt-32 !h-full !w-full rounded-bl-2xl"
 							src={"/images/default-profile-pic.png"}
 							alt="preview player of the game image"
-							style={{ width: "100% !important", height: "100% !important" }} // Set width and height to auto
 							width={300}
 							height={500}
 						/>

@@ -136,7 +136,6 @@ const CreateTeamSummary = ({
 	};
 	return (
 		<>
-			{" "}
 			<button
 				onClick={() => setIsSummary(false)}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"

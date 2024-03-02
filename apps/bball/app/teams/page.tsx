@@ -14,7 +14,7 @@ export default async function Teams(): Promise<JSX.Element> {
 	revalidatePath("/teams", "page");
 
 	return (
-		<section className="container mx-auto  min-h-[100dvh]">
+		<section className="container mx-auto  min-h-fit">
 			<h1>All Teams</h1>
 			<Suspense fallback={null}>
 				<TeamsFilterPage divisions={divisionsWithTeamNames} />
