@@ -17,7 +17,7 @@
 	text-align: inherit;
 	width: 100%;
 	max-width: 40.625rem;
-	margin: 0;
+	margin: 25px 0;
 }
 
 .cs-topper {
@@ -113,7 +113,7 @@
 		height: 5rem;
 		box-sizing: border-box;
 		/* prevents border from affecting height and width */
-		background-color: #f7f7f7;
+		background-color: #1f2937;
 		border-radius: 50%;
 		display: flex;
 		justify-content: center;
@@ -123,7 +123,7 @@
 		flex: none;
 	}
 	#services-1191 .cs-icon {
-		width: 1.875rem;
+		width: 3.5rem;
 		height: auto;
 		display: block;
 	}

@@ -25,16 +25,7 @@
 		flex-direction: column;
 		gap: 0.75rem;
 	}
-	#banner-1106 .cs-int-title {
-		/* 39px - 61px */
-		font-size: clamp(2.4375rem, 6.4vw, 3.8125rem);
-		font-weight: 900;
-		line-height: 1.2em;
-		text-align: inherit;
-		margin: 0;
-		color: var(--bodyTextColorWhite);
-		position: relative;
-	}
+
 	#banner-1106 .cs-breadcrumbs {
 		display: flex;
 		justify-content: center;

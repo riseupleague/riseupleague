@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./RegisterQuestions.module.css"; // Import CSS module
-
+import Image from "next/image";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@ui/components/accordion";
 const RegisterQuestions = () => {
 	const [open, setOpen] = useState(0);
 
@@ -10,183 +16,77 @@ const RegisterQuestions = () => {
 	};
 	const faqItems = [
 		{
-			question: "Do you have experience with car like mine?",
+			question: "Season Length",
 			answer:
-				"In the U.S., the terms lawyer and attorney are often used interchangeably...",
+				"8 weeks, consisting of 7 regular-season games and 1 quarter-final game guaranteed.",
 		},
 		{
-			question: "What is your plan cancellation policy?",
-			answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+			question: "Playoffs",
+			answer:
+				"Semi-final and final games are played depending if your team wins or loses",
 		},
 		{
-			question: "What professional certifications you have?",
-			answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+			question: "Game Format",
+			answer: "Two 20 min halves with a 2 minute half-time",
 		},
 		{
-			question: "What professional certifications you have?",
-			answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+			question: "Price",
+			answer:
+				"The registration fee for participation in the league, which may vary depending on factors such as early registration discounts, league amenities, and location.",
 		},
 		{
-			question: "How much air pressure should I put my tires?",
-			answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit...",
+			question: "Custom Jerseys",
+			answer:
+				"Players can choose from 30 different jersey designs and customize the primar, secondary, and tertiary colors. Note*: Primary colors are first come first serve.",
+		},
+		{
+			question: "Team Sizes",
+			answer:
+				"The number of players allowed on each team, typically ranging from 9 to 12 players per team. The minimum players required in a roster is 9.",
+		},
+		{
+			question: "Refund Policy",
+			answer:
+				"The league's policy regarding refunds for registration fees, which may vary based on factors such as the timing of withdrawal, league cancellation, or other unforeseen circumstances.",
 		},
 	];
+
 	return (
 		<section
 			id={styles["faq-1108"]}
 			className={`${styles["faq-1108"]} container mx-auto`}
 		>
-			<div className={[styles["cs-container"], "cs-container"].join(" ")}>
-				<div className={[styles["cs-content"], "cs-content"].join(" ")}>
-					<span className={[styles["cs-topper"], "cs-topper"].join(" ")}>
-						FAQ’s
-					</span>
-					<h2 className={[styles["cs-title"], "cs-title"].join(" ")}>
-						Frequently Asked Questions
+			<div>
+				<div className="flex flex-col">
+					<h2 className="font-abolition mb-10 text-5xl">
+						More Info about this season{" "}
 					</h2>
-					<picture className={[styles["cs-picture"], "cs-picture"].join(" ")}>
-						{/* Mobile Image */}
-						<source
-							media="(max-width: 600px)"
-							srcSet="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/MISC/mechanic23.jpg"
-						/>
-						{/* Tablet and above Image */}
-						<source
-							media="(min-width: 601px)"
-							srcSet="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/MISC/mechanic23.jpg"
-						/>
-						<img
+					<div className="flex w-full flex-col gap-10 md:flex-row">
+						<Image
+							className={`${styles["cs-icon"]} cs-icon`}
 							loading="lazy"
 							decoding="async"
-							src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/MISC/mechanic23.jpg"
-							alt="appliance"
-							width="522"
-							height="400"
+							src="/images/register/RegisterQuestion.jpg"
+							alt="icon"
+							width="400"
+							height="200"
+							aria-hidden="true"
 						/>
-					</picture>
-				</div>
-				<div className={[styles["cs-flex-group"], "cs-flex-group"].join(" ")}>
-					<ul className={[styles["cs-faq-group"], "cs-faq-group"].join(" ")}>
-						{/* Active class added as default */}
 
-						{faqItems.map((item, index) => (
-							<li
-								key={index}
-								className={`${styles["cs-faq-item"]} cs-faq-item ${open === index ? styles["active"] : ""}`}
-							>
-								<button
-									onClick={() => handleClick(index)}
-									className={[styles["cs-button"], "cs-button"].join(" ")}
-								>
-									<span
-										className={[
-											styles["cs-button-text"],
-											"cs-button-text",
-										].join(" ")}
-									>
+						<Accordion type="single" collapsible className="w-full">
+							{faqItems.map((item, index) => (
+								<AccordionItem key={index} value={`item-${index}`}>
+									<AccordionTrigger className="font-barlow text-xl md:text-3xl">
+										{" "}
 										{item.question}
-									</span>
-								</button>
-								<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-									{item.answer}
-								</p>
-							</li>
-						))}
-
-						{/* <li
-							className={[
-								styles["cs-faq-item"],
-								"cs-faq-item",
-								styles.active,
-							].join(" ")}
-						>
-							<button className={[styles["cs-button"], "cs-button"].join(" ")}>
-								<span
-									className={[styles["cs-button-text"], "cs-button-text"].join(
-										" "
-									)}
-								>
-									Do you have experience with car like mine?
-								</span>
-							</button>
-							<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-								In the U.S., the terms lawyer and attorney are often used
-								interchangeably. A lawyer provides legal services such as giving
-								legal advice, writing legal documents and providing policy
-								counsel to governments. An attorney, on top of these things also
-								holds a state or regional license to represent clients in a law
-								court.
-							</p>
-						</li>
-						<li className={[styles["cs-faq-item"], "cs-faq-item"].join(" ")}>
-							<button className={[styles["cs-button"], "cs-button"].join(" ")}>
-								<span
-									className={[styles["cs-button-text"], "cs-button-text"].join(
-										" "
-									)}
-								>
-									What is your plan cancellation policy?
-								</span>
-							</button>
-							<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-								convallis nunc neque, bibendum pulvinar vitae commodo velit.
-								Proin diam tortor sed malesuada nunc, habitant. Dignissim ipsum
-								porta enim, magna urna, quam.
-							</p>
-						</li>
-						<li className={[styles["cs-faq-item"], "cs-faq-item"].join(" ")}>
-							<button className={[styles["cs-button"], "cs-button"].join(" ")}>
-								<span
-									className={[styles["cs-button-text"], "cs-button-text"].join(
-										" "
-									)}
-								>
-									What professional certifications you have?
-								</span>
-							</button>
-							<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-								convallis nunc neque, bibendum pulvinar vitae commodo velit.
-								Proin diam tortor sed malesuada nunc, habitant. Dignissim ipsum
-								porta enim, magna urna, quam.
-							</p>
-						</li>
-						<li className={[styles["cs-faq-item"], "cs-faq-item"].join(" ")}>
-							<button className={[styles["cs-button"], "cs-button"].join(" ")}>
-								<span
-									className={[styles["cs-button-text"], "cs-button-text"].join(
-										" "
-									)}
-								>
-									What professional certifications you have?
-								</span>
-							</button>
-							<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-								convallis nunc neque, bibendum pulvinar vitae commodo velit.
-								Proin diam tortor sed malesuada nunc, habitant. Dignissim ipsum
-								porta enim, magna urna, quam.
-							</p>
-						</li>
-						<li className={[styles["cs-faq-item"], "cs-faq-item"].join(" ")}>
-							<button className={[styles["cs-button"], "cs-button"].join(" ")}>
-								<span
-									className={[styles["cs-button-text"], "cs-button-text"].join(
-										" "
-									)}
-								>
-									How much air pressure should I put my tires?
-								</span>
-							</button>
-							<p className={[styles["cs-item-p"], "cs-item-p"].join(" ")}>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit
-								convallis nunc neque, bibendum pulvinar vitae commodo velit.
-								Proin diam tortor sed malesuada nunc, habitant. Dignissim ipsum
-								porta enim, magna urna, quam.
-							</p>
-						</li> */}
-					</ul>
+									</AccordionTrigger>
+									<AccordionContent className="text-md font-barlow md:text-xl">
+										{item.answer}
+									</AccordionContent>
+								</AccordionItem>
+							))}
+						</Accordion>
+					</div>
 				</div>
 			</div>
 		</section>

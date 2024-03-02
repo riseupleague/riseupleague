@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./RegisterCTABanner.module.css"; // Import CSS module
 import Link from "next/link";
+import Image from "next/image";
 
 const RegisterCTABanner = () => {
 	return (
@@ -23,18 +24,19 @@ const RegisterCTABanner = () => {
 				</div>
 			</div>
 			<div className={`${styles["cs-wrapper"]} cs-wrapper`}>
-				<img
+				<Image
 					className={`${styles["cs-graphic"]} ${styles["cs-graphic-1"]} cs-graphic cs-graphic-1`}
-					src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/enterprise-logo.png"
+					src="/images/register/register-cta-logo.svg"
 					alt="logo"
 					height="372"
 					width="372"
 					loading="lazy"
 					decoding="async"
 				/>
-				<img
+
+				<Image
 					className={`${styles["cs-graphic"]} ${styles["cs-graphic-2"]} cs-graphic cs-graphic-2`}
-					src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/enterprise-logo.png"
+					src="/images/register/register-cta-logo.svg"
 					alt="logo"
 					height="372"
 					width="372"

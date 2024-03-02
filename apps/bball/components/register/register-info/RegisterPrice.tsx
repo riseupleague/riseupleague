@@ -41,7 +41,7 @@ const RegisterPrice = () => {
 				</div>
 				<div className={styles["cs-content"]}>
 					{/* <span className={styles["cs-topper"]}>Mission & Vision</span> */}
-					<h2 className="text-5xl">Register Now</h2>
+					<h2 className="font-abolition text-5xl">Register Now</h2>
 					<p className={styles["cs-text"]}>
 						Play in the league with the best player experience!
 					</p>

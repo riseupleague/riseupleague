@@ -5,12 +5,11 @@ import Image from "next/image";
 const RegisterBanner = () => {
 	console.log(styles);
 	return (
-		<section
-			id={styles["banner-1106"]}
-			className={`${styles["banner-1106"]} container mx-auto`}
-		>
+		<section id={styles["banner-1106"]} className={`${styles["banner-1106"]}`}>
 			<div className={styles["cs-container"]}>
-				<span className={styles["cs-int-title"]}>About Registration</span>
+				<span className="font-abolition text-8xl uppercase">
+					About Registration
+				</span>
 				{/* <div className={styles["cs-breadcrumbs"]}>
 					<a href="" className={styles["cs-link"]}>
 						Home

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./RegisterCards.module.css"; // Import CSS module
+import Image from "next/image";
 
 const RegisterCards = () => {
 	return (
@@ -9,102 +10,142 @@ const RegisterCards = () => {
 		>
 			<div className={`${styles["cs-container"]} cs-container`}>
 				<div className={`${styles["cs-content"]} cs-content`}>
-					<span className={`${styles["cs-topper"]} cs-topper`}>
+					{/* <span className={`${styles["cs-topper"]} cs-topper`}>
 						Our Services
-					</span>
-					<h2 className={`${styles["cs-title"]} cs-title`}>
-						What We Provide To Our Customer
-					</h2>
+					</span> */}
+					<h2 className="font-abolition text-5xl">Skill Divisions </h2>
 					<p className={`${styles["cs-text"]} cs-text`}>
-						Designed to maintain your current colour, blend out a growing root
-						or balance your blonde while providing full and demi-permanent
-						coverage.
+						Explore our divisions to find the perfect fit for you. See which one
+						aligns best with your skills and preferences.
 					</p>
 				</div>
 				<ul className={`${styles["cs-card-group"]} cs-card-group`}>
 					<li className={`${styles["cs-item"]} cs-item`}>
-						<div className={`${styles["cs-image-group"]} cs-image-group`}>
-							<img
+						<div
+							className={`${styles["cs-image-group"]} cs-image-group flex justify-center`}
+						>
+							<Image
 								className={`${styles["cs-icon"]} cs-icon`}
 								loading="lazy"
 								decoding="async"
-								src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/checkmark-circle-gold.svg"
+								src="/images/register/RegisterStar.svg"
 								alt="icon"
 								width="48"
 								height="48"
 								aria-hidden="true"
 							/>
 						</div>
-						<div className={`${styles["cs-flex"]} cs-flex`}>
-							<h2 className={`${styles["cs-h2"]} cs-h2`}>100% Success Rate</h2>
+						<div className={`${styles["cs-flex"]} cs-flex text-center`}>
+							<h2 className={`${styles["cs-h2"]} cs-h2`}>Beginner</h2>
 							<p className={`${styles["cs-item-text"]} cs-item-text`}>
-								We provide some of the finest quality, most responsive and
-								reliable, and cost effective services and solutions.
+								<span className="block">
+									Looking to play organized ball for the first time? Then this
+									level is for you.
+								</span>
+								<span className="block">
+									**This division is for beginners only! You will be moved up a
+									level based on your skill level.
+								</span>
 							</p>
 						</div>
 					</li>
 					<li className={`${styles["cs-item"]} cs-item`}>
-						<div className={`${styles["cs-image-group"]} cs-image-group`}>
-							<img
+						<div
+							className={`${styles["cs-image-group"]} cs-image-group flex justify-center gap-2`}
+						>
+							<Image
 								className={`${styles["cs-icon"]} cs-icon`}
 								loading="lazy"
 								decoding="async"
-								src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/dashboard-gold.svg"
+								src="/images/register/RegisterStar.svg"
+								alt="icon"
+								width="48"
+								height="48"
+								aria-hidden="true"
+							/>
+							<Image
+								className={`${styles["cs-icon"]} cs-icon`}
+								loading="lazy"
+								decoding="async"
+								src="/images/register/RegisterStar.svg"
 								alt="icon"
 								width="48"
 								height="48"
 								aria-hidden="true"
 							/>
 						</div>
-						<div className={`${styles["cs-flex"]} cs-flex`}>
-							<h2 className={`${styles["cs-h2"]} cs-h2`}>
-								Expert Legal Services
-							</h2>
+						<div className={`${styles["cs-flex"]} cs-flex text-center`}>
+							<h2 className={`${styles["cs-h2"]} cs-h2`}>Intermediate </h2>
 							<p className={`${styles["cs-item-text"]} cs-item-text`}>
-								Fortune 500 companies to smaller and medium-sized companies to
-								help manage risks to as low as reasonably practical.
+								Perfect for players who has a basic knowledge of the sport and
+								ready to improve their game.
 							</p>
 						</div>
 					</li>
 					<li className={`${styles["cs-item"]} cs-item`}>
-						<div className={`${styles["cs-image-group"]} cs-image-group`}>
-							<img
+						<div
+							className={`${styles["cs-image-group"]} cs-image-group flex justify-center gap-2`}
+						>
+							<Image
 								className={`${styles["cs-icon"]} cs-icon`}
 								loading="lazy"
 								decoding="async"
-								src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/Lifebuoy-gold.svg"
+								src="/images/register/RegisterStar.svg"
+								alt="icon"
+								width="48"
+								height="48"
+								aria-hidden="true"
+							/>
+							<Image
+								className={`${styles["cs-icon"]} cs-icon`}
+								loading="lazy"
+								decoding="async"
+								src="/images/register/RegisterStar.svg"
+								alt="icon"
+								width="48"
+								height="48"
+								aria-hidden="true"
+							/>
+							<Image
+								className={`${styles["cs-icon"]} cs-icon`}
+								loading="lazy"
+								decoding="async"
+								src="/images/register/RegisterStar.svg"
 								alt="icon"
 								width="48"
 								height="48"
 								aria-hidden="true"
 							/>
 						</div>
-						<div className={`${styles["cs-flex"]} cs-flex`}>
-							<h2 className={`${styles["cs-h2"]} cs-h2`}>Business Strategy</h2>
+						<div className={`${styles["cs-flex"]} cs-flex text-center`}>
+							<h2 className={`${styles["cs-h2"]} cs-h2`}>Great</h2>
 							<p className={`${styles["cs-item-text"]} cs-item-text`}>
-								Highly experienced staff of more than 100 professionals
-								averaging 29+ years in industry and hands-on knowledge.
+								Advanced level for dedicated players aiming to improve their
+								game.
 							</p>
 						</div>
 					</li>
 					<li className={`${styles["cs-item"]} cs-item`}>
-						<div className={`${styles["cs-image-group"]} cs-image-group`}>
-							<img
+						<div
+							className={`${styles["cs-image-group"]} cs-image-group flex justify-center`}
+						>
+							<Image
 								className={`${styles["cs-icon"]} cs-icon`}
 								loading="lazy"
 								decoding="async"
-								src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Images/Icons/Like-gold.svg"
+								src="/images/register/RegisterCrown.svg"
 								alt="icon"
 								width="48"
 								height="48"
 								aria-hidden="true"
 							/>
 						</div>
-						<div className={`${styles["cs-flex"]} cs-flex`}>
-							<h2 className={`${styles["cs-h2"]} cs-h2`}>Highly Recommend</h2>
+						<div className={`${styles["cs-flex"]} cs-flex text-center `}>
+							<h2 className={`${styles["cs-h2"]} cs-h2`}>Elite</h2>
 							<p className={`${styles["cs-item-text"]} cs-item-text`}>
-								Highly experienced staff of more than 100 professionals
-								averaging 29+ years in industry and hands-on knowledge.
+								Reserved for players that demands exceptional skills and intense
+								competition. This division offers opportunities for elite-level
+								training and exposure.
 							</p>
 						</div>
 					</li>
