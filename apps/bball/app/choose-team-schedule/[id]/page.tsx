@@ -24,7 +24,7 @@ export default async function Jersey({
 	const { user } = await resUser.json();
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1 className="mb-10">Choose Your Schedule 🗓️</h1>
 
 			{team.games.length > 0 ? (

@@ -3,6 +3,8 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import Image from "next/image";
+import { Button } from "@ui/components/button";
 import {
 	getCurrentUser,
 	addNewUser,
@@ -14,8 +16,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@ui/components/card";
-import Image from "next/image";
-import { Button } from "@ui/components/button";
 
 export default async function Register(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -63,20 +63,20 @@ export default async function Register(): Promise<JSX.Element> {
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="text-center">
-							{card.btnText === "Coming soon" ? (
+							{card.href === "/register/free-agent" ? (
 								<Button
+									className="font-barlow block w-full rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
 									disabled
-									className="font-barlow block w-full cursor-not-allowed rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
 								>
-									Coming Soon!
+									<Link href={card.href}>Coming soon</Link>
 								</Button>
 							) : (
-								<Link
-									href={card.href}
+								<Button
 									className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+									asChild
 								>
-									{card.btnText}
-								</Link>
+									<Link href={card.href}>{card.btnText}</Link>
+								</Button>
 							)}
 						</CardContent>
 					</Card>
@@ -99,7 +99,7 @@ const cardData = [
 			"Don’t have a full squad? This is the perfect pick for you. Join as a solo player or groups of 4 or less players.",
 		imgSrc: "/images/register/joinFreeAgent.jpg",
 		imgAlt: "Join as a free agent Now",
-		btnText: "Coming soon",
+		btnText: "Join as a free agent Now",
 		href: "/register/free-agent",
 	},
 	{

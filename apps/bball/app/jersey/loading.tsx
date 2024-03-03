@@ -4,7 +4,7 @@ const JerseyLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1>
 				<Skeleton className="h-16 w-3/4 rounded-lg bg-neutral-700 lg:w-1/4" />
 			</h1>

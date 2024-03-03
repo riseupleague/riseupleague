@@ -88,7 +88,7 @@ const Login = (): JSX.Element => {
 	};
 
 	return (
-		<div className="font-barlow container mx-auto flex min-h-[100dvh] items-center justify-center text-black">
+		<div className="font-barlow container mx-auto flex min-h-fit items-center justify-center text-black">
 			{!isEmail ? (
 				<section className=" gap-4 border bg-white p-6 text-black shadow-lg duration-200 sm:max-w-md sm:rounded-lg md:w-full">
 					<header className="flex flex-col space-y-1.5 text-center sm:text-left">

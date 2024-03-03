@@ -10,6 +10,7 @@ import Original5 from "@/lib/jersey-designs/original/original-5";
 import Original6 from "@/lib/jersey-designs/original/original-5";
 import Original7 from "@/lib/jersey-designs/original/original-6";
 import Original8 from "@/lib/jersey-designs/original/original-8";
+import BackButton from "@/components/general/buttons/BackButton";
 
 const numberToComponent = {
 	2: Original2(),
@@ -106,27 +107,8 @@ const CustomizeJersey = ({ edition, number, team }): JSX.Element => {
 
 	return (
 		<>
-			<Link
-				href={`/jersey/${team._id}`}
-				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="15"
-					height="20"
-					viewBox="0 0 15 20"
-					fill="none"
-				>
-					<path
-						d="M8.125 16.25L1.875 10L8.125 3.75"
-						stroke="#ABAFB3"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-				Back
-			</Link>
+			<BackButton href={`/jersey/${team._id}`} />
+
 			<h3 className="mt-10 text-3xl font-medium uppercase ">
 				{edition} {number}
 			</h3>

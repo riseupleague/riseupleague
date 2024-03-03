@@ -15,7 +15,7 @@ export default async function Standings(): Promise<JSX.Element> {
 	revalidatePath("/standings", "page");
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1>standings</h1>
 			<StandingsTable divisions={divisionsWithStats} />
 		</section>

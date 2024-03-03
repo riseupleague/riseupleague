@@ -21,7 +21,7 @@ export default async function Preview({
 	const formattedDate = format(date, "E L/d @ h:mm a");
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<div className="mb-8 mt-16">
 				<h1>{game.gameName}</h1>
 

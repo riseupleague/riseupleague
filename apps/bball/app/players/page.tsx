@@ -10,7 +10,7 @@ export default async function Players(): Promise<JSX.Element> {
 	const { allPlayers } = await res.json();
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1>league roster</h1>
 			<PlayerGrid allPlayers={allPlayers} />
 		</section>
