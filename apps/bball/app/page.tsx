@@ -29,12 +29,13 @@ const Page = async (): Promise<JSX.Element> => {
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
-			<Suspense fallback={<HomeLeadersSkeleton />}>
+
+			{/* <Suspense fallback={<HomeLeadersSkeleton />}>
 				<HomeLeaders />
 			</Suspense>
 			<Suspense fallback={<MVPLadderSkeleton />}>
 				<HomeMVPLadder />
-			</Suspense>
+			</Suspense> */}
 
 			<HomeSocials />
 			<HomeFaq />

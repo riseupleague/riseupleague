@@ -63,12 +63,21 @@ export default async function Register(): Promise<JSX.Element> {
 							</CardDescription>
 						</CardHeader>
 						<CardContent className="text-center">
-							<Button
-								className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
-								asChild
-							>
-								<Link href={card.href}>{card.btnText}</Link>
-							</Button>
+							{card.href === "/register/free-agent" ? (
+								<Button
+									className="font-barlow block w-full rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+									disabled
+								>
+									<Link href={card.href}>Coming soon</Link>
+								</Button>
+							) : (
+								<Button
+									className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+									asChild
+								>
+									<Link href={card.href}>{card.btnText}</Link>
+								</Button>
+							)}
 						</CardContent>
 					</Card>
 				))}
