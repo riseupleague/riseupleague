@@ -157,6 +157,7 @@ export async function POST(req: Request) {
 				teamName: metadata.teamName,
 				teamNameShort: metadata.teamNameShort,
 				teamCode: metadata.teamCode,
+				paid: metadata.paid === true ? true : false,
 				wins: 0,
 				losses: 0,
 				pointDifference: 0,
@@ -216,10 +217,10 @@ export async function POST(req: Request) {
 					teamCaptain: true,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyName: metadata.jerseyName,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
+					// jerseyNumber: metadata.jerseyNumber,
+					// jerseyName: metadata.jerseyName,
+					// jerseySize: metadata.jerseySize,
+					// shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
@@ -306,10 +307,10 @@ export async function POST(req: Request) {
 					teamCaptain: false,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyName: metadata.jerseyName,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
+					// jerseyNumber: metadata.jerseyNumber,
+					// jerseyName: metadata.jerseyName,
+					// jerseySize: metadata.jerseySize,
+					// shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
@@ -330,10 +331,10 @@ export async function POST(req: Request) {
 					teamCaptain: false,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyName: metadata.jerseyName,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
+					// jerseyNumber: metadata.jerseyNumber,
+					// jerseyName: metadata.jerseyName,
+					// jerseySize: metadata.jerseySize,
+					// shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
@@ -419,18 +420,20 @@ export async function POST(req: Request) {
 
 		const response = await sheets.spreadsheets.values.append({
 			spreadsheetId: "1uFrrYeBPut9A0_6zvC90YJm22FRBXAuL_pG64bJmymU",
-			range: "Sheet3!A2:I", // Assuming 5 columns are required for the form data
+			range: "Sheet4!A2:I", // Assuming 5 columns are required for the form data
 			valueInputOption: "USER_ENTERED",
 			requestBody: {
 				values: [
 					[
 						metadata.teamName,
-						metadata.jerseyName,
-						metadata.jerseyNumber,
-						metadata.jerseySize,
-						metadata.shortSize,
+						// metadata.jerseyName,
+						// metadata.jerseyNumber,
+						// metadata.jerseySize,
+						// metadata.shortSize,
 						metadata.playerName,
 						metadata.instagram,
+						metadata.phoneNumber,
+						metadata.email,
 						metadata.divisionName,
 						metadata.status,
 					],

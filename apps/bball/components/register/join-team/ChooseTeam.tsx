@@ -92,7 +92,9 @@ const ChooseTeam = ({ division, session }): JSX.Element => {
 								</svg>
 								Back
 							</Link>
-							<h3 className="mt-10  text-3xl uppercase">Choose your team:</h3>
+							<h3 className="mt-10 text-3xl font-medium uppercase">
+								Choose your team:
+							</h3>
 
 							<div className="mt-10 flex flex-col gap-10 ">
 								<Accordion type="single" collapsible className="w-full">

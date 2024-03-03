@@ -22,6 +22,27 @@ export const getAllCurrentTeams = async (seasonId: string) => {
 	}
 };
 
+export const getAllRegisterTeams = async () => {
+	try {
+		const registerTeam = await Season.find({ register: true });
+
+		const teams = await Team.find({ season: registerTeam }).select(
+			"teamName, teamCode"
+		);
+
+		if (teams.length === 0) {
+			return NextResponse.json({ message: "No teams found" }, { status: 404 });
+		}
+
+		return NextResponse.json({ teams });
+	} catch (error) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getAllCurrentTeamsNameDivisionAndId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -75,6 +96,30 @@ export const getTeamById = async (teamId: string) => {
 	} catch (e) {
 		return NextResponse.json({ message: e }, { status: 500 });
 	}
+};
+
+export const getRegisterTeamById = async (id: string) => {
+	// Check if the provided ID is not undefined or null
+	if (!id) {
+		return NextResponse.json({ message: "Invalid team ID" }, { status: 400 });
+	}
+
+	// Attempt to find the division by ID and populate related fields
+	const team = await Team.findById(id)
+		.populate({
+			path: "division",
+			select:
+				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId teamCaptain",
+		})
+		.populate({ path: "season", select: "freePrice" })
+		.populate({ path: "players", select: "teamCaptain playerName" })
+		.select("division teamCaptain paid teamName");
+
+	if (!team) {
+		return NextResponse.json({ message: "No team found" }, { status: 404 });
+	}
+
+	return NextResponse.json({ team });
 };
 
 export const getTeamByIdWithGames = async (teamId: string) => {

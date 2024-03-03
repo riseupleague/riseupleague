@@ -30,7 +30,10 @@ export default async function JoinTeam({
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-[100dvh] text-white">
-			<h1 className=" mt-5 text-right text-8xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
+			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
+				Season 5
+			</p>
+			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Create a team
 			</h1>
 
