@@ -1,42 +1,57 @@
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import Image from "next/image";
-import logo from "imgs/riseup_volleyball.png"
-import vballImg from "imgs/img.png"
+import logo from "../../bball/public/images/vball/riseup_volleyball.png"
+import vballImg from "../../bball/public/images/vball/img.png"
+import fb from "../../bball/public/images/vball/fb.png"
+import ig from "../../bball/public/images/vball/Instagram.png"
+import twitter from "../../bball/public/images/vball/t.png"
+import yt from "../../bball/public/images/vball/Yt.png"
+import Link from "next/link";
+import SocialButton from "@ui/components/SocialButton";
 
 const VballNewsLetter = (): JSX.Element => {
 	return (
-	<div className="flex flex-wrap justify-center items-start space-x-0">
-		<section className="relative font-barlow flex flex-col bg-white px-5 py-12 text-center mx-auto" 
-			style={{ width: '720px', height: '1024px', marginRight: '0', marginTop: '30px', marginBottom: '30px' }}>
-				<Image src={logo} alt="RiseUp Logo" 
-					style={{ width: '187px', height: '187px', position: 'absolute', left: '38px', top: '-4px' }}/>
-				
-				<h1 style={{ fontSize: '61px', fontWeight: 500, lineHeight: '73px', textAlign: 'left', color: 'black', width: '461px', height: '146px', position: 'absolute', top: '165px', left: '70px' }}>
-					OUR NEW WEBSITE IS ON THE WAY.
+		<section className="container mx-auto flex h-dvh items-center">
+
+			<div className="w-full md:w-1/2 md:h-3/4 md:mb-[100px] space-y-[36px] px-[60px] bg-white">		
+				<Image src={logo} alt="Rise Up Logo"/>
+
+				<h1 className="text-[61px] font-medium leading-[73px] text-left text-black w-[461px] h-[146px] top-[165px] left-[70px]">
+	 				OUR NEW WEBSITE IS ON THE WAY.
 				</h1>
-				
-				<p style={{ fontSize: '24px', fontWeight: 400, lineHeight: '36px', textAlign: 'left', color: 'black', width: '461px', height: '36px', position: 'absolute', top: '335px', left: '70px' }}>
+
+				<p className="text-[24px] font-normal leading-[36px] text-left text-black w-[461px] h-[36px] top-[335px] left-[70px]">
 					Sign up to be the first to know when we launch!
 				</p>
-				
-				<Input type="text" placeholder="Enter your email"
-  					style={{ fontSize: '14 px', fontWeight: '400', lineHeight: '21px', letterSpacing: '0em', textAlign: 'left', color: '#111827', width: '593px', height: '56px', top: '421px', left: '70px', borderRadius: '6px', padding: '16px 0px', paddingLeft: '20px', position: 'absolute' }}/>
 
-				< Button style={{ backgroundColor: '#555B64', position: 'absolute', width: '593px', height: '54px', top: '510px', left: '70px', padding: '16px 48px', border: '1px black', borderRadius: '6px', color: 'white', fontSize: '16px', fontWeight: '600px' }}>
-					NOTIFY ME
+				<Input type="text" placeholder="Enter your email" className="text-[14px] font-normal leading-[21px] text-left text-[#111827] top-[421px] left-[70px] rounded-[6px] p-[16px] pl-[20px] pr-[20px]"/>
+
+				<Button className="w-full bg-[#555B64] text-white" asChild>
+					<Link href="/">Notify Me</Link>
 				</Button>
+				
+				<div className="flex gap-4 pb-4 mb-16">
+					<SocialButton href="https://www.facebook.com/riseup.bball">
+						<Image src={fb} alt="fb logo"/>
+					</SocialButton>
+					<SocialButton>
+						<Image src={twitter} alt="twitter logo"/>
+					</SocialButton>
+					<SocialButton href="https://www.instagram.com/riseup.vball/">
+						<Image src={ig} alt="ig logo"/>
+					</SocialButton>
+					<SocialButton href="https://www.youtube.com/@RiseUPBasketballLeagueMedia">
+						<Image src={yt} alt="yt logo"/>
+					</SocialButton>
+				</div>
+			</div>
 
-				{/* <Image src={vballImg} alt="RiseUp Logo" 
-					style={{ width: '720px', height: '1024px', position: 'absolute', left: '720px'}}/> */}
-		</section>
+			<div className="hidden md:block w-full md:w-1/2">
+				<Image src={vballImg} alt="Cover" />
+			</div>
 
-		<section className="flex-wrap justify-center flex flex-col px-5 py-12 mx-auto" 
-			style={{ width: '720px', height: '1024px', marginLeft: '0', marginTop: '30px', marginBottom: '30px', position: 'relative' }}>
-				<Image src={vballImg} alt="RiseUp Logo" 
-					style={{ width: '720px', height: '1024px', position: 'absolute', left: '0' }}/>
 		</section>
-	</div>
 	);
 };
 
