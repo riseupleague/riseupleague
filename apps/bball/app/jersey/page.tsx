@@ -12,7 +12,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 	const { user } = await resUser.json();
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1 className="mb-10">Jersey Locker</h1>
 
 			<h3 className="mt-10 text-3xl font-medium uppercase">Select Your Team</h3>

@@ -4,7 +4,7 @@ const SeasonsMangaementLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<div>
 				{/* search */}
 				<div className="flex gap-4">

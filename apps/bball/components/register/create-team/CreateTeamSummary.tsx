@@ -136,7 +136,6 @@ const CreateTeamSummary = ({
 	};
 	return (
 		<>
-			{" "}
 			<button
 				onClick={() => setIsSummary(false)}
 				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
@@ -186,13 +185,13 @@ const CreateTeamSummary = ({
 								<LocationIcon />
 								<p className="text-xl">{division.location}</p>
 							</div>
-							<div className="mb-3 flex items-center gap-1">
+							{/* <div className="mb-3 flex items-center gap-1">
 								<ClockIcon />
 								<p className="text-xl">
 									{convertMilitaryToRegularTime(division.startTime)} -{" "}
 									{convertMilitaryToRegularTime(division.endTime)}
 								</p>
-							</div>
+							</div> */}
 							<div className="mb-6 flex items-center gap-1">
 								<CalendarRegisterIcon />
 								<p className="text-xl">{division.day}</p>

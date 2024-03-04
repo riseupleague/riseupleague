@@ -19,7 +19,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 	return (
-		<div className="container mx-auto min-h-[100dvh]">
+		<div className="container mx-auto min-h-fit">
 			<Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense>
@@ -29,12 +29,13 @@ const Page = async (): Promise<JSX.Element> => {
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
-			<Suspense fallback={<HomeLeadersSkeleton />}>
+
+			{/* <Suspense fallback={<HomeLeadersSkeleton />}>
 				<HomeLeaders />
 			</Suspense>
 			<Suspense fallback={<MVPLadderSkeleton />}>
 				<HomeMVPLadder />
-			</Suspense>
+			</Suspense> */}
 
 			<HomeSocials />
 			<HomeFaq />

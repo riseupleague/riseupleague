@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export default async function Page(): Promise<JSX.Element> {
 	return (
-		<div className="font-barlow container  mx-auto min-h-[100dvh] text-black">
+		<div className="font-barlow container  mx-auto min-h-fit text-black">
 			<Login />
 		</div>
 	);

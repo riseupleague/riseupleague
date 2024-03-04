@@ -1,7 +1,7 @@
 import { Skeleton } from "@ui/components/skeleton";
 
 const TeamLoading = (): JSX.Element => (
-	<section className="container mx-auto min-h-[100dvh]">
+	<section className="container mx-auto min-h-fit">
 		<div className="mb-8 mt-16">
 			<Skeleton className="h-16 w-3/4 rounded-lg bg-neutral-700 lg:w-1/4" />
 		</div>

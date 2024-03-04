@@ -10,32 +10,13 @@ import LocationIcon from "../icons/LocationIcon";
 import ClockIcon from "../icons/ClockIcon";
 import CalendarRegisterIcon from "../icons/CalendarRegisterIcon";
 import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
+import BackButton from "../general/buttons/BackButton";
 
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 	const userDivisions = user.basketball.map((player) => player.division._id);
 	return (
 		<>
-			<Link
-				href="/register"
-				className="my-2 flex items-center gap-3 text-xl text-neutral-300"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="15"
-					height="20"
-					viewBox="0 0 15 20"
-					fill="none"
-				>
-					<path
-						d="M8.125 16.25L1.875 10L8.125 3.75"
-						stroke="#ABAFB3"
-						strokeWidth="1.5"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-				Back
-			</Link>
+			<BackButton href="/register" />
 
 			<h3 className="mt-10 text-3xl font-normal uppercase">
 				Pick a city & division:
@@ -75,7 +56,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																			{division.location}
 																		</p>
 																	</div>
-																	<div className="flex items-center gap-1">
+																	{/* <div className="flex items-center gap-1">
 																		<ClockIcon />
 																		<p className="text-sm">
 																			{convertMilitaryToRegularTime(
@@ -86,7 +67,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																				division.endTime
 																			)}
 																		</p>
-																	</div>
+																	</div> */}
 																	<div className="flex items-center gap-1">
 																		<CalendarRegisterIcon />
 																		<p className="text-sm">{division.day}</p>
@@ -172,7 +153,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																					{division.location}
 																				</p>
 																			</div>
-																			<div className="flex items-center gap-1">
+																			{/* <div className="flex items-center gap-1">
 																				<ClockIcon />
 																				<p className="text-sm">
 																					{convertMilitaryToRegularTime(
@@ -183,7 +164,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																						division.endTime
 																					)}
 																				</p>
-																			</div>
+																			</div> */}
 																			<div className="flex items-center gap-1">
 																				<CalendarRegisterIcon />
 																				<p className="text-sm">

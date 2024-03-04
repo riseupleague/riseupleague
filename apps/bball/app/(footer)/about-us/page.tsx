@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 const AboutUs = (): JSX.Element => {
 	return (
-		<section className="container mx-auto min-h-[100dvh]">
+		<section className="container mx-auto min-h-fit">
 			<h1>about us page</h1>
 		</section>
 	);
