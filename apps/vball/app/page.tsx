@@ -5,7 +5,6 @@ import logo from "../../bball/public/images/vball/riseup_volleyball.png";
 import vballImg from "../../bball/public/images/vball/img.png";
 import fb from "../../bball/public/images/vball/fb.png";
 import ig from "../../bball/public/images/vball/Instagram.png";
-import twitter from "../../bball/public/images/vball/t.png";
 import yt from "../../bball/public/images/vball/Yt.png";
 import Link from "next/link";
 import SocialButton from "@ui/components/SocialButton";
