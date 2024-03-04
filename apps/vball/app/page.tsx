@@ -38,9 +38,9 @@ const VballNewsLetter = (): JSX.Element => {
 					<SocialButton href="https://www.facebook.com/riseup.bball">
 						<Image src={fb} alt="fb logo" />
 					</SocialButton>
-					<SocialButton>
+					{/* <SocialButton>
 						<Image src={twitter} alt="twitter logo" />
-					</SocialButton>
+					</SocialButton> */}
 					<SocialButton href="https://www.instagram.com/riseup.vball/">
 						<Image src={ig} alt="ig logo" />
 					</SocialButton>
