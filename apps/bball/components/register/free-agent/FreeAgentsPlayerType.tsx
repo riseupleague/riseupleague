@@ -56,7 +56,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 
 	function validateHeight(input) {
 		// Regular expression to match feet and inches format (e.g., 5'9")
-		const regex = /^(?=.*\d)[\d']{1,3}(?:[ ]?[0-9]+")?$/;
+		const regex = /^\d{1,2}'\d{1,2}"?$/;
 
 		// Check if the input matches the regex pattern
 		if (regex.test(input)) {
@@ -250,7 +250,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 							<div className="space-x-2.5">
 								{positions.map((position, index) => (
 									<Button
-										className="size-[52px] rounded bg-neutral-500 p-3 text-xl font-normal text-white transition-all hover:bg-neutral-400 sm:size-[75px] sm:p-6"
+										className="size-[66px] rounded bg-neutral-500 p-3 text-xl font-normal text-white transition-all hover:bg-neutral-400 sm:size-[75px] sm:p-6"
 										onClick={() => handleSetSkills("position", position)}
 										key={index}
 									>
@@ -271,7 +271,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 								Enter your height (only numbers and apostraphes)
 							</p>
 
-							<div className="flex gap-2">
+							<div className="flex flex-col gap-2 md:flex-row">
 								<Input
 									placeholder="ie. 5'9"
 									className="border border-neutral-600 bg-neutral-800 p-6 text-xl"
