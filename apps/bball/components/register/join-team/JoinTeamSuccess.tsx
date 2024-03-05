@@ -30,7 +30,7 @@ const JoinTeamSuccess = ({ player }) => {
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mm a");
 	return (
-		<div className="container mx-auto">
+		<div className="container mx-auto my-auto">
 			<div className="flex flex-col gap-10 md:flex-row">
 				<div className=" w-full md:w-1/2">
 					<h1 className="mb-10 text-3xl md:text-5xl">
