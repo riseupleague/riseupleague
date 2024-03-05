@@ -42,8 +42,9 @@ const FreeAgents = async ({
 			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Join as a Free Agent
 			</h1>
-			<h3 className="text-center">City: {params.id}</h3>
-
+			<h3 className="text-center">
+				City: {params.id} <span className="text-sm">(Not final!)</span>
+			</h3>
 			<FreeAgentsPlayerType
 				city={params.id}
 				divisionPricePurposes={divisionPricePurposes}

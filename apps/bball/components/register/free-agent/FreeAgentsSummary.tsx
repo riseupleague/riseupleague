@@ -111,8 +111,10 @@ const FreeAgentsSummary = ({
 		try {
 			const formObject = {
 				status: "freeAgent",
+				freeAgent: true,
 				season: divisionPricePurposes.season,
 				division: "free-agent",
+				teamName: "free-agent",
 				payment: payment,
 				instagram,
 				phoneNumber,
@@ -269,6 +271,10 @@ const FreeAgentsSummary = ({
 								})}
 								<li className="text-xl">
 									Result: <span className="font-semibold">{division}</span>
+									<p className="mt-1 text-sm uppercase text-neutral-500">
+										*Placement is not final! it will also depend on space
+										available in a division.
+									</p>
 								</li>
 							</ul>
 

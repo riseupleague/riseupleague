@@ -30,6 +30,7 @@ const userSchema = new Schema(
 				ref: "Player",
 			},
 		],
+		createdAt: { type: Date, default: Date.now }, // Added field to track creation date
 	},
 	{ timestamps: true }
 );
