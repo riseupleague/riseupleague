@@ -34,7 +34,18 @@ export const getUserPlayerPayment = async (email: string) => {
 			populate: [
 				{
 					path: "team",
-					select: "teamName",
+					populate: [
+						{
+							path: "division", // Populate the division field within team
+							select: "divisionName startTime endTime location", // Select the fields you want to include
+						},
+						{
+							path: "teamCaptain",
+							select: "playerName",
+						},
+					],
+
+					select: "teamName teamCode division createdAt paid teamCaptain", // Include division for the team
 				},
 				{
 					path: "division",

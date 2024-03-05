@@ -1,0 +1,166 @@
+.cs-title {
+	font-size: 48px;
+	font-weight: 900;
+	line-height: 1.2em;
+	text-align: inherit;
+	max-width: 43.75rem;
+	margin: 0 0 1rem 0;
+	position: relative;
+}
+
+.cs-topper {
+	font-size: clamp(0.8125rem, 1.6vw, 1rem);
+	line-height: 1.2em;
+	text-transform: uppercase;
+	text-align: inherit;
+	letter-spacing: 0.1em;
+	font-weight: 700;
+	color: #ff422e;
+	margin-bottom: 0.25rem;
+	display: block;
+}
+
+.cs-text {
+	line-height: 1.5em;
+	text-align: inherit;
+	width: 100%;
+	max-width: 40.625rem;
+	margin: 0;
+}
+
+@media only screen and (min-width: 0rem) {
+	.cs-title {
+		max-width: 20ch;
+	}
+}
+
+#sbsr-1100 {
+	padding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+}
+
+.cs-container {
+	width: 100%;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(3rem, 6vw, 4rem);
+}
+
+.cs-content {
+	text-align: left;
+	width: 100%;
+	max-width: 32.625rem;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.cs-text {
+	margin-bottom: 1rem;
+}
+
+.cs-text:last-of-type {
+	margin-bottom: 2rem;
+}
+
+.cs-ul {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.5rem;
+}
+
+.cs-li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.cs-h3 {
+	font-size: 1.25rem; /* 20px */
+	line-height: 1.2em;
+	font-weight: 700;
+	margin: 0 0 0.75rem;
+}
+
+.cs-li-text {
+	line-height: 1.5em;
+	text-align: inherit;
+	width: 100%;
+	max-width: 39.375rem;
+	margin: 0;
+}
+
+.cs-image-group {
+	font-size: min(2.235vw, 0.8em);
+	width: 40.5em;
+	height: 37.125em;
+	display: block;
+	position: relative;
+	z-index: 1;
+}
+
+.cs-picture {
+	position: absolute;
+}
+
+.cs-picture img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.cs-picture1 {
+	width: 20.1875em;
+	height: 27.9375em;
+	top: 0;
+	right: 0;
+	z-index: 10;
+}
+
+.cs-picture2 {
+	width: 19.0625em;
+	height: 27.5625em;
+	bottom: 0;
+	left: 0;
+}
+
+.cs-stripes {
+	width: 34.25em;
+	height: auto;
+	display: block;
+	position: absolute;
+	top: 5em;
+	left: 2.5em;
+	z-index: -1;
+}
+
+.cs-graphic {
+	width: 11.5em;
+	height: auto;
+	position: absolute;
+	bottom: 5em;
+	left: 13.875em;
+	z-index: 10;
+}
+
+/* Small Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+	.cs-container {
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.cs-image-group {
+		font-size: min(1.2vw, 1em);
+		flex: none;
+		order: 2;
+	}
+}

@@ -13,7 +13,7 @@ import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTi
 import BackButton from "../general/buttons/BackButton";
 
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
-	const userDivisions = user.basketball.map((player) => player.division._id);
+	const userDivisions = user.basketball.map((player) => player.division?._id);
 	return (
 		<>
 			<BackButton href="/register" />

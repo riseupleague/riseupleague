@@ -58,7 +58,7 @@ export const getAllRegisterDivisions = async () => {
 
 		// Fetch divisions for the register season
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
+			"divisionName season city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
 		);
 
 		// Check if divisions were found
