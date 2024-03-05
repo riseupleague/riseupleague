@@ -49,7 +49,7 @@ const PrimaryHeader = (): JSX.Element => {
 					</figure>
 				</div>
 
-				<div className="flex w-full justify-center">
+				<div className="hidden w-full justify-center lg:flex">
 					<MiddleNav headerOptions={headerOptions} path={path} />
 				</div>
 
