@@ -22,8 +22,8 @@ const RegisterServices = () => {
 					<Image
 						loading="lazy"
 						decoding="async"
-						src="/images/register/RegistrationRiseupLogo.jpg"
-						alt="car"
+						src="/images/register/RegistrationRIseupLogo.jpg"
+						alt="Rise Up Logo"
 						width="510"
 						height="193"
 						aria-hidden="true"

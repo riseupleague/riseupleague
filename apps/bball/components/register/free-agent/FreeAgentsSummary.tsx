@@ -40,7 +40,6 @@ const FreeAgentsSummary = ({
 	const skillsSum = playerSkillsSum(skills);
 	const division = determineDivision(skillsSum, city);
 	const [isLoader, setIsLoader] = useState(false);
-	console.log("divisionPricePurposes:", divisionPricePurposes);
 	const [formData, setFormData] = useState<FormData>({
 		instagram: "",
 		phoneNumber: "",
@@ -229,13 +228,13 @@ const FreeAgentsSummary = ({
 				</button>
 			</div>
 
-			<div className="mt-10 flex  gap-12 md:flex-row">
+			<div className="mt-10 flex flex-col gap-12 md:flex-row">
 				<div className="w-full md:w-2/3 xl:w-3/4">
 					<h3 className="mb-6">Summary</h3>
 					<Separator className="border-b border-[#374151]" />
 
-					<div className="flex py-6">
-						<div className="w-1/4">
+					<div className="flex gap-4 py-6">
+						<div className="hidden sm:block sm:w-1/4">
 							<Image
 								src={"/images/register/joinFreeAgent.jpg"}
 								alt="create a team image"
@@ -243,7 +242,7 @@ const FreeAgentsSummary = ({
 								height={250}
 							/>
 						</div>
-						<div className="w-3/4">
+						<div className="w-full sm:w-3/4">
 							<h4 className="mb-4 text-2xl capitalize">
 								Joining As A Free Agent
 							</h4>
