@@ -15,7 +15,7 @@ const MiddleNav = ({ headerOptions, path }): JSX.Element => {
 	const options = headerOptions.filter((option) => option.label !== "home");
 
 	return (
-		<NavigationMenu className="hidden lg:flex">
+		<NavigationMenu className="hidden w-full lg:flex">
 			<NavigationMenuList>
 				{options.map((option, index) => {
 					let isActive;
@@ -34,7 +34,7 @@ const MiddleNav = ({ headerOptions, path }): JSX.Element => {
 					}
 
 					return (
-						<NavigationMenuItem key={index} className="font-abolition">
+						<NavigationMenuItem key={index} className="font-abolition w-full">
 							{option.submenu ? (
 								// dropdown menu
 								<NavigationMenu>
