@@ -17,10 +17,8 @@ const RootLayout = ({ children }): JSX.Element => {
 			className={`${oswald.variable} ${inter.variable} ${barlow.variable}`}
 			lang="en"
 		>
-			<body className="font-barlow bg-neutral-900 text-neutral-100">
-				<main>
-					<div className="container mx-auto py-4">{children}</div>
-				</main>
+			<body className="font-barlow bg-white text-black">
+				<main className="vball">{children}</main>
 				<Toaster />
 			</body>
 		</html>

@@ -14,10 +14,10 @@ export const footerOptions = [
 				label: "standings",
 				href: "/standings",
 			},
-			{
-				label: "leaders",
-				href: "/leaders",
-			},
+			// {
+			// 	label: "leaders",
+			// 	href: "/leaders",
+			// },
 			{
 				label: "teams",
 				href: "/teams",
@@ -26,10 +26,10 @@ export const footerOptions = [
 				label: "players",
 				href: "/players",
 			},
-			{
-				label: "MVP ladder",
-				href: "/leaders/mvp-ladder",
-			},
+			// {
+			// 	label: "MVP ladder",
+			// 	href: "/leaders/mvp-ladder",
+			// },
 		],
 	},
 	{

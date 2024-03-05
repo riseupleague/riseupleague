@@ -49,11 +49,11 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 			dropdown: true,
 			icon: <PodiumIcon />,
 		},
-		{
-			label: "leaders",
-			href: "/leaders",
-			icon: <TrophyIcon />,
-		},
+		// {
+		// 	label: "leaders",
+		// 	href: "/leaders",
+		// 	icon: <TrophyIcon />,
+		// },
 		{
 			label: "teams",
 			href: "/teams",
@@ -64,11 +64,11 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 			href: "/players",
 			icon: <PlayerIcon />,
 		},
-		{
-			label: "MVP Ladder",
-			href: "/leaders/mvp-ladder",
-			icon: <TrophyIcon />,
-		},
+		// {
+		// 	label: "MVP Ladder",
+		// 	href: "/leaders/mvp-ladder",
+		// 	icon: <TrophyIcon />,
+		// },
 	];
 
 	return (
