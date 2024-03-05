@@ -49,7 +49,9 @@ const PrimaryHeader = (): JSX.Element => {
 					</figure>
 				</div>
 
-				<MiddleNav headerOptions={headerOptions} path={path} />
+				<div className="flex w-full justify-center">
+					<MiddleNav headerOptions={headerOptions} path={path} />
+				</div>
 
 				<div className="flex items-center justify-end">
 					<ProfileLink />
@@ -82,21 +84,21 @@ const headerOptions = [
 		href: "/teams",
 		icon: <TeamIcon />,
 	},
-	{
-		label: "leaders",
-		href: "/leaders",
-		icon: <TrophyIcon />,
-		submenu: [
-			{
-				label: "Stats",
-				href: "/leaders",
-			},
-			{
-				label: "MVP Ladder",
-				href: "/leaders/mvp-ladder",
-			},
-		],
-	},
+	// {
+	// 	label: "leaders",
+	// 	href: "/leaders",
+	// 	icon: <TrophyIcon />,
+	// 	submenu: [
+	// 		{
+	// 			label: "Stats",
+	// 			href: "/leaders",
+	// 		},
+	// 		{
+	// 			label: "MVP Ladder",
+	// 			href: "/leaders/mvp-ladder",
+	// 		},
+	// 	],
+	// },
 	{
 		label: "league",
 		icon: <PlayerIcon />,
