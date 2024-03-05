@@ -5,7 +5,7 @@ export const heroSlides = [
 		description:
 			"REGISTER NOW FOR OUR 1ST YEAR ANNIVERSARY SEASON! This is our GREATEST season ever, DON'T MISS OUT!",
 		cta: "Register Now",
-		link: "/register",
+		link: "/register?info=true",
 	},
 	{
 		url: "/images/home/photos.jpg",
