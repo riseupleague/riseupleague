@@ -12,7 +12,7 @@ const RegisterPrice = () => {
 						<Image
 							loading="lazy"
 							decoding="async"
-							src="/images/register/RegisterPrice1.jpg"
+							src="/images/register/registerPrice1.jpg"
 							alt="appliance"
 							width="323"
 							height="447"
@@ -22,7 +22,7 @@ const RegisterPrice = () => {
 						<Image
 							loading="lazy"
 							decoding="async"
-							src="/images/register/RegisterPrice2.jpg"
+							src="/images/register/registerPrice2.jpg"
 							alt="appliance"
 							width="323"
 							height="447"
