@@ -60,28 +60,32 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 
 		// Check if the input matches the regex pattern
 		if (regex.test(input)) {
-			// Split the input into feet and inches
-			const [feet, inches] = input
-				.split("'")
-				.map((part) => parseInt(part.trim()));
+			return {
+				isValid: true,
+				message: input,
+			};
+			// // Split the input into feet and inches
+			// const [feet, inches] = input
+			// 	.split("'")
+			// 	.map((part) => parseInt(part.trim()));
 
-			// Check if both feet and inches are valid numbers
-			if (!isNaN(feet) && !isNaN(inches)) {
-				// Convert inches to feet if it's greater than or equal to 12
-				if (inches >= 12) {
-					const totalFeet = feet + Math.floor(inches / 12);
-					const remainingInches = inches % 12;
-					return {
-						isValid: true,
-						message: `${totalFeet}'${remainingInches}"`,
-					};
-				} else {
-					return {
-						isValid: true,
-						message: `${feet}'${inches}"`,
-					};
-				}
-			}
+			// // Check if both feet and inches are valid numbers
+			// if (!isNaN(feet) && !isNaN(inches)) {
+			// 	// Convert inches to feet if it's greater than or equal to 12
+			// 	if (inches >= 12) {
+			// 		const totalFeet = feet + Math.floor(inches / 12);
+			// 		const remainingInches = inches % 12;
+			// 		return {
+			// 			isValid: true,
+			// 			message: `${totalFeet}'${remainingInches}"`,
+			// 		};
+			// 	} else {
+			// 		return {
+			// 			isValid: true,
+			// 			message: `${feet}'${inches}"`,
+			// 		};
+			// 	}
+			// }
 		}
 
 		// Return an error message if the input is not in the correct format
