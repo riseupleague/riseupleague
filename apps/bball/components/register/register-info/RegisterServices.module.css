@@ -1,0 +1,253 @@
+/*-- -------------------------- -->
+<---          Services          -->
+<--- -------------------------- -*/
+
+.cs-title {
+	font-size: 48px;
+	font-weight: 900;
+	line-height: 1.2em;
+	text-align: inherit;
+	max-width: 43.75rem;
+	margin: 0 0 1rem 0;
+	position: relative;
+}
+
+.cs-text {
+	line-height: 1.5em;
+	text-align: inherit;
+	width: 100%;
+	max-width: 40.625rem;
+	margin: 25px 0;
+}
+
+.cs-topper {
+	font-size: clamp(0.8125rem, 1.6vw, 1rem);
+	line-height: 1.2em;
+	text-transform: uppercase;
+	text-align: inherit;
+	letter-spacing: 0.1em;
+	font-weight: 700;
+	color: #ff422e;
+	margin-bottom: 0.25rem;
+	display: block;
+}
+
+@media only screen and (min-width: 0rem) {
+	.cs-title {
+		max-width: 20ch;
+	}
+}
+
+/* Mobile - 360px */
+@media only screen and (min-width: 0rem) {
+	#services-1191 {
+		padding: clamp(3.75rem, 7.82vw, 6.25rem) 1rem;
+		/* prevents padding from affecting height and  */
+		box-sizing: border-box;
+	}
+	#services-1191 .cs-container {
+		/* changes to 1440px at desktop */
+		max-width: 58.75rem;
+		width: 100%;
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* 48px - 64px */
+		gap: clamp(3rem, 6vw, 4rem);
+	}
+	#services-1191 .cs-content {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		/* centers content horizontally, set to flex-start to left align */
+		align-items: center;
+		/* set text align to left if content needs to be left aligned */
+		text-align: center;
+	}
+
+	#services-1191 .cs-title {
+		max-width: 20ch;
+	}
+	#services-1191 .cs-wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		/* 48px - 64px */
+		gap: clamp(3rem, 6vw, 4rem);
+		position: relative;
+	}
+	#services-1191 .cs-image {
+		width: 100%;
+		max-width: 31.875rem;
+		height: auto;
+		display: block;
+		position: relative;
+	}
+	#services-1191 .cs-image img {
+		width: 100%;
+		height: auto;
+	}
+	#services-1191 .cs-card-group {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		justify-content: center;
+		row-gap: 1rem;
+	}
+	#services-1191 .cs-item {
+		text-align: center;
+		list-style: none;
+		max-width: 23rem;
+		width: 100%;
+		margin: 0;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.25rem;
+	}
+	#services-1191 .cs-picture {
+		width: 5rem;
+		height: 5rem;
+		box-sizing: border-box;
+		/* prevents border from affecting height and width */
+		background-color: #1f2937;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		/* prevents flexbox from squishing it */
+		flex: none;
+	}
+	#services-1191 .cs-icon {
+		width: 3.5rem;
+		height: auto;
+		display: block;
+	}
+	#services-1191 .cs-h3 {
+		font-size: 1.25rem;
+		line-height: 1.5em;
+		margin: 0;
+		margin-bottom: 0.5rem;
+		color: var(--headerColor);
+		text-align: inherit;
+	}
+	#services-1191 .cs-item-text {
+		/* 14px - 16px */
+		font-size: clamp(0.875rem, 1.5vw, 1rem);
+		line-height: 1.5em;
+		margin: 0;
+		color: var(--bodyTextColor);
+		text-align: inherit;
+	}
+	#services-1191 .cs-button-solid {
+		font-size: 1rem;
+		/* 46px - 56px */
+		line-height: clamp(2.875rem, 5.5vw, 3.5rem);
+		font-weight: 700;
+		min-width: 9.375rem;
+		margin: 0;
+		/* prevents padding from adding to the width */
+		box-sizing: border-box;
+		padding: 0 1.5rem;
+		color: #fff;
+		background-color: var(--primary);
+		text-decoration: none;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		text-align: center;
+	}
+	#services-1191 .cs-button-solid:before {
+		content: "";
+		width: 0%;
+		height: 100%;
+		background: #000;
+		opacity: 1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		transition: width 0.3s;
+	}
+	#services-1191 .cs-button-solid:hover:before {
+		width: 100%;
+	}
+}
+/* Tablet - 768px */
+@media only screen and (min-width: 48rem) {
+	#services-1191 .cs-card-group {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	#services-1191 .cs-item {
+		text-align: left;
+		margin: 0;
+		width: 32%;
+		align-items: flex-start;
+	}
+	#services-1191 .cs-image {
+		max-height: 28.125rem;
+	}
+	#services-1191 .cs-image img {
+		width: 100%;
+		height: auto;
+		max-height: 28.125rem;
+		object-fit: contain;
+	}
+}
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+	#services-1191 .cs-container {
+		max-width: 90rem;
+	}
+	#services-1191 .cs-image {
+		width: 30vw;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+	#services-1191 .cs-image img {
+		width: auto;
+		height: auto;
+	}
+	#services-1191 .cs-card-group {
+		align-items: flex-start;
+		justify-content: center;
+		/* 180px - 356px */
+		column-gap: clamp(11.25rem, 21vw, 22.25rem);
+		/* 40px - 88px */
+		row-gap: clamp(2.5rem, 8vw, 5.5rem);
+	}
+	#services-1191 .cs-item {
+		width: 32vw;
+		max-width: 26.375rem;
+		flex-direction: row;
+		position: relative;
+	}
+	#services-1191 .cs-item:nth-of-type(odd) {
+		text-align: right;
+	}
+	#services-1191 .cs-item:nth-of-type(odd) .cs-picture {
+		/* sends it to the right in the 2nd position */
+		order: 2;
+	}
+	#services-1191 .cs-item:nth-of-type(3) {
+		/* 90px - 1280px */
+		left: calc(clamp(5.625rem, 8vw, 8rem) * -1);
+	}
+	#services-1191 .cs-item:nth-of-type(4) {
+		/* 90px - 1280px */
+		right: calc(clamp(5.625rem, 8vw, 8rem) * -1);
+	}
+}

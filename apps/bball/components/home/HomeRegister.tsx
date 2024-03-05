@@ -24,7 +24,7 @@ const HomeRegister = (): JSX.Element => {
 						Register Now
 					</Button>
 				) : (
-					<Link href="/register" className="w-full">
+					<Link href="/register?info=true" className="w-full">
 						<Button className="w-full">Register Now</Button>
 					</Link>
 				)}

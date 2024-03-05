@@ -4,8 +4,6 @@ import Link from "next/link";
 import ArrowRightIcon from "../../icons/ArrowRightIcon";
 
 const FreeAgentsRegistration = ({ divisions, user }): JSX.Element => {
-	const userDivisions = user.basketball.map((player) => player.division._id);
-
 	return (
 		<>
 			<BackButton href="/register" />

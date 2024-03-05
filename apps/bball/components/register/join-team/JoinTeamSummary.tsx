@@ -110,7 +110,6 @@ const JoinTeamSummary = ({ team, session }) => {
 			} else {
 				setIsLoader(false);
 
-				console.log(Object.keys(errors));
 				setCheckboxErrors(errors);
 			}
 		} catch (error) {
@@ -121,11 +120,9 @@ const JoinTeamSummary = ({ team, session }) => {
 	const handleFree = (e) => {
 		e.preventDefault();
 		const errors = validateForm();
-		console.log(team.season.freePrice);
 		if (Object.keys(errors).length === 0) {
 			handleCreateTeamAndPlayer(team.season.freePrice, "full");
 		} else {
-			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
 		}
 	};
@@ -139,7 +136,6 @@ const JoinTeamSummary = ({ team, session }) => {
 				? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
 				: handleCreateTeamAndPlayer(division.regularPriceFullId, "full");
 		} else {
-			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
 		}
 	};
@@ -413,24 +409,24 @@ const JoinTeamSummary = ({ team, session }) => {
 						{/* Error messages */}
 
 						{checkboxErrors.playerName && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.playerName}
 							</p>
 						)}
 
 						{checkboxErrors.phoneNumber && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.phoneNumber}
 							</p>
 						)}
 						{checkboxErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.termsChecked}
 							</p>
 						)}
 
 						{checkboxErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.refundChecked}
 							</p>
 						)}
