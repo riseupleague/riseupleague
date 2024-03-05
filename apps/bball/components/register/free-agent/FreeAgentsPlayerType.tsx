@@ -11,7 +11,10 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 	const positions = ["Guard", "Forward", "Center"];
 	const [isWrongHeight, setIsWrongHeight] = useState(false);
 	const [heightConfirmed, setHeightConfirmed] = useState(false);
-	const [height, setHeight] = useState("");
+	const [playerHeight, setPlayerHeight] = useState({
+		feet: "",
+		inches: "",
+	});
 	const [skills, setSkills] = useState({
 		shooting: null,
 		dribbling: null,
@@ -20,23 +23,12 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 		understanding: null,
 		years: null,
 		position: null,
-		height: "",
 	});
 
 	const handleSetSkills = (skill, rating) => {
 		setSkills({ ...skills, [skill]: rating });
-	};
-
-	const handleHeightChange = () => {
-		// Test the function with an example input
-		const validatedHeight = validateHeight(height);
-		if (validatedHeight.isValid) {
-			setSkills({ ...skills, height: height });
+		if (skill === "position") {
 			setHeightConfirmed(true);
-			setIsWrongHeight(false);
-		} else {
-			setIsWrongHeight(true);
-			setHeightConfirmed(false);
 		}
 	};
 
@@ -50,46 +42,8 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 			understanding: null,
 			years: null,
 			position: null,
-			height: "",
 		});
 	};
-
-	function validateHeight(input) {
-		// Regular expression to match feet and inches format (e.g., 5'9")
-		const regex = /^\d{1,2}'\d{1,2}"?$/;
-
-		// Check if the input matches the regex pattern
-		if (regex.test(input)) {
-			// Split the input into feet and inches
-			const [feet, inches] = input
-				.split("'")
-				.map((part) => parseInt(part.trim()));
-
-			// Check if both feet and inches are valid numbers
-			if (!isNaN(feet) && !isNaN(inches)) {
-				// Convert inches to feet if it's greater than or equal to 12
-				if (inches >= 12) {
-					const totalFeet = feet + Math.floor(inches / 12);
-					const remainingInches = inches % 12;
-					return {
-						isValid: true,
-						message: `${totalFeet}'${remainingInches}"`,
-					};
-				} else {
-					return {
-						isValid: true,
-						message: `${feet}'${inches}"`,
-					};
-				}
-			}
-		}
-
-		// Return an error message if the input is not in the correct format
-		return {
-			isValid: false,
-			message: "Please enter the height in the correct format (e.g., 5'9\")",
-		};
-	}
 
 	return (
 		<div>
@@ -263,14 +217,13 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 					)}
 
 					{/* height */}
-					{skills.position !== null && (
+					{/* {skills.position !== null && (
 						<div
 							className={`flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
 							<h4 className="m-0 text-neutral-400">8/8</h4>
-							<p className="text-center text-xl uppercase">
-								Enter your height (only numbers and apostraphes)
-							</p>
+							<p className="text-xl uppercase">Enter your height</p>
+
 
 							<div className="flex flex-col gap-2 md:flex-row">
 								<Input
@@ -281,11 +234,12 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 								/>
 								<Button onClick={handleHeightChange}>Continue</Button>
 							</div>
+
 							{isWrongHeight && (
 								<p className="text-primary">Height format needs to change.</p>
 							)}
 						</div>
-					)}
+					)} */}
 				</>
 			)}
 
