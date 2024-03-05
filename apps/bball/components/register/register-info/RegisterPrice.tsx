@@ -65,7 +65,7 @@ const RegisterPrice = () => {
 						</li>
 					</ul>
 					<Link
-						href="/register?info=true"
+						href="/register"
 						className="font-barlow mt-10 block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
 					>
 						Register Now
