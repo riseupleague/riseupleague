@@ -27,6 +27,9 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 
 	const handleSetSkills = (skill, rating) => {
 		setSkills({ ...skills, [skill]: rating });
+		if (skill === "position") {
+			setHeightConfirmed(true);
+		}
 	};
 
 	const handleReturnPlayerType = () => {
