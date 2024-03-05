@@ -67,8 +67,8 @@ const RegisterServices = () => {
 						<div className={styles["cs-text-group"]}>
 							<h3 className={styles["cs-h3"]}>Personalized Jerseys</h3>
 							<p className={styles["cs-item-text"]}>
-								It’s no secret that one person alone cannot overcome the
-								greatest humanitarian crises.
+								Players receive custom jerseys and can pick from 30+ designs,
+								colours, preferred number and custom name.
 							</p>
 						</div>
 					</li>
