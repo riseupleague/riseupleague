@@ -55,6 +55,8 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 	};
 
 	function validateHeight(input) {
+		return true;
+
 		// Regular expression to match feet and inches format (e.g., 5'9")
 		const regex = /^\d{1,2}'\d{1,2}"?$/;
 
@@ -267,7 +269,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 							className={`flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
 							<h4 className="m-0 text-neutral-400">8/8</h4>
-							<p className="text-xl uppercase">
+							<p className="text-center text-xl uppercase">
 								Enter your height (only numbers and apostraphes)
 							</p>
 
