@@ -312,13 +312,13 @@ const CreateTeamSummary = ({
 
 						{/* Error messages */}
 						{checkboxErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.termsChecked}
 							</p>
 						)}
 
 						{checkboxErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.refundChecked}
 							</p>
 						)}

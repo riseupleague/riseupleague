@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import {
 	getCurrentUser,
 	addNewUser,
+	getUserPlayerPayment,
 } from "@/api-helpers/controllers/users-controller";
 
 export default async function JoinTeam({
@@ -27,6 +28,16 @@ export default async function JoinTeam({
 	}
 	const resDivision = await getRegisterDivisionById(params.id);
 	const { division } = await resDivision.json();
+
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { players, season } = await resPlayer.json();
+	const isDivisionJoined = players.find((player) => {
+		return player?.division?._id === params.id;
+	});
+
+	if (isDivisionJoined) {
+		redirect(`/success/${isDivisionJoined.division._id}`);
+	}
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">

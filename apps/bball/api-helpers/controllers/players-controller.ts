@@ -96,11 +96,16 @@ export const getAllPlayersWithAvg = async () => {
 				path: "team",
 				select: "teamName teamNameShort teamBanner wins losses",
 			})
-			.populate({ path: "allStats.game", select: "gameName status" })
 			.populate({
 				path: "division",
 				select: "divisionName",
-			});
+			})
+			.select("playerName team division averageStats allStats");
+
+		// Calculate the size of allStats for each player
+		allPlayers.forEach((player) => {
+			player.allStatsSize = player.allStats.length;
+		});
 
 		const avgStats = {
 			points: 0,
