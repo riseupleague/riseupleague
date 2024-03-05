@@ -3,7 +3,8 @@ import { format } from "date-fns";
 import Link from "next/link";
 import React from "react";
 
-const CreateTeamSuccess = ({ player }) => {
+const CreateTeamSuccess = ({ player, user }) => {
+	console.log(player);
 	const team = player.team;
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
@@ -23,8 +24,8 @@ const CreateTeamSuccess = ({ player }) => {
 	};
 
 	// Example usage:
-	const startTimeAMPM = convertToAMPM(team.division?.startTime);
-	const endTimeAMPM = convertToAMPM(team.division?.endTime);
+	const startTimeAMPM = convertToAMPM(team?.division?.startTime);
+	const endTimeAMPM = convertToAMPM(team?.division?.endTime);
 
 	const date = convertToEST(new Date(team?.createdAt));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
@@ -44,7 +45,7 @@ const CreateTeamSuccess = ({ player }) => {
 						riseupbballleague@gmail.com
 					</p>
 					<div className="my-4">
-						<h3 className="text-primary text-3xl">
+						<h3 className="text-primary text-3xl normal-case">
 							Team Code: {team.teamCode}
 						</h3>
 						<p>Save this code and share it with your teammates</p>
@@ -61,7 +62,7 @@ const CreateTeamSuccess = ({ player }) => {
 					</p>
 					<Link
 						className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-						href="/user"
+						href={`/user/${user._id}`}
 					>
 						Go to my profile
 					</Link>
