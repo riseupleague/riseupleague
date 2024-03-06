@@ -21,7 +21,7 @@ const NewsletterForm = () => {
 		const result = emailSchema.safeParse(newEmail);
 
 		if (!result.success) {
-			setErrors(result.error.issues[0].message);
+			setErrors((result as any).error.issues[0].message);
 			return;
 		}
 
