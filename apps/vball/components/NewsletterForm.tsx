@@ -7,9 +7,11 @@ import submitForm from "@/actions/submitForm";
 import { z } from "zod";
 import { useState } from "react";
 import { useToast } from "@ui/components/use-toast";
+import { useFormState, useFormStatus } from "react-dom";
 
 const NewsletterForm = () => {
 	const { toast } = useToast();
+	const { pending } = useFormStatus();
 	const [errors, setErrors] = useState("");
 	const [email, setEmail] = useState("");
 
@@ -25,15 +27,15 @@ const NewsletterForm = () => {
 			return;
 		}
 
+		toast({
+			title: "Success!",
+			description: `Your email ${email} has been added to our newsletter.`,
+		});
+
 		setErrors("");
 		setEmail("");
 
 		await submitForm(newEmail);
-
-		toast({
-			variant: "success",
-			description: `Thanks for submitting! Your email ${email} has been added to our newsletter.`,
-		});
 	};
 
 	return (
@@ -47,11 +49,16 @@ const NewsletterForm = () => {
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 				placeholder="Enter your email"
-				className="rounded-md px-5 py-4 text-left text-sm font-normal leading-5 text-[#111827]"
+				className="rounded-md px-5 py-4 text-left text-base font-normal leading-5 text-[#111827]"
 			/>
 
-			<Button type="submit" className="w-full bg-[#555B64] text-white">
-				Notify Me
+			<Button
+				type="submit"
+				disabled={pending}
+				variant="signIn"
+				className="w-full"
+			>
+				{pending ? "Submitting..." : "Notify Me"}
 			</Button>
 
 			{errors.length > 0 && <p className="text-primary">{errors}</p>}
