@@ -1,6 +1,6 @@
 {
 	"name": "vball",
-	"version": "vball@0.1.1",
+	"version": "vball@1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev --port 3002",
@@ -10,11 +10,13 @@
 	},
 	"dependencies": {
 		"date-fns": "^2.30.0",
+		"googleapis": "^133.0.0",
 		"mongoose": "^7.5.1",
 		"next": "^14.0.2",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"ui": "*"
+		"ui": "*",
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@iconify/react": "^4.1.1",
