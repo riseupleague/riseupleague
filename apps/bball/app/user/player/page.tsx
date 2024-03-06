@@ -34,7 +34,7 @@ export default async function User(): Promise<JSX.Element> {
 					<Link
 						key={index}
 						className="rounded-lg bg-[#11161F]  transition duration-300 ease-in-out hover:bg-gray-800"
-						href={card.link}
+						href={"/"}
 					>
 						<Card className="relative flex  flex-col justify-center bg-transparent md:h-[394px]">
 							<CardHeader>
@@ -86,20 +86,17 @@ const cardData = [
 			"Player name, personalized jersey information And Game Schedules.",
 		imgSrc: "/images/profile/profile-player.svg",
 		imgAlt: "Profile Player",
-		link: "/user/player",
 	},
 	{
 		title: "Season registration",
 		description: "Explore upcoming, and previous seasons",
 		imgSrc: "/images/profile/profile-season.svg",
 		imgAlt: "Profile Season",
-		link: "/user/history",
 	},
 	{
 		title: "My Rise Up Profile",
 		description: "An overview of your account’s current profile.",
 		imgSrc: "/images/profile/profile-setting.svg",
 		imgAlt: "Profile Setting",
-		link: "/user/setting",
 	},
 ];
