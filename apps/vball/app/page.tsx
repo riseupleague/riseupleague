@@ -8,6 +8,8 @@ import SocialButton from "@/components/SocialButton";
 import NewsletterForm from "@/components/NewsletterForm";
 
 const VballNewsLetter = async (): Promise<JSX.Element> => {
+	console.log("test");
+
 	return (
 		<section className="container mx-auto flex h-dvh items-center">
 			<div className="flex w-full flex-col justify-center space-y-5 bg-white px-4 sm:px-10 md:h-3/4 md:w-1/2 lg:space-y-9 lg:px-[60px]">
