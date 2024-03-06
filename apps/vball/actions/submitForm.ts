@@ -4,7 +4,6 @@ import { google } from "googleapis";
 
 const submitForm = async (e: { email: FormDataEntryValue }) => {
 	const { email } = e;
-
 	const auth = new google.auth.GoogleAuth({
 		credentials: {
 			client_email: process.env.NEWSLETTER_CLIENT_EMAIL,
