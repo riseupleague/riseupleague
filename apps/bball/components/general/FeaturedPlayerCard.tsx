@@ -91,7 +91,7 @@ export default function FeaturedPlayerCard({ player }) {
 
 				<div className="m-2 flex items-center justify-between">
 					<div>
-						<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl uppercase">
+						<p className="font-barlow text-md overflow-hidden whitespace-nowrap uppercase md:text-2xl">
 							{player.playerName}
 						</p>
 						{player.instagram && (
@@ -100,7 +100,7 @@ export default function FeaturedPlayerCard({ player }) {
 							</p>
 						)}
 					</div>
-					<p className="font-barlow overflow-hidden whitespace-nowrap text-4xl text-neutral-500">
+					<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl text-neutral-500 md:text-4xl">
 						#{player.jerseyNumber}
 					</p>
 				</div>

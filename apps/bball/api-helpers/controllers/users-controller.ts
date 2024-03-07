@@ -67,6 +67,52 @@ export const getUserPlayerPayment = async (email: string) => {
 	}
 };
 
+export const getCurrentUserPlayers = async (email: string) => {
+	try {
+		const season = await Season.findOne({ active: true });
+
+		const user = await User.findOne({ email }).populate({
+			path: "basketball",
+			populate: [
+				{
+					path: "team",
+					select:
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players",
+					populate: [
+						{
+							path: "players",
+							model: "Player",
+						},
+						{
+							path: "games",
+							model: "Game",
+						},
+					],
+				},
+				{
+					path: "division",
+					select: "divisionName location day description startTime endTime",
+				},
+
+				{
+					path: "season",
+					select: "seasonName",
+				},
+			],
+			select:
+				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
+		});
+
+		return NextResponse.json({ user, season });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getCurrentUser = async (email: string) => {
 	try {
 		const user = await User.findOne({ email }).populate({

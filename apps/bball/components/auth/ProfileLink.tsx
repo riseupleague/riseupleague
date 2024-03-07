@@ -46,19 +46,19 @@ const ProfileLink = ({ user }): JSX.Element => {
 								<span className="text-primary hidden text-lg lg:inline-block">
 									{user?.name}
 								</span>
-								<div className="flex items-center gap-1">
-									{/* <Avatar>
+								<div className="flex items-center gap-1 ">
+									<Avatar className="block lg:hidden ">
 										<AvatarImage src={`${session.user.image}`} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
 											{user?.name[0]}
 										</AvatarFallback>
-									</Avatar> */}
+									</Avatar>
 									<DownChevronIcon />
 								</div>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="font-barlow w-56 border border-neutral-500 bg-neutral-900">
 								<DropdownMenuLabel className="font-barlow text-xl font-medium uppercase">
-									{user?.name}
+									{user?.email}
 								</DropdownMenuLabel>
 
 								<DropdownMenuSeparator className="border border-neutral-600" />
@@ -67,7 +67,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
 											onClick={closeDialog}
-											href={`/user/${user._id}`}
+											href={`/user`}
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
 											<PlayerIcon />

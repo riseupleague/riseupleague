@@ -62,23 +62,23 @@ export default async function User(): Promise<JSX.Element> {
 	);
 }
 
-// export const metadata: Metadata = {
-// 	title: "Rise Up League | User",
-// 	description:
-// 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-// };
+export const metadata: Metadata = {
+	title: "Rise Up League | User",
+	description:
+		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+};
 
-export async function generateMetadata() {
-	const session = await getServerSession();
-	if (!session || !session.user) redirect("/");
-	const resUser = await getCurrentUser(session.user.email);
-	const { user } = await resUser.json();
-	return {
-		title: `Rise Up League | ${user.name}'s Profile`,
-		description:
-			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-	};
-}
+// export async function generateMetadata() {
+// 	const session = await getServerSession();
+// 	if (!session || !session.user) redirect("/");
+// 	const resUser = await getCurrentUser(session.user.email);
+// 	const { user } = await resUser.json();
+// 	return {
+// 		title: `Rise Up League | ${user.name}'s Profile`,
+// 		description:
+// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
+// 	};
+// }
 const cardData = [
 	{
 		title: "My Player",

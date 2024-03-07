@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 const Header = async (): Promise<JSX.Element> => {
 	const session = await getServerSession();
 
-	const resUser = await getCurrentUser(session.user.email);
+	const resUser = await getCurrentUser(session?.user.email);
 	const { user } = await resUser.json();
 
 	return (

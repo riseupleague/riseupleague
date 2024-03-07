@@ -43,16 +43,16 @@ export default async function Success({
 
 		console.log("selectedPlayer:", selectedPlayer);
 		if (selectedPlayer?.teamCaptain) {
-			return <CreateTeamSuccess player={selectedPlayer} user={user} />;
+			return <CreateTeamSuccess player={selectedPlayer} />;
 		} else {
-			return <JoinTeamSuccess player={selectedPlayer} user={user} />;
+			return <JoinTeamSuccess player={selectedPlayer} />;
 		}
 	} else {
 		const resPlayer = await getUserPlayerPayment(session.user.email);
 		const { players, season } = await resPlayer.json();
 		console.log("players:", players);
 		const freeAgentPlayer = players.find((player) => player.freeAgent === true);
-		return <FreeAgentsSuccess player={freeAgentPlayer} user={user} />;
+		return <FreeAgentsSuccess player={freeAgentPlayer} />;
 	}
 }
 
