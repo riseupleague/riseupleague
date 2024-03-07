@@ -8,7 +8,6 @@ import { Badge } from "@ui/components/badge";
 
 const NewScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
-
 	const date = convertToEST(new Date(game.date));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mma");
