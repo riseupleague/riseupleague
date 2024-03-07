@@ -61,14 +61,9 @@ const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
 			{/* render schedule games */}
 			<div className="my-8">
 				{gamesByDate.map((date, index) => {
-					let formattedDate = format(
-						convertToEST(date.date),
-						"ccc MMM do, uuuu"
-					);
-
 					return (
 						<div key={index}>
-							<h3 className="text-2xl">{formattedDate}</h3>
+							<h3 className="text-2xl">{date.date}</h3>
 							<Separator className="border-b border-neutral-600" />
 
 							<div className="grid grid-cols-1 gap-3 py-7">

@@ -203,7 +203,7 @@ export const getGamesByDate = async (selectedDate) => {
 		const games = await Game.find({
 			date: {
 				$gte: addHours(startOfDay(date), 5),
-				$lt: addHours(endOfDay(date), 5),
+				// $lt: addHours(endOfDay(date), 5),
 			},
 		})
 			.populate({
@@ -234,11 +234,10 @@ export const getGamesByDate = async (selectedDate) => {
 					weekday: "long",
 				});
 				const existingGames = acc.find((d) => d.date === date);
-				if (existingGames) {
-					existingGames.games.push(game);
-				} else {
-					acc.push({ date, games: [game] });
-				}
+
+				if (existingGames) existingGames.games.push(game);
+				else acc.push({ date, games: [game] });
+
 				return acc;
 			}, []);
 
@@ -259,61 +258,6 @@ export const getGamesByDate = async (selectedDate) => {
 			{ status: 500 }
 		);
 	}
-};
-
-export const getGamesByDateNew = async () => {
-	const dateToday = new Date();
-	const dayStart = startOfDay(dateToday);
-	const estOffset = -5 * 60 * 60 * 1000; // EST is UTC-5
-
-	// pull all games starting today
-	const allGames = await Game.find({
-		date: {
-			$gte: dayStart,
-		},
-	})
-		.populate({
-			path: "division",
-			select: "divisionName",
-		})
-		.populate({
-			path: "homeTeam",
-			select:
-				"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
-		})
-		.populate({
-			path: "awayTeam",
-			select:
-				"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor",
-		})
-		.select(
-			"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location"
-		)
-		.limit(10);
-
-	// map all games to new array with EST times
-	const convertedToEST = allGames.map((obj) => {
-		const utcDate = new Date(obj.date);
-		const estDate = new Date(utcDate.getTime() + estOffset);
-
-		return { ...obj._doc, date: estDate.toISOString() };
-	});
-
-	// sort all games
-	const sortedGames = convertedToEST.sort((a, b) => (a.date > b.date ? 1 : -1));
-
-	// group games by date
-	const gamesByDate = sortedGames.reduce((acc, obj) => {
-		const date = new Date(obj.date).toISOString().split("T")[0];
-		const existingGroup = acc.find((group) => group.date === date);
-
-		if (existingGroup) existingGroup.games.push(obj);
-		else acc.push({ date, games: [obj] });
-
-		return acc;
-	}, []);
-
-	return NextResponse.json({ gamesByDate });
 };
 
 export const getGameById = async (id) => {

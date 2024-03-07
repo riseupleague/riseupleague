@@ -1,8 +1,5 @@
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
-import {
-	getGamesByDate,
-	getGamesByDateNew,
-} from "@/api-helpers/controllers/games-controller";
+import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import NewSchedule from "@/components/games/NewSchedule";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import Breadcrumb from "@/components/general/Breadcrumb";
@@ -18,7 +15,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 		.toString()
 		.slice(0, 10);
 
-	const resAllUpcomingGames = await getGamesByDateNew();
+	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
 	const { gamesByDate } = await resAllUpcomingGames.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();

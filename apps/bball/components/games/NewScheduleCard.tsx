@@ -7,8 +7,6 @@ import { convertToEST } from "@/utils/convertToEST";
 import { Badge } from "@ui/components/badge";
 
 const NewScheduleCard = ({ game }): JSX.Element => {
-	console.log(game);
-
 	const gameStatus = game.status ? "summary" : "preview";
 
 	const date = convertToEST(new Date(game.date));
@@ -20,7 +18,7 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 			<div className="flex w-full items-center gap-2 px-1 lg:gap-12 lg:px-0">
 				{/* home team */}
 				<div className="flex h-full w-1/3 flex-col items-center justify-end gap-2 lg:w-[45%] lg:flex-row">
-					<h6 className="text-center lg:text-2xl">{game.homeTeam.teamName}</h6>
+					<h6 className="text-center lg:text-2xl">{game.homeTeam?.teamName}</h6>
 					<span className="scale-75">
 						<TeamLogo
 							primary={game.homeTeam?.primaryColor || ""}
@@ -67,7 +65,7 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 						/>
 					</span>
 					<h6 className="max-w-[180px] text-center lg:text-2xl">
-						{game.awayTeam.teamName}
+						{game.awayTeam?.teamName}
 					</h6>
 				</div>
 			</div>
