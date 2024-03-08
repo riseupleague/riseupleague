@@ -16,11 +16,6 @@ export default async function Schedule(): Promise<JSX.Element> {
 		.toString()
 		.slice(0, 10);
 
-	const now = new Date();
-	const estTimeZone = "America/Toronto";
-	const estDate = utcToZonedTime(now, estTimeZone);
-	const formattedDate = format(estDate, "yyyy-MM-dd'T'HH:mm:ssxxx");
-
 	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
 	const { gamesByDate } = await resAllUpcomingGames.json();
 
@@ -46,11 +41,11 @@ export default async function Schedule(): Promise<JSX.Element> {
 			</div>
 
 			<div className="font-barlow container mx-auto min-h-fit">
-				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
-				<NewSchedule
+				<ScheduleFilterPage gamesByDate={gamesByDate} />
+				{/* <NewSchedule
 					gamesByDate={gamesByDate}
 					divisionsWithStats={divisionsWithStats}
-				/>
+				/> */}
 			</div>
 		</main>
 	);

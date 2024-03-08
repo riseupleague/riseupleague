@@ -203,7 +203,7 @@ export const getGamesByDate = async (selectedDate) => {
 		const games = await Game.find({
 			date: {
 				$gte: addHours(startOfDay(date), 5),
-				// $lt: addHours(endOfDay(date), 5),
+				$lt: addHours(endOfDay(date), 5),
 			},
 		})
 			.populate({
