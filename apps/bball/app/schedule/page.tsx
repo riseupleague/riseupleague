@@ -1,12 +1,8 @@
-import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
-import NewSchedule from "@/components/games/NewSchedule";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import Breadcrumb from "@/components/general/Breadcrumb";
-import { DivisionWithStats } from "@/types";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
-import { format, utcToZonedTime } from "date-fns-tz";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	// get current date -> convert into seconds
@@ -19,9 +15,9 @@ export default async function Schedule(): Promise<JSX.Element> {
 	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
 	const { gamesByDate } = await resAllUpcomingGames.json();
 
-	const resDivisions = await getAllCurrentDivisionsWithTeams();
-	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
-		await resDivisions.json();
+	// const resDivisions = await getAllCurrentDivisionsWithTeams();
+	// const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
+	// 	await resDivisions.json();
 
 	revalidatePath("/schedule", "page");
 
