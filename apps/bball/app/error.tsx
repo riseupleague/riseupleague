@@ -21,7 +21,12 @@ export default function Error({
 			<h2>This page is out of bounds! 🏀🙅‍♂️</h2>
 			<h6>(404 error)</h6>
 
-			<Button onClick={() => reset()}>Reload Page</Button>
+			<Button
+				className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-medium uppercase text-neutral-900 transition hover:bg-neutral-200"
+				onClick={() => reset()}
+			>
+				Reload Page
+			</Button>
 
 			<p>
 				If this page should be working, please DM us on our IG support page
