@@ -24,13 +24,29 @@ export default async function SeasonPage({
 			<Separator className="my-4 border-b border-neutral-500" />
 
 			<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-				{divisions.map((division, index) => (
-					<Button key={index} variant="secondary" asChild>
-						<Link href={`/team-management/division/${division._id}`}>
-							{division.divisionName}
-						</Link>
-					</Button>
-				))}
+				{divisions.map((division, index) => {
+					let teams = division.teams.length;
+					let teamColour;
+					if (teams < 4) teamColour = "text-green-500";
+					else if (teams >= 4 && teams < 8) teamColour = "text-yellow-500";
+					else teamColour = "text-primary";
+
+					return (
+						<Button
+							key={index}
+							variant="secondary"
+							className="text-2xl"
+							asChild
+						>
+							<Link href={`/team-management/division/${division._id}`}>
+								{division.divisionName}&nbsp;
+								<span
+									className={teamColour}
+								>{`(${teams}${teams === 8 ? " - Full" : ""})`}</span>
+							</Link>
+						</Button>
+					);
+				})}
 			</ul>
 		</section>
 	);
