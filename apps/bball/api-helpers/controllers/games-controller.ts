@@ -1,16 +1,6 @@
 import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
-import Team from "@/api-helpers/models/Team";
-import Season from "@/api-helpers/models/Season";
-import {
-	startOfDay,
-	addHours,
-	endOfDay,
-	parseISO,
-	add,
-	format,
-} from "date-fns";
-import { revalidatePath } from "next/cache";
+import { startOfDay, format, parse, endOfDay } from "date-fns";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {
@@ -199,11 +189,10 @@ export const getAllRecentPlayerOfTheGames = async () => {
 
 export const getGamesByDate = async (selectedDate) => {
 	try {
-		const date = new Date(selectedDate * 1000);
 		const games = await Game.find({
 			date: {
-				$gte: addHours(startOfDay(date), 5),
-				$lt: addHours(endOfDay(date), 5),
+				$gte: startOfDay(selectedDate),
+				$lt: endOfDay(selectedDate),
 			},
 		})
 			.populate({
@@ -227,12 +216,7 @@ export const getGamesByDate = async (selectedDate) => {
 		const gamesByDate =
 			games &&
 			games.reduce((acc, game) => {
-				const date = new Date(game.date).toLocaleDateString("en-US", {
-					timeZone: "America/Toronto",
-					month: "short",
-					day: "2-digit",
-					weekday: "long",
-				});
+				const date = format(game.date, "EEEE, MMM dd");
 				const existingGames = acc.find((d) => d.date === date);
 
 				if (existingGames) existingGames.games.push(game);
@@ -240,6 +224,14 @@ export const getGamesByDate = async (selectedDate) => {
 
 				return acc;
 			}, []);
+
+		// Sort the gamesByDate array by date
+		gamesByDate.sort((a, b) =>
+			parse(a.date, "EEEE, MMM dd", new Date()) <
+			parse(b.date, "EEEE, MMM dd", new Date())
+				? -1
+				: 1
+		);
 
 		// Sort the games within each date entry by time
 		gamesByDate.forEach((dateEntry) => {

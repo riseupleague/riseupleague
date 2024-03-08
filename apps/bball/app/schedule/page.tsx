@@ -1,26 +1,22 @@
+import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import NewSchedule from "@/components/games/NewSchedule";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import Breadcrumb from "@/components/general/Breadcrumb";
+import { DivisionWithStats } from "@/types";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	// get current date -> convert into seconds
-	let currentDate = new Date();
-	const currentDateInSeconds = currentDate
-		.setUTCHours(0, 0, 0, 0)
-		.toString()
-		.slice(0, 10);
-
-	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
+	const resAllUpcomingGames = await getGamesByDate(new Date());
 	const { gamesByDate } = await resAllUpcomingGames.json();
 
-	// const resDivisions = await getAllCurrentDivisionsWithTeams();
-	// const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
-	// 	await resDivisions.json();
+	const resDivisions = await getAllCurrentDivisionsWithTeams();
+	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
+		await resDivisions.json();
 
 	revalidatePath("/schedule", "page");
 
@@ -40,11 +36,11 @@ export default async function Schedule(): Promise<JSX.Element> {
 			</div>
 
 			<div className="font-barlow container mx-auto min-h-fit">
-				<ScheduleFilterPage gamesByDate={gamesByDate} />
-				{/* <NewSchedule
+				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
+				<NewSchedule
 					gamesByDate={gamesByDate}
 					divisionsWithStats={divisionsWithStats}
-				/> */}
+				/>
 			</div>
 		</main>
 	);
