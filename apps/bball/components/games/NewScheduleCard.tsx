@@ -15,12 +15,12 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 	return (
 		<Link
 			href={`/games/${gameStatus}/${game._id}`}
-			className="relative flex flex-col items-center justify-center rounded border border-neutral-600 py-2 transition-all hover:bg-neutral-700 md:py-[14px]"
+			className="relative my-3 flex flex-col items-center justify-center rounded border border-neutral-600 py-2 transition-all hover:bg-neutral-700 md:py-[14px]"
 		>
 			<div className="flex w-full items-center px-1 md:gap-2 lg:gap-12 lg:px-0">
 				{/* home team */}
 				<div className="flex h-full w-1/3 items-center justify-end gap-2 lg:w-[45%]">
-					<h6 className="text-center text-xl lg:text-2xl">
+					<h6 className="text-right text-xl lg:text-2xl">
 						<span className="md:hidden">{game.homeTeam?.teamNameShort}</span>
 						<span className="hidden md:block">{game.homeTeam?.teamName}</span>
 					</h6>
@@ -69,7 +69,7 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 							circleWidth={4}
 						/>
 					</span>
-					<h6 className="max-w-[180px] text-center text-xl lg:text-2xl">
+					<h6 className="max-w-[180px] text-left text-xl lg:text-2xl">
 						<span className="md:hidden">{game.awayTeam?.teamNameShort}</span>
 						<span className="hidden md:block">{game.awayTeam?.teamName}</span>
 					</h6>

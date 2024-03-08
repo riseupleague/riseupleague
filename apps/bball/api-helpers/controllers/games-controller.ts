@@ -258,6 +258,57 @@ export const getGamesByDate = async (selectedDate) => {
 	}
 };
 
+export const getAllUpcomingGamesSchedule = async (selectedDate) => {
+	const currentDate = add(selectedDate, { days: 1 });
+
+	try {
+		const games = await Game.find({
+			date: {
+				$gte: startOfDay(currentDate),
+			},
+		});
+
+		let allGameDates =
+			games &&
+			games.reduce((acc, game) => {
+				const date = format(
+					utcToZonedTime(game.date, "America/Toronto"),
+					"EEEE, MMM dd"
+				);
+				const existingGames = acc.find((d) => d.date === date);
+
+				if (existingGames) existingGames.games.push(date);
+				else acc.push({ date, games: [game] });
+
+				return acc;
+			}, []);
+
+		allGameDates = allGameDates.map((obj) => {
+			const { games, ...newObj } = obj;
+			return newObj;
+		});
+
+		// Sort the gamesByDate array by date
+		allGameDates.sort((a, b) =>
+			parse(a.date, "EEEE, MMM dd", new Date()) <
+			parse(b.date, "EEEE, MMM dd", new Date())
+				? -1
+				: 1
+		);
+
+		allGameDates = allGameDates.map((obj) =>
+			parse(obj.date, "EEEE, MMM dd", new Date())
+		);
+
+		return NextResponse.json({ allGameDates });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getGameById = async (id) => {
 	try {
 		const game = await Game.findById(id)
