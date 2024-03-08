@@ -12,12 +12,9 @@ export default async function Page(): Promise<JSX.Element> {
 
 	return (
 		<section>
-			<h1>seasons management page</h1>
+			<h1>seasons management</h1>
 
 			<div>
-				<div className="flex justify-between">
-					<h2>seasons</h2>
-				</div>
 				<Separator className="my-4 border-b border-neutral-400" />
 				<div className="flex flex-col gap-2">
 					{seasons?.map((season, index) => (
