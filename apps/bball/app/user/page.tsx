@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import { Button } from "@ui/components/button";
 import Link from "next/link";
+import Breadcrumb from "@/components/general/Breadcrumb";
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -25,10 +26,11 @@ export default async function User(): Promise<JSX.Element> {
 
 	return (
 		<section className="container mx-auto">
-			<h1 className="text-start text-5xl">👋 Welcome Back {user.name}!</h1>
-			<p className="font-barlow flex items-start text-3xl text-neutral-500">
-				<span className="invisible text-5xl">👋 </span>Your journey continues
-			</p>
+			<h1 className="text-start text-3xl lg:text-5xl">
+				👋 Welcome Back {user.name}!
+			</h1>
+			<Breadcrumb />
+
 			<div className="my-20 grid grid-cols-1 gap-5 md:grid-cols-3">
 				{cardData.map((card, index) => (
 					<Link
@@ -88,18 +90,18 @@ const cardData = [
 		imgAlt: "Profile Player",
 		link: "/user/player",
 	},
-	{
-		title: "Season registration",
-		description: "Explore upcoming, and previous seasons",
-		imgSrc: "/images/profile/profile-season.svg",
-		imgAlt: "Profile Season",
-		link: "/user/history",
-	},
-	{
-		title: "My Rise Up Profile",
-		description: "An overview of your account’s current profile.",
-		imgSrc: "/images/profile/profile-setting.svg",
-		imgAlt: "Profile Setting",
-		link: "/user/setting",
-	},
+	// {
+	// 	title: "Season registration",
+	// 	description: "Explore upcoming, and previous seasons",
+	// 	imgSrc: "/images/profile/profile-season.svg",
+	// 	imgAlt: "Profile Season",
+	// 	link: "/user/history",
+	// },
+	// {
+	// 	title: "My Rise Up Profile",
+	// 	description: "An overview of your account’s current profile.",
+	// 	imgSrc: "/images/profile/profile-setting.svg",
+	// 	imgAlt: "Profile Setting",
+	// 	link: "/user/setting",
+	// },
 ];

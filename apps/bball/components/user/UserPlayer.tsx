@@ -16,8 +16,9 @@ import UserPlayerInfo from "./UserPlayerInfo";
 import UserPlayerGames from "./UserPlayerGames";
 import UserPlayerRoster from "./UserPlayerRoster";
 const UserPlayer = ({ currentPlayers }) => {
+	console.log("currentPlayers:", currentPlayers);
 	const onlyOnePlayer =
-		currentPlayers.length > 1 && currentPlayers.length === 0
+		currentPlayers.length > 1 || currentPlayers.length === 0
 			? null
 			: currentPlayers[0];
 	const [selectedPlayer, setSelectedPlayer] = useState(onlyOnePlayer);
@@ -27,10 +28,14 @@ const UserPlayer = ({ currentPlayers }) => {
 		setSelectedPlayer(playerSelected);
 	};
 
-	const allGames = selectedPlayer.team?.games ? selectedPlayer.team.games : [];
-	const teamRoster = selectedPlayer.team?.players
-		? selectedPlayer.team.players
-		: [];
+	const allGames =
+		selectedPlayer && selectedPlayer.team?.games
+			? selectedPlayer.team.games
+			: [];
+	const teamRoster =
+		selectedPlayer && selectedPlayer.team?.players
+			? selectedPlayer.team.players
+			: [];
 	return (
 		<div className="my-20">
 			{!selectedPlayer && (

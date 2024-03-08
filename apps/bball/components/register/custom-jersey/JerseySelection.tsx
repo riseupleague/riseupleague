@@ -79,6 +79,7 @@ const SubmitUniqueJerseyFormDialog = ({
 };
 
 const JerseySelection = ({ team }): JSX.Element => {
+	console.log("team:", team);
 	const router = useRouter();
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);
@@ -260,10 +261,14 @@ const JerseySelection = ({ team }): JSX.Element => {
 												<Button
 													className="bg-transparent hover:bg-transparent"
 													onClick={() => {
-														if (team.players.length < 9) {
-															openDialog();
-														} else {
+														if (team.paid === true) {
 															openFormUniqueJersey(index + 1);
+														} else {
+															if (team.players.length < 9) {
+																openDialog();
+															} else {
+																openFormUniqueJersey(index + 1);
+															}
 														}
 													}}
 												>
