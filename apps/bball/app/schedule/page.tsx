@@ -11,7 +11,9 @@ import { revalidatePath } from "next/cache";
 export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const resAllUpcomingGames = await getGamesByDate(new Date());
+	const dateToday = new Date();
+
+	const resAllUpcomingGames = await getGamesByDate(dateToday);
 	const { gamesByDate } = await resAllUpcomingGames.json();
 
 	const resDivisions = await getAllCurrentDivisionsWithTeams();
@@ -38,7 +40,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 			<div className="font-barlow container mx-auto min-h-fit">
 				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
 				<NewSchedule
-					date={new Date()}
+					date={dateToday}
 					gamesByDate={gamesByDate}
 					divisionsWithStats={divisionsWithStats}
 				/>
