@@ -21,7 +21,7 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }): JSX.Element => {
 				<DialogHeader className="text-center">
 					<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
 						<span className="text-primary text-2xl font-bold uppercase">
-							Please Have 9 or minimum registered to your team!
+							Please have 9 or minimum registered to your team!
 						</span>{" "}
 					</DialogTitle>
 				</DialogHeader>
