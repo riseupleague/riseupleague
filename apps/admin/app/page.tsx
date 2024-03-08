@@ -5,7 +5,7 @@ export default async function Page(): Promise<JSX.Element> {
 
 	return (
 		<section>
-			<h1>dashboard page</h1>
+			<h1>dashboard</h1>
 		</section>
 	);
 }

@@ -14,11 +14,17 @@
 		"ui:add": "cd packages/ui && npm run ui:add",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
 		"clean:cache": "rm -rf package-lock.json node_modules apps/*/package-lock.json apps/*/node_modules apps/*/.next packages/*/node_modules",
+		"clean:cache:bball": "rm -rf package-lock.json node_modules apps/bball/package-lock.json apps/bball/node_modules apps/bball/.next packages/*/node_modules",
+		"clean:cache:vball": "rm -rf package-lock.json node_modules apps/vball/package-lock.json apps/vball/node_modules apps/vball/.next packages/*/node_modules",
+		"clean:cache:admin": "rm -rf package-lock.json node_modules apps/admin/package-lock.json apps/admin/node_modules apps/admin/.next packages/*/node_modules",
 		"fresh": "npm run clean:cache && npm i && npm run format",
+		"fresh:bball": "npm run clean:cache:bball && npm i && npm run format",
+		"fresh:vball": "npm run clean:cache:vball && npm i && npm run format",
+		"fresh:admin": "npm run clean:cache:admin && npm i && npm run format",
 		"fresh:start": "npm run fresh && npm run dev",
-		"fresh:start:bball": "npm run fresh && npm run dev:bball",
-		"fresh:start:vball": "npm run fresh && npm run dev:vball",
-		"fresh:start:admin": "npm run fresh && npm run dev:admin"
+		"fresh:start:bball": "npm run fresh:bball && npm run dev:bball",
+		"fresh:start:vball": "npm run fresh:vball && npm run dev:vball",
+		"fresh:start:admin": "npm run fresh:admin && npm run dev:admin"
 	},
 	"devDependencies": {
 		"@turbo/gen": "^1.9.7",

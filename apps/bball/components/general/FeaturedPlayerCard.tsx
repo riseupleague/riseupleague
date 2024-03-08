@@ -68,7 +68,7 @@ export default function FeaturedPlayerCard({ player }) {
 				{/* Image */}
 
 				{player.playerImage && player.playerImage !== "" ? (
-					<div className="relative m-3 rounded-bl-3xl border-8 border-blue-500">
+					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
 							className="!h-full !w-full"
 							src={player.playerImage}
@@ -78,7 +78,7 @@ export default function FeaturedPlayerCard({ player }) {
 						/>
 					</div>
 				) : (
-					<div className="relative m-3  rounded-bl-3xl border-8 border-blue-500 ">
+					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
 							className="mt-32 !h-full !w-full rounded-bl-2xl"
 							src={"/images/default-profile-pic.png"}
