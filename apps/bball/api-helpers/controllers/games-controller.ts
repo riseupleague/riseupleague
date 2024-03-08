@@ -195,7 +195,7 @@ export const getGamesByDate = async (selectedDate) => {
 		const games = await Game.find({
 			date: {
 				$gte: startOfDay(currentDate),
-				// $lt: endOfDay(currentDate),
+				$lt: endOfDay(currentDate),
 			},
 		})
 			.populate({
