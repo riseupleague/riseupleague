@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/general/Breadcrumb";
 import { DivisionWithStats } from "@/types";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	// get current date -> convert into seconds
@@ -14,6 +15,11 @@ export default async function Schedule(): Promise<JSX.Element> {
 		.setUTCHours(0, 0, 0, 0)
 		.toString()
 		.slice(0, 10);
+
+	const now = new Date();
+	const estTimeZone = "America/Toronto";
+	const estDate = utcToZonedTime(now, estTimeZone);
+	const formattedDate = format(estDate, "yyyy-MM-dd'T'HH:mm:ssxxx");
 
 	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
 	const { gamesByDate } = await resAllUpcomingGames.json();

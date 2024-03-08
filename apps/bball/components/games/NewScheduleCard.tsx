@@ -13,12 +13,18 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 	const time = format(date, "h:mma");
 
 	return (
-		<article className="relative flex flex-col items-center justify-center rounded border border-neutral-600 py-[14px]">
-			<div className="flex w-full items-center gap-2 px-1 lg:gap-12 lg:px-0">
+		<Link
+			href={`/games/${gameStatus}/${game._id}`}
+			className="relative flex flex-col items-center justify-center rounded border border-neutral-600 py-2 transition-all hover:bg-neutral-700 md:py-[14px]"
+		>
+			<div className="flex w-full items-center px-1 md:gap-2 lg:gap-12 lg:px-0">
 				{/* home team */}
-				<div className="flex h-full w-1/3 flex-col items-center justify-end gap-2 lg:w-[45%] lg:flex-row">
-					<h6 className="text-center lg:text-2xl">{game.homeTeam?.teamName}</h6>
-					<span className="scale-75">
+				<div className="flex h-full w-1/3 items-center justify-end gap-2 lg:w-[45%]">
+					<h6 className="text-center text-xl lg:text-2xl">
+						<span className="md:hidden">{game.homeTeam?.teamNameShort}</span>
+						<span className="hidden md:block">{game.homeTeam?.teamName}</span>
+					</h6>
+					<span className="scale-50 md:scale-75">
 						<TeamLogo
 							primary={game.homeTeam?.primaryColor || ""}
 							secondary={game.homeTeam?.secondaryColor || ""}
@@ -32,27 +38,27 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 				</div>
 
 				{/* game info */}
-				<div className="flex w-1/3 flex-col items-center justify-center gap-y-3 lg:w-[10%]">
+				<div className="flex w-1/3 flex-col items-center justify-center gap-y-1 md:gap-y-3 lg:w-[10%]">
 					<Badge variant="schedule">{game.division.divisionName}</Badge>
-					<p className="text-center text-sm uppercase text-neutral-300">
+					<p className="text-center text-xs uppercase text-neutral-300 md:text-sm">
 						{dateFormatted}
 					</p>
-					<h5 className="font-barlow m-0 text-center text-[31px] font-medium">
+					<h5 className="font-barlow m-0 text-center text-2xl font-medium md:text-[31px]">
 						{time}
 					</h5>
 					<div className="flex items-center gap-1">
 						<span className="hidden xl:block">
 							<LocationMarker />
 						</span>
-						<p className="font-barlow text-center text-sm uppercase text-[#82878d]">
+						<p className="font-barlow text-center text-xs uppercase text-[#82878d] md:text-sm">
 							{game.location}
 						</p>
 					</div>
 				</div>
 
 				{/* away team */}
-				<div className="relative flex h-full w-1/3 flex-col-reverse items-center justify-start gap-2 lg:w-[45%] lg:flex-row">
-					<span className="scale-75">
+				<div className="relative flex h-full w-1/3 items-center justify-start md:gap-2 lg:w-[45%]">
+					<span className="scale-50 md:scale-75">
 						<TeamLogo
 							primary={game.awayTeam?.primaryColor || ""}
 							secondary={game.awayTeam?.secondaryColor || ""}
@@ -63,19 +69,20 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 							circleWidth={4}
 						/>
 					</span>
-					<h6 className="max-w-[180px] text-center lg:text-2xl">
-						{game.awayTeam?.teamName}
+					<h6 className="max-w-[180px] text-center text-xl lg:text-2xl">
+						<span className="md:hidden">{game.awayTeam?.teamNameShort}</span>
+						<span className="hidden md:block">{game.awayTeam?.teamName}</span>
 					</h6>
 				</div>
 			</div>
 
 			<Link
 				href={`/games/${gameStatus}/${game._id}`}
-				className="w-fit pt-8 text-base uppercase text-neutral-300 underline transition-all hover:text-neutral-200 lg:absolute lg:right-[43px] lg:pt-0"
+				className="right-[43px] hidden w-fit pt-0 text-base uppercase text-neutral-300 underline transition-all hover:text-neutral-200 lg:absolute lg:block"
 			>
 				{gameStatus}
 			</Link>
-		</article>
+		</Link>
 	);
 };
 
