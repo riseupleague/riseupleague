@@ -28,7 +28,6 @@ import {
 const EditDivision = ({ division }: { division: any }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [divisionData, setDivisionData] = useState(division);
-	const [currentWeek, setCurrentWeek] = useState(0);
 
 	const bindDivisionData = editDivisionAction.bind(
 		null,
@@ -39,9 +38,6 @@ const EditDivision = ({ division }: { division: any }): JSX.Element => {
 
 	const noDataChanged =
 		JSON.stringify(division) === JSON.stringify(divisionData) ? true : false;
-
-	const firstSlotHours = Number(division.startTime.slice(0, 2));
-	const firstSlotMinutes = Number(division.startTime.slice(3, 5));
 
 	return (
 		<Dialog>
@@ -180,70 +176,6 @@ const EditDivision = ({ division }: { division: any }): JSX.Element => {
 							<Label htmlFor="earlyBirdOpen">Early Bird Open</Label>
 						</div>
 					)}
-
-					<div>
-						<h4>Schedule</h4>
-						<Separator className="border-b border-neutral-500" />
-						<div className="mt-4 flex gap-4">
-							<h5>Week #:</h5>
-							<Select onValueChange={(e) => setCurrentWeek(Number(e))}>
-								<SelectTrigger className="w-44">
-									<SelectValue placeholder="select week number" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										{/* {divisionData.teamSchedule.map((_, index) => (
-											<SelectItem key={index} value={(index + 1).toString()}>
-												{index + 1}
-											</SelectItem>
-										))} */}
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</div>
-						{/* {divisionData.teamSchedule[currentWeek].map((slot, index) => (
-							<div key={index} className="flex h-16 items-center gap-3">
-								<p className="flex h-full w-full items-center">
-									{firstSlotHours + ":" + firstSlotMinutes} -{" "}
-									{firstSlotHours + index + ":" + firstSlotMinutes}
-								</p>
-								<div className="w-full">
-									<Label htmlFor="startTime">Home Team</Label>
-									<Select onValueChange={handleScheduleChange}>
-										<SelectTrigger className="w-full">
-											<SelectValue placeholder="select a team" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectGroup>
-												{division?.teams.map((team, index) => (
-													<SelectItem key={index} value={team.teamName}>
-														{team.teamName}
-													</SelectItem>
-												))}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
-								</div>
-								<div className="w-full">
-									<Label htmlFor="endTime">Away Team</Label>
-									<Select onValueChange={handleScheduleChange}>
-										<SelectTrigger className="w-full">
-											<SelectValue placeholder="select a team" />
-										</SelectTrigger>
-										<SelectContent>
-											<SelectGroup>
-												{division?.teams.map((team, index) => (
-													<SelectItem key={index} value={team.teamName}>
-														{team.teamName}
-													</SelectItem>
-												))}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
-								</div>
-							</div>
-						))} */}
-					</div>
 
 					<Separator className="mb-4 border-b border-neutral-500" />
 

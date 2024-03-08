@@ -111,3 +111,33 @@ export const getPlayerAllAvgFromId = async (playerId: string) => {
 		);
 	}
 };
+
+export const getAllFreeAgents = async (season) => {
+	try {
+		const trueFreeAgents = await Player.find({ freeAgent: true, season })
+			.populate("team", "teamName")
+			.populate("division", "divisionName")
+			.select("playerName teamName instagram freeAgent division");
+
+		const falseFreeAgents = await Player.find({
+			freeAgent: false,
+			season,
+		})
+			.populate("team", "teamName")
+			.populate("division", "divisionName")
+			.populate("user", "email")
+			.select("playerName teamName instagram freeAgent division");
+
+		const freeAgents = [
+			...trueFreeAgents.sort((a, b) => (a.playerName > b.playerName ? 1 : -1)),
+			...falseFreeAgents.sort((a, b) => (a.playerName > b.playerName ? 1 : -1)),
+		];
+
+		return NextResponse.json({ freeAgents });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
