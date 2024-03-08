@@ -10,7 +10,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 	const session = await getServerSession();
 	const resUser = await getCurrentAndRegisterUserPlayers(session.user.email);
 
-	const { user, season } = await resUser.json();
+	const { user, registerSeason } = await resUser.json();
 
 	return (
 		<section className="container mx-auto min-h-fit">
@@ -22,7 +22,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 				{user.basketball.map(
 					(player) =>
 						player.team &&
-						player.season._id === season._id && (
+						player.season._id === registerSeason._id && (
 							<Link
 								href={`/jersey/${player.team?._id}`}
 								key={player._id}

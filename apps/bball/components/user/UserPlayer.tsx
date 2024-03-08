@@ -68,6 +68,9 @@ const UserPlayer = ({ currentPlayers }) => {
 										)}
 										<span className="text-5xl ">{player.team?.teamName}</span>
 										<span className="text-3xl"> {player.playerName}</span>
+										{player.freeAgent && (
+											<span className="text-xl">Free Agent</span>
+										)}
 										<span className="text-xl">
 											{player.division?.divisionName}
 										</span>

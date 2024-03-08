@@ -101,7 +101,7 @@ export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 				},
 			],
 			select:
-				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
+				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName freeAgent",
 		});
 
 		return NextResponse.json({ user, season, registerSeason });
