@@ -3,10 +3,12 @@
 import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
+import NewScheduleCard from "./NewScheduleCard";
+import { convertToEST } from "@/utils/convertToEST";
+import { format } from "date-fns";
+import { Separator } from "@ui/components/separator";
 
 const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
-	console.log(gamesByDate);
-
 	let initialDivisions = divisionsWithStats;
 	let filterPlaceholder = "All Divisions";
 	const [divisionsWithTeams, setDivisionsWithTeams] =
@@ -57,7 +59,22 @@ const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
 			</div>
 
 			{/* render schedule games */}
-			<div className="my-8">games</div>
+			<div className="my-8">
+				{gamesByDate.map((date, index) => {
+					return (
+						<div key={index}>
+							<h3 className="text-2xl">{date.date}</h3>
+							<Separator className="border-b border-neutral-600" />
+
+							<div className="grid grid-cols-1 gap-3 py-7">
+								{date.games?.map((game, index) => (
+									<NewScheduleCard game={game} key={index} />
+								))}
+							</div>
+						</div>
+					);
+				})}
+			</div>
 		</section>
 	);
 };

@@ -6,6 +6,7 @@ import Breadcrumb from "@/components/general/Breadcrumb";
 import { DivisionWithStats } from "@/types";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	// get current date -> convert into seconds

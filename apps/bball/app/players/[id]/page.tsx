@@ -34,9 +34,7 @@ export default async function Players({
 					)}
 				</div>
 				<div className="flex w-1/2 flex-col items-center justify-center md:w-3/4">
-					<Badge className=" font-barlow mx-auto rounded border border-neutral-500 bg-neutral-500 px-5 py-1 text-center text-sm font-semibold uppercase text-white hover:bg-neutral-500 md:px-10 md:py-3 md:text-4xl">
-						{player.division.divisionName}
-					</Badge>
+					<Badge variant="division">{player.division.divisionName}</Badge>
 					<h1 className="text-4xl md:text-8xl">{player?.playerName}</h1>
 					<Link
 						href={`/teams/${player?.team._id}`}

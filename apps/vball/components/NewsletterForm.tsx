@@ -1,21 +1,19 @@
 "use client";
 
-import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import submitForm from "@/actions/submitForm";
 import { z } from "zod";
 import { useState } from "react";
 import { useToast } from "@ui/components/use-toast";
-import { useFormState, useFormStatus } from "react-dom";
+import NewsletterFormButton from "./NewsletterFormButton";
 
 const NewsletterForm = () => {
 	const { toast } = useToast();
-	const { pending } = useFormStatus();
 	const [errors, setErrors] = useState("");
 	const [email, setEmail] = useState("");
 
-	const formAction = async (formData: FormData) => {
+	const addEmail = async (formData: FormData) => {
 		const newEmail = {
 			email: formData.get("email"),
 		};
@@ -27,19 +25,30 @@ const NewsletterForm = () => {
 			return;
 		}
 
-		toast({
-			title: "Success!",
-			description: `Your email ${email} has been added to our newsletter.`,
-		});
+		const { success } = await submitForm(newEmail);
 
 		setErrors("");
 		setEmail("");
 
-		await submitForm(newEmail);
+		if (success) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: `Your email ${email} has been added to our newsletter.`,
+			});
+
+			return;
+		}
+
+		toast({
+			variant: "destructive",
+			title: "Oops!",
+			description: "Email already exists! Please try a different email.",
+		});
 	};
 
 	return (
-		<form action={formAction} className="space-y-7">
+		<form action={addEmail} className="space-y-7">
 			<Label htmlFor="email" className="hidden">
 				Email
 			</Label>
@@ -49,17 +58,10 @@ const NewsletterForm = () => {
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 				placeholder="Enter your email"
-				className="rounded-md px-5 py-4 text-left text-base font-normal leading-5 text-[#111827]"
+				className="rounded-md px-5 py-4 text-left text-base font-normal leading-5 text-[#111827] disabled:cursor-not-allowed"
 			/>
 
-			<Button
-				type="submit"
-				disabled={pending}
-				variant="signIn"
-				className="w-full"
-			>
-				{pending ? "Submitting..." : "Notify Me"}
-			</Button>
+			<NewsletterFormButton email={email} />
 
 			{errors.length > 0 && <p className="text-primary">{errors}</p>}
 		</form>
