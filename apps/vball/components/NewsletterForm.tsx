@@ -25,11 +25,26 @@ const NewsletterForm = () => {
 			return;
 		}
 
-		const response = await submitForm(newEmail);
-		toast(response);
+		const { success } = await submitForm(newEmail);
 
 		setErrors("");
 		setEmail("");
+
+		if (success) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: `Your email ${email} has been added to our newsletter.`,
+			});
+
+			return;
+		}
+
+		toast({
+			variant: "destructive",
+			title: "Oops!",
+			description: "Email already exists! Please try a different email.",
+		});
 	};
 
 	return (

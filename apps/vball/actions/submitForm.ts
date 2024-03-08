@@ -29,11 +29,7 @@ const submitForm = async (e: { email: FormDataEntryValue }) => {
 			(storedEmail) => storedEmail.toString() === email.toString()
 		).length > 0
 	) {
-		return {
-			variant: "destructive",
-			title: "Oops!",
-			description: "Email already exists! Please enter a different email.",
-		};
+		return { success: false };
 	}
 
 	await sheets.spreadsheets.values.append({
@@ -47,11 +43,7 @@ const submitForm = async (e: { email: FormDataEntryValue }) => {
 
 	revalidatePath("/");
 
-	return {
-		variant: "success",
-		title: "Success!",
-		description: `Your email ${email} has been added to our newsletter.`,
-	};
+	return { success: true };
 };
 
 export default submitForm;
