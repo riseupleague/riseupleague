@@ -32,8 +32,6 @@ export default async function FreeAgents(): Promise<JSX.Element> {
 	});
 	if (selectedPlayer) redirect("/success/free-agent");
 
-	console.log("selectedPlayer:", selectedPlayer);
-
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">

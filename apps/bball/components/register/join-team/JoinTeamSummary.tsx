@@ -26,7 +26,6 @@ interface CheckboxErrors {
 }
 
 const JoinTeamSummary = ({ team, session }) => {
-	console.log(team);
 	const teamCaptain = team.players.find(
 		(player) => player.teamCaptain === true
 	);

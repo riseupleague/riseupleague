@@ -5,7 +5,6 @@ import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
 const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
-	console.log("allPlayers:", allPlayers);
 	let filterPlaceholder = divisions[0].divisionName;
 	let initialDivisions = divisions.map((division) => {
 		return {

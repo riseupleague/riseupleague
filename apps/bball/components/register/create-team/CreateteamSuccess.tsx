@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 
 const CreateTeamSuccess = ({ player, user }) => {
-	console.log(player);
 	const team = player.team;
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
