@@ -128,6 +128,8 @@ const UserPlayerInfo = ({ player }) => {
 		}
 	);
 
+	const customizeJersey = player.register || player.freeAgent;
+
 	return (
 		<Card className="relative flex  cursor-pointer flex-col justify-center border-0 bg-transparent">
 			<CardHeader>
@@ -285,94 +287,90 @@ const UserPlayerInfo = ({ player }) => {
 												/>
 											</div>
 
-											{player.register ||
-												(player.freeAgent && (
-													<>
-														<div className="flex flex-col gap-3">
-															<Label htmlFor="jerseyName" className="uppercase">
-																Custom Jersey Name
-															</Label>
-															<Input
-																className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-																value={playerFormObject.jerseyName}
-																onChange={(e) =>
-																	handlePlayerInputChange(
-																		"jerseyName",
-																		e.target.value
-																	)
-																}
-																id="jerseyName"
-															/>
-														</div>
+											{customizeJersey && (
+												<>
+													<div className="flex flex-col gap-3">
+														<Label htmlFor="jerseyName" className="uppercase">
+															Custom Jersey Name
+														</Label>
+														<Input
+															className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+															value={playerFormObject.jerseyName}
+															onChange={(e) =>
+																handlePlayerInputChange(
+																	"jerseyName",
+																	e.target.value
+																)
+															}
+															id="jerseyName"
+														/>
+													</div>
 
-														<div className="flex flex-col gap-3">
-															<Label
-																htmlFor="jerseyNumber"
-																className="uppercase"
-															>
-																Jersey Number
-															</Label>
-															<Input
-																className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-																value={playerFormObject?.jerseyNumber}
-																onChange={(e) =>
-																	handlePlayerInputChange(
-																		"jerseyNumber",
-																		e.target.value
-																	)
-																}
-																id="jerseyNumber"
-															/>
-														</div>
-														<div className="flex flex-col gap-3">
-															<Label className="uppercase"> Jersey Size</Label>
-															<select
-																onChange={(e) =>
-																	handlePlayerInputChange(
-																		"jerseySize",
-																		e.target.value
-																	)
-																}
-																id="jerseySize"
-																value={playerFormObject?.jerseySize}
-																className="rounded border border-neutral-600 bg-neutral-900 p-2"
-															>
-																<option value="SM">SM</option>
-																<option value="MD">MD</option>
-																<option value="LG">LG</option>
-																<option value="XL">XL</option>
-																<option value="XXL">XXL</option>
-																<option value="XXXL">XXXL</option>
-																<option value="XXXXL">XXXXL</option>
-															</select>
-														</div>
-														<div className="flex flex-col gap-3">
-															<Label htmlFor="shortSize" className="uppercase">
-																Short Size
-															</Label>
+													<div className="flex flex-col gap-3">
+														<Label htmlFor="jerseyNumber" className="uppercase">
+															Jersey Number
+														</Label>
+														<Input
+															className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+															value={playerFormObject?.jerseyNumber}
+															onChange={(e) =>
+																handlePlayerInputChange(
+																	"jerseyNumber",
+																	e.target.value
+																)
+															}
+															id="jerseyNumber"
+														/>
+													</div>
+													<div className="flex flex-col gap-3">
+														<Label className="uppercase"> Jersey Size</Label>
+														<select
+															onChange={(e) =>
+																handlePlayerInputChange(
+																	"jerseySize",
+																	e.target.value
+																)
+															}
+															id="jerseySize"
+															value={playerFormObject?.jerseySize}
+															className="rounded border border-neutral-600 bg-neutral-900 p-2"
+														>
+															<option value="SM">SM</option>
+															<option value="MD">MD</option>
+															<option value="LG">LG</option>
+															<option value="XL">XL</option>
+															<option value="XXL">XXL</option>
+															<option value="XXXL">XXXL</option>
+															<option value="XXXXL">XXXXL</option>
+														</select>
+													</div>
+													<div className="flex flex-col gap-3">
+														<Label htmlFor="shortSize" className="uppercase">
+															Short Size
+														</Label>
 
-															<select
-																onChange={(e) =>
-																	handlePlayerInputChange(
-																		"shortSize",
-																		e.target.value
-																	)
-																}
-																id="shortSize"
-																value={playerFormObject?.shortSize}
-																className="rounded border border-neutral-600 bg-neutral-900 p-2"
-															>
-																<option value="SM">SM</option>
-																<option value="MD">MD</option>
-																<option value="LG">LG</option>
-																<option value="XL">XL</option>
-																<option value="XXL">XXL</option>
-																<option value="XXXL">XXXL</option>
-																<option value="XXXXL">XXXXL</option>
-															</select>
-														</div>
-													</>
-												))}
+														<select
+															onChange={(e) =>
+																handlePlayerInputChange(
+																	"shortSize",
+																	e.target.value
+																)
+															}
+															id="shortSize"
+															value={playerFormObject?.shortSize}
+															className="rounded border border-neutral-600 bg-neutral-900 p-2"
+														>
+															<option value="SM">SM</option>
+															<option value="MD">MD</option>
+															<option value="LG">LG</option>
+															<option value="XL">XL</option>
+															<option value="XXL">XXL</option>
+															<option value="XXXL">XXXL</option>
+															<option value="XXXXL">XXXXL</option>
+														</select>
+													</div>
+												</>
+											)}
 										</div>
 									</SheetDescription>
 									<SheetFooter className="mt-10 flex gap-2">
