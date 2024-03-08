@@ -76,12 +76,9 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 				</div>
 			</div>
 
-			<Link
-				href={`/games/${gameStatus}/${game._id}`}
-				className="right-[43px] hidden w-fit pt-0 text-base uppercase text-neutral-300 underline transition-all hover:text-neutral-200 lg:absolute lg:block"
-			>
+			<p className="right-[43px] hidden w-fit pt-0 text-base uppercase text-neutral-300 underline transition-all hover:text-neutral-200 lg:absolute lg:block">
 				{gameStatus}
-			</Link>
+			</p>
 		</Link>
 	);
 };

@@ -4,11 +4,15 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
-import { convertToEST } from "@/utils/convertToEST";
-import { format } from "date-fns";
 import { Separator } from "@ui/components/separator";
 
-const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
+const NewSchedule = ({
+	gamesByDate,
+	divisionsWithStats,
+	date,
+}): JSX.Element => {
+	console.log(date);
+
 	let initialDivisions = divisionsWithStats;
 	let filterPlaceholder = "All Divisions";
 	const [divisionsWithTeams, setDivisionsWithTeams] =

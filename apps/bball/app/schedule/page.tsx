@@ -38,6 +38,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 			<div className="font-barlow container mx-auto min-h-fit">
 				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
 				<NewSchedule
+					date={new Date()}
 					gamesByDate={gamesByDate}
 					divisionsWithStats={divisionsWithStats}
 				/>
