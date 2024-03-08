@@ -20,7 +20,7 @@ export default function playerOfTheGame({ player }) {
 			className="rounded-lg bg-[#11161F]  transition duration-300 ease-in-out hover:bg-gray-800"
 		>
 			<div className="p-5">
-				<div className="relative rounded-bl-3xl border-8 border-blue-500">
+				<div className="relative rounded-bl-3xl border-8 border-white">
 					<Image
 						className="!h-full !w-full"
 						src={player.potg?.image}
@@ -54,7 +54,7 @@ export default function playerOfTheGame({ player }) {
 				</div>
 			</div>
 			<div className="grid grid-cols-5 justify-between pb-5">
-				<div className="flex flex-col  font-semibold">
+				<div className="flex flex-col font-semibold">
 					<span className="text-md bg-neutral-600 py-2 text-center font-normal">
 						PTS
 					</span>
