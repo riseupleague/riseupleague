@@ -88,7 +88,7 @@ const Hero = (): JSX.Element => {
 							<h1 className="text-left">{heroSlides[currentIndex].title}</h1>
 							<p>{heroSlides[currentIndex].description}</p>
 							<div className="relative z-10 my-4">
-								{heroSlides[currentIndex].link === "/register" ? (
+								{heroSlides[currentIndex].link === "/register?info=true" ? (
 									<>
 										{!session || !session.user ? (
 											<Button onClick={openDialog}>

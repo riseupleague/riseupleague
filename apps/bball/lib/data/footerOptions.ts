@@ -26,10 +26,10 @@ export const footerOptions = [
 				label: "players",
 				href: "/players",
 			},
-			// {
-			// 	label: "MVP ladder",
-			// 	href: "/leaders/mvp-ladder",
-			// },
+			{
+				label: "MVP ladder",
+				href: "/leaders/mvp-ladder",
+			},
 		],
 	},
 	{

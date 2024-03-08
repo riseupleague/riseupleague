@@ -64,11 +64,11 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 			href: "/players",
 			icon: <PlayerIcon />,
 		},
-		// {
-		// 	label: "MVP Ladder",
-		// 	href: "/leaders/mvp-ladder",
-		// 	icon: <TrophyIcon />,
-		// },
+		{
+			label: "MVP Ladder",
+			href: "/leaders/mvp-ladder",
+			icon: <TrophyIcon />,
+		},
 	];
 
 	return (
