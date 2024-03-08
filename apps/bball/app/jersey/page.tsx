@@ -1,4 +1,4 @@
-import { getCurrentUserPlayers } from "@/api-helpers/controllers/users-controller";
+import { getCurrentAndRegisterUserPlayers } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 import { connectToDatabase } from "@/api-helpers/utils";
@@ -8,7 +8,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	const session = await getServerSession();
-	const resUser = await getCurrentUserPlayers(session.user.email);
+	const resUser = await getCurrentAndRegisterUserPlayers(session.user.email);
 
 	const { user, season } = await resUser.json();
 

@@ -1,6 +1,6 @@
 import {
 	getCurrentUser,
-	getCurrentUserPlayers,
+	getCurrentAndRegisterUserPlayers,
 } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -16,12 +16,24 @@ export default async function User(): Promise<JSX.Element> {
 	const session = await getServerSession();
 	if (!session || !session.user) redirect("/");
 
-	const resPlayer = await getCurrentUserPlayers(session.user.email);
-	const { user, season } = await resPlayer.json();
+	const resPlayer = await getCurrentAndRegisterUserPlayers(session.user.email);
+	const { user, season, registerSeason } = await resPlayer.json();
 
-	const currentPlayers = user.basketball.filter((player) => {
-		return player.season._id.toString() === season._id.toString();
-	});
+	const currentPlayers = user.basketball
+		.filter((player) => {
+			return (
+				player.season._id.toString() === season._id.toString() ||
+				player.season._id.toString() === registerSeason?._id.toString()
+			);
+		})
+		.map((player) => {
+			if (player.season._id.toString() === registerSeason?._id.toString()) {
+				return { ...player, register: true };
+			} else {
+				return player;
+			}
+		});
+
 	return (
 		<section className="container mx-auto">
 			<h1 className="text-start text-3xl lg:text-5xl">
