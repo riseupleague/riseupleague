@@ -1,6 +1,6 @@
 "use client";
 
-import { format } from "date-fns";
+import { format, startOfDay, sub } from "date-fns";
 import { Button } from "@ui/components/button";
 import { Calendar } from "@ui/components/calendar";
 import {
@@ -37,6 +37,7 @@ const FilterByDate = (): JSX.Element => {
 						selected={date}
 						onSelect={setDate}
 						initialFocus
+						disabled={(date) => date < sub(startOfDay(new Date()), { days: 1 })}
 					/>
 				</PopoverContent>
 			</Popover>
