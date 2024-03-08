@@ -1,10 +1,13 @@
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
+import { connectToDatabase } from "@/api-helpers/utils";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
 import Breadcrumb from "@/components/general/Breadcrumb";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
 export default async function Schedule(): Promise<JSX.Element> {
+	await connectToDatabase();
+
 	// get current date -> convert into seconds
 	let currentDate = new Date();
 	const currentDateInSeconds = currentDate
