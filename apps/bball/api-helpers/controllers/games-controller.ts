@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
-import { startOfDay, endOfDay, addHours } from "date-fns";
+import {
+	startOfDay,
+	addHours,
+	endOfDay,
+	parseISO,
+	add,
+	format,
+} from "date-fns";
 import { revalidatePath } from "next/cache";
 
 export const getAllUpcomingGamesHeader = async () => {
@@ -227,11 +234,10 @@ export const getGamesByDate = async (selectedDate) => {
 					weekday: "long",
 				});
 				const existingGames = acc.find((d) => d.date === date);
-				if (existingGames) {
-					existingGames.games.push(game);
-				} else {
-					acc.push({ date, games: [game] });
-				}
+
+				if (existingGames) existingGames.games.push(game);
+				else acc.push({ date, games: [game] });
+
 				return acc;
 			}, []);
 
