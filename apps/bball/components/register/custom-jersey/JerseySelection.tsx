@@ -21,7 +21,7 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }): JSX.Element => {
 				<DialogHeader className="text-center">
 					<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
 						<span className="text-primary text-2xl font-bold uppercase">
-							Please Have 9 or minimum registered to your team!
+							Please have 9 or minimum registered to your team!
 						</span>{" "}
 					</DialogTitle>
 				</DialogHeader>
@@ -79,6 +79,7 @@ const SubmitUniqueJerseyFormDialog = ({
 };
 
 const JerseySelection = ({ team }): JSX.Element => {
+	console.log("team:", team);
 	const router = useRouter();
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);
@@ -260,10 +261,14 @@ const JerseySelection = ({ team }): JSX.Element => {
 												<Button
 													className="bg-transparent hover:bg-transparent"
 													onClick={() => {
-														if (team.players.length < 9) {
-															openDialog();
-														} else {
+														if (team.paid === true) {
 															openFormUniqueJersey(index + 1);
+														} else {
+															if (team.players.length < 9) {
+																openDialog();
+															} else {
+																openFormUniqueJersey(index + 1);
+															}
 														}
 													}}
 												>
