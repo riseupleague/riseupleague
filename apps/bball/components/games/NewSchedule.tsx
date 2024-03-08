@@ -12,6 +12,7 @@ const NewSchedule = ({
 	date,
 }): JSX.Element => {
 	console.log(date);
+	console.log(gamesByDate);
 
 	let initialDivisions = divisionsWithStats;
 	let filterPlaceholder = "All Divisions";

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
-import { startOfDay, format, parse, endOfDay } from "date-fns";
+import { startOfDay, format, parse, endOfDay, add } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 
 export const getAllUpcomingGamesHeader = async () => {
 	try {
@@ -188,11 +189,13 @@ export const getAllRecentPlayerOfTheGames = async () => {
 };
 
 export const getGamesByDate = async (selectedDate) => {
+	const currentDate = add(selectedDate, { days: 1 });
+
 	try {
 		const games = await Game.find({
 			date: {
-				$gte: startOfDay(selectedDate),
-				$lt: endOfDay(selectedDate),
+				$gte: startOfDay(currentDate),
+				// $lt: endOfDay(currentDate),
 			},
 		})
 			.populate({
@@ -216,7 +219,10 @@ export const getGamesByDate = async (selectedDate) => {
 		const gamesByDate =
 			games &&
 			games.reduce((acc, game) => {
-				const date = format(game.date, "EEEE, MMM dd");
+				const date = format(
+					utcToZonedTime(game.date, "America/Toronto"),
+					"EEEE, MMM dd"
+				);
 				const existingGames = acc.find((d) => d.date === date);
 
 				if (existingGames) existingGames.games.push(game);
