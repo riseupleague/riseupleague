@@ -435,35 +435,27 @@ const FreeAgentsSummary = ({
 
 						<Separator className="my-4 border-b border-[#1F2937]" />
 
-						{divisionPricePurposes?.earlyBirdOpen ? (
-							<>
-								<section className="mb-4 mt-2 space-y-4">
-									<p className="text-base capitalize text-[#F9FAFB]">
-										Overall Total:
-									</p>
-									<p className="text-4xl text-base capitalize text-[#F9FAFB]">
-										${divisionPricePurposes?.earlyBirdPrice}
-									</p>
-									<Button
-										className="mt-10  flex w-full justify-center text-center font-medium"
-										onClick={handlePay}
-									>
-										{isLoader ? (
-											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-										) : (
-											"Proceed to checkout"
-										)}
-									</Button>
-								</section>
-							</>
-						) : (
-							<section>
-								<p className="mt-4">Overall Total:</p>
-								<p className="text-4xl">
-									${divisionPricePurposes?.regularPrice}
-								</p>
-							</section>
-						)}
+						<section className="mb-4 mt-2 space-y-4">
+							<p className="text-base capitalize text-[#F9FAFB]">
+								Overall Total:
+							</p>
+							<p className="text-4xl  capitalize text-[#F9FAFB]">
+								$
+								{divisionPricePurposes?.earlyBirdOpen
+									? divisionPricePurposes?.earlyBirdPrice
+									: divisionPricePurposes?.regularPrice}
+							</p>
+							<Button
+								className="mt-10  flex w-full justify-center text-center font-medium"
+								onClick={handlePay}
+							>
+								{isLoader ? (
+									<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+								) : (
+									"Proceed to checkout"
+								)}
+							</Button>
+						</section>
 
 						{checkboxErrors.playerName && (
 							<p className="text-primary text-sm">
