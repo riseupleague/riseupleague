@@ -269,7 +269,10 @@ const CreateTeamSummary = ({
 									<Separator className="my-4 border-b border-neutral-600" />
 									<p className="my-4 text-base font-bold">Overall Total:</p>
 									<p className="mb-4 text-base">
-										${division.earlyBirdPrice + ".00"}{" "}
+										$
+										{division?.earlyBirdOpen
+											? division?.earlyBirdPrice
+											: division?.regularPrice + ".00"}{" "}
 										<span className="text-sm">+ tax</span>
 									</p>
 									<Button
