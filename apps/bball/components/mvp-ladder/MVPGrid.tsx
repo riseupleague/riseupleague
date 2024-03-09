@@ -1,23 +1,9 @@
-"use client";
-
-import { useState } from "react";
+import { redirect } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
-const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
-	console.log("allPlayers:", allPlayers);
-	let filterPlaceholder = divisions[0].divisionName;
-	let initialDivisions = divisions.map((division) => {
-		return {
-			divisionName: division.divisionName,
-			_id: division._id,
-		};
-	});
-
-	// set initial division
-	const [selectedDivision, setSelectedDivision] = useState(
-		initialDivisions[0]._id
-	);
+const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
+	const filterPlaceholder = selectedDivision.divisionName;
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
@@ -34,28 +20,11 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
 		.filter((player) => player.mvpScore > 0);
 
-	// set initial player list
-	const [players, setPlayers] = useState(
-		allPlayersWithScore.filter(
-			(player) =>
-				player.division._id === selectedDivision &&
-				player.playerName !== "Admin Test"
-		)
-	);
-
 	// Handle the select change event
-	const handleDivisionChange = (event) => {
+	const handleDivisionChange = async (event) => {
+		"use server";
 		const selectedDivisionId = event;
-
-		if (selectedDivisionId !== "default") {
-			const filteredPlayers = allPlayersWithScore
-				.filter((player) => player?.division?._id === selectedDivisionId)
-				.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1));
-
-			setPlayers(filteredPlayers);
-		} else {
-			setPlayers(allPlayers);
-		}
+		redirect(`/leaders/mvp-ladder/${selectedDivisionId}`);
 	};
 
 	return (
@@ -70,7 +39,7 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 			</div>
 
 			<div className="relative my-8 grid grid-cols-1 overflow-auto">
-				{players.length > 0 ? (
+				{allPlayers.length > 0 ? (
 					<>
 						<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase sm:pr-6">
 							<div className="flex w-2 items-center text-sm sm:text-lg">#</div>
@@ -99,7 +68,7 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 								Score
 							</div>
 						</article>
-						{players
+						{allPlayersWithScore
 							.map((player, index) => (
 								<MVPCard
 									player={player}

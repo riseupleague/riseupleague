@@ -81,7 +81,7 @@ export const getTeamById = async (teamId: string) => {
 			.populate("players")
 			.populate("division")
 			.select(
-				"division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+				"division primaryColor secondaryColor tertiaryColor jerseyEdition players paid"
 			);
 
 		if (!team) {

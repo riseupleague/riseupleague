@@ -19,7 +19,7 @@ import {
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
 
-const ProfileLink = (): JSX.Element => {
+const ProfileLink = ({ user }): JSX.Element => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
@@ -44,13 +44,13 @@ const ProfileLink = (): JSX.Element => {
 						<DropdownMenu>
 							<DropdownMenuTrigger className="font-oswald flex items-center gap-2 transition-all hover:opacity-80">
 								<span className="text-primary hidden text-lg lg:inline-block">
-									Welcome back, {session?.user?.name}
+									{user?.name}
 								</span>
-								<div className="flex items-center gap-1">
-									<Avatar>
+								<div className="flex items-center gap-1 ">
+									<Avatar className="block lg:hidden ">
 										<AvatarImage src={`${session.user.image}`} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
-											{session?.user?.name[0]}
+											{user?.name[0]}
 										</AvatarFallback>
 									</Avatar>
 									<DownChevronIcon />
@@ -58,7 +58,7 @@ const ProfileLink = (): JSX.Element => {
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="font-barlow w-56 border border-neutral-500 bg-neutral-900">
 								<DropdownMenuLabel className="font-barlow text-xl font-medium uppercase">
-									{session?.user?.name}
+									{user?.email}
 								</DropdownMenuLabel>
 
 								<DropdownMenuSeparator className="border border-neutral-600" />
@@ -67,7 +67,7 @@ const ProfileLink = (): JSX.Element => {
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
 											onClick={closeDialog}
-											href="/user"
+											href={`/user`}
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
 											<PlayerIcon />
