@@ -10,20 +10,38 @@ const Breadcrumb = (): JSX.Element => {
 
 	return (
 		<div className="font-barlow flex items-center gap-2">
-			{crumbs.map((crumb, index) => (
-				<Link
-					key={index}
-					href={`/${crumb}`}
-					className={`${index === crumbs.length - 1 ? "text-primary cursor-not-allowed" : "hover:text-primary transition-all"} flex w-fit items-center gap-2 text-xl capitalize`}
-				>
-					{index === 0 ? "Home" : crumb}
-					<span
-						className={`${index === crumbs.length - 1 && "hidden"} scale-50`}
-					>
-						<ArrowRightIcon />
-					</span>
-				</Link>
-			))}
+			{crumbs.map((crumb, index) => {
+				if (index === crumbs.length - 1) {
+					return (
+						<div
+							key={index}
+							className={`${index === crumbs.length - 1 ? "text-primary" : "hover:text-primary transition-all"} flex w-fit items-center gap-2 text-xl capitalize`}
+						>
+							{index === 0 ? "Home" : crumb}
+							<span
+								className={`${index === crumbs.length - 1 && "hidden"} scale-50`}
+							>
+								<ArrowRightIcon />
+							</span>
+						</div>
+					);
+				} else {
+					return (
+						<Link
+							key={index}
+							href={`/${crumb}`}
+							className={`${index === crumbs.length - 1 ? "text-primary" : "hover:text-primary transition-all"} flex w-fit items-center gap-2 text-xl capitalize`}
+						>
+							{index === 0 ? "Home" : crumb}
+							<span
+								className={`${index === crumbs.length - 1 && "hidden"} scale-50`}
+							>
+								<ArrowRightIcon />
+							</span>
+						</Link>
+					);
+				}
+			})}
 		</div>
 	);
 };

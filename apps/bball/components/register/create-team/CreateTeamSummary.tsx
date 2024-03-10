@@ -269,7 +269,10 @@ const CreateTeamSummary = ({
 									<Separator className="my-4 border-b border-neutral-600" />
 									<p className="my-4 text-base font-bold">Overall Total:</p>
 									<p className="mb-4 text-base">
-										${division.earlyBirdPrice + ".00"}{" "}
+										$
+										{division?.earlyBirdOpen
+											? division?.earlyBirdPrice
+											: division?.regularPrice + ".00"}{" "}
 										<span className="text-sm">+ tax</span>
 									</p>
 									<Button
@@ -290,7 +293,7 @@ const CreateTeamSummary = ({
 									<p className="font-barlow my-4 text-base capitalize">
 										Pay For My Whole Team:
 									</p>
-									<p className="mb-4 text-base">$2000.00</p>
+									<p className="mb-4 text-base">$2200.00</p>
 									<Button
 										className="mt-2 flex w-full justify-center text-center text-sm font-semibold capitalize"
 										onClick={handlePayTeam}

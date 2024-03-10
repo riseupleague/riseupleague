@@ -101,6 +101,54 @@ export const getAllRegisterDivisions = async () => {
 	}
 };
 
+export const getCurrentDivisionWithTeams = async (divisionId: string) => {
+	try {
+		const division = await Division.findById(divisionId)
+			.populate({
+				path: "teams",
+				select: "teamName wins losses pointDifference teamBanner _id",
+			})
+			.select("divisionName teams");
+
+		const teamsWithStats = division.teams?.map((team) => {
+			const { wins, losses, pointDifference, teamName } = team;
+			let gp, wpct;
+			if (!wins && !losses) {
+				gp = 0;
+				wpct = 0;
+			} else {
+				gp = wins + losses;
+				wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
+			}
+
+			return {
+				teamName,
+				wins,
+				losses,
+				pointDifference,
+				gp,
+				wpct,
+				_id: team._id,
+			};
+		});
+
+		// Return the division with teams and stats
+		const divisionWithTeamStats = {
+			_id: division._id,
+			divisionName: division.divisionName,
+			teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
+		};
+
+		return NextResponse.json({ divisionWithTeamStats });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -223,7 +271,7 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 		}).select("divisionName _id");
 
 		// Add "All Divisions" to the beginning of the array
-		divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
+		// divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
 
 		if (!divisionsNameAndId) {
 			return NextResponse.json(

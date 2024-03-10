@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 import React from "react";
 
-const FreeAgentsSuccess = ({ player, user }) => {
+const FreeAgentsSuccess = ({ player }) => {
 	const date = convertToEST(new Date(player?.createdAt));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mm a");
@@ -24,7 +24,7 @@ const FreeAgentsSuccess = ({ player, user }) => {
 					</p>
 					<Link
 						className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-						href={`/user/${user._id}`}
+						href={`/user`}
 					>
 						Go to my profile
 					</Link>

@@ -16,7 +16,7 @@ const middleware = async (request: NextRequest) => {
 			return NextResponse.redirect("/");
 		}
 
-		return NextResponse.rewrite(new URL(`/user/${user._id}`, request.url));
+		// return NextResponse.rewrite(new URL(`/user/${user._id}`, request.url));
 	}
 };
 

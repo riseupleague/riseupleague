@@ -379,29 +379,25 @@ const JoinTeamSummary = ({ team, session }) => {
 							</>
 						) : (
 							<>
-								{division?.earlyBirdOpen ? (
-									<>
-										<section>
-											<p className="mt-4">Overall Total:</p>
-											<p className="text-4xl">${division?.earlyBirdPrice}</p>
-											<Button
-												className="mt-10  flex w-full justify-center text-center"
-												onClick={handlePay}
-											>
-												{isLoader ? (
-													<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-												) : (
-													"Pay Now"
-												)}
-											</Button>
-										</section>
-									</>
-								) : (
-									<section>
-										<p className="mt-4">Overall Total:</p>
-										<p className="text-4xl">${division?.regularPrice}</p>
-									</section>
-								)}
+								<section>
+									<p className="mt-4">Overall Total:</p>
+									<p className="text-4xl">
+										$
+										{division?.earlyBirdOpen
+											? division?.earlyBirdPrice
+											: division?.regularPrice}
+									</p>
+									<Button
+										className="mt-10  flex w-full justify-center text-center"
+										onClick={handlePay}
+									>
+										{isLoader ? (
+											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										) : (
+											"Pay Now"
+										)}
+									</Button>
+								</section>
 							</>
 						)}
 

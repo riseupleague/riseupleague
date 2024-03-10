@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import Link from "next/link";
 import React from "react";
 
-const JoinTeamSuccess = ({ player, user }) => {
+const JoinTeamSuccess = ({ player }) => {
 	const team = player?.team;
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
@@ -61,7 +61,7 @@ const JoinTeamSuccess = ({ player, user }) => {
 					</p>
 					<Link
 						className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-						href={`/user/${user._id}`}
+						href={`/user`}
 					>
 						Go to my profile
 					</Link>

@@ -14,7 +14,7 @@ import SideNav from "./SideNav";
 import MiddleNav from "./MiddleNav";
 import MobileBottomNav from "./MobileBottomNav";
 
-const PrimaryHeader = (): JSX.Element => {
+const PrimaryHeader = ({ user }): JSX.Element => {
 	const path = usePathname();
 
 	return (
@@ -54,7 +54,7 @@ const PrimaryHeader = (): JSX.Element => {
 				</div>
 
 				<div className="flex items-center justify-end">
-					<ProfileLink />
+					<ProfileLink user={user} />
 				</div>
 			</div>
 
