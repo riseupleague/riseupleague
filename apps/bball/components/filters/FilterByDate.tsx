@@ -1,6 +1,6 @@
 "use client";
 
-import { format, startOfDay } from "date-fns";
+import { format } from "date-fns";
 import { Button } from "@ui/components/button";
 import { Calendar } from "@ui/components/calendar";
 import {
@@ -12,7 +12,7 @@ import { useState } from "react";
 import { cn } from "../../../../packages/ui/lib/utils";
 import { Label } from "@ui/components/label";
 
-const FilterByDate = ({ allGameDates, handleDateChange }): JSX.Element => {
+const FilterByDate = (): JSX.Element => {
 	const [date, setDate] = useState<Date>();
 
 	return (
@@ -35,10 +35,8 @@ const FilterByDate = ({ allGameDates, handleDateChange }): JSX.Element => {
 						className="font-barlow bg-neutral-900 text-lg"
 						mode="single"
 						selected={date}
-						onDayClick={handleDateChange}
 						onSelect={setDate}
 						initialFocus
-						disabled={(date) => date < startOfDay(new Date())}
 					/>
 				</PopoverContent>
 			</Popover>

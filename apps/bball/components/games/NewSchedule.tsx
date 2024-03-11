@@ -4,24 +4,15 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
+import { convertToEST } from "@/utils/convertToEST";
+import { format } from "date-fns";
 import { Separator } from "@ui/components/separator";
-import { format, startOfDay } from "date-fns";
-import { useRouter } from "next/navigation";
 
-const NewSchedule = ({
-	selectedDate = startOfDay(new Date()),
-	allGameDates,
-	gamesByDate,
-	divisionsWithStats,
-}): JSX.Element => {
-	const router = useRouter();
-	const formattedDate = format(selectedDate, "EEEE, MMM dd");
-
+const NewSchedule = ({ gamesByDate, divisionsWithStats }): JSX.Element => {
+	let initialDivisions = divisionsWithStats;
 	let filterPlaceholder = "All Divisions";
-
-	const [scheduleGames, setScheduleGames] = useState(
-		gamesByDate.length > 0 ? gamesByDate[0].games : []
-	);
+	const [divisionsWithTeams, setDivisionsWithTeams] =
+		useState(initialDivisions);
 
 	const divisionsNameAndId = divisionsWithStats.map((division) => {
 		return {
@@ -42,30 +33,23 @@ const NewSchedule = ({
 		const selectedDivisionId = event;
 
 		if (selectedDivisionId !== "default") {
-			// filter the schedule games based on the selected division name
-			const filteredGames = filterGames(gamesByDate[0], selectedDivisionId);
+			// filter the divisions based on the selected division name
+			const filteredDivisions = filterDivisions(
+				divisionsWithStats,
+				selectedDivisionId
+			);
 
 			setSelectedDivision(selectedDivisionId);
-			setScheduleGames(filteredGames);
+			setDivisionsWithTeams(filteredDivisions);
 		} else {
-			setScheduleGames(gamesByDate[0].games);
-			setSelectedDivision("default");
+			setDivisionsWithTeams(divisionsWithStats);
 		}
-	};
-
-	const handleDateChange = (e) => {
-		const formattedDate = format(e, "yyyy-MM-dd");
-
-		router.push(`/schedule/${formattedDate}`);
 	};
 
 	return (
 		<section>
 			<div className="flex flex-col gap-4 md:flex-row">
-				<FilterByDate
-					allGameDates={allGameDates}
-					handleDateChange={handleDateChange}
-				/>
+				<FilterByDate />
 				<FilterByDivision
 					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
@@ -76,29 +60,27 @@ const NewSchedule = ({
 
 			{/* render schedule games */}
 			<div className="my-8">
-				<h3 className="text-3xl">{formattedDate}</h3>
-				<Separator className="border-b border-neutral-600" />
+				{gamesByDate.map((date, index) => {
+					return (
+						<div key={index}>
+							<h3 className="text-2xl">{date.date}</h3>
+							<Separator className="border-b border-neutral-600" />
 
-				{scheduleGames?.length > 0 ? (
-					scheduleGames?.map((game, index) => (
-						<NewScheduleCard game={game} key={index} />
-					))
-				) : (
-					<div>
-						<h3 className="text-primary my-8 text-center">
-							No games found for this division on {formattedDate}.
-						</h3>
-					</div>
-				)}
+							<div className="grid grid-cols-1 gap-3 py-7">
+								{date.games?.map((game, index) => (
+									<NewScheduleCard game={game} key={index} />
+								))}
+							</div>
+						</div>
+					);
+				})}
 			</div>
 		</section>
 	);
 };
 
-const filterGames = (date, id) => {
-	const games = date.games.filter((game) => game.division._id === id);
-
-	return games;
+const filterDivisions = (divisions, id) => {
+	return divisions.filter((division) => division._id === id);
 };
 
 export default NewSchedule;
