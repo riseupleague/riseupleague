@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react";
 import getStripe from "@/utils/checkout";
 import { Input } from "@ui/components/input";
 import BackButton from "@/components/general/buttons/BackButton";
+import { Separator } from "@ui/components/separator";
 
 interface CheckboxErrors {
 	termsChecked?: string;
@@ -140,6 +141,20 @@ const JoinTeamSummary = ({ team, session }) => {
 		}
 	};
 
+	const handlePayInstalments = (e) => {
+		e.preventDefault();
+		const errors = validateForm();
+
+		if (Object.keys(errors).length === 0) {
+			division.earlyBirdOpen
+				? handleCreateTeamAndPlayer(division.earlyBirdId, "four")
+				: handleCreateTeamAndPlayer(division.regularPriceInstalmentId, "four");
+		} else {
+			console.log(Object.keys(errors));
+			setCheckboxErrors(errors);
+		}
+	};
+
 	const redirectToCheckout = async (items, formObject) => {
 		try {
 			const response = await fetch("/api/checkout-sessions", {
@@ -252,14 +267,37 @@ const JoinTeamSummary = ({ team, session }) => {
 							</p>
 							<p>{division?.day}</p>
 							<p className="mb-10 mt-2">{division?.description}</p>
+
+							<p className="my-4">
+								<strong>Registration Fee Allocation:</strong> Upon immediate
+								payment, ${division.instalmentPrice}
+								<span className="text-sm"> + tax</span> will be allocated
+								towards the jersey order, and another $
+								{division.instalmentPrice}
+								<span className="text-sm"> + tax</span> will be designated for
+								gym fees. Please note that there will be no refunds for this
+								transaction.
+							</p>
 							{division?.earlyBirdOpen ? (
 								<p className="text-right">
 									Early Bird Registration Fee: ${division?.earlyBirdPrice}
 								</p>
 							) : (
-								<p className="text-right">
-									Registration Fee: ${division?.regularPrice}
-								</p>
+								<div className="flex justify-end">
+									<div>
+										<p>
+											Registration Fee: ${division.regularPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+										<span className="my-2 mr-2 block text-center text-3xl">
+											Or
+										</span>
+										<p>
+											Six Payments of ${division.instalmentPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+									</div>
+								</div>
 							)}
 						</div>
 					</div>
@@ -402,6 +440,38 @@ const JoinTeamSummary = ({ team, session }) => {
 							</>
 						)}
 
+						{!division.earlyBirdOpen && (
+							<section>
+								<Separator className="my-4 border-b border-neutral-600" />
+								<p className="my-4 text-base font-bold">Six Instalments of:</p>
+								<p className="mb-4 text-2xl">
+									${division.instalmentPrice}
+									<span className="text-sm"> + tax</span>
+								</p>
+								<Button
+									className="flex w-full justify-center text-center text-sm font-semibold capitalize"
+									onClick={handlePayInstalments}
+								>
+									{isLoader ? (
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										"Pay in instalments"
+									)}
+								</Button>
+							</section>
+						)}
+
+						<p className="font-sm my-4">
+							<span className="font-semibold">
+								Registration Fee Allocation:
+							</span>{" "}
+							Upon immediate payment, ${division.instalmentPrice}
+							<span className="text-sm"> + tax</span> will be allocated towards
+							the jersey order, and another ${division.instalmentPrice}
+							<span className="text-sm"> + tax</span> will be designated for gym
+							fees. Please note that there will be no refunds for this
+							transaction.
+						</p>
 						{/* Error messages */}
 
 						{checkboxErrors.playerName && (

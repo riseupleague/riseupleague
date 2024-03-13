@@ -47,7 +47,6 @@ const UserPlayerInfo = ({ player }) => {
 	});
 
 	const [jerseyNumberError, setJerseyNumberError] = useState("");
-
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
 			playerName: playerName || player?.playerName || "",
