@@ -86,17 +86,17 @@ const headerOptions = [
 	},
 	{
 		label: "leaders",
-		href: "/leaders",
+		href: "/leaders/mvp-ladder",
 		icon: <TrophyIcon />,
 		submenu: [
-			{
-				label: "Stats",
-				href: "/leaders",
-			},
 			{
 				label: "MVP Ladder",
 				href: "/leaders/mvp-ladder",
 			},
+			// {
+			// 	label: "Stats",
+			// 	href: "/leaders",
+			// }
 		],
 	},
 	{
