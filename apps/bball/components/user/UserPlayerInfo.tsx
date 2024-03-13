@@ -47,7 +47,6 @@ const UserPlayerInfo = ({ player }) => {
 	});
 
 	const [jerseyNumberError, setJerseyNumberError] = useState("");
-
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
 			playerName: playerName || player?.playerName || "",
@@ -434,27 +433,27 @@ const UserPlayerInfo = ({ player }) => {
 								<DynamicComponent />
 								{player.team.primaryColor && (
 									<div className=" m-4 flex justify-between rounded border border-neutral-600 p-4">
-										<div className="font-barlow flex items-center gap-2 text-sm">
+										<div className="font-barlow flex items-center gap-2 text-xs md:text-sm">
 											<div
-												className={`font-barlow h-2 w-2  rounded-full bg-[${player.team.primaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
+												className={`font-barlow h-1 w-1 rounded-full md:h-2  md:w-2 bg-[${player.team.primaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
 												style={{
 													backgroundColor: `${player.team.primaryColor}`,
 												}}
 											></div>
 											Primary
 										</div>
-										<div className="font-barlow flex items-center gap-2 text-sm">
+										<div className="font-barlow flex items-center gap-2 text-xs md:text-sm">
 											<div
-												className={`font-barlow h-2 w-2  rounded-full bg-[${player.team.secondaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
+												className={`font-barlow h-1 w-1 rounded-full md:h-2  md:w-2 bg-[${player.team.secondaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
 												style={{
 													backgroundColor: `${player.team.secondaryColor}`,
 												}}
 											></div>
 											Secondary
 										</div>
-										<div className="font-barlow flex items-center gap-2 text-sm">
+										<div className="font-barlow flex items-center gap-2 text-xs md:text-sm">
 											<div
-												className={`font-barlow h-2 w-2  rounded-full bg-[${player.team.tertiaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
+												className={`font-barlow h-1 w-1 rounded-full md:h-2  md:w-2 bg-[${player.team.tertiaryColor}] relative p-4 font-bold text-white sm:h-8 sm:w-8 lg:w-full `}
 												style={{
 													backgroundColor: `${player.team.tertiaryColor}`,
 												}}

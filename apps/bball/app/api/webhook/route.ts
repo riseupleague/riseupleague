@@ -117,18 +117,18 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: "price_1OKYO4Hl6U3lbfQtIq8563wU",
+							price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: "price_1OKYO4Hl6U3lbfQtIq8563wU",
+								price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
-						iterations: 1,
+						iterations: 5,
 					},
 				];
 
@@ -185,10 +185,10 @@ export async function POST(req: Request) {
 					teamCaptain: true,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyName: metadata.jerseyName,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
+					// jerseyNumber: metadata.jerseyNumber,
+					// jerseyName: metadata.jerseyName,
+					// jerseySize: metadata.jerseySize,
+					// shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
@@ -259,7 +259,7 @@ export async function POST(req: Request) {
 							price:
 								selectedDivision.earlyBirdOpen === true
 									? selectedDivision.earlyBirdInstalmentId
-									: selectedDivision.regularPriceFullId,
+									: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
@@ -269,11 +269,11 @@ export async function POST(req: Request) {
 								price:
 									selectedDivision.earlyBirdOpen === true
 										? selectedDivision.earlyBirdInstalmentId
-										: selectedDivision.regularPriceFullId,
+										: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
-						iterations: 3,
+						iterations: 5,
 					},
 				];
 
@@ -370,18 +370,24 @@ export async function POST(req: Request) {
 					...phases.map((phase) => ({
 						...phase,
 						items: phase.items.map((item) => ({
-							price: selectedDivision.earlyBirdInstalmentId,
+							price:
+								selectedDivision.earlyBirdOpen === true
+									? selectedDivision.earlyBirdInstalmentId
+									: selectedDivision.regularPriceInstalmentId,
 							quantity: 1,
 						})),
 					})),
 					{
 						items: [
 							{
-								price: selectedDivision.earlyBirdInstalmentId,
+								price:
+									selectedDivision.earlyBirdOpen === true
+										? selectedDivision.earlyBirdInstalmentId
+										: selectedDivision.regularPriceInstalmentId,
 								quantity: 1,
 							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
 						],
-						iterations: 3,
+						iterations: 5,
 					},
 				];
 
@@ -428,6 +434,7 @@ export async function POST(req: Request) {
 						metadata.email,
 						metadata.divisionName,
 						metadata.status,
+						metadata.payment === "four" ? "Yes" : "No",
 					],
 				],
 			},

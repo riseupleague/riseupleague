@@ -63,7 +63,21 @@ const RegisterPrice = () => {
 								Regular Price is $235 + tax per player.{" "}
 							</p>
 						</li>
+						<li className={styles["cs-li"]}>
+							<p className={styles["cs-li-text"]}>
+								Instalment will be six payments of $45 + tax
+							</p>
+						</li>
 					</ul>
+					<p className="font-sm my-4">
+						<span className="font-semibold">Registration Fee Allocation:</span>{" "}
+						Upon immediate payment, $45
+						<span className="text-sm"> + tax</span> will be allocated towards
+						the jersey order, and another $45
+						<span className="text-sm"> + tax</span> will be designated for gym
+						fees. Please note that there will be no refunds for this
+						transaction.
+					</p>
 					<Link
 						href="/register"
 						className="font-barlow mt-10 block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"

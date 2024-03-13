@@ -84,21 +84,21 @@ const headerOptions = [
 		href: "/teams",
 		icon: <TeamIcon />,
 	},
-	// {
-	// 	label: "leaders",
-	// 	href: "/leaders",
-	// 	icon: <TrophyIcon />,
-	// 	submenu: [
-	// 		{
-	// 			label: "Stats",
-	// 			href: "/leaders",
-	// 		},
-	// 		{
-	// 			label: "MVP Ladder",
-	// 			href: "/leaders/mvp-ladder",
-	// 		},
-	// 	],
-	// },
+	{
+		label: "leaders",
+		href: "/leaders/mvp-ladder",
+		icon: <TrophyIcon />,
+		submenu: [
+			{
+				label: "MVP Ladder",
+				href: "/leaders/mvp-ladder",
+			},
+			// {
+			// 	label: "Stats",
+			// 	href: "/leaders",
+			// }
+		],
+	},
 	{
 		label: "league",
 		icon: <PlayerIcon />,

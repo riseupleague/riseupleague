@@ -19,6 +19,15 @@ const RefundPolicy = (): JSX.Element => {
 					the terms and conditions of this refund policy.
 				</p>
 
+				<h2 className="my-6">1. Registration Fee Allocation:</h2>
+
+				<p className="my-4">
+					1.1. <strong>Funds Allocation:</strong> Upon immediate payment, $45
+					will be allocated towards the jersey order, and another $45 will be
+					designated for gym fees. Please note that there will be no refunds for
+					this transaction.
+				</p>
+
 				<h2 className="my-6">1. Registration Fee Refunds:</h2>
 
 				<p className="my-4">
