@@ -386,7 +386,9 @@ const CreateTeamSummary = ({
 						{!division.earlyBirdOpen && (
 							<section>
 								<Separator className="my-4 border-b border-neutral-600" />
-								<p className="my-4 text-base font-bold">Six Instalments of:</p>
+								<p className="my-4 text-base font-medium">
+									Six Instalments of:
+								</p>
 								<p className="mb-4 text-2xl">
 									${division.instalmentPrice}
 									<span className="text-sm"> + tax</span>
