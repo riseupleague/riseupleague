@@ -60,7 +60,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 					{/* shooting */}
 					{skills.shooting === null && (
 						<div className="flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8">
-							<h4 className="m-0 text-neutral-400">1/8</h4>
+							<h4 className="m-0 text-neutral-400">1/7</h4>
 							<p className="text-xl uppercase">Rate your shooting accuracy</p>
 
 							<div className="space-x-2.5">
@@ -82,7 +82,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.dribbling !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">2/8</h4>
+							<h4 className="m-0 text-neutral-400">2/7</h4>
 							<p className="text-xl uppercase">Rate your dribbling skills</p>
 
 							<div className="space-x-2.5">
@@ -104,7 +104,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.defense !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">3/8</h4>
+							<h4 className="m-0 text-neutral-400">3/7</h4>
 							<p className="text-xl uppercase">Rate your defensive skills</p>
 
 							<div className="space-x-2.5">
@@ -126,7 +126,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.fitness !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">4/8</h4>
+							<h4 className="m-0 text-neutral-400">4/7</h4>
 							<p className="text-xl uppercase">Rate your overall fitness</p>
 
 							<div className="space-x-2.5">
@@ -148,7 +148,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.understanding !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">5/8</h4>
+							<h4 className="m-0 text-neutral-400">5/7</h4>
 							<p className="text-xl uppercase">
 								Rate your understanding of the game
 							</p>
@@ -172,7 +172,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.years !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">6/8</h4>
+							<h4 className="m-0 text-neutral-400">6/7</h4>
 							<p className="text-xl uppercase">
 								number of years playing basketball
 							</p>
@@ -197,7 +197,7 @@ const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 						<div
 							className={`${skills.position !== null && "hidden"} flex flex-col items-center gap-8 rounded border border-neutral-600 bg-neutral-800 py-8`}
 						>
-							<h4 className="m-0 text-neutral-400">7/8</h4>
+							<h4 className="m-0 text-neutral-400">7/7</h4>
 							<p className="text-xl uppercase">
 								Select your preferred position
 							</p>

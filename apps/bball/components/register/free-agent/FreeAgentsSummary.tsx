@@ -78,7 +78,7 @@ const FreeAgentsSummary = ({
 		const validPhone = validatePhoneNumber(phoneNumber);
 
 		if (!validPhone) {
-			errors.phoneNumber = "Invalid Phone number";
+			errors.phoneNumber = "Invalid phone number.";
 		}
 
 		return errors;
@@ -498,7 +498,7 @@ const FreeAgentsSummary = ({
 									: divisionPricePurposes?.regularPrice}
 							</p>
 							<Button
-								className="mt-10  flex w-full justify-center text-center font-medium"
+								className="mt-10 flex w-full justify-center text-center font-medium"
 								onClick={handlePay}
 							>
 								{isLoader ? (
@@ -512,13 +512,15 @@ const FreeAgentsSummary = ({
 						{!divisionPricePurposes.earlyBirdOpen && (
 							<section>
 								<Separator className="my-4 border-b border-neutral-600" />
-								<p className="my-4 text-base font-bold">Six Instalments of:</p>
+								<p className="my-4 text-base font-medium">
+									Six Instalments of:
+								</p>
 								<p className="mb-4 text-2xl">
 									${divisionPricePurposes.instalmentPrice}
 									<span className="text-sm"> + tax</span>
 								</p>
 								<Button
-									className="flex w-full justify-center text-center text-sm font-semibold capitalize"
+									className="mt-10 flex w-full justify-center text-center font-medium"
 									onClick={handlePayInstalments}
 								>
 									{isLoader ? (
