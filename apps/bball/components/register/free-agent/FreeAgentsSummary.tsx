@@ -78,7 +78,7 @@ const FreeAgentsSummary = ({
 		const validPhone = validatePhoneNumber(phoneNumber);
 
 		if (!validPhone) {
-			errors.phoneNumber = "Invalid Phone number";
+			errors.phoneNumber = "Invalid phone number.";
 		}
 
 		return errors;
@@ -167,6 +167,23 @@ const FreeAgentsSummary = ({
 				: handleCreateTeamAndPlayer(
 						divisionPricePurposes.regularPriceFullId,
 						"full"
+					);
+		} else {
+			console.log(Object.keys(errors));
+			setCheckboxErrors(errors);
+		}
+	};
+
+	const handlePayInstalments = (e) => {
+		e.preventDefault();
+		const errors = validateForm();
+
+		if (Object.keys(errors).length === 0) {
+			divisionPricePurposes.earlyBirdOpen
+				? handleCreateTeamAndPlayer(divisionPricePurposes.earlyBirdId, "four")
+				: handleCreateTeamAndPlayer(
+						divisionPricePurposes.regularPriceInstalmentId,
+						"four"
 					);
 		} else {
 			console.log(Object.keys(errors));
@@ -288,9 +305,44 @@ const FreeAgentsSummary = ({
 								</span>
 							</p>
 
-							<p className="text-right text-xl">
-								Registration Fee: ${divisionPricePurposes.earlyBirdPrice}
+							<p className="my-4">
+								<strong>Registration Fee Allocation:</strong> Upon immediate
+								payment, $45
+								<span className="text-sm"> + tax</span> will be allocated
+								towards the jersey order, and another $ 45
+								<span className="text-sm"> + tax</span> will be designated for
+								gym fees. Please note that there will be no refunds for this
+								transaction.
 							</p>
+
+							{/* <p className="text-right text-xl">
+								Registration Fee: ${divisionPricePurposes.earlyBirdPrice}
+							</p> */}
+
+							{divisionPricePurposes?.earlyBirdOpen ? (
+								<p className="text-right">
+									Early Bird Registration Fee: $
+									{divisionPricePurposes?.earlyBirdPrice}
+								</p>
+							) : (
+								<div className="flex justify-end">
+									<div>
+										<p>
+											Registration Fee: $
+											{divisionPricePurposes.regularPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+										<span className="my-2 mr-2 block text-center text-3xl">
+											Or
+										</span>
+										<p>
+											Six Payments of $
+											{divisionPricePurposes.instalmentPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
@@ -446,7 +498,7 @@ const FreeAgentsSummary = ({
 									: divisionPricePurposes?.regularPrice}
 							</p>
 							<Button
-								className="mt-10  flex w-full justify-center text-center font-medium"
+								className="mt-10 flex w-full justify-center text-center font-medium"
 								onClick={handlePay}
 							>
 								{isLoader ? (
@@ -456,6 +508,41 @@ const FreeAgentsSummary = ({
 								)}
 							</Button>
 						</section>
+
+						{!divisionPricePurposes.earlyBirdOpen && (
+							<section>
+								<Separator className="my-4 border-b border-neutral-600" />
+								<p className="my-4 text-base font-medium">
+									Six Instalments of:
+								</p>
+								<p className="mb-4 text-2xl">
+									${divisionPricePurposes.instalmentPrice}
+									<span className="text-sm"> + tax</span>
+								</p>
+								<Button
+									className="mt-10 flex w-full justify-center text-center font-medium"
+									onClick={handlePayInstalments}
+								>
+									{isLoader ? (
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										"Pay in instalments"
+									)}
+								</Button>
+							</section>
+						)}
+
+						<p className="font-sm my-4">
+							<span className="font-semibold">
+								Registration Fee Allocation:
+							</span>{" "}
+							Upon immediate payment, $45
+							<span className="text-sm"> + tax</span> will be allocated towards
+							the jersey order, and another $45
+							<span className="text-sm"> + tax</span> will be designated for gym
+							fees. Please note that there will be no refunds for this
+							transaction.
+						</p>
 
 						{checkboxErrors.playerName && (
 							<p className="text-primary text-sm">

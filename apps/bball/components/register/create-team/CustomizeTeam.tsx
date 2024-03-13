@@ -81,7 +81,7 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		const validPhone = validatePhoneNumber(formData.phoneNumber);
 
 		if (!validPhone) {
-			errors.phoneNumber = "Invalid Phone number";
+			errors.phoneNumber = "Invalid phone number.";
 		}
 
 		// if (!formData.jerseyNumber) {
