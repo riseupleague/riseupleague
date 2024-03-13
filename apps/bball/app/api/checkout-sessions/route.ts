@@ -9,19 +9,19 @@ export async function POST(req: Request) {
 	const { items, formObject } = await req.json();
 	const parsedFormObject = JSON.parse(formObject);
 
-	const testClock = await stripe.testHelpers.testClocks.create({
-		frozen_time: Math.floor(Date.now() / 1000),
-	});
-	const customer = await stripe.customers.create({
-		test_clock: testClock.id,
-		address: {
-			line1: "51 Ebby Avenue",
-			city: "Brampton",
-			state: "Ontario",
-			postal_code: "L6Z 3T7",
-			country: "CA",
-		},
-	});
+	// const testClock = await stripe.testHelpers.testClocks.create({
+	// 	frozen_time: Math.floor(Date.now() / 1000),
+	// });
+	// const customer = await stripe.customers.create({
+	// 	test_clock: testClock.id,
+	// 	address: {
+	// 		line1: "51 Ebby Avenue",
+	// 		city: "Brampton",
+	// 		state: "Ontario",
+	// 		postal_code: "L6Z 3T7",
+	// 		country: "CA",
+	// 	},
+	// });
 
 	try {
 		if (parsedFormObject.payment === "full") {
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 			return NextResponse.json({ session }, { status: 200 });
 		} else {
 			const session = await stripe.checkout.sessions.create({
-				customer: customer.id,
+				// customer: customer.id,
 				mode: "subscription",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
