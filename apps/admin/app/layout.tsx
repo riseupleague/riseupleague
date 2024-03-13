@@ -19,7 +19,7 @@ const barlow = Barlow_Condensed({
 const RootLayout = async ({ children }): Promise<JSX.Element> => {
 	const session = await getServerSession();
 
-	if (!session) redirect("/api/auth/signin");
+	// if (!session) redirect("/api/auth/signin");
 
 	return (
 		<html

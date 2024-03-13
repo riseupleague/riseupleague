@@ -214,3 +214,42 @@ export const getGameById = async (id) => {
 		);
 	}
 };
+
+export const getAllGamesBySeasonId = async (seasonId: string) => {
+	try {
+		const games = await Game.find({ season: seasonId })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "playerOfTheGame",
+				select: "playerName allStats",
+			})
+			.select(
+				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location playerOfTheGame season"
+			)
+			.sort({ date: "asc" });
+
+		if (!games) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+		return NextResponse.json({ games });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
