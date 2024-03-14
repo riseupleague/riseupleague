@@ -62,6 +62,14 @@ export default async function DivisionPage({
 
 			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
 				{division.teams.map((team, index) => {
+					let players = team?.players.length;
+					let playersColour;
+
+					if (players < 6) playersColour = "text-primary";
+					else if (players >= 6 && players < 9)
+						playersColour = "text-yellow-500";
+					else playersColour = "text-green-400";
+
 					return (
 						<Button
 							key={index}
@@ -70,7 +78,10 @@ export default async function DivisionPage({
 							asChild
 						>
 							<Link href={`/team-management/team/${team?._id}`}>
-								{team?.teamName}
+								{team?.teamName}&nbsp;
+								{team?.players && (
+									<span className={playersColour}>({players})</span>
+								)}
 							</Link>
 						</Button>
 					);

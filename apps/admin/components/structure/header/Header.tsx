@@ -21,15 +21,12 @@ const Header = (): JSX.Element => {
 	const pathname = usePathname();
 
 	return (
-		<>
-			<header className="sticky top-0 z-20 border-b border-neutral-500 bg-neutral-900">
-				<div className="container mx-auto my-4 flex w-full items-center justify-between">
-					<RxHamburgerMenu
-						onClick={() => setOpen(!open)}
-						className="size-8 md:hidden"
-					/>
-				</div>
-			</header>
+		<header className="sticky top-0 z-20 border-b border-neutral-500 bg-neutral-900 py-4">
+			<RxHamburgerMenu
+				onClick={() => setOpen(!open)}
+				className="ml-3 size-8 md:hidden"
+			/>
+
 			<Sheet open={open} onOpenChange={setOpen}>
 				<SheetContent
 					side="left"
@@ -67,7 +64,7 @@ const Header = (): JSX.Element => {
 					</SheetFooter>
 				</SheetContent>
 			</Sheet>
-		</>
+		</header>
 	);
 };
 

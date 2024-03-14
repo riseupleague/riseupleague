@@ -210,7 +210,10 @@ export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
 export const getDivisionFromIdWithTeams = async (id: string) => {
 	try {
 		const division = await Division.findOne({ _id: id })
-			.populate("teams", "teamName _id wins losses pointDifference teamBanner")
+			.populate(
+				"teams",
+				"teamName _id wins losses pointDifference teamBanner players"
+			)
 			.select(
 				"divisionName season teams location day startTime teamSchedule endTime earlyBirdPrice regularPrice description earlyBirdOpen teamSchedule"
 			);
