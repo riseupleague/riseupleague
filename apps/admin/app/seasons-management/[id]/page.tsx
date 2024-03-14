@@ -1,21 +1,17 @@
 import { getAllDivisionsWithId } from "@/api-helpers/controllers/divisions-controller";
 import { getAllFreeAgents } from "@/api-helpers/controllers/players-controller";
-import { getSeasonById } from "@/api-helpers/controllers/seasons-controller";
+import {
+	getAllSeasons,
+	getSeasonById,
+} from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import EditSeason from "@/components/seasons-management/EditSeason";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import Link from "next/link";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@ui/components/ui/table";
 import FreeAgentsTable from "@/components/division-management/FreeAgentsTable";
+import SeasonManagement from "@/components/seasons-management/SeasonManagement";
+import AddSeason from "@/components/seasons-management/AddSeason";
 
 export default async function SeasonPage({
 	params,
@@ -23,6 +19,10 @@ export default async function SeasonPage({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
+	const resSeasons = await getAllSeasons();
+	const { seasons } = await resSeasons.json();
+
 	const resSeason = await getSeasonById(params.id);
 	const { season } = await resSeason.json();
 
@@ -34,39 +34,22 @@ export default async function SeasonPage({
 
 	return (
 		<section>
-			<h1>{season?.seasonName}</h1>
+			<h1 className="mb-8">{season?.seasonName}</h1>
+
+			<SeasonManagement seasons={seasons} currentSeason={season} />
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<div className="flex flex-col gap-2">
-				<h3>
-					Name: <span className="text-primary">{season?.seasonName}</span>
-				</h3>
-				{season?.active !== null && (
-					<h3>
-						Active:{" "}
-						<span className="text-primary">{season?.active?.toString()}</span>
-					</h3>
-				)}
-				{season?.register !== null && (
-					<h3>
-						Register:{" "}
-						<span className="text-primary">{season?.register?.toString()}</span>
-					</h3>
-				)}
-			</div>
-
 			<div>
 				<div className="flex justify-between gap-4">
-					<h3>Divisions:</h3>
-					<Button>Add Division</Button>
+					<h2 className="mb-8">Divisions</h2>
 				</div>
-				<Separator className="my-4 border-b border-neutral-500" />
 
-				<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+				<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 					{divisions.map((division, index) => {
 						let teams = division.teams.length;
 						let teamColour;
+
 						if (teams < 4) teamColour = "text-green-500";
 						else if (teams >= 4 && teams < 8) teamColour = "text-yellow-500";
 						else teamColour = "text-primary";
@@ -75,14 +58,14 @@ export default async function SeasonPage({
 							<Button
 								key={index}
 								variant="secondary"
-								className="text-2xl"
+								className="text-base lg:text-lg"
 								asChild
 							>
 								<Link href={`/team-management/division/${division._id}`}>
 									{division.divisionName}&nbsp;
 									<span
 										className={teamColour}
-									>{`(${teams}${teams === 8 ? " - Full" : ""})`}</span>
+									>{`(${teams}${teams >= 8 ? " - Full" : ""})`}</span>
 								</Link>
 							</Button>
 						);
@@ -92,11 +75,16 @@ export default async function SeasonPage({
 				<Separator className="my-4 border-b border-neutral-500" />
 			</div>
 
-			<EditSeason season={season} id={params.id} />
+			{freeAgents.length > 0 && (
+				<>
+					<h2 className="my-8">Free Agents</h2>
+					<FreeAgentsTable freeAgents={freeAgents} />
+				</>
+			)}
 
-			<h2 className="my-8">Free Agents</h2>
-
-			<FreeAgentsTable freeAgents={freeAgents} />
+			<div className="my-8">
+				<AddSeason />
+			</div>
 		</section>
 	);
 }

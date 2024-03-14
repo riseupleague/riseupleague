@@ -19,7 +19,9 @@ const AddSeason = (): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="register">Add New Season</Button>
+				<Button variant="register" className="w-full font-semibold">
+					Add New Season
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>

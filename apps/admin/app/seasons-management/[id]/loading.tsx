@@ -1,10 +1,11 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-const PlayersLoading = (): JSX.Element => {
+const SeasonsManagementLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
 		<section className="container mx-auto min-h-fit">
+			<h1>Loading...</h1>
 			<div>
 				{/* search */}
 				<div className="flex gap-4">
@@ -24,4 +25,4 @@ const PlayersLoading = (): JSX.Element => {
 	);
 };
 
-export default PlayersLoading;
+export default SeasonsManagementLoading;

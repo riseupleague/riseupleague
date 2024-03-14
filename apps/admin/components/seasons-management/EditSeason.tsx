@@ -31,7 +31,9 @@ const EditSeason = ({ season, id }): JSX.Element => {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button variant="register">Edit Season</Button>
+				<Button variant="signIn" className="w-full">
+					Edit Season
+				</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>
