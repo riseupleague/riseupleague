@@ -4,7 +4,6 @@ import { useState } from "react";
 import FilterBySeason from "../filters/FilterBySeason";
 import { redirect } from "next/navigation";
 import SeasonInfo from "./SeasonInfo";
-import AddSeason from "./AddSeason";
 
 const SeasonManagement = ({ seasons, currentSeason }) => {
 	const [season, setSeason] = useState(currentSeason);

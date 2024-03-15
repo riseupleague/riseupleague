@@ -54,7 +54,10 @@ export const getAllCurrentDivisions = async () => {
 export const getAllDivisionsWithId = async (seasonId: string) => {
 	try {
 		const divisions = await Division.find({ season: seasonId })
-			.populate("teams", "teamName")
+			.populate(
+				"teams",
+				"teamName teamNameShort players primaryColor secondaryColor tertiaryColor"
+			)
 			.select(
 				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
 			);
