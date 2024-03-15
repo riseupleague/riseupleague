@@ -14,8 +14,13 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
+import { useFormStatus } from "react-dom";
+import { useState } from "react";
 
 const AddSeason = (): JSX.Element => {
+	const { pending } = useFormStatus();
+	const [seasonData, setSeasonData] = useState({});
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

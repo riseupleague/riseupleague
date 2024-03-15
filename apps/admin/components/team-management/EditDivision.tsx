@@ -5,16 +5,9 @@ import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import { editDivisionAction } from "@/actions/editDivisionAction";
+import { editDivision } from "@/actions/division-actions";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectTrigger,
-	SelectValue,
-} from "@ui/components/ui/select";
 import {
 	Dialog,
 	DialogContent,
@@ -29,11 +22,7 @@ const EditDivision = ({ division }: { division: any }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [divisionData, setDivisionData] = useState(division);
 
-	const bindDivisionData = editDivisionAction.bind(
-		null,
-		divisionData,
-		division._id
-	);
+	const bindDivisionData = editDivision.bind(null, divisionData, division._id);
 	const [state, formAction] = useFormState(bindDivisionData, null);
 
 	const noDataChanged =

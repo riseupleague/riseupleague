@@ -14,7 +14,7 @@ import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import { editSeasonAction } from "@/actions/editSeasonAction";
+import { editSeason } from "@/actions/seasons-actions";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -22,7 +22,7 @@ const EditSeason = ({ season, id }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [open, setOpen] = useState(false);
 	const [seasonData, setSeasonData] = useState(season);
-	const bindSeasonData = editSeasonAction.bind(null, seasonData, id);
+	const bindSeasonData = editSeason.bind(null, seasonData, id);
 	const [state, formAction] = useFormState(bindSeasonData, null);
 
 	const noDataChanged =

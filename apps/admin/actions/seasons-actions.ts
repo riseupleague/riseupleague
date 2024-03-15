@@ -3,7 +3,7 @@
 import Season from "@/api-helpers/models/Season";
 import { revalidatePath } from "next/cache";
 
-export async function editSeasonAction(seasonData: any, id: string) {
+export async function editSeason(seasonData: any, id: string) {
 	try {
 		const season = await Season.findById(seasonData._id);
 		if (!season) return { status: 404 };
