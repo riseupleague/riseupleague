@@ -14,9 +14,15 @@ const HomePlayerOfTheWeekSlider = ({ playerOfTheGames }) => {
 		slidesToScroll: 1,
 		responsive: [
 			{
-				breakpoint: 768, // Adjust the breakpoint value as needed (e.g., for tablets)
+				breakpoint: 600, // Adjust the breakpoint value as needed (e.g., for tablets)
 				settings: {
 					slidesToShow: 1,
+				},
+			},
+			{
+				breakpoint: 768, // Adjust the breakpoint value as needed (e.g., for tablets)
+				settings: {
+					slidesToShow: 2,
 				},
 			},
 		],
