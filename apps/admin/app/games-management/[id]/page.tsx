@@ -3,6 +3,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Separator } from "@ui/components/separator";
 import { getAllGamesBySeasonId } from "@/api-helpers/controllers/games-controller";
 import { format } from "date-fns";
+import { Metadata } from "next";
 
 export default async function SeasonPage({
 	params,
@@ -37,3 +38,6 @@ export default async function SeasonPage({
 		</section>
 	);
 }
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Games Management",
+};

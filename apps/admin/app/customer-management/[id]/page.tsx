@@ -12,6 +12,7 @@ import {
 	TableRow,
 } from "@ui/components/table";
 import { format } from "date-fns";
+import { Metadata } from "next";
 
 const CustomerManagementPage = async ({
 	params,
@@ -94,6 +95,10 @@ const CustomerManagementPage = async ({
 			</Table>
 		</section>
 	);
+};
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Customer Management",
 };
 
 export default CustomerManagementPage;

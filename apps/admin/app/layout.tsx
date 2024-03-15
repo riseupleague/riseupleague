@@ -43,8 +43,9 @@ const RootLayout = async ({ children }): Promise<JSX.Element> => {
 };
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Admin",
+	title: "Rise Up League Admin",
 	description: "Rise Up League Admin Site",
+	robots: "noindex, nofollow",
 };
 
 export default RootLayout;

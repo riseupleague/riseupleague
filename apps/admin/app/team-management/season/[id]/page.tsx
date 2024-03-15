@@ -7,6 +7,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import TeamManagement from "@/components/team-management/TeamManagement";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
+import { Metadata } from "next";
 import Link from "next/link";
 
 export default async function SeasonPage({
@@ -39,3 +40,7 @@ export default async function SeasonPage({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Team Management",
+};

@@ -11,6 +11,7 @@ import Link from "next/link";
 import FreeAgentsTable from "@/components/division-management/FreeAgentsTable";
 import SeasonManagement from "@/components/seasons-management/SeasonManagement";
 import AddDivision from "@/components/seasons-management/AddDivision";
+import { Metadata } from "next";
 
 export default async function SeasonPage({
 	params,
@@ -87,3 +88,7 @@ export default async function SeasonPage({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Seasons Management",
+};

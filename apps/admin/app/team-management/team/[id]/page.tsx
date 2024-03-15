@@ -3,6 +3,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
+import { Metadata } from "next";
 import Link from "next/link";
 
 export default async function DivisionPage({
@@ -27,3 +28,7 @@ export default async function DivisionPage({
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Team Management",
+};

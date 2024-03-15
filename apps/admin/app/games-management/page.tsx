@@ -1,8 +1,8 @@
 import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import AddSeason from "@/components/seasons-management/AddSeason";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
+import { Metadata } from "next";
 import Link from "next/link";
 
 const GamesManagement = async (): Promise<JSX.Element> => {
@@ -28,6 +28,10 @@ const GamesManagement = async (): Promise<JSX.Element> => {
 			</div>
 		</section>
 	);
+};
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Games Management",
 };
 
 export default GamesManagement;
