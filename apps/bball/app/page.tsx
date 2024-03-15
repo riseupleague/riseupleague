@@ -14,7 +14,7 @@ import HomeSocials from "@/components/home/HomeSocials";
 import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
-import Hero from "@/components/home/hero";
+import Hero from "@/components/home/Hero";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
