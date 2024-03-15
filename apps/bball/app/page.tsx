@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import Hero from "@/components/home/hero";
+import Hero from "@/components/home/Hero";
 import HomeRegister from "@/components/home/HomeRegister";
 import SecondaryHeader from "@/components/structure/header/SecondaryHeader";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
