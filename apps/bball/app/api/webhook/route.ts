@@ -54,12 +54,6 @@ export async function POST(req: Request) {
 					season: metadata.season,
 					playerName: metadata.playerName,
 					instagram: metadata.instagram,
-					jerseyName: metadata.jerseyName,
-					jerseyNumber: metadata.jerseyNumber,
-					jerseyNumberTwo: metadata.jerseyNumberTwo,
-					jerseyNumberThree: metadata.jerseyNumberThree,
-					jerseySize: metadata.jerseySize,
-					shortSize: metadata.shortSize,
 					user: updatedUser._id,
 					averageStats: {
 						points: 0,
