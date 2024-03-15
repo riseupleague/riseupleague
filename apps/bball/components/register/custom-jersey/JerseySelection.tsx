@@ -21,7 +21,8 @@ const PleaseCreateYourTeamDialog = ({ open, onOpenChange }): JSX.Element => {
 				<DialogHeader className="text-center">
 					<DialogTitle className="flex items-center justify-center gap-5 text-center text-neutral-300">
 						<span className="text-primary text-2xl font-bold uppercase">
-							Please have 9 or minimum registered to your team!
+							Please have 9 minimum registered to your team or have team paid in
+							full!
 						</span>{" "}
 					</DialogTitle>
 				</DialogHeader>
@@ -208,7 +209,7 @@ const JerseySelection = ({ team }): JSX.Element => {
 						<button
 							onClick={() => {
 								setIsEditionSelected(true);
-								setNumOfJersey(5);
+								setNumOfJersey(10);
 								setSelectedEdition("unique");
 							}}
 							className="rounded-5 flex flex-col gap-5 bg-neutral-700 px-[16px] py-[26px] text-start "
@@ -255,8 +256,11 @@ const JerseySelection = ({ team }): JSX.Element => {
 									return (
 										<div
 											key={index}
-											className="relative rounded border border-neutral-600 pb-2"
+											className="relative rounded border border-neutral-600 pb-2 "
 										>
+											{index + 1 > 5 && (
+												<span className="absolute text-green-500">New </span>
+											)}
 											{!usedJersey && (
 												<Button
 													className="bg-transparent hover:bg-transparent"
@@ -322,7 +326,7 @@ const JerseySelection = ({ team }): JSX.Element => {
 												</>
 											)}
 											<p className="text-center text-lg uppercase lg:text-2xl">
-												{selectedEdition} {index + 1}
+												{selectedEdition} {index + 1}{" "}
 											</p>
 										</div>
 									);
