@@ -3,35 +3,76 @@
 import Season from "@/api-helpers/models/Season";
 import { revalidatePath } from "next/cache";
 
-export async function addSeason(seasonData: any, id: string) {
+/**
+ * Adds a new season using the provided season data.
+ *
+ * @param {FormData} seasonData - The data for the new season.
+ * @return {object} An object containing the status and message of the operation.
+ */
+export async function addSeason(seasonData: FormData) {
 	try {
-		console.log(seasonData);
-		return;
+		const rawSeasonData = {
+			seasonName: seasonData.get("name"),
+			active: seasonData.get("active") ? true : false,
+			register: seasonData.get("register") ? true : false,
+		};
 
-		const season = await Season.findById(seasonData._id);
-		if (!season) return { status: 404 };
+		const season = new Season(rawSeasonData);
+		await season.save();
 
-		await Season.findByIdAndUpdate(seasonData._id, seasonData);
+		revalidatePath("/seasons-management");
 
-		revalidatePath(`/seasons-management/season/${id}`);
-		return { status: 200 };
+		return { status: 201, message: "Successfully added season." };
 	} catch (e) {
 		console.log(e);
-		return { status: 500 };
+		return { status: 500, message: "Internal Server Error" };
 	}
 }
 
-export async function editSeason(seasonData: any, id: string) {
+/**
+ * Edit a season with the given seasonId using the provided seasonData.
+ *
+ * @param {string} seasonId - The ID of the season to be edited
+ * @param {FormData} seasonData - The data to update the season with
+ * @return {Promise<object>} An object containing the status and message of the operation
+ */
+export async function editSeason(seasonId: string, seasonData: FormData) {
 	try {
-		const season = await Season.findById(seasonData._id);
-		if (!season) return { status: 404 };
+		const rawSeasonData = {
+			seasonName: seasonData.get("name"),
+			active: seasonData.get("active") ? true : false,
+			register: seasonData.get("register") ? true : false,
+		};
 
-		await Season.findByIdAndUpdate(seasonData._id, seasonData);
+		const season = await Season.findById(seasonId);
+		if (!season) return { status: 404, message: "No season found." };
 
-		revalidatePath(`/seasons-management/season/${id}`);
-		return { status: 200 };
+		await Season.findByIdAndUpdate(seasonId, rawSeasonData);
+		revalidatePath(`/`);
+
+		return { status: 200, message: "Successfully updated season." };
 	} catch (e) {
 		console.log(e);
-		return { status: 500 };
+		return { status: 500, message: "Internal Server Error" };
+	}
+}
+
+/**
+ * Deletes a season by the given seasonId.
+ *
+ * @param {string} seasonId - The ID of the season to be deleted
+ * @return {object} An object containing status and message after deletion
+ */
+export async function deleteSeason(seasonId: string) {
+	try {
+		const season = await Season.findById(seasonId);
+		if (!season) return { status: 404, message: "No season found." };
+
+		await Season.findByIdAndRemove(seasonId);
+
+		return { status: 200, message: "Successfully deleted season." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
 	}
 }

@@ -1,8 +1,17 @@
 "use client";
 
+import { useToast } from "@ui/components/use-toast";
+import { useRouter } from "next/navigation";
 import { Button } from "@ui/components/button";
+import { Separator } from "@ui/components/separator";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Checkbox } from "@ui/components/checkbox";
+import { deleteSeason, editSeason } from "@/actions/seasons-actions";
+import { useFormStatus } from "react-dom";
 import {
 	Dialog,
+	DialogClose,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
@@ -10,26 +19,77 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { Separator } from "@ui/components/separator";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
-import { editSeason } from "@/actions/seasons-actions";
-import { useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
 
 const EditSeason = ({ season, id }): JSX.Element => {
-	const { pending } = useFormStatus();
-	const [open, setOpen] = useState(false);
-	const [seasonData, setSeasonData] = useState(season);
-	const bindSeasonData = editSeason.bind(null, seasonData, id);
-	const [state, formAction] = useFormState(bindSeasonData, null);
+	const { toast } = useToast();
+	const router = useRouter();
 
-	const noDataChanged =
-		JSON.stringify(season) === JSON.stringify(seasonData) ? true : false;
+	const handleEditSeason = async (seasonData: FormData) => {
+		const result = await editSeason(id, seasonData);
+
+		// successfully updated season
+		if (result?.status === 200) {
+			return toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+		}
+
+		// no season found
+		if (result?.status === 404) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+	};
+
+	const handleDeleteSeason = async () => {
+		const result = await deleteSeason(id);
+
+		// successfully updated season
+		if (result?.status === 200) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+
+			router.push("/seasons-management");
+		}
+
+		// no season found
+		if (result?.status === 404) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+	};
 
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="signIn" className="w-full">
 					Edit Season
@@ -39,23 +99,20 @@ const EditSeason = ({ season, id }): JSX.Element => {
 				<DialogHeader>
 					<DialogTitle>
 						Edit Season:{" "}
-						<span className="text-primary">{season.seasonName}</span>
+						<span className="text-primary">{season?.seasonName}</span>
 					</DialogTitle>
 					<DialogDescription>Edit the current season.</DialogDescription>
 				</DialogHeader>
 
 				<Separator className="border-b border-neutral-500" />
 
-				<form action={formAction} className="flex flex-col gap-4">
+				<form action={handleEditSeason} className="flex flex-col gap-4">
 					<div className="flex flex-col gap-3">
-						<Label htmlFor="seasonName">Season name:</Label>
+						<Label htmlFor="name">Season name:</Label>
 						<Input
-							id="seasonName"
-							name="seasonName"
+							name="name"
+							id="name"
 							placeholder="New season name"
-							onChange={(e) =>
-								setSeasonData({ ...seasonData, seasonName: e.target.value })
-							}
 							defaultValue={season?.seasonName}
 							className="text-neutral-900"
 						/>
@@ -64,28 +121,20 @@ const EditSeason = ({ season, id }): JSX.Element => {
 					{season?.active !== null && (
 						<div className="flex items-center gap-3">
 							<Checkbox
-								id="active"
 								name="active"
-								onCheckedChange={(e) =>
-									setSeasonData({ ...seasonData, active: e })
-								}
-								value={seasonData.active}
+								id="active"
 								defaultChecked={season?.active}
 								className="border-neutral-200"
 							/>
-							<Label htmlFor="season-active">Active</Label>
+							<Label htmlFor="active">Active</Label>
 						</div>
 					)}
 
 					{season?.register !== null && (
 						<div className="flex items-center gap-3">
 							<Checkbox
-								id="register"
 								name="register"
-								onCheckedChange={(e) =>
-									setSeasonData({ ...seasonData, register: e })
-								}
-								value={seasonData.register}
+								id="register"
 								defaultChecked={season?.register}
 								className="border-neutral-200"
 							/>
@@ -96,30 +145,46 @@ const EditSeason = ({ season, id }): JSX.Element => {
 					<Separator className="mb-4 border-b border-neutral-500" />
 
 					<DialogFooter className="flex gap-2">
-						<Button
-							type="submit"
-							disabled={pending || noDataChanged}
-							aria-disabled={pending}
-							className="w-full"
-						>
-							{pending ? "Updating..." : "Update"}
-						</Button>
+						<SubmitButton />
 					</DialogFooter>
+				</form>
 
-					<div className="text-right">
-						{state?.status === 200 && (
-							<p className="text-green-500">Successfully updated season!</p>
-						)}
-						{state?.status === 404 && (
-							<p className="text-primary">Season not found.</p>
-						)}
-						{state?.status === 500 && (
-							<p className="text-primary">Internal server error.</p>
-						)}
-					</div>
+				{/* delete season */}
+				<form action={handleDeleteSeason}>
+					<DialogFooter className="flex gap-2">
+						<DeleteButton />
+					</DialogFooter>
 				</form>
 			</DialogContent>
 		</Dialog>
+	);
+};
+
+const SubmitButton = () => {
+	const { pending } = useFormStatus();
+
+	return (
+		<DialogClose asChild>
+			<Button type="submit" className="w-full" disabled={pending}>
+				{pending ? "Updating..." : "Update"}
+			</Button>
+		</DialogClose>
+	);
+};
+
+const DeleteButton = () => {
+	const { pending } = useFormStatus();
+
+	return (
+		<DialogClose asChild>
+			<Button
+				type="submit"
+				className="w-full bg-red-500 transition-all hover:bg-red-700"
+				disabled={pending}
+			>
+				{pending ? "Deleting..." : "Delete"}
+			</Button>
+		</DialogClose>
 	);
 };
 
