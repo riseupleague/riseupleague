@@ -53,7 +53,9 @@ const AddSeason = (): JSX.Element => {
 				<Separator className="mb-4 border-b border-neutral-500" />
 
 				<DialogFooter>
-					<Button>Create</Button>
+					<Button className="w-full" disabled>
+						Create
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

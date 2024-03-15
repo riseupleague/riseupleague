@@ -5,13 +5,11 @@ import {
 	getSeasonById,
 } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import EditSeason from "@/components/seasons-management/EditSeason";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import Link from "next/link";
 import FreeAgentsTable from "@/components/division-management/FreeAgentsTable";
 import SeasonManagement from "@/components/seasons-management/SeasonManagement";
-import AddSeason from "@/components/seasons-management/AddSeason";
 
 export default async function SeasonPage({
 	params,
@@ -81,10 +79,6 @@ export default async function SeasonPage({
 					<FreeAgentsTable freeAgents={freeAgents} />
 				</>
 			)}
-
-			<div className="my-8">
-				<AddSeason />
-			</div>
 		</section>
 	);
 }

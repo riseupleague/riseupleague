@@ -2,6 +2,7 @@ import { extractInstagramUsername } from "@/utils/extractInstagram";
 import {
 	Table,
 	TableBody,
+	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -11,6 +12,9 @@ import Link from "next/link";
 
 const FreeAgentsTable = ({ freeAgents }) => (
 	<Table>
+		<TableCaption className="text-lg text-neutral-300">
+			{freeAgents.length} free agents
+		</TableCaption>
 		<TableHeader>
 			<TableRow>
 				<TableHead className="text-left text-sm lg:text-lg">
@@ -33,7 +37,7 @@ const FreeAgentsTable = ({ freeAgents }) => (
 				.sort((a, b) => (a.playerName > b.playerName ? 1 : -1))
 				.map((freeAgent, index) => (
 					<TableRow key={index} className="text-lg">
-						<TableCell className="text-left text-sm lg:text-lg">
+						<TableCell className="text-left text-sm capitalize lg:text-lg">
 							{freeAgent?.playerName}
 						</TableCell>
 						<TableCell className="text-left text-sm lg:text-lg">

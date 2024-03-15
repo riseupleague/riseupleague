@@ -1,6 +1,5 @@
 import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import { Skeleton } from "@ui/components/skeleton";
 import { redirect } from "next/navigation";
 
 export default async function Page(): Promise<JSX.Element> {

@@ -1,5 +1,6 @@
 "use client";
 
+import AddSeason from "./AddSeason";
 import EditSeason from "./EditSeason";
 
 const SeasonInfo = ({ season }) => {
@@ -29,8 +30,9 @@ const SeasonInfo = ({ season }) => {
 				</h5>
 			)}
 
-			<div className="mt-2 md:mt-8">
+			<div className="mt-2 space-y-3 md:mt-8">
 				<EditSeason season={season} id={season._id} />
+				<AddSeason />
 			</div>
 		</div>
 	);

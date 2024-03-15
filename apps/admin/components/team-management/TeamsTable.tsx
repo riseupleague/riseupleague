@@ -3,6 +3,7 @@
 import {
 	Table,
 	TableBody,
+	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -13,16 +14,19 @@ import Link from "next/link";
 const TeamsTable = ({ teams }) => {
 	return (
 		<Table>
+			<TableCaption className="text-lg text-neutral-300">
+				{teams.length} teams
+			</TableCaption>
 			<TableHeader>
 				<TableRow>
 					<TableHead className="text-left text-base md:text-xl">
 						Team Name
 					</TableHead>
-					<TableHead className="text-left text-base md:text-xl">
-						Team Captain
-					</TableHead>
 					<TableHead className="text-center text-base md:text-xl">
 						# Players
+					</TableHead>
+					<TableHead className="text-left text-base md:text-xl">
+						Team Captain
 					</TableHead>
 				</TableRow>
 			</TableHeader>
@@ -44,11 +48,11 @@ const TeamsTable = ({ teams }) => {
 										{team?.teamName}
 									</Link>
 								</TableCell>
-								<TableCell className="text-left text-base md:text-lg">
-									{teamCaptain}
-								</TableCell>
 								<TableCell className="text-center text-base md:text-lg">
 									{team?.players?.length}
+								</TableCell>
+								<TableCell className="text-left text-base md:text-lg">
+									{teamCaptain}
 								</TableCell>
 							</TableRow>
 						);

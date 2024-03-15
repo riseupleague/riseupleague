@@ -100,6 +100,7 @@ const EditSeason = ({ season, id }): JSX.Element => {
 							type="submit"
 							disabled={pending || noDataChanged}
 							aria-disabled={pending}
+							className="w-full"
 						>
 							{pending ? "Updating..." : "Update"}
 						</Button>
