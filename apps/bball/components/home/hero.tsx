@@ -50,12 +50,12 @@ const Hero = (): JSX.Element => {
 		dots: true,
 		dotsClass: "!grid gap-4 grid-cols-4 mt-6 mb-16",
 		infinite: true,
-		speed: 100,
+		speed: 1000,
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		arrows: false,
 		autoplay: true, // Enable auto-play
-		autoplaySpeed: 4000, // Set auto-play speed in milliseconds
+		autoplaySpeed: 3000, // Set auto-play speed in milliseconds
 	};
 	return (
 		<section className="group relative my-16  h-[450px] w-full sm:h-[650px] lg:my-16">
