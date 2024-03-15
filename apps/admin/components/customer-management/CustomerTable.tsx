@@ -11,6 +11,7 @@ import {
 } from "@ui/components/table";
 import { format } from "date-fns";
 import Link from "next/link";
+import { MdOutlineModeEdit } from "react-icons/md";
 
 const CustomerTable = ({ users }) => {
 	return (
@@ -26,6 +27,7 @@ const CustomerTable = ({ users }) => {
 					<TableHead>Created At</TableHead>
 					<TableHead>Updated At</TableHead>
 					<TableHead className="text-left text-lg">Basketball</TableHead>
+					<TableHead className="text-left">Edit</TableHead>
 				</TableRow>
 			</TableHeader>
 			<TableBody>
@@ -51,6 +53,11 @@ const CustomerTable = ({ users }) => {
 							</TableCell>
 							<TableCell className="text-left text-lg">
 								{user?.basketball ? "Yes" : "No"}
+							</TableCell>
+							<TableCell>
+								<Link href={`/customer-management/${user?._id}`}>
+									<MdOutlineModeEdit className="text-neutral-400 transition-all hover:text-neutral-200" />
+								</Link>
 							</TableCell>
 						</TableRow>
 					))
