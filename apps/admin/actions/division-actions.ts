@@ -4,6 +4,13 @@ import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import { revalidatePath } from "next/cache";
 
+/**
+ * Creates a new division for a season based on the provided division data.
+ *
+ * @param {string} seasonId - The ID of the season for which the division is being created.
+ * @param {FormData} divisionData - The form data containing information about the division.
+ * @return {Promise<object>} An object containing the status and message of the operation.
+ */
 export async function createDivision(seasonId: string, divisionData: FormData) {
 	try {
 		const season = await Season.findById(seasonId);
@@ -43,6 +50,13 @@ export async function createDivision(seasonId: string, divisionData: FormData) {
 	}
 }
 
+/**
+ * Update a division in the database based on the provided divisionData and id.
+ *
+ * @param {any} divisionData - The data to update the division with.
+ * @param {string} id - The id of the division to update.
+ * @return {Promise<object>} An object with status and message indicating the result of the update operation.
+ */
 export async function updateDivision(divisionData: any, id: string) {
 	try {
 		const divisionExists = await Division.findById(id);
@@ -76,6 +90,12 @@ export async function updateDivision(divisionData: any, id: string) {
 	}
 }
 
+/**
+ * Delete a division by its ID.
+ *
+ * @param {string} divisionId - The ID of the division to be deleted
+ * @return {object} An object containing the status and message of the deletion operation
+ */
 export async function deleteDivision(divisionId: string) {
 	try {
 		const division = await Division.findById(divisionId);

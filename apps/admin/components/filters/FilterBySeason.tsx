@@ -1,4 +1,5 @@
 "use client";
+
 import {
 	Select,
 	SelectContent,
@@ -30,7 +31,10 @@ const FilterBySeason = ({ currentSeason, seasons, handleSeasonChange }) => {
 							value={season._id}
 							key={index}
 						>
-							{season.seasonName}
+							{season.seasonName}{" "}
+							{season.active && (
+								<span className="text-green-500">(Active)</span>
+							)}
 						</SelectItem>
 					))}
 				</SelectGroup>
