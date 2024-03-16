@@ -3,32 +3,6 @@ import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import Team from "@/api-helpers/models/Team";
 
-type Season = {
-	_id: string;
-	seasonName: string;
-	active: boolean;
-	divisions: string[];
-	__v: number;
-};
-
-// Define the type for a Division object
-type Division = {
-	_id: string;
-	divisionName: string;
-	season: string; // Assuming season is a string (ObjectId.toString())
-	teams: any[]; // An array of Team objects
-	location: string;
-	day: string;
-	startTime: string;
-	endTime: string;
-	earlyBird: string;
-	regularPrice: string;
-	description: string;
-	earlyBirdOpen: boolean;
-	earlyBirdId: string;
-	regularPriceFullId: string;
-	regularPriceInstalmentId: string;
-};
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -218,7 +192,7 @@ export const getDivisionFromIdWithTeams = async (id: string) => {
 				"teamName _id wins losses pointDifference teamBanner players"
 			)
 			.select(
-				"divisionName season teams location day startTime teamSchedule endTime earlyBirdPrice regularPrice description earlyBirdOpen teamSchedule"
+				"divisionName season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 			);
 
 		if (!division) {

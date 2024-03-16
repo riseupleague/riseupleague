@@ -45,14 +45,47 @@ export async function createDivision(seasonId: string, divisionData: FormData) {
 
 export async function updateDivision(divisionData: any, id: string) {
 	try {
-		const division = await Division.findById(divisionData._id);
-		if (!division) return { status: 404 };
+		const divisionExists = await Division.findById(id);
+		if (!divisionExists) return { status: 404, message: "No division found." };
 
-		await Division.findByIdAndUpdate(divisionData._id, divisionData);
+		const rawDivisionData = {
+			divisionName: divisionData.get("name"),
+			location: divisionData.get("location"),
+			city: divisionData.get("city"),
+			day: divisionData.get("day"),
+			startTime: divisionData.get("startTime"),
+			endTime: divisionData.get("endTime"),
+			earlyBirdPrice: divisionData.get("earlyBirdPrice"),
+			regularPrice: divisionData.get("regularPrice"),
+			instalmentPrice: divisionData.get("instalmentPrice"),
+			description: divisionData.get("description"),
+			earlyBirdOpen: divisionData.get("earlyBirdOpen") ? true : false,
+			earlyBirdId: divisionData.get("earlyBirdId"),
+			regularPriceFullId: divisionData.get("regularPriceFullId"),
+			regularPriceInstalmentId: divisionData.get("regularPriceInstalmentId"),
+		};
 
-		revalidatePath(`/team-management/division/${id}`);
-		return { status: 200 };
+		const division = await Division.findByIdAndUpdate(id, rawDivisionData);
+		if (!division) return { status: 500, message: "Internal server error." };
+
+		revalidatePath("/");
+		return { status: 200, message: "Successfully updated division." };
 	} catch (e) {
-		return { status: 500 };
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
+	}
+}
+
+export async function deleteDivision(divisionId: string) {
+	try {
+		const division = await Division.findById(divisionId);
+		if (!division) return { status: 404, message: "No division found." };
+
+		await Division.findByIdAndRemove(divisionId);
+
+		return { status: 200, message: "Successfully deleted division." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
 	}
 }

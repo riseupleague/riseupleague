@@ -82,7 +82,7 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 						<Label htmlFor="description">Description:</Label>
 						<Input
 							name="description"
-							id="location"
+							id="description"
 							placeholder="Division description"
 							className="text-neutral-900"
 						/>
@@ -167,13 +167,11 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 							/>
 						</div>
 						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="regularPriceInstalmentId">
-								Regular Instalment Price
-							</Label>
+							<Label htmlFor="instalmentPrice">Regular Instalment Price</Label>
 							<Input
 								type="number"
-								name="regularPriceInstalmentId"
-								id="regularPriceInstalmentId"
+								name="instalmentPrice"
+								id="instalmentPrice"
 								placeholder="Regular Instalment Price"
 								className="text-neutral-900"
 							/>
