@@ -1,7 +1,7 @@
 "use client";
 
-import AddSeason from "./AddSeason";
-import EditSeason from "./EditSeason";
+import CreateSeason from "./CreateSeason";
+import UpdateSeason from "./UpdateSeason";
 
 const SeasonInfo = ({ season }) => {
 	return (
@@ -31,8 +31,8 @@ const SeasonInfo = ({ season }) => {
 			)}
 
 			<div className="mt-2 space-y-3 md:mt-8">
-				<EditSeason season={season} id={season._id} />
-				<AddSeason />
+				<UpdateSeason season={season} id={season._id} />
+				<CreateSeason />
 			</div>
 		</div>
 	);

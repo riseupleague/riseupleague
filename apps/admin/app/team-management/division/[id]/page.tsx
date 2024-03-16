@@ -1,6 +1,6 @@
 import { getDivisionFromIdWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import EditDivision from "@/components/team-management/EditDivision";
+import UpdateDivision from "@/components/team-management/UpdateDivision";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
@@ -90,7 +90,7 @@ export default async function DivisionPage({
 			</ul>
 
 			<div className="my-8">
-				<EditDivision division={division} />
+				<UpdateDivision division={division} />
 			</div>
 		</section>
 	);

@@ -16,14 +16,14 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 import { useFormStatus } from "react-dom";
-import { addSeason } from "@/actions/seasons-actions";
+import { createSeason } from "@/actions/seasons-actions";
 import { useToast } from "@ui/components/use-toast";
 
-const AddSeason = (): JSX.Element => {
+const CreateSeason = (): JSX.Element => {
 	const { toast } = useToast();
 
 	const handleFormAction = async (seasonData: FormData) => {
-		const result = await addSeason(seasonData);
+		const result = await createSeason(seasonData);
 
 		// successfully created season
 		if (result?.status === 201) {
@@ -112,4 +112,4 @@ const SubmitButton = () => {
 	);
 };
 
-export default AddSeason;
+export default CreateSeason;

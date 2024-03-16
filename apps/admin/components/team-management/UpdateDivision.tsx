@@ -5,7 +5,7 @@ import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import { editDivision } from "@/actions/division-actions";
+import { updateDivision } from "@/actions/division-actions";
 import { useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import {
@@ -18,11 +18,15 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 
-const EditDivision = ({ division }: { division: any }): JSX.Element => {
+const UpdateDivision = ({ division }: { division: any }): JSX.Element => {
 	const { pending } = useFormStatus();
 	const [divisionData, setDivisionData] = useState(division);
 
-	const bindDivisionData = editDivision.bind(null, divisionData, division._id);
+	const bindDivisionData = updateDivision.bind(
+		null,
+		divisionData,
+		division._id
+	);
 	const [state, formAction] = useFormState(bindDivisionData, null);
 
 	const noDataChanged =
@@ -195,4 +199,4 @@ const EditDivision = ({ division }: { division: any }): JSX.Element => {
 	);
 };
 
-export default EditDivision;
+export default UpdateDivision;

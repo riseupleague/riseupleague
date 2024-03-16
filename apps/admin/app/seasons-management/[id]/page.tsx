@@ -10,8 +10,8 @@ import { Separator } from "@ui/components/separator";
 import Link from "next/link";
 import FreeAgentsTable from "@/components/division-management/FreeAgentsTable";
 import SeasonManagement from "@/components/seasons-management/SeasonManagement";
-import AddDivision from "@/components/seasons-management/AddDivision";
 import { Metadata } from "next";
+import CreateDivision from "@/components/seasons-management/CreateDivision";
 
 export default async function SeasonPage({
 	params,
@@ -73,7 +73,7 @@ export default async function SeasonPage({
 				</ul>
 
 				<div className="my-4">
-					<AddDivision seasonId={params.id} />
+					<CreateDivision seasonId={params.id} />
 				</div>
 
 				<Separator className="my-4 border-b border-neutral-500" />

@@ -7,7 +7,7 @@ import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import { deleteSeason, editSeason } from "@/actions/seasons-actions";
+import { deleteSeason, updateSeason } from "@/actions/seasons-actions";
 import { useFormStatus } from "react-dom";
 import {
 	Dialog,
@@ -20,12 +20,12 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 
-const EditSeason = ({ season, id }): JSX.Element => {
+const UpdateSeason = ({ season, id }): JSX.Element => {
 	const { toast } = useToast();
 	const router = useRouter();
 
 	const handleEditSeason = async (seasonData: FormData) => {
-		const result = await editSeason(id, seasonData);
+		const result = await updateSeason(id, seasonData);
 
 		// successfully updated season
 		if (result?.status === 200) {
@@ -188,4 +188,4 @@ const DeleteButton = () => {
 	);
 };
 
-export default EditSeason;
+export default UpdateSeason;

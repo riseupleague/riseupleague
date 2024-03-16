@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
  * @param {FormData} seasonData - The data for the new season.
  * @return {object} An object containing the status and message of the operation.
  */
-export async function addSeason(seasonData: FormData) {
+export async function createSeason(seasonData: FormData) {
 	try {
 		const rawSeasonData = {
 			seasonName: seasonData.get("name"),
@@ -36,7 +36,7 @@ export async function addSeason(seasonData: FormData) {
  * @param {FormData} seasonData - The data to update the season with
  * @return {Promise<object>} An object containing the status and message of the operation
  */
-export async function editSeason(seasonId: string, seasonData: FormData) {
+export async function updateSeason(seasonId: string, seasonData: FormData) {
 	try {
 		const rawSeasonData = {
 			seasonName: seasonData.get("name"),

@@ -4,7 +4,7 @@ import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import { revalidatePath } from "next/cache";
 
-export async function addDivision(seasonId: string, divisionData: FormData) {
+export async function createDivision(seasonId: string, divisionData: FormData) {
 	try {
 		const season = await Season.findById(seasonId);
 		if (!season) return { status: 404, message: "No season found." };
@@ -43,7 +43,7 @@ export async function addDivision(seasonId: string, divisionData: FormData) {
 	}
 }
 
-export async function editDivision(divisionData: any, id: string) {
+export async function updateDivision(divisionData: any, id: string) {
 	try {
 		const division = await Division.findById(divisionData._id);
 		if (!division) return { status: 404 };

@@ -16,14 +16,14 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 import { useToast } from "@ui/components/use-toast";
-import { addDivision } from "@/actions/division-actions";
+import { createDivision } from "@/actions/division-actions";
 import { useFormStatus } from "react-dom";
 
-const AddDivision = ({ seasonId }): JSX.Element => {
+const CreateDivision = ({ seasonId }): JSX.Element => {
 	const { toast } = useToast();
 
 	const handleFormAction = async (divisionData: FormData) => {
-		const result = await addDivision(seasonId, divisionData);
+		const result = await createDivision(seasonId, divisionData);
 
 		// successfully created division
 		if (result?.status === 201) {
@@ -247,4 +247,4 @@ const SubmitButton = () => {
 	);
 };
 
-export default AddDivision;
+export default CreateDivision;
