@@ -46,7 +46,7 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="register" className="w-full font-semibold">
-					Add New Division
+					Create Division
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
@@ -157,7 +157,7 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 
 					<div className="flex gap-2">
 						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="instalmentPrice">Instalment Price (x4)</Label>
+							<Label htmlFor="instalmentPrice">Instalment Price (x6)</Label>
 							<Input
 								type="number"
 								name="instalmentPrice"

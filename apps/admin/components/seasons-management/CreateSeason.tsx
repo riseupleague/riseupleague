@@ -46,13 +46,13 @@ const CreateSeason = (): JSX.Element => {
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant="register" className="w-full font-semibold">
-					Add New Season
+					Create Season
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>
-					<DialogTitle>Add New Season:</DialogTitle>
-					<DialogDescription>Add a new season.</DialogDescription>
+					<DialogTitle>Create Season:</DialogTitle>
+					<DialogDescription>Create a new season.</DialogDescription>
 				</DialogHeader>
 
 				<Separator className="border-b border-neutral-500" />

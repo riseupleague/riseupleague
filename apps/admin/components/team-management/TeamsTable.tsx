@@ -15,7 +15,7 @@ const TeamsTable = ({ teams }) => {
 	return (
 		<Table>
 			<TableCaption className="text-lg text-neutral-300">
-				{teams.length} team{teams.length !== 1 && "s"}
+				{teams?.length} team{teams?.length !== 1 && "s"}
 			</TableCaption>
 			<TableHeader>
 				<TableRow>

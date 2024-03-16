@@ -9,6 +9,12 @@ export default async function Page(): Promise<JSX.Element> {
 	const resSeasons = await getAllSeasons();
 	const { seasons } = await resSeasons.json();
 
+	const activeSeason = seasons.findLast((season) => season.active === true);
+
+	if (seasons.length !== 0) {
+		redirect(`/team-management/season/${activeSeason._id}`);
+	}
+
 	redirect(`/team-management/season/${seasons[seasons.length - 1]._id}`);
 }
 

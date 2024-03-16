@@ -4,11 +4,10 @@ import {
 	getSeasonById,
 } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import CreateDivision from "@/components/seasons-management/CreateDivision";
 import TeamManagement from "@/components/team-management/TeamManagement";
-import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export default async function SeasonPage({
 	params,
@@ -28,15 +27,24 @@ export default async function SeasonPage({
 
 	return (
 		<section>
-			<h1>{season?.seasonName} Divisions</h1>
+			<h1>{season?.seasonName}</h1>
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<TeamManagement
-				seasons={seasons}
-				currentSeason={season}
-				divisions={divisions}
-			/>
+			{divisions.length > 0 ? (
+				<TeamManagement
+					seasons={seasons}
+					currentSeason={season}
+					divisions={divisions}
+				/>
+			) : (
+				<div className="my-8 space-y-3 text-center">
+					<h3 className="text-primary">
+						No divisions created in this season yet.
+					</h3>
+					<CreateDivision seasonId={season._id} />
+				</div>
+			)}
 		</section>
 	);
 }

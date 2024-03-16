@@ -18,8 +18,10 @@ import {
 import { useFormStatus } from "react-dom";
 import { createTeam } from "@/actions/teams-actions";
 import { useToast } from "@ui/components/use-toast";
+import { usePathname } from "next/navigation";
 
 const CreateTeam = ({ divisionId, seasonId }): JSX.Element => {
+	const path = usePathname();
 	const { toast } = useToast();
 
 	const handleFormAction = async (teamData: FormData) => {

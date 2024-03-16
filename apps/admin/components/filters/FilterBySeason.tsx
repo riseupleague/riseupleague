@@ -13,7 +13,12 @@ const FilterBySeason = ({ currentSeason, seasons, handleSeasonChange }) => {
 	return (
 		<Select onValueChange={handleSeasonChange}>
 			<SelectTrigger className="w-full text-lg capitalize transition-all hover:bg-neutral-800 sm:w-[300px]">
-				{currentSeason.seasonName}
+				<div>
+					{currentSeason.seasonName}{" "}
+					{currentSeason.active && (
+						<span className="text-green-500">(Active)</span>
+					)}
+				</div>
 			</SelectTrigger>
 			<SelectContent
 				ref={(ref) => {

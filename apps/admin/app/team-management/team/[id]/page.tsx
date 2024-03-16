@@ -1,10 +1,10 @@
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import TeamInfo from "@/components/team-management/TeamInfo";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
-import { Button } from "@ui/components/button";
+import UpdateTeam from "@/components/team-management/UpdateTeam";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
-import Link from "next/link";
 
 export default async function DivisionPage({
 	params,
@@ -22,8 +22,15 @@ export default async function DivisionPage({
 				Team: <span className="text-primary">{team?.teamName}</span>
 			</h1>
 
+			<TeamInfo team={team} />
+
+			<div className="my-4">
+				<UpdateTeam team={team} />
+			</div>
+
 			<Separator className="my-4 border-b border-neutral-500" />
 
+			<h2 className="my-4">Players</h2>
 			<TeamPlayersTable teamPlayers={team?.players} />
 		</section>
 	);

@@ -45,33 +45,40 @@ export default async function SeasonPage({
 					<h2 className="mb-8">Divisions</h2>
 				</div>
 
-				<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-					{divisions.map((division, index) => {
-						let teams = division.teams.length;
-						let teamColour;
+				{divisions?.length > 0 ? (
+					<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+						{divisions.map((division, index) => {
+							let teams = division.teams.length;
+							let teamColour;
 
-						if (teams < 4) teamColour = "text-green-500";
-						else if (teams >= 4 && teams < 8) teamColour = "text-yellow-500";
-						else teamColour = "text-primary";
+							if (teams < 4) teamColour = "text-green-500";
+							else if (teams >= 4 && teams < 8) teamColour = "text-yellow-500";
+							else teamColour = "text-primary";
 
-						return (
-							<Button
-								key={index}
-								variant="secondary"
-								className="text-base lg:text-lg"
-								asChild
-							>
-								<Link href={`/team-management/division/${division._id}`}>
-									{division.divisionName}&nbsp;
-									<span
-										className={teamColour}
-									>{`(${teams}${teams >= 8 ? " - Full" : ""})`}</span>
-								</Link>
-							</Button>
-						);
-					})}
-				</ul>
-
+							return (
+								<Button
+									key={index}
+									variant="secondary"
+									className="text-base lg:text-lg"
+									asChild
+								>
+									<Link href={`/team-management/division/${division._id}`}>
+										{division.divisionName}&nbsp;
+										<span
+											className={teamColour}
+										>{`(${teams}${teams >= 8 ? " - Full" : ""})`}</span>
+									</Link>
+								</Button>
+							);
+						})}
+					</ul>
+				) : (
+					<div className="text-center">
+						<h3 className="text-primary my-8">
+							No divisions created in this season yet.
+						</h3>
+					</div>
+				)}
 				<div className="my-4">
 					<CreateDivision seasonId={params.id} />
 				</div>

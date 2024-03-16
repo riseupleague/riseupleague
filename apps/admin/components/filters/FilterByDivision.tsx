@@ -16,7 +16,7 @@ const FilterByDivision = ({
 	return (
 		<Select onValueChange={handleDivisionChange}>
 			<SelectTrigger className="w-full text-lg capitalize transition-all hover:bg-neutral-800 sm:w-[300px]">
-				{currentDivision.divisionName}
+				{currentDivision?.divisionName}
 			</SelectTrigger>
 			<SelectContent
 				ref={(ref) => {

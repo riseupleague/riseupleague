@@ -1,14 +1,13 @@
 "use client";
 
-import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
-import { deleteSeason, updateSeason } from "@/actions/seasons-actions";
 import { useFormStatus } from "react-dom";
+import { useToast } from "@ui/components/use-toast";
+import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -19,13 +18,14 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
+import { deleteTeam, updateTeam } from "@/actions/teams-actions";
 
-const UpdateSeason = ({ season, id }): JSX.Element => {
+const UpdateTeam = ({ team }): JSX.Element => {
 	const { toast } = useToast();
 	const router = useRouter();
 
-	const handleEditSeason = async (seasonData: FormData) => {
-		const result = await updateSeason(id, seasonData);
+	const handleUpdateTeam = async (teamData: FormData) => {
+		const result = await updateTeam(team._id, teamData);
 
 		// successfully updated season
 		if (result?.status === 200) {
@@ -55,8 +55,8 @@ const UpdateSeason = ({ season, id }): JSX.Element => {
 		}
 	};
 
-	const handleDeleteSeason = async () => {
-		const result = await deleteSeason(id);
+	const handleDeleteTeam = async () => {
+		const result = await deleteTeam(team._id);
 
 		// successfully updated season
 		if (result?.status === 200) {
@@ -66,7 +66,7 @@ const UpdateSeason = ({ season, id }): JSX.Element => {
 				description: result.message,
 			});
 
-			router.push("/seasons-management");
+			router.push("/team-management");
 		}
 
 		// no season found
@@ -91,69 +91,73 @@ const UpdateSeason = ({ season, id }): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="signIn" className="w-full">
-					Update Season
+				<Button variant="signIn" className="w-full font-semibold">
+					Update Team
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>
-					<DialogTitle>
-						Update Season:{" "}
-						<span className="text-primary">{season?.seasonName}</span>
-					</DialogTitle>
-					<DialogDescription>Update the current season.</DialogDescription>
+					<DialogTitle>Update Team: {team?.teamName}</DialogTitle>
+					<DialogDescription>Update this team.</DialogDescription>
 				</DialogHeader>
 
 				<Separator className="border-b border-neutral-500" />
 
-				<form action={handleEditSeason} className="flex flex-col gap-4">
-					<div className="flex flex-col gap-3">
-						<Label htmlFor="name">Season name:</Label>
+				<form action={handleUpdateTeam} className="space-y-5">
+					<div className="flex w-full flex-col gap-3">
+						<Label htmlFor="name">New Team Name:</Label>
 						<Input
 							name="name"
 							id="name"
-							placeholder="New season name"
-							defaultValue={season?.seasonName}
+							placeholder="New team name"
+							defaultValue={team?.teamName}
 							className="text-neutral-900"
 						/>
 					</div>
 
-					{season?.active !== null && (
-						<div className="flex items-center gap-3">
-							<Checkbox
-								name="active"
-								id="active"
-								defaultChecked={season?.active}
-								className="border-neutral-200"
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="nameShort">New Team Name Short:</Label>
+							<Input
+								name="nameShort"
+								id="nameShort"
+								placeholder="Team Name Short"
+								defaultValue={team?.teamNameShort}
+								className="text-neutral-900"
 							/>
-							<Label htmlFor="active">Active</Label>
 						</div>
-					)}
 
-					{season?.register !== null && (
-						<div className="flex items-center gap-3">
-							<Checkbox
-								name="register"
-								id="register"
-								defaultChecked={season?.register}
-								className="border-neutral-200"
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="teamCode">Team Code:</Label>
+							<Input
+								name="teamCode"
+								id="teamCode"
+								placeholder="New team code"
+								defaultValue={team?.teamCode}
+								className="text-neutral-900"
 							/>
-							<Label htmlFor="register">Register Open</Label>
 						</div>
-					)}
+					</div>
+
+					<div className="flex items-center gap-3">
+						<Checkbox
+							name="paid"
+							id="paid"
+							defaultChecked={team?.paid}
+							className="border-neutral-200"
+						/>
+						<Label htmlFor="paid">Paid</Label>
+					</div>
 
 					<Separator className="mb-4 border-b border-neutral-500" />
 
-					<DialogFooter className="flex gap-2">
+					<DialogFooter>
 						<SubmitButton />
 					</DialogFooter>
 				</form>
 
-				{/* delete season */}
-				<form action={handleDeleteSeason}>
-					<DialogFooter className="flex gap-2">
-						<DeleteButton />
-					</DialogFooter>
+				<form action={handleDeleteTeam}>
+					<DeleteButton />
 				</form>
 			</DialogContent>
 		</Dialog>
@@ -188,4 +192,4 @@ const DeleteButton = () => {
 	);
 };
 
-export default UpdateSeason;
+export default UpdateTeam;

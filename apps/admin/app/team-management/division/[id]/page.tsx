@@ -24,11 +24,9 @@ export default async function DivisionPage({
 			<Separator className="my-4 border-b border-neutral-500" />
 
 			<DivisionInfo division={division} />
-
-			<div className="my-8 space-y-3">
+			<div className="mt-8 space-y-3">
 				<UpdateDivision division={division} />
 			</div>
-
 			<Separator className="my-4 border-b border-neutral-500" />
 
 			<h2>Teams:</h2>
@@ -38,7 +36,7 @@ export default async function DivisionPage({
 					<TeamsTable teams={division?.teams} />
 				) : (
 					<div className="my-8 flex justify-center">
-						<h3>No teams in this division yet.</h3>
+						<h3 className="text-primary">No teams in this division yet.</h3>
 					</div>
 				)}
 			</div>

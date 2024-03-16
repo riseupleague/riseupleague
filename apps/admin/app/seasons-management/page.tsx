@@ -10,8 +10,10 @@ export default async function Page(): Promise<JSX.Element> {
 	const resSeasons = await getAllSeasons();
 	const { seasons } = await resSeasons.json();
 
+	const activeSeason = seasons.findLast((season) => season.active === true);
+
 	if (seasons.length !== 0) {
-		redirect(`/seasons-management/${seasons[seasons.length - 1]._id}`);
+		redirect(`/seasons-management/${activeSeason._id}`);
 	}
 
 	return <>{seasons.length === 0 ? <NoSeasonsFound /> : <></>}</>;

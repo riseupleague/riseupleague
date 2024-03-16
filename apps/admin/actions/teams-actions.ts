@@ -42,6 +42,7 @@ export async function createTeam(
 		if (!savedTeam) return { status: 500, message: "Internal server error." };
 
 		revalidatePath("/");
+
 		return { status: 201, message: "Successfully added team to division." };
 	} catch (e) {
 		console.log(e);
@@ -49,53 +50,39 @@ export async function createTeam(
 	}
 }
 
-/**
- * Edit a season with the given seasonId using the provided seasonData.
- *
- * @param {string} seasonId - The ID of the season to be edited
- * @param {FormData} seasonData - The data to update the season with
- * @return {Promise<object>} An object containing the status and message of the operation
- */
-// export async function updateSeason(seasonId: string, seasonData: FormData) {
-// 	try {
-// 		const rawSeasonData = {
-// 			seasonName: seasonData.get("name"),
-// 			active: seasonData.get("active") ? true : false,
-// 			register: seasonData.get("register") ? true : false,
-// 		};
+export async function updateTeam(teamId: string, teamData: FormData) {
+	try {
+		const rawTeamData = {
+			teamName: teamData.get("name"),
+			teamNameShort: teamData.get("nameShort"),
+			teamCode: teamData.get("teamCode"),
+			paid: teamData.get("paid") ? true : false,
+		};
 
-// 		const season = await Season.findById(seasonId);
-// 		if (!season) return { status: 404, message: "No season found." };
+		const team = await Team.findByIdAndUpdate(teamId, rawTeamData);
+		if (!team) return { status: 500, message: "Internal server error." };
 
-// 		await Season.findByIdAndUpdate(seasonId, rawSeasonData);
-// 		revalidatePath(`/`);
+		revalidatePath(`/`);
+		return { status: 200, message: "Successfully updated team." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal Server Error" };
+	}
+}
 
-// 		return { status: 200, message: "Successfully updated season." };
-// 	} catch (e) {
-// 		console.log(e);
-// 		return { status: 500, message: "Internal Server Error" };
-// 	}
-// }
+export async function deleteTeam(teamId: string) {
+	try {
+		const team = await Team.findById(teamId);
+		if (!team) return { status: 404, message: "No team found." };
 
-/**
- * Deletes a season by the given seasonId.
- *
- * @param {string} seasonId - The ID of the season to be deleted
- * @return {object} An object containing status and message after deletion
- */
-// export async function deleteSeason(seasonId: string) {
-// 	try {
-// 		const season = await Season.findById(seasonId);
-// 		if (!season) return { status: 404, message: "No season found." };
+		await Team.findByIdAndRemove(teamId);
 
-// 		await Season.findByIdAndRemove(seasonId);
-
-// 		return { status: 200, message: "Successfully deleted season." };
-// 	} catch (e) {
-// 		console.log(e);
-// 		return { status: 500, message: "Internal server error." };
-// 	}
-// }
+		return { status: 200, message: "Successfully deleted team." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
+	}
+}
 
 const initialAverageStats = {
 	points: 0,
