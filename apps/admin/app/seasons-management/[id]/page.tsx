@@ -73,7 +73,7 @@ export default async function SeasonPage({
 				</ul>
 
 				<div className="my-4">
-					<AddDivision />
+					<AddDivision seasonId={params.id} />
 				</div>
 
 				<Separator className="my-4 border-b border-neutral-500" />

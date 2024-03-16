@@ -15,15 +15,9 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { addSeason } from "@/actions/seasons-actions";
 import { useToast } from "@ui/components/use-toast";
-
-const initialState = {
-	name: "",
-	active: false,
-	register: false,
-};
 
 const AddSeason = (): JSX.Element => {
 	const { toast } = useToast();
