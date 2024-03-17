@@ -15,10 +15,7 @@ export default function playerOfTheGame({ player }) {
 	);
 
 	return (
-		<Link
-			href={`/players/${player._id}`}
-			className="rounded-lg bg-[#11161F]  transition duration-300 ease-in-out hover:bg-gray-800"
-		>
+		<div className="rounded-lg bg-[#11161F]  transition duration-300 ease-in-out hover:bg-gray-800">
 			<div className="p-5">
 				<div className="relative rounded-bl-3xl border-8 border-white">
 					<Image
@@ -42,7 +39,7 @@ export default function playerOfTheGame({ player }) {
 							</Link>
 							<Link
 								href={`/players/${player._id}`}
-								className="font-barlow  text-lg uppercase text-neutral-100 transition hover:opacity-80"
+								className="font-barlow  text-lg uppercase text-neutral-100 transition hover:opacity-80 md:text-3xl"
 							>
 								{player.playerName}
 							</Link>
@@ -95,6 +92,6 @@ export default function playerOfTheGame({ player }) {
 					</span>
 				</div>
 			</div>
-		</Link>
+		</div>
 	);
 }
