@@ -1,6 +1,9 @@
+import { getAllCurrentDivisionsAndCities } from "@/api-helpers/controllers/divisions-controller";
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import NewSchedule from "@/components/games/NewSchedule";
 import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
+import Breadcrumb from "@/components/general/Breadcrumb";
 import { Metadata } from "next";
 
 export default async function Schedule({
@@ -14,9 +17,60 @@ export default async function Schedule({
 
 	const resAllUpcomingGames = await getGamesByDate(id);
 	const { gamesByDate } = await resAllUpcomingGames.json();
+	const { divisionNamesAndCities, cities } = gamesByDate[0].games.reduce(
+		(result, game) => {
+			// Extract division names (unique)
+
+			console.log(game.division);
+			if (
+				!result.divisionNamesAndCities.find(
+					(item) => item._id === game.division._id
+				)
+			) {
+				result.divisionNamesAndCities.push({
+					_id: game.division._id,
+					divisionName: game.division.divisionName,
+					city: game.division.city,
+				});
+			}
+
+			// Extract cities (unique)
+			if (!result.cities.includes(game.division.city)) {
+				result.cities.push(game.division.city);
+			}
+
+			return result;
+		},
+		{ divisionNamesAndCities: [], cities: [] }
+	);
+
 	return (
-		<main className="font-barlow container  mx-auto min-h-fit text-white">
-			<ScheduleFilterPage gamesByDate={gamesByDate} />
+		// <main className="font-barlow container  mx-auto min-h-fit text-white">
+		// 	<ScheduleFilterPage gamesByDate={gamesByDate} />
+		// </main>
+		<main>
+			{/* new h1 with bg image */}
+			<div className="mb-4 bg-[url('/images/register/createTeam.jpg')] bg-cover bg-center bg-no-repeat md:mb-8 lg:mb-12">
+				<div className="to-trasparent bg-gradient-to-r from-black">
+					<div className="container mx-auto py-8 sm:py-16 lg:py-36">
+						<h1 className="font-abolition m-0 mb-4 text-left">
+							Season Schedule
+						</h1>
+
+						{/* <Breadcrumb /> */}
+					</div>
+				</div>
+			</div>
+
+			<div className="font-barlow container mx-auto min-h-fit">
+				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
+				<NewSchedule
+					gamesByDate={gamesByDate}
+					divisions={divisionNamesAndCities}
+					cities={cities}
+					dateInSeconds={id}
+				/>
+			</div>
 		</main>
 	);
 }
