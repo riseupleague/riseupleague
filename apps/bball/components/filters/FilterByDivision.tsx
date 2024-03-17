@@ -33,7 +33,7 @@ const FilterByDivision = ({
 			>
 				<SelectGroup>
 					<SelectLabel>Division:</SelectLabel>
-					{divisions?.map((division, index) => (
+					{divisions.map((division, index) => (
 						<SelectItem
 							className="text-sm sm:text-lg"
 							value={division._id || "default"}

@@ -31,7 +31,6 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col justify-between gap-4">
 				<FilterByDivision
-					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
 					divisions={divisions}
 					placeholder={filterPlaceholder}
