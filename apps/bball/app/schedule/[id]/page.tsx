@@ -17,32 +17,40 @@ export default async function Schedule({
 
 	const resAllUpcomingGames = await getGamesByDate(id);
 	const { gamesByDate } = await resAllUpcomingGames.json();
-	const { divisionNamesAndCities, cities } = gamesByDate[0].games.reduce(
-		(result, game) => {
-			// Extract division names (unique)
+	let divisionNamesAndCities = [];
+	let cities = [];
 
-			console.log(game.division);
-			if (
-				!result.divisionNamesAndCities.find(
-					(item) => item._id === game.division._id
-				)
-			) {
-				result.divisionNamesAndCities.push({
-					_id: game.division._id,
-					divisionName: game.division.divisionName,
-					city: game.division.city,
-				});
-			}
+	if (gamesByDate) {
+		const divisionNamesAndCitiesArrays = gamesByDate[0]?.games.reduce(
+			(result, game) => {
+				// Extract division names (unique)
 
-			// Extract cities (unique)
-			if (!result.cities.includes(game.division.city)) {
-				result.cities.push(game.division.city);
-			}
+				console.log(game.division);
+				if (
+					!result.divisionNamesAndCities.find(
+						(item) => item._id === game.division._id
+					)
+				) {
+					result.divisionNamesAndCities.push({
+						_id: game.division._id,
+						divisionName: game.division.divisionName,
+						city: game.division.city,
+					});
+				}
 
-			return result;
-		},
-		{ divisionNamesAndCities: [], cities: [] }
-	);
+				// Extract cities (unique)
+				if (!result.cities.includes(game.division.city)) {
+					result.cities.push(game.division.city);
+				}
+
+				return result;
+			},
+			{ divisionNamesAndCities: [], cities: [] }
+		);
+		divisionNamesAndCities =
+			divisionNamesAndCitiesArrays?.divisionNamesAndCities || [];
+		cities = divisionNamesAndCitiesArrays?.cities || [];
+	}
 
 	return (
 		// <main className="font-barlow container  mx-auto min-h-fit text-white">
