@@ -208,7 +208,7 @@ export const getGamesByDate = async (selectedDate) => {
 		})
 			.populate({
 				path: "division",
-				select: "divisionName",
+				select: "divisionName city",
 			})
 			.populate({
 				path: "homeTeam",

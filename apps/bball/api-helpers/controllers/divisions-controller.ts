@@ -29,6 +29,56 @@ type Division = {
 	regularPriceInstalmentId: string;
 };
 
+export const getAllCurrentDivisionsAndCities = async () => {
+	try {
+		const activeSeason = await Season.find({ active: "true" });
+		const divisions = await Division.find({ season: activeSeason }).select(
+			"divisionName city"
+		);
+
+		if (!divisions) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		// Extract division names and cities
+		const { divisionNamesAndCities, cities } = divisions.reduce(
+			(result, division) => {
+				// Extract division names (unique)
+				if (
+					!result.divisionNamesAndCities.find(
+						(item) => item._id === division._id
+					)
+				) {
+					result.divisionNamesAndCities.push({
+						_id: division._id,
+						divisionName: division.divisionName,
+						city: division.city,
+					});
+				}
+
+				// Extract cities (unique)
+				if (!result.cities.includes(division.city)) {
+					result.cities.push(division.city);
+				}
+
+				return result;
+			},
+			{ divisionNamesAndCities: [], cities: [] }
+		);
+
+		return NextResponse.json({ divisionNamesAndCities, cities });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
