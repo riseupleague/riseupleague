@@ -75,7 +75,6 @@ const HomeLeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col gap-4 md:flex-row md:justify-start">
 				<FilterByDivision
-					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
 					placeholder={divisionFilterPlaceholder}

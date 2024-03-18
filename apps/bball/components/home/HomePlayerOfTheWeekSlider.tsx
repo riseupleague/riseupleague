@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import PlayerOfTheGameCard from "../general/PlayerOfTheGameCard";
 
 const HomePlayerOfTheWeekSlider = ({ playerOfTheGames }) => {
+	console.log(playerOfTheGames);
 	const settings = {
 		dots: true,
 		infinite: true,

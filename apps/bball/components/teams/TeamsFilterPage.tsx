@@ -42,7 +42,6 @@ const TeamsFilterPage = ({ divisions }): JSX.Element => {
 	return (
 		<div>
 			<FilterByDivision
-				selectedDivision={selectedDivision}
 				handleDivisionChange={handleDivisionChange}
 				divisions={divisionsNameAndId}
 			/>
