@@ -103,8 +103,14 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 export const getTeamById = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)
-			.populate("players")
-			.populate("division")
+			.populate({
+				path: "players",
+				select: "playerName teamCaptain user instagram jerseyNumber",
+				populate: {
+					path: "user",
+					select: "email", // Select the fields you want to populate from the 'user' model
+				},
+			})
 			.select(
 				"paid teamName teamNameShort teamCode wins losses pointDifference division primaryColor secondaryColor tertiaryColor jerseyEdition players"
 			);

@@ -28,12 +28,17 @@ export const getAllCurrentDivisions = async () => {
 export const getAllDivisionsWithId = async (seasonId: string) => {
 	try {
 		const divisions = await Division.find({ season: seasonId })
-			.populate(
-				"teams",
-				"teamName teamNameShort players primaryColor secondaryColor tertiaryColor"
-			)
+			.populate({
+				path: "teams",
+				select:
+					"teamName teamNameShort players primaryColor secondaryColor tertiaryColor",
+				populate: {
+					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
+					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
+				},
+			})
 			.select(
-				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+				"divisionName season teams location city day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
 			);
 
 		if (!divisions) {

@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@ui/components/button";
 import {
 	Table,
 	TableBody,
@@ -12,6 +13,7 @@ import {
 import Link from "next/link";
 
 const TeamsTable = ({ teams }) => {
+	console.log(teams);
 	return (
 		<Table>
 			<TableCaption className="text-lg text-neutral-300">
@@ -52,7 +54,11 @@ const TeamsTable = ({ teams }) => {
 									{team?.players?.length}
 								</TableCell>
 								<TableCell className="text-left text-base md:text-lg">
-									{teamCaptain}
+									{teamCaptain ? (
+										teamCaptain.playerName
+									) : (
+										<span className="text-red-500">No Team Captain</span>
+									)}
 								</TableCell>
 							</TableRow>
 						);

@@ -1,31 +1,30 @@
-import { getTeamById } from "@/api-helpers/controllers/teams-controller";
+import { getPlayerById } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import TeamInfo from "@/components/team-management/TeamInfo";
-import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
-import UpdateTeam from "@/components/team-management/UpdateTeam";
+import PlayerInfo from "@/components/team-management/PlayerInfo";
+import UpdatePlayer from "@/components/team-management/UpdatePlayer";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
 
-export default async function DivisionPage({
+export default async function PlayerPage({
 	params,
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+	const resPlayer = await getPlayerById(params.id);
+	const { player } = await resPlayer.json();
+	console.log("player:", player);
 
-	const resTeam = await getTeamById(params.id);
-	const { team } = await resTeam.json();
 	return (
 		<section>
 			<h1>
-				Team: <span className="text-primary">{team?.teamName}</span>
+				Player: <span className="text-primary">{player?.playerName}</span>
 			</h1>
 
-			<TeamInfo team={team} />
-
+			<PlayerInfo player={player} />
 			<div className="my-4">
-				<UpdateTeam team={team} />
+				<UpdatePlayer player={player} />
 			</div>
 
 			<Separator className="my-4 border-b border-neutral-500" />
@@ -38,7 +37,7 @@ export default async function DivisionPage({
 					</Button>
 				)} */}
 			</h2>
-			<TeamPlayersTable teamPlayers={team?.players} />
+			{/* <TeamPlayersTable teamPlayers={team?.players} /> */}
 		</section>
 	);
 }
