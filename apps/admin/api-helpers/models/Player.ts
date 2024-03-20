@@ -19,15 +19,12 @@ const playerSchema = new Schema({
 	},
 	jerseyNumber: {
 		type: Number,
-		required: true,
 	},
 	jerseySize: {
 		type: String,
-		required: true,
 	},
 	shortSize: {
 		type: String,
-		required: true,
 	},
 	jerseyName: {
 		type: String,

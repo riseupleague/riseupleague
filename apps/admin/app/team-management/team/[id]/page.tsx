@@ -1,5 +1,6 @@
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import AddNewPlayer from "@/components/team-management/AddNewPlayer";
 import TeamInfo from "@/components/team-management/TeamInfo";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
 import UpdateTeam from "@/components/team-management/UpdateTeam";
@@ -39,6 +40,13 @@ export default async function DivisionPage({
 				)} */}
 			</h2>
 			<TeamPlayersTable teamPlayers={team?.players} />
+			<div className="my-4">
+				<AddNewPlayer
+					teamId={team._id}
+					seasonId={team.season}
+					divisionId={team.division}
+				/>
+			</div>
 		</section>
 	);
 }

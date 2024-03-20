@@ -27,8 +27,7 @@ const TeamPlayersTable = ({ teamPlayers }) => (
 				.sort((a, b) => (a.playerName > b.playerName ? 1 : -1))
 				.map((player, index) => (
 					<TableRow key={index} className="text-nowrap text-lg">
-						<TableCell className="flex gap-2 text-left capitalize">
-							#{player?.jerseyNumber}
+						<TableCell className="flex text-left ">
 							<Link
 								className="hover:underline"
 								href={`/team-management/player/${player._id}`}

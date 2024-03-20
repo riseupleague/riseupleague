@@ -18,7 +18,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { deletePlayer, updatePlayer } from "@/actions/players-action";
+import { updatePlayer } from "@/actions/players-action";
 
 const UpdatePlayer = ({ player }): JSX.Element => {
 	const { toast } = useToast();
@@ -97,22 +97,38 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>
-					<DialogTitle>Update Player: {player?.playerName}</DialogTitle>
+					<DialogTitle>
+						Update Player:{" "}
+						<span className="text-primary">{player?.playerName}</span>
+					</DialogTitle>
 					<DialogDescription>Update this player.</DialogDescription>
 				</DialogHeader>
 
 				<Separator className="border-b border-neutral-500" />
 
 				<form action={handleUpdatePlayer} className="space-y-5">
-					<div className="flex w-full flex-col gap-3">
-						<Label htmlFor="name">New Player Name:</Label>
-						<Input
-							name="name"
-							id="name"
-							placeholder="New player name"
-							defaultValue={player?.playerName}
-							className="text-neutral-900"
-						/>
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="name">New Player Name:</Label>
+							<Input
+								name="name"
+								id="name"
+								placeholder="New player name"
+								defaultValue={player?.playerName}
+								className="text-neutral-900"
+							/>
+						</div>
+
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="name">Instagram:</Label>
+							<Input
+								name="instagram"
+								id="instagram"
+								placeholder="New instagram"
+								defaultValue={player?.instagram}
+								className="text-neutral-900"
+							/>
+						</div>
 					</div>
 
 					<div className="flex gap-2">
@@ -128,14 +144,51 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 						</div>
 
 						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="jerseySize">New Jersey Size:</Label>
+							<Label htmlFor="jerseySize">New Jersey Name:</Label>
 							<Input
-								name="jerseySize"
-								id="jerseySize"
-								placeholder="New jersey size"
-								defaultValue={player?.jerseySize}
+								name="jerseyName"
+								id="jerseyName"
+								placeholder="New jersey name"
+								defaultValue={player?.jerseyName}
 								className="text-neutral-900"
 							/>
+						</div>
+					</div>
+
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="jerseySize">New Jersey Size:</Label>
+							<select
+								name="jerseySize"
+								id="jerseySize"
+								defaultValue={player?.jerseySize}
+								className="rounded border border-neutral-600 bg-neutral-900 p-2"
+							>
+								<option value="SM">SM</option>
+								<option value="MD">MD</option>
+								<option value="LG">LG</option>
+								<option value="XL">XL</option>
+								<option value="XXL">XXL</option>
+								<option value="XXXL">XXXL</option>
+								<option value="XXXXL">XXXXL</option>
+							</select>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="shortSize">New Short Size:</Label>
+							<select
+								name="shortSize"
+								id="shortSize"
+								defaultValue={player?.shortSize}
+								className="rounded border border-neutral-600 bg-neutral-900 p-2"
+							>
+								<option value="SM">SM</option>
+								<option value="MD">MD</option>
+								<option value="LG">LG</option>
+								<option value="XL">XL</option>
+								<option value="XXL">XXL</option>
+								<option value="XXXL">XXXL</option>
+								<option value="XXXXL">XXXXL</option>
+							</select>
 						</div>
 					</div>
 

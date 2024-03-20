@@ -112,7 +112,7 @@ export const getTeamById = async (teamId: string) => {
 				},
 			})
 			.select(
-				"paid teamName teamNameShort teamCode wins losses pointDifference division primaryColor secondaryColor tertiaryColor jerseyEdition players"
+				"paid teamName teamNameShort teamCode wins losses pointDifference division season primaryColor secondaryColor tertiaryColor jerseyEdition players"
 			);
 
 		if (!team) {

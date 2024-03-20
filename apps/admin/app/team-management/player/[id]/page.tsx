@@ -28,16 +28,6 @@ export default async function PlayerPage({
 			</div>
 
 			<Separator className="my-4 border-b border-neutral-500" />
-
-			<h2 className="my-4 flex justify-between">
-				Players{" "}
-				{/* {!isTeamCaptain && (
-					<Button variant="secondary" size="sm">
-						Add a captain
-					</Button>
-				)} */}
-			</h2>
-			{/* <TeamPlayersTable teamPlayers={team?.players} /> */}
 		</section>
 	);
 }
