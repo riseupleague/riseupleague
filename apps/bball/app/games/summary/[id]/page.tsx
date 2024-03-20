@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { extractYoutubeLink } from "@utils/utils";
+import { redirect } from "next/navigation";
 
 export default async function Summary({
 	params,
@@ -17,6 +18,9 @@ export default async function Summary({
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
+
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
 	const day = date.toLocaleDateString("en-US", {
