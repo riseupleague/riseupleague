@@ -1,6 +1,7 @@
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import AddNewPlayer from "@/components/team-management/AddNewPlayer";
+import DeleteTeam from "@/components/team-management/DeleteTeam";
 import TeamInfo from "@/components/team-management/TeamInfo";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
 import UpdateTeam from "@/components/team-management/UpdateTeam";
@@ -31,7 +32,7 @@ export default async function DivisionPage({
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<h2 className="my-4 flex justify-between">
+			<h2 className="my-10 flex justify-between">
 				Players{" "}
 				{/* {!isTeamCaptain && (
 					<Button variant="secondary" size="sm">
@@ -40,12 +41,17 @@ export default async function DivisionPage({
 				)} */}
 			</h2>
 			<TeamPlayersTable teamPlayers={team?.players} />
-			<div className="my-4">
+			<div className="my-10">
 				<AddNewPlayer
 					teamId={team._id}
 					seasonId={team.season}
 					divisionId={team.division}
 				/>
+			</div>
+			<Separator className="border-b border-neutral-500" />
+
+			<div className="my-4">
+				<DeleteTeam team={team} />
 			</div>
 		</section>
 	);
