@@ -5,6 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
+import { extractYoutubeLink } from "@utils/utils";
 
 export default async function Summary({
 	params,
@@ -93,6 +94,19 @@ export default async function Summary({
 				<div className="my-10">
 					<SummaryBoxScore game={game} />
 				</div>
+
+				{/* video */}
+				{game?.youtubeLink && (
+					<div className="my-24">
+						<iframe
+							className="aspect-video w-full"
+							src={`https://www.youtube.com/embed/${extractYoutubeLink(game.youtubeLink)}`}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+							title="Embedded youtube"
+						></iframe>
+					</div>
+				)}
 			</div>
 		</section>
 	);
