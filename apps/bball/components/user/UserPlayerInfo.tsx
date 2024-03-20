@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
+import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
 import {
 	Sheet,
 	SheetClose,
@@ -18,14 +19,11 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import {
-	Card,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@ui/components/card";
-import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
+import { Card, CardDescription, CardHeader } from "@ui/components/card";
+import { useToast } from "@ui/components/use-toast";
+
 const UserPlayerInfo = ({ player }) => {
+	const { toast } = useToast();
 	const [playerName, setPlayerName] = useState(player.playerName);
 
 	const [playerJerseyName, setPlayerJerseyName] = useState(player.jerseyName);
@@ -47,6 +45,7 @@ const UserPlayerInfo = ({ player }) => {
 	});
 
 	const [jerseyNumberError, setJerseyNumberError] = useState("");
+
 	const handleChosenPlayer = (player) => {
 		const chosenPlayerFormObject = {
 			playerName: playerName || player?.playerName || "",
@@ -92,6 +91,7 @@ const UserPlayerInfo = ({ player }) => {
 
 		if (res.ok) {
 			const { newPlayer } = await res.json();
+
 			setPlayerName(newPlayer.playerName);
 			setPlayerJerseyName(newPlayer.jerseyName);
 			setPlayerJerseyNumber(newPlayer.jerseyNumber);
@@ -109,14 +109,18 @@ const UserPlayerInfo = ({ player }) => {
 
 			setPlayerFormObject(chosenPlayerFormObject);
 			setIsLoader(false);
+
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: "Your have successfully updated your player information.",
+			});
 		}
 	};
 
 	const jerseyEdition = player.team?.jerseyEdition;
 	let edition; // Assuming team.jerseyEdition is a string like "retro-1", "original-1", or "classic-1"
-	if (jerseyEdition) {
-		edition = jerseyEdition.split("-")[0];
-	}
+	if (jerseyEdition) edition = jerseyEdition.split("-")[0];
 
 	// Dynamic import of the component
 	const DynamicComponent = dynamic(
@@ -130,10 +134,10 @@ const UserPlayerInfo = ({ player }) => {
 	const customizeJersey = player.register || player.freeAgent;
 
 	return (
-		<Card className="relative flex  cursor-pointer flex-col justify-center border-0 bg-transparent">
+		<Card className="relative flex cursor-pointer flex-col justify-center border-0 bg-transparent">
 			<CardHeader>
-				<CardDescription className="font-barlow flex w-full flex-col-reverse gap-5 text-center font-normal  uppercase   lg:flex-row">
-					<ul className=" h-full w-full  border-neutral-600 bg-neutral-700 lg:w-1/2">
+				<CardDescription className="font-barlow flex w-full flex-col-reverse gap-5 text-center font-normal uppercase lg:flex-row">
+					<ul className=" h-full w-full border-neutral-600 bg-neutral-700 lg:w-1/2">
 						{player.freeAgent && (
 							<p className="my-4">Thank you for joining as a free agent!</p>
 						)}
