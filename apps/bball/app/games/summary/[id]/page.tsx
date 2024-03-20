@@ -92,13 +92,6 @@ export default async function Summary({
 					</div>
 				</div>
 
-				<hr />
-
-				{/* box score */}
-				<div className="my-10">
-					<SummaryBoxScore game={game} />
-				</div>
-
 				{/* video */}
 				{game?.youtubeLink && (
 					<div className="my-24">
@@ -111,6 +104,13 @@ export default async function Summary({
 						></iframe>
 					</div>
 				)}
+
+				<hr />
+
+				{/* box score */}
+				<div className="my-10">
+					<SummaryBoxScore game={game} />
+				</div>
 			</div>
 		</section>
 	);
