@@ -94,7 +94,7 @@ export default async function Summary({
 
 				{/* video */}
 				{game?.youtubeLink && (
-					<div className="my-24">
+					<div className="my-6 md:my-24">
 						<iframe
 							className="aspect-video w-full"
 							src={`https://www.youtube.com/embed/${extractYoutubeLink(game.youtubeLink)}`}
