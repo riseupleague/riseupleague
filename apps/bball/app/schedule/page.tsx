@@ -1,9 +1,7 @@
-import { getAllCurrentDivisionsAndCities } from "@/api-helpers/controllers/divisions-controller";
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
-import ScheduleFilterPage from "@/components/games/ScheduleFilterPage";
-import Breadcrumb from "@/components/general/Breadcrumb";
+import { startOfDay } from "date-fns";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
@@ -11,7 +9,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	// Get the current date and time
-	const currentDate = new Date();
+	const currentDate = startOfDay(new Date());
 
 	// Convert the current date to a Unix timestamp (in milliseconds)
 	const unixTimestamp = currentDate.getTime();
@@ -55,6 +53,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 			divisionNamesAndCitiesArrays?.divisionNamesAndCities || [];
 		cities = divisionNamesAndCitiesArrays?.cities || [];
 	}
+
 	revalidatePath("/schedule", "page");
 
 	return (
