@@ -5,8 +5,8 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
-import { extractYoutubeLink } from "@utils/utils";
 import { redirect } from "next/navigation";
+import { extractYoutubeLink } from "@/utils/extractYoutubeLink";
 
 export default async function Summary({
 	params,
@@ -14,11 +14,9 @@ export default async function Summary({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
-
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
