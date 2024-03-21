@@ -5,6 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export default async function Preview({
 	params,
@@ -16,6 +17,9 @@ export default async function Preview({
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
+
+	// if game is done, redirect to /summary/[id] page
+	if (game?.status) redirect(`/games/summary/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
 	const formattedDate = format(date, "E L/d @ h:mm a");
