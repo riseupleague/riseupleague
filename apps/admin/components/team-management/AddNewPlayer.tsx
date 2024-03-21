@@ -101,9 +101,7 @@ const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="signIn" className="w-full font-semibold">
-					Add new player
-				</Button>
+				<Button variant="addition">Add new player</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>
@@ -227,10 +225,6 @@ const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 						</DialogFooter>
 					</form>
 				)}
-				{/* 
-				<form action={handleDeleteTeam}>
-					<DeleteButton />
-				</form> */}
 			</DialogContent>
 		</Dialog>
 	);
@@ -263,22 +257,6 @@ const FindUserButton = () => {
 		<Button type="submit" className="w-full" disabled={pending}>
 			{pending ? "Finding..." : "Find"}
 		</Button>
-	);
-};
-
-const DeleteButton = () => {
-	const { pending } = useFormStatus();
-
-	return (
-		<DialogClose asChild>
-			<Button
-				type="submit"
-				className="w-full bg-red-500 transition-all hover:bg-red-700"
-				disabled={pending}
-			>
-				{pending ? "Deleting..." : "Delete"}
-			</Button>
-		</DialogClose>
 	);
 };
 

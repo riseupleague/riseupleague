@@ -138,6 +138,38 @@ const UpdateTeam = ({ team }): JSX.Element => {
 							/>
 						</div>
 					</div>
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="wins">New wins:</Label>
+							<Input
+								name="wins"
+								id="wins"
+								placeholder="New wins"
+								defaultValue={team?.wins}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="losses">New losses:</Label>
+							<Input
+								name="losses"
+								id="losses"
+								placeholder="New losses"
+								defaultValue={team?.losses}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="losses">New Point Difference:</Label>
+							<Input
+								name="pointDifference"
+								id="pointDifference"
+								placeholder="New pointDifference"
+								defaultValue={team?.pointDifference}
+								className="text-neutral-900"
+							/>
+						</div>
+					</div>
 
 					<div className="flex items-center gap-3">
 						<Checkbox

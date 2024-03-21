@@ -56,6 +56,9 @@ export async function updateTeam(teamId: string, teamData: FormData) {
 			teamName: teamData.get("name"),
 			teamNameShort: teamData.get("nameShort"),
 			teamCode: teamData.get("teamCode"),
+			wins: teamData.get("wins"),
+			losses: teamData.get("losses"),
+			pointDifference: teamData.get("pointDifference"),
 			paid: teamData.get("paid") ? true : false,
 		};
 
