@@ -71,9 +71,8 @@ const Hero = (): JSX.Element => {
 								<Image
 									src={slide.url}
 									alt={slide.title}
-									layout="fill"
-									objectFit="cover"
-									className="absolute inset-0 -z-10 h-full bg-gradient-to-b opacity-50"
+									fill
+									className="absolute inset-0 -z-10 h-full bg-gradient-to-b object-cover opacity-50"
 								/>
 
 								<div className="flex  h-[450px] flex-col justify-center sm:h-[650px]">

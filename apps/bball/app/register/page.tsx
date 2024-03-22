@@ -63,9 +63,8 @@ export default async function Register({
 								<Image
 									src={card.imgSrc}
 									alt={card.imgAlt}
-									layout="fill"
-									objectFit="cover"
-									className="absolute inset-0 -z-10 bg-gradient-to-b opacity-50"
+									fill
+									className="absolute inset-0 -z-10 bg-gradient-to-b object-cover opacity-50"
 								/>
 								<CardHeader>
 									<CardTitle className="font-abolition text-5xl font-medium">

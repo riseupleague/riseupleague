@@ -22,8 +22,8 @@ const RegisterBanner = () => {
 				<Image
 					src="/images/register/registrationBanner.jpg"
 					alt="create a team image"
-					layout="fill"
-					objectFit="cover"
+					className="object-cover"
+					fill
 				/>
 			</div>
 		</section>
