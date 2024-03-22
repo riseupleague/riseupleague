@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import FutureGame from "./FutureGame";
 import { format } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";

@@ -4,8 +4,6 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
-import { convertToEST } from "@/utils/convertToEST";
-import { format } from "date-fns";
 import { Separator } from "@ui/components/separator";
 import FilterByCity from "../filters/FilterByCity";
 
@@ -35,7 +33,6 @@ const NewSchedule = ({
 		);
 		setGames([{ date: gamesByDate[0].date, games: selectedGames }]);
 		const filteredDivisions = divisions.filter((division) => {
-			console.log(division, division.city, selectedCity);
 			return division.city === selectedCity;
 		});
 		setDivisionsToShow(filteredDivisions);
@@ -47,10 +44,7 @@ const NewSchedule = ({
 		year: "numeric" as const,
 	}; // Specify month, day, and year as string literals
 	const formattedDate = currentDate.toLocaleDateString("en-US", options);
-	console.log("cities:", cities);
-	console.log("divisionsToShow:", divisionsToShow);
 
-	console.log("gamesByDate:", gamesByDate);
 	return (
 		<section>
 			<div className="flex flex-col gap-4 md:flex-row">

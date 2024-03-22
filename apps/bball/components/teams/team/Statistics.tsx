@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import BarChart from "./BarChart";
 import PointsCircle from "./PointsCircle";
 import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";

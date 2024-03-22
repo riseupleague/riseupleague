@@ -1,12 +1,5 @@
-import React, { useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@ui/components/card";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
 import { Checkbox } from "@ui/components/checkbox";
 import { Label } from "@ui/components/label";
 import Link from "next/link";
@@ -14,7 +7,6 @@ import Image from "next/image";
 import { Button } from "@ui/components/button";
 import { Loader2 } from "lucide-react";
 import LocationIcon from "@/components/icons/LocationIcon";
-import ClockIcon from "@/components/icons/ClockIcon";
 import CalendarRegisterIcon from "@/components/icons/CalendarRegisterIcon";
 import { Separator } from "@ui/components/separator";
 

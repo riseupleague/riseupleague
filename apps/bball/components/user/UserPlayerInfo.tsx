@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
+import { Card, CardDescription, CardHeader } from "@ui/components/card";
+import { useToast } from "@ui/components/use-toast";
 import {
 	Sheet,
 	SheetClose,
@@ -19,8 +21,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import { Card, CardDescription, CardHeader } from "@ui/components/card";
-import { useToast } from "@ui/components/use-toast";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();

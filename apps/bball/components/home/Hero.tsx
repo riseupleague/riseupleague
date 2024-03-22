@@ -2,11 +2,9 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Progress } from "@ui/components/progress";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { heroSlides } from "@/lib/data/home/heroSlides";

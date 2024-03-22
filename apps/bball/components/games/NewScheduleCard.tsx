@@ -1,7 +1,6 @@
 import Link from "next/link";
 import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
-import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Badge } from "@ui/components/badge";
@@ -18,7 +17,6 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 	const differenceInSeconds = currentDateInSeconds - gameDateInSeconds;
 
 	const differenceInHours = differenceInSeconds / 3600;
-	console.log(differenceInHours); // Output the difference in hours
 	const gameIsLive =
 		differenceInHours > 0 && differenceInHours < 1 && game.status;
 	return (

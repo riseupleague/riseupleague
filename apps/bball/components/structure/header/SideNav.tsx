@@ -5,7 +5,7 @@ import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import React, { useState } from "react";
+import { useState } from "react";
 import ChevronRight from "@/components/general/icons/ChevronRight";
 import HomeIcon from "@/components/icons/HomeIcon";
 import CalendarIcon from "@/components/icons/CalendarIcon";
