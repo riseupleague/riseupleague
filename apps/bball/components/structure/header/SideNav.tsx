@@ -25,12 +25,9 @@ import {
 const SideNav = ({ navPosition }): React.JSX.Element => {
 	const path = usePathname();
 	const router = useRouter();
-	const currentDate = new Date();
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
-	// Convert the date to seconds
-	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
 	const headerOptions = [
 		{
 			label: "home",
@@ -39,7 +36,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		},
 		{
 			label: "schedule",
-			href: `/schedule/${currentDateInSeconds}`,
+			href: "/schedule",
 			icon: <CiCalendar className="size-7 text-neutral-300" />,
 		},
 		{
