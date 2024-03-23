@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { updatePlayer } from "@/actions/player-actions";
 import { Loader2 } from "lucide-react";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
-import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
 import { useToast } from "@ui/components/use-toast";
+import UserPlayerJerseyInfo from "./UserPlayerJerseyInfo";
+import UserPlayerSeasonInfo from "./UserPlayerSeasonInfo";
+import { useFormStatus } from "react-dom";
 import {
 	Sheet,
 	SheetClose,
@@ -17,357 +19,190 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import UserPlayerJerseyInfo from "./UserPlayerJerseyInfo";
+import { useState } from "react";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
-	const [playerName, setPlayerName] = useState(player.playerName);
+	const [playerInfo, setPlayerInfo] = useState(player);
 
-	const [playerJerseyName, setPlayerJerseyName] = useState(player.jerseyName);
-	const [playerJerseyNumber, setPlayerJerseyNumber] = useState(
-		player.jerseyNumber
-	);
-	const [playerJerseySize, setPlayerJerseySize] = useState(player.jerseySize);
-	const [playerShortSize, setPlayerShortSize] = useState(player.shortSize);
-	const [playerInstagram, setPlayerInstagram] = useState(player.instagram);
-	const [isLoader, setIsLoader] = useState(false);
-	const [isSmallScreen, setIsSmallScreen] = useState(false);
-	const [playerFormObject, setPlayerFormObject] = useState({
-		playerName: "",
-		instagram: "",
-		jerseyName: "",
-		jerseyNumber: "",
-		jerseySize: "",
-		shortSize: "",
-	});
+	const customizeJersey = player.register || player.freeAgent;
 
-	const [jerseyNumberError, setJerseyNumberError] = useState("");
+	const handleUpdatePlayer = async (playerData: FormData) => {
+		const result = await updatePlayer(player._id, playerData);
 
-	const handleChosenPlayer = (player) => {
-		const chosenPlayerFormObject = {
-			playerName: playerName || player?.playerName || "",
-
-			instagram: playerInstagram || player?.instagram || "",
-			jerseyName: playerJerseyName || player?.jerseyName || "",
-			jerseyNumber: playerJerseyNumber || player?.jerseyNumber || "",
-			jerseySize: playerJerseySize || player?.jerseySize || "",
-			shortSize: playerShortSize || player?.shortSize || "",
-		};
-		setPlayerFormObject(chosenPlayerFormObject);
-	};
-
-	const handlePlayerInputChange = (field, value) => {
-		setPlayerFormObject((prev) => ({ ...prev, [field]: value }));
-	};
-
-	const handleEditPlayer = async () => {
-		const jerseyNumberExists = player.team?.players.some((teammate) => {
-			return (
-				teammate.jerseyNumber?.toString() === playerFormObject.jerseyNumber
-			);
-		});
-
-		if (jerseyNumberExists) {
-			setJerseyNumberError(
-				"Jersey number is already taken. Please choose a different number."
-			);
-			setIsLoader(false);
-			return;
-		} else {
-			setJerseyNumberError("");
+		// no player found
+		if (result?.status === 404) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
 		}
-		setIsLoader(true);
 
-		const res = await fetch("/api/update-player", {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ ...playerFormObject, playerId: player._id }),
-		});
+		// internal server error
+		if (result?.status === 500) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
 
-		if (res.ok) {
-			const { newPlayer } = await res.json();
-
-			setPlayerName(newPlayer.playerName);
-			setPlayerJerseyName(newPlayer.jerseyName);
-			setPlayerJerseyNumber(newPlayer.jerseyNumber);
-			setPlayerJerseySize(newPlayer.jerseySize);
-			setPlayerShortSize(newPlayer.shortSize);
-			setPlayerInstagram(newPlayer.instagram);
-			const chosenPlayerFormObject = {
-				playerName: newPlayer?.playerName || "",
-				instagram: newPlayer?.instagram || "",
-				jerseyName: newPlayer?.jerseyName || "",
-				jerseyNumber: newPlayer?.jerseyNumber || "",
-				jerseySize: newPlayer?.jerseySize || "",
-				shortSize: newPlayer?.shortSize || "",
-			};
-
-			setPlayerFormObject(chosenPlayerFormObject);
-			setIsLoader(false);
-
+		// successfully updated player info
+		if (result?.status === 200) {
 			toast({
 				variant: "success",
 				title: "Success!",
-				description: "Your have successfully updated your player information.",
+				description: result.message,
+			});
+
+			setPlayerInfo({
+				...playerInfo,
+				playerName: playerData.get("playerName") as string,
+				instagram: playerData.get("instagram") as string,
+				jerseyName: playerData.get("jerseyName") as string,
+				jerseyNumber: playerData.get("jerseyNumber") as string,
+				jerseySize: playerData.get("jerseySize") as string,
+				shortSize: playerData.get("shortSize") as string,
 			});
 		}
 	};
 
-	const customizeJersey = player.register || player.freeAgent;
+	return (
+		<div className="font-barlow grid grid-cols-1 gap-4 uppercase sm:grid-cols-2">
+			<div>
+				<UserPlayerSeasonInfo player={playerInfo} />
+
+				<Sheet>
+					<SheetTrigger asChild>
+						<Button className="my-4 w-full">Edit Player</Button>
+					</SheetTrigger>
+					<SheetContent side="right" className="w-full bg-neutral-900">
+						<form action={handleUpdatePlayer}>
+							<SheetHeader>
+								<SheetTitle className="font-barlow text-2xl uppercase">
+									Edit Player
+								</SheetTitle>
+								<SheetDescription className="text-sm text-neutral-500">
+									Please note that there will be a deadline (TBD) to change your
+									custom jersey information. After this deadline, we will not be
+									able to change it. Stay tuned to our socials to be notified!
+								</SheetDescription>
+							</SheetHeader>
+							<div className="font-barlow">
+								<div className="mt-4 flex flex-col gap-4">
+									<div className="flex flex-col gap-3">
+										<Label htmlFor="playerName" className="uppercase">
+											Player Name
+										</Label>
+										<Input
+											name="playerName"
+											id="playerName"
+											defaultValue={playerInfo?.playerName}
+											className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+										/>
+									</div>
+									<div className="flex flex-col gap-3">
+										<Label htmlFor="instagram" className="uppercase">
+											Instagram
+										</Label>
+										<Input
+											name="instagram"
+											id="instagram"
+											defaultValue={playerInfo?.instagram}
+											className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+										/>
+									</div>
+
+									{customizeJersey && (
+										<>
+											<div className="flex flex-col gap-3">
+												<Label htmlFor="jerseyName" className="uppercase">
+													Custom Jersey Name
+												</Label>
+												<Input
+													name="jerseyName"
+													id="jerseyName"
+													defaultValue={playerInfo?.jerseyName}
+													className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+												/>
+											</div>
+
+											<div className="flex flex-col gap-3">
+												<Label htmlFor="jerseyNumber" className="uppercase">
+													Jersey Number
+												</Label>
+												<Input
+													name="jerseyNumber"
+													id="jerseyNumber"
+													defaultValue={playerInfo?.jerseyNumber}
+													className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+												/>
+											</div>
+											<div className="flex flex-col gap-3">
+												<Label htmlFor="jerseySize" className="uppercase">
+													Jersey Size
+												</Label>
+												<select
+													name="jerseySize"
+													id="jerseySize"
+													defaultValue={playerInfo?.jerseySize}
+													className="rounded border border-neutral-600 bg-neutral-900 p-2"
+												>
+													<option value="SM">SM</option>
+													<option value="MD">MD</option>
+													<option value="LG">LG</option>
+													<option value="XL">XL</option>
+													<option value="XXL">XXL</option>
+													<option value="XXXL">XXXL</option>
+													<option value="XXXXL">XXXXL</option>
+												</select>
+											</div>
+											<div className="flex flex-col gap-3">
+												<Label htmlFor="shortSize" className="uppercase">
+													Short Size
+												</Label>
+												<select
+													name="shortSize"
+													id="shortSize"
+													defaultValue={playerInfo?.shortSize}
+													className="rounded border border-neutral-600 bg-neutral-900 p-2"
+												>
+													<option value="SM">SM</option>
+													<option value="MD">MD</option>
+													<option value="LG">LG</option>
+													<option value="XL">XL</option>
+													<option value="XXL">XXL</option>
+													<option value="XXXL">XXXL</option>
+													<option value="XXXXL">XXXXL</option>
+												</select>
+											</div>
+										</>
+									)}
+								</div>
+							</div>
+							<SheetFooter className="mt-10 flex gap-2">
+								<SubmitButton />
+							</SheetFooter>
+						</form>
+					</SheetContent>
+				</Sheet>
+			</div>
+
+			<UserPlayerJerseyInfo player={playerInfo} />
+		</div>
+	);
+};
+
+const SubmitButton = () => {
+	const { pending } = useFormStatus();
 
 	return (
-		<div className="relative flex flex-col justify-center border-0 bg-transparent">
-			<div className="font-barlow flex w-full flex-col-reverse gap-5 text-center font-normal uppercase lg:flex-row">
-				<ul className=" h-full w-full border-neutral-600 bg-neutral-700 lg:w-1/2">
-					{player.freeAgent && (
-						<p className="my-4">Thank you for joining as a free agent!</p>
-					)}
-					<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-						<span>Player Name:</span>
-						<span>{playerName}</span>
-					</li>
-					<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-						<span>Instagram:</span>
-						<span>
-							{playerInstagram !== "" ? playerInstagram : player.instagram}
-						</span>
-					</li>
-
-					{!player.freeAgent && (
-						<>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Division:</span>
-								<span>{player.division?.divisionName}</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Location:</span>
-								<span>{player.division?.location}</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Date and Time:</span>
-								<span>
-									{player.division?.day} between{" "}
-									{convertMilitaryToRegularTime(player.division?.startTime)} and{" "}
-									{convertMilitaryToRegularTime(player.division?.endTime)}
-								</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Team:</span>
-								<span>{player.team?.teamName}</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Team Code:</span>
-								<span>{player.team?.teamCode}</span>
-							</li>
-							<li className="flex flex-col justify-between border-b border-t border-neutral-600 p-4">
-								<div className="flex justify-between">
-									<span>Custom Jersey Name:</span>
-									<span className="uppercase">
-										{playerJerseyName !== ""
-											? playerJerseyName
-											: player.jerseyName}
-									</span>
-								</div>
-							</li>
-
-							<li className="border-b border-t border-neutral-600 p-4">
-								<div className="flex justify-between ">
-									<span>Jersey Number:</span>
-									<span>
-										{playerJerseyNumber !== ""
-											? playerJerseyNumber
-											: player.jerseyNumber}
-									</span>
-								</div>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Jersey Edition:</span>
-								<span>{player.team?.jerseyEdition}</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Jersey Top:</span>
-								<span>
-									{playerJerseySize !== ""
-										? playerJerseySize
-										: player.jerseySize}
-								</span>
-							</li>
-							<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-								<span>Jersey Bottom:</span>
-								<span>
-									{playerShortSize !== "" ? playerShortSize : player.shortSize}
-								</span>
-							</li>
-						</>
-					)}
-
-					{player.freeAgent && (
-						<p className="text-md my-4 p-4 text-start">
-							Jersey information coming soon!
-						</p>
-					)}
-
-					<li className="flex flex-col justify-end border-b border-t border-neutral-600 p-4">
-						<Sheet>
-							<SheetTrigger asChild>
-								{isLoader ? (
-									<Button type="submit">
-										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-									</Button>
-								) : (
-									<Button onClick={() => handleChosenPlayer(player)}>
-										Edit Player
-									</Button>
-								)}
-							</SheetTrigger>
-							<SheetContent
-								side={isSmallScreen ? "bottom" : "right"} // Use dynamic side based on screen size
-								className={`w-full bg-neutral-900 ${
-									isSmallScreen ? "h-[85%]" : ""
-								}`}
-							>
-								<SheetHeader>
-									<SheetTitle className="font-barlow text-2xl uppercase">
-										Edit Player
-									</SheetTitle>
-								</SheetHeader>
-								<SheetDescription>
-									<div className="mt-4 flex flex-col gap-4">
-										<p className="text-sm text-neutral-500">
-											Please note that there will be a deadline (TBD) to change
-											your custom jersey information. After this deadline, we
-											will not be able to change it. Stay tuned to our socials
-											to be notified!
-										</p>
-										<div className="flex flex-col gap-3">
-											<Label htmlFor="shortSize" className="uppercase">
-												Player Name
-											</Label>
-											<Input
-												className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-												value={playerFormObject?.playerName}
-												onChange={(e) =>
-													handlePlayerInputChange("playerName", e.target.value)
-												}
-												id="playerName"
-											/>
-										</div>
-										<div className="flex flex-col gap-3">
-											<Label htmlFor="shortSize" className="uppercase">
-												Instagram
-											</Label>
-											<Input
-												className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-												value={playerFormObject?.instagram}
-												onChange={(e) =>
-													handlePlayerInputChange("instagram", e.target.value)
-												}
-												id="instagram"
-											/>
-										</div>
-
-										{customizeJersey && (
-											<>
-												<div className="flex flex-col gap-3">
-													<Label htmlFor="jerseyName" className="uppercase">
-														Custom Jersey Name
-													</Label>
-													<Input
-														className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-														value={playerFormObject.jerseyName}
-														onChange={(e) =>
-															handlePlayerInputChange(
-																"jerseyName",
-																e.target.value
-															)
-														}
-														id="jerseyName"
-													/>
-												</div>
-
-												<div className="flex flex-col gap-3">
-													<Label htmlFor="jerseyNumber" className="uppercase">
-														Jersey Number
-													</Label>
-													<Input
-														className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
-														value={playerFormObject?.jerseyNumber}
-														onChange={(e) =>
-															handlePlayerInputChange(
-																"jerseyNumber",
-																e.target.value
-															)
-														}
-														id="jerseyNumber"
-													/>
-												</div>
-												<div className="flex flex-col gap-3">
-													<Label className="uppercase"> Jersey Size</Label>
-													<select
-														onChange={(e) =>
-															handlePlayerInputChange(
-																"jerseySize",
-																e.target.value
-															)
-														}
-														id="jerseySize"
-														value={playerFormObject?.jerseySize}
-														className="rounded border border-neutral-600 bg-neutral-900 p-2"
-													>
-														<option value="SM">SM</option>
-														<option value="MD">MD</option>
-														<option value="LG">LG</option>
-														<option value="XL">XL</option>
-														<option value="XXL">XXL</option>
-														<option value="XXXL">XXXL</option>
-														<option value="XXXXL">XXXXL</option>
-													</select>
-												</div>
-												<div className="flex flex-col gap-3">
-													<Label htmlFor="shortSize" className="uppercase">
-														Short Size
-													</Label>
-
-													<select
-														onChange={(e) =>
-															handlePlayerInputChange(
-																"shortSize",
-																e.target.value
-															)
-														}
-														id="shortSize"
-														value={playerFormObject?.shortSize}
-														className="rounded border border-neutral-600 bg-neutral-900 p-2"
-													>
-														<option value="SM">SM</option>
-														<option value="MD">MD</option>
-														<option value="LG">LG</option>
-														<option value="XL">XL</option>
-														<option value="XXL">XXL</option>
-														<option value="XXXL">XXXL</option>
-														<option value="XXXXL">XXXXL</option>
-													</select>
-												</div>
-											</>
-										)}
-									</div>
-								</SheetDescription>
-								<SheetFooter className="mt-10 flex gap-2">
-									<SheetClose asChild>
-										<Button onClick={handleEditPlayer}>Submit</Button>
-									</SheetClose>
-								</SheetFooter>
-							</SheetContent>
-						</Sheet>
-						<p className="text-primary  mt-2 text-sm">{jerseyNumberError}</p>
-					</li>
-				</ul>
-
-				<UserPlayerJerseyInfo player={player} />
-			</div>
-		</div>
+		<SheetClose asChild>
+			<Button type="submit" disabled={pending}>
+				{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
+			</Button>
+		</SheetClose>
 	);
 };
 

@@ -1,15 +1,11 @@
-import {
-	getCurrentUser,
-	getCurrentAndRegisterUserPlayers,
-} from "@/api-helpers/controllers/users-controller";
+import { getCurrentAndRegisterUserPlayers } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
-import UserProfile from "@/components/user/UserProfile";
 import { Metadata } from "next";
-
 import Breadcrumb from "@/components/general/Breadcrumb";
 import UserPlayer from "@/components/user/UserPlayer";
+
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
 
