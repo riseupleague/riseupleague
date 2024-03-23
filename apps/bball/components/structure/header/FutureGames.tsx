@@ -4,8 +4,7 @@ import { useRef } from "react";
 import FutureGame from "./FutureGame";
 import { format } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
-import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
-import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
+import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 
 const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 	const separatedGames = [];
@@ -53,7 +52,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollLeft}
 			>
-				<ScrollRightIcon />
+				<IoMdArrowDropleft className="size-8" />
 			</button>
 			<div
 				ref={containerRef}
@@ -96,7 +95,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollRight}
 			>
-				<ScrollLeftIcon />
+				<IoMdArrowDropright className="size-8" />
 			</button>
 		</div>
 	);

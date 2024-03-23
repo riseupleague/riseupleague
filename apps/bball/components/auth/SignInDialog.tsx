@@ -7,10 +7,10 @@ import { useState, useEffect } from "react";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import { useRouter } from "next/navigation";
-import LeftChevronIcon from "../icons/LeftChevronIcon";
 import Link from "next/link";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { IoChevronBackOutline } from "react-icons/io5";
 import {
 	Dialog,
 	DialogClose,
@@ -147,7 +147,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 								<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
 									<h3 className="flex items-center justify-center gap-1 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 										<SheetClose>
-											<LeftChevronIcon />
+											<IoChevronBackOutline />
 										</SheetClose>
 										Log in or sign up in seconds
 									</h3>
@@ -199,7 +199,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Continue with your email
 													</h3>
@@ -238,7 +238,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Log in to your account
 													</h3>
@@ -354,7 +354,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 							<DialogHeader className="text-center">
 								<DialogTitle className="flex items-center justify-center gap-1 text-center text-2xl text-neutral-300">
 									<DialogClose className="transition-all hover:opacity-80">
-										<LeftChevronIcon />
+										<IoChevronBackOutline />
 									</DialogClose>{" "}
 									Log in or sign up in seconds
 								</DialogTitle>
@@ -417,7 +417,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setEmail("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>
 													Continue with your email
 												</DialogTitle>
@@ -458,7 +458,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setEmail("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>{" "}
 													Log in to your account
 												</DialogTitle>
@@ -498,7 +498,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Create your account
 													</DialogTitle>
@@ -533,7 +533,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setRegisterPassword("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>{" "}
 													Create your password
 												</DialogTitle>

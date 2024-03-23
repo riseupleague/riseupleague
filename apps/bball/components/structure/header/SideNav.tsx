@@ -1,21 +1,20 @@
 "use client";
 
-import MenuIcon from "@/components/icons/MenuIcon";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
-import HomeIcon from "@/components/icons/HomeIcon";
-import CalendarIcon from "@/components/icons/CalendarIcon";
-import PodiumIcon from "@/components/icons/PodiumIcon";
-import TeamIcon from "@/components/icons/TeamIcon";
-import PlayerIcon from "@/components/icons/PlayerIcon";
 import { usePathname } from "next/navigation";
 import SignInDialog from "@/components/auth/SignInDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
-import TrophyIcon from "@/components/icons/TrophyIcon";
+import { CiCalendar } from "react-icons/ci";
+import { IoHomeOutline, IoPodiumOutline } from "react-icons/io5";
+import { RiTeamLine } from "react-icons/ri";
+import { MdOutlinePerson } from "react-icons/md";
+import { HiOutlineTrophy } from "react-icons/hi2";
+import { IoIosMenu } from "react-icons/io";
 import {
 	Sheet,
 	SheetClose,
@@ -36,18 +35,18 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		{
 			label: "home",
 			href: "/",
-			icon: <HomeIcon />,
+			icon: <IoHomeOutline className="size-7 text-neutral-300" />,
 		},
 		{
 			label: "schedule",
 			href: `/schedule/${currentDateInSeconds}`,
-			icon: <CalendarIcon />,
+			icon: <CiCalendar className="size-7 text-neutral-300" />,
 		},
 		{
 			label: "standings",
 			href: "/standings",
 			dropdown: true,
-			icon: <PodiumIcon />,
+			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
 		},
 		// {
 		// 	label: "leaders",
@@ -57,17 +56,17 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		{
 			label: "teams",
 			href: "/teams",
-			icon: <TeamIcon />,
+			icon: <RiTeamLine className="size-7 text-neutral-300" />,
 		},
 		{
 			label: "players",
 			href: "/players",
-			icon: <PlayerIcon />,
+			icon: <MdOutlinePerson className="size-7 text-neutral-300" />,
 		},
 		{
 			label: "MVP Ladder",
 			href: "/leaders/mvp-ladder",
-			icon: <TrophyIcon />,
+			icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
 		},
 	];
 
@@ -75,7 +74,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		<Sheet>
 			<SheetTrigger asChild>
 				<button className="flex flex-col items-center justify-center">
-					<MenuIcon />
+					<IoIosMenu className="size-7 text-neutral-300" />
 					{navPosition === "bottom" && "More"}
 				</button>
 			</SheetTrigger>
@@ -155,12 +154,6 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 						})}
 
 						<Separator className="mb-4 bg-neutral-600" />
-						{/* <li className="flex items-center gap-3 px-6 py-2">
-										<QuestionIcon />
-										<span className="font-barlow text-[24px] uppercase tracking-tighter">
-											League
-										</span>
-									</li> */}
 					</ul>
 				</div>
 				<div className="mx-4 mb-[38px]">
