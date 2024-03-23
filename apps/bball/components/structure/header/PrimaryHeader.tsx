@@ -4,15 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import ProfileLink from "@/components/auth/ProfileLink";
-import HomeIcon from "@/components/icons/HomeIcon";
-import CalendarIcon from "@/components/icons/CalendarIcon";
-import PodiumIcon from "@/components/icons/PodiumIcon";
-import TeamIcon from "@/components/icons/TeamIcon";
-import PlayerIcon from "@/components/icons/PlayerIcon";
-import TrophyIcon from "@/components/icons/TrophyIcon";
 import SideNav from "./SideNav";
 import MiddleNav from "./MiddleNav";
 import MobileBottomNav from "./MobileBottomNav";
+import { CiCalendar } from "react-icons/ci";
+import { IoHomeOutline, IoPodiumOutline } from "react-icons/io5";
+import { HiOutlineTrophy } from "react-icons/hi2";
+import { RiTeamLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
 
 const PrimaryHeader = ({ user }): JSX.Element => {
 	const path = usePathname();
@@ -67,27 +66,27 @@ const headerOptions = [
 	{
 		label: "home",
 		href: "/",
-		icon: <HomeIcon />,
+		icon: <IoHomeOutline className="size-7 text-neutral-300" />,
 	},
 	{
 		label: "schedule",
 		href: `/schedule`,
-		icon: <CalendarIcon />,
+		icon: <CiCalendar className="size-7 text-neutral-300" />,
 	},
 	{
 		label: "standings",
 		href: "/standings",
-		icon: <PodiumIcon />,
+		icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
 	},
 	{
 		label: "teams",
 		href: "/teams",
-		icon: <TeamIcon />,
+		icon: <RiTeamLine className="size-7 text-neutral-300" />,
 	},
 	{
 		label: "leaders",
 		href: "/leaders/mvp-ladder",
-		icon: <TrophyIcon />,
+		icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
 		submenu: [
 			{
 				label: "MVP Ladder",
@@ -101,7 +100,7 @@ const headerOptions = [
 	},
 	{
 		label: "league",
-		icon: <PlayerIcon />,
+		icon: <CgProfile className="size-6 text-neutral-300" />,
 		submenu: [
 			{
 				label: "All Players",

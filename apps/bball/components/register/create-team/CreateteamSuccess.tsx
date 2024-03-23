@@ -1,10 +1,8 @@
 import { convertToEST } from "@/utils/convertToEST";
 import { format } from "date-fns";
 import Link from "next/link";
-import React from "react";
 
 const CreateTeamSuccess = ({ player }) => {
-	console.log(player);
 	const team = player.team;
 	const convertToAMPM = (timeString) => {
 		let formattedTime;

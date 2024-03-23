@@ -1,18 +1,16 @@
 "use client";
+
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const JoinTeamCode = ({ teams }) => {
 	const [teamCode, setTeamCode] = useState("");
