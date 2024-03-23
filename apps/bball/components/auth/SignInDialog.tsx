@@ -6,11 +6,11 @@ import { Sheet, SheetClose, SheetContent } from "@ui/components/sheet";
 import { useState, useEffect } from "react";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import LeftChevronIcon from "../icons/LeftChevronIcon";
-import EmailIcon from "../general/icons/EmailIcon";
-import GoogleIcon from "../general/icons/GoogleIcon";
 import Link from "next/link";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
 import {
 	Dialog,
 	DialogClose,
@@ -163,11 +163,11 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 								</header>
 								<div className="my-5 flex  flex-col gap-3 ">
 									<Button variant="signIn" onClick={handleGoogleSignIn}>
-										<GoogleIcon />
+										<FcGoogle />
 										Continue With Google
 									</Button>
 									<Button variant="signIn" onClick={() => setIsEmail(true)}>
-										<EmailIcon />
+										<MdOutlineMailOutline />
 										Continue With Email
 									</Button>
 								</div>
@@ -370,11 +370,11 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 							</DialogHeader>
 							<div className="flex flex-col  gap-3">
 								<Button variant="signIn" onClick={handleGoogleSignIn}>
-									<GoogleIcon />
+									<FcGoogle className="scale-110" />
 									Continue With Google
 								</Button>
 								<Button variant="signIn" onClick={() => setIsEmail(true)}>
-									<EmailIcon />
+									<MdOutlineMailOutline />
 									Continue With Email
 								</Button>
 							</div>

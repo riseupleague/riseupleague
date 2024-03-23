@@ -6,7 +6,7 @@ import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
-import ChevronRight from "@/components/general/icons/ChevronRight";
+import { FaChevronRight } from "react-icons/fa";
 import HomeIcon from "@/components/icons/HomeIcon";
 import CalendarIcon from "@/components/icons/CalendarIcon";
 import PodiumIcon from "@/components/icons/PodiumIcon";
@@ -115,7 +115,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 												</h6>
 											</div>
 										</div>
-										<ChevronRight />
+										<FaChevronRight />
 									</Button>
 								</SheetClose>
 							</li>
@@ -147,7 +147,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 													{option.label}
 												</span>
 											</div>
-											<ChevronRight />
+											<FaChevronRight />
 										</Button>
 									</SheetClose>
 								</li>
