@@ -1,22 +1,14 @@
-import React, { useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@ui/components/card";
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
 import { Checkbox } from "@ui/components/checkbox";
 import { Label } from "@ui/components/label";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@ui/components/button";
 import { Loader2 } from "lucide-react";
-import LocationIcon from "@/components/icons/LocationIcon";
-import ClockIcon from "@/components/icons/ClockIcon";
-import CalendarRegisterIcon from "@/components/icons/CalendarRegisterIcon";
 import { Separator } from "@ui/components/separator";
+import { CiCalendar } from "react-icons/ci";
+import { IoLocationOutline } from "react-icons/io5";
 
 interface CheckboxErrors {
 	termsChecked?: string;
@@ -196,18 +188,11 @@ const CreateTeamSummary = ({
 								<span className="capitalize">{formData.playerName}</span>
 							</p>
 							<div className="mb-3 flex items-center gap-1">
-								<LocationIcon />
+								<IoLocationOutline className="size-3 text-[#82878d]" />
 								<p className="text-xl">{division.location}</p>
 							</div>
-							{/* <div className="mb-3 flex items-center gap-1">
-								<ClockIcon />
-								<p className="text-xl">
-									{convertMilitaryToRegularTime(division.startTime)} -{" "}
-									{convertMilitaryToRegularTime(division.endTime)}
-								</p>
-							</div> */}
 							<div className="mb-6 flex items-center gap-1">
-								<CalendarRegisterIcon />
+								<CiCalendar className="text-neutral-300" />
 								<p className="text-xl">{division.day}</p>
 							</div>
 							<p className="mb-10 mt-2 text-xl">{division.description}</p>

@@ -80,7 +80,6 @@ const SubmitUniqueJerseyFormDialog = ({
 };
 
 const JerseySelection = ({ team }): JSX.Element => {
-	console.log("team:", team);
 	const router = useRouter();
 	const [selectedEdition, setSelectedEdition] = useState("");
 	const [isEditionSelected, setIsEditionSelected] = useState(false);

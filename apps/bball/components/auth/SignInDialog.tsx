@@ -6,11 +6,11 @@ import { Sheet, SheetClose, SheetContent } from "@ui/components/sheet";
 import { useState, useEffect } from "react";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { redirect, useRouter } from "next/navigation";
-import LeftChevronIcon from "../icons/LeftChevronIcon";
-import EmailIcon from "../general/icons/EmailIcon";
-import GoogleIcon from "../general/icons/GoogleIcon";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { MdOutlineMailOutline } from "react-icons/md";
+import { FcGoogle } from "react-icons/fc";
+import { IoChevronBackOutline } from "react-icons/io5";
 import {
 	Dialog,
 	DialogClose,
@@ -147,7 +147,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 								<header className="flex flex-col space-y-3 text-center sm:space-y-1.5  sm:text-left">
 									<h3 className="flex items-center justify-center gap-1 text-center text-lg font-semibold leading-none tracking-tight sm:gap-5">
 										<SheetClose>
-											<LeftChevronIcon />
+											<IoChevronBackOutline />
 										</SheetClose>
 										Log in or sign up in seconds
 									</h3>
@@ -163,11 +163,11 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 								</header>
 								<div className="my-5 flex  flex-col gap-3 ">
 									<Button variant="signIn" onClick={handleGoogleSignIn}>
-										<GoogleIcon />
+										<FcGoogle />
 										Continue With Google
 									</Button>
 									<Button variant="signIn" onClick={() => setIsEmail(true)}>
-										<EmailIcon />
+										<MdOutlineMailOutline />
 										Continue With Email
 									</Button>
 								</div>
@@ -199,7 +199,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Continue with your email
 													</h3>
@@ -238,7 +238,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Log in to your account
 													</h3>
@@ -354,7 +354,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 							<DialogHeader className="text-center">
 								<DialogTitle className="flex items-center justify-center gap-1 text-center text-2xl text-neutral-300">
 									<DialogClose className="transition-all hover:opacity-80">
-										<LeftChevronIcon />
+										<IoChevronBackOutline />
 									</DialogClose>{" "}
 									Log in or sign up in seconds
 								</DialogTitle>
@@ -370,11 +370,11 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 							</DialogHeader>
 							<div className="flex flex-col  gap-3">
 								<Button variant="signIn" onClick={handleGoogleSignIn}>
-									<GoogleIcon />
+									<FcGoogle className="scale-110" />
 									Continue With Google
 								</Button>
 								<Button variant="signIn" onClick={() => setIsEmail(true)}>
-									<EmailIcon />
+									<MdOutlineMailOutline />
 									Continue With Email
 								</Button>
 							</div>
@@ -417,7 +417,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setEmail("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>
 													Continue with your email
 												</DialogTitle>
@@ -458,7 +458,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setEmail("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>{" "}
 													Log in to your account
 												</DialogTitle>
@@ -498,7 +498,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 																setEmail("");
 															}}
 														>
-															<LeftChevronIcon />
+															<IoChevronBackOutline />
 														</button>{" "}
 														Create your account
 													</DialogTitle>
@@ -533,7 +533,7 @@ const SignInDialog = ({ open, onOpenChange }): JSX.Element => {
 															setRegisterPassword("");
 														}}
 													>
-														<LeftChevronIcon />
+														<IoChevronBackOutline />
 													</button>{" "}
 													Create your password
 												</DialogTitle>

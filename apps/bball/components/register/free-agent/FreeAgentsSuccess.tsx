@@ -2,8 +2,6 @@ import { convertToEST } from "@/utils/convertToEST";
 import Link from "next/link";
 import { format } from "date-fns";
 
-import React from "react";
-
 const FreeAgentsSuccess = ({ player }) => {
 	const date = convertToEST(new Date(player?.createdAt));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");

@@ -4,17 +4,11 @@ import BackButton from "@/components/general/buttons/BackButton";
 import { Button } from "@ui/components/button";
 import { useState } from "react";
 import FreeAgentsSummary from "./FreeAgentsSummary";
-import { Input } from "@ui/components/input";
 
 const FreeAgentsPlayerType = ({ city, divisionPricePurposes }): JSX.Element => {
 	const rating = new Array(5).fill("");
 	const positions = ["Guard", "Forward", "Center"];
-	const [isWrongHeight, setIsWrongHeight] = useState(false);
 	const [heightConfirmed, setHeightConfirmed] = useState(false);
-	const [playerHeight, setPlayerHeight] = useState({
-		feet: "",
-		inches: "",
-	});
 	const [skills, setSkills] = useState({
 		shooting: null,
 		dribbling: null,

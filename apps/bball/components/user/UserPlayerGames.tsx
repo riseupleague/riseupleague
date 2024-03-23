@@ -1,4 +1,8 @@
-import React from "react";
+import Link from "next/link";
+import { convertToEST } from "@/utils/convertToEST";
+import { format } from "date-fns";
+import { Separator } from "@ui/components/separator";
+import { Button } from "@ui/components/button";
 import {
 	Table,
 	TableBody,
@@ -7,11 +11,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/ui/table";
-import Link from "next/link";
-import { convertToEST } from "@/utils/convertToEST";
-import { format } from "date-fns";
-import { Separator } from "@ui/components/separator";
-import { Button } from "@ui/components/button";
+
 const UserPlayerGames = ({ games }) => {
 	return (
 		<div>

@@ -2,8 +2,7 @@
 
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@ui/components/card";
 import { Button } from "@ui/components/button";
 import BackButton from "@/components/general/buttons/BackButton";
