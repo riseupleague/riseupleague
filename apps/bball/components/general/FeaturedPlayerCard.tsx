@@ -3,9 +3,6 @@
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
-import { Button } from "@ui/components/button";
-import { Badge } from "@ui/components/badge";
-import TeamLogo from "./icons/TeamLogo";
 import { extractInstagramUsername } from "@/utils/extractInstagram";
 import Image from "next/image";
 

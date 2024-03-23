@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./RegisterPrice.module.css"; // Import CSS module
 import Image from "next/image";
 import Link from "next/link";
