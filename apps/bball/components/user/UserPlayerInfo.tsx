@@ -24,11 +24,19 @@ import { useState } from "react";
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
 	const [playerInfo, setPlayerInfo] = useState(player);
+	const [errors, setErrors] = useState([]);
+	const [open, setOpen] = useState(false);
 
 	const customizeJersey = player.register || player.freeAgent;
 
 	const handleUpdatePlayer = async (playerData: FormData) => {
 		const result = await updatePlayer(player._id, playerData);
+
+		// invalid fields + keep sheet open
+		if (result?.status === 422) {
+			const errorsArray = Object.values(result.errors);
+			return setErrors(errorsArray);
+		}
 
 		// no player found
 		if (result?.status === 404) {
@@ -66,6 +74,9 @@ const UserPlayerInfo = ({ player }) => {
 				shortSize: playerData.get("shortSize") as string,
 			});
 		}
+
+		setErrors([]);
+		setOpen(false);
 	};
 
 	return (
@@ -73,9 +84,11 @@ const UserPlayerInfo = ({ player }) => {
 			<div className="order-last sm:order-first">
 				<UserPlayerSeasonInfo player={playerInfo} />
 
-				<Sheet>
+				<Sheet open={open} onOpenChange={setOpen}>
 					<SheetTrigger asChild>
-						<Button className="my-4 w-full">Edit Player</Button>
+						<Button className="my-4 w-full" onClick={() => setOpen(!open)}>
+							Edit Player
+						</Button>
 					</SheetTrigger>
 					<SheetContent side="right" className="w-full bg-neutral-900">
 						<form action={handleUpdatePlayer}>
@@ -96,6 +109,7 @@ const UserPlayerInfo = ({ player }) => {
 											Player Name
 										</Label>
 										<Input
+											type="text"
 											name="playerName"
 											id="playerName"
 											defaultValue={playerInfo?.playerName}
@@ -107,6 +121,7 @@ const UserPlayerInfo = ({ player }) => {
 											Instagram
 										</Label>
 										<Input
+											type="text"
 											name="instagram"
 											id="instagram"
 											defaultValue={playerInfo?.instagram}
@@ -121,6 +136,7 @@ const UserPlayerInfo = ({ player }) => {
 													Custom Jersey Name
 												</Label>
 												<Input
+													type="text"
 													name="jerseyName"
 													id="jerseyName"
 													defaultValue={playerInfo?.jerseyName}
@@ -133,9 +149,11 @@ const UserPlayerInfo = ({ player }) => {
 													Jersey Number
 												</Label>
 												<Input
+													type="number"
 													name="jerseyNumber"
 													id="jerseyNumber"
 													defaultValue={playerInfo?.jerseyNumber}
+													min="0"
 													className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
 												/>
 											</div>
@@ -185,6 +203,16 @@ const UserPlayerInfo = ({ player }) => {
 								<SubmitButton />
 							</SheetFooter>
 						</form>
+
+						{errors.length > 0 && (
+							<div className="my-4">
+								{errors.map((error) => (
+									<p key={error} className="text-primary text-base">
+										{error}
+									</p>
+								))}
+							</div>
+						)}
 					</SheetContent>
 				</Sheet>
 			</div>
@@ -198,11 +226,11 @@ const SubmitButton = () => {
 	const { pending } = useFormStatus();
 
 	return (
-		<SheetClose asChild>
-			<Button type="submit" disabled={pending}>
-				{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
-			</Button>
-		</SheetClose>
+		// <SheetClose asChild>
+		<Button type="submit" disabled={pending} className="w-full">
+			{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
+		</Button>
+		// </SheetClose>
 	);
 };
 

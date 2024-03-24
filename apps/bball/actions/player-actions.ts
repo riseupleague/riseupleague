@@ -2,6 +2,7 @@
 
 import Player from "@/api-helpers/models/Player";
 import { revalidatePath } from "next/cache";
+import { updatePlayerSchema } from "@/validation/player-validations";
 
 /**
  * Update player information in the database.
@@ -20,6 +21,18 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
 			jerseySize: playerData.get("jerseySize"),
 			shortSize: playerData.get("shortSize"),
 		};
+
+		const validatedFields = updatePlayerSchema.safeParse(rawPlayerData);
+
+		if (validatedFields.success === false) {
+			const errors = validatedFields.error.flatten().fieldErrors;
+
+			return {
+				status: 422,
+				message: "Invalid data.",
+				errors: errors,
+			};
+		}
 
 		const playerExists = await Player.findById(playerId);
 		if (!playerExists) return { status: 404, message: "Player not found." };
