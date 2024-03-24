@@ -4,8 +4,7 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
-import { convertToEST } from "@/utils/convertToEST";
-import { format } from "date-fns";
+
 import { Separator } from "@ui/components/separator";
 import FilterByCity from "../filters/FilterByCity";
 
@@ -47,10 +46,7 @@ const NewSchedule = ({
 		year: "numeric" as const,
 	}; // Specify month, day, and year as string literals
 	const formattedDate = currentDate.toLocaleDateString("en-US", options);
-	console.log("cities:", cities);
-	console.log("divisionsToShow:", divisionsToShow);
 
-	console.log("gamesByDate:", gamesByDate);
 	return (
 		<section>
 			<div className="flex flex-col gap-4 md:flex-row">

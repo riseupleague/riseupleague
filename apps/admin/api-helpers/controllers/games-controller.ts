@@ -99,7 +99,7 @@ export const getGamesByDate = async (selectedDate) => {
 		})
 			.populate({
 				path: "division",
-				select: "divisionName",
+				select: "divisionName city",
 			})
 			.populate({
 				path: "homeTeam",
@@ -197,7 +197,17 @@ export const getGameById = async (id) => {
 					},
 				],
 			})
-			.populate("division", "divisionName")
+			.populate({
+				path: "division",
+				select: "divisionName teams",
+				populate: [
+					{
+						path: "teams",
+						select: "teamName",
+					},
+				],
+			})
+			.populate("playerOfTheGame", "playerName")
 			.populate("season", "seasonName");
 
 		if (!game) {

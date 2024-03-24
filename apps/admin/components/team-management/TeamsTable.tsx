@@ -47,7 +47,14 @@ const TeamsTable = ({ teams }) => {
 										href={`/team-management/team/${team?._id}`}
 										className="transition-all hover:text-neutral-300 hover:underline"
 									>
-										{team?.teamName}
+										{team?.teamName}{" "}
+										{team?.paid ? (
+											<span className="text-sm uppercase text-green-500">
+												- Paid full
+											</span>
+										) : (
+											""
+										)}
 									</Link>
 								</TableCell>
 								<TableCell className="text-center text-base md:text-lg">
@@ -55,7 +62,12 @@ const TeamsTable = ({ teams }) => {
 								</TableCell>
 								<TableCell className="text-left text-base md:text-lg">
 									{teamCaptain ? (
-										teamCaptain.playerName
+										<Link
+											className="hover:underline"
+											href={`/team-management/player/${teamCaptain._id}`}
+										>
+											{teamCaptain.playerName}
+										</Link>
 									) : (
 										<span className="text-red-500">No Team Captain</span>
 									)}

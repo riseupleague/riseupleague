@@ -5,6 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
+import { isLiveGame } from "@/utils/isLiveGame";
 
 export default async function Summary({
 	params,
@@ -117,10 +118,3 @@ export const metadata: Metadata = {
 // 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 // 	};
 // }
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
-};

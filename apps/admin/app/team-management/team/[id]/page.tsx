@@ -32,14 +32,7 @@ export default async function DivisionPage({
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<h2 className="my-10 flex justify-between">
-				Players{" "}
-				{/* {!isTeamCaptain && (
-					<Button variant="secondary" size="sm">
-						Add a captain
-					</Button>
-				)} */}
-			</h2>
+			<h2 className="my-10 flex justify-between">Players </h2>
 			<TeamPlayersTable teamPlayers={team?.players} />
 			<div className="my-10">
 				<AddNewPlayer

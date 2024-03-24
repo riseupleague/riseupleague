@@ -55,39 +55,6 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 		}
 	};
 
-	// const handleDeleteTeam = async () => {
-	// 	const result = await deleteTeam(team._id);
-
-	// 	// successfully updated season
-	// 	if (result?.status === 200) {
-	// 		toast({
-	// 			variant: "success",
-	// 			title: "Success!",
-	// 			description: result.message,
-	// 		});
-
-	// 		router.push("/team-management");
-	// 	}
-
-	// 	// no season found
-	// 	if (result?.status === 404) {
-	// 		toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-
-	// 	// internal server error
-	// 	if (result?.status === 500) {
-	// 		toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-	// };
-
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

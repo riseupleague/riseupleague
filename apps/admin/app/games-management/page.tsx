@@ -1,32 +1,87 @@
+import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import GamesListByDate from "@/components/game-management/GamesListByDate";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
 const GamesManagement = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
-	const resSeasons = await getAllSeasons();
-	const { seasons } = await resSeasons.json();
 
+	// Get the current date and time
+	const currentDate = new Date();
+
+	// Convert the current date to a Unix timestamp (in milliseconds)
+	const unixTimestamp = currentDate.getTime();
+
+	// Convert the Unix timestamp to seconds
+	const currentDateInSeconds = Math.floor(unixTimestamp / 1000);
+	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
+	const { gamesByDate } = await resAllUpcomingGames.json();
+	let divisionNamesAndCities = [];
+	let cities = [];
+
+	if (gamesByDate) {
+		const divisionNamesAndCitiesArrays = gamesByDate[0]?.games.reduce(
+			(result, game) => {
+				// Extract division names (unique)
+
+				console.log(game.division);
+				if (
+					!result.divisionNamesAndCities.find(
+						(item) => item._id === game.division._id
+					)
+				) {
+					result.divisionNamesAndCities.push({
+						_id: game.division._id,
+						divisionName: game.division.divisionName,
+						city: game.division.city,
+					});
+				}
+
+				// Extract cities (unique)
+				if (!result.cities.includes(game.division.city)) {
+					result.cities.push(game.division.city);
+				}
+
+				return result;
+			},
+			{ divisionNamesAndCities: [], cities: [] }
+		);
+		divisionNamesAndCities =
+			divisionNamesAndCitiesArrays?.divisionNamesAndCities || [];
+		cities = divisionNamesAndCitiesArrays?.cities || [];
+	}
+	revalidatePath("/game-management", "page");
 	return (
-		<section>
-			<h1>games management page</h1>
+		<main>
+			{/* new h1 with bg image */}
+			<div className="mb-4 bg-[url('/images/register/createTeam.jpg')] bg-cover bg-center bg-no-repeat md:mb-8 lg:mb-12">
+				<div className="to-trasparent bg-gradient-to-r from-black">
+					<div className="container mx-auto py-8 sm:py-16 lg:py-36">
+						<h1 className="font-abolition m-0 mb-4 text-left">
+							Games Management
+						</h1>
 
-			<div>
-				<Separator className="my-4 border-b border-neutral-400" />
-				<div className="flex flex-col gap-2">
-					{seasons?.map((season, index) => (
-						<Button key={index} variant="secondary" className="p-4" asChild>
-							<Link href={`games-management/${season._id}`}>
-								<h4>{season.seasonName}</h4>
-							</Link>
-						</Button>
-					))}
+						{/* <Breadcrumb /> */}
+					</div>
 				</div>
 			</div>
-		</section>
+
+			<div className="font-barlow container mx-auto min-h-fit">
+				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
+
+				<GamesListByDate
+					gamesByDate={gamesByDate}
+					divisions={divisionNamesAndCities}
+					cities={cities}
+					dateInSeconds={currentDateInSeconds}
+				/>
+			</div>
+		</main>
 	);
 };
 

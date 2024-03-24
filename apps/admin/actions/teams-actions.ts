@@ -1,6 +1,7 @@
 "use server";
 
 import Division from "@/api-helpers/models/Division";
+import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import { revalidatePath } from "next/cache";
 
@@ -61,6 +62,23 @@ export async function updateTeam(teamId: string, teamData: FormData) {
 			pointDifference: teamData.get("pointDifference"),
 			paid: teamData.get("paid") ? true : false,
 		};
+
+		const teamCaptain = teamData.get("teamCaptain");
+		if (teamCaptain !== "") {
+			await Player.updateMany(
+				{
+					team: teamId, // Filter players by the team ID
+				},
+				{
+					$set: { teamCaptain: false }, // Set teamCaptain to false for all other players in the team
+				}
+			);
+			const player = await Player.findByIdAndUpdate(teamCaptain, {
+				teamCaptain: true,
+			});
+
+			if (!player) return { status: 500, message: "No Player Found." };
+		}
 
 		const team = await Team.findByIdAndUpdate(teamId, rawTeamData);
 		if (!team) return { status: 500, message: "Internal server error." };

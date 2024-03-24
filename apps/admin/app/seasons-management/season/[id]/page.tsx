@@ -85,7 +85,7 @@ export default async function SeasonPage({
 													asChild
 												>
 													<Link
-														href={`/team-management/division/${division._id}`}
+														href={`/seasons-management/division/${division._id}`}
 													>
 														{division.divisionName}&nbsp;
 														<span

@@ -12,7 +12,7 @@ const SeasonManagement = ({ seasons, currentSeason }) => {
 		const season = seasons.find((season) => season._id === e);
 		setSeason(season);
 
-		redirect(`/seasons-management/${season._id}`);
+		redirect(`/seasons-management/season/${season._id}`);
 	};
 
 	return (

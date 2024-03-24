@@ -18,7 +18,6 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 	const differenceInSeconds = currentDateInSeconds - gameDateInSeconds;
 
 	const differenceInHours = differenceInSeconds / 3600;
-	console.log(differenceInHours); // Output the difference in hours
 	const gameIsLive =
 		differenceInHours > 0 && differenceInHours < 1 && game.status;
 	return (

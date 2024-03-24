@@ -31,14 +31,14 @@ export const getAllDivisionsWithId = async (seasonId: string) => {
 			.populate({
 				path: "teams",
 				select:
-					"teamName teamNameShort players primaryColor secondaryColor tertiaryColor",
+					"teamName teamNameShort players primaryColor secondaryColor tertiaryColor paid",
 				populate: {
 					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
 					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
 				},
 			})
 			.select(
-				"divisionName season teams location city day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+				"divisionName season teams location city day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen games"
 			);
 
 		if (!divisions) {
@@ -192,12 +192,57 @@ export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
 export const getDivisionFromIdWithTeams = async (id: string) => {
 	try {
 		const division = await Division.findOne({ _id: id })
-			.populate(
-				"teams",
-				"teamName _id wins losses pointDifference teamBanner players"
-			)
+			.populate({
+				path: "teams",
+				select: "teamName _id players",
+				populate: {
+					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
+					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
+				},
+			})
 			.select(
 				"divisionName season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+			);
+
+		if (!division) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+
+		return NextResponse.json({ division }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json({ message: error.message }, { status: 500 });
+	}
+};
+
+export const getDivisionFromIdWithGames = async (id: string) => {
+	try {
+		const division = await Division.findOne({ _id: id })
+			.populate({
+				path: "games",
+				populate: [
+					{
+						path: "division", // assuming 'players' is the field in the 'teams' model referencing another model
+						select: "divisionName city", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "homeTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "awayTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+				],
+				select: "division homeTeam awayTeam date location",
+			})
+
+			.select(
+				"divisionName games season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 			);
 
 		if (!division) {
