@@ -29,7 +29,7 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
 
 			return {
 				status: 422,
-				message: "Invalid data.",
+				message: "Invalid fields provided. Please see errors below.",
 				errors: errors,
 			};
 		}

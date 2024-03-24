@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { updatePlayer } from "@/actions/player-actions";
 import { Loader2 } from "lucide-react";
 import { Label } from "@ui/components/label";
@@ -11,7 +12,6 @@ import UserPlayerSeasonInfo from "./UserPlayerSeasonInfo";
 import { useFormStatus } from "react-dom";
 import {
 	Sheet,
-	SheetClose,
 	SheetContent,
 	SheetDescription,
 	SheetFooter,
@@ -19,7 +19,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-import { useState } from "react";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
@@ -34,6 +33,12 @@ const UserPlayerInfo = ({ player }) => {
 
 		// invalid fields + keep sheet open
 		if (result?.status === 422) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+
 			const errorsArray = Object.values(result.errors);
 			return setErrors(errorsArray);
 		}
