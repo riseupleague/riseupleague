@@ -34,6 +34,7 @@ This repository is a [Turborepo monorepo](https://turbo.build/repo/docs) that co
 │   ├── tailwind-config (all tailwind configs in /apps extend this config)
 │   └── tsconfig (all tsconfigs in /apps extend this config)
 │   └── ui (riseupleague UI library; shadcn-ui components)
+│   └── utils (utility functions to be used across projects)
 └── ... (config files)
 ```
 
