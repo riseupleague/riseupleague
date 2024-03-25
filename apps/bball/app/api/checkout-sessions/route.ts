@@ -45,8 +45,8 @@ export async function POST(req: Request) {
 				mode: "subscription",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success/${parsedFormObject.division}`,
-				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
+				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
 				automatic_tax: {
 					enabled: true,
 				},
