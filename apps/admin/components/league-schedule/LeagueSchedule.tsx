@@ -36,7 +36,6 @@ const LeagueSchedule = ({ seasons, currentSeason, divisions }) => {
 		<section>
 			<div className="flex flex-col">
 				<div className="mb-5 mt-10 w-full space-y-2">
-					<Label>Filter By Season:</Label>
 					<FilterBySeason
 						currentSeason={season}
 						seasons={seasons}

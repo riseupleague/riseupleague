@@ -7,6 +7,10 @@ import Game from "@/api-helpers/models/Game";
 const Schema = mongoose.Schema;
 
 const playerSchema = new Schema({
+	createdAt: { type: Date, default: Date.now }, // Added field to track creation date
+	freeAgent: {
+		type: Boolean,
+	},
 	customerId: {
 		type: String,
 	},
