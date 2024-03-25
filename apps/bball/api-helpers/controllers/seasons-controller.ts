@@ -1,8 +1,11 @@
 import Season from "@/api-helpers/models/Season";
-import Team from "@/api-helpers/models/Team";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
+/**
+ * Retrieves all seasons from the database.
+ *
+ * @return {Promise} An array of all seasons
+ */
 export const getAllSeasons = async () => {
 	try {
 		const seasons = await Season.find();
@@ -16,6 +19,12 @@ export const getAllSeasons = async () => {
 	}
 };
 
+/**
+ * Retrieves a season by the provided ID.
+ *
+ * @param {string} id - The ID of the season to retrieve.
+ * @return {NextResponse} The JSON response containing the retrieved season.
+ */
 export const getSeasonById = async (id: string) => {
 	try {
 		const season = await Season.findOne({ _id: id });

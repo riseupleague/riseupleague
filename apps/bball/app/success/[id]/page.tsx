@@ -41,7 +41,6 @@ export default async function Success({
 			);
 		});
 
-		console.log("selectedPlayer:", selectedPlayer);
 		if (selectedPlayer?.teamCaptain) {
 			return <CreateTeamSuccess player={selectedPlayer} />;
 		} else {
@@ -49,8 +48,7 @@ export default async function Success({
 		}
 	} else {
 		const resPlayer = await getUserPlayerPayment(session.user.email);
-		const { players, season } = await resPlayer.json();
-		console.log("players:", players);
+		const { players } = await resPlayer.json();
 		const freeAgentPlayer = players.find((player) => player.freeAgent === true);
 		return <FreeAgentsSuccess player={freeAgentPlayer} />;
 	}

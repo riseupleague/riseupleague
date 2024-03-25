@@ -1,9 +1,9 @@
 import Link from "next/link";
-import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
+import { IoLocationOutline } from "react-icons/io5";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
@@ -91,7 +91,7 @@ const ScheduleCard = ({ game }): JSX.Element => {
 				</div>
 				<div className="font-barlow mb-3 flex items-center justify-center gap-1 text-lg">
 					<div className="translate-y-[1px]">
-						<LocationMarker />
+						<IoLocationOutline className="size-3 text-[#82878d]" />
 					</div>
 					<p className="text-sm text-neutral-400">{game.location}</p>
 				</div>

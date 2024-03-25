@@ -1,10 +1,9 @@
 import Link from "next/link";
-import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
-import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Badge } from "@ui/components/badge";
+import { IoLocationOutline } from "react-icons/io5";
 
 const NewScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
@@ -90,7 +89,7 @@ const NewScheduleCard = ({ game }): JSX.Element => {
 					)}
 					<div className="flex items-center gap-1">
 						<span className="hidden xl:block">
-							<LocationMarker />
+							<IoLocationOutline className="size-3 text-[#82878d]" />
 						</span>
 						<p className="font-barlow text-center text-xs uppercase text-[#82878d] md:text-sm">
 							{game.location}

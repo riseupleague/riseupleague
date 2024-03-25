@@ -5,9 +5,9 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
+import { isLiveGame } from "@/utils/isLiveGame";
 import { redirect } from "next/navigation";
 import { extractYoutubeLink } from "@/utils/extractYoutubeLink";
-
 export default async function Summary({
 	params,
 }: {
@@ -17,6 +17,8 @@ export default async function Summary({
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
@@ -29,7 +31,6 @@ export default async function Summary({
 		day: "2-digit",
 	});
 	const time = format(date, "h:mm a");
-
 	const liveGame = isLiveGame(date);
 
 	return (
@@ -133,10 +134,3 @@ export const metadata: Metadata = {
 // 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 // 	};
 // }
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
-};

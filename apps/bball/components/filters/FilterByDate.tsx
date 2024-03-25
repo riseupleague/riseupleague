@@ -25,7 +25,6 @@ const FilterByDate = ({ dateInSeconds }): JSX.Element => {
 			// Convert the Unix timestamp to seconds
 			const seconds = unixTimestamp / 1000;
 
-			console.log(seconds); // Output: 1841508800
 			redirect(`/schedule/${seconds}`);
 		}
 	}, [date]);

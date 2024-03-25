@@ -1,6 +1,10 @@
 {
 	"name": "bball",
+<<<<<<< HEAD
 	"version": "bball@1.3.4",
+=======
+	"version": "bball@1.3.5",
+>>>>>>> 5eb88e3 (commiting to new-branch)
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
