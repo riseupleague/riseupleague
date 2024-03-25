@@ -9,11 +9,8 @@ import Link from "next/link";
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
-<<<<<<< HEAD
-=======
 import { Card, CardDescription, CardHeader } from "@ui/components/card";
 import { useToast } from "@ui/components/use-toast";
->>>>>>> 5eb88e3 (commiting to new-branch)
 import {
 	Sheet,
 	SheetClose,
@@ -24,11 +21,6 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-<<<<<<< HEAD
-import { Card, CardDescription, CardHeader } from "@ui/components/card";
-import { useToast } from "@ui/components/use-toast";
-=======
->>>>>>> 5eb88e3 (commiting to new-branch)
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
