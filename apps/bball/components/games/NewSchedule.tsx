@@ -6,7 +6,6 @@ import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
 import { Separator } from "@ui/components/separator";
 import FilterByCity from "../filters/FilterByCity";
-
 const NewSchedule = ({
 	gamesByDate,
 	divisions,
@@ -56,7 +55,6 @@ const NewSchedule = ({
 						placeholder={"All Cities"}
 					/>
 				)}
-
 				{divisionsToShow?.length > 1 && (
 					<FilterByDivision
 						handleDivisionChange={handleDivisionChange}
@@ -81,7 +79,6 @@ const NewSchedule = ({
 								<div key={index}>
 									<h3 className="text-2xl">{date.date}</h3>
 									<Separator className="border-b border-neutral-600" />
-
 									<div className="grid grid-cols-1 gap-3 py-7">
 										{date.games?.map((game, index) => (
 											<NewScheduleCard game={game} key={index} />

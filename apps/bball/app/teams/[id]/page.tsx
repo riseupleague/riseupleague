@@ -115,7 +115,7 @@ export default async function Teams({
 			<div className="mb-8 flex flex-col items-center text-center md:mt-16">
 				<h1 className="text-4xl lg:text-[61px]">{team?.teamName}</h1>
 				<h6 className="rounded bg-neutral-500 px-2 py-1 uppercase">
-					{team.division?.divisionName}
+					{team?.division?.divisionName}
 				</h6>
 			</div>
 			<TeamSections
