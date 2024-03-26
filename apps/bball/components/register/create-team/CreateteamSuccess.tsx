@@ -25,9 +25,9 @@ const CreateTeamSuccess = ({ player }) => {
 	const startTimeAMPM = convertToAMPM(team?.division?.startTime);
 	const endTimeAMPM = convertToAMPM(team?.division?.endTime);
 
-	const date = convertToEST(new Date(team?.createdAt));
-	const dateFormatted = format(date, "ccc MMM do, uuuu");
-	const time = format(date, "h:mm a");
+	// const date = convertToEST(new Date(team?.createdAt));
+	// const dateFormatted = format(date, "ccc MMM do, uuuu");
+	// const time = format(date, "h:mm a");
 	return (
 		<div className="container mx-auto my-20">
 			<div className="flex flex-col gap-10 md:flex-row">
@@ -44,7 +44,7 @@ const CreateTeamSuccess = ({ player }) => {
 					</p>
 					<div className="my-4">
 						<h3 className="text-primary text-3xl normal-case">
-							Team Code: {team.teamCode}
+							Team Code: {team?.teamCode}
 						</h3>
 						<p>Save this code and share it with your teammates</p>
 					</div>
@@ -68,10 +68,10 @@ const CreateTeamSuccess = ({ player }) => {
 				<div className="w-full border border-neutral-600 p-5 md:w-1/2">
 					<h3 className="text-center text-4xl uppercase">Season Details</h3>{" "}
 					<ul className="my-5 rounded  p-3 uppercase text-white">
-						<li className="my-4 flex justify-between text-lg md:text-2xl">
+						{/* <li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Date Registered:</span>{" "}
 							<span className="text-right"> {dateFormatted}</span>
-						</li>
+						</li> */}
 						<li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Type of Portal:</span>{" "}
 							<span className="text-right">Create a Team</span>
@@ -88,16 +88,16 @@ const CreateTeamSuccess = ({ player }) => {
 						</li>
 						<li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Division:</span>{" "}
-							<span className="text-right">{team.division?.divisionName}</span>
+							<span className="text-right">{team?.division?.divisionName}</span>
 						</li>
 						<li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Team:</span>{" "}
-							<span className="text-right">{team.teamName}</span>
+							<span className="text-right">{team?.teamName}</span>
 						</li>
 
 						<li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Location:</span>
-							<span>{team.division?.location}</span>
+							<span>{team?.division?.location}</span>
 						</li>
 						<li className="my-4 flex justify-between text-lg md:text-2xl">
 							<span>Game Days:</span>{" "}
