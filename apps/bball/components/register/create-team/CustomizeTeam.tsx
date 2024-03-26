@@ -43,6 +43,12 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 
 	const validateForm = (): FormErrors => {
 		const errors: FormErrors = {};
+		const teamExistInDivision = division.teams.find((team) => {
+			return team.teamName === formData.teamName;
+		});
+		if (teamExistInDivision) {
+			errors.teamName = "Team name already exists";
+		}
 
 		if (!formData.teamName) {
 			errors.teamName = "Team name is required";

@@ -15,6 +15,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Hero from "@/components/home/Hero";
+import PopUpRegister from "@/components/home/PopUpRegister";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -41,6 +42,7 @@ const Page = async (): Promise<JSX.Element> => {
 			<HomeSocials />
 			<HomeFaq />
 			<HomeContactUs />
+			{/* <PopUpRegister /> */}
 		</div>
 	);
 };

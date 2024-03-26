@@ -188,17 +188,17 @@ const CreateTeamDetails = ({
 
 				{/* Error messages */}
 				{formErrors.teamName && (
-					<p className="text-primary text-sm">{formErrors.teamName}</p>
+					<p className="text-primary text-md">{formErrors.teamName}</p>
 				)}
 
 				{formErrors.teamNameShort && (
-					<p className="text-primary text-sm">{formErrors.teamNameShort}</p>
+					<p className="text-primary text-md">{formErrors.teamNameShort}</p>
 				)}
 				{formErrors.teamCode && (
-					<p className="text-primary text-sm">{formErrors.teamCode}</p>
+					<p className="text-primary text-md">{formErrors.teamCode}</p>
 				)}
 				{formErrors.phoneNumber && (
-					<p className="text-primary text-sm">{formErrors.phoneNumber}</p>
+					<p className="text-primary text-md">{formErrors.phoneNumber}</p>
 				)}
 				<div className="mt-10 flex justify-end">
 					<Button type="submit">Continue</Button>

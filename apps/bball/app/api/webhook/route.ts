@@ -8,7 +8,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { google } from "googleapis";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 export async function POST(req: Request) {
 	await connectToDatabase();
 
@@ -43,93 +42,106 @@ export async function POST(req: Request) {
 		console.log(`💰  Payment received!`);
 
 		if (metadata.status === "freeAgent") {
-			const updatedUser = await User.findOne({ email: metadata.email });
+			const updatedUser = await User.findOne({
+				email: metadata.email,
+			}).populate({
+				path: "basketball",
+				select: "playerName season freeAgent",
+			});
 
-			// Register player
-			let registeredPlayer;
-			if (metadata.payment === "four") {
-				registeredPlayer = new Player({
-					freeAgent: metadata.freeAgent,
-					customerId: session.customer,
-					season: metadata.season,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					user: updatedUser._id,
-					averageStats: {
-						points: 0,
-						rebounds: 0,
-						assists: 0,
-						blocks: 0,
-						steals: 0,
-						threesMade: 0,
-						twosMade: 0,
-						freeThrowsMade: 0,
-					},
-				});
-			} else {
-				registeredPlayer = new Player({
-					freeAgent: metadata.freeAgent,
-					season: metadata.season,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					jerseyName: metadata.jerseyName,
-					user: updatedUser._id,
-					averageStats: {
-						points: 0,
-						rebounds: 0,
-						assists: 0,
-						blocks: 0,
-						steals: 0,
-						threesMade: 0,
-						twosMade: 0,
-						freeThrowsMade: 0,
-					},
-				});
-			}
+			const freeAgentExist = updatedUser.basketball.find((player) => {
+				if (player.season.toString() === metadata.season) {
+					return player.freeAgent;
+				}
+			});
+			console.log("freeAgentExist:", freeAgentExist);
+			if (!freeAgentExist) {
+				let registeredPlayer;
+				if (metadata.payment === "four") {
+					registeredPlayer = new Player({
+						freeAgent: metadata.freeAgent,
+						customerId: session.customer,
+						season: metadata.season,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				} else {
+					registeredPlayer = new Player({
+						freeAgent: metadata.freeAgent,
+						season: metadata.season,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						jerseyName: metadata.jerseyName,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				}
 
-			await registeredPlayer.save();
-			console.log("Registered player:", registeredPlayer);
-			// Handle the rest of the code based on the existingPlayer
-			updatedUser.basketball = updatedUser.basketball.concat(
-				registeredPlayer._id
-			);
+				await registeredPlayer.save();
+				console.log("Registered player:", registeredPlayer);
+				// Handle the rest of the code based on the existingPlayer
+				updatedUser.basketball = updatedUser.basketball.concat(
+					registeredPlayer._id
+				);
 
-			await updatedUser.save();
+				await updatedUser.save();
 
-			if (metadata.payment === "four") {
-				let schedule = await stripe.subscriptionSchedules.create({
-					from_subscription: session.subscription as string,
-				});
+				if (metadata.payment === "four") {
+					let schedule = await stripe.subscriptionSchedules.create({
+						from_subscription: session.subscription as string,
+					});
 
-				const phases = schedule.phases.map((phase) => ({
-					start_date: phase.start_date,
-					end_date: phase.end_date,
-					items: phase.items,
-				}));
+					const phases = schedule.phases.map((phase) => ({
+						start_date: phase.start_date,
+						end_date: phase.end_date,
+						items: phase.items,
+					}));
 
-				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
-					...phases.map((phase) => ({
-						...phase,
-						items: phase.items.map((item) => ({
-							price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
-							quantity: 1,
-						})),
-					})),
-					{
-						items: [
+					const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+						[
+							...phases.map((phase) => ({
+								...phase,
+								items: phase.items.map((item) => ({
+									price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
+									quantity: 1,
+								})),
+							})),
 							{
-								price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
-								quantity: 1,
-							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
-						],
-						iterations: 5,
-					},
-				];
+								items: [
+									{
+										price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
+										quantity: 1,
+									} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+								],
+								iterations: 5,
+							},
+						];
 
-				schedule = await stripe.subscriptionSchedules.update(schedule.id, {
-					end_behavior: "cancel",
-					phases: updatedPhases,
-				});
+					schedule = await stripe.subscriptionSchedules.update(schedule.id, {
+						end_behavior: "cancel",
+						phases: updatedPhases,
+					});
+				}
 			}
 		}
 
@@ -138,52 +150,29 @@ export async function POST(req: Request) {
 			const selectedDivision = await Division.findById(metadata.division);
 			console.log(updatedUser);
 			// Update team
-
-			const newTeam = new Team({
-				teamName: metadata.teamName,
-				teamNameShort: metadata.teamNameShort,
-				teamCode: metadata.teamCode,
-				paid: metadata.paid === true ? true : false,
-				wins: 0,
-				losses: 0,
-				pointDifference: 0,
-				averageStats: {
-					points: 0,
-					rebounds: 0,
-					assists: 0,
-					blocks: 0,
-					steals: 0,
-					threesMade: 0,
-					twosMade: 0,
-					freeThrowsMade: 0,
-				},
-				division: selectedDivision._id.toString(),
-				season: selectedDivision.season.toString(),
+			const divisionToJoin = await Division.findOne({
+				_id: selectedDivision._id.toString(),
+			}).populate({
+				path: "teams",
+				select: "teamName",
 			});
+			console.log("divisionToJoin:", divisionToJoin);
 
-			// Save the new player to the database
-			const savedTeam = await newTeam.save();
-			console.log("Registered team:", savedTeam);
+			const teamExistInDivision = divisionToJoin.teams.find((team) => {
+				console.log(team.teamName, metadata.teamName);
+				return team.teamName === metadata.teamName;
+			});
+			console.log("teamExistInDivision:", teamExistInDivision);
 
-			selectedDivision.teams = selectedDivision.teams.concat(savedTeam._id);
-			await selectedDivision.save();
-
-			// Register player
-			let registeredPlayer;
-			if (metadata.payment === "four") {
-				registeredPlayer = new Player({
-					customerId: session.customer,
-					season: selectedDivision.season.toString(),
-					division: selectedDivision._id.toString(),
-					team: savedTeam._id,
-					teamCaptain: true,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					// jerseyNumber: metadata.jerseyNumber,
-					// jerseyName: metadata.jerseyName,
-					// jerseySize: metadata.jerseySize,
-					// shortSize: metadata.shortSize,
-					user: updatedUser._id,
+			if (!teamExistInDivision) {
+				const newTeam = new Team({
+					teamName: metadata.teamName,
+					teamNameShort: metadata.teamNameShort,
+					teamCode: metadata.teamCode,
+					paid: metadata.paid === true ? true : false,
+					wins: 0,
+					losses: 0,
+					pointDifference: 0,
 					averageStats: {
 						points: 0,
 						rebounds: 0,
@@ -194,87 +183,115 @@ export async function POST(req: Request) {
 						twosMade: 0,
 						freeThrowsMade: 0,
 					},
-				});
-			} else {
-				registeredPlayer = new Player({
-					season: selectedDivision.season.toString(),
 					division: selectedDivision._id.toString(),
-					team: savedTeam._id,
-					teamCaptain: true,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					// jerseyNumber: metadata.jerseyNumber,
-					// jerseyName: metadata.jerseyName,
-					// jerseySize: metadata.jerseySize,
-					// shortSize: metadata.shortSize,
-					user: updatedUser._id,
-					averageStats: {
-						points: 0,
-						rebounds: 0,
-						assists: 0,
-						blocks: 0,
-						steals: 0,
-						threesMade: 0,
-						twosMade: 0,
-						freeThrowsMade: 0,
-					},
+					season: selectedDivision.season.toString(),
 				});
-			}
+				// Save the new player to the database
+				const savedTeam = await newTeam.save();
+				console.log("Registered team:", savedTeam);
 
-			await registeredPlayer.save();
-			console.log("Registered player:", registeredPlayer);
+				selectedDivision.teams = selectedDivision.teams.concat(savedTeam._id);
+				await selectedDivision.save();
+				// Register player
+				let registeredPlayer;
+				if (metadata.payment === "four") {
+					registeredPlayer = new Player({
+						customerId: session.customer,
+						season: selectedDivision.season.toString(),
+						division: selectedDivision._id.toString(),
+						team: savedTeam._id,
+						teamCaptain: true,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				} else {
+					registeredPlayer = new Player({
+						season: selectedDivision.season.toString(),
+						division: selectedDivision._id.toString(),
+						team: savedTeam._id,
+						teamCaptain: true,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				}
 
-			const updatedTeam = await Team.findById(savedTeam._id);
+				await registeredPlayer.save();
+				console.log("Registered player:", registeredPlayer);
 
-			// Save the team and user information
-			updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
-			updatedUser.basketball = updatedUser.basketball.concat(
-				registeredPlayer._id
-			);
+				const updatedTeam = await Team.findById(savedTeam._id);
 
-			await updatedTeam.save();
-			await updatedUser.save();
+				// Save the team and user information
+				updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
+				updatedUser.basketball = updatedUser.basketball.concat(
+					registeredPlayer._id
+				);
 
-			if (metadata.payment === "four") {
-				let schedule = await stripe.subscriptionSchedules.create({
-					from_subscription: session.subscription as string,
-				});
+				await updatedTeam.save();
+				await updatedUser.save();
+				if (metadata.payment === "four") {
+					let schedule = await stripe.subscriptionSchedules.create({
+						from_subscription: session.subscription as string,
+					});
 
-				const phases = schedule.phases.map((phase) => ({
-					start_date: phase.start_date,
-					end_date: phase.end_date,
-					items: phase.items,
-				}));
+					const phases = schedule.phases.map((phase) => ({
+						start_date: phase.start_date,
+						end_date: phase.end_date,
+						items: phase.items,
+					}));
 
-				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
-					...phases.map((phase) => ({
-						...phase,
-						items: phase.items.map((item) => ({
-							price:
-								selectedDivision.earlyBirdOpen === true
-									? selectedDivision.earlyBirdInstalmentId
-									: selectedDivision.regularPriceInstalmentId,
-							quantity: 1,
-						})),
-					})),
-					{
-						items: [
+					const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+						[
+							...phases.map((phase) => ({
+								...phase,
+								items: phase.items.map((item) => ({
+									price:
+										selectedDivision.earlyBirdOpen === true
+											? selectedDivision.earlyBirdInstalmentId
+											: selectedDivision.regularPriceInstalmentId,
+									quantity: 1,
+								})),
+							})),
 							{
-								price:
-									selectedDivision.earlyBirdOpen === true
-										? selectedDivision.earlyBirdInstalmentId
-										: selectedDivision.regularPriceInstalmentId,
-								quantity: 1,
-							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
-						],
-						iterations: 5,
-					},
-				];
+								items: [
+									{
+										price:
+											selectedDivision.earlyBirdOpen === true
+												? selectedDivision.earlyBirdInstalmentId
+												: selectedDivision.regularPriceInstalmentId,
+										quantity: 1,
+									} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+								],
+								iterations: 5,
+							},
+						];
 
-				schedule = await stripe.subscriptionSchedules.update(schedule.id, {
-					end_behavior: "cancel",
-					phases: updatedPhases,
-				});
+					schedule = await stripe.subscriptionSchedules.update(schedule.id, {
+						end_behavior: "cancel",
+						phases: updatedPhases,
+					});
+				}
 			}
 		}
 
@@ -284,111 +301,122 @@ export async function POST(req: Request) {
 
 			// Register player
 			let registeredPlayer;
-			if (metadata.payment === "four") {
-				registeredPlayer = new Player({
-					customerId: session.customer,
-					season: selectedDivision.season.toString(),
-					division: selectedDivision._id.toString(),
-					team: metadata.team,
-					teamCaptain: false,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					// jerseyNumber: metadata.jerseyNumber,
-					// jerseyName: metadata.jerseyName,
-					// jerseySize: metadata.jerseySize,
-					// shortSize: metadata.shortSize,
-					user: updatedUser._id,
-					averageStats: {
-						points: 0,
-						rebounds: 0,
-						assists: 0,
-						blocks: 0,
-						steals: 0,
-						threesMade: 0,
-						twosMade: 0,
-						freeThrowsMade: 0,
-					},
-				});
-			} else {
-				registeredPlayer = new Player({
-					season: selectedDivision.season.toString(),
-					division: selectedDivision._id.toString(),
-					team: metadata.team,
-					teamCaptain: false,
-					playerName: metadata.playerName,
-					instagram: metadata.instagram,
-					// jerseyNumber: metadata.jerseyNumber,
-					// jerseyName: metadata.jerseyName,
-					// jerseySize: metadata.jerseySize,
-					// shortSize: metadata.shortSize,
-					user: updatedUser._id,
-					averageStats: {
-						points: 0,
-						rebounds: 0,
-						assists: 0,
-						blocks: 0,
-						steals: 0,
-						threesMade: 0,
-						twosMade: 0,
-						freeThrowsMade: 0,
-					},
-				});
-			}
 
-			await registeredPlayer.save();
-			console.log("Registered player:", registeredPlayer);
-			// Handle the rest of the code based on the existingPlayer
-			const updatedTeam = await Team.findById(metadata.team);
+			const teamToJoin = await Team.findOne({
+				_id: metadata.team,
+			}).populate({
+				path: "players",
+				select: "user",
+			});
 
-			// Save the team and user information
-			updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
-			updatedUser.basketball = updatedUser.basketball.concat(
-				registeredPlayer._id
-			);
+			console.log("teamToJoin:", teamToJoin);
 
-			await updatedTeam.save();
-			await updatedUser.save();
+			const playerExistInTeam = teamToJoin.players.find((player) => {
+				console.log(player.user.toString(), updatedUser._id.toString());
+				return player.user.toString() === updatedUser._id.toString();
+			});
+			console.log("playerExistInTeam:", playerExistInTeam);
 
-			if (metadata.payment === "four") {
-				let schedule = await stripe.subscriptionSchedules.create({
-					from_subscription: session.subscription as string,
-				});
+			if (!playerExistInTeam) {
+				if (metadata.payment === "four") {
+					registeredPlayer = new Player({
+						customerId: session.customer,
+						season: selectedDivision.season.toString(),
+						division: selectedDivision._id.toString(),
+						team: metadata.team,
+						teamCaptain: false,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				} else {
+					registeredPlayer = new Player({
+						season: selectedDivision.season.toString(),
+						division: selectedDivision._id.toString(),
+						team: metadata.team,
+						teamCaptain: false,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+				}
 
-				const phases = schedule.phases.map((phase) => ({
-					start_date: phase.start_date,
-					end_date: phase.end_date,
-					items: phase.items,
-				}));
+				await registeredPlayer.save();
+				console.log("Registered player:", registeredPlayer);
+				// Handle the rest of the code based on the existingPlayer
+				const updatedTeam = await Team.findById(metadata.team);
 
-				const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] = [
-					...phases.map((phase) => ({
-						...phase,
-						items: phase.items.map((item) => ({
-							price:
-								selectedDivision.earlyBirdOpen === true
-									? selectedDivision.earlyBirdInstalmentId
-									: selectedDivision.regularPriceInstalmentId,
-							quantity: 1,
-						})),
-					})),
-					{
-						items: [
+				// Save the team and user information
+				updatedTeam.players = updatedTeam.players.concat(registeredPlayer._id);
+				updatedUser.basketball = updatedUser.basketball.concat(
+					registeredPlayer._id
+				);
+
+				await updatedTeam.save();
+				await updatedUser.save();
+
+				if (metadata.payment === "four") {
+					let schedule = await stripe.subscriptionSchedules.create({
+						from_subscription: session.subscription as string,
+					});
+
+					const phases = schedule.phases.map((phase) => ({
+						start_date: phase.start_date,
+						end_date: phase.end_date,
+						items: phase.items,
+					}));
+
+					const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+						[
+							...phases.map((phase) => ({
+								...phase,
+								items: phase.items.map((item) => ({
+									price:
+										selectedDivision.earlyBirdOpen === true
+											? selectedDivision.earlyBirdInstalmentId
+											: selectedDivision.regularPriceInstalmentId,
+									quantity: 1,
+								})),
+							})),
 							{
-								price:
-									selectedDivision.earlyBirdOpen === true
-										? selectedDivision.earlyBirdInstalmentId
-										: selectedDivision.regularPriceInstalmentId,
-								quantity: 1,
-							} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
-						],
-						iterations: 5,
-					},
-				];
+								items: [
+									{
+										price:
+											selectedDivision.earlyBirdOpen === true
+												? selectedDivision.earlyBirdInstalmentId
+												: selectedDivision.regularPriceInstalmentId,
+										quantity: 1,
+									} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+								],
+								iterations: 5,
+							},
+						];
 
-				schedule = await stripe.subscriptionSchedules.update(schedule.id, {
-					end_behavior: "cancel",
-					phases: updatedPhases,
-				});
+					schedule = await stripe.subscriptionSchedules.update(schedule.id, {
+						end_behavior: "cancel",
+						phases: updatedPhases,
+					});
+				}
 			}
 		}
 
@@ -418,10 +446,6 @@ export async function POST(req: Request) {
 				values: [
 					[
 						metadata.teamName,
-						// metadata.jerseyName,
-						// metadata.jerseyNumber,
-						// metadata.jerseySize,
-						// metadata.shortSize,
 						metadata.playerName,
 						metadata.instagram,
 						metadata.phoneNumber,
