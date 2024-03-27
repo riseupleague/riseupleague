@@ -39,22 +39,21 @@ export default async function JoinTeam({
 		return player?.division?._id === team.division._id;
 	});
 
-	// if (isDivisionJoined) {
-	// 	redirect(`/success/${isDivisionJoined.division._id}`);
-	// }
+	if (isDivisionJoined) {
+		redirect(`/success/${isDivisionJoined.division._id}`);
+	}
 
-	// const isTeamJoined = players.find((player) => {
-	// 	return player.team?._id === params.id;
-	// });
+	const isTeamJoined = players.find((player) => {
+		return player.team?._id === params.id;
+	});
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
-			{/* 
 			{isTeamJoined && <RegistrationSuccess team={isTeamJoined} />}
-			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />} */}
+			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />}
 
 			<JoinTeamSummary team={team} session={session} />
 		</main>
