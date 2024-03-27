@@ -157,7 +157,8 @@ export const getGameById = async (id) => {
 		const game = await Game.findById(id)
 			.populate({
 				path: "homeTeam",
-				select: "teamName teamNameShort wins losses averageStats location",
+				select:
+					"teamName teamNameShort wins losses averageStats location players",
 				populate: [
 					{
 						path: "players",
@@ -178,7 +179,8 @@ export const getGameById = async (id) => {
 			})
 			.populate({
 				path: "awayTeam",
-				select: "teamName teamNameShort wins losses averageStats location",
+				select:
+					"teamName teamNameShort wins losses averageStats location players",
 				populate: [
 					{
 						path: "players",

@@ -32,7 +32,9 @@ const PlayersTable = ({ players }) => {
 					<TableHead className="text-left text-base md:text-xl">
 						Date Joined
 					</TableHead>
-					<TableHead className="text-left text-base md:text-xl">User</TableHead>
+					<TableHead className="text-left text-base md:text-xl">
+						Customer
+					</TableHead>
 				</TableRow>
 			</TableHeader>
 			<TableBody>
@@ -81,9 +83,12 @@ const PlayersTable = ({ players }) => {
 								{dateFormatted} at {time}
 							</TableCell>
 							<TableCell className="text-left text-base md:text-lg">
-								<span className="transition-all hover:text-neutral-300 hover:underline">
-									{player?.user}{" "}
-								</span>
+								<Link
+									href={`/customer-management/${player?.user?._id}`}
+									className="transition-all hover:text-neutral-300 hover:underline"
+								>
+									{player?.user?.name}{" "}
+								</Link>
 							</TableCell>
 						</TableRow>
 					);

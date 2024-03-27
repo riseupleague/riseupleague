@@ -33,6 +33,7 @@ export const getAllPlayersWithId = async (seasonId: string) => {
 		const players = await Player.find({ season: seasonId })
 			.populate("team", "teamName")
 			.populate("division", "divisionName")
+			.populate("user", "name")
 			.select("playerName instagram team division user createdAt")
 			.sort({ createdAt: -1 });
 
