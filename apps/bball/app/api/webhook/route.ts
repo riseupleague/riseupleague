@@ -159,7 +159,6 @@ export async function POST(req: Request) {
 			console.log("divisionToJoin:", divisionToJoin);
 
 			const teamExistInDivision = divisionToJoin.teams.find((team) => {
-				console.log(team.teamName, metadata.teamName);
 				return team.teamName === metadata.teamName;
 			});
 			console.log("teamExistInDivision:", teamExistInDivision);
