@@ -23,7 +23,7 @@ const FilterByDate = ({ currentDate, dates, handleDateChange }) => {
 				}}
 			>
 				<SelectGroup>
-					<SelectLabel className="text-lg">Select Division:</SelectLabel>
+					<SelectLabel className="text-lg">Select Date:</SelectLabel>
 					{dates.map((date, index) => (
 						<SelectItem className="text-lg capitalize" value={date} key={index}>
 							{date}

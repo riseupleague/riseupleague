@@ -7,6 +7,7 @@ import { convertToEST } from "@/utils/convertToEST";
 import { Badge } from "@ui/components/badge";
 
 const GameCard = ({ game }): JSX.Element => {
+	console.log(game);
 	const date = convertToEST(new Date(game.date));
 	const dateFormatted = format(date, "ccc MMM do, uuuu");
 	const time = format(date, "h:mma");

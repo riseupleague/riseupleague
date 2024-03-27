@@ -238,7 +238,8 @@ export const getDivisionFromIdWithGames = async (id: string) => {
 							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
 					},
 				],
-				select: "division homeTeam awayTeam date location",
+				select:
+					"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location",
 			})
 
 			.select(

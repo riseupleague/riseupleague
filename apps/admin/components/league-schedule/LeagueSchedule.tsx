@@ -73,8 +73,8 @@ const LeagueSchedule = ({ seasons, currentSeason, divisions }) => {
 													>
 														{division.divisionName}&nbsp;
 														<span
-															className={`${divisionColour} capitalize`}
-														>{`(${games > 0 ? "games created" : "no games"})`}</span>
+															className={`${divisionColour} text-sm capitalize`}
+														>{`${games > 0 ? "" : "(no games)"}`}</span>
 													</Link>
 												</Button>
 											);

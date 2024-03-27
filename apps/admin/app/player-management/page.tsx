@@ -9,10 +9,13 @@ export default async function Page(): Promise<JSX.Element> {
 	const resSeasons = await getAllSeasons();
 	const { seasons } = await resSeasons.json();
 
+	const registerSeason = seasons.findLast((season) => season.register === true);
 	const activeSeason = seasons.findLast((season) => season.active === true);
 
 	if (seasons.length !== 0) {
-		redirect(`/player-management/season/${activeSeason._id}`);
+		redirect(
+			`/player-management/season/${registerSeason ? registerSeason._id : activeSeason._id}`
+		);
 	}
 
 	redirect(`/player-management/season/${seasons[seasons.length - 1]._id}`);
