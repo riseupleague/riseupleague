@@ -85,7 +85,7 @@ const UserPlayerInfo = ({ player }) => {
 	};
 
 	return (
-		<div className="font-barlow grid grid-cols-1 gap-4 uppercase sm:grid-cols-2">
+		<div className="font-barlow grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<div className="order-last sm:order-first">
 				<UserPlayerSeasonInfo player={playerInfo} />
 
