@@ -63,73 +63,78 @@ const SummaryBoxScore = ({ game }): JSX.Element => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{currentTeam.players.map((player, index) => {
-						// DNP stat
-						let DNP = player.allStats.filter(
-							(playerGame) => playerGame.game === game._id
-						)[0]
-							? false
-							: true;
+					{currentTeam.players
+						.sort((a, b) => (a.playerName > b.playerName ? 1 : -1))
+						.map((player, index) => {
+							// DNP stat
+							let DNP = player.allStats.filter(
+								(playerGame) => playerGame.game === game._id
+							)[0]
+								? false
+								: true;
 
-						return (
-							<TableRow
-								key={index}
-								className="h-10 border-b-neutral-500 text-sm capitalize md:text-lg"
-							>
-								<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
-									<Link
-										href={`/players/${player._id}`}
-										className="transition-all hover:underline"
-									>
-										{player.playerName}
-									</Link>
-								</TableCell>
-								{!DNP ? (
-									player.allStats.map((stat, index) => {
-										if (stat.game === game._id) {
-											return (
-												<Fragment key={index}>
-													<TableCell className="w-1/12 p-1">
-														{stat.points === null ? "DNP" : stat.points}
-													</TableCell>
-													<TableCell className="w-1/12 p-1">
-														{stat.rebounds}
-													</TableCell>
-													<TableCell className="w-1/12 p-1">
-														{stat.assists}
-													</TableCell>
-													<TableCell className="w-1/12 p-1">
-														{stat.blocks}
-													</TableCell>
-													<TableCell className="w-1/12 p-1">
-														{stat.steals}
-													</TableCell>
-												</Fragment>
-											);
-										}
-									})
-								) : (
-									<Fragment key={index}>
-										<TableCell className="w-1/12 p-1 text-neutral-500">
-											DNP
-										</TableCell>
-										<TableCell className="w-1/12 p-1 text-neutral-500">
-											DNP
-										</TableCell>
-										<TableCell className="w-1/12 p-1 text-neutral-500">
-											DNP
-										</TableCell>
-										<TableCell className="w-1/12 p-1 text-neutral-500">
-											DNP
-										</TableCell>
-										<TableCell className="w-1/12 p-1 text-neutral-500">
-											DNP
-										</TableCell>
-									</Fragment>
-								)}
-							</TableRow>
-						);
-					})}
+							return (
+								<TableRow
+									key={index}
+									className="h-10 border-b-neutral-500 text-sm capitalize md:text-lg"
+								>
+									<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
+										<Link
+											href={`/players/${player._id}`}
+											className="transition-all hover:underline"
+										>
+											{player.playerName}{" "}
+											<span className="text-neutral-400">
+												| #{player.jerseyNumber}
+											</span>
+										</Link>
+									</TableCell>
+									{!DNP ? (
+										player.allStats.map((stat, index) => {
+											if (stat.game === game._id) {
+												return (
+													<Fragment key={index}>
+														<TableCell className="w-1/12 p-1">
+															{stat.points === null ? "DNP" : stat.points}
+														</TableCell>
+														<TableCell className="w-1/12 p-1">
+															{stat.rebounds}
+														</TableCell>
+														<TableCell className="w-1/12 p-1">
+															{stat.assists}
+														</TableCell>
+														<TableCell className="w-1/12 p-1">
+															{stat.blocks}
+														</TableCell>
+														<TableCell className="w-1/12 p-1">
+															{stat.steals}
+														</TableCell>
+													</Fragment>
+												);
+											}
+										})
+									) : (
+										<Fragment key={index}>
+											<TableCell className="w-1/12 p-1 text-neutral-500">
+												DNP
+											</TableCell>
+											<TableCell className="w-1/12 p-1 text-neutral-500">
+												DNP
+											</TableCell>
+											<TableCell className="w-1/12 p-1 text-neutral-500">
+												DNP
+											</TableCell>
+											<TableCell className="w-1/12 p-1 text-neutral-500">
+												DNP
+											</TableCell>
+											<TableCell className="w-1/12 p-1 text-neutral-500">
+												DNP
+											</TableCell>
+										</Fragment>
+									)}
+								</TableRow>
+							);
+						})}
 				</TableBody>
 			</Table>
 		</div>
