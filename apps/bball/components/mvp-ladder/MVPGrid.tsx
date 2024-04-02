@@ -114,11 +114,8 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 						<li>APG * 2.0</li>
 						<li>SPG * 2.0</li>
 						<li>BPG * 2.0</li>
+						<li>(Win Percentage * 3.0)</li>
 					</ul>
-					<li>
-						This sum is <span className="text-primary">multipled</span> by Team
-						Win Percentage.
-					</li>
 				</ul>
 
 				<p className="my-4">
@@ -133,17 +130,13 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 					<li>3.4 APG * 2.0 = 6.8</li>
 					<li>0.8 SPG * 2.0 = 1.6</li>
 					<li>0.2 BPG * 2.0 = 0.4</li>
+					<li>0.857 Win Percent * 3.0 = 2.571</li>
 					<hr />
-					<li>96.2 * Team Win Percentage (0.857%) = 82.4434</li>
-					<li className="text-primary">Final MVP Score: 82.4434</li>
+					<li className="text-primary">Final MVP Score: 98.971</li>
 				</ul>
 			</div>
 		</div>
 	);
-};
-
-const filterDivisions = (divisions, id) => {
-	return divisions.filter((division) => division._id === id);
 };
 
 const calculateMvpScore = (avgStats, wins, losses) => {
@@ -158,7 +151,7 @@ const calculateMvpScore = (avgStats, wins, losses) => {
 	if (!wins && !losses) wpct = 0;
 	else wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
 
-	return avgStatsSum * wpct;
+	return avgStatsSum + 3 * wpct;
 };
 
 export default MVPGrid;
