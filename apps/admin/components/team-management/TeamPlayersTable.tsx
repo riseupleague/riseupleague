@@ -20,6 +20,7 @@ const TeamPlayersTable = ({ teamPlayers }) => (
 				<TableHead className="text-left">Player Name</TableHead>
 				<TableHead className="text-left">Instagram</TableHead>
 				<TableHead className="text-left">Email</TableHead>
+				<TableHead className="text-left">User</TableHead>
 			</TableRow>
 		</TableHeader>
 		<TableBody>
@@ -48,6 +49,7 @@ const TeamPlayersTable = ({ teamPlayers }) => (
 							</Link>
 						</TableCell>
 						<TableCell className="text-left">{player?.user?.email}</TableCell>
+						<TableCell className="text-left">{player?.user?.name}</TableCell>
 					</TableRow>
 				))}
 		</TableBody>

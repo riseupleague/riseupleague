@@ -44,7 +44,7 @@ const TeamsTable = ({ teams }) => {
 							<TableRow key={index}>
 								<TableCell className="text-left text-base md:text-lg">
 									<Link
-										href={`/team-management/team/${team?._id}`}
+										href={`/league-management/${team?.season}/${team?.division}/${team?._id}`}
 										className="transition-all hover:text-neutral-300 hover:underline"
 									>
 										{team?.teamName}{" "}

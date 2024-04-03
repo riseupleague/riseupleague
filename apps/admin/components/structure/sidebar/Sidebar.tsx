@@ -23,10 +23,6 @@ const Sidebar = (): JSX.Element => {
 			href: "/league-schedule",
 		},
 		{
-			title: "games management",
-			href: "/games-management",
-		},
-		{
 			title: "website management",
 			href: "/website-management",
 		},

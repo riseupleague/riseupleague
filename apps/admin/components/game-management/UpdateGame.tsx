@@ -21,7 +21,7 @@ import {
 const UpdateGame = ({ game }) => {
 	const [homeTeamChosen, setHomeTeamChosen] = useState(game?.homeTeam?._id);
 	const [awayTeamChosen, setAwayTeamChosen] = useState(game?.awayTeam?._id);
-	const allPlayers = [...game?.homeTeam?.players, ...game?.awayTeam?.players];
+
 	const { toast } = useToast();
 	// const handleUpdateTeam = async (gameData: FormData) => {
 	// 	const result = await updateGame(game._id, gameData);
@@ -94,7 +94,15 @@ const UpdateGame = ({ game }) => {
 	const handleUpdateFinishedGame = async (gameDate: FormData) => {
 		const result = await updateFinishedGame(game._id, gameDate);
 	};
-
+	let teamWon;
+	if (game?.status) {
+		if (game?.homeTeamScore > game?.awayTeamScore) {
+			teamWon = game?.homeTeam;
+		} else {
+			teamWon = game?.awayTeam;
+		}
+	}
+	console.log("teamWon:", teamWon);
 	return (
 		<div>
 			<Dialog>
@@ -195,24 +203,6 @@ const UpdateGame = ({ game }) => {
 						</form>
 					) : (
 						<form action={handleUpdateFinishedGame} className="space-y-5">
-							<div className="flex w-full flex-col gap-3">
-								<Label htmlFor="playerOfTheGame">New Player Of The Game:</Label>
-								<select
-									name="playerOfTheGame"
-									id="playerOfTheGame"
-									onChange={(e) => setAwayTeamChosen(e.target.value)}
-									className="rounded border border-neutral-600 bg-neutral-900 p-2"
-								>
-									<option value="">Select Player</option>
-									{allPlayers?.map((player) => {
-										return (
-											<option key={player._id} value={player._id}>
-												{player.playerName}
-											</option>
-										);
-									})}
-								</select>
-							</div>
 							<div className="flex gap-2">
 								<div className="flex w-full flex-col gap-3">
 									<Label htmlFor="homeTeamId">New Home Team Score:</Label>
@@ -234,6 +224,25 @@ const UpdateGame = ({ game }) => {
 										className=" bg-neutral-900"
 									/>
 								</div>
+							</div>
+
+							<div className="flex w-full flex-col gap-3">
+								<Label htmlFor="playerOfTheGame">New Player Of The Game:</Label>
+								<select
+									name="playerOfTheGame"
+									id="playerOfTheGame"
+									onChange={(e) => setAwayTeamChosen(e.target.value)}
+									className="rounded border border-neutral-600 bg-neutral-900 p-2"
+								>
+									<option value="">Select Player</option>
+									{teamWon?.players?.map((player) => {
+										return (
+											<option key={player._id} value={player._id}>
+												{player.playerName}
+											</option>
+										);
+									})}
+								</select>
 							</div>
 
 							<Separator className="mb-4 border-b border-neutral-500" />

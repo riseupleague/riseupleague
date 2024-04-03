@@ -8,6 +8,7 @@ import FilterDivisionGamesByDate from "../filters/FilterDivisionGamesByDate";
 
 const DivisionScheduleList = ({ games }) => {
 	const [filteredGames, setFilteredGames] = useState(games);
+
 	const [currentDate, setCurrentDate] = useState("");
 	const uniqueDatesArray = games.reduce((uniqueDates, game) => {
 		const date = new Date(game.date);
@@ -25,6 +26,15 @@ const DivisionScheduleList = ({ games }) => {
 
 		return uniqueDates;
 	}, []);
+
+	const gamesByWeek = filteredGames.reduce((acc, game) => {
+		const { week } = game;
+		if (!acc[week]) {
+			acc[week] = [];
+		}
+		acc[week].push(game);
+		return acc;
+	}, {});
 
 	const handleDateChange = async (selectedDate) => {
 		// Parse selectedDate into a Date object
@@ -68,11 +78,23 @@ const DivisionScheduleList = ({ games }) => {
 				dates={uniqueDatesArray}
 				handleDateChange={handleDateChange}
 			/>
-			<div className="my-8 flex flex-col gap-2">
+			{Object.keys(gamesByWeek).map((week, weekIndex) => (
+				<div key={weekIndex} className="mb-4">
+					<div className="mb-10 flex items-center gap-20">
+						<p className="text-xl font-semibold">Week {week}</p>
+					</div>
+					<div className="my-8 flex flex-col gap-2">
+						{gamesByWeek[week].map((game, index) => (
+							<GameCard game={game} key={index} />
+						))}
+					</div>
+				</div>
+			))}
+			{/* <div className="my-8 flex flex-col gap-2">
 				{filteredGames.map((game, index) => {
 					return <GameCard game={game} key={index} />;
 				})}
-			</div>
+			</div> */}
 		</div>
 	);
 };

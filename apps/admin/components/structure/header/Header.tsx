@@ -36,7 +36,7 @@ const Header = (): JSX.Element => {
 						<SheetHeader className="my-4 text-3xl font-medium">
 							Rise Up Admin
 						</SheetHeader>
-						<SheetDescription className="flex flex-col items-start gap-3 text-left">
+						<SheetDescription className="flex flex-col items-start gap-6 text-left">
 							{sidebarLinks.map((link, index) => {
 								let isActive;
 

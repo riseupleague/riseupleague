@@ -19,13 +19,19 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
+import { generateGameSchedule } from "@/actions/games-action";
+import Link from "next/link";
 
 const GenerateSchedule = ({ division }): JSX.Element => {
 	const { toast } = useToast();
 	const router = useRouter();
 
-	const handleUpdateDivision = async (divisionData: FormData) => {
-		const result = await updateDivision(divisionData, division._id);
+	const handleGenerateSchedule = async (gameData: FormData) => {
+		const result = await generateGameSchedule(
+			division._id,
+			division.season,
+			gameData
+		);
 
 		// successfully updated season
 		if (result?.status === 200) {
@@ -70,47 +76,36 @@ const GenerateSchedule = ({ division }): JSX.Element => {
 
 				<Separator className="border-b border-neutral-500" />
 
-				<form action={handleUpdateDivision} className="space-y-5">
-					<div className="flex flex-col gap-3">
-						<Label htmlFor="name">How many teams in the division?</Label>
-						<select
-							name="teamNumber"
-							id="teamNumber"
-							className="rounded border border-neutral-600 bg-neutral-900 p-2"
-						>
-							<option value="SM">6</option>
-							<option value="MD">7</option>
-							<option value="LG">8</option>
-							<option value="XL">9</option>
-							<option value="XXL">10</option>
-							<option value="XXXL">11</option>
-							<option value="XXXXL">12</option>
-						</select>
-					</div>
-
+				<form action={handleGenerateSchedule} className="space-y-5">
+					<input type="hidden" name="location" value={division?.location} />
+					<input type="hidden" name="startTime" value={division?.startTime} />
 					<div className="flex gap-2">
 						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="startTime">Start Time:</Label>
-							<Input
-								type="time"
-								name="startTime"
-								id="startTime"
-								placeholder="Division Start Time"
-								defaultValue={division?.startTime}
-								className="text-neutral-900"
-							/>
+							<Label>Start Time:</Label>
+							<div>{division?.startTime}</div>
 						</div>
 						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="endTime">End Time:</Label>
-							<Input
-								type="time"
-								name="endTime"
-								id="endTime"
-								placeholder="Division End Time"
-								defaultValue={division?.endTime}
-								className="text-neutral-900"
-							/>
+							<Label>Location:</Label>
+							<div>{division?.location}</div>
 						</div>
+					</div>
+
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="teamsTotal">How many teams in the division?</Label>
+						<select
+							name="teamsTotal"
+							id="teamsTotal"
+							defaultValue="8"
+							className="rounded border border-neutral-600 bg-neutral-900 p-2"
+						>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
 					</div>
 
 					<Separator className="mb-4 border-b border-neutral-500" />

@@ -194,7 +194,7 @@ export const getDivisionFromIdWithTeams = async (id: string) => {
 		const division = await Division.findOne({ _id: id })
 			.populate({
 				path: "teams",
-				select: "teamName _id players",
+				select: "teamName _id players season division",
 				populate: {
 					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
 					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
@@ -239,7 +239,7 @@ export const getDivisionFromIdWithGames = async (id: string) => {
 					},
 				],
 				select:
-					"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location",
+					"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location week time day",
 			})
 
 			.select(

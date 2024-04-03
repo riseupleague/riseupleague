@@ -56,14 +56,8 @@ const PlayersTable = ({ players }) => {
 											""
 										)} */}
 								</span>
-								{player?.createdAt ? (
-									<>
-										{isWithin24Hours(dateCreated) && (
-											<span className="text-sm text-red-500">New</span>
-										)}
-									</>
-								) : (
-									""
+								{player?.season.register && isWithin24Hours(dateCreated) && (
+									<span className="text-sm text-red-500">New</span>
 								)}
 							</TableCell>
 							<TableCell className="text-left text-base md:text-lg">
@@ -72,6 +66,9 @@ const PlayersTable = ({ players }) => {
 										<span className="text-primary">Free Agent</span>
 									)}{" "}
 								</span>
+								{player?.teamCaptain && (
+									<span className="text-sm text-green-500">Captain</span>
+								)}
 							</TableCell>
 							<TableCell className="text-left text-base md:text-lg">
 								<span className="transition-all hover:text-neutral-300 hover:underline">

@@ -45,7 +45,7 @@ const DeleteTeam = ({ team }): JSX.Element => {
 				description: result.message,
 			});
 
-			router.push("/team-management");
+			// router.push(`/team-management/season/${}`);
 		}
 
 		// no season found
