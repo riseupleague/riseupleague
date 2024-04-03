@@ -5,6 +5,8 @@ import MVPCard from "./MVPCard";
 const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 	const filterPlaceholder = selectedDivision.divisionName;
 
+	const minGamesRequired = 5; // make this 0 at start of season, make value 5 at week 6
+
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
 		.map((player) => {
@@ -18,7 +20,10 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 			};
 		})
 		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
-		.filter((player) => player.mvpScore > 0);
+		.filter(
+			(player) =>
+				player.mvpScore > 0 && player.allStats.length >= minGamesRequired
+		);
 
 	// Handle the select change event
 	const handleDivisionChange = async (event) => {
@@ -63,7 +68,10 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
 								BPG
 							</div>
-							<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								GP
+							</div>
+							<div className="text-primary flex w-fit items-center text-sm font-semibold sm:w-6 sm:text-lg">
 								Score
 							</div>
 						</article>
