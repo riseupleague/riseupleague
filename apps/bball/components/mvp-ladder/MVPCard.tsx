@@ -56,7 +56,10 @@ const MVPCard = ({ player, rank, mvpScore }): JSX.Element => {
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
 				{player?.averageStats?.blocks?.toFixed(1)}
 			</div>
-			<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
+			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+				{player?.allStats?.length}
+			</div>
+			<div className="text-primary flex w-fit items-center text-sm font-semibold sm:w-6 sm:text-lg">
 				{mvpScore?.toFixed(1)}
 			</div>
 		</article>
