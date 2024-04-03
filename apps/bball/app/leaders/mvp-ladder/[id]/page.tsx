@@ -4,7 +4,6 @@ import { getDivisionPlayersWithAvg } from "@/api-helpers/controllers/players-con
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 import MVPGrid from "@/components/mvp-ladder/MVPGrid";
-import { DivisionWithStats } from "@/types";
 
 export default async function MVPLadder({
 	params,
