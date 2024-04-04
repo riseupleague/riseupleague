@@ -3,8 +3,8 @@
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByStat from "../filters/FilterByStat";
-import FilterByDivisionStats from "../filters/FilterByDivisionStats";
 import { useRouter } from "next/navigation";
+import FilterByDivision from "../filters/FilterByDivision";
 
 const LeaderGrid = ({
 	allPlayers,
@@ -12,7 +12,8 @@ const LeaderGrid = ({
 	selectedDivision,
 }): JSX.Element => {
 	const router = useRouter();
-
+	const [currentStat, setCurrentStat] = useState("points");
+	let statFilterPlaceholder = "Points";
 	const initialDivisions = divisions.map((division) => {
 		return {
 			divisionName: division.divisionName,
@@ -20,15 +21,11 @@ const LeaderGrid = ({
 		};
 	});
 
-	const [currentStat, setCurrentStat] = useState("points");
-
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
 			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
 		)
 	);
-
-	let statFilterPlaceholder = "Points";
 
 	// Handle the select change event
 	const handleDivisionChange = async (selectedDivisionId) => {
@@ -50,7 +47,7 @@ const LeaderGrid = ({
 	return (
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col gap-4 md:flex-row">
-				<FilterByDivisionStats
+				<FilterByDivision
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
 					placeholder={selectedDivision.divisionName}
