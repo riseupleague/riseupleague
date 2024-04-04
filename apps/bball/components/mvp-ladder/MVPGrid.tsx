@@ -1,8 +1,11 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
 const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
+	const router = useRouter();
 	const filterPlaceholder = selectedDivision.divisionName;
 
 	const minGamesRequired = 5; // make this 0 at start of season, make value 5 at week 6
@@ -26,10 +29,8 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 		);
 
 	// Handle the select change event
-	const handleDivisionChange = async (event) => {
-		"use server";
-		const selectedDivisionId = event;
-		redirect(`/leaders/mvp-ladder/${selectedDivisionId}`);
+	const handleDivisionChange = async (selectedDivisionId) => {
+		router.push(`/leaders/mvp-ladder/${selectedDivisionId}`);
 	};
 
 	return (

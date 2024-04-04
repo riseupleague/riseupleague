@@ -2,10 +2,17 @@
 
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
-import FilterByDivision from "../filters/FilterByDivision";
 import FilterByStat from "../filters/FilterByStat";
+import FilterByDivisionStats from "../filters/FilterByDivisionStats";
+import { useRouter } from "next/navigation";
 
-const LeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
+const LeaderGrid = ({
+	allPlayers,
+	divisions,
+	selectedDivision,
+}): JSX.Element => {
+	const router = useRouter();
+
 	const initialDivisions = divisions.map((division) => {
 		return {
 			divisionName: division.divisionName,
@@ -13,10 +20,7 @@ const LeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 		};
 	});
 
-	initialDivisions.unshift({ divisionName: "All Divisions", _id: "default" });
-
 	const [currentStat, setCurrentStat] = useState("points");
-	const [selectedDivision, setSelectedDivision] = useState("default");
 
 	const [players, setPlayers] = useState(
 		allPlayers.sort((a, b) =>
@@ -24,45 +28,16 @@ const LeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 		)
 	);
 
-	let divisionFilterPlaceholder = "All Divisions";
 	let statFilterPlaceholder = "Points";
 
 	// Handle the select change event
-	const handleDivisionChange = (event) => {
-		const selectedDivisionId = event;
-
-		if (selectedDivisionId !== "default") {
-			const filteredPlayers = allPlayers.filter(
-				(player) => player?.division?._id === selectedDivisionId
-			);
-
-			setPlayers(
-				filteredPlayers.sort((a, b) =>
-					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
-				)
-			);
-
-			setSelectedDivision(selectedDivisionId);
-		} else {
-			setPlayers(
-				allPlayers.sort((a, b) =>
-					a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
-				)
-			);
-
-			setSelectedDivision("default");
-		}
+	const handleDivisionChange = async (selectedDivisionId) => {
+		router.push(`/leaders/stats/${selectedDivisionId}`);
 	};
 
 	// Handle the select change event
 	const handleStatChange = (selectedStat) => {
 		let currentPlayers = allPlayers;
-
-		if (selectedDivision !== "default") {
-			currentPlayers = allPlayers.filter(
-				(player) => player.division._id === selectedDivision
-			);
-		}
 
 		const rankedPlayers = currentPlayers.sort((a, b) =>
 			a.averageStats[selectedStat] < b.averageStats[selectedStat] ? 1 : -1
@@ -74,11 +49,11 @@ const LeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 
 	return (
 		<div className="relative">
-			<div className="items-left my-8 flex flex-col justify-between gap-4">
-				<FilterByDivision
+			<div className="items-left my-8 flex flex-col gap-4 md:flex-row">
+				<FilterByDivisionStats
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
-					placeholder={divisionFilterPlaceholder}
+					placeholder={selectedDivision.divisionName}
 				/>
 				<FilterByStat
 					handleStatChange={handleStatChange}
