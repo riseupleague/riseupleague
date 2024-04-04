@@ -27,6 +27,8 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 		const date = gameData.get("date");
 		const time = gameData.get("time");
 		const location = gameData.get("location");
+		if (!date) return { status: 404, message: "No date found." };
+		if (!time) return { status: 404, message: "No time found." };
 
 		const calculatedDate = new Date(date + "T" + formatTime(time));
 		currentGame.date = convertToEST(calculatedDate);
