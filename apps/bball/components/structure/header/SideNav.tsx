@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { CiCalendar } from "react-icons/ci";
 import { IoHomeOutline, IoPodiumOutline } from "react-icons/io5";
 import { RiTeamLine } from "react-icons/ri";
+import { FaMedal } from "react-icons/fa";
 import { MdOutlinePerson } from "react-icons/md";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { IoIosMenu } from "react-icons/io";
@@ -45,11 +46,11 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 			dropdown: true,
 			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
 		},
-		// {
-		// 	label: "leaders",
-		// 	href: "/leaders",
-		// 	icon: <TrophyIcon />,
-		// },
+		{
+			label: "leaders",
+			href: "/leaders/stats",
+			icon: <FaMedal className="size-7 text-neutral-300" />,
+		},
 		{
 			label: "teams",
 			href: "/teams",

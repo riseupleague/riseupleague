@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 export default async function MVPLadder(): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const resDivisions = await getAllCurrentDivisionsNameAndId();
 	const { divisionsNameAndId } = await resDivisions.json();
 
