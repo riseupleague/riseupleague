@@ -27,7 +27,7 @@ export default async function DivisionPage({
 	const { game } = await resGame.json();
 	return (
 		<section>
-			<h1>
+			{/* <h1>
 				Game: <span className="text-primary">{game?.gameName}</span>
 			</h1>
 
@@ -46,9 +46,9 @@ export default async function DivisionPage({
 			<Separator className="border-b border-neutral-500" />
 
 			<div className="my-4">
-				{/* <DeleteTeam team={team} /> */}
+				<DeleteTeam team={team} />
 				<DeleteGame />
-			</div>
+			</div> */}
 		</section>
 	);
 }

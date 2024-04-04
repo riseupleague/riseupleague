@@ -5,8 +5,10 @@ import ScheduleCard from "./ScheduleCard";
 import FilterByDate from "../filters/FilterByDate";
 import GameCard from "./GameCard";
 import FilterDivisionGamesByDate from "../filters/FilterDivisionGamesByDate";
+import CreateGame from "../game-management/CreateGame";
 
-const DivisionScheduleList = ({ games }) => {
+const DivisionScheduleList = ({ division }) => {
+	const games = division.games;
 	const [filteredGames, setFilteredGames] = useState(games);
 
 	const [currentDate, setCurrentDate] = useState("");
@@ -17,7 +19,6 @@ const DivisionScheduleList = ({ games }) => {
 			day: "numeric",
 			year: "numeric",
 		});
-
 		// Check if the formatted date already exists in the uniqueDates array
 		if (!uniqueDates.includes(formattedDate)) {
 			// If not, add it to the array
@@ -35,6 +36,7 @@ const DivisionScheduleList = ({ games }) => {
 		acc[week].push(game);
 		return acc;
 	}, {});
+	console.log("gamesByWeek:", gamesByWeek);
 
 	const handleDateChange = async (selectedDate) => {
 		// Parse selectedDate into a Date object
@@ -65,21 +67,26 @@ const DivisionScheduleList = ({ games }) => {
 				return formattedGameDate === formattedSelectedDate;
 			});
 
-			console.log(gamesOnSelectedDate);
 			setFilteredGames(gamesOnSelectedDate);
 		} else {
 			console.error("Invalid date:", selectedDate);
 		}
 	};
+
 	return (
-		<div>
-			<FilterDivisionGamesByDate
-				currentDate={currentDate}
-				dates={uniqueDatesArray}
-				handleDateChange={handleDateChange}
-			/>
+		<>
+			<div className="my-10 flex items-center justify-between">
+				<div>
+					<FilterDivisionGamesByDate
+						currentDate={currentDate}
+						dates={uniqueDatesArray}
+						handleDateChange={handleDateChange}
+					/>
+				</div>
+				<CreateGame division={division} />
+			</div>
 			{Object.keys(gamesByWeek).map((week, weekIndex) => (
-				<div key={weekIndex} className="mb-4">
+				<div key={weekIndex} className="mb-4 mt-20">
 					<div className="mb-10 flex items-center gap-20">
 						<p className="text-xl font-semibold">Week {week}</p>
 					</div>
@@ -95,7 +102,7 @@ const DivisionScheduleList = ({ games }) => {
 					return <GameCard game={game} key={index} />;
 				})}
 			</div> */}
-		</div>
+		</>
 	);
 };
 

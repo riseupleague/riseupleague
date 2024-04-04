@@ -74,21 +74,25 @@ const sidebarLinks = [
 		href: "/",
 	},
 	{
-		title: "seasons management",
-		href: "/seasons-management",
+		title: "league management",
+		href: "/league-management",
 	},
-	{
-		title: "team management",
-		href: "/team-management",
-	},
+	// {
+	// 	title: "seasons management",
+	// 	href: "/seasons-management",
+	// },
+	// {
+	// 	title: "team management",
+	// 	href: "/team-management",
+	// },
 	{
 		title: "league schedule",
 		href: "/league-schedule",
 	},
-	{
-		title: "games management",
-		href: "/games-management",
-	},
+	// {
+	// 	title: "games management",
+	// 	href: "/games-management",
+	// },
 	{
 		title: "website management",
 		href: "/website-management",

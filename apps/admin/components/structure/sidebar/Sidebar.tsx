@@ -7,17 +7,21 @@ const Sidebar = (): JSX.Element => {
 			href: "/",
 		},
 		{
-			title: "seasons management",
-			href: "/seasons-management",
+			title: "league management",
+			href: "/league-management",
 		},
-		{
-			title: "team management",
-			href: "/team-management",
-		},
-		{
-			title: "player management",
-			href: "/player-management",
-		},
+		// {
+		// 	title: "seasons management",
+		// 	href: "/seasons-management",
+		// },
+		// {
+		// 	title: "team management",
+		// 	href: "/team-management",
+		// },
+		// {
+		// 	title: "player management",
+		// 	href: "/player-management",
+		// },
 		{
 			title: "league schedule",
 			href: "/league-schedule",

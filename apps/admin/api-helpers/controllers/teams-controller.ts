@@ -111,8 +111,29 @@ export const getTeamById = async (teamId: string) => {
 					select: "email name", // Select the fields you want to populate from the 'user' model
 				},
 			})
+			.populate({
+				path: "games",
+				populate: [
+					{
+						path: "division", // assuming 'players' is the field in the 'teams' model referencing another model
+						select: "divisionName city season", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "homeTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "awayTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+				],
+				select:
+					"status homeTeam awayTeam season division date gameName homeTeamScore awayTeamScore location week time day",
+			})
 			.select(
-				"paid teamName teamNameShort teamCode wins losses pointDifference division season primaryColor secondaryColor tertiaryColor jerseyEdition players"
+				"paid games teamName teamNameShort teamCode wins losses pointDifference division season primaryColor secondaryColor tertiaryColor jerseyEdition players"
 			);
 
 		if (!team) {

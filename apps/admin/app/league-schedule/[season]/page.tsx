@@ -30,7 +30,7 @@ export default async function SeasonPage({
 		<section>
 			<h1>{season?.seasonName}</h1>
 
-			<Separator className="my-4 border-b border-neutral-500" />
+			{/* <Separator className="my-4 border-b border-neutral-500" /> */}
 
 			{divisions.length > 0 ? (
 				<LeagueSchedule

@@ -154,7 +154,7 @@ export const getGamesByDate = async (selectedDate) => {
 
 export const getGameById = async (id) => {
 	try {
-		const game = await Game.findById(id)
+		const selectedGame = await Game.findById(id)
 			.populate({
 				path: "homeTeam",
 				select:
@@ -212,13 +212,13 @@ export const getGameById = async (id) => {
 			.populate("playerOfTheGame", "playerName")
 			.populate("season", "seasonName");
 
-		if (!game) {
+		if (!selectedGame) {
 			return NextResponse.json(
 				{ message: "Internal Server Error" },
 				{ status: 500 }
 			);
 		}
-		return NextResponse.json({ game });
+		return NextResponse.json({ selectedGame });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },

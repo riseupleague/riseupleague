@@ -25,7 +25,7 @@ import Link from "next/link";
 const GenerateSchedule = ({ division }): JSX.Element => {
 	const { toast } = useToast();
 	const router = useRouter();
-
+	console.log("division:", division);
 	const handleGenerateSchedule = async (gameData: FormData) => {
 		const result = await generateGameSchedule(
 			division._id,

@@ -1,8 +1,13 @@
+import { getGameById } from "@/api-helpers/controllers/games-controller";
 import { getTeamById } from "@/api-helpers/controllers/teams-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
+import DeleteGame from "@/components/game-management/DeleteGame";
+import GameInfo from "@/components/game-management/GameInfo";
+import GamePlayersTable from "@/components/game-management/GamePlayersTable";
+import UpdateGame from "@/components/game-management/UpdateGame";
+import UpdateGameStats from "@/components/game-management/UpdateGameStats";
 import AddNewPlayer from "@/components/team-management/AddNewPlayer";
 import DeleteTeam from "@/components/team-management/DeleteTeam";
-import TeamGames from "@/components/team-management/TeamGames";
 import TeamInfo from "@/components/team-management/TeamInfo";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
 import UpdateTeam from "@/components/team-management/UpdateTeam";
@@ -13,40 +18,36 @@ import { Metadata } from "next";
 export default async function DivisionPage({
 	params,
 }: {
-	params: { team: string };
+	params: { game: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const resTeam = await getTeamById(params.team);
-	const { team } = await resTeam.json();
+	const { game } = params;
+	const resGame = await getGameById(game);
+	const { selectedGame } = await resGame.json();
 	return (
 		<section>
 			<h1>
-				Team: <span className="text-primary">{team?.teamName}</span>
+				Game: <span className="text-primary">{selectedGame?.gameName}</span>
 			</h1>
 
-			<TeamInfo team={team} />
-
+			<GameInfo game={selectedGame} />
 			<div className="my-4">
-				<UpdateTeam team={team} />
+				<UpdateGame game={selectedGame} />
 			</div>
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<TeamPlayersTable teamPlayers={team?.players} />
+			<h2 className="my-10 flex justify-center ">Player Statistics </h2>
+			<GamePlayersTable game={selectedGame} />
 			<div className="my-10">
-				<AddNewPlayer
-					teamId={team?._id}
-					seasonId={team?.season}
-					divisionId={team?.division}
-				/>
+				<UpdateGameStats />
 			</div>
-			<Separator className="border-b border-neutral-500" />
-
-			<TeamGames games={team?.games} />
-			<div className="my-4">
-				<DeleteTeam team={team} />
-			</div>
+			{!selectedGame?.status && (
+				<div className="my-4">
+					<DeleteGame game={selectedGame} />
+				</div>
+			)}
 		</section>
 	);
 }

@@ -225,7 +225,7 @@ export const getDivisionFromIdWithGames = async (id: string) => {
 				populate: [
 					{
 						path: "division", // assuming 'players' is the field in the 'teams' model referencing another model
-						select: "divisionName city", // Select the fields you want to populate from the 'players' model
+						select: "divisionName city season", // Select the fields you want to populate from the 'players' model
 					},
 					{
 						path: "homeTeam", // assuming 'players' is the field in the 'teams' model referencing another model
@@ -239,11 +239,11 @@ export const getDivisionFromIdWithGames = async (id: string) => {
 					},
 				],
 				select:
-					"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location week time day",
+					"status homeTeam awayTeam season division date gameName homeTeamScore awayTeamScore location week time day",
 			})
-
+			.populate("teams", "teamName")
 			.select(
-				"divisionName games season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+				"divisionName teams homeTeam season games teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 			);
 
 		if (!division) {

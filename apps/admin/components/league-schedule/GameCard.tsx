@@ -7,8 +7,6 @@ import { convertToEST } from "@/utils/convertToEST";
 import { Badge } from "@ui/components/badge";
 
 const GameCard = ({ game }): JSX.Element => {
-	console.log(game);
-
 	let dateFormatted = "";
 	let time = "";
 	let gameDateInSeconds = 0;
@@ -31,7 +29,7 @@ const GameCard = ({ game }): JSX.Element => {
 
 	return (
 		<Link
-			href={`/games-management/game/${game?._id}`}
+			href={`/league-schedule/${game?.division.season}/${game?.division._id}/${game?._id}`}
 			className="relative flex flex-col items-center justify-center rounded border border-neutral-600 py-2 transition-all hover:bg-neutral-700 md:py-[14px]"
 		>
 			<span

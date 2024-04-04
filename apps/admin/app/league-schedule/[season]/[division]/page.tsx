@@ -24,10 +24,10 @@ export default async function DivisionPage({
 				{division?.city} {division?.divisionName} Schedule
 			</h1>
 
-			<Separator className="my-4 border-b border-neutral-500" />
+			{/* <Separator className="my-4 border-b border-neutral-500" /> */}
 
-			{division.games.length > 0 ? (
-				<DivisionScheduleList games={division.games} />
+			{division?.games?.length > 0 ? (
+				<DivisionScheduleList division={division} />
 			) : (
 				<div className="my-8 flex flex-col gap-10">
 					<h3 className="text-primary">No game schedule available yet.</h3>

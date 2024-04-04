@@ -21,74 +21,43 @@ import {
 const UpdateGame = ({ game }) => {
 	const [homeTeamChosen, setHomeTeamChosen] = useState(game?.homeTeam?._id);
 	const [awayTeamChosen, setAwayTeamChosen] = useState(game?.awayTeam?._id);
-
+	// Split the date string into date and time parts
+	let date, timeZ, time;
+	if (game?.date) {
+		[date, timeZ] = game?.date?.split("T");
+		time = timeZ?.slice(0, 5);
+	}
 	const { toast } = useToast();
-	// const handleUpdateTeam = async (gameData: FormData) => {
-	// 	const result = await updateGame(game._id, gameData);
-
-	// 	// successfully updated season
-	// 	if (result?.status === 200) {
-	// 		return toast({
-	// 			variant: "success",
-	// 			title: "Success!",
-	// 			description: result.message,
-	// 		});
-	// 	}
-
-	// 	// no season found
-	// 	if (result?.status === 404) {
-	// 		return toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-
-	// 	// internal server error
-	// 	if (result?.status === 500) {
-	// 		return toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-	// };
-
-	// const handleDeleteTeam = async () => {
-	// 	const result = await deleteTeam(team._id);
-
-	// 	// successfully updated season
-	// 	if (result?.status === 200) {
-	// 		toast({
-	// 			variant: "success",
-	// 			title: "Success!",
-	// 			description: result.message,
-	// 		});
-
-	// 		router.push("/team-management");
-	// 	}
-
-	// 	// no season found
-	// 	if (result?.status === 404) {
-	// 		toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-
-	// 	// internal server error
-	// 	if (result?.status === 500) {
-	// 		toast({
-	// 			variant: "destructive",
-	// 			title: "Error",
-	// 			description: result.message,
-	// 		});
-	// 	}
-	// };
 
 	const handleUpdateUpcomingGame = async (gameDate: FormData) => {
 		const result = await updateUpcomingGame(game._id, gameDate);
+
+		// successfully updated season
+		if (result?.status === 200) {
+			return toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+		}
+
+		// no season found
+		if (result?.status === 404) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
 	};
 
 	const handleUpdateFinishedGame = async (gameDate: FormData) => {
@@ -102,7 +71,7 @@ const UpdateGame = ({ game }) => {
 			teamWon = game?.awayTeam;
 		}
 	}
-	console.log("teamWon:", teamWon);
+
 	return (
 		<div>
 			<Dialog>
@@ -127,17 +96,16 @@ const UpdateGame = ({ game }) => {
 										name="homeTeamId"
 										id="homeTeamId"
 										onChange={(e) => setHomeTeamChosen(e.target.value)}
+										defaultValue={game?.homeTeam?._id}
 										className="rounded border border-neutral-600 bg-neutral-900 p-2"
 									>
 										<option value="">Select Home Team</option>
 										{game.division.teams.map((team) => {
-											if (awayTeamChosen !== team._id) {
-												return (
-													<option key={team._id} value={team._id}>
-														{team.teamName}
-													</option>
-												);
-											}
+											return (
+												<option key={team._id} value={team._id}>
+													{team.teamName}
+												</option>
+											);
 										})}
 									</select>
 								</div>
@@ -146,6 +114,7 @@ const UpdateGame = ({ game }) => {
 									<select
 										name="awayTeamId"
 										id="awayTeamId"
+										defaultValue={game?.awayTeam?._id}
 										onChange={(e) => setAwayTeamChosen(e.target.value)}
 										className="rounded border border-neutral-600 bg-neutral-900 p-2"
 									>
@@ -169,6 +138,7 @@ const UpdateGame = ({ game }) => {
 										type="date"
 										name="date"
 										id="date"
+										defaultValue={date}
 										placeholder="Division Start Time"
 										className="block w-full text-neutral-900"
 									/>
@@ -179,6 +149,7 @@ const UpdateGame = ({ game }) => {
 										type="time"
 										name="time"
 										id="time"
+										defaultValue={time}
 										placeholder="Division End Time"
 										className="block  text-neutral-900"
 									/>
