@@ -12,8 +12,8 @@ export const connectToDatabase = async () => {
 		require("./models/Player");
 		require("./models/Season");
 		require("./models/Team");
+		require("./models/Worker");
 		require("./models/User");
-
 		console.log("connected to mongoDB");
 	} catch (e) {
 		console.log("cannot connect to mongoDB: ", e);
