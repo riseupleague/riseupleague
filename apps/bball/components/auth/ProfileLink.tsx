@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
@@ -20,7 +20,6 @@ import {
 } from "@ui/components/dropdown-menu";
 
 const ProfileLink = ({ user }): JSX.Element => {
-	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
 	const openDialog = () => {
@@ -38,7 +37,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 
 	return (
 		<div className="bg-transparent">
-			{status === "authenticated" ? (
+			{user !== null ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>
@@ -48,7 +47,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 								</span>
 								<div className="flex items-center gap-1 ">
 									<Avatar className="block lg:hidden ">
-										<AvatarImage src={`${session.user.image}`} />
+										<AvatarImage src={`${user.image}`} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
 											{user?.name[0]}
 										</AvatarFallback>

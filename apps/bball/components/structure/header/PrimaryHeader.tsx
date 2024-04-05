@@ -85,17 +85,17 @@ const headerOptions = [
 	},
 	{
 		label: "leaders",
-		href: "/leaders/mvp-ladder",
+		href: "/leaders/stats",
 		icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
 		submenu: [
+			{
+				label: "Stats",
+				href: "/leaders/stats",
+			},
 			{
 				label: "MVP Ladder",
 				href: "/leaders/mvp-ladder",
 			},
-			// {
-			// 	label: "Stats",
-			// 	href: "/leaders",
-			// }
 		],
 	},
 	{
