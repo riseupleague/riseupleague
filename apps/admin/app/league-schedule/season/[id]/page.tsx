@@ -43,7 +43,7 @@ export default async function SeasonPage({
 					<h3 className="text-primary">
 						No divisions created in this season yet.
 					</h3>
-					<CreateDivision seasonId={season._id} />
+					<CreateDivision seasonId={season?._id} />
 				</div>
 			)}
 		</section>
