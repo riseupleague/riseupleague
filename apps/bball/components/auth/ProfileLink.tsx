@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
@@ -20,6 +20,7 @@ import {
 } from "@ui/components/dropdown-menu";
 
 const ProfileLink = ({ user }): JSX.Element => {
+	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
 	const openDialog = () => {
@@ -46,8 +47,8 @@ const ProfileLink = ({ user }): JSX.Element => {
 									{user?.name}
 								</span>
 								<div className="flex items-center gap-1 ">
-									<Avatar className="block lg:hidden ">
-										<AvatarImage src={`${user.image}`} />
+									<Avatar className="block lg:hidden">
+										<AvatarImage src={session?.user?.image} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
 											{user?.name[0]}
 										</AvatarFallback>
@@ -66,10 +67,15 @@ const ProfileLink = ({ user }): JSX.Element => {
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
 											onClick={closeDialog}
-											href={`/user`}
+											href="/user"
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
-											<CgProfile className="size-6 text-neutral-300" />
+											<Avatar className="hidden size-7 lg:block">
+												<AvatarImage src={session?.user?.image} />
+												<AvatarFallback className="bg-neutral-400 uppercase">
+													{user?.name[0]}
+												</AvatarFallback>
+											</Avatar>
 											<span>Profile</span>
 										</Link>
 									</DropdownMenuItem>
