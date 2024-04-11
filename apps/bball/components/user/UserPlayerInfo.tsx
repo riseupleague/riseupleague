@@ -26,7 +26,9 @@ const UserPlayerInfo = ({ player }) => {
 	const [errors, setErrors] = useState([]);
 	const [open, setOpen] = useState(false);
 
-	const customizeJersey = player.register || player.freeAgent;
+	// comment line below to disable jersey customization
+	// const customizeJersey = player.register || player.freeAgent;
+	const customizeJersey = false;
 
 	const handleUpdatePlayer = async (playerData: FormData) => {
 		const result = await updatePlayer(player._id, playerData);
@@ -102,9 +104,10 @@ const UserPlayerInfo = ({ player }) => {
 									Edit Player
 								</SheetTitle>
 								<SheetDescription className="text-sm text-neutral-500">
-									Please note that there will be a deadline (TBD) to change your
+									{/* Please note that there will be a deadline (TBD) to change your
 									custom jersey information. After this deadline, we will not be
-									able to change it. Stay tuned to our socials to be notified!
+									able to change it. Stay tuned to our socials to be notified! */}
+									Jerseys have been ordered!
 								</SheetDescription>
 							</SheetHeader>
 							<div className="font-barlow">
