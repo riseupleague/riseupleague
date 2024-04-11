@@ -23,8 +23,6 @@ const ProfileLink = ({ user }): JSX.Element => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
-	console.log(session?.user?.image);
-
 	const openDialog = () => {
 		setOpen(true);
 	};
@@ -50,7 +48,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 								</span>
 								<div className="flex items-center gap-1 ">
 									<Avatar className="block lg:hidden">
-										<AvatarImage src={`${session?.user?.image}`} />
+										<AvatarImage src={session?.user?.image} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
 											{user?.name[0]}
 										</AvatarFallback>
@@ -69,11 +67,11 @@ const ProfileLink = ({ user }): JSX.Element => {
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
 											onClick={closeDialog}
-											href={`/user`}
+											href="/user"
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
 											<Avatar className="hidden size-7 lg:block">
-												<AvatarImage src={`${session?.user?.image}`} />
+												<AvatarImage src={session?.user?.image} />
 												<AvatarFallback className="bg-neutral-400 uppercase">
 													{user?.name[0]}
 												</AvatarFallback>
