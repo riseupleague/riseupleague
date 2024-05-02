@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { convertToEST } from "@/utils/convertToEST";
 import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+
 import { Separator } from "@ui/components/separator";
 import { Button } from "@ui/components/button";
 import {
@@ -54,9 +56,17 @@ const UserPlayerGames = ({ games }) => {
 					</TableHeader>
 					<TableBody>
 						{games?.map((game, index) => {
-							const date = convertToEST(new Date(game.date));
-							const formattedDate = format(date, "E L/d @ h:mm a");
+							// convert to toronto dates
 
+							// const date = convertToEST(new Date(game.date));
+							// const formattedDate = format(date, "E L/d @ h:mm a");
+							// convert to toronto dates
+
+							// utc dates
+							const date = new Date(game.date);
+							const utcDate = utcToZonedTime(date, "UTC");
+							const formattedDate = format(utcDate, "E L/d @ h:mm a");
+							// utc dates
 							return (
 								<TableRow
 									key={index}

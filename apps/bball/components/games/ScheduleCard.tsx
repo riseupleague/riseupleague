@@ -2,15 +2,26 @@ import Link from "next/link";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+
 import { convertToEST } from "@/utils/convertToEST";
 import { IoLocationOutline } from "react-icons/io5";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
 
-	const date = convertToEST(new Date(game.date));
-	const dateFormatted = format(date, "ccc MMM do, uuuu");
-	const time = format(date, "h:mm a");
+	// convert to toronto dates
+	// const date = convertToEST(new Date(game.date));
+	// const dateFormatted = format(date, "ccc MMM do, uuuu");
+	// const time = format(date, "h:mm a");
+	// convert to toronto dates
+
+	// utc dates
+	const date = new Date(game.date);
+	const utcDate = utcToZonedTime(date, "UTC");
+	const dateFormatted = format(utcDate, "eee MMM dd, yyyy");
+	const time = format(utcDate, "h:mm a");
+	// utc dates
 
 	const liveGame = isLiveGame(date);
 
