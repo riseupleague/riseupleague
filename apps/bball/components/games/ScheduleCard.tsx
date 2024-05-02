@@ -9,19 +9,29 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
+	let date;
+	let dateFormatted;
+	let time;
 
-	// convert to toronto dates
-	// const date = convertToEST(new Date(game.date));
-	// const dateFormatted = format(date, "ccc MMM do, uuuu");
-	// const time = format(date, "h:mm a");
-	// convert to toronto dates
+	if (game.division._id === "660d6a75ab30a11b292cd290") {
+		// utc dates
+		date = new Date(game.date);
+		const utcDate = utcToZonedTime(date, "UTC");
+		dateFormatted = format(utcDate, "eee MMM dd, yyyy");
+		time = format(utcDate, "h:mm a");
+		// utc dates
+	} else {
+		// convert to toronto dates
+		date = convertToEST(new Date(game.date));
+		dateFormatted = format(date, "ccc MMM do, uuuu");
+		time = format(date, "h:mm a");
+		// convert to toronto dates
+	}
 
-	// utc dates
-	const date = new Date(game.date);
-	const utcDate = utcToZonedTime(date, "UTC");
-	const dateFormatted = format(utcDate, "eee MMM dd, yyyy");
-	const time = format(utcDate, "h:mm a");
-	// utc dates
+	if (time.endsWith(":59 PM") || time.endsWith(":59 AM")) {
+		// If the time is 7:59 PM or 7:59 AM, round it up to the next hour
+		time = (parseInt(time) + 1).toString() + ":00 PM";
+	}
 
 	const liveGame = isLiveGame(date);
 

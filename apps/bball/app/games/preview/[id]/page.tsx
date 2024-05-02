@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { utcToZonedTime } from "date-fns-tz";
 
 export default async function Preview({
 	params,
@@ -21,8 +22,24 @@ export default async function Preview({
 	// if game is done, redirect to /summary/[id] page
 	if (game?.status) redirect(`/games/summary/${game._id}`);
 
-	const date = convertToEST(new Date(game.date));
-	const formattedDate = format(date, "E L/d @ h:mm a");
+	let date;
+	let formattedDate;
+	let time;
+
+	if (game.division._id === "660d6a75ab30a11b292cd290") {
+		// utc dates
+		date = new Date(game.date);
+		const utcDate = utcToZonedTime(date, "UTC");
+		formattedDate = format(utcDate, "E L/d @ h:mm a");
+
+		// utc dates
+	} else {
+		// convert to toronto dates
+		date = convertToEST(new Date(game.date));
+		formattedDate = format(date, "E L/d @ h:mm a");
+
+		// convert to toronto dates
+	}
 
 	return (
 		<section className="container mx-auto min-h-fit">

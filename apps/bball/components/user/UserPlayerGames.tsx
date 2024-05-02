@@ -56,17 +56,23 @@ const UserPlayerGames = ({ games }) => {
 					</TableHeader>
 					<TableBody>
 						{games?.map((game, index) => {
-							// convert to toronto dates
+							let date;
+							let formattedDate;
 
-							// const date = convertToEST(new Date(game.date));
-							// const formattedDate = format(date, "E L/d @ h:mm a");
-							// convert to toronto dates
+							if (game.division === "660d6a75ab30a11b292cd290") {
+								// utc dates
+								date = new Date(game.date);
+								const utcDate = utcToZonedTime(date, "UTC");
+								formattedDate = format(utcDate, "E L/d @ h:mm a");
+								// utc dates
+							} else {
+								// convert to toronto dates
 
-							// utc dates
-							const date = new Date(game.date);
-							const utcDate = utcToZonedTime(date, "UTC");
-							const formattedDate = format(utcDate, "E L/d @ h:mm a");
-							// utc dates
+								date = convertToEST(new Date(game.date));
+								formattedDate = format(date, "E L/d @ h:mm a");
+								// convert to toronto dates
+							}
+
 							return (
 								<TableRow
 									key={index}
