@@ -19,8 +19,9 @@ export const getAllUpcomingGamesHeader = async () => {
 
 		// Calculate the start and end dates for two weeks after the target date
 		const twoWeeksAfter = new Date(
-			targetDate.getTime() + 7 * 24 * 60 * 60 * 1000
+			targetDate.getTime() + 14 * 24 * 60 * 60 * 1000
 		);
+		console.log(oneWeekBefore, twoWeeksAfter);
 
 		const allGames = await Game.find({
 			date: {
@@ -45,6 +46,8 @@ export const getAllUpcomingGamesHeader = async () => {
 			.select(
 				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
 			);
+
+		console.log("allGames:", allGames);
 
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
