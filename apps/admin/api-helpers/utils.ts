@@ -6,7 +6,6 @@ const uri: string = process.env.MONGODB_URI as string;
 export const connectToDatabase = async () => {
 	try {
 		await mongoose.connect(uri);
-
 		require("./models/Division");
 		require("./models/Game");
 		require("./models/Player");

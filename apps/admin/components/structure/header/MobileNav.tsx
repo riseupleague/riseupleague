@@ -15,9 +15,38 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 
-const MobileNav = ({ session }) => {
+const MobileNav = ({ session, activeSeason }) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
+
+	const sidebarLinks = [
+		{
+			title: "dashboard",
+			href: "/",
+		},
+		{
+			title: "league management",
+			href: "/league-management",
+		},
+
+		{
+			title: "league schedule",
+			href: "/league-schedule",
+		},
+
+		{
+			title: "website management",
+			href: "/website-management",
+		},
+		{
+			title: "customer management",
+			href: "/customer-management",
+		},
+		{
+			title: "settings",
+			href: "/settings",
+		},
+	];
 
 	return (
 		<section className="block md:hidden">
@@ -66,40 +95,5 @@ const MobileNav = ({ session }) => {
 		</section>
 	);
 };
-
-const sidebarLinks = [
-	{
-		title: "dashboard",
-		href: "/",
-	},
-	{
-		title: "league management",
-		href: "/league-management",
-	},
-	// {
-	// 	title: "seasons management",
-	// 	href: "/seasons-management",
-	// },
-	// {
-	// 	title: "team management",
-	// 	href: "/team-management",
-	// },
-	{
-		title: "league schedule",
-		href: "/league-schedule",
-	},
-	// {
-	// 	title: "games management",
-	// 	href: "/games-management",
-	// },
-	{
-		title: "website management",
-		href: "/website-management",
-	},
-	{
-		title: "customer management",
-		href: "/customer-management",
-	},
-];
 
 export default MobileNav;

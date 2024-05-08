@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 export default async function Login(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
-	console.log("session:", session);
 	const resWorker = await getCurrentWorker(session?.user?.email);
 	const { worker } = await resWorker.json();
 	if (worker) redirect("/");

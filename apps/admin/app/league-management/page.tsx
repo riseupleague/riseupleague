@@ -5,20 +5,34 @@ import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export default async function Page(): Promise<JSX.Element> {
-	await connectToDatabase();
+	try {
+		// Connect to the database
+		await connectToDatabase();
 
-	const resSeasons = await getAllSeasons();
-	const { seasons } = await resSeasons.json();
+		// Fetch all seasons
+		const resSeasons = await getAllSeasons();
+		const { seasons } = await resSeasons.json();
 
-	const activeSeason = seasons.findLast((season) => season.active === true);
+		// Find the active season
+		const activeSeason = seasons.find((season) => season.active === true);
 
-	if (seasons.length !== 0) {
-		redirect(`/league-management/${activeSeason._id}`);
+		// Redirect to active season if one exists
+		if (activeSeason) {
+			redirect(`/league-management/${activeSeason._id}`);
+			return null; // This line is important to prevent rendering anything on the page
+		}
+
+		// Render NoSeasonsFound component if no seasons exist
+		return <NoSeasonsFound />;
+	} catch (error) {
+		// Handle any errors gracefully
+		console.error("An error occurred:", error);
+		// You might want to redirect to an error page or display an error message
+		throw error;
 	}
-
-	return <>{seasons.length === 0 ? <NoSeasonsFound /> : <></>}</>;
 }
 
+// Define metadata for the page
 export const metadata: Metadata = {
 	title: "Rise Up Admin | Seasons Management",
 };

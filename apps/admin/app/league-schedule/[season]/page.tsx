@@ -17,14 +17,26 @@ export default async function SeasonPage({
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const resSeasons = await getAllSeasons();
-	const { seasons } = await resSeasons.json();
+	// const resSeasons = await getAllSeasons();
+	// const { seasons } = await resSeasons.json();
 
-	const resSeason = await getSeasonById(params.season);
-	const { season } = await resSeason.json();
+	// const resSeason = await getSeasonById(params.season);
+	// const { season } = await resSeason.json();
 
-	const resDivisions = await getAllDivisionsWithId(params.season);
-	const { divisions } = await resDivisions.json();
+	// const resDivisions = await getAllDivisionsWithId(params.season);
+	// const { divisions } = await resDivisions.json();
+
+	// Fetch seasons, season, and divisions concurrently
+	const [seasonsResponse, seasonResponse, divisionsResponse] =
+		await Promise.all([
+			getAllSeasons().then((res) => res.json()),
+			getSeasonById(params.season).then((res) => res.json()),
+			getAllDivisionsWithId(params.season).then((res) => res.json()),
+		]);
+
+	const seasons = seasonsResponse.seasons;
+	const season = seasonResponse.season;
+	const divisions = divisionsResponse.divisions;
 
 	return (
 		<section>

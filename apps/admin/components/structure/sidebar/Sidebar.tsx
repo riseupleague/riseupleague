@@ -1,48 +1,50 @@
-"use client";
 import SidebarContent from "./SidebarContent";
+import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
+import { connectToDatabase } from "@/api-helpers/utils";
+import { getServerSession } from "next-auth";
 
-import { useSession } from "next-auth/react";
+const Sidebar = async (): Promise<JSX.Element> => {
+	// const session = await getServerSession();
+	const session = await getServerSession();
+	await connectToDatabase();
 
-const Sidebar = (): JSX.Element => {
-	const { data: session } = useSession();
+	// Fetch all seasons
+	const resSeasons = await getAllSeasons();
+	const { seasons } = await resSeasons.json();
 
-	console.log("session:", session);
+	// Find the active season
+	const activeSeason = seasons.find((season) => season.active === true);
 	const sidebarLinks = [
 		{
 			title: "dashboard",
 			href: "/",
+			id: "dashboard",
 		},
 		{
 			title: "league management",
-			href: "/league-management",
+			href: `${activeSeason ? "/league-management/" + activeSeason._id : "/league-management"}`,
+			id: "league-management",
 		},
-		// {
-		// 	title: "seasons management",
-		// 	href: "/seasons-management",
-		// },
-		// {
-		// 	title: "team management",
-		// 	href: "/team-management",
-		// },
-		// {
-		// 	title: "player management",
-		// 	href: "/player-management",
-		// },
+
 		{
 			title: "league schedule",
-			href: "/league-schedule",
+			href: `${activeSeason ? "/league-schedule/" + activeSeason._id : "/league-schedule"}`,
+			id: "league-schedule",
 		},
 		{
 			title: "website management",
 			href: "/website-management",
+			id: "website-management",
 		},
 		{
 			title: "customer management",
 			href: "/customer-management",
+			id: "dashboard",
 		},
 		{
 			title: "settings",
 			href: "/settings",
+			id: "settings",
 		},
 	];
 
