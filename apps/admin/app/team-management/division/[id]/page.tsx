@@ -1,5 +1,4 @@
 import { getDivisionFromIdWithTeams } from "@/api-helpers/controllers/divisions-controller";
-import { getSeasonById } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import EditDivision from "@/components/team-management/EditDivision";
 import { Button } from "@ui/components/button";
@@ -15,9 +14,6 @@ export default async function DivisionPage({
 
 	const resDivision = await getDivisionFromIdWithTeams(params.id);
 	const { division } = await resDivision.json();
-
-	const slot1Hours = Number(division.startTime.slice(0, 2));
-	const slot1Minutes = Number(division.startTime.slice(3, 5));
 
 	return (
 		<section>
@@ -65,13 +61,20 @@ export default async function DivisionPage({
 			</div>
 
 			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-				{division.teams.map((team, index) => (
-					<Button key={index} variant="secondary" asChild>
-						<Link href={`/team-management/team/${team?._id}`}>
-							{team?.teamName}
-						</Link>
-					</Button>
-				))}
+				{division.teams.map((team, index) => {
+					return (
+						<Button
+							key={index}
+							variant="secondary"
+							className="text-2xl"
+							asChild
+						>
+							<Link href={`/team-management/team/${team?._id}`}>
+								{team?.teamName}
+							</Link>
+						</Button>
+					);
+				})}
 			</ul>
 
 			<div className="my-8">

@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
-import Team from "@/api-helpers/models/Team";
-import Season from "@/api-helpers/models/Season";
-import { startOfDay, endOfDay, addHours } from "date-fns";
-import { revalidatePath } from "next/cache";
+import { startOfDay, addHours, endOfDay } from "date-fns";
 
+/**
+ * Retrieves all upcoming games within the next one week and returns them sorted by date.
+ *
+ * @return {Promise<NextResponse>} A JSON response containing the list of all upcoming games.
+ * @throws {NextResponse} If there is an internal server error.
+ */
 export const getAllUpcomingGamesHeader = async () => {
 	try {
 		const targetDate = new Date();
@@ -16,8 +19,9 @@ export const getAllUpcomingGamesHeader = async () => {
 
 		// Calculate the start and end dates for two weeks after the target date
 		const twoWeeksAfter = new Date(
-			targetDate.getTime() + 7 * 24 * 60 * 60 * 1000
+			targetDate.getTime() + 14 * 24 * 60 * 60 * 1000
 		);
+		console.log(oneWeekBefore, twoWeeksAfter);
 
 		const allGames = await Game.find({
 			date: {
@@ -43,6 +47,8 @@ export const getAllUpcomingGamesHeader = async () => {
 				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
 			);
 
+		console.log("allGames:", allGames);
+
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
 		});
@@ -54,6 +60,12 @@ export const getAllUpcomingGamesHeader = async () => {
 	}
 };
 
+/**
+ * Retrieves all upcoming games for a specific division.
+ *
+ * @param {string} divisionId - The ID of the division for which to retrieve the upcoming games.
+ * @return {object} The JSON response containing all upcoming games for the specified division, sorted by date.
+ */
 export const getAllUpcomingGamesByDivision = async (divisionId) => {
 	try {
 		const allGames = await Game.find({
@@ -87,6 +99,11 @@ export const getAllUpcomingGamesByDivision = async (divisionId) => {
 	}
 };
 
+/**
+ * Retrieve the latest 4 past games with detailed information about the division, home team, away team, players, player of the game, and game details, sorted by date.
+ *
+ * @return {Promise} Promise containing the retrieved games
+ */
 export const getAllPastGames = async () => {
 	try {
 		const games = await Game.find({ status: true })
@@ -141,6 +158,12 @@ export const getAllPastGames = async () => {
 	}
 };
 
+/**
+ * Retrieves the most recent player of the games that occurred within the last week.
+ *
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the retrieved games.
+ * @throws {NextResponse} If there is an internal server error, a NextResponse object with a status of 500 and a message of "Internal Server Error" is returned.
+ */
 export const getAllRecentPlayerOfTheGames = async () => {
 	try {
 		const targetDate = new Date();
@@ -190,6 +213,12 @@ export const getAllRecentPlayerOfTheGames = async () => {
 	}
 };
 
+/**
+ * Retrieves games by the selected date and returns them grouped by date.
+ *
+ * @param {number} selectedDate - The selected date in seconds.
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the games grouped by date.
+ */
 export const getGamesByDate = async (selectedDate) => {
 	try {
 		const date = new Date(selectedDate * 1000);
@@ -201,7 +230,7 @@ export const getGamesByDate = async (selectedDate) => {
 		})
 			.populate({
 				path: "division",
-				select: "divisionName",
+				select: "divisionName city",
 			})
 			.populate({
 				path: "homeTeam",
@@ -227,11 +256,10 @@ export const getGamesByDate = async (selectedDate) => {
 					weekday: "long",
 				});
 				const existingGames = acc.find((d) => d.date === date);
-				if (existingGames) {
-					existingGames.games.push(game);
-				} else {
-					acc.push({ date, games: [game] });
-				}
+
+				if (existingGames) existingGames.games.push(game);
+				else acc.push({ date, games: [game] });
+
 				return acc;
 			}, []);
 
@@ -254,6 +282,12 @@ export const getGamesByDate = async (selectedDate) => {
 	}
 };
 
+/**
+ * Retrieves a game by its ID and populates various related fields such as home team, away team, division, season, and player of the game.
+ *
+ * @param {type} id - The ID of the game to retrieve
+ * @return {type} Promise - A promise that resolves to the retrieved game
+ */
 export const getGameById = async (id) => {
 	try {
 		const game = await Game.findById(id)

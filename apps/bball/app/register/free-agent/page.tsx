@@ -27,6 +27,11 @@ export default async function FreeAgents(): Promise<JSX.Element> {
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
+	const selectedPlayer = players.find((player) => {
+		return player.season.toString() === season && player.freeAgent === true;
+	});
+
+	if (selectedPlayer) redirect("/success/free-agent");
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">

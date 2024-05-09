@@ -6,14 +6,12 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
-import LocationIcon from "../icons/LocationIcon";
-import ClockIcon from "../icons/ClockIcon";
-import CalendarRegisterIcon from "../icons/CalendarRegisterIcon";
-import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
 import BackButton from "../general/buttons/BackButton";
+import { CiCalendar } from "react-icons/ci";
+import { IoLocationOutline } from "react-icons/io5";
 
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
-	const userDivisions = user.basketball.map((player) => player.division._id);
+	const userDivisions = user.basketball.map((player) => player.division?._id);
 	return (
 		<>
 			<BackButton href="/register" />
@@ -51,25 +49,13 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 															<CardContent className="flex flex-col gap-4 p-0">
 																<div className="flex flex-col items-start gap-2 text-neutral-200 md:flex-row md:items-center">
 																	<div className="flex items-center gap-1">
-																		<LocationIcon />
+																		<IoLocationOutline className="size-3 text-[#82878d]" />
 																		<p className="text-sm">
 																			{division.location}
 																		</p>
 																	</div>
-																	{/* <div className="flex items-center gap-1">
-																		<ClockIcon />
-																		<p className="text-sm">
-																			{convertMilitaryToRegularTime(
-																				division.startTime
-																			)}{" "}
-																			-{" "}
-																			{convertMilitaryToRegularTime(
-																				division.endTime
-																			)}
-																		</p>
-																	</div> */}
 																	<div className="flex items-center gap-1">
-																		<CalendarRegisterIcon />
+																		<CiCalendar className="text-neutral-300" />
 																		<p className="text-sm">{division.day}</p>
 																	</div>
 																</div>
@@ -98,25 +84,13 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																	<CardContent className="flex flex-col gap-4 p-0">
 																		<div className="flex flex-col items-start gap-2 text-neutral-200 md:flex-row md:items-center">
 																			<div className="flex items-center gap-1">
-																				<LocationIcon />
+																				<IoLocationOutline className="size-3 text-[#82878d]" />
 																				<p className="text-sm">
 																					{division.location}
 																				</p>
 																			</div>
 																			<div className="flex items-center gap-1">
-																				<ClockIcon />
-																				<p className="text-sm">
-																					{convertMilitaryToRegularTime(
-																						division.startTime
-																					)}{" "}
-																					-{" "}
-																					{convertMilitaryToRegularTime(
-																						division.endTime
-																					)}
-																				</p>
-																			</div>
-																			<div className="flex items-center gap-1">
-																				<CalendarRegisterIcon />
+																				<CiCalendar className="text-neutral-300" />
 																				<p className="text-sm">
 																					{division.day}
 																				</p>
@@ -148,25 +122,13 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 																	<CardContent className="flex flex-col gap-4 p-0">
 																		<div className="flex flex-col items-start gap-2 text-neutral-200 md:flex-row md:items-center">
 																			<div className="flex items-center gap-1">
-																				<LocationIcon />
+																				<IoLocationOutline className="size-3 text-[#82878d]" />
 																				<p className="text-sm">
 																					{division.location}
 																				</p>
 																			</div>
-																			{/* <div className="flex items-center gap-1">
-																				<ClockIcon />
-																				<p className="text-sm">
-																					{convertMilitaryToRegularTime(
-																						division.startTime
-																					)}{" "}
-																					-{" "}
-																					{convertMilitaryToRegularTime(
-																						division.endTime
-																					)}
-																				</p>
-																			</div> */}
 																			<div className="flex items-center gap-1">
-																				<CalendarRegisterIcon />
+																				<CiCalendar className="text-neutral-300" />
 																				<p className="text-sm">
 																					{division.day}
 																				</p>

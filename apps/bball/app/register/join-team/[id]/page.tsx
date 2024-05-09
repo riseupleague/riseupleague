@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import {
 	getCurrentUser,
 	addNewUser,
+	getUserPlayerPayment,
 } from "@/api-helpers/controllers/users-controller";
 import JoinTeamSummary from "@/components/register/join-team/JoinTeamSummary";
 import { getRegisterTeamById } from "@/api-helpers/controllers/teams-controller";
@@ -30,20 +31,31 @@ export default async function JoinTeam({
 	}
 	const resTeam = await getRegisterTeamById(params.id);
 	const { team } = await resTeam.json();
-	console.log(user.basketball);
 
-	const isTeamJoined = user.basketball.find(
-		(player) => player.team._id === params.id
-	);
-	console.log("isTeamJoined:", isTeamJoined);
+	const resPlayer = await getUserPlayerPayment(session.user.email);
+	const { players, season } = await resPlayer.json();
+
+	const isDivisionJoined = players.find((player) => {
+		return player?.division?._id === team.division._id;
+	});
+
+	if (isDivisionJoined) {
+		redirect(`/success/${isDivisionJoined.division._id}`);
+	}
+
+	const isTeamJoined = players.find((player) => {
+		return player.team?._id === params.id;
+	});
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
-
 			{isTeamJoined && <RegistrationSuccess team={isTeamJoined} />}
 			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />}
+
+			<JoinTeamSummary team={team} session={session} />
 		</main>
 	);
 }

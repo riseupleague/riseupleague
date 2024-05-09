@@ -12,6 +12,7 @@ export async function PATCH(req: Request) {
 		// Extract user data from the request body
 		const {
 			playerId,
+			playerName,
 			jerseyName,
 			jerseyNumber,
 			jerseySize,
@@ -24,6 +25,7 @@ export async function PATCH(req: Request) {
 			playerId,
 			{
 				$set: {
+					playerName,
 					jerseyName,
 					jerseyNumber,
 					jerseySize,
@@ -34,7 +36,7 @@ export async function PATCH(req: Request) {
 			{ new: true } // Return the updated player
 		);
 
-		return NextResponse.json({ player: existingPlayer }, { status: 201 });
+		return NextResponse.json({ newPlayer: existingPlayer }, { status: 201 });
 	} catch (error) {
 		console.error("Error during team update:", error);
 		return NextResponse.json(

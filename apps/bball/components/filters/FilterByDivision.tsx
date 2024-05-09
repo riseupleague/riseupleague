@@ -12,7 +12,6 @@ import {
 import { Label } from "@ui/components/label";
 
 const FilterByDivision = ({
-	selectedDivision,
 	handleDivisionChange,
 	divisions,
 	placeholder = "All Divisions",

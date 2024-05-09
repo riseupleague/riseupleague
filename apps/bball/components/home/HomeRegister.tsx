@@ -16,7 +16,7 @@ const HomeRegister = (): JSX.Element => {
 	};
 
 	return (
-		<section className="font-barlow my-8 flex flex-col items-center justify-center text-center text-neutral-50">
+		<section className="font-barlow mb-8 mt-36 flex flex-col items-center justify-center text-center text-neutral-50">
 			<h2 className="my-8">Ready to elevate your basketball experience?</h2>
 			<div className="w-full px-2">
 				{!session || !session.user ? (
@@ -24,7 +24,7 @@ const HomeRegister = (): JSX.Element => {
 						Register Now
 					</Button>
 				) : (
-					<Link href="/register" className="w-full">
+					<Link href="/register?info=true" className="w-full">
 						<Button className="w-full">Register Now</Button>
 					</Link>
 				)}

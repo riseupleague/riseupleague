@@ -17,7 +17,14 @@ import {
 	CardTitle,
 } from "@ui/components/card";
 
-export default async function Register(): Promise<JSX.Element> {
+import RegisterPageInfo from "@/components/register/register-info/RegisterPageInfo";
+import RegisterCTABanner from "@/components/register/register-info/RegisterCTABanner";
+
+export default async function Register({
+	searchParams,
+}: {
+	searchParams: { [key: string]: string | string[] | undefined };
+}): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	const session = await getServerSession();
@@ -30,59 +37,72 @@ export default async function Register(): Promise<JSX.Element> {
 		redirect("/");
 	}
 
+	const info = typeof searchParams.info === "string" ? searchParams.info : "";
+
 	return (
-		<main className="font-barlow container mx-auto min-h-fit text-white">
-			<p className="font-barlow mb-0 mt-10 text-center text-xl font-medium uppercase md:text-3xl">
-				Season 5
-			</p>
-			<h1 className="font-abolition mb-5 mt-1 text-7xl">
-				Welcome to rise up basketball
-			</h1>
-			<h2 className="font-barlow m-0 text-center text-xl font-medium uppercase text-white md:text-[28px]">
-				League with the best player experience
-			</h2>
-			<section className="mt-20 grid grid-cols-1 gap-5 md:grid-cols-3">
-				{cardData.map((card, index) => (
-					<Card
-						key={index}
-						className="relative flex h-[494px] flex-col justify-end bg-transparent"
-					>
-						<Image
-							src={card.imgSrc}
-							alt={card.imgAlt}
-							layout="fill"
-							objectFit="cover"
-							className="absolute inset-0 -z-10 bg-gradient-to-b opacity-50"
-						/>
-						<CardHeader>
-							<CardTitle className="font-abolition text-5xl font-medium">
-								{card.title}
-							</CardTitle>
-							<CardDescription className="font-barlow text-xl leading-6 text-neutral-200">
-								{card.description}
-							</CardDescription>
-						</CardHeader>
-						<CardContent className="text-center">
-							{card.href === "/register/free-agent" ? (
-								<Button
-									className="font-barlow block w-full rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
-									disabled
-								>
-									<Link href={card.href}>Coming soon</Link>
-								</Button>
-							) : (
-								<Button
-									className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
-									asChild
-								>
-									<Link href={card.href}>{card.btnText}</Link>
-								</Button>
-							)}
-						</CardContent>
-					</Card>
-				))}
-			</section>
-		</main>
+		<>
+			{info === "true" ? (
+				<RegisterPageInfo />
+			) : (
+				<main className="font-barlow container mx-auto min-h-fit text-white">
+					<p className="font-barlow mb-0 mt-10 text-center text-xl font-medium uppercase md:text-3xl">
+						Season 5
+					</p>
+					<h1 className="font-abolition mb-5 mt-1 text-7xl">
+						Welcome to rise up basketball
+					</h1>
+					<h2 className="font-barlow m-0 text-center text-xl font-medium uppercase text-white md:text-[28px]">
+						League with the best player experience
+					</h2>
+					<section className="my-20 grid grid-cols-1 gap-5 md:grid-cols-3">
+						{cardData.map((card, index) => (
+							<Card
+								key={index}
+								className="relative flex h-[494px] flex-col justify-end bg-transparent"
+							>
+								<Image
+									src={card.imgSrc}
+									alt={card.imgAlt}
+									fill
+									className="absolute inset-0 -z-10 bg-gradient-to-b object-cover opacity-50"
+								/>
+								<CardHeader>
+									<CardTitle className="font-abolition text-5xl font-medium">
+										{card.title}
+									</CardTitle>
+									<CardDescription className="font-barlow text-xl leading-6 text-neutral-200">
+										{card.description}
+									</CardDescription>
+								</CardHeader>
+								<CardContent className="text-center">
+									{card.btnText === "Coming soon" ? (
+										<Button
+											disabled
+											className="font-barlow block w-full cursor-not-allowed rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+										>
+											Coming Soon!
+										</Button>
+									) : (
+										<Link
+											href={card.href}
+											className="font-barlow block rounded bg-neutral-100 px-12 py-2 text-center font-semibold uppercase text-neutral-900 transition hover:bg-neutral-200"
+										>
+											{card.btnText}
+										</Link>
+									)}
+								</CardContent>
+							</Card>
+						))}
+					</section>
+
+					<RegisterCTABanner
+						description={"Need more information?"}
+						ctaLink={"/register?info=true"}
+						ctaText={"Click Here"}
+					/>
+				</main>
+			)}
+		</>
 	);
 }
 

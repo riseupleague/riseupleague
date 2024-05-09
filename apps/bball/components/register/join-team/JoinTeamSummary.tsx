@@ -1,13 +1,7 @@
 "use client";
-import React, { useState } from "react";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@ui/components/card";
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
 import { Checkbox } from "@ui/components/checkbox";
 import { Label } from "@ui/components/label";
 import Link from "next/link";
@@ -17,6 +11,7 @@ import { Loader2 } from "lucide-react";
 import getStripe from "@/utils/checkout";
 import { Input } from "@ui/components/input";
 import BackButton from "@/components/general/buttons/BackButton";
+import { Separator } from "@ui/components/separator";
 
 interface CheckboxErrors {
 	termsChecked?: string;
@@ -26,7 +21,6 @@ interface CheckboxErrors {
 }
 
 const JoinTeamSummary = ({ team, session }) => {
-	console.log(team);
 	const teamCaptain = team.players.find(
 		(player) => player.teamCaptain === true
 	);
@@ -66,7 +60,7 @@ const JoinTeamSummary = ({ team, session }) => {
 		const validPhone = validatePhoneNumber(phoneNumber);
 
 		if (!validPhone) {
-			errors.phoneNumber = "Invalid Phone number";
+			errors.phoneNumber = "Invalid phone number.";
 		}
 
 		return errors;
@@ -110,7 +104,6 @@ const JoinTeamSummary = ({ team, session }) => {
 			} else {
 				setIsLoader(false);
 
-				console.log(Object.keys(errors));
 				setCheckboxErrors(errors);
 			}
 		} catch (error) {
@@ -121,11 +114,9 @@ const JoinTeamSummary = ({ team, session }) => {
 	const handleFree = (e) => {
 		e.preventDefault();
 		const errors = validateForm();
-		console.log(team.season.freePrice);
 		if (Object.keys(errors).length === 0) {
 			handleCreateTeamAndPlayer(team.season.freePrice, "full");
 		} else {
-			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
 		}
 	};
@@ -138,6 +129,19 @@ const JoinTeamSummary = ({ team, session }) => {
 			division.earlyBirdOpen
 				? handleCreateTeamAndPlayer(division.earlyBirdId, "full")
 				: handleCreateTeamAndPlayer(division.regularPriceFullId, "full");
+		} else {
+			setCheckboxErrors(errors);
+		}
+	};
+
+	const handlePayInstalments = (e) => {
+		e.preventDefault();
+		const errors = validateForm();
+
+		if (Object.keys(errors).length === 0) {
+			division.earlyBirdOpen
+				? handleCreateTeamAndPlayer(division.earlyBirdId, "four")
+				: handleCreateTeamAndPlayer(division.regularPriceInstalmentId, "four");
 		} else {
 			console.log(Object.keys(errors));
 			setCheckboxErrors(errors);
@@ -256,14 +260,37 @@ const JoinTeamSummary = ({ team, session }) => {
 							</p>
 							<p>{division?.day}</p>
 							<p className="mb-10 mt-2">{division?.description}</p>
+
+							<p className="my-4">
+								<strong>Registration Fee Allocation:</strong> Upon immediate
+								payment, ${division.instalmentPrice}
+								<span className="text-sm"> + tax</span> will be allocated
+								towards the jersey order, and another $
+								{division.instalmentPrice}
+								<span className="text-sm"> + tax</span> will be designated for
+								gym fees. Please note that there will be no refunds for this
+								transaction.
+							</p>
 							{division?.earlyBirdOpen ? (
 								<p className="text-right">
 									Early Bird Registration Fee: ${division?.earlyBirdPrice}
 								</p>
 							) : (
-								<p className="text-right">
-									Registration Fee: ${division?.regularPrice}
-								</p>
+								<div className="flex justify-end">
+									<div>
+										<p>
+											Registration Fee: ${division.regularPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+										<span className="my-2 mr-2 block text-center text-3xl">
+											Or
+										</span>
+										<p>
+											Six Payments of ${division.instalmentPrice + ".00"}{" "}
+											<span className="text-sm"> + tax</span>
+										</p>
+									</div>
+								</div>
 							)}
 						</div>
 					</div>
@@ -384,53 +411,83 @@ const JoinTeamSummary = ({ team, session }) => {
 							</>
 						) : (
 							<>
-								{division?.earlyBirdOpen ? (
-									<>
-										<section>
-											<p className="mt-4">Overall Total:</p>
-											<p className="text-4xl">${division?.earlyBirdPrice}</p>
-											<Button
-												className="mt-10  flex w-full justify-center text-center"
-												onClick={handlePay}
-											>
-												{isLoader ? (
-													<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-												) : (
-													"Pay Now"
-												)}
-											</Button>
-										</section>
-									</>
-								) : (
-									<section>
-										<p className="mt-4">Overall Total:</p>
-										<p className="text-4xl">${division?.regularPrice}</p>
-									</section>
-								)}
+								<section>
+									<p className="mt-4">Overall Total:</p>
+									<p className="text-4xl">
+										$
+										{division?.earlyBirdOpen
+											? division?.earlyBirdPrice
+											: division?.regularPrice}
+									</p>
+									<Button
+										className="mt-10  flex w-full justify-center text-center"
+										onClick={handlePay}
+									>
+										{isLoader ? (
+											<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+										) : (
+											"Pay Now"
+										)}
+									</Button>
+								</section>
 							</>
 						)}
 
+						{!division.earlyBirdOpen && (
+							<section>
+								<Separator className="my-4 border-b border-neutral-600" />
+								<p className="my-4 text-base font-medium">
+									Six Instalments of:
+								</p>
+								<p className="mb-4 text-2xl">
+									${division.instalmentPrice}
+									<span className="text-sm"> + tax</span>
+								</p>
+								<Button
+									className="flex w-full justify-center text-center text-sm font-semibold capitalize"
+									onClick={handlePayInstalments}
+								>
+									{isLoader ? (
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										"Pay in instalments"
+									)}
+								</Button>
+							</section>
+						)}
+
+						<p className="font-sm my-4">
+							<span className="font-semibold">
+								Registration Fee Allocation:
+							</span>{" "}
+							Upon immediate payment, ${division.instalmentPrice}
+							<span className="text-sm"> + tax</span> will be allocated towards
+							the jersey order, and another ${division.instalmentPrice}
+							<span className="text-sm"> + tax</span> will be designated for gym
+							fees. Please note that there will be no refunds for this
+							transaction.
+						</p>
 						{/* Error messages */}
 
 						{checkboxErrors.playerName && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.playerName}
 							</p>
 						)}
 
 						{checkboxErrors.phoneNumber && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.phoneNumber}
 							</p>
 						)}
 						{checkboxErrors.termsChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.termsChecked}
 							</p>
 						)}
 
 						{checkboxErrors.refundChecked && (
-							<p className="text-primary  rounded-md p-2">
+							<p className="text-primary text-sm">
 								{checkboxErrors.refundChecked}
 							</p>
 						)}

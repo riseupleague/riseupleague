@@ -3,16 +3,15 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import PlayerSections from "@/components/players/player/PlayerSections";
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Badge } from "@ui/components/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
-import TeamLogo from "@/components/general/icons/TeamLogo";
-import ComparePopup from "@/components/players/player/ComparePopup";
-export default async function Players({
+import { Avatar, AvatarImage } from "@ui/components/avatar";
+import { extractInstagramUsername } from "@/utils/extractInstagram";
+
+const Players = async ({
 	params,
 }: {
 	params: { id: string };
-}): Promise<JSX.Element> {
+}): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	const { id } = params;
@@ -33,25 +32,32 @@ export default async function Players({
 						</Avatar>
 					)}
 				</div>
+
 				<div className="flex w-1/2 flex-col items-center justify-center md:w-3/4">
-					<Badge className=" font-barlow mx-auto rounded border border-neutral-500 bg-neutral-500 px-5 py-1 text-center text-sm font-semibold uppercase text-white hover:bg-neutral-500 md:px-10 md:py-3 md:text-4xl">
-						{player.division.divisionName}
-					</Badge>
+					<Badge variant="division">{player.division.divisionName}</Badge>
 					<h1 className="text-4xl md:text-8xl">{player?.playerName}</h1>
 					<Link
 						href={`/teams/${player?.team._id}`}
-						className="font-barlow block w-full text-center text-xl md:text-4xl"
+						className="font-barlow block w-full text-center text-xl transition-all hover:text-neutral-200 md:text-4xl"
 					>
 						{player?.team.teamName} | #{player?.jerseyNumber}
 					</Link>
-
+					{player?.instagram && (
+						<Link
+							href={`https://www.instagram.com/${player?.instagram}`}
+							className="font-barlow my-4 text-lg text-neutral-300 transition-all hover:text-neutral-200"
+							target="_blank"
+						>
+							IG: @{extractInstagramUsername(player?.instagram)}
+						</Link>
+					)}
 					{/* <ComparePopup /> */}
 				</div>
 			</div>
 			<PlayerSections player={player} allAvg={allAvg} />
 		</section>
 	);
-}
+};
 
 export const metadata: Metadata = {
 	title: "Rise Up League | Player",
@@ -70,3 +76,5 @@ export const metadata: Metadata = {
 // 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 // 	};
 // }
+
+export default Players;

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";

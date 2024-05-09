@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@ui/components/button";
@@ -12,6 +11,7 @@ import {
 	AccordionTrigger,
 } from "@ui/components/accordion";
 import BackButton from "@/components/general/buttons/BackButton";
+import { IoMdClose } from "react-icons/io";
 
 interface FormErrors {
 	primaryColor?: string;
@@ -92,7 +92,7 @@ const RetroJersey = ({
 
 		const isColorInTeam = team.division.teamColors.includes(primaryColor);
 
-		if (isColorInTeam && oldPrimaryColor !== primaryColor) {
+		if (isColorInTeam && team.primaryColor !== primaryColor) {
 			errors.primaryColor = "Primary color is already selected by another team";
 		}
 
@@ -268,15 +268,15 @@ const RetroJersey = ({
 		return (
 			<span
 				key={hexValue}
-				className={`font-barlow h-10 w-10 cursor-pointer rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
+				className={`${isColorInTeam && "pointer-events-none"} font-barlow h-10 w-10 cursor-pointer rounded-full bg-[${hexValue}] relative p-4 font-bold text-white sm:h-8 sm:w-8 md:w-full lg:h-10 lg:w-10`}
 				style={{ backgroundColor: `${hexValue}` }}
 				onClick={() => handleColorChange(hexValue, setPrimaryColor, "primary")}
 			>
 				{/* Add the red X as a pseudo-element */}
 				{isColorInTeam && (
 					// Add the red X as a pseudo-element
-					<span className="absolute inset-0 -top-1 flex items-center justify-center text-5xl text-[red]">
-						X
+					<span className="absolute inset-0 flex cursor-not-allowed items-center justify-center text-5xl text-[red]">
+						<IoMdClose />
 					</span>
 				)}
 			</span>
