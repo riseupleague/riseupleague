@@ -1,20 +1,35 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import FutureGame from "./FutureGame";
-import { format } from "date-fns-tz";
+import { format, utcToZonedTime } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
-import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
-import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
+import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 
 const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 	const separatedGames = [];
 
 	allUpcomingGames.forEach((game) => {
-		const gameDate = convertToEST(new Date(game.date));
-		const month = format(gameDate, "MMM");
-		const day = format(gameDate, "d");
-		const formattedDate = `${month} ${day}`;
+		let formattedDate;
+		if (game.division._id === "660d6a75ab30a11b292cd290") {
+			// convert utc date
+			const gameDate = new Date(game.date);
+			const utcDate = utcToZonedTime(gameDate, "UTC");
+
+			const month = format(utcDate, "MMM");
+			const day = format(utcDate, "d");
+
+			formattedDate = `${month} ${day}`;
+
+			// convert utc date
+		} else {
+			// convert to toronto date
+			const gameDate = convertToEST(new Date(game.date));
+			const month = format(gameDate, "MMM");
+			const day = format(gameDate, "d");
+			formattedDate = `${month} ${day}`;
+			// convert to toronto date
+		}
 
 		// Check if there's an object with the same date, if not, create one
 		const existingDateObject = separatedGames.find((obj) => {
@@ -53,7 +68,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollLeft}
 			>
-				<ScrollRightIcon />
+				<IoMdArrowDropleft className="size-8" />
 			</button>
 			<div
 				ref={containerRef}
@@ -75,15 +90,37 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 							})
 							.map((game, index) => {
 								const homeTeamWon = game.homeTeamScore > game.awayTeamScore;
-								let date = convertToEST(game.date);
-								let torontoTime = format(new Date(date), "p");
+								let date;
+								let torontoTime;
+								let roundedTime;
+
+								if (game.division._id === "660d6a75ab30a11b292cd290") {
+									date = game.date;
+									const utcDate = utcToZonedTime(date, "UTC");
+
+									torontoTime = format(new Date(utcDate), "p");
+								} else {
+									date = convertToEST(game.date);
+									torontoTime = format(new Date(date), "p");
+								}
+
+								if (
+									torontoTime.endsWith(":59 PM") ||
+									torontoTime.endsWith(":59 AM")
+								) {
+									// If the time is 7:59 PM or 7:59 AM, round it up to the next hour
+									roundedTime = (parseInt(torontoTime) + 1).toString() + ":00";
+								} else {
+									// Otherwise, keep the hour and minutes as they are
+									roundedTime = torontoTime;
+								}
 
 								return (
 									<FutureGame
 										key={index}
 										date={date}
 										game={game}
-										time={torontoTime}
+										time={roundedTime}
 										homeTeamWon={homeTeamWon}
 									/>
 								);
@@ -96,7 +133,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollRight}
 			>
-				<ScrollLeftIcon />
+				<IoMdArrowDropright className="size-8" />
 			</button>
 		</div>
 	);

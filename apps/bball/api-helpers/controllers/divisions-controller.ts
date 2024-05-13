@@ -29,6 +29,66 @@ type Division = {
 	regularPriceInstalmentId: string;
 };
 
+/**
+ * Retrieves all current divisions and cities.
+ *
+ * @return {Promise<object>} An object containing the division names and cities.
+ */
+export const getAllCurrentDivisionsAndCities = async () => {
+	try {
+		const activeSeason = await Season.find({ active: "true" });
+		const divisions = await Division.find({ season: activeSeason }).select(
+			"divisionName city"
+		);
+
+		if (!divisions) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		// Extract division names and cities
+		const { divisionNamesAndCities, cities } = divisions.reduce(
+			(result, division) => {
+				// Extract division names (unique)
+				if (
+					!result.divisionNamesAndCities.find(
+						(item) => item._id === division._id
+					)
+				) {
+					result.divisionNamesAndCities.push({
+						_id: division._id,
+						divisionName: division.divisionName,
+						city: division.city,
+					});
+				}
+
+				// Extract cities (unique)
+				if (!result.cities.includes(division.city)) {
+					result.cities.push(division.city);
+				}
+
+				return result;
+			},
+			{ divisionNamesAndCities: [], cities: [] }
+		);
+
+		return NextResponse.json({ divisionNamesAndCities, cities });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieve all current divisions for the active season.
+ *
+ * @return {Promise} A promise that resolves with the divisions or rejects with an error message.
+ */
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -51,6 +111,11 @@ export const getAllCurrentDivisions = async () => {
 	}
 };
 
+/**
+ * Retrieves all register divisions and organizes them by city.
+ *
+ * @return {Promise} An array of cities with their respective divisions.
+ */
 export const getAllRegisterDivisions = async () => {
 	try {
 		// Fetch the register season
@@ -58,7 +123,7 @@ export const getAllRegisterDivisions = async () => {
 
 		// Fetch divisions for the register season
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
+			"divisionName season city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId"
 		);
 
 		// Check if divisions were found
@@ -101,6 +166,65 @@ export const getAllRegisterDivisions = async () => {
 	}
 };
 
+/**
+ * Retrieves the division with teams and their statistics based on the provided divisionId.
+ *
+ * @param {string} divisionId - The ID of the division to retrieve.
+ * @return {Promise} A promise that resolves to the division with teams and their stats.
+ */
+export const getCurrentDivisionWithTeams = async (divisionId: string) => {
+	try {
+		const division = await Division.findById(divisionId)
+			.populate({
+				path: "teams",
+				select: "teamName wins losses pointDifference teamBanner _id",
+			})
+			.select("divisionName teams");
+
+		const teamsWithStats = division.teams?.map((team) => {
+			const { wins, losses, pointDifference, teamName } = team;
+			let gp, wpct;
+			if (!wins && !losses) {
+				gp = 0;
+				wpct = 0;
+			} else {
+				gp = wins + losses;
+				wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
+			}
+
+			return {
+				teamName,
+				wins,
+				losses,
+				pointDifference,
+				gp,
+				wpct,
+				_id: team._id,
+			};
+		});
+
+		// Return the division with teams and stats
+		const divisionWithTeamStats = {
+			_id: division._id,
+			divisionName: division.divisionName,
+			teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
+		};
+
+		return NextResponse.json({ divisionWithTeamStats });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieves all active divisions with their associated teams and statistics.
+ *
+ * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
+ */
 export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -159,6 +283,11 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 	}
 };
 
+/**
+ * Retrieves all current divisions with team names.
+ *
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the divisions with team names.
+ */
 export const getAllCurrentDivisionsWithTeamNames = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -186,6 +315,11 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 	}
 };
 
+/**
+ * Retrieves all upcoming divisions with their team names.
+ *
+ * @return {Promise} Promise that resolves to an object containing the upcoming divisions with team names
+ */
 export const getAllUpcomingDivisionsWithTeamNames = async () => {
 	try {
 		const registerSeason = await Season.find({ register: "true" });
@@ -213,6 +347,11 @@ export const getAllUpcomingDivisionsWithTeamNames = async () => {
 	}
 };
 
+/**
+ * Retrieves all current divisions' names and IDs.
+ *
+ * @return {Promise<Object>} A promise that resolves with the divisions' names and IDs.
+ */
 export const getAllCurrentDivisionsNameAndId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -223,7 +362,7 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 		}).select("divisionName _id");
 
 		// Add "All Divisions" to the beginning of the array
-		divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
+		// divisionsNameAndId.unshift({ divisionName: "All Divisions", _id: "" });
 
 		if (!divisionsNameAndId) {
 			return NextResponse.json(
@@ -242,6 +381,12 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 	}
 };
 
+/**
+ * Retrieves a division by ID along with related teams and season information.
+ *
+ * @param {string} id - The ID of the division to retrieve
+ * @return {Promise} A Promise that resolves with the division information
+ */
 export const getRegisterDivisionById = async (id: string) => {
 	// Check if the provided ID is not undefined or null
 	if (!id) {
@@ -270,7 +415,7 @@ export const getRegisterDivisionById = async (id: string) => {
 		])
 		.populate({ path: "season", select: "fullTeamPrice" })
 		.select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId season"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId season instalmentPrice"
 		);
 
 	if (!division) {

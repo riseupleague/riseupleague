@@ -1,29 +1,15 @@
 import { connectToDatabase } from "@/api-helpers/utils";
-import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
-import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
+import { getAllCurrentDivisionsNameAndId } from "@/api-helpers/controllers/divisions-controller";
 import { Metadata } from "next";
-import { revalidatePath } from "next/cache";
-import MVPGrid from "@/components/mvp-ladder/MVPGrid";
-import { DivisionWithStats } from "@/types";
+import { redirect } from "next/navigation";
 
 export default async function MVPLadder(): Promise<JSX.Element> {
 	await connectToDatabase();
 
-	const resAllPlayers = await getAllPlayersWithAvg();
-	const { allPlayers } = await resAllPlayers.json();
+	const resDivisions = await getAllCurrentDivisionsNameAndId();
+	const { divisionsNameAndId } = await resDivisions.json();
 
-	const resDivisions = await getAllCurrentDivisionsWithTeams();
-	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
-		await resDivisions.json();
-
-	revalidatePath("/leaders/mvp-ladder", "page");
-
-	return (
-		<section className="container mx-auto min-h-fit">
-			<h1>mvp ladder</h1>
-			<MVPGrid allPlayers={allPlayers} divisions={divisionsWithStats} />
-		</section>
-	);
+	redirect(`/leaders/mvp-ladder/${divisionsNameAndId[0]._id}`);
 }
 
 export const metadata: Metadata = {

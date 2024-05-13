@@ -7,8 +7,8 @@ import { Button } from "@ui/components/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { LogOut } from "lucide-react";
 import SignInDialog from "@/components/auth/SignInDialog";
-import PlayerIcon from "../icons/PlayerIcon";
-import DownChevronIcon from "../icons/DownChevronIcon";
+import { FaChevronDown } from "react-icons/fa6";
+import { CgProfile } from "react-icons/cg";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -19,7 +19,7 @@ import {
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
 
-const ProfileLink = (): JSX.Element => {
+const ProfileLink = ({ user }): JSX.Element => {
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
@@ -38,27 +38,27 @@ const ProfileLink = (): JSX.Element => {
 
 	return (
 		<div className="bg-transparent">
-			{status === "authenticated" ? (
+			{user !== null ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>
 							<DropdownMenuTrigger className="font-oswald flex items-center gap-2 transition-all hover:opacity-80">
 								<span className="text-primary hidden text-lg lg:inline-block">
-									Welcome back, {session?.user?.name}
+									{user?.name}
 								</span>
-								<div className="flex items-center gap-1">
-									<Avatar>
-										<AvatarImage src={`${session.user.image}`} />
+								<div className="flex items-center gap-1 ">
+									<Avatar className="block lg:hidden">
+										<AvatarImage src={session?.user?.image} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
-											{session?.user?.name[0]}
+											{user?.name[0]}
 										</AvatarFallback>
 									</Avatar>
-									<DownChevronIcon />
+									<FaChevronDown className="text-neutral-300" />
 								</div>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="font-barlow w-56 border border-neutral-500 bg-neutral-900">
 								<DropdownMenuLabel className="font-barlow text-xl font-medium uppercase">
-									{session?.user?.name}
+									{user?.email}
 								</DropdownMenuLabel>
 
 								<DropdownMenuSeparator className="border border-neutral-600" />
@@ -70,7 +70,12 @@ const ProfileLink = (): JSX.Element => {
 											href="/user"
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
-											<PlayerIcon />
+											<Avatar className="hidden size-7 lg:block">
+												<AvatarImage src={session?.user?.image} />
+												<AvatarFallback className="bg-neutral-400 uppercase">
+													{user?.name[0]}
+												</AvatarFallback>
+											</Avatar>
 											<span>Profile</span>
 										</Link>
 									</DropdownMenuItem>

@@ -2,8 +2,7 @@
 
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@ui/components/card";
 import { Button } from "@ui/components/button";
 import BackButton from "@/components/general/buttons/BackButton";
@@ -189,21 +188,17 @@ const CreateTeamDetails = ({
 
 				{/* Error messages */}
 				{formErrors.teamName && (
-					<p className="text-primary rounded-md p-2">{formErrors.teamName}</p>
+					<p className="text-primary text-md">{formErrors.teamName}</p>
 				)}
 
 				{formErrors.teamNameShort && (
-					<p className="text-primary rounded-md p-2">
-						{formErrors.teamNameShort}
-					</p>
+					<p className="text-primary text-md">{formErrors.teamNameShort}</p>
 				)}
 				{formErrors.teamCode && (
-					<p className="text-primary rounded-md p-2">{formErrors.teamCode}</p>
+					<p className="text-primary text-md">{formErrors.teamCode}</p>
 				)}
 				{formErrors.phoneNumber && (
-					<p className="text-primary rounded-md p-2">
-						{formErrors.phoneNumber}
-					</p>
+					<p className="text-primary text-md">{formErrors.phoneNumber}</p>
 				)}
 				<div className="mt-10 flex justify-end">
 					<Button type="submit">Continue</Button>

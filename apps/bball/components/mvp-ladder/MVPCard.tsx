@@ -42,22 +42,25 @@ const MVPCard = ({ player, rank, mvpScore }): JSX.Element => {
 				</Link>
 			</div>
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
-				{player.averageStats.points.toFixed(1)}
+				{player?.averageStats?.points?.toFixed(1)}
 			</div>
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
-				{player.averageStats.rebounds.toFixed(1)}
+				{player?.averageStats?.rebounds?.toFixed(1)}
 			</div>
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
-				{player.averageStats.assists.toFixed(1)}
+				{player?.averageStats?.assists?.toFixed(1)}
 			</div>
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
-				{player.averageStats.steals.toFixed(1)}
+				{player?.averageStats?.steals?.toFixed(1)}
 			</div>
 			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
-				{player.averageStats.blocks.toFixed(1)}
+				{player?.averageStats?.blocks?.toFixed(1)}
 			</div>
-			<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
-				{mvpScore.toFixed(1)}
+			<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+				{player?.allStats?.length}
+			</div>
+			<div className="text-primary flex w-fit items-center text-sm font-semibold sm:w-6 sm:text-lg">
+				{mvpScore?.toFixed(1)}
 			</div>
 		</article>
 	);

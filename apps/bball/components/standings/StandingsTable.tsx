@@ -66,7 +66,6 @@ const StandingsTable = ({ divisions }): JSX.Element => {
 	return (
 		<div>
 			<FilterByDivision
-				selectedDivision={selectedDivision}
 				handleDivisionChange={handleDivisionChange}
 				divisions={divisionsNameAndId}
 				placeholder={filterPlaceholder}

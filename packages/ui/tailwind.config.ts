@@ -17,31 +17,6 @@ module.exports = {
 			barlow: ["Barlow"],
 			abolition: ["Abolition"],
 		},
-		colors: {
-			primary: "#ff422e",
-			primaryDark: "#e8341c", // A slightly darker shade of your primary color
-			secondary: "#202328",
-			neutral: {
-				50: "#fafbfc",
-				100: "#fefefe",
-				200: "#dfe2e6",
-				300: "#abafb3",
-				350: "#798394",
-				400: "#82878d",
-				500: "#555b64",
-				600: "#282d35",
-				700: "#11161d",
-				800: "#11161f",
-				900: "#04080f",
-			},
-			black: colors.black,
-			white: colors.white,
-			gray: colors.slate,
-			green: colors.emerald,
-			purple: colors.violet,
-			yellow: colors.amber,
-			pink: colors.fuchsia,
-		},
 		container: {
 			padding: "16px",
 		},
@@ -51,6 +26,24 @@ module.exports = {
 				inter: ["var(--font-inter)"],
 				barlow: ["var(--font-barlow)"],
 				abolition: ["var(--font-abolition)"],
+			},
+			colors: {
+				primary: "#ff422e",
+				primaryDark: "#e8341c", // A slightly darker shade of your primary color
+				secondary: "#202328",
+				neutral: {
+					50: "#fafbfc",
+					100: "#fefefe",
+					200: "#dfe2e6",
+					300: "#abafb3",
+					350: "#798394",
+					400: "#82878d",
+					500: "#555b64",
+					600: "#282d35",
+					700: "#11161d",
+					800: "#11161f",
+					900: "#04080f",
+				},
 			},
 			keyframes: {
 				"accordion-down": {

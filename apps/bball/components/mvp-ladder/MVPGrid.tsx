@@ -1,22 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
-const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
-	let filterPlaceholder = divisions[0].divisionName;
-	let initialDivisions = divisions.map((division) => {
-		return {
-			divisionName: division.divisionName,
-			_id: division._id,
-		};
-	});
+const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
+	const router = useRouter();
+	const filterPlaceholder = selectedDivision.divisionName;
 
-	// set initial division
-	const [selectedDivision, setSelectedDivision] = useState(
-		initialDivisions[0]._id
-	);
+	const minGamesRequired = 5; // make this 0 at start of season, make value 5 at week 6
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
@@ -31,37 +23,20 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 			};
 		})
 		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
-		.filter((player) => player.mvpScore > 0);
-
-	// set initial player list
-	const [players, setPlayers] = useState(
-		allPlayersWithScore.filter(
+		.filter(
 			(player) =>
-				player.division._id === selectedDivision &&
-				player.playerName !== "Admin Test"
-		)
-	);
+				player.mvpScore > 0 && player.allStats.length >= minGamesRequired
+		);
 
 	// Handle the select change event
-	const handleDivisionChange = (event) => {
-		const selectedDivisionId = event;
-
-		if (selectedDivisionId !== "default") {
-			const filteredPlayers = allPlayersWithScore
-				.filter((player) => player?.division?._id === selectedDivisionId)
-				.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1));
-
-			setPlayers(filteredPlayers);
-		} else {
-			setPlayers(allPlayers);
-		}
+	const handleDivisionChange = async (selectedDivisionId) => {
+		router.push(`/leaders/mvp-ladder/${selectedDivisionId}`);
 	};
 
 	return (
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col justify-between gap-4">
 				<FilterByDivision
-					selectedDivision={selectedDivision}
 					handleDivisionChange={handleDivisionChange}
 					divisions={divisions}
 					placeholder={filterPlaceholder}
@@ -69,7 +44,7 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 			</div>
 
 			<div className="relative my-8 grid grid-cols-1 overflow-auto">
-				{players.length > 0 ? (
+				{allPlayers.length > 0 ? (
 					<>
 						<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase sm:pr-6">
 							<div className="flex w-2 items-center text-sm sm:text-lg">#</div>
@@ -94,11 +69,14 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
 								BPG
 							</div>
-							<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								GP
+							</div>
+							<div className="text-primary flex w-fit items-center text-sm font-semibold sm:w-6 sm:text-lg">
 								Score
 							</div>
 						</article>
-						{players
+						{allPlayersWithScore
 							.map((player, index) => (
 								<MVPCard
 									player={player}
@@ -145,11 +123,8 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 						<li>APG * 2.0</li>
 						<li>SPG * 2.0</li>
 						<li>BPG * 2.0</li>
+						<li>(Win Percentage * 3.0)</li>
 					</ul>
-					<li>
-						This sum is <span className="text-primary">multipled</span> by Team
-						Win Percentage.
-					</li>
 				</ul>
 
 				<p className="my-4">
@@ -164,17 +139,13 @@ const MVPGrid = ({ allPlayers, divisions }): JSX.Element => {
 					<li>3.4 APG * 2.0 = 6.8</li>
 					<li>0.8 SPG * 2.0 = 1.6</li>
 					<li>0.2 BPG * 2.0 = 0.4</li>
+					<li>0.857 Win Percent * 3.0 = 2.571</li>
 					<hr />
-					<li>96.2 * Team Win Percentage (0.857%) = 82.4434</li>
-					<li className="text-primary">Final MVP Score: 82.4434</li>
+					<li className="text-primary">Final MVP Score: 98.971</li>
 				</ul>
 			</div>
 		</div>
 	);
-};
-
-const filterDivisions = (divisions, id) => {
-	return divisions.filter((division) => division._id === id);
 };
 
 const calculateMvpScore = (avgStats, wins, losses) => {
@@ -189,7 +160,7 @@ const calculateMvpScore = (avgStats, wins, losses) => {
 	if (!wins && !losses) wpct = 0;
 	else wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
 
-	return avgStatsSum * wpct;
+	return avgStatsSum + 3 * wpct;
 };
 
 export default MVPGrid;

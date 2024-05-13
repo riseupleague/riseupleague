@@ -16,6 +16,10 @@ const badgeVariants = cva(
 					"border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
 				playerCard:
 					"border-none bg-neutral-600 text-neutral-100 uppercase rounded-sm text-center font-normal",
+				division:
+					"font-barlow mx-auto rounded border border-neutral-500 bg-neutral-500 px-5 py-1 text-center text-sm font-semibold uppercase text-white hover:bg-neutral-500 md:px-10 md:py-3 md:text-4xl",
+				schedule:
+					"font-oswald w-fit text-center rounded-sm border-none bg-[#282d35] px-[15px] py-1 text-[10px] md:text-xs font-normal uppercase text-neutral-100",
 				outline: "text-foreground",
 			},
 		},

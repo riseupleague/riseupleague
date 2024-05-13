@@ -5,17 +5,22 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
-
+import { isLiveGame } from "@/utils/isLiveGame";
+import { redirect } from "next/navigation";
+import { extractYoutubeLink } from "@/utils/extractYoutubeLink";
 export default async function Summary({
 	params,
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
 	const day = date.toLocaleDateString("en-US", {
@@ -26,7 +31,6 @@ export default async function Summary({
 		day: "2-digit",
 	});
 	const time = format(date, "h:mm a");
-
 	const liveGame = isLiveGame(date);
 
 	return (
@@ -87,6 +91,19 @@ export default async function Summary({
 					</div>
 				</div>
 
+				{/* video */}
+				{game?.youtubeLink && (
+					<div className="my-6 md:my-24">
+						<iframe
+							className="aspect-video w-full"
+							src={`https://www.youtube.com/embed/${extractYoutubeLink(game.youtubeLink)}`}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+							title="Embedded youtube"
+						></iframe>
+					</div>
+				)}
+
 				<hr />
 
 				{/* box score */}
@@ -117,10 +134,3 @@ export const metadata: Metadata = {
 // 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 // 	};
 // }
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
-};

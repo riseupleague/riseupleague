@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import Hero from "@/components/home/hero";
 import HomeRegister from "@/components/home/HomeRegister";
 import SecondaryHeader from "@/components/structure/header/SecondaryHeader";
 import SetYourScheduleButton from "@/components/home/SetYourScheduleButton";
@@ -15,6 +14,8 @@ import HomeSocials from "@/components/home/HomeSocials";
 import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
+import Hero from "@/components/home/Hero";
+import PopUpRegister from "@/components/home/PopUpRegister";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -25,6 +26,7 @@ const Page = async (): Promise<JSX.Element> => {
 			</Suspense>
 			{/* <SetYourScheduleButton /> */}
 			<Hero />
+
 			<HomeRegister />
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
@@ -40,6 +42,7 @@ const Page = async (): Promise<JSX.Element> => {
 			<HomeSocials />
 			<HomeFaq />
 			<HomeContactUs />
+			{/* <PopUpRegister /> */}
 		</div>
 	);
 };

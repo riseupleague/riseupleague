@@ -1,11 +1,9 @@
 import { Card, CardHeader } from "@ui/components/card";
 import BackButton from "../../general/buttons/BackButton";
 import Link from "next/link";
-import ArrowRightIcon from "../../icons/ArrowRightIcon";
+import { FaArrowRight } from "react-icons/fa";
 
 const FreeAgentsRegistration = ({ divisions, user }): JSX.Element => {
-	const userDivisions = user.basketball.map((player) => player.division._id);
-
 	return (
 		<>
 			<BackButton href="/register" />
@@ -20,7 +18,7 @@ const FreeAgentsRegistration = ({ divisions, user }): JSX.Element => {
 						<Card className="rounded-md border border-neutral-600 bg-[#111827] transition-all hover:cursor-pointer hover:bg-neutral-600">
 							<CardHeader className="flex flex-row items-center justify-between px-4 py-6 uppercase sm:px-8 sm:py-12">
 								<h4 className="my-0 text-2xl">{division.city}</h4>
-								<ArrowRightIcon />
+								<FaArrowRight className="size-6 text-neutral-400" />
 							</CardHeader>
 						</Card>
 					</Link>

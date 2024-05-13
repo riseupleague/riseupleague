@@ -60,7 +60,7 @@ const PointsCircle = ({ player, pointsAverage }): JSX.Element => {
 		context.textBaseline = "middle";
 
 		// Start with the maximum font size
-		let fontSize = Math.floor(canvas.width / 10); // calculate font size based on canvas width
+		let fontSize = Math.floor(canvas.width / 12); // calculate font size based on canvas width
 		context.font = `${fontSize}px sans-serif`;
 
 		// Reduce font size until the text fits
@@ -91,9 +91,9 @@ const PointsCircle = ({ player, pointsAverage }): JSX.Element => {
 	return (
 		<canvas
 			ref={canvasRef}
-			width={220} // use relative width
+			width={250} // use relative width
 			height={"auto"} // use auto height to maintain aspect ratio
-			style={{ maxWidth: "220px", borderRadius: "50%" }} // set max width and border radius
+			style={{ maxWidth: "250px", borderRadius: "50%" }} // set max width and border radius
 		></canvas>
 	);
 };

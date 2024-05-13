@@ -3,9 +3,6 @@
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
-import { Button } from "@ui/components/button";
-import { Badge } from "@ui/components/badge";
-import TeamLogo from "./icons/TeamLogo";
 import { extractInstagramUsername } from "@/utils/extractInstagram";
 import Image from "next/image";
 
@@ -68,7 +65,7 @@ export default function FeaturedPlayerCard({ player }) {
 				{/* Image */}
 
 				{player.playerImage && player.playerImage !== "" ? (
-					<div className="relative m-3 rounded-bl-3xl border-8 border-blue-500">
+					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
 							className="!h-full !w-full"
 							src={player.playerImage}
@@ -78,7 +75,7 @@ export default function FeaturedPlayerCard({ player }) {
 						/>
 					</div>
 				) : (
-					<div className="relative m-3  rounded-bl-3xl border-8 border-blue-500 ">
+					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
 							className="mt-32 !h-full !w-full rounded-bl-2xl"
 							src={"/images/default-profile-pic.png"}
@@ -91,7 +88,7 @@ export default function FeaturedPlayerCard({ player }) {
 
 				<div className="m-2 flex items-center justify-between">
 					<div>
-						<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl uppercase">
+						<p className="font-barlow text-md overflow-hidden whitespace-nowrap uppercase md:text-2xl">
 							{player.playerName}
 						</p>
 						{player.instagram && (
@@ -100,7 +97,7 @@ export default function FeaturedPlayerCard({ player }) {
 							</p>
 						)}
 					</div>
-					<p className="font-barlow overflow-hidden whitespace-nowrap text-4xl text-neutral-500">
+					<p className="font-barlow overflow-hidden whitespace-nowrap text-2xl text-neutral-500 md:text-4xl">
 						#{player.jerseyNumber}
 					</p>
 				</div>
