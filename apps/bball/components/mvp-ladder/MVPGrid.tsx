@@ -8,7 +8,7 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 	const router = useRouter();
 	const filterPlaceholder = selectedDivision.divisionName;
 
-	const minGamesRequired = 5; // make this 0 at start of season, make value 5 at week 6
+	const minGamesRequired = 0; // make this 0 at start of season, make value 5 at week 6
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
