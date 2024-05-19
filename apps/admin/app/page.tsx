@@ -7,9 +7,9 @@ export default async function Page(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const session = await getServerSession();
 	console.log("session:", session);
-	const resWorker = await getCurrentWorker(session?.user?.email);
-	const { worker } = await resWorker.json();
-	if (!worker) redirect("/login");
+	// const resWorker = await getCurrentWorker(session?.user?.email);
+	// const { worker } = await resWorker.json();
+	// if (!worker) redirect("/login");
 	return (
 		<section>
 			<h1>dashboard</h1>

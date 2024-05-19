@@ -1,26 +1,18 @@
-import { getServerSession } from "next-auth";
+"use client";
 import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
 import { Button } from "@ui/components/button";
-import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
+
 import Link from "next/link";
 
 import Image from "next/image";
 
 import MobileNav from "./MobileNav";
 import WorkerDropdown from "./WorkerDropdown";
+import { useSession } from "next-auth/react";
 
-const Header = async (): Promise<JSX.Element> => {
+const Header = ({ activeSeason }): JSX.Element => {
 	// const session = await getServerSession();
-	const session = await getServerSession();
-	await connectToDatabase();
-
-	// Fetch all seasons
-	const resSeasons = await getAllSeasons();
-	const { seasons } = await resSeasons.json();
-
-	// Find the active season
-	const activeSeason = seasons.find((season) => season.active === true);
+	const { data: session } = useSession();
 
 	return (
 		<header

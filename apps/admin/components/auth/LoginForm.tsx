@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { Button } from "@ui/components/button";
+import { useSession } from "next-auth/react";
 
 export default function LoginForm() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
-
-	const router = useRouter();
+	const { data: session } = useSession();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -28,11 +28,12 @@ export default function LoginForm() {
 				return;
 			}
 
-			router.replace("/");
+			redirect("/");
 		} catch (error) {
 			console.log(error);
 		}
 	};
+	if (session) redirect("/");
 
 	return (
 		<section className="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">

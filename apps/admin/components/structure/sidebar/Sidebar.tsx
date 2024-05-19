@@ -1,19 +1,11 @@
+"use client";
 import SidebarContent from "./SidebarContent";
-import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
-import { getServerSession } from "next-auth";
 
-const Sidebar = async (): Promise<JSX.Element> => {
+import { useSession } from "next-auth/react";
+
+const Sidebar = ({ activeSeason }): JSX.Element => {
 	// const session = await getServerSession();
-	const session = await getServerSession();
-	await connectToDatabase();
-
-	// Fetch all seasons
-	const resSeasons = await getAllSeasons();
-	const { seasons } = await resSeasons.json();
-
-	// Find the active season
-	const activeSeason = seasons.find((season) => season.active === true);
+	const { data: session } = useSession();
 	const sidebarLinks = [
 		{
 			title: "dashboard",
