@@ -64,11 +64,11 @@ export default function FeaturedPlayerCard({ player }) {
 			<div className="flex flex-col">
 				{/* Image */}
 
-				{player.playerImage && player.playerImage !== "" ? (
+				{player.playerImage ? (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
 							className="!h-full !w-full"
-							src={player.playerImage}
+							src={player.playerImage.image}
 							alt="preview player of the game image"
 							width={200}
 							height={300}

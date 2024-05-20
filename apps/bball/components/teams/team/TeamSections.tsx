@@ -7,7 +7,6 @@ import Overview from "./Overview";
 
 const TeamSections = ({ team, allAvg, upcomingGames }): JSX.Element => {
 	const [selectedSection, setSelectedSection] = useState("overview");
-
 	const handleNavClick = (sectionId) => {
 		setSelectedSection(sectionId);
 	};
