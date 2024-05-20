@@ -19,7 +19,10 @@ const playerSchema = new Schema({
 		required: true,
 	},
 	playerImage: {
-		type: String,
+		type: {
+			id: String,
+			image: String,
+		},
 	},
 	instagram: {
 		type: String,
