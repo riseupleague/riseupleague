@@ -67,7 +67,7 @@ export default function FeaturedPlayerCard({ player }) {
 				{player.playerImage ? (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
-							className="!h-full !w-full"
+							className="!h-full !w-full rounded-bl-2xl"
 							src={player.playerImage.image}
 							alt="preview player of the game image"
 							width={200}
@@ -77,11 +77,11 @@ export default function FeaturedPlayerCard({ player }) {
 				) : (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
-							className="mt-32 !h-full !w-full rounded-bl-2xl"
+							className="mt-24 !h-full !w-full rounded-bl-2xl xl:mt-28 2xl:mt-32"
 							src={"/images/default-profile-pic.png"}
 							alt="preview player of the game image"
-							width={300}
-							height={500}
+							width={200}
+							height={300}
 						/>
 					</div>
 				)}
