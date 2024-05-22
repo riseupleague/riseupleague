@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Badge } from "@ui/components/badge";
 import { Avatar, AvatarImage } from "@ui/components/avatar";
 import { extractInstagramUsername } from "@/utils/extractInstagram";
+import Image from "next/image";
 
 const Players = async ({
 	params,
@@ -22,9 +23,15 @@ const Players = async ({
 		<section className="container mx-auto  min-h-fit ">
 			<div className="mb-8 mt-16 flex items-start">
 				<div className="w-1/2 md:w-1/4">
-					{player.playerImage && player.playerImage !== "" ? (
+					{player.playerImage ? (
 						<Avatar className="h-full w-full">
-							<AvatarImage src={player.playerImage} alt="player image" />
+							<Image
+								src={player.playerImage.image}
+								alt="player image"
+								className="aspect-square h-full w-full"
+								width={200}
+								height={300}
+							/>
 						</Avatar>
 					) : (
 						<Avatar className="h-full w-full">
