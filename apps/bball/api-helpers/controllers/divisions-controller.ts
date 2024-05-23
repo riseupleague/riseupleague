@@ -225,27 +225,38 @@ export const getCurrentDivisionWithTeams = async (divisionId: string) => {
  *
  * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
  */
+
 export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
-		const activeSeason = await Season.find({ active: "true" });
-		const divisions = await Division.find({ season: activeSeason })
+		const activeSeason = await Season.findOne({ active: true }).exec();
+
+		if (!activeSeason) {
+			return NextResponse.json(
+				{ message: "No active season found" },
+				{ status: 404 }
+			);
+		}
+
+		const divisions = await Division.find({ season: activeSeason._id })
 			.populate({
 				path: "teams",
 				select: "teamName wins losses pointDifference teamBanner _id",
 			})
-			.select("divisionName teams");
+			.select("divisionName teams city")
+			.exec();
+
+		if (!divisions.length) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
 		const divisionsWithStats = divisions.map((division) => {
-			// Calculate statistics for teams within this division
-			const teamsWithStats = division.teams?.map((team) => {
-				const { wins, losses, pointDifference, teamName } = team;
-				let gp, wpct;
-				if (!wins && !losses) {
-					gp = 0;
-					wpct = 0;
-				} else {
-					gp = wins + losses;
-					wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
-				}
+			const teamsWithStats = division.teams.map((team) => {
+				const { wins, losses, pointDifference, teamName, _id } = team;
+				const gp = wins + losses;
+				const wpct = gp === 0 ? 0 : wins / gp;
 
 				return {
 					teamName,
@@ -254,24 +265,17 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 					pointDifference,
 					gp,
 					wpct,
-					_id: team._id,
+					_id,
 				};
 			});
 
-			// Return the division with teams and stats
 			return {
 				_id: division._id,
 				divisionName: division.divisionName,
-				teams: teamsWithStats || [], // Ensure teams are an array (or an empty array if undefined)
+				city: division.city,
+				teams: teamsWithStats,
 			};
 		});
-
-		if (!divisions) {
-			return NextResponse.json(
-				{ message: "No divisions found" },
-				{ status: 404 }
-			);
-		}
 
 		return NextResponse.json({ divisionsWithStats });
 	} catch (error) {
@@ -297,7 +301,7 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 			season: activeSeason,
 		})
 			.populate("teams", "teamName primaryColor secondaryColor tertiaryColor")
-			.select("divisionName _id teams");
+			.select("divisionName city _id teams");
 		if (!divisionsWithTeamNames) {
 			return NextResponse.json(
 				{ message: "No divisions found" },
