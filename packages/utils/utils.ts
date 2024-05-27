@@ -1,3 +1,5 @@
+import { sub } from "date-fns";
+
 export const extractYoutubeLink = (youtubeLink: string) => {
 	if (youtubeLink.includes("https://www.youtube.com/watch?v=")) {
 		return youtubeLink.replace("https://www.youtube.com/watch?v=", "");
@@ -5,12 +7,13 @@ export const extractYoutubeLink = (youtubeLink: string) => {
 };
 
 export const isLiveGame = (date) => {
+	let now = new Date();
 	const HOUR = 1000 * 60 * 60;
 	const anHourAgo = Date.now() - HOUR;
 
-	console.log(`game date:  ${date}`);
-	console.log(`Date.now():  ${Date.now()}`);
-	console.log(`anHourAgo:  ${anHourAgo}`);
+	console.log(`date: ${date}`);
+	console.log(`now: ${now}`);
+	console.log(`sub: ${sub(now, { hours: 1 })}`);
 
 	return date > anHourAgo && Date.now() > date;
 };
