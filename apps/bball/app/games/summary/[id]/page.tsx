@@ -122,17 +122,3 @@ export const metadata: Metadata = {
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
-
-// export async function generateMetadata({ params }) {
-// 	await connectToDatabase();
-
-// 	const { id } = params;
-// 	const resGame = await getGameById(id);
-// 	const { game } = await resGame.json();
-
-// 	return {
-// 		title: `Rise Up League | ${game.gameName}`,
-// 		description:
-// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-// 	};
-// }
