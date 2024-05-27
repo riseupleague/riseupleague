@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Badge } from "@ui/components/badge";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";
 
 export default function playerOfTheGame({ player }) {
@@ -41,7 +41,12 @@ export default function playerOfTheGame({ player }) {
 							</Link>
 						</div>
 						{player.instagram && (
-							<span>ig: {extractInstagramUsername(player.instagram)}</span>
+							<span>
+								IG:{" "}
+								<span className="lowercase">
+									{extractInstagramUsername(player.instagram)}
+								</span>
+							</span>
 						)}
 					</div>
 				</div>

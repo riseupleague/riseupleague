@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@ui/components/badge";
 import { Avatar, AvatarImage } from "@ui/components/avatar";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 
 const Players = async ({
 	params,
@@ -48,7 +48,10 @@ const Players = async ({
 							className="font-barlow my-4 text-lg text-neutral-300 transition-all hover:text-neutral-200"
 							target="_blank"
 						>
-							IG: @{extractInstagramUsername(player?.instagram)}
+							IG:{" "}
+							<span className="lowercase">
+								@{extractInstagramUsername(player?.instagram)}
+							</span>
 						</Link>
 					)}
 					{/* <ComparePopup /> */}

@@ -3,7 +3,6 @@ import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-
 import { convertToEST } from "@/utils/convertToEST";
 import { IoLocationOutline } from "react-icons/io5";
 
