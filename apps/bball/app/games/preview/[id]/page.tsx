@@ -31,14 +31,10 @@ export default async function Preview({
 		date = new Date(game.date);
 		const utcDate = utcToZonedTime(date, "UTC");
 		formattedDate = format(utcDate, "E L/d @ h:mm a");
-
-		// utc dates
 	} else {
 		// convert to toronto dates
 		date = convertToEST(new Date(game.date));
 		formattedDate = format(date, "E L/d @ h:mm a");
-
-		// convert to toronto dates
 	}
 
 	return (

@@ -21,8 +21,6 @@ export default async function Summary({
 
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
-	// if game hasn't started, redirect to /preview/[id] page
-	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
 	const day = date.toLocaleDateString("en-US", {
@@ -32,6 +30,7 @@ export default async function Summary({
 		month: "2-digit",
 		day: "2-digit",
 	});
+
 	const time = format(date, "h:mm a");
 	const liveGame = isLiveGame(date);
 
