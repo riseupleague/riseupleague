@@ -1,4 +1,4 @@
-import { sub, isAfter } from "date-fns";
+import { sub, isAfter, parseISO } from "date-fns";
 
 export const extractYoutubeLink = (youtubeLink: string) => {
 	if (youtubeLink.includes("https://www.youtube.com/watch?v=")) {
@@ -11,7 +11,7 @@ export const isLiveGame = (date) => {
 	const anHourAgo = sub(now, { hours: 1 });
 
 	// if game time is after current time AND before current time - 1 hour, return true
-	return isAfter(now, date) && isAfter(date, anHourAgo);
+	return isAfter(now, parseISO(date)) && isAfter(parseISO(date), anHourAgo);
 };
 
 export const extractInstagramUsername = (instagram: string) => {
