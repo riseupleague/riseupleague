@@ -8,6 +8,10 @@ export const isLiveGame = (date) => {
 	const HOUR = 1000 * 60 * 60;
 	const anHourAgo = Date.now() - HOUR;
 
+	console.log(`game date:  ${date}`);
+	console.log(`Date.now():  ${Date.now()}`);
+	console.log(`anHourAgo:  ${anHourAgo}`);
+
 	return date > anHourAgo && Date.now() > date;
 };
 

@@ -7,15 +7,18 @@ import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { extractYoutubeLink, isLiveGame } from "@utils/utils";
+
 export default async function Summary({
 	params,
 }: {
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const { id } = params;
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
+
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 	// if game hasn't started, redirect to /preview/[id] page

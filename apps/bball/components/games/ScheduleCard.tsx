@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
 import { IoLocationOutline } from "react-icons/io5";
+import { isLiveGame } from "@utils/utils";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
@@ -125,13 +126,6 @@ const ScheduleCard = ({ game }): JSX.Element => {
 			</div>
 		</article>
 	);
-};
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
 };
 
 export default ScheduleCard;
