@@ -25,7 +25,6 @@ const ScheduleCard = ({ game }): JSX.Element => {
 		date = convertToEST(new Date(game.date));
 		dateFormatted = format(date, "ccc MMM do, uuuu");
 		time = format(date, "h:mm a");
-		// convert to toronto dates
 	}
 
 	if (time.endsWith(":59 PM") || time.endsWith(":59 AM")) {

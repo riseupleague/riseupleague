@@ -19,6 +19,9 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
+	console.log(new Date(game.date).getTimezoneOffset());
+	console.log(new Date().getTimezoneOffset());
+
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
