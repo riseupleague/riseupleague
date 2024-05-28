@@ -19,22 +19,14 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	console.log(new Date(game.date).getTimezoneOffset());
-	console.log(new Date().getTimezoneOffset());
-
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
-	const day = date.toLocaleDateString("en-US", {
-		weekday: "short",
-	});
-	const monthDay = date.toLocaleDateString("en-US", {
-		month: "2-digit",
-		day: "2-digit",
-	});
-
+	const day = format(date, "EEE");
+	const monthDay = format(date, "P").slice(0, 5);
 	const time = format(date, "h:mm a");
+
 	const liveGame = isLiveGame(date);
 
 	return (
