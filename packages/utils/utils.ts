@@ -10,6 +10,9 @@ export const isLiveGame = (date) => {
 	let now = new Date();
 	const anHourAgo = sub(now, { hours: 1 });
 
+	console.log(`now > date: ${now > parseISO(date)}`);
+	console.log(`date > 1 hour ago: ${(parseISO(date), anHourAgo)}`);
+
 	// if game time is after current time AND before current time - 1 hour, return true
 	return isAfter(now, parseISO(date)) && isAfter(parseISO(date), anHourAgo);
 };

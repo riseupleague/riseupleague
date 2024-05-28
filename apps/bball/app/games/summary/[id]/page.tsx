@@ -23,6 +23,7 @@ export default async function Summary({
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = convertToEST(new Date(game.date));
+
 	const day = date.toLocaleDateString("en-US", {
 		weekday: "short",
 	});
