@@ -11,6 +11,9 @@ export default async function Schedule(): Promise<JSX.Element> {
 	// Get the current date and time
 	const currentDate = startOfDay(new Date());
 
+	console.log(`currentDate: ${currentDate}`);
+	console.log(`timezoneOffset: ${currentDate.getTimezoneOffset()}`);
+
 	// Convert the current date to a Unix timestamp (in milliseconds)
 	const unixTimestamp = currentDate.getTime();
 
