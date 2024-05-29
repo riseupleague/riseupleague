@@ -3,7 +3,6 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
 import Link from "next/link";
 import { format } from "date-fns";
-import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { extractYoutubeLink, isLiveGame } from "@utils/utils";
@@ -22,7 +21,7 @@ export default async function Summary({
 	// if game hasn't started, redirect to /preview/[id] page
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
-	const date = convertToEST(new Date(game.date));
+	const date = new Date(game.date);
 	const day = format(date, "EEE");
 	const monthDay = format(date, "P").slice(0, 5);
 	const time = format(date, "h:mm a");
