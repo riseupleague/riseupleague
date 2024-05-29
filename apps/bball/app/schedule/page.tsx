@@ -1,23 +1,24 @@
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
-import { startOfDay } from "date-fns";
+import { format, startOfDay } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
-import { toEST } from "@utils/utils";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	// Get the current date and time
-	const currentDate = startOfDay(toEST(new Date()));
+	const utcTime = new Date();
+	const estTime = utcToZonedTime(utcTime, "America/Toronto");
+	const formattedEst = format(estTime, "yyyy-MM-dd HH:mm:ss");
 
-	console.log(`currentDate: ${currentDate}`);
-	console.log(`timezoneOffset: ${currentDate.getTimezoneOffset()}`);
+	console.log(`utc hours: ${format(utcTime, "yyyy-MM-dd HH:mm:ss")}`);
+	console.log(`est hours: ${formattedEst}`);
 
 	// Convert the current date to a Unix timestamp (in milliseconds)
-	const unixTimestamp = currentDate.getTime();
+	const unixTimestamp = estTime.getTime();
 
 	// Convert the Unix timestamp to seconds
 	const currentDateInSeconds = Math.floor(unixTimestamp / 1000);
