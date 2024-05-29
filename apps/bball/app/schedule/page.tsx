@@ -2,6 +2,7 @@ import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
 import { startOfDay } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
@@ -9,7 +10,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	// Get the current date and time
-	const currentDate = startOfDay(new Date());
+	const currentDate = startOfDay(utcToZonedTime(new Date(), "America/Toronto"));
 
 	console.log(`currentDate: ${currentDate}`);
 	console.log(`timezoneOffset: ${currentDate.getTimezoneOffset()}`);
