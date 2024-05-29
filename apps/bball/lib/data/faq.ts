@@ -13,13 +13,8 @@ export const faq = [
 		question:
 			"Can I join the league as an individual player, or do I need to be part of a team?",
 		answer:
-			"You can join the league as an individual player, and we'll do our best to place you on a team. If you already have a team or friends you'd like to play with, you can register as a team as well.",
+			"You can join the league as an individual player (Free Agent), and we'll do our best to place you on a team. If you already have a team or friends you'd like to play with, you can register as a team as well.",
 	},
-	// {
-	// 	question: "What is the age group for the recreational basketball league?",
-	// 	answer:
-	// 		"Our league is open to players of all ages, but we typically have age divisions to ensure fair competition. These divisions may include youth, adults, and seniors, among others.",
-	// },
 	{
 		question: "When and where are the games and practices held?",
 		answer:
