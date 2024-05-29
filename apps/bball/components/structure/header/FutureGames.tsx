@@ -28,7 +28,6 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 			const month = format(gameDate, "MMM");
 			const day = format(gameDate, "d");
 			formattedDate = `${month} ${day}`;
-			// convert to toronto date
 		}
 
 		// Check if there's an object with the same date, if not, create one
