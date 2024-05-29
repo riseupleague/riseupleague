@@ -44,7 +44,11 @@ export const faq = [
 	{
 		question: "Where can we pick up our jerseys before our first game?",
 		answer:
-			"Your jerseys will be given to you and your team ~20 minutes before your first game. Please find a volunteer at the scorers table and they will direct you to where you can find your jerseys.",
+			"There will be a table with some Rise Up staff to help you pick up your jerseys before your first game. Ask for your team name at the table, and you can pick up the jerseys for your whole team.",
 	},
-	// Add more questions and answers as needed
+	{
+		question: "How do the playoffs work?",
+		answer:
+			"All teams get to participate in the playoffs! The quarterfinals will be held on one day, but the semifinals and finals games will be held on the same day a week after the quarterfinals. There will be at least a 1 hour break between games to let players cool down and prepare for the finals game.",
+	},
 ];
