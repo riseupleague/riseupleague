@@ -5,12 +5,13 @@ import { startOfDay } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
+import { toEST } from "@utils/utils";
 
 export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	// Get the current date and time
-	const currentDate = startOfDay(utcToZonedTime(new Date(), "America/Toronto"));
+	const currentDate = startOfDay(toEST(new Date()));
 
 	console.log(`currentDate: ${currentDate}`);
 	console.log(`timezoneOffset: ${currentDate.getTimezoneOffset()}`);

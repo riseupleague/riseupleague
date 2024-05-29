@@ -47,3 +47,17 @@ export const extractInstagramUsername = (instagram: string) => {
 
 	return null;
 };
+
+/**
+ * Converts a given date to Eastern Standard Time (EST).
+ *
+ * @param {Date} date - The date to be converted.
+ * @return {string} The converted date in EST format.
+ */
+export const toEST = (date) => {
+	let estDate = new Date(date).toLocaleString("en-US", {
+		timeZone: "America/Toronto",
+	});
+
+	return new Date(estDate);
+};
