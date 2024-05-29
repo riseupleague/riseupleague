@@ -1,4 +1,4 @@
-import { sub } from "date-fns";
+import { sub, parseISO } from "date-fns";
 
 /**
  * Extracts the YouTube video ID from a given YouTube link.
@@ -21,7 +21,7 @@ export const extractYoutubeLink = (youtubeLink: string) => {
 export const isLiveGame = (date) => {
 	let now = new Date().getTime();
 	const anHourAgo = sub(now, { hours: 1 }).getTime();
-	const gameDate = date.getTime();
+	const gameDate = parseISO(date).getTime();
 
 	// if game time is after current time AND before current time - 1 hour, return true
 	const isLive = now >= gameDate && gameDate >= anHourAgo;

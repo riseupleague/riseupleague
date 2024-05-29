@@ -5,7 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { extractYoutubeLink, isLiveGame } from "@utils/utils";
+import { isLiveGame, extractYoutubeLink } from "@utils/utils";
 
 export default async function Summary({
 	params,
