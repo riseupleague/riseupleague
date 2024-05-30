@@ -1,6 +1,6 @@
 "use client";
 
-import { format } from "date-fns";
+import { add, format } from "date-fns";
 import { Button } from "@ui/components/button";
 import { Calendar } from "@ui/components/calendar";
 import {
@@ -12,22 +12,23 @@ import { useEffect, useState } from "react";
 import { cn } from "../../../../packages/ui/lib/utils";
 import { Label } from "@ui/components/label";
 import { redirect } from "next/navigation";
+import { utcToZonedTime } from "date-fns-tz";
 
 const FilterByDate = ({ dateInSeconds }): JSX.Element => {
-	const selectedDate = new Date(dateInSeconds * 1000);
-
+	const selectedDate = new Date(dateInSeconds);
+	const formattedDate = format(add(selectedDate, { days: 1 }), "MMM do, yyyy");
 	const [date, setDate] = useState<Date>();
+
 	useEffect(() => {
 		if (date) {
 			// Convert the date to a Unix timestamp (in milliseconds)
-			const unixTimestamp = date.getTime();
+			const estTime = utcToZonedTime(date, "America/Toronto");
+			const formattedEst = format(estTime, "yyyy-MM-dd");
 
-			// Convert the Unix timestamp to seconds
-			const seconds = unixTimestamp / 1000;
-
-			redirect(`/schedule/${seconds}`);
+			redirect(`/schedule/${formattedEst}`);
 		}
 	}, [date]);
+
 	return (
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Date:</Label>
@@ -41,7 +42,7 @@ const FilterByDate = ({ dateInSeconds }): JSX.Element => {
 						)}
 					>
 						{selectedDate ? (
-							format(selectedDate, "PPP")
+							<span>{formattedDate}</span>
 						) : (
 							<span>Pick a date</span>
 						)}
