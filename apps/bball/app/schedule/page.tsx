@@ -72,7 +72,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 					gamesByDate={gamesByDate}
 					divisions={divisionNamesAndCities}
 					cities={cities}
-					dateInSeconds={formattedEst}
+					formattedEstDate={formattedEst}
 				/>
 			</div>
 		</main>

@@ -14,8 +14,8 @@ import { Label } from "@ui/components/label";
 import { redirect } from "next/navigation";
 import { utcToZonedTime } from "date-fns-tz";
 
-const FilterByDate = ({ dateInSeconds }): JSX.Element => {
-	const selectedDate = new Date(dateInSeconds);
+const FilterByDate = ({ formattedEstDate }): JSX.Element => {
+	const selectedDate = new Date(formattedEstDate);
 	const formattedDate = format(add(selectedDate, { days: 1 }), "MMM do, yyyy");
 	const [date, setDate] = useState<Date>();
 

@@ -13,7 +13,7 @@ const NewSchedule = ({
 	gamesByDate,
 	divisions,
 	cities,
-	dateInSeconds,
+	formattedEstDate,
 }): JSX.Element => {
 	const [games, setGames] = useState(gamesByDate);
 	const [divisionsToShow, setDivisionsToShow] = useState(divisions);
@@ -48,7 +48,7 @@ const NewSchedule = ({
 	return (
 		<section>
 			<div className="flex flex-col gap-4 md:flex-row">
-				<FilterByDate dateInSeconds={dateInSeconds} />
+				<FilterByDate formattedEstDate={formattedEstDate} />
 				{cities?.length > 1 && (
 					<FilterByCity
 						handleCitiesChange={handleCitiesChange}
