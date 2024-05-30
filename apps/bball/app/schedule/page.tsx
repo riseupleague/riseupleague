@@ -1,7 +1,8 @@
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
-import { startOfDay } from "date-fns";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
 
@@ -9,19 +10,13 @@ export default async function Schedule(): Promise<JSX.Element> {
 	await connectToDatabase();
 
 	// Get the current date and time
-	const currentDate = startOfDay(new Date());
+	const utcTime = new Date();
+	const estTime = utcToZonedTime(utcTime, "America/Toronto");
+	const formattedEst = format(estTime, "yyyy-MM-dd");
 
-	console.log(`currentDate: ${currentDate}`);
-	console.log(`timezoneOffset: ${currentDate.getTimezoneOffset()}`);
-
-	// Convert the current date to a Unix timestamp (in milliseconds)
-	const unixTimestamp = currentDate.getTime();
-
-	// Convert the Unix timestamp to seconds
-	const currentDateInSeconds = Math.floor(unixTimestamp / 1000);
-
-	const resAllUpcomingGames = await getGamesByDate(currentDateInSeconds);
+	const resAllUpcomingGames = await getGamesByDate(formattedEst);
 	const { gamesByDate } = await resAllUpcomingGames.json();
+
 	let divisionNamesAndCities = [];
 	let cities = [];
 
@@ -73,12 +68,11 @@ export default async function Schedule(): Promise<JSX.Element> {
 			</div>
 
 			<div className="font-barlow container mx-auto min-h-fit">
-				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
 				<NewSchedule
 					gamesByDate={gamesByDate}
 					divisions={divisionNamesAndCities}
 					cities={cities}
-					dateInSeconds={currentDateInSeconds}
+					formattedEstDate={formattedEst}
 				/>
 			</div>
 		</main>
