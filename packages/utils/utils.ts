@@ -42,8 +42,7 @@ export const extractInstagramUsername = (instagram: string) => {
 		const match = instagram.match(/(?:instagram\.com\/)([\w\d._]+)/);
 
 		if (match && match.length > 1) return match[1];
-		else return instagram.replace("@", "");
 	}
 
-	return null;
+	return instagram.replace("@", "");
 };
