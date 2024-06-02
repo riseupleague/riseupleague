@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { isLiveGame, extractYoutubeLink } from "@utils/utils";
+import { utcToZonedTime } from "date-fns-tz";
 
 export default async function Summary({
 	params,
@@ -22,9 +23,11 @@ export default async function Summary({
 	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
 	const date = new Date(game.date);
-	const day = format(date, "EEE");
-	const monthDay = format(date, "P").slice(0, 5);
-	const time = format(date, "h:mm a");
+	const estDate = utcToZonedTime(date, "America/Toronto");
+
+	const day = format(estDate, "EEE");
+	const monthDay = format(estDate, "P").slice(0, 5);
+	const time = format(estDate, "h:mm a");
 
 	const liveGame = isLiveGame(date);
 
