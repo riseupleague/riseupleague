@@ -21,7 +21,6 @@ export const getAllUpcomingGamesHeader = async () => {
 		const twoWeeksAfter = new Date(
 			targetDate.getTime() + 14 * 24 * 60 * 60 * 1000
 		);
-		console.log(oneWeekBefore, twoWeeksAfter);
 
 		const allGames = await Game.find({
 			date: {
@@ -46,8 +45,6 @@ export const getAllUpcomingGamesHeader = async () => {
 			.select(
 				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location"
 			);
-
-		console.log("allGames:", allGames);
 
 		return NextResponse.json({
 			allUpcomingGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
@@ -221,7 +218,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
  */
 export const getGamesByDate = async (selectedDate) => {
 	try {
-		const date = new Date(selectedDate * 1000);
+		const date = new Date(selectedDate);
 		const games = await Game.find({
 			date: {
 				$gte: addHours(startOfDay(date), 5),

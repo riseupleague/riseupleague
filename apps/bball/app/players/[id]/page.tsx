@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Badge } from "@ui/components/badge";
 import { Avatar, AvatarImage } from "@ui/components/avatar";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 
 const Players = async ({
 	params,
@@ -18,8 +18,10 @@ const Players = async ({
 	const resPlayer = await getPlayerAllAvgFromId(id);
 	const { player, allAvg } = await resPlayer.json();
 
+	const playerInstagram = extractInstagramUsername(player?.instagram);
+
 	return (
-		<section className="container mx-auto  min-h-fit ">
+		<section className="container mx-auto min-h-fit">
 			<div className="mb-8 mt-16 flex items-start">
 				<div className="w-1/2 md:w-1/4">
 					{player.playerImage && player.playerImage !== "" ? (
@@ -44,11 +46,11 @@ const Players = async ({
 					</Link>
 					{player?.instagram && (
 						<Link
-							href={`https://www.instagram.com/${player?.instagram}`}
+							href={`https://www.instagram.com/${playerInstagram}`}
 							className="font-barlow my-4 text-lg text-neutral-300 transition-all hover:text-neutral-200"
 							target="_blank"
 						>
-							IG: @{extractInstagramUsername(player?.instagram)}
+							IG: <span className="lowercase">@{playerInstagram}</span>
 						</Link>
 					)}
 					{/* <ComparePopup /> */}
