@@ -1,11 +1,11 @@
-import ContactUs from "@/components/home/HomeContactUs";
+import HomeContactUs from "@/components/home/HomeContactUs";
 import { Metadata } from "next";
 
 export default async function ContactUsPage(): Promise<JSX.Element> {
 	return (
 		<section className="font-barlow container mx-auto min-h-[50dvh]">
 			<h1>contact us</h1>
-			<ContactUs />
+			<HomeContactUs />
 		</section>
 	);
 }

@@ -29,14 +29,13 @@ export default function Error({
 			</Button>
 
 			<p>
-				If this page should be working, please DM us on our IG support page
-				below:
+				If this page should be working, please DM us on our main IG account:
 			</p>
 			<Button
 				asChild
 				className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-medium uppercase text-neutral-900 transition hover:bg-neutral-200"
 			>
-				<Link href="https://instagram.com/riseup.web">@riseup.web</Link>
+				<Link href="https://instagram.com/riseup.bball">@riseup.bball</Link>
 			</Button>
 			<Button
 				asChild
