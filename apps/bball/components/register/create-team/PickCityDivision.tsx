@@ -3,14 +3,14 @@
 import { IoLocationOutline } from "react-icons/io5";
 import { CiCalendar } from "react-icons/ci";
 import { BsArrowRight } from "react-icons/bs";
+import { Button } from "@ui/components/button";
+import { useRouter } from "next/navigation";
 import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
-import { Button } from "@ui/components/button";
-import { useRouter } from "next/navigation";
 
 const PickCityDivision = ({
 	regions,

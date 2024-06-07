@@ -53,7 +53,7 @@ const RegisterProgressButton = ({
 					className={`${step === 1 ? "border-transparent" : activeColour} w-full translate-y-4 border-t-2`}
 				/>
 				<span
-					className={`${activeColour} ${registerInfo.step < step ? "text-neutral-400" : "text-white"} flex size-8 items-center justify-center rounded-full border-2 p-4`}
+					className={`${activeColour} ${registerInfo.step < step ? "text-neutral-400" : "text-white"} ${registerInfo.step > step ? "bg-primary" : "bg-transparent"} flex size-8 items-center justify-center rounded-full border-2 p-4`}
 				>
 					{step}
 				</span>
