@@ -3,7 +3,7 @@
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";
 
 export default function FeaturedPlayerCard({ player }) {
@@ -93,7 +93,10 @@ export default function FeaturedPlayerCard({ player }) {
 						</p>
 						{player.instagram && (
 							<p className="text-sm text-neutral-500">
-								IG: {extractInstagramUsername(player.instagram)}
+								IG:{" "}
+								<span className="lowercase">
+									{extractInstagramUsername(player.instagram)}
+								</span>
 							</p>
 						)}
 					</div>

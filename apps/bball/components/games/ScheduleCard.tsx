@@ -3,9 +3,9 @@ import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
 import { utcToZonedTime } from "date-fns-tz";
-
 import { convertToEST } from "@/utils/convertToEST";
 import { IoLocationOutline } from "react-icons/io5";
+import { isLiveGame } from "@utils/utils";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
@@ -25,7 +25,6 @@ const ScheduleCard = ({ game }): JSX.Element => {
 		date = convertToEST(new Date(game.date));
 		dateFormatted = format(date, "ccc MMM do, uuuu");
 		time = format(date, "h:mm a");
-		// convert to toronto dates
 	}
 
 	if (time.endsWith(":59 PM") || time.endsWith(":59 AM")) {
@@ -126,13 +125,6 @@ const ScheduleCard = ({ game }): JSX.Element => {
 			</div>
 		</article>
 	);
-};
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
 };
 
 export default ScheduleCard;

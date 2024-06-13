@@ -64,7 +64,7 @@ const Footer = (): JSX.Element => {
 				</Link>
 				<div className="font-barlow my-7 text-sm text-neutral-200">
 					<p className="text-sm">
-						Copyright© {year}. Rise Up Sports League. All Rights Reserved.
+						© 2023-{year}, Rise Up Sports League. All Rights Reserved.
 					</p>
 					<Link
 						href="https://github.com/n9d0g/riseupleague/releases"

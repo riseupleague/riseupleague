@@ -8,14 +8,13 @@ const NotFound = (): JSX.Element => {
 			<h2>This page is out of bounds! 🏀🙅‍♂️</h2>
 			<h6>(404 error)</h6>
 			<p>
-				If this page should be working, please DM us on our IG support page
-				below:
+				If this page should be working, please DM us on our main IG account:
 			</p>
 			<Button
 				asChild
 				className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-bold uppercase text-neutral-900 transition hover:bg-neutral-200"
 			>
-				<Link href="https://instagram.com/riseup.web">@riseup.web</Link>
+				<Link href="https://instagram.com/riseup.bball">@riseup.bball</Link>
 			</Button>
 			<p>Or go back to the homepage:</p>
 			<Button

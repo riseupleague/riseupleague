@@ -218,7 +218,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
  */
 export const getGamesByDate = async (selectedDate) => {
 	try {
-		const date = new Date(selectedDate * 1000);
+		const date = new Date(selectedDate);
 		const games = await Game.find({
 			date: {
 				$gte: addHours(startOfDay(date), 5),
