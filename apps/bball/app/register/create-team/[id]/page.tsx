@@ -9,6 +9,7 @@ import {
 	addNewUser,
 	getUserPlayerPayment,
 } from "@/api-helpers/controllers/users-controller";
+import { upcomingSeasonName } from "@/utils/upcomingSeasonName";
 
 export default async function JoinTeam({
 	params,
@@ -38,11 +39,12 @@ export default async function JoinTeam({
 	if (isDivisionJoined) {
 		redirect(`/success/${isDivisionJoined.division._id}`);
 	}
+	const seasonName = await upcomingSeasonName();
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
-				Season 5
+				{seasonName}
 			</p>
 			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Create a team

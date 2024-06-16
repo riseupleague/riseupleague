@@ -176,17 +176,7 @@ import {
 	DialogDescription,
 	DialogFooter,
 } from "@ui/components/dialog";
-import { z } from "zod";
-
-const playerSchema = z.object({
-	id: z.number(),
-	name: z.string().min(1, "Player name is required"),
-});
-
-const playersSchema = z
-	.array(playerSchema)
-	.min(6, "At least 6 players are required")
-	.max(9, "No more than 9 players allowed");
+import { buildRosterSchema } from "@/schemas";
 
 const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	const [players, setPlayers] = useState(
@@ -202,7 +192,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 	const [errors, setErrors] = useState([]);
 	const formRef = useRef(null);
-	const [addFreeAgent, setAddFreeAgent] = useState(false);
 
 	const [open, setOpen] = useState(false);
 
@@ -224,7 +213,17 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 	const handleValidation = () => {
 		// Validate the first six players
-		const result = playersSchema.safeParse(players.slice(0, 6));
+		const inputtedPlayers = players
+			.filter((player) => player.name !== "")
+			.map((player, id) => {
+				return { id: id + 1, name: player.name };
+			});
+
+		const result = buildRosterSchema.safeParse(
+			inputtedPlayers.length >= 6
+				? inputtedPlayers.slice(0, 6)
+				: players.slice(0, 6)
+		);
 
 		if (!result.success) {
 			setErrors(result.error.errors);
@@ -235,13 +234,22 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		return true;
 	};
 
-	const validateAndSubmit = (numOfPlayers: number) => {
+	const validateAndSubmit = (numOfPlayers: number, freeAgent: string) => {
 		const isValid = handleValidation();
 		if (!isValid) return;
 
 		// Validate the first six players
-		const result = playersSchema.safeParse(players.slice(0, 6));
+		const inputtedPlayers = players
+			.filter((player) => player.name !== "")
+			.map((player, id) => {
+				return { id: id + 1, name: player.name };
+			});
 
+		const result = buildRosterSchema.safeParse(
+			inputtedPlayers.length >= 6
+				? inputtedPlayers.slice(0, 6)
+				: players.slice(0, 6)
+		);
 		if (!result.success) {
 			setErrors(result.error.errors);
 			return;
@@ -249,43 +257,28 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 		setErrors([]);
 
-		let updatedRegisterInfo;
-		if (numOfPlayers >= 8) {
-			updatedRegisterInfo = {
-				...registerInfo,
-				players: players,
-				step: 4,
-				allowStep: {
-					1: true,
-					2: true,
-					3: true,
-					4: true,
-					5: false,
-				},
-			};
-		} else {
-			updatedRegisterInfo = {
-				...registerInfo,
-				players: players,
-				step: 4,
-				addFreeAgent: addFreeAgent,
-				allowStep: {
-					1: true,
-					2: true,
-					3: true,
-					4: true,
-					5: false,
-				},
-			};
-		}
+		const updatedRegisterInfo = {
+			...registerInfo,
+			players: inputtedPlayers,
+			step: 4,
+			addFreeAgent: freeAgent,
+			allowStep: {
+				1: true,
+				2: true,
+				3: true,
+				4: true,
+				5: false,
+			},
+		};
 
 		setRegisterInfo(updatedRegisterInfo);
 	};
 
 	const handleSubmit = (e) => {
+		console.log("handleSubmit");
 		e.preventDefault();
 		const numOfPlayers = players.filter((player) => player.name !== "").length;
-		validateAndSubmit(numOfPlayers);
+		validateAndSubmit(numOfPlayers, "none");
 	};
 
 	const handleContinueClick = () => {
@@ -297,19 +290,27 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 			console.log("numOfPlayers: ", numOfPlayers);
 			if (numOfPlayers >= 8) {
-				console.log("hello");
-				validateAndSubmit(numOfPlayers);
+				validateAndSubmit(numOfPlayers, "none");
 			} else {
-				console.log("hi");
-
 				openDialog();
 			}
 		}
 	};
 
+	const handleContinueWithFreeAgents = (freeAgent: string) => {
+		const isValid = handleValidation();
+		if (isValid) {
+			const numOfPlayers = players.filter(
+				(player) => player.name !== ""
+			).length;
+
+			validateAndSubmit(numOfPlayers, freeAgent);
+		}
+	};
+
 	return (
 		<section>
-			<form ref={formRef} onSubmit={handleSubmit}>
+			<form ref={formRef}>
 				<div className="mb-6">
 					<h3>Build Your Roster</h3>
 					<p className="text-lg uppercase">
@@ -425,17 +426,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 									<Button
 										type="button"
 										className="w-full"
-										onClick={() => {
-											if (formRef.current) {
-												setAddFreeAgent(true);
-												formRef.current.dispatchEvent(
-													new Event("submit", {
-														bubbles: true,
-														cancelable: true,
-													})
-												);
-											}
-										}}
+										onClick={() => handleContinueWithFreeAgents("true")}
 									>
 										Continue With Free Agents
 									</Button>
@@ -466,17 +457,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 									<Button
 										type="button"
 										className="w-full"
-										onClick={() => {
-											if (formRef.current) {
-												setAddFreeAgent(false);
-												formRef.current.dispatchEvent(
-													new Event("submit", {
-														bubbles: true,
-														cancelable: true,
-													})
-												);
-											}
-										}}
+										onClick={() => handleContinueWithFreeAgents("false")}
 									>
 										Pay Full Team Fee
 									</Button>
@@ -485,10 +466,10 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 						</DialogContent>
 					</Dialog>
 				</div>
-				{errors.length > 0 && (
-					<p className="mt-4 text-red-500">
-						You need minimum of 6 players to continue.
-					</p>
+				{errors.find((error) =>
+					error.message.includes("At least 6 players are required")
+				) && (
+					<p className="mt-4 text-red-500">At least 6 players are required</p>
 				)}
 			</form>
 		</section>

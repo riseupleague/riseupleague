@@ -12,7 +12,7 @@ const RegisterProgress = ({
 	setRegisterInfo: any;
 }) => {
 	return (
-		<div className="mx-auto my-8 grid max-w-2xl grid-cols-5 bg-neutral-900">
+		<div className="mx-auto my-8 grid max-w-2xl grid-cols-4 bg-neutral-900">
 			{progressData.map((data, index) => (
 				<RegisterProgressButton
 					key={index}
@@ -63,7 +63,7 @@ const RegisterProgressButton = ({
 					{step}
 				</span>
 				<span
-					className={`${step === 5 ? "border-transparent" : activeColour} w-full translate-y-4 border-t-2`}
+					className={`${step === 4 ? "border-transparent" : activeColour} w-full translate-y-4 border-t-2`}
 				/>
 			</div>
 			<p

@@ -7,6 +7,7 @@ import PickCityDivision from "./create-team/PickCityDivision";
 import TeamCreation from "./create-team/TeamCreation";
 import RosterBuilding from "./create-team/RosterBuilding";
 import JerseyCreation from "./create-team/JerseyCreation";
+import Summary from "./create-team/Summary";
 
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 	const userDivisions = user.basketball.map((player) => player.division?._id);
@@ -52,7 +53,12 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 				/>
 			)}
 
-			{registerInfo.step === 4 && <JerseyCreation />}
+			{registerInfo.step === 4 && (
+				<Summary
+					registerInfo={registerInfo}
+					setRegisterInfo={setRegisterInfo}
+				/>
+			)}
 		</section>
 	);
 };
