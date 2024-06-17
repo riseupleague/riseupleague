@@ -58,7 +58,6 @@ const JerseyDetails = ({ onJerseyDetail, registerInfo, setRegisterInfo }) => {
 
 		setErrors({});
 		// Form submission logic here
-		console.log("Form submitted successfully", result.data);
 	};
 
 	return (

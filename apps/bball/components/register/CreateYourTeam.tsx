@@ -21,10 +21,9 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 			5: false,
 		},
 	});
-	console.log("registerInfo:", registerInfo);
 	return (
 		<section>
-			<BackButton href="/register" />
+			{registerInfo.step === 1 && <BackButton href="/register" />}
 			<RegisterProgress
 				registerInfo={registerInfo}
 				setRegisterInfo={setRegisterInfo}

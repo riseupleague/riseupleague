@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
-	let playerIg = player.instagram;
+	let playerIg = player?.instagram || "";
 
 	// remove '@' when trying to view IG profile
 	if (playerIg[0] === "@") playerIg = playerIg.substring(1);

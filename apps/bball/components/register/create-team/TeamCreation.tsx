@@ -3,19 +3,13 @@
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-import { useState } from "react";
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTeamSchema } from "@/schemas";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@ui/components/select";
+
+import Link from "next/link";
 
 type TeamFormValues = z.infer<typeof createTeamSchema>;
 
@@ -99,7 +93,6 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 		});
 	};
 
-	console.log("errors:", errors);
 	return (
 		<section>
 			<form onSubmit={handleSubmit(onSubmit)}>
@@ -245,7 +238,14 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 
 					<div className="space-y-3">
 						<label htmlFor="jerseySize" className="text-xl uppercase">
-							What is your jersey size?
+							What is your jersey size?{" "}
+							<Link
+								href={"/pdf/jersey-size-chart.pdf"}
+								className="text-sm lowercase underline"
+								target="_blank"
+							>
+								size guide
+							</Link>
 						</label>
 						<select
 							{...register("jerseySize", {

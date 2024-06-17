@@ -45,8 +45,6 @@ const RegisterProgressButton = ({
 		// router.push("/register/create-team/?step=" + step);
 	};
 
-	console.log(`registerInfo.allowStep[${step}]:`, registerInfo.allowStep[step]);
-
 	return (
 		<Button
 			onClick={handleStep}

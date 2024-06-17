@@ -33,7 +33,6 @@ export default async function CityAndDivision(): Promise<JSX.Element> {
 
 		redirect("/");
 	}
-	console.log("divisions:", divisions);
 	const userDivisions = user.basketball.map((player) => player.division?._id);
 
 	const divisionHandler = (division) => {};

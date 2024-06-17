@@ -307,9 +307,9 @@ const FreeAgentsSummary = ({
 
 							<p className="my-4">
 								<strong>Registration Fee Allocation:</strong> Upon immediate
-								payment, $45
+								payment, $50
 								<span className="text-sm"> + tax</span> will be allocated
-								towards the jersey order, and another $ 45
+								towards the jersey order, and another $50
 								<span className="text-sm"> + tax</span> will be designated for
 								gym fees. Please note that there will be no refunds for this
 								transaction.
@@ -536,9 +536,9 @@ const FreeAgentsSummary = ({
 							<span className="font-semibold">
 								Registration Fee Allocation:
 							</span>{" "}
-							Upon immediate payment, $45
+							Upon immediate payment, $50
 							<span className="text-sm"> + tax</span> will be allocated towards
-							the jersey order, and another $45
+							the jersey order, and another $50
 							<span className="text-sm"> + tax</span> will be designated for gym
 							fees. Please note that there will be no refunds for this
 							transaction.

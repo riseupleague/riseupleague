@@ -61,13 +61,13 @@ const UserPlayerSeasonInfo = ({ player }) => {
 						<span>{player?.team?.jerseyEdition}</span>
 					</li>
 					<li className="flex justify-between border-b border-neutral-600 p-4">
-						<span>Jersey Top:</span>
+						<span>Jersey Size:</span>
 						<span>{player?.jerseySize}</span>
 					</li>
-					<li className="flex justify-between border-b border-neutral-600 p-4">
+					{/* <li className="flex justify-between border-b border-neutral-600 p-4">
 						<span>Jersey Bottom:</span>
 						<span>{player?.shortSize}</span>
-					</li>
+					</li> */}
 				</>
 			)}
 

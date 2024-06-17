@@ -27,8 +27,6 @@ const RegisterProgressButton = ({ step, registerInfo, text, link }) => {
 	let activeColour = "border-primary";
 	if (registerInfo.step < step) activeColour = "border-neutral-400";
 
-	console.log(`registerInfo.allowStep[${step}]:`, registerInfo.allowStep[step]);
-
 	if (!registerInfo.allowStep[step]) {
 		return (
 			<Button

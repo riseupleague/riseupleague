@@ -10,7 +10,6 @@ const JerseyCreation = ({
 	setRegisterInfo,
 }) => {
 	const [isJerseyDetail, setIsJerseyDetail] = useState(false);
-	console.log("isJerseyDetail:", isJerseyDetail);
 	return (
 		<section>
 			{!isJerseyDetail && (

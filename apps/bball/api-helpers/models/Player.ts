@@ -11,6 +11,15 @@ const playerSchema = new Schema({
 	freeAgent: {
 		type: Boolean,
 	},
+	agreeToRefundPolicy: {
+		type: Boolean,
+	},
+	agreeToTerms: {
+		type: Boolean,
+	},
+	receiveNews: {
+		type: Boolean,
+	},
 	customerId: {
 		type: String,
 	},

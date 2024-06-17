@@ -37,7 +37,6 @@
 // 		e.preventDefault();
 
 // 		const numOfPlayers = players.filter((player) => player.name !== "").length;
-// 		console.log("numOfPlayers:", numOfPlayers);
 // 		if (numOfPlayers < 6) {
 // 			alert(
 // 				`You currently have ${numOfPlayers} players in your roster. Please add 6 or more players.`
@@ -178,7 +177,6 @@ import {
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
 
-
 const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	const [players, setPlayers] = useState(
 		registerInfo?.players || [
@@ -193,7 +191,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 	const [errors, setErrors] = useState([]);
 	const formRef = useRef(null);
-console.log(errors)
 	const [open, setOpen] = useState(false);
 
 	// Function to open the dialog
@@ -276,7 +273,6 @@ console.log(errors)
 	};
 
 	const handleSubmit = (e) => {
-		console.log("handleSubmit");
 		e.preventDefault();
 		const numOfPlayers = players.filter((player) => player.name !== "").length;
 		validateAndSubmit(numOfPlayers, "none");
@@ -289,7 +285,6 @@ console.log(errors)
 				(player) => player.name !== ""
 			).length;
 
-			console.log("numOfPlayers: ", numOfPlayers);
 			if (numOfPlayers >= 8) {
 				validateAndSubmit(numOfPlayers, "none");
 			} else {
@@ -366,53 +361,45 @@ console.log(errors)
 								)}
 						</div>
 					))}
-
-
-
-
 				</div>
 
-
-	<p className="my-4 text-center">Reminder: Add up to 8 more players to prevent <span className="font-semibold text-lg">free agents</span> or <span className="font-semibold text-lg">Full team fee.</span></p>
-				
-
-				
+				<p className="my-4 text-center">
+					Reminder: Add up to 8 more players to prevent{" "}
+					<span className="text-lg font-semibold">free agents</span> or{" "}
+					<span className="text-lg font-semibold">Full team fee.</span>
+				</p>
 
 				<div className="flex flex-col gap-20">
 					<div>
-					<Button
-						type="button"
-						className="w-full"
-						variant="secondary"
-						onClick={addPlayer}
-					>
-						Add Player
-					</Button>
+						<Button
+							type="button"
+							className="w-full"
+							variant="secondary"
+							onClick={addPlayer}
+						>
+							Add Player
+						</Button>
 
-					{errors.find((error) =>
-					error.message.includes("Player name is required")
-				) && (
-					<p className="mt-4 text-red-500 text-center">At least 6 players are required</p>
-				)}
+						{errors.find((error) =>
+							error.message.includes("Player name is required")
+						) && (
+							<p className="mt-4 text-center text-red-500">
+								At least 6 players are required
+							</p>
+						)}
 					</div>
-				
 
 					<div className="mt-4 flex justify-between">
-					<Button
-						variant="secondary"
-						onClick={() => setRegisterInfo({ ...registerInfo, step: 2})}
-					>
-						Back
-					</Button>
-					<Button
-						type="button"
-						onClick={handleContinueClick}
-					>
-						Continue
-					</Button>
-				</div>
-
-				
+						<Button
+							variant="secondary"
+							onClick={() => setRegisterInfo({ ...registerInfo, step: 2 })}
+						>
+							Back
+						</Button>
+						<Button type="button" onClick={handleContinueClick}>
+							Continue
+						</Button>
+					</div>
 
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogContent className="rounded border border-neutral-600 bg-[#111827]">
@@ -495,7 +482,6 @@ console.log(errors)
 						</DialogContent>
 					</Dialog>
 				</div>
-				
 			</form>
 		</section>
 	);
