@@ -237,6 +237,167 @@ const JoinTeamSummary = ({ team, session }) => {
 		<>
 			<BackButton href="/register/join-team" />
 			<h3 className="my-10  text-3xl uppercase">Summary:</h3>
+
+			<h3 className="mb-6">Fill In Team Captain Details</h3>
+				<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] p-6 md:grid-cols-2">
+					<div className="space-y-3">
+						<Label htmlFor="playerName" className="text-xl uppercase">
+							Player Name
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="playerName"
+							placeholder="Enter your full name"
+							{...register("playerName")}
+						/>
+						{errors.playerName && (
+							<p className="text-red-600">{errors.playerName.message}</p>
+						)}
+					</div>
+					<div className="space-y-3">
+						<Label htmlFor="instagram" className="text-xl uppercase">
+							Instagram Handle
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="instagram"
+							placeholder="Enter your IG handle"
+							{...register("instagram")}
+						/>
+						{errors.instagram && (
+							<p className="text-red-600">{errors.instagram.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							Will be used to contact and tag you on photos, media and other
+							related league events.
+						</p>
+					</div>
+
+					<div className="space-y-3">
+						<Label htmlFor="phoneNumber" className="text-xl uppercase">
+							Phone Number
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="phoneNumber"
+							placeholder="ex: 123-123-1234"
+							{...register("phoneNumber")}
+						/>
+						{errors.phoneNumber && (
+							<p className="text-red-600">{errors.phoneNumber.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							*We will use your phone number if your instagram is not available
+							for communication. We would like to keep in constant communication
+							with you that way we are always on the same page.
+						</p>
+					</div>
+
+					{/* <div className="space-y-3">
+						<Label htmlFor="jerseySize" className="text-xl uppercase">
+							What is your jersey size?
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="jerseySize"
+							placeholder=""
+							{...register("jerseySize")}
+						/>
+
+					
+						{errors.jerseySize && (
+							<p className="text-red-600">{errors.jerseySize.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							Note: Your jersey size cannot be reordered.{" "}
+							<a
+								href=""
+								className="underline transition-all hover:text-neutral-100"
+							>
+								Read more here
+							</a>
+						</p>
+					</div> */}
+
+					<div className="space-y-3">
+						<label htmlFor="jerseySize" className="text-xl uppercase">
+							What is your jersey size?
+						</label>
+						<select
+							{...register("jerseySize", {
+								required: "Jersey size is required",
+							})}
+							id="jerseySize"
+							className="focus:ring-ring ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full items-center rounded-md border border-neutral-300 bg-[#111827] p-4 text-lg font-normal transition-colors file:border-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+						>
+							<option value="" disabled>
+								Select your size
+							</option>
+							<option value="SM">SM</option>
+							<option value="MD">MD</option>
+							<option value="LG">LG</option>
+							<option value="XL">XL</option>
+							<option value="XXL">XXL</option>
+							<option value="XXXL">XXXL</option>
+							<option value="XXXXL">XXXXL</option>
+						</select>
+						{errors.jerseySize && (
+							<p className="text-red-600">{errors.jerseySize.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							Note: Your jersey size cannot be reordered.{" "}
+							<a
+								href="#"
+								className="underline transition-all hover:text-neutral-100"
+							>
+								Read more here
+							</a>
+						</p>
+					</div>
+
+					<div className="space-y-3">
+						<Label htmlFor="jerseyName" className="text-xl uppercase">
+							What’s your custom jersey Name?
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="jerseyName"
+							placeholder="Enter custom jersey name"
+							{...register("jerseyName")}
+						/>
+						{errors.jerseyName && (
+							<p className="text-red-600">{errors.jerseyName.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							Please ensure that spelling is correct. This cannot be changed
+							later.
+						</p>
+					</div>
+					<div className="space-y-3">
+						<Label htmlFor="jerseyNumber" className="text-xl uppercase">
+							What’s your Jersey Number?
+						</Label>
+						<Input
+							variant="form"
+							type="text"
+							name="jerseyNumber"
+							placeholder="Enter jersey number"
+							{...register("jerseyNumber")}
+						/>
+						{errors.jerseyNumber && (
+							<p className="text-red-600">{errors.jerseyNumber.message}</p>
+						)}
+						<p className="text-sm text-neutral-300">
+							Please ensure this is the number that your want. This cannot be
+							changed later.
+						</p>
+					</div>
+				</div>
 			<div className="flex flex-col gap-10 md:flex-row">
 				<div className="w-full  md:w-3/4">
 					<div className="flex items-start  gap-4  border-b border-t py-4">
