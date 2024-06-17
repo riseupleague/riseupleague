@@ -178,6 +178,7 @@ import {
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
 
+
 const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	const [players, setPlayers] = useState(
 		registerInfo?.players || [
@@ -192,7 +193,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 	const [errors, setErrors] = useState([]);
 	const formRef = useRef(null);
-
+console.log(errors)
 	const [open, setOpen] = useState(false);
 
 	// Function to open the dialog
@@ -365,9 +366,20 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 								)}
 						</div>
 					))}
+
+
+
+
 				</div>
 
+
+	<p className="my-4 text-center">Reminder: Add up to 8 more players to prevent <span className="font-semibold text-lg">free agents</span> or <span className="font-semibold text-lg">Full team fee.</span></p>
+				
+
+				
+
 				<div className="flex flex-col gap-20">
+					<div>
 					<Button
 						type="button"
 						className="w-full"
@@ -377,13 +389,30 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 						Add Player
 					</Button>
 
+					{errors.find((error) =>
+					error.message.includes("Player name is required")
+				) && (
+					<p className="mt-4 text-red-500 text-center">At least 6 players are required</p>
+				)}
+					</div>
+				
+
+					<div className="mt-4 flex justify-between">
+					<Button
+						variant="secondary"
+						onClick={() => setRegisterInfo({ ...registerInfo, step: 2})}
+					>
+						Back
+					</Button>
 					<Button
 						type="button"
-						className="w-full"
 						onClick={handleContinueClick}
 					>
 						Continue
 					</Button>
+				</div>
+
+				
 
 					<Dialog open={open} onOpenChange={setOpen}>
 						<DialogContent className="rounded border border-neutral-600 bg-[#111827]">
@@ -466,11 +495,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 						</DialogContent>
 					</Dialog>
 				</div>
-				{errors.find((error) =>
-					error.message.includes("At least 6 players are required")
-				) && (
-					<p className="mt-4 text-red-500">At least 6 players are required</p>
-				)}
+				
 			</form>
 		</section>
 	);
