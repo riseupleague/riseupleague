@@ -6,7 +6,6 @@ import RegisterProgress from "./create-team/RegisterProgress";
 import PickCityDivision from "./create-team/PickCityDivision";
 import TeamCreation from "./create-team/TeamCreation";
 import RosterBuilding from "./create-team/RosterBuilding";
-import JerseyCreation from "./create-team/JerseyCreation";
 import Summary from "./create-team/Summary";
 
 const CreateYourTeam = ({ divisions, user }): JSX.Element => {
