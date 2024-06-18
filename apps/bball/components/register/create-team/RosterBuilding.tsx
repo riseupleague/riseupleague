@@ -161,6 +161,7 @@
 // };
 
 // export default RosterBuilding;
+import { z, ZodError } from "zod";
 
 import React, { useRef, useState } from "react";
 import { Button } from "@ui/components/button";
@@ -176,6 +177,10 @@ import {
 	DialogFooter,
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
+
+type SafeParseResult<T> =
+	| { success: true; data: T }
+	| { success: false; error: ZodError };
 
 const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	const [players, setPlayers] = useState(
@@ -209,6 +214,29 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		setPlayers(newPlayers);
 	};
 
+	// const handleValidation = () => {
+	// 	// Validate the first six players
+	// 	const inputtedPlayers = players
+	// 		.filter((player) => player.name !== "")
+	// 		.map((player, id) => {
+	// 			return { id: id + 1, name: player.name };
+	// 		});
+
+	// 	const result = buildRosterSchema.safeParse(
+	// 		inputtedPlayers.length >= 6
+	// 			? inputtedPlayers.slice(0, 6)
+	// 			: players.slice(0, 6)
+	// 	);
+
+	// 	if (!result.success) {
+	// 		setErrors(result?.error?.errors);
+	// 		return false;
+	// 	}
+
+	// 	setErrors([]);
+	// 	return true;
+	// };
+
 	const handleValidation = () => {
 		// Validate the first six players
 		const inputtedPlayers = players
@@ -224,7 +252,9 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		);
 
 		if (!result.success) {
-			setErrors(result?.error?.errors);
+			const errors = (result as { success: false; error: ZodError }).error
+				.errors;
+			setErrors(errors);
 			return false;
 		}
 
