@@ -55,7 +55,7 @@ export default async function JoinTeam({
 			{isTeamJoined && <RegistrationSuccess team={isTeamJoined} />}
 			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />}
 
-			<JoinTeamSummary team={team} session={session} />
+			{/* <JoinTeamSummary team={team} session={session} /> */}
 		</main>
 	);
 }

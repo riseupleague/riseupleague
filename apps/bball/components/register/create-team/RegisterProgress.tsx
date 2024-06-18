@@ -2,7 +2,7 @@
 
 import { Button } from "@ui/components/button";
 import { progressData } from "@/lib/data/register/progressData";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const RegisterProgress = ({
 	registerInfo,
@@ -12,7 +12,7 @@ const RegisterProgress = ({
 	setRegisterInfo: any;
 }) => {
 	return (
-		<div className="mx-auto my-8 grid max-w-2xl grid-cols-5 bg-neutral-900">
+		<div className="mx-auto my-8 grid max-w-2xl grid-cols-4 bg-neutral-900">
 			{progressData.map((data, index) => (
 				<RegisterProgressButton
 					key={index}
@@ -32,21 +32,24 @@ const RegisterProgressButton = ({
 	setRegisterInfo,
 	text,
 }) => {
-	const router = useRouter();
+	// const router = useRouter();
 
 	let activeColour = "border-primary";
 	if (registerInfo.step < step) activeColour = "border-neutral-400";
-
 	const handleStep = () => {
-		setRegisterInfo({ ...registerInfo, step });
+		setRegisterInfo({
+			...registerInfo,
+			step,
+		});
 
-		router.push("/register/create-team/?step=" + step);
+		// router.push("/register/create-team/?step=" + step);
 	};
 
 	return (
 		<Button
 			onClick={handleStep}
 			className="flex flex-col items-center justify-start gap-3 bg-transparent p-0 text-white hover:bg-transparent hover:brightness-150"
+			disabled={!registerInfo.allowStep[step]}
 		>
 			<div className="flex w-full">
 				<span
@@ -58,7 +61,7 @@ const RegisterProgressButton = ({
 					{step}
 				</span>
 				<span
-					className={`${step === 5 ? "border-transparent" : activeColour} w-full translate-y-4 border-t-2`}
+					className={`${step === 4 ? "border-transparent" : activeColour} w-full translate-y-4 border-t-2`}
 				/>
 			</div>
 			<p
