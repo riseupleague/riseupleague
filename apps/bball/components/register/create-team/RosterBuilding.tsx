@@ -479,11 +479,11 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 									{registerInfo.division.earlyBirdOpen ? (
 										<p className="text-xl">
 											{/* CHANGE TO REGULAR FULL PRICE */}$
-											{registerInfo.division.regularPrice}.00
+											{registerInfo.division.earlyBirdTeamPrice}.00
 										</p>
 									) : (
 										<p className="text-xl">
-											${registerInfo.division.regularPrice}.00
+											${registerInfo.division.regularTeamPrice}.00
 										</p>
 									)}
 								</DialogTitle>

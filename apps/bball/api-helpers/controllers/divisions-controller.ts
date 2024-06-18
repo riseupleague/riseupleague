@@ -122,7 +122,7 @@ export const getAllRegisterDivisions = async () => {
 		const registerSeason = await Season.find({ register: "true" });
 		// Fetch divisions for the register season
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName season city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId earlyBirdTeamPrice earlyBirdTeamPriceId regularTeamPrice regularTeamPrice"
+			"divisionName season city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdTeamPrice earlyBirdTeamPriceId regularTeamPrice regularTeamPriceId"
 		);
 
 		// Check if divisions were found
@@ -418,7 +418,7 @@ export const getRegisterDivisionById = async (id: string) => {
 		])
 		.populate({ path: "season", select: "fullTeamPrice" })
 		.select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId season instalmentPrice earlyBirdTeamPrice earlyBirdTeamPriceId regularTeamPrice regularTeamPriceId"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId season instalmentPrice earlyBirdTeamPrice  earlyBirdTeamPriceId regularTeamPrice regularTeamPriceId"
 		);
 
 	if (!division) {
