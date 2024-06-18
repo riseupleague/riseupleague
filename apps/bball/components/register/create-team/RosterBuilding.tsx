@@ -477,14 +477,40 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 									<p className="text-lg">TOTAL TEAM FEE WITH TAX INCLUDED:</p>
 
 									{registerInfo.division.earlyBirdOpen ? (
-										<p className="text-xl">
-											{/* CHANGE TO REGULAR FULL PRICE */}$
-											{registerInfo.division.regularPrice}.00
-										</p>
+										<>
+											<p className="text-3xl">
+												{/* CHANGE TO REGULAR FULL PRICE */}$
+												{registerInfo.division.earlyBirdTeamPrice}.00
+											</p>
+											<ul>
+												<li className="my-2 text-sm">
+													As low as $
+													{Number(registerInfo.division?.earlyBirdTeamPrice) /
+														10}{" "}
+													per player
+												</li>
+												<li className="my-2 text-sm">No tax!</li>
+												<li className="my-2 text-sm">Save more!</li>
+												<li className="my-2 text-sm">Maximum 10 players</li>
+											</ul>
+										</>
 									) : (
-										<p className="text-xl">
-											${registerInfo.division.regularPrice}.00
-										</p>
+										<>
+											<p className="text-3xl">
+												${registerInfo.division.regularTeamPrice}.00
+											</p>
+											<ul>
+												<li className="my-2 text-sm">
+													As low as $
+													{Number(registerInfo.division?.earlyBirdTeamPrice) /
+														10}{" "}
+													per player
+												</li>
+												<li className="my-2 text-sm">No tax!</li>
+												<li className="my-2 text-sm">Save more!</li>
+												<li className="my-2 text-sm">Maximum 10 players</li>
+											</ul>
+										</>
 									)}
 								</DialogTitle>
 								<DialogDescription>
