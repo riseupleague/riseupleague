@@ -373,10 +373,20 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 											<p className="text-xl uppercase">
 												Early Bird Team Discount:
 											</p>
-
 											<p className="text-2xl font-semibold">
 												${registerInfo.division?.earlyBirdTeamPrice} + tax
 											</p>
+											<ul>
+												<li className="my-2">
+													As low as $
+													{Number(registerInfo.division?.earlyBirdTeamPrice) /
+														10}{" "}
+													per player
+												</li>
+												<li className="my-2">No tax!</li>
+												<li className="my-2">Save more!</li>
+												<li className="my-2">Maximum 10 players</li>
+											</ul>
 										</>
 									) : (
 										<>
@@ -387,6 +397,17 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 											<p className="text-2xl font-semibold">
 												${registerInfo.division?.regularTeamPrice} + tax
 											</p>
+											<ul>
+												<li className="my-2">
+													As low as $
+													{Number(registerInfo.division?.earlyBirdTeamPrice) /
+														10}{" "}
+													per player
+												</li>
+												<li className="my-2">No tax!</li>
+												<li className="my-2">Save more!</li>
+												<li className="my-2">Maximum 10 players</li>
+											</ul>
 										</>
 									)}
 								</div>

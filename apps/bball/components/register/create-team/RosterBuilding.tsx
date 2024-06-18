@@ -224,7 +224,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		);
 
 		if (!result.success) {
-			setErrors(result.error.errors);
+			setErrors(result?.error?.errors);
 			return false;
 		}
 
