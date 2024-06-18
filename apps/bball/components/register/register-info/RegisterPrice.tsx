@@ -47,32 +47,40 @@ const RegisterPrice = () => {
 					<ul className={styles["cs-ul"]}>
 						<li className={styles["cs-li"]}>
 							<h3 className={styles["cs-h3"]}>
-								Early Bird Price: $210 + Tax Per player OR sign up as a team for
-								only $2000 tax included.
+								Early Bird Price: $235 + Tax Per player OR sign up as a team for
+								only $2200 tax included.
 							</h3>
 							<p className={styles["cs-li-text"]}>
-								Early Bird Opens: Feb 23, 2024 at 9:00 PM
+								Early Bird Opens: June 17, 2024 at 9:00 PM
 							</p>
 							<p className={styles["cs-li-text"]}>
-								Early Bird Closes: Mar. 8, 2024 at 11:59 PM
+								Early Bird Closes: July 4, 2024 at 11:59 PM
 							</p>
 						</li>
 						<li className={styles["cs-li"]}>
-							<p className={styles["cs-li-text"]}>
-								Regular Price is $235 + tax per player.{" "}
-							</p>
+							<div className="mt-5">
+								<p className="text-xl uppercase">Price Breakdown:</p>
+								<p className="my-2">Gym Fee: $80 / eight to nine weeks</p>
+								<p className="my-2">Uniforms: $50</p>
+								<p className="my-2">Media: $55</p>
+								<p className="my-2">Referees: $40</p>
+								<p className="my-2">Stats/Game Videos/Graphics: $55</p>
+								<p className="my-2">
+									Regular Price Total: ${80 + 50 + 55 + 40 + 55}
+								</p>
+							</div>
 						</li>
-						<li className={styles["cs-li"]}>
+						{/* <li className={styles["cs-li"]}>
 							<p className={styles["cs-li-text"]}>
-								Instalment will be six payments of $45 + tax
+								Instalment will be six payments of $50 + tax
 							</p>
-						</li>
+						</li> */}
 					</ul>
 					<p className="font-sm my-4">
 						<span className="font-semibold">Registration Fee Allocation:</span>{" "}
-						Upon immediate payment, $45
+						Upon immediate payment, $50
 						<span className="text-sm"> + tax</span> will be allocated towards
-						the jersey order, and another $45
+						the jersey order, and another $50
 						<span className="text-sm"> + tax</span> will be designated for gym
 						fees. Please note that there will be no refunds for this
 						transaction.
