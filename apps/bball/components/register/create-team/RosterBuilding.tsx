@@ -243,18 +243,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 				return { id: id + 1, name: player.name };
 			});
 
-		const result = buildRosterSchema.safeParse(
-			inputtedPlayers.length >= 6
-				? inputtedPlayers.slice(0, 6)
-				: players.slice(0, 6)
-		);
-		if (!result.success) {
-			setErrors(result.error.errors);
-			return;
-		}
-
-		setErrors([]);
-
 		const updatedRegisterInfo = {
 			...registerInfo,
 			players: inputtedPlayers,
