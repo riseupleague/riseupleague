@@ -1,4 +1,4 @@
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 import {
 	Table,
 	TableBody,

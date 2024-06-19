@@ -76,7 +76,7 @@ export default async function Schedule({
 					gamesByDate={gamesByDate}
 					divisions={divisionNamesAndCities}
 					cities={cities}
-					dateInSeconds={id}
+					formattedEstDate={id}
 				/>
 			</div>
 		</main>

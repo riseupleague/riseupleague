@@ -3,9 +3,10 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
 import Link from "next/link";
 import { format } from "date-fns";
-import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
-import { isLiveGame } from "@/utils/isLiveGame";
+import { redirect } from "next/navigation";
+import { isLiveGame, extractYoutubeLink } from "@utils/utils";
+import { utcToZonedTime } from "date-fns-tz";
 
 export default async function Summary({
 	params,
@@ -18,15 +19,15 @@ export default async function Summary({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	const date = convertToEST(new Date(game.date));
-	const day = date.toLocaleDateString("en-US", {
-		weekday: "short",
-	});
-	const monthDay = date.toLocaleDateString("en-US", {
-		month: "2-digit",
-		day: "2-digit",
-	});
-	const time = format(date, "h:mm a");
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
+
+	const date = new Date(game.date);
+	const estDate = utcToZonedTime(date, "America/Toronto");
+
+	const day = format(estDate, "EEE");
+	const monthDay = format(estDate, "P").slice(0, 5);
+	const time = format(estDate, "h:mm a");
 
 	const liveGame = isLiveGame(date);
 
@@ -104,17 +105,3 @@ export const metadata: Metadata = {
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
-
-// export async function generateMetadata({ params }) {
-// 	await connectToDatabase();
-
-// 	const { id } = params;
-// 	const resGame = await getGameById(id);
-// 	const { game } = await resGame.json();
-
-// 	return {
-// 		title: `Rise Up League | ${game.gameName}`,
-// 		description:
-// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-// 	};
-// }

@@ -11,6 +11,15 @@ const playerSchema = new Schema({
 	freeAgent: {
 		type: Boolean,
 	},
+	agreeToRefundPolicy: {
+		type: Boolean,
+	},
+	agreeToTerms: {
+		type: Boolean,
+	},
+	receiveNews: {
+		type: Boolean,
+	},
 	customerId: {
 		type: String,
 	},
@@ -19,7 +28,10 @@ const playerSchema = new Schema({
 		required: true,
 	},
 	playerImage: {
-		type: String,
+		type: {
+			id: String,
+			image: String,
+		},
 	},
 	instagram: {
 		type: String,

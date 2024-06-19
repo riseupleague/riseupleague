@@ -3,14 +3,35 @@ import LocationMarker from "../general/icons/LocationMarker";
 import TeamLogo from "../general/icons/TeamLogo";
 import { Button } from "@ui/components/button";
 import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
+import { IoLocationOutline } from "react-icons/io5";
+import { isLiveGame } from "@utils/utils";
 
 const ScheduleCard = ({ game }): JSX.Element => {
 	const gameStatus = game.status ? "summary" : "preview";
+	let date;
+	let dateFormatted;
+	let time;
 
-	const date = convertToEST(new Date(game.date));
-	const dateFormatted = format(date, "ccc MMM do, uuuu");
-	const time = format(date, "h:mm a");
+	if (game.division._id === "660d6a75ab30a11b292cd290") {
+		// utc dates
+		date = new Date(game.date);
+		const utcDate = utcToZonedTime(date, "UTC");
+		dateFormatted = format(utcDate, "eee MMM dd, yyyy");
+		time = format(utcDate, "h:mm a");
+		// utc dates
+	} else {
+		// convert to toronto dates
+		date = convertToEST(new Date(game.date));
+		dateFormatted = format(date, "ccc MMM do, uuuu");
+		time = format(date, "h:mm a");
+	}
+
+	if (time.endsWith(":59 PM") || time.endsWith(":59 AM")) {
+		// If the time is 7:59 PM or 7:59 AM, round it up to the next hour
+		time = (parseInt(time) + 1).toString() + ":00 PM";
+	}
 
 	const liveGame = isLiveGame(date);
 
@@ -105,13 +126,6 @@ const ScheduleCard = ({ game }): JSX.Element => {
 			</div>
 		</article>
 	);
-};
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
 };
 
 export default ScheduleCard;

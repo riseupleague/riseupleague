@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import WinnerIcon from "@/public/images/winner-icon.png";
 import { useState } from "react";
+import { isLiveGame } from "@utils/utils";
 
 const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 	const [isHovered, setIsHovered] = useState(false);
@@ -111,13 +112,6 @@ const FutureGame = ({ date, game, time, homeTeamWon }): JSX.Element => {
 			)}
 		</div>
 	);
-};
-
-const isLiveGame = (date) => {
-	const HOUR = 1000 * 60 * 60;
-	const anHourAgo = Date.now() - HOUR;
-
-	return date > anHourAgo && Date.now() > date;
 };
 
 export default FutureGame;

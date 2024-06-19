@@ -112,7 +112,8 @@ export const getRegisterTeamById = async (id: string) => {
 				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId teamCaptain",
 		})
 		.populate({ path: "season", select: "freePrice" })
-		.populate({ path: "players", select: "teamCaptain playerName" })
+		.populate({ path: "players", select: "teamCaptain playerName user" })
+		.populate({ path: "teamCaptain", select: "playerName" })
 		.select("division teamCaptain paid teamName");
 
 	if (!team) {

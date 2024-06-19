@@ -331,7 +331,7 @@ const CreateTeamSummary = ({
 									<p className="font-barlow my-4 text-base capitalize">
 										Pay For My Whole Team:
 									</p>
-									<p className="mb-4 text-base">$2250</p>
+									<p className="mb-4 text-base">$2000 no tax</p>
 									<Button
 										className="mt-2 flex w-full justify-center text-center text-sm font-semibold capitalize"
 										onClick={handlePayTeam}

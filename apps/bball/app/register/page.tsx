@@ -19,6 +19,7 @@ import {
 
 import RegisterPageInfo from "@/components/register/register-info/RegisterPageInfo";
 import RegisterCTABanner from "@/components/register/register-info/RegisterCTABanner";
+import { upcomingSeasonName } from "@/utils/upcomingSeasonName";
 
 export default async function Register({
 	searchParams,
@@ -30,6 +31,7 @@ export default async function Register({
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
+	const seasonName = await upcomingSeasonName();
 
 	if (!user) {
 		await addNewUser(session.user.name, session.user.email, "google");
@@ -46,7 +48,7 @@ export default async function Register({
 			) : (
 				<main className="font-barlow container mx-auto min-h-fit text-white">
 					<p className="font-barlow mb-0 mt-10 text-center text-xl font-medium uppercase md:text-3xl">
-						Season 5
+						{seasonName}
 					</p>
 					<h1 className="font-abolition mb-5 mt-1 text-7xl">
 						Welcome to rise up basketball
@@ -120,7 +122,9 @@ const cardData = [
 			"Don’t have a full squad? This is the perfect pick for you. Join as a solo player or groups of 4 or less players.",
 		imgSrc: "/images/register/joinFreeAgent.jpg",
 		imgAlt: "Join as a free agent Now",
-		btnText: "Join as a free agent Now",
+		// btnText: "Join as a free agent Now",
+		btnText: "Coming soon",
+
 		href: "/register/free-agent",
 	},
 	{

@@ -1,4 +1,10 @@
-import React from "react";
+import Link from "next/link";
+import { convertToEST } from "@/utils/convertToEST";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+
+import { Separator } from "@ui/components/separator";
+import { Button } from "@ui/components/button";
 import {
 	Table,
 	TableBody,
@@ -54,8 +60,22 @@ const UserPlayerGames = ({ games }) => {
 					</TableHeader>
 					<TableBody>
 						{games?.map((game, index) => {
-							const date = convertToEST(new Date(game.date));
-							const formattedDate = format(date, "E L/d @ h:mm a");
+							let date;
+							let formattedDate;
+
+							if (game.division === "660d6a75ab30a11b292cd290") {
+								// utc dates
+								date = new Date(game.date);
+								const utcDate = utcToZonedTime(date, "UTC");
+								formattedDate = format(utcDate, "E L/d @ h:mm a");
+								// utc dates
+							} else {
+								// convert to toronto dates
+
+								date = convertToEST(new Date(game.date));
+								formattedDate = format(date, "E L/d @ h:mm a");
+								// convert to toronto dates
+							}
 
 							return (
 								<TableRow

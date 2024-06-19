@@ -3,12 +3,13 @@ import { Stripe } from "stripe";
 import { connectToDatabase } from "@/api-helpers/utils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 export async function POST(req: Request) {
 	await connectToDatabase();
 
 	const { items, formObject } = await req.json();
-	const parsedFormObject = JSON.parse(formObject);
 
+	const parsedFormObject = JSON.parse(formObject);
 	// const testClock = await stripe.testHelpers.testClocks.create({
 	// 	frozen_time: Math.floor(Date.now() / 1000),
 	// });
@@ -29,8 +30,8 @@ export async function POST(req: Request) {
 				mode: "payment",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success/${parsedFormObject.division}`,
-				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
+				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
 				automatic_tax: {
 					enabled: true,
 				},
@@ -45,8 +46,8 @@ export async function POST(req: Request) {
 				mode: "subscription",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/success/${parsedFormObject.division}`,
-				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/register`,
+				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
 				automatic_tax: {
 					enabled: true,
 				},

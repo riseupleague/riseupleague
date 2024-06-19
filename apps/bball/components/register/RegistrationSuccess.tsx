@@ -91,24 +91,24 @@ const RegistrationSuccess = ({ team }) => {
 				<ul className="my-5 rounded  p-3 uppercase text-white">
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Division:</span>{" "}
-						<span className="text-right">{team.division?.divisionName}</span>
+						<span className="text-right">{team?.division?.divisionName}</span>
 					</li>
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Team:</span>{" "}
-						<span className="text-right">{team.team.teamName}</span>
+						<span className="text-right">{team?.team?.teamName}</span>
 					</li>
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Team Code:</span>{" "}
-						<span className="text-right">{team.team.teamCode}</span>
+						<span className="text-right">{team?.team?.teamCode}</span>
 					</li>
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Arena:</span>
-						<span>{team.division?.location}</span>
+						<span>{team?.division?.location}</span>
 					</li>
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Game Days:</span>{" "}
 						<span className="text-right">
-							{team.division?.day} at {startTimeAMPM} - {endTimeAMPM}
+							{team?.division?.day} at {startTimeAMPM} - {endTimeAMPM}
 						</span>
 					</li>
 					<li className="my-4 flex justify-between text-2xl">

@@ -29,6 +29,26 @@ const socialLinks = [
 		icon: <Instagram />,
 	},
 	{
+		text: "Instagram (Brampton) - @riseup.brampton",
+		link: "https://www.instagram.com/riseup.brampton/",
+		icon: <FaInstagram className="size-6" />,
+	},
+	{
+		text: "Instagram (Vaughan) - @riseup.vaughan",
+		link: "https://www.instagram.com/riseup.vaughan/",
+		icon: <FaInstagram className="size-6" />,
+	},
+	{
+		text: "Instagram (Markham) - @riseup.markham",
+		link: "https://www.instagram.com/riseup.markham/",
+		icon: <FaInstagram className="size-6" />,
+	},
+	{
+		text: "Instagram (Niagara) - @riseup.niagara",
+		link: "https://www.instagram.com/riseup.niagara/",
+		icon: <FaInstagram className="size-6" />,
+	},
+	{
 		text: "Youtube - riseup basketball media",
 		link: "https://www.youtube.com/@RiseUPBasketballLeagueMedia/videos",
 		icon: <YouTube />,

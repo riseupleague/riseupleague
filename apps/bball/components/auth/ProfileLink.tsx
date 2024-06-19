@@ -38,7 +38,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 
 	return (
 		<div className="bg-transparent">
-			{status === "authenticated" ? (
+			{user !== null ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>
@@ -47,8 +47,8 @@ const ProfileLink = ({ user }): JSX.Element => {
 									{user?.name}
 								</span>
 								<div className="flex items-center gap-1 ">
-									<Avatar className="block lg:hidden ">
-										<AvatarImage src={`${session.user.image}`} />
+									<Avatar className="block lg:hidden">
+										<AvatarImage src={session?.user?.image} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
 											{user?.name[0]}
 										</AvatarFallback>
@@ -67,10 +67,15 @@ const ProfileLink = ({ user }): JSX.Element => {
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
 											onClick={closeDialog}
-											href={`/user`}
+											href="/user"
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
-											<PlayerIcon />
+											<Avatar className="hidden size-7 lg:block">
+												<AvatarImage src={session?.user?.image} />
+												<AvatarFallback className="bg-neutral-400 uppercase">
+													{user?.name[0]}
+												</AvatarFallback>
+											</Avatar>
 											<span>Profile</span>
 										</Link>
 									</DropdownMenuItem>

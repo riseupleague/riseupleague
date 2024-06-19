@@ -5,8 +5,7 @@ import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { Button } from "@ui/components/button";
 import { Badge } from "@ui/components/badge";
-import TeamLogo from "./icons/TeamLogo";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";
 
 export default function playerOfTheGame({ player }) {
@@ -45,7 +44,12 @@ export default function playerOfTheGame({ player }) {
 							</Link>
 						</div>
 						{player.instagram && (
-							<span>ig: {extractInstagramUsername(player.instagram)}</span>
+							<span>
+								IG:{" "}
+								<span className="lowercase">
+									{extractInstagramUsername(player.instagram)}
+								</span>
+							</span>
 						)}
 					</div>
 				</div>
