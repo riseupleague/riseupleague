@@ -14,19 +14,21 @@ import {
 } from "@ui/components/sheet";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import packageJson from "../../../package.json";
 
 const Header = (): JSX.Element => {
 	const { data: session } = useSession();
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
+	const version = packageJson.version.replace("admin@", "");
 
 	return (
 		<header className="sticky top-0 z-20 border-b border-neutral-500 bg-neutral-900 py-4">
+			<p className="hidden text-center md:block">RISE UP ADMIN v{version}</p>
 			<RxHamburgerMenu
 				onClick={() => setOpen(!open)}
 				className="ml-3 size-8 md:hidden"
 			/>
-
 			<Sheet open={open} onOpenChange={setOpen}>
 				<SheetContent
 					side="left"
