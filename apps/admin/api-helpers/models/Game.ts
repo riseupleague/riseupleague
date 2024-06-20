@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";

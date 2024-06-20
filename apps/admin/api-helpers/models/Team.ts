@@ -7,16 +7,12 @@ import Season from "@/api-helpers/models/Season";
 const Schema = mongoose.Schema;
 
 const teamSchema = new Schema({
+	paid: { type: Boolean },
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
-	teamCode: { type: String, required: true },
-	jerseyEdition: { type: String },
+	teamCode: { type: String },
 	teamBanner: { type: String },
 	teamBannerId: { type: String },
-	teamCaptain: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Player",
-	},
 	primaryColor: { type: String },
 	secondaryColor: { type: String },
 	tertiaryColor: { type: String },

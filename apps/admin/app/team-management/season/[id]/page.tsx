@@ -1,9 +1,13 @@
 import { getAllDivisionsWithId } from "@/api-helpers/controllers/divisions-controller";
-import { getSeasonById } from "@/api-helpers/controllers/seasons-controller";
+import {
+	getAllSeasons,
+	getSeasonById,
+} from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import { Button } from "@ui/components/button";
+import CreateDivision from "@/components/seasons-management/CreateDivision";
+import TeamManagement from "@/components/team-management/TeamManagement";
 import { Separator } from "@ui/components/separator";
-import Link from "next/link";
+import { Metadata } from "next";
 
 export default async function SeasonPage({
 	params,
@@ -11,6 +15,10 @@ export default async function SeasonPage({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
+	const resSeasons = await getAllSeasons();
+	const { seasons } = await resSeasons.json();
+
 	const resSeason = await getSeasonById(params.id);
 	const { season } = await resSeason.json();
 
@@ -19,35 +27,28 @@ export default async function SeasonPage({
 
 	return (
 		<section>
-			<h1>{season?.seasonName} Divisions</h1>
+			<h1>{season?.seasonName}</h1>
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-				{divisions.map((division, index) => {
-					let teams = division.teams.length;
-					let teamColour;
-					if (teams < 4) teamColour = "text-green-500";
-					else if (teams >= 4 && teams < 8) teamColour = "text-yellow-500";
-					else teamColour = "text-primary";
-
-					return (
-						<Button
-							key={index}
-							variant="secondary"
-							className="text-2xl"
-							asChild
-						>
-							<Link href={`/team-management/division/${division._id}`}>
-								{division.divisionName}&nbsp;
-								<span
-									className={teamColour}
-								>{`(${teams}${teams === 8 ? " - Full" : ""})`}</span>
-							</Link>
-						</Button>
-					);
-				})}
-			</ul>
+			{divisions.length > 0 ? (
+				<TeamManagement
+					seasons={seasons}
+					currentSeason={season}
+					divisions={divisions}
+				/>
+			) : (
+				<div className="my-8 space-y-3 text-center">
+					<h3 className="text-primary">
+						No divisions created in this season yet.
+					</h3>
+					<CreateDivision seasonId={season._id} />
+				</div>
+			)}
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Team Management",
+};

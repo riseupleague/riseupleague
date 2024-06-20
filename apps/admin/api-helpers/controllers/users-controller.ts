@@ -5,6 +5,7 @@ import Season from "@/api-helpers/models/Season";
 import User from "@/api-helpers/models/User";
 import { connectToDatabase } from "@/api-helpers/utils";
 import bcrypt from "bcryptjs";
+
 export const addNewUser = async (name: string, email: string, type: string) => {
 	try {
 		await connectToDatabase();
@@ -124,6 +125,65 @@ export const getCurrentUser = async (email: string) => {
 		});
 	} catch (error) {
 		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getUserById = async (id: string) => {
+	try {
+		const user = await User.findById(id).populate({
+			path: "basketball",
+			populate: [
+				{
+					path: "team",
+					select:
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players",
+					populate: {
+						path: "players",
+						model: "Player",
+					},
+				},
+				{
+					path: "division",
+					select: "divisionName location day description startTime endTime",
+				},
+				{
+					path: "season",
+					select: "seasonName",
+				},
+			],
+			select:
+				"team division season playerName instagram jerseyNumber jerseySize shortSize jerseyName",
+		});
+
+		if (!user) {
+			return NextResponse.json({ message: "User not found" }, { status: 404 });
+		}
+
+		return NextResponse.json({ user });
+	} catch (e) {
+		console.error("Error:", e);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllUsers = async () => {
+	try {
+		const users = await User.find();
+
+		if (!users) {
+			return NextResponse.json({ message: "No users found" }, { status: 404 });
+		}
+
+		return NextResponse.json({ users });
+	} catch (e) {
+		console.error("Error:", e);
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 }
