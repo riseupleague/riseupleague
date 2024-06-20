@@ -10,8 +10,11 @@ import { Card, CardHeader, CardTitle } from "@ui/components/card";
 import { ChevronLeft } from "lucide-react";
 
 const UserPlayer = ({ currentPlayers }) => {
-	const sortedPlayers = [...currentPlayers];
+	const sortedPlayers = [...currentPlayers].sort((a, b) =>
+		a.register > b.register ? 1 : -1
+	);
 	const [selectedPlayer, setSelectedPlayer] = useState(null);
+
 	const handleSelectedPlayer = (id) => {
 		const playerSelected = currentPlayers.find((player) => player._id === id);
 		setSelectedPlayer(playerSelected);
@@ -21,6 +24,7 @@ const UserPlayer = ({ currentPlayers }) => {
 		selectedPlayer && selectedPlayer.team?.games
 			? selectedPlayer.team.games
 			: [];
+
 	const teamRoster =
 		selectedPlayer && selectedPlayer.team?.players
 			? selectedPlayer.team.players
@@ -59,6 +63,7 @@ const UserPlayer = ({ currentPlayers }) => {
 					))}
 				</div>
 			)}
+
 			{selectedPlayer && (
 				<div>
 					<button

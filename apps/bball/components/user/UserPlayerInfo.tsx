@@ -104,10 +104,10 @@ const UserPlayerInfo = ({ player }) => {
 									Edit Player
 								</SheetTitle>
 								<SheetDescription className="text-sm text-neutral-500">
-									{/* Please note that there will be a deadline (TBD) to change your
+									Please note that there will be a deadline (TBD) to change your
 									custom jersey information. After this deadline, we will not be
-									able to change it. Stay tuned to our socials to be notified! */}
-									Jerseys have been ordered!
+									able to change it. Stay tuned to our socials to be notified!
+									{/* Jerseys have been ordered! */}
 								</SheetDescription>
 							</SheetHeader>
 							<div className="font-barlow">
@@ -234,11 +234,9 @@ const SubmitButton = () => {
 	const { pending } = useFormStatus();
 
 	return (
-		// <SheetClose asChild>
 		<Button type="submit" disabled={pending} className="w-full">
 			{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
 		</Button>
-		// </SheetClose>
 	);
 };
 

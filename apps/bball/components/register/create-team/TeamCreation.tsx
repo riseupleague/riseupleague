@@ -3,29 +3,15 @@
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
-
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTeamSchema } from "@/schemas";
-
 import Link from "next/link";
 
 type TeamFormValues = z.infer<typeof createTeamSchema>;
 
 const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
-	// const [teamDetails, setTeamDetails] = useState({});
-	// const [teamCaptainDetails, setTeamCaptainDetails] = useState({});
-
-	// const handleTeamSubmit = () => {
-	// 	setRegisterInfo({
-	// 		...registerInfo,
-	// 		teamDetails,
-	// 		teamCaptainDetails,
-	// 		step: 3,
-	// 	});
-	// };
-
 	const generateCode = () => {
 		const characters =
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

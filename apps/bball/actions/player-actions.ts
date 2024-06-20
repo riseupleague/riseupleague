@@ -2,7 +2,11 @@
 
 import Player from "@/api-helpers/models/Player";
 import { revalidatePath } from "next/cache";
-import { updatePlayerSchema } from "@/validation/player-validations";
+import {
+	updatePlayerSchema,
+	addPlayerSchema,
+} from "@/validation/player-validations";
+import Team from "@/api-helpers/models/Team";
 
 /**
  * Update player information in the database.
@@ -50,4 +54,40 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
 		console.log(e);
 		return { status: 500, message: "Internal server error." };
 	}
+};
+
+export const addPlayerToExistingTeam = async (
+	playerData: FormData,
+	teamId: string
+) => {
+	const rawPlayerData = {
+		playerName: playerData.get("playerName"),
+		teamId: teamId,
+	};
+
+	const validatedFields = addPlayerSchema.safeParse(rawPlayerData);
+
+	if (validatedFields.success === false) {
+		const errors = validatedFields.error.flatten().fieldErrors;
+
+		return {
+			status: 422,
+			errors: errors,
+		};
+	}
+
+	const teamExists = await Team.findById(teamId);
+	if (!teamExists) return { status: 404, message: "Team not found." };
+
+	// const result = await Team.findByIdAndUpdate({
+	// 	teamId,
+	// 	$push: {
+
+	// 	}
+	// })
+
+	return {
+		status: 200,
+		message: "Player added successfully.",
+	};
 };

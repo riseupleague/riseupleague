@@ -45,6 +45,7 @@ const PickCityDivision = ({
 	return (
 		<section>
 			<h3>Pick A City & Division</h3>
+
 			{regions?.length > 0 ? (
 				<Accordion type="single" collapsible className="w-full">
 					{regions?.map((region, index) => (
@@ -54,11 +55,10 @@ const PickCityDivision = ({
 							</AccordionTrigger>
 							<AccordionContent>
 								{region.divisions.map((division, index) => {
-									console.log(division.teams);
-
 									const isDivisionJoined = userDivisions.some(
 										(div) => div === division._id
 									);
+
 									return (
 										<Button
 											key={index}

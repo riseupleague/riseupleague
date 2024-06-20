@@ -1,180 +1,14 @@
-// import React, { useState, useRef } from "react";
-// import { Button } from "@ui/components/button";
-// import { Input } from "@ui/components/input";
-// import { Label } from "@ui/components/label";
-
-// const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
-// 	const topRef = useRef(null); // Create a reference for the top of the page
-
-// 	const [rosterFilled, setRosterFilled] = useState(false);
-// 	const [players, setPlayers] = useState(
-// 		registerInfo?.players || [
-// 			{ id: 1, name: "" },
-// 			{ id: 2, name: "" },
-// 			{ id: 3, name: "" },
-// 			{ id: 4, name: "" },
-// 			{ id: 5, name: "" },
-// 			{ id: 6, name: "" },
-// 		]
-// 	);
-
-// 	console.log(players);
-
-// 	// Function to handle adding a new player input field
-// 	const addPlayer = () => {
-// 		setPlayers([...players, { id: players.length + 1, name: "" }]);
-// 	};
-
-// 	// Function to handle player name change
-// 	const handlePlayerNameChange = (index, value) => {
-// 		const newPlayers = players.map((player, i) =>
-// 			i === index ? { ...player, name: value } : player
-// 		);
-// 		setPlayers(newPlayers);
-// 	};
-
-// 	const handleSubmit = (e) => {
-// 		e.preventDefault();
-
-// 		const numOfPlayers = players.filter((player) => player.name !== "").length;
-// 		if (numOfPlayers < 6) {
-// 			alert(
-// 				`You currently have ${numOfPlayers} players in your roster. Please add 6 or more players.`
-// 			);
-// 			return null;
-// 		}
-
-// 		setRosterFilled(true);
-
-// 		// Scroll to the top of the page
-
-// 		if (topRef.current) {
-// 			topRef.current.scrollIntoView({ behavior: "smooth" });
-// 		}
-
-// 		// // Collect player names and other form data
-// 		// const updatedRegisterInfo = {
-// 		// 	...registerInfo,
-// 		// 	players: players,
-// 		// 	step: 4,
-// 		// 	allowStep: {
-// 		// 		1: true,
-// 		// 		2: true,
-// 		// 		3: true,
-// 		// 		4: true,
-// 		// 		5: false,
-// 		// 	},
-// 		// };
-// 		// setRegisterInfo(updatedRegisterInfo);
-// 		// // Move to the next step or handle form submission
-// 	};
-
-// 	return (
-// 		<section>
-// 			{!rosterFilled && (
-// 				<form onSubmit={handleSubmit}>
-// 					<div className="mb-6">
-// 						<h3>Build Your Roster</h3>
-// 						<p className="text-lg uppercase">
-// 							Team Name: {registerInfo.teamDetails?.teamName}
-// 						</p>
-// 						<p className="text-lg uppercase">
-// 							<span className="text-primary">Reminder:</span> add up to 9
-// 							players to avoid free agents being added to your team.
-// 						</p>
-// 					</div>
-
-// 					<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
-// 						<div className="space-y-3">
-// 							<Label htmlFor="teamCaptain" className="text-xl uppercase">
-// 								Team Captain
-// 							</Label>
-// 							<Input
-// 								variant="form"
-// 								type="text"
-// 								name="teamCaptain"
-// 								disabled={true}
-// 								value={registerInfo.teamCaptainDetails?.playerName}
-// 							/>
-// 						</div>
-// 					</div>
-
-// 					<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
-// 						{players.map((player, index) => (
-// 							<div key={player.id} className="space-y-3">
-// 								<Label
-// 									htmlFor={`player${player.id}`}
-// 									className="text-xl uppercase"
-// 								>
-// 									Player {player.id}
-// 								</Label>
-// 								<Input
-// 									variant="form"
-// 									type="text"
-// 									name={`player${player.id}`}
-// 									placeholder={`Enter Player ${player.id}'s name`}
-// 									defaultValue={player.name}
-// 									onChange={(e) =>
-// 										handlePlayerNameChange(index, e.target.value)
-// 									}
-// 								/>
-// 							</div>
-// 						))}
-// 					</div>
-
-// 					<div className="flex flex-col gap-20">
-// 						<Button
-// 							type="button"
-// 							className="w-full"
-// 							variant="secondary"
-// 							onClick={addPlayer}
-// 						>
-// 							Add Player
-// 						</Button>
-
-// 						<Button type="submit" className="w-full">
-// 							Continue
-// 						</Button>
-// 					</div>
-// 				</form>
-// 			)}
-
-// 			{rosterFilled && (
-// 				<div
-// 					ref={topRef}
-// 					className="rounded border border-neutral-600 bg-[#111827] px-4 py-6"
-// 				>
-// 					<p>**NOTE**</p>
-// 					<p>
-// 						To ensure teams are full and competitive, we require a minimum of 9
-// 						players. Since you have less than 9 players. Please choose an option
-// 						to proceed:
-// 					</p>
-
-// 					<Button className="w-full" onClick={() => setRosterFilled(false)}>
-// 						Back
-// 					</Button>
-// 				</div>
-// 			)}
-// 		</section>
-// 	);
-// };
-
-// export default RosterBuilding;
-import { z, ZodError } from "zod";
-
+import { ZodError } from "zod";
 import React, { useRef, useState } from "react";
 import { Button } from "@ui/components/button";
 import { Input } from "@ui/components/input";
 import { Label } from "@ui/components/label";
 import {
 	Dialog,
-	DialogTrigger,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
 	DialogDescription,
-	DialogFooter,
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
 
@@ -213,29 +47,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		);
 		setPlayers(newPlayers);
 	};
-
-	// const handleValidation = () => {
-	// 	// Validate the first six players
-	// 	const inputtedPlayers = players
-	// 		.filter((player) => player.name !== "")
-	// 		.map((player, id) => {
-	// 			return { id: id + 1, name: player.name };
-	// 		});
-
-	// 	const result = buildRosterSchema.safeParse(
-	// 		inputtedPlayers.length >= 6
-	// 			? inputtedPlayers.slice(0, 6)
-	// 			: players.slice(0, 6)
-	// 	);
-
-	// 	if (!result.success) {
-	// 		setErrors(result?.error?.errors);
-	// 		return false;
-	// 	}
-
-	// 	setErrors([]);
-	// 	return true;
-	// };
 
 	const handleValidation = () => {
 		// Validate the first six players
@@ -288,12 +99,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		};
 
 		setRegisterInfo(updatedRegisterInfo);
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		const numOfPlayers = players.filter((player) => player.name !== "").length;
-		validateAndSubmit(numOfPlayers, "none");
 	};
 
 	const handleContinueClick = () => {
