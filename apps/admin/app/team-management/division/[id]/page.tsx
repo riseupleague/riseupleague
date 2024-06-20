@@ -1,9 +1,11 @@
 import { getDivisionFromIdWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import EditDivision from "@/components/team-management/EditDivision";
-import { Button } from "@ui/components/button";
+import DivisionInfo from "@/components/division-management/DivisionInfo";
+import CreateTeam from "@/components/team-management/CreateTeam";
+import TeamsTable from "@/components/team-management/TeamsTable";
+import UpdateDivision from "@/components/team-management/UpdateDivision";
 import { Separator } from "@ui/components/separator";
-import Link from "next/link";
+import { Metadata } from "next";
 
 export default async function DivisionPage({
 	params,
@@ -17,69 +19,33 @@ export default async function DivisionPage({
 
 	return (
 		<section>
-			<h1>
-				Division: <span className="text-primary">{division?.divisionName}</span>
-			</h1>
+			<h1>Division: {division?.divisionName}</h1>
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
-			<div className="mb-4 flex flex-col gap-2">
-				<h3>
-					Name: <span className="text-primary">{division?.divisionName}</span>
-				</h3>
-				<h3>
-					Location: <span className="text-primary">{division?.location}</span>
-				</h3>
-				<h3>
-					Day: <span className="text-primary">{division?.day}</span>
-				</h3>
-				<h3>
-					Start Time:{" "}
-					<span className="text-primary">{division?.startTime}</span>
-				</h3>
-				<h3>
-					End Time: <span className="text-primary">{division?.endTime}</span>
-				</h3>
-				{division?.earlyBirdPrice && (
-					<>
-						<h3>
-							Early Bird Price:{" "}
-							<span className="text-primary">{division?.earlyBirdPrice}</span>
-						</h3>
-						<h3>
-							Early Bird Open:{" "}
-							<span className="text-primary">
-								{division?.earlyBirdOpen.toString()}
-							</span>
-						</h3>
-					</>
-				)}
-				<h3>
-					Regular Price:{" "}
-					<span className="text-primary">{division?.regularPrice}</span>
-				</h3>
+			<DivisionInfo division={division} />
+			<div className="mt-8 space-y-3">
+				<UpdateDivision division={division} />
 			</div>
+			<Separator className="my-4 border-b border-neutral-500" />
 
-			<ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-				{division.teams.map((team, index) => {
-					return (
-						<Button
-							key={index}
-							variant="secondary"
-							className="text-2xl"
-							asChild
-						>
-							<Link href={`/team-management/team/${team?._id}`}>
-								{team?.teamName}
-							</Link>
-						</Button>
-					);
-				})}
-			</ul>
+			<h2>Teams:</h2>
 
 			<div className="my-8">
-				<EditDivision division={division} />
+				{division.teams.length > 0 ? (
+					<TeamsTable teams={division?.teams} />
+				) : (
+					<div className="my-8 flex justify-center">
+						<h3 className="text-primary">No teams in this division yet.</h3>
+					</div>
+				)}
 			</div>
+
+			<CreateTeam divisionId={params.id} seasonId={division?.season} />
 		</section>
 	);
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Team Management",
+};
