@@ -1,18 +1,21 @@
-import { connectToDatabase } from "@/api-helpers/utils";
-import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import { Button } from "@ui/components/button";
+import { LoginButton } from "@/components/auth/LoginButton";
+import { currentWorker } from "@/utils/currentWorker";
 
 export default async function Page(): Promise<JSX.Element> {
-	await connectToDatabase();
-	// const session = await getServerSession();
-	// console.log("session:", session);
-	// const resWorker = await getCurrentWorker(session?.user?.email);
-	// const { worker } = await resWorker.json();
-	// if (!worker) redirect("/login");
+	const user = await currentWorker();
+
+	console.log("user homepage: ", user);
 	return (
-		<section>
-			<h1>dashboard</h1>
-		</section>
+		<main className="mt-52 flex h-full flex-col items-center justify-center">
+			<div className="space-y-6 text-center">
+				<h1>Welcome to Rise Up Admin</h1>
+				<LoginButton>
+					<Button variant="secondary" size="lg">
+						Sign in
+					</Button>
+				</LoginButton>
+			</div>
+		</main>
 	);
 }

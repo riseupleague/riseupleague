@@ -13,17 +13,16 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
-const WorkerDropdown = ({ session }) => {
+const WorkerDropdown = ({ user }) => {
 	const handleLogOut = () => {
 		signOut();
 	};
+
 	return (
-		<div className="flex items-center gap-10">
+		<div className="hidden items-center gap-10 sm:flex">
 			<DropdownMenu>
 				<DropdownMenuTrigger className="font-oswald flex items-center gap-2 transition-all hover:opacity-80">
-					<span className="text-primary hidden text-lg uppercase lg:inline-block">
-						{session?.user?.name}
-					</span>
+					<span className="text-primary  text-lg uppercase ">{user?.name}</span>
 					<div className="flex items-center gap-1 ">
 						<DownChevronIcon />
 					</div>
