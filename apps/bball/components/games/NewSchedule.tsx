@@ -4,6 +4,7 @@ import { useState } from "react";
 import FilterByDate from "../filters/FilterByDate";
 import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
+
 import { Separator } from "@ui/components/separator";
 import FilterByCity from "../filters/FilterByCity";
 import { format } from "date-fns";
@@ -40,6 +41,7 @@ const NewSchedule = ({
 		);
 		setGames([{ date: gamesByDate[0].date, games: selectedGames }]);
 		const filteredDivisions = divisions.filter((division) => {
+			console.log(division, division.city, selectedCity);
 			return division.city === selectedCity;
 		});
 		setDivisionsToShow(filteredDivisions);

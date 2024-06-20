@@ -7,8 +7,8 @@ import { Button } from "@ui/components/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { LogOut } from "lucide-react";
 import SignInDialog from "@/components/auth/SignInDialog";
-import { FaChevronDown } from "react-icons/fa6";
-import { CgProfile } from "react-icons/cg";
+import PlayerIcon from "../icons/PlayerIcon";
+import DownChevronIcon from "../icons/DownChevronIcon";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -53,7 +53,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 											{user?.name[0]}
 										</AvatarFallback>
 									</Avatar>
-									<FaChevronDown className="text-neutral-300" />
+									<DownChevronIcon />
 								</div>
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="font-barlow w-56 border border-neutral-500 bg-neutral-900">

@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
 import BarChart from "./BarChart";
 import PointsCircle from "./PointsCircle";
-import { FaChevronUp } from "react-icons/fa";
+import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
 
 const Statistics = ({ team, allAvg }): JSX.Element => {
 	return (
@@ -55,7 +56,7 @@ const Statistics = ({ team, allAvg }): JSX.Element => {
 							{team?.averageStats?.rebounds?.toFixed(1)}
 							<span className="absolute">
 								{team?.averageStats.rebounds?.toFixed(1) > allAvg.rebounds && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>
@@ -72,7 +73,7 @@ const Statistics = ({ team, allAvg }): JSX.Element => {
 							{team?.averageStats.assists.toFixed(1)}{" "}
 							<span className="absolute">
 								{team?.averageStats.assists > allAvg.assists && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>
@@ -87,9 +88,7 @@ const Statistics = ({ team, allAvg }): JSX.Element => {
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{team?.averageStats.blocks.toFixed(1)}{" "}
 							<span className="absolute">
-								{team?.averageStats.blocks > allAvg.blocks && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
-								)}
+								{team?.averageStats.blocks > allAvg.blocks && <ChevronUpIcon />}
 							</span>
 						</div>
 						<div className="hidden text-sm font-semibold text-gray-300 lg:block">
@@ -103,9 +102,7 @@ const Statistics = ({ team, allAvg }): JSX.Element => {
 						<div className="relative text-xl font-bold text-white sm:text-3xl">
 							{team?.averageStats.steals.toFixed(1)}{" "}
 							<span className="absolute">
-								{team?.averageStats.steals > allAvg.steals && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
-								)}
+								{team?.averageStats.steals > allAvg.steals && <ChevronUpIcon />}
 							</span>
 						</div>
 						<div className="hidden text-sm font-semibold text-gray-300 lg:block">

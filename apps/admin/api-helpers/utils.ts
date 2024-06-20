@@ -30,6 +30,12 @@ if (!cached) {
 	cached = globalThis.mongoose = { conn: null, promise: null };
 }
 
+let cached = globalThis.mongoose;
+
+if (!cached) {
+	cached = globalThis.mongoose = { conn: null, promise: null };
+}
+
 export const connectToDatabase = async () => {
 	if (cached.conn) {
 		return cached.conn;
@@ -56,7 +62,14 @@ export const connectToDatabase = async () => {
 		cached.conn = await cached.promise;
 		console.log("Connected to MongoDB");
 		return cached.conn;
+	try {
+		cached.conn = await cached.promise;
+		console.log("Connected to MongoDB");
+		return cached.conn;
 	} catch (e) {
+		cached.promise = null;
+		console.error("Cannot connect to MongoDB: ", e);
+		throw e;
 		cached.promise = null;
 		console.error("Cannot connect to MongoDB: ", e);
 		throw e;

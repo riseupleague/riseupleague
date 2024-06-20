@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./RegisterCards.module.css"; // Import CSS module
 import Image from "next/image";
 

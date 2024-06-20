@@ -1,3 +1,4 @@
+import { getAllCurrentDivisionsAndCities } from "@/api-helpers/controllers/divisions-controller";
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
@@ -24,6 +25,8 @@ export default async function Schedule(): Promise<JSX.Element> {
 		const divisionNamesAndCitiesArrays = gamesByDate[0]?.games.reduce(
 			(result, game) => {
 				// Extract division names (unique)
+
+				console.log(game.division);
 				if (
 					!result.divisionNamesAndCities.find(
 						(item) => item._id === game.division._id
@@ -49,7 +52,6 @@ export default async function Schedule(): Promise<JSX.Element> {
 			divisionNamesAndCitiesArrays?.divisionNamesAndCities || [];
 		cities = divisionNamesAndCitiesArrays?.cities || [];
 	}
-
 	revalidatePath("/schedule", "page");
 
 	return (

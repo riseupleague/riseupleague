@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
 import BarChart from "./BarChart";
 import PointsCircle from "./PointsCircle";
-import { FaChevronUp } from "react-icons/fa";
+import ChevronUpIcon from "@/components/general/icons/ChevronUpIcon";
 
 const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 	return (
@@ -55,7 +56,7 @@ const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 							{player.averageStats.rebounds.toFixed(1)}
 							<span className="absolute">
 								{player.averageStats.rebounds > allAvg.rebounds && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>
@@ -72,7 +73,7 @@ const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 							{player.averageStats.assists.toFixed(1)}{" "}
 							<span className="absolute">
 								{player.averageStats.assists > allAvg.assists && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>
@@ -88,7 +89,7 @@ const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 							{player.averageStats.blocks.toFixed(1)}{" "}
 							<span className="absolute">
 								{player.averageStats.blocks > allAvg.blocks && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>
@@ -104,7 +105,7 @@ const AverageStatistics = ({ player, allAvg }): JSX.Element => {
 							{player.averageStats.steals.toFixed(1)}{" "}
 							<span className="absolute">
 								{player.averageStats.steals > allAvg.steals && (
-									<FaChevronUp color="green" className="ml-1 scale-50" />
+									<ChevronUpIcon />
 								)}
 							</span>
 						</div>

@@ -1,16 +1,11 @@
 import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
 import Season from "@/api-helpers/models/Season";
 import User from "@/api-helpers/models/User";
 import { connectToDatabase } from "@/api-helpers/utils";
+import bcrypt from "bcryptjs";
+import { revalidatePath } from "next/cache";
 
-/**
- * Adds a new user to the database.
- *
- * @param {string} name - The name of the user.
- * @param {string} email - The email of the user.
- * @param {string} type - The type of the user.
- * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object with the new user data or an error message.
- */
 export const addNewUser = async (name: string, email: string, type: string) => {
 	try {
 		await connectToDatabase();
@@ -31,12 +26,6 @@ export const addNewUser = async (name: string, email: string, type: string) => {
 	}
 };
 
-/**
- * Retrieves the user's player payment information based on the provided email.
- *
- * @param {string} email - The email of the user
- * @return {Promise} A promise that resolves with the user's player payment information
- */
 export const getUserPlayerPayment = async (email: string) => {
 	try {
 		const season = await Season.findOne({ register: true });
@@ -78,12 +67,6 @@ export const getUserPlayerPayment = async (email: string) => {
 	}
 };
 
-/**
- * Retrieves current season, register season, and user information based on the provided email.
- *
- * @param {string} email - The email of the user
- * @return {Promise<object>} A Promise that resolves to an object containing user, season, and registerSeason information
- */
 export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 	try {
 		const season = await Season.findOne({ active: true });
@@ -131,12 +114,6 @@ export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 	}
 };
 
-/**
- * Retrieves the current user based on their email.
- *
- * @param {string} email - The email of the user.
- * @return {Promise<NextResponse>} A promise that resolves to the user object.
- */
 export const getCurrentUser = async (email: string) => {
 	try {
 		const user = await User.findOne({ email }).populate({

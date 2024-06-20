@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 import Team from "@/api-helpers/models/Team";
+import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
+import Game from "@/api-helpers/models/Game";
+import { revalidatePath } from "next/cache";
 
-/**
- * Retrieves all current teams for the given season.
- *
- * @param {string} seasonId - The ID of the season for which teams are being retrieved
- * @return {Promise<NextResponse>} A JSON response containing the teams for the given season
- */
 export const getAllCurrentTeams = async (seasonId: string) => {
 	try {
 		const teams = await Team.find({ season: seasonId }).select("teamName");
@@ -25,11 +22,6 @@ export const getAllCurrentTeams = async (seasonId: string) => {
 	}
 };
 
-/**
- * Retrieves all registered teams for the current season.
- *
- * @return {Promise} An array of teams with their names and codes.
- */
 export const getAllRegisterTeams = async () => {
 	try {
 		const registerTeam = await Season.find({ register: true });
@@ -51,11 +43,6 @@ export const getAllRegisterTeams = async () => {
 	}
 };
 
-/**
- * Generate a list of all current teams with their division names and IDs.
- *
- * @return {Promise} teamsNameDivisionAndId - Array of team objects with division names and IDs
- */
 export const getAllCurrentTeamsNameDivisionAndId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -88,12 +75,6 @@ export const getAllCurrentTeamsNameDivisionAndId = async () => {
 	}
 };
 
-/**
- * Retrieves a team by its ID, including associated players and division.
- *
- * @param {string} teamId - The ID of the team to retrieve.
- * @return {Promise<NextResponse>} A Promise that resolves to a NextResponse object containing the team data or an error message.
- */
 export const getTeamById = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)
@@ -117,12 +98,6 @@ export const getTeamById = async (teamId: string) => {
 	}
 };
 
-/**
- * Retrieves a team by ID, populating related fields such as division, season, and players.
- *
- * @param {string} id - The ID of the team to retrieve
- * @return {Promise} A JSON response containing the retrieved team
- */
 export const getRegisterTeamById = async (id: string) => {
 	// Check if the provided ID is not undefined or null
 	if (!id) {
@@ -148,12 +123,6 @@ export const getRegisterTeamById = async (id: string) => {
 	return NextResponse.json({ team });
 };
 
-/**
- * Retrieves a team by its ID and populates it with games and related information.
- *
- * @param {string} teamId - The ID of the team to retrieve.
- * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the team data.
- */
 export const getTeamByIdWithGames = async (teamId: string) => {
 	try {
 		const team = await Team.findById(teamId)
@@ -203,12 +172,6 @@ export const getTeamByIdWithGames = async (teamId: string) => {
 	}
 };
 
-/**
- * Retrieves the average statistics for all teams in a given season.
- *
- * @param {string} teamId - The ID of the team.
- * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the team and the average statistics for all teams.
- */
 export const getTeamAllAvgFromId = async (teamId: string) => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });

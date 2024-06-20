@@ -19,7 +19,13 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
-
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
+import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
 	const [playerInfo, setPlayerInfo] = useState(player);

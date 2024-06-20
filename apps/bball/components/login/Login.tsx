@@ -10,6 +10,7 @@ const Login = (): JSX.Element => {
 	const [isEmail, setIsEmail] = useState(false);
 	const [isCreateAccount, setIsCreateAccount] = useState(false);
 	const [isPassword, setIsPassword] = useState(false);
+	const [isRegisterPassword, setIsRegisterPassword] = useState(false);
 	const [isRegisterName, setIsRegisterName] = useState(false);
 
 	const [useGoogle, setUseGoogle] = useState(false);

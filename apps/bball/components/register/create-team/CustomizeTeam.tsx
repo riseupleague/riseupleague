@@ -1,10 +1,27 @@
 "use client";
 
+import { Separator } from "@ui/components/separator";
+import { Button } from "@ui/components/button";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Checkbox } from "@ui/components/checkbox";
+
+import Link from "next/link";
 import { useState } from "react";
 import getStripe from "@/utils/checkout";
+import { Loader2 } from "lucide-react";
+
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
+
 import CreateTeamDetails from "./CreateTeamDetails";
 import CreateTeamSummary from "./CreateTeamSummary";
-
 interface FormData {
 	teamName: string;
 	teamNameShort?: string;
@@ -28,6 +45,7 @@ interface FormErrors {
 
 const CustomizeTeam = ({ division, session }): JSX.Element => {
 	const [isLoader, setIsLoader] = useState(false);
+	console.log(division);
 	const [isSummary, setIsSummary] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
 		teamName: "",

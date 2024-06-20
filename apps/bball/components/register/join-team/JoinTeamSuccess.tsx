@@ -1,6 +1,7 @@
 import { convertToEST } from "@/utils/convertToEST";
 import { format } from "date-fns";
 import Link from "next/link";
+import React from "react";
 
 const JoinTeamSuccess = ({ player }) => {
 	const team = player?.team;

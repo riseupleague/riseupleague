@@ -1,5 +1,5 @@
+import ChevronRight from "@/components/general/icons/ChevronRight";
 import Link from "next/link";
-import { FaChevronRight } from "react-icons/fa";
 
 const SocialCard = ({ link, text, icon }): JSX.Element => {
 	return (
@@ -22,7 +22,7 @@ const SocialCard = ({ link, text, icon }): JSX.Element => {
 					target="_blank"
 					className="transition hover:opacity-80"
 				>
-					<FaChevronRight />
+					<ChevronRight />
 				</Link>
 			</div>
 		</div>

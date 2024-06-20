@@ -1,3 +1,4 @@
+import React from "react";
 import PrimaryHeader from "./PrimaryHeader";
 import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";

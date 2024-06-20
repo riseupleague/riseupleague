@@ -1,7 +1,13 @@
 "use client";
-
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@ui/components/card";
+import React, { useState } from "react";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
 import { Checkbox } from "@ui/components/checkbox";
 import { Label } from "@ui/components/label";
 import Link from "next/link";

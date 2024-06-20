@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import PreviousGames from "./PreviousGames";
 import Statistics from "./Statistics";
 import Overview from "./Overview";

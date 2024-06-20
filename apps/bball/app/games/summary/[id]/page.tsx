@@ -89,19 +89,6 @@ export default async function Summary({
 					</div>
 				</div>
 
-				{/* video */}
-				{game?.youtubeLink && (
-					<div className="my-6 md:my-24">
-						<iframe
-							className="aspect-video w-full"
-							src={`https://www.youtube.com/embed/${extractYoutubeLink(game.youtubeLink)}`}
-							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-							allowFullScreen
-							title="Embedded youtube"
-						></iframe>
-					</div>
-				)}
-
 				<hr />
 
 				{/* box score */}

@@ -1,7 +1,7 @@
 import SocialCard from "./socials/SocialCard";
-import { FaInstagram } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa";
+import Instagram from "../general/icons/Instagram";
+import YouTube from "../general/icons/YouTube";
+import TikTok from "../general/icons/TikTok";
 
 const HomeSocials = (): JSX.Element => {
 	return (
@@ -26,7 +26,7 @@ const socialLinks = [
 	{
 		text: "Instagram - @riseup.bball",
 		link: "https://www.instagram.com/riseup.bball/",
-		icon: <FaInstagram className="size-6" />,
+		icon: <Instagram />,
 	},
 	{
 		text: "Instagram (Brampton) - @riseup.brampton",
@@ -51,12 +51,12 @@ const socialLinks = [
 	{
 		text: "Youtube - riseup basketball media",
 		link: "https://www.youtube.com/@RiseUPBasketballLeagueMedia/videos",
-		icon: <FaYoutube className="size-6" />,
+		icon: <YouTube />,
 	},
 	{
 		text: "TikTok - @riseupleague",
 		link: "https://www.tiktok.com/@riseupleague",
-		icon: <FaTiktok className="size-6" />,
+		icon: <TikTok />,
 	},
 ];
 

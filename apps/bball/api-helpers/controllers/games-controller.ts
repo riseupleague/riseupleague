@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
-import { startOfDay, addHours, endOfDay } from "date-fns";
+import Team from "@/api-helpers/models/Team";
+import Season from "@/api-helpers/models/Season";
+import {
+	startOfDay,
+	addHours,
+	endOfDay,
+	parseISO,
+	add,
+	format,
+} from "date-fns";
+import { revalidatePath } from "next/cache";
 
-/**
- * Retrieves all upcoming games within the next one week and returns them sorted by date.
- *
- * @return {Promise<NextResponse>} A JSON response containing the list of all upcoming games.
- * @throws {NextResponse} If there is an internal server error.
- */
 export const getAllUpcomingGamesHeader = async () => {
 	try {
 		const targetDate = new Date();
@@ -57,12 +61,6 @@ export const getAllUpcomingGamesHeader = async () => {
 	}
 };
 
-/**
- * Retrieves all upcoming games for a specific division.
- *
- * @param {string} divisionId - The ID of the division for which to retrieve the upcoming games.
- * @return {object} The JSON response containing all upcoming games for the specified division, sorted by date.
- */
 export const getAllUpcomingGamesByDivision = async (divisionId) => {
 	try {
 		const allGames = await Game.find({
@@ -96,11 +94,6 @@ export const getAllUpcomingGamesByDivision = async (divisionId) => {
 	}
 };
 
-/**
- * Retrieve the latest 4 past games with detailed information about the division, home team, away team, players, player of the game, and game details, sorted by date.
- *
- * @return {Promise} Promise containing the retrieved games
- */
 export const getAllPastGames = async () => {
 	try {
 		const games = await Game.find({ status: true })
@@ -155,12 +148,6 @@ export const getAllPastGames = async () => {
 	}
 };
 
-/**
- * Retrieves the most recent player of the games that occurred within the last week.
- *
- * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the retrieved games.
- * @throws {NextResponse} If there is an internal server error, a NextResponse object with a status of 500 and a message of "Internal Server Error" is returned.
- */
 export const getAllRecentPlayerOfTheGames = async () => {
 	try {
 		const targetDate = new Date();
@@ -210,12 +197,6 @@ export const getAllRecentPlayerOfTheGames = async () => {
 	}
 };
 
-/**
- * Retrieves games by the selected date and returns them grouped by date.
- *
- * @param {number} selectedDate - The selected date in seconds.
- * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the games grouped by date.
- */
 export const getGamesByDate = async (selectedDate) => {
 	try {
 		const date = new Date(selectedDate);
@@ -279,12 +260,6 @@ export const getGamesByDate = async (selectedDate) => {
 	}
 };
 
-/**
- * Retrieves a game by its ID and populates various related fields such as home team, away team, division, season, and player of the game.
- *
- * @param {type} id - The ID of the game to retrieve
- * @return {type} Promise - A promise that resolves to the retrieved game
- */
 export const getGameById = async (id) => {
 	try {
 		const game = await Game.findById(id)

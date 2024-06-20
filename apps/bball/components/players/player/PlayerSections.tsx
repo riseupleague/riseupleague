@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import AverageStatistics from "@/components/players/player/AverageStatistics";
 import PreviousGames from "@/components/players/player/PreviousGames";
+import Overview from "@/components/players/player/Overview";
 
 const PlayerSections = ({ player, allAvg }): JSX.Element => {
 	const [selectedSection, setSelectedSection] = useState("stats");

@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
+import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
+import { Button } from "@ui/components/button";
 import { Badge } from "@ui/components/badge";
 import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";

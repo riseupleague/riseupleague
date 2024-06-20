@@ -1,10 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import FutureGame from "./FutureGame";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { convertToEST } from "@/utils/convertToEST";
-import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
+import ScrollRightIcon from "@/components/icons/ScrollRightIcon";
+import ScrollLeftIcon from "@/components/icons/ScrollLeftIcon";
 
 const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 	const separatedGames = [];
@@ -67,7 +68,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollLeft}
 			>
-				<IoMdArrowDropleft className="size-8" />
+				<ScrollRightIcon />
 			</button>
 			<div
 				ref={containerRef}
@@ -132,7 +133,7 @@ const FutureGames = ({ allUpcomingGames }): JSX.Element => {
 				className="hidden bg-neutral-500 px-3 text-gray-100 sm:block"
 				onClick={scrollRight}
 			>
-				<IoMdArrowDropright className="size-8" />
+				<ScrollLeftIcon />
 			</button>
 		</div>
 	);

@@ -1,6 +1,9 @@
 import Link from "next/link";
+import React from "react";
 
 const RegistrationSuccess = ({ team }) => {
+	console.log("team:", team);
+
 	const convertToAMPM = (timeString) => {
 		let formattedTime;
 		if (timeString) {

@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./RegisterCTABanner.module.css"; // Import CSS module
 import Link from "next/link";
 import Image from "next/image";

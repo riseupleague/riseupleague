@@ -1,11 +1,17 @@
 "use client";
 
+import MenuIcon from "@/components/icons/MenuIcon";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
-import { FaChevronRight } from "react-icons/fa";
+import React, { useState } from "react";
+import ChevronRight from "@/components/general/icons/ChevronRight";
+import HomeIcon from "@/components/icons/HomeIcon";
+import CalendarIcon from "@/components/icons/CalendarIcon";
+import PodiumIcon from "@/components/icons/PodiumIcon";
+import TeamIcon from "@/components/icons/TeamIcon";
+import PlayerIcon from "@/components/icons/PlayerIcon";
 import { usePathname } from "next/navigation";
 import SignInDialog from "@/components/auth/SignInDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
@@ -26,19 +32,22 @@ import {
 const SideNav = ({ navPosition }): React.JSX.Element => {
 	const path = usePathname();
 	const router = useRouter();
+	const currentDate = new Date();
 	const { status, data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
+	// Convert the date to seconds
+	const currentDateInSeconds = Math.floor(currentDate.getTime() / 1000);
 	const headerOptions = [
 		{
 			label: "home",
 			href: "/",
-			icon: <IoHomeOutline className="size-7 text-neutral-300" />,
+			icon: <HomeIcon />,
 		},
 		{
 			label: "schedule",
-			href: "/schedule",
-			icon: <CiCalendar className="size-7 text-neutral-300" />,
+			href: `/schedule/${currentDateInSeconds}`,
+			icon: <CalendarIcon />,
 		},
 		{
 			label: "standings",
@@ -54,17 +63,17 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		{
 			label: "teams",
 			href: "/teams",
-			icon: <RiTeamLine className="size-7 text-neutral-300" />,
+			icon: <TeamIcon />,
 		},
 		{
 			label: "players",
 			href: "/players",
-			icon: <MdOutlinePerson className="size-7 text-neutral-300" />,
+			icon: <PlayerIcon />,
 		},
 		{
 			label: "MVP Ladder",
 			href: "/leaders/mvp-ladder",
-			icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
+			icon: <TrophyIcon />,
 		},
 	];
 
@@ -72,7 +81,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 		<Sheet>
 			<SheetTrigger asChild>
 				<button className="flex flex-col items-center justify-center">
-					<IoIosMenu className="size-7 text-neutral-300" />
+					<MenuIcon />
 					{navPosition === "bottom" && "More"}
 				</button>
 			</SheetTrigger>
@@ -112,7 +121,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 												</h6>
 											</div>
 										</div>
-										<FaChevronRight />
+										<ChevronRight />
 									</Button>
 								</SheetClose>
 							</li>
@@ -144,7 +153,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 													{option.label}
 												</span>
 											</div>
-											<FaChevronRight />
+											<ChevronRight />
 										</Button>
 									</SheetClose>
 								</li>
@@ -152,6 +161,12 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 						})}
 
 						<Separator className="mb-4 bg-neutral-600" />
+						{/* <li className="flex items-center gap-3 px-6 py-2">
+										<QuestionIcon />
+										<span className="font-barlow text-[24px] uppercase tracking-tighter">
+											League
+										</span>
+									</li> */}
 					</ul>
 				</div>
 				<div className="mx-4 mb-[38px]">

@@ -1,5 +1,6 @@
 "use client";
 
+import LocationIcon from "@/components/icons/LocationIcon";
 import { Button } from "@ui/components/button";
 import { Checkbox } from "@ui/components/checkbox";
 import { Input } from "@ui/components/input";
@@ -11,7 +12,6 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import getStripe from "@/utils/checkout";
 import { useSession } from "next-auth/react";
-import { IoLocationOutline } from "react-icons/io5";
 
 interface FormData {
 	instagram: string;
@@ -265,7 +265,7 @@ const FreeAgentsSummary = ({
 							</h4>
 							<div className="mb-6 flex items-center gap-2">
 								<span className="translate-y-[2px]">
-									<IoLocationOutline className="size-3 text-[#82878d]" />
+									<LocationIcon />
 								</span>
 								<p className="text-xl capitalize">{city}</p>
 							</div>

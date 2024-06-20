@@ -1,6 +1,8 @@
+import React from "react";
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
 
 const UserPlayerRoster = ({ team }) => {
+	console.log("team:", team);
 	return (
 		<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 			{team?.map((player, index) => {

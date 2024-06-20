@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaArrowRight } from "react-icons/fa";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
 
 const Breadcrumb = (): JSX.Element => {
 	const pathname = usePathname().toString();
@@ -21,7 +21,7 @@ const Breadcrumb = (): JSX.Element => {
 							<span
 								className={`${index === crumbs.length - 1 && "hidden"} scale-50`}
 							>
-								<FaArrowRight className="size-6 text-neutral-400" />
+								<ArrowRightIcon />
 							</span>
 						</div>
 					);
@@ -36,7 +36,7 @@ const Breadcrumb = (): JSX.Element => {
 							<span
 								className={`${index === crumbs.length - 1 && "hidden"} scale-50`}
 							>
-								<FaArrowRight className="size-6 text-neutral-400" />
+								<ArrowRightIcon />
 							</span>
 						</Link>
 					);

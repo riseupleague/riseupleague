@@ -27,23 +27,17 @@ const TeamManagement = ({ seasons, currentSeason, divisions }) => {
 	return (
 		<section>
 			<div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
-				<div className="space-y-2">
-					<Label>Filter By Season:</Label>
-					<FilterBySeason
-						currentSeason={season}
-						seasons={seasons}
-						handleSeasonChange={handleSeasonChange}
-					/>
-				</div>
+				<FilterBySeason
+					currentSeason={season}
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+				/>
 
-				<div className="space-y-2">
-					<Label>Filter By Division:</Label>
-					<FilterByDivision
-						currentDivision={division}
-						divisions={divisions}
-						handleDivisionChange={handleDivisionChange}
-					/>
-				</div>
+				<FilterByDivision
+					currentDivision={division}
+					divisions={divisions}
+					handleDivisionChange={handleDivisionChange}
+				/>
 			</div>
 
 			<div className="my-8">

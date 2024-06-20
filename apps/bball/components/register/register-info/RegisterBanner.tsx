@@ -1,7 +1,9 @@
+import React from "react";
 import styles from "./RegisterBanner.module.css";
 import Image from "next/image";
 
 const RegisterBanner = () => {
+	console.log(styles);
 	return (
 		<section id={styles["banner-1106"]} className={`${styles["banner-1106"]}`}>
 			<div className={styles["cs-container"]}>
@@ -22,8 +24,8 @@ const RegisterBanner = () => {
 				<Image
 					src="/images/register/registrationBanner.jpg"
 					alt="create a team image"
-					className="object-cover"
-					fill
+					layout="fill"
+					objectFit="cover"
 				/>
 			</div>
 		</section>

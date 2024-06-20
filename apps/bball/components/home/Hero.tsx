@@ -2,9 +2,11 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
+import { Progress } from "@ui/components/progress";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { heroSlides } from "@/lib/data/home/heroSlides";
@@ -71,8 +73,9 @@ const Hero = (): JSX.Element => {
 								<Image
 									src={slide.url}
 									alt={slide.title}
-									fill
-									className="absolute inset-0 -z-10 h-full bg-gradient-to-b object-cover opacity-50"
+									layout="fill"
+									objectFit="cover"
+									className="absolute inset-0 -z-10 h-full bg-gradient-to-b opacity-50"
 								/>
 
 								<div className="flex  h-[450px] flex-col justify-center sm:h-[650px]">

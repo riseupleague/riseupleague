@@ -1,3 +1,4 @@
+import React from "react";
 import RegisterPrice from "./RegisterPrice";
 import RegisterServices from "./RegisterServices";
 import RegisterCards from "./RegisterCards";

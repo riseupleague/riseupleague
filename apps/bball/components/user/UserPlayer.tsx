@@ -1,14 +1,22 @@
 "use client";
+import React, { useState } from "react";
+import {
+	Card,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@ui/components/card";
 
-import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@ui/components/tabs";
+
+import Image from "next/image";
 import { Button } from "@ui/components/button";
+import Link from "next/link";
 import UserPlayerInfo from "./UserPlayerInfo";
 import UserPlayerGames from "./UserPlayerGames";
 import UserPlayerRoster from "./UserPlayerRoster";
-import { Card, CardHeader, CardTitle } from "@ui/components/card";
-
 const UserPlayer = ({ currentPlayers }) => {
+	console.log("currentPlayers:", currentPlayers);
 	// const onlyOnePlayer =
 	// 	currentPlayers.length > 1 || currentPlayers.length === 0
 	// 		? null
@@ -26,6 +34,7 @@ const UserPlayer = ({ currentPlayers }) => {
 		return 0;
 	});
 	const [selectedPlayer, setSelectedPlayer] = useState(null);
+	console.log("selectedPlayer:", selectedPlayer);
 	const handleSelectedPlayer = (id) => {
 		const playerSelected = currentPlayers.find((player) => player._id === id);
 		setSelectedPlayer(playerSelected);
