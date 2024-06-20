@@ -19,7 +19,7 @@ export const getAllUpcomingGamesHeader = async () => {
 
 		// Calculate the start and end dates for two weeks after the target date
 		const twoWeeksAfter = new Date(
-			targetDate.getTime() + 7 * 24 * 60 * 60 * 1000
+			targetDate.getTime() + 14 * 24 * 60 * 60 * 1000
 		);
 
 		const allGames = await Game.find({
@@ -218,7 +218,7 @@ export const getAllRecentPlayerOfTheGames = async () => {
  */
 export const getGamesByDate = async (selectedDate) => {
 	try {
-		const date = new Date(selectedDate * 1000);
+		const date = new Date(selectedDate);
 		const games = await Game.find({
 			date: {
 				$gte: addHours(startOfDay(date), 5),

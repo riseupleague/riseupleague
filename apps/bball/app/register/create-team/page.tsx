@@ -9,6 +9,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 import CreateYourTeam from "@/components/register/CreateYourTeam";
+import { upcomingSeasonName } from "@/utils/upcomingSeasonName";
 
 export default async function CreateTeam(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -28,10 +29,12 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const resPlayer = await getUserPlayerPayment(session.user.email);
 	const { players, season } = await resPlayer.json();
 
+	const seasonName = await upcomingSeasonName();
+
 	return (
 		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">
-				Season 5
+				{seasonName}
 			</p>
 			<h1 className="font-abolition mb-10 mt-0 text-7xl font-normal">
 				Create a team

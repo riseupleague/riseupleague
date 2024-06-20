@@ -6,14 +6,22 @@ import FilterByDivision from "../filters/FilterByDivision";
 import NewScheduleCard from "./NewScheduleCard";
 import { Separator } from "@ui/components/separator";
 import FilterByCity from "../filters/FilterByCity";
+import { format } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+
 const NewSchedule = ({
 	gamesByDate,
 	divisions,
 	cities,
-	dateInSeconds,
+	formattedEstDate,
 }): JSX.Element => {
 	const [games, setGames] = useState(gamesByDate);
 	const [divisionsToShow, setDivisionsToShow] = useState(divisions);
+
+	// Get the current date and time
+	const utcTime = new Date();
+	const estTime = utcToZonedTime(utcTime, "America/Toronto");
+	const formattedEst = format(estTime, "MMM do, yyyy");
 
 	// Handle the select change event
 	const handleDivisionChange = (event) => {
@@ -36,18 +44,11 @@ const NewSchedule = ({
 		});
 		setDivisionsToShow(filteredDivisions);
 	};
-	const currentDate = new Date(dateInSeconds * 1000);
-	const options = {
-		month: "long" as const,
-		day: "numeric" as const,
-		year: "numeric" as const,
-	}; // Specify month, day, and year as string literals
-	const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
 	return (
 		<section>
 			<div className="flex flex-col gap-4 md:flex-row">
-				<FilterByDate dateInSeconds={dateInSeconds} />
+				<FilterByDate formattedEstDate={formattedEstDate} />
 				{cities?.length > 1 && (
 					<FilterByCity
 						handleCitiesChange={handleCitiesChange}
@@ -66,7 +67,7 @@ const NewSchedule = ({
 
 			{gamesByDate.length === 0 && (
 				<p className="text-primary mt-10 text-2xl">
-					No games scheduled for {formattedDate}
+					No games scheduled for {formattedEst}
 				</p>
 			)}
 

@@ -3,12 +3,12 @@
 import Link from "next/link";
 import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
-import { extractInstagramUsername } from "@/utils/extractInstagram";
+import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";
 
 export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
-	let playerIg = player.instagram;
+	let playerIg = player?.instagram || "";
 
 	// remove '@' when trying to view IG profile
 	if (playerIg[0] === "@") playerIg = playerIg.substring(1);
@@ -64,11 +64,11 @@ export default function FeaturedPlayerCard({ player }) {
 			<div className="flex flex-col">
 				{/* Image */}
 
-				{player.playerImage && player.playerImage !== "" ? (
+				{player.playerImage ? (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
-							className="!h-full !w-full"
-							src={player.playerImage}
+							className="!h-full !w-full rounded-bl-2xl"
+							src={player.playerImage.image}
 							alt="preview player of the game image"
 							width={200}
 							height={300}
@@ -77,11 +77,11 @@ export default function FeaturedPlayerCard({ player }) {
 				) : (
 					<div className="relative m-3 rounded-bl-3xl border-8 border-white">
 						<Image
-							className="mt-32 !h-full !w-full rounded-bl-2xl"
+							className="mt-24 !h-full !w-full rounded-bl-2xl xl:mt-28 2xl:mt-32"
 							src={"/images/default-profile-pic.png"}
 							alt="preview player of the game image"
-							width={300}
-							height={500}
+							width={200}
+							height={300}
 						/>
 					</div>
 				)}
@@ -93,7 +93,10 @@ export default function FeaturedPlayerCard({ player }) {
 						</p>
 						{player.instagram && (
 							<p className="text-sm text-neutral-500">
-								IG: {extractInstagramUsername(player.instagram)}
+								IG:{" "}
+								<span className="lowercase">
+									{extractInstagramUsername(player.instagram)}
+								</span>
 							</p>
 						)}
 					</div>

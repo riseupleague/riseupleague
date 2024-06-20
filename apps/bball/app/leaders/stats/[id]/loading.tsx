@@ -1,6 +1,6 @@
 import { Skeleton } from "@ui/components/skeleton";
 
-const TeamsLoading = (): JSX.Element => {
+const LeadersLoading = (): JSX.Element => {
 	const array16 = Array(30).fill("");
 
 	return (
@@ -27,4 +27,4 @@ const TeamsLoading = (): JSX.Element => {
 	);
 };
 
-export default TeamsLoading;
+export default LeadersLoading;

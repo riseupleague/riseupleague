@@ -28,24 +28,24 @@ const Overview = ({ team, upcomingGames }): JSX.Element => {
 					<div className=" mx-auto w-full border-neutral-600 bg-neutral-700 lg:w-1/2">
 						<style id="styleElement">
 							{`.primaryColorFill {
-								  			fill: ${team.primaryColor} !important;
+								  			fill: ${team?.primaryColor} !important;
 											}
 								.primaryColorStroke {
-									stroke: ${team.primaryColor} !important;
+									stroke: ${team?.primaryColor} !important;
 								  }
 								  .tertiaryColorFill {
-									fill: ${team.tertiaryColor} !important;
+									fill: ${team?.tertiaryColor} !important;
 								  }
 								  .tertiaryColorStroke {
-									stroke: ${team.tertiaryColor} !important;
+									stroke: ${team?.tertiaryColor} !important;
 								  }
 					
 								  .secondaryColorFill {
-									fill: ${team.secondaryColor} !important;
+									fill: ${team?.secondaryColor} !important;
 								  }
 					
 								  .secondaryColorStroke {
-									stroke: ${team.secondaryColor} !important;
+									stroke: ${team?.secondaryColor} !important;
 								  }
 
 								  .jerseyDiv {

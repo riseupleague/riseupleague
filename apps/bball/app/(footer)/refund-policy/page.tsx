@@ -19,44 +19,65 @@ const RefundPolicy = (): JSX.Element => {
 					the terms and conditions of this refund policy.
 				</p>
 
-				<h2 className="my-6">1. Registration Fee Allocation:</h2>
+				<h2 className="my-6">Registration Fee Allocation:</h2>
 
 				<p className="my-4">
-					1.1. <strong>Funds Allocation:</strong> Upon immediate payment, $45
-					will be allocated towards the jersey order, and another $45 will be
+					1. <strong>Funds Allocation:</strong> Upon immediate payment, $50 will
+					be allocated towards the jersey order, and another $50 will be
 					designated for gym fees. Please note that there will be no refunds for
 					this transaction.
 				</p>
 
-				<h2 className="my-6">1. Registration Fee Refunds:</h2>
+				<h2 className="my-6">Registration Fee Refunds:</h2>
 
 				<p className="my-4">
-					1.1. <strong>Full Refund:</strong> A full refund of the registration
-					fee will be provided if a participant requests a refund within 7 days
-					of completing the registration process.
+					1. <strong>Full Refund:</strong> A full refund of the registration fee
+					will be granted if a player withdraws at least 30 days before the
+					start of the season. To request a full refund, please contact us at
+					riseupbballleague@gmailcom with your registration details.
 				</p>
 
 				<p className="my-4">
-					1.2. <strong>Partial Refund:</strong> A partial refund, minus an
-					administrative fee, will be provided for refund requests made within
-					14 days of completing the registration process. The administrative fee
-					covers processing costs.
+					2. <strong>Partial Refund:</strong> A 50% refund of the registration
+					fee will be provided if a player withdraws between 15 and 29 days
+					before the season starts.
 				</p>
 
 				<p className="my-4">
-					1.3. <strong>No Refund:</strong> No refund will be granted for refund
-					requests made after 14 days of completing the registration process,
-					except under exceptional circumstances such as medical emergencies or
-					unexpected schedule conflicts. Such requests will be reviewed on a
-					case-by-case basis.
+					3. <strong>No Refund:</strong>
 				</p>
+				<p className="underline">
+					RiseUp League does not issue refunds in the following situations:
+				</p>
+				<ul>
+					<li className="my-4 list-disc text-lg">
+						The season has already started at the time the refund request is
+						made.
+					</li>
+					<li className="my-4 list-disc text-lg">
+						Player injuries, changes in physical condition, or other personal
+						circumstances.
+					</li>
+					<li className="my-4 list-disc text-lg">
+						Teams or individuals are suspended or ejected from the league for
+						violating the Player Code of Conduct (e.g., fighting, threats,
+						disruptive behavior, etc.).
+					</li>
+					<li className="my-4 list-disc text-lg">
+						Cancellations due to inclement weather, forfeited games, or
+						rescheduled games.
+					</li>
+					<li className="my-4 list-disc text-lg">
+						Events beyond our control, including COVID-19 or other disasters.
+					</li>
+				</ul>
 
 				<hr />
 
-				<h2 className="my-6">2. Refund Request Procedure:</h2>
+				<h2 className="my-6">Refund Process:</h2>
 
 				<p className="my-4">
-					2.1. All refund requests must be made in writing and sent to our
+					1. All refund requests must be made in writing and sent to our
 					league&apos;s official email address at{" "}
 					<a
 						href="mailto:riseupbballleague@gmail.com
@@ -69,7 +90,7 @@ const RefundPolicy = (): JSX.Element => {
 				</p>
 
 				<p className="my-4">
-					2.2. The refund request email must include the following information:
+					2. The refund request email must include the following information:
 				</p>
 				<ul>
 					<li>Participant&apos;s full name</li>
@@ -79,34 +100,27 @@ const RefundPolicy = (): JSX.Element => {
 				</ul>
 
 				<p className="my-4">
-					2.3. Refund requests will be processed within 14 days of receipt of
-					the complete refund request email.
+					3. Refund requests will be processed within 14 days of receipt of the
+					complete refund request email.
+				</p>
+
+				<p className="my-4">
+					4. Refunds will be issued via the original method of payment used
+					during registration.
 				</p>
 
 				<hr />
 
-				<h2 className="my-6">3. League Cancellation:</h2>
+				<h2 className="my-6">Special Considerations:</h2>
 
 				<p className="my-4">
-					3.1. In the event that the Rise Up Basketball League is canceled
-					before the start of the season for any reason, participants will be
-					eligible for a full refund of their registration fee.
+					Refunds will not be provided for missed games due to personal reasons,
+					including vacations or conflicts with other activities.
 				</p>
 
 				<p className="my-4">
-					3.2. If the league is canceled after the start of the season due to
-					unforeseen circumstances, a pro-rata refund may be issued based on the
-					number of games remaining in the season.
-				</p>
-
-				<hr />
-
-				<h2 className="my-6">4. Non-Refundable Items:</h2>
-
-				<p className="my-4">
-					4.1. Certain league-related items, such as uniforms, merchandise, or
-					event tickets, may not be eligible for a refund unless explicitly
-					stated otherwise.
+					No refunds will be issued for merchandise or uniforms once they have
+					been ordered or distributed.
 				</p>
 
 				<hr />
@@ -124,15 +138,7 @@ const RefundPolicy = (): JSX.Element => {
 					</a>{" "}
 				</p>
 
-				<p className="my-4">
-					Please note that this refund policy is subject to change at the
-					discretion of Rise Up Basketball League. Participants are encouraged
-					to review the policy on our official website before completing their
-					registration. Refund decisions will be made in accordance with this
-					policy and our commitment to fairness and transparency.
-				</p>
-
-				<p className="my-4">Last Updated: August 8, 2023</p>
+				<p className="my-4">Last Updated: June 17, 2024</p>
 
 				<p className="my-4">
 					By clicking the &quot;I Agree&quot; button during registration, you

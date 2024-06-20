@@ -13,13 +13,8 @@ export const faq = [
 		question:
 			"Can I join the league as an individual player, or do I need to be part of a team?",
 		answer:
-			"You can join the league as an individual player, and we'll do our best to place you on a team. If you already have a team or friends you'd like to play with, you can register as a team as well.",
+			"You can join the league as an individual player (Free Agent), and we'll do our best to place you on a team. If you already have a team or friends you'd like to play with, you can register as a team as well.",
 	},
-	// {
-	// 	question: "What is the age group for the recreational basketball league?",
-	// 	answer:
-	// 		"Our league is open to players of all ages, but we typically have age divisions to ensure fair competition. These divisions may include youth, adults, and seniors, among others.",
-	// },
 	{
 		question: "When and where are the games and practices held?",
 		answer:
@@ -44,7 +39,11 @@ export const faq = [
 	{
 		question: "Where can we pick up our jerseys before our first game?",
 		answer:
-			"Your jerseys will be given to you and your team ~20 minutes before your first game. Please find a volunteer at the scorers table and they will direct you to where you can find your jerseys.",
+			"There will be a table with some Rise Up staff to help you pick up your jerseys before your first game. Ask for your team name at the table, and you can pick up the jerseys for your whole team.",
 	},
-	// Add more questions and answers as needed
+	{
+		question: "How do the playoffs work?",
+		answer:
+			"All teams get to participate in the playoffs! The quarterfinals will be held on one day, but the semifinals and finals games will be held on the same day a week after the quarterfinals. There will be at least a 1 hour break between games to let players cool down and prepare for the finals game.",
+	},
 ];

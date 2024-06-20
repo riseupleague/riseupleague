@@ -56,38 +56,43 @@ const PreviewMatchup = ({ game }): JSX.Element => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{currentTeam.players?.map((player, index) => {
-						return (
-							<TableRow
-								key={index}
-								className="h-10 border-b-neutral-500 text-sm md:text-lg"
-							>
-								<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
-									<Link
-										href={`/players/${player?._id}`}
-										className="transition-all hover:underline"
-									>
-										{player?.playerName}
-									</Link>
-								</TableCell>
-								<TableCell className="w-1/12 p-1">
-									{player?.averageStats.points.toFixed(1)}
-								</TableCell>
-								<TableCell className="w-1/12 p-1">
-									{player?.averageStats.rebounds.toFixed(1)}
-								</TableCell>
-								<TableCell className="w-1/12 p-1">
-									{player?.averageStats.assists.toFixed(1)}
-								</TableCell>
-								<TableCell className="w-1/12 p-1">
-									{player?.averageStats.blocks.toFixed(1)}
-								</TableCell>
-								<TableCell className="w-1/12 p-1">
-									{player?.averageStats.steals.toFixed(1)}
-								</TableCell>
-							</TableRow>
-						);
-					})}
+					{currentTeam.players
+						?.sort((a, b) => (a.playerName > b.playerName ? 1 : -1))
+						.map((player, index) => {
+							return (
+								<TableRow
+									key={index}
+									className="h-10 border-b-neutral-500 text-sm md:text-lg"
+								>
+									<TableCell className="w-1/2 p-1 text-left sm:w-1/12">
+										<Link
+											href={`/players/${player?._id}`}
+											className="transition-all hover:underline"
+										>
+											{player?.playerName}{" "}
+											<span className="text-neutral-400">
+												| #{player.jerseyNumber}
+											</span>
+										</Link>
+									</TableCell>
+									<TableCell className="w-1/12 p-1">
+										{player?.averageStats.points.toFixed(1)}
+									</TableCell>
+									<TableCell className="w-1/12 p-1">
+										{player?.averageStats.rebounds.toFixed(1)}
+									</TableCell>
+									<TableCell className="w-1/12 p-1">
+										{player?.averageStats.assists.toFixed(1)}
+									</TableCell>
+									<TableCell className="w-1/12 p-1">
+										{player?.averageStats.blocks.toFixed(1)}
+									</TableCell>
+									<TableCell className="w-1/12 p-1">
+										{player?.averageStats.steals.toFixed(1)}
+									</TableCell>
+								</TableRow>
+							);
+						})}
 				</TableBody>
 			</Table>
 		</div>

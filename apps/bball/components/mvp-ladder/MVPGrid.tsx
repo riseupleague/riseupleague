@@ -1,9 +1,14 @@
-import { redirect } from "next/navigation";
+"use client";
+
+import { useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
 
 const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
+	const router = useRouter();
 	const filterPlaceholder = selectedDivision.divisionName;
+
+	const minGamesRequired = 0; // make this 0 at start of season, make value 5 at week 6
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers
@@ -18,13 +23,14 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 			};
 		})
 		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
-		.filter((player) => player.mvpScore > 0);
+		.filter(
+			(player) =>
+				player.mvpScore > 0 && player.allStats.length >= minGamesRequired
+		);
 
 	// Handle the select change event
-	const handleDivisionChange = async (event) => {
-		"use server";
-		const selectedDivisionId = event;
-		redirect(`/leaders/mvp-ladder/${selectedDivisionId}`);
+	const handleDivisionChange = async (selectedDivisionId) => {
+		router.push(`/leaders/mvp-ladder/${selectedDivisionId}`);
 	};
 
 	return (
@@ -63,7 +69,10 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
 								BPG
 							</div>
-							<div className="text-primary flex w-fit items-center text-sm font-bold sm:w-6 sm:text-lg">
+							<div className="flex w-fit items-center text-sm sm:w-6 sm:text-lg">
+								GP
+							</div>
+							<div className="text-primary flex w-fit items-center text-sm font-semibold sm:w-6 sm:text-lg">
 								Score
 							</div>
 						</article>
@@ -114,11 +123,8 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 						<li>APG * 2.0</li>
 						<li>SPG * 2.0</li>
 						<li>BPG * 2.0</li>
+						<li>(Win Percentage * 3.0)</li>
 					</ul>
-					<li>
-						This sum is <span className="text-primary">multipled</span> by Team
-						Win Percentage.
-					</li>
 				</ul>
 
 				<p className="my-4">
@@ -133,17 +139,13 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 					<li>3.4 APG * 2.0 = 6.8</li>
 					<li>0.8 SPG * 2.0 = 1.6</li>
 					<li>0.2 BPG * 2.0 = 0.4</li>
+					<li>0.857 Win Percent * 3.0 = 2.571</li>
 					<hr />
-					<li>96.2 * Team Win Percentage (0.857%) = 82.4434</li>
-					<li className="text-primary">Final MVP Score: 82.4434</li>
+					<li className="text-primary">Final MVP Score: 98.971</li>
 				</ul>
 			</div>
 		</div>
 	);
-};
-
-const filterDivisions = (divisions, id) => {
-	return divisions.filter((division) => division._id === id);
 };
 
 const calculateMvpScore = (avgStats, wins, losses) => {
@@ -158,7 +160,7 @@ const calculateMvpScore = (avgStats, wins, losses) => {
 	if (!wins && !losses) wpct = 0;
 	else wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
 
-	return avgStatsSum * wpct;
+	return avgStatsSum + 3 * wpct;
 };
 
 export default MVPGrid;
