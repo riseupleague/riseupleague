@@ -3,12 +3,12 @@
 import { useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
+import nextConfig from "../../next.config";
 
 const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 	const router = useRouter();
 	const filterPlaceholder = selectedDivision.divisionName;
-
-	const minGamesRequired = 0; // make this 0 at start of season, make value 5 at week 6
+	const minGamesRequired = nextConfig.mvpLadderMinGamesNeeded ? 5 : 0;
 
 	// calculate mvp score and sort
 	const allPlayersWithScore = allPlayers

@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { updatePlayer } from "@/actions/player-actions";
-import { Loader2 } from "lucide-react";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
 import { useToast } from "@ui/components/use-toast";
 import UserPlayerJerseyInfo from "./UserPlayerJerseyInfo";
 import UserPlayerSeasonInfo from "./UserPlayerSeasonInfo";
-import { useFormStatus } from "react-dom";
 import {
 	Sheet,
 	SheetContent,
@@ -19,6 +17,8 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
+import SubmitButton from "../general/SubmitButton";
+import nextConfig from "../../next.config";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
@@ -26,9 +26,9 @@ const UserPlayerInfo = ({ player }) => {
 	const [errors, setErrors] = useState([]);
 	const [open, setOpen] = useState(false);
 
-	// comment line below to disable jersey customization
-	// const customizeJersey = player.register || player.freeAgent;
-	const customizeJersey = false;
+	const customizeJersey = nextConfig.customizeJersey
+		? player.register || player.freeAgent
+		: false;
 
 	const handleUpdatePlayer = async (playerData: FormData) => {
 		const result = await updatePlayer(player._id, playerData);
@@ -208,7 +208,7 @@ const UserPlayerInfo = ({ player }) => {
 								</div>
 							</div>
 							<SheetFooter className="mt-10 flex gap-2">
-								<SubmitButton />
+								<SubmitButton btnText="Submit" />
 							</SheetFooter>
 						</form>
 
@@ -227,16 +227,6 @@ const UserPlayerInfo = ({ player }) => {
 
 			<UserPlayerJerseyInfo player={playerInfo} />
 		</div>
-	);
-};
-
-const SubmitButton = () => {
-	const { pending } = useFormStatus();
-
-	return (
-		<Button type="submit" disabled={pending} className="w-full">
-			{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
-		</Button>
 	);
 };
 

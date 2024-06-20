@@ -18,12 +18,12 @@ import Team from "@/api-helpers/models/Team";
 export const updatePlayer = async (playerId: string, playerData: FormData) => {
 	try {
 		const rawPlayerData = {
-			playerName: playerData.get("playerName"),
-			instagram: playerData.get("instagram"),
-			jerseyName: playerData.get("jerseyName"),
-			jerseyNumber: playerData.get("jerseyNumber"),
-			jerseySize: playerData.get("jerseySize"),
-			shortSize: playerData.get("shortSize"),
+			playerName: playerData.get("playerName") as string,
+			instagram: playerData.get("instagram") as string,
+			jerseyName: playerData.get("jerseyName") as string,
+			jerseyNumber: playerData.get("jerseyNumber") as string,
+			jerseySize: playerData.get("jerseySize") as string,
+			shortSize: playerData.get("shortSize") as string,
 		};
 
 		const validatedFields = updatePlayerSchema.safeParse(rawPlayerData);
@@ -56,12 +56,19 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
 	}
 };
 
+/**
+ * Adds a player to an existing team.
+ *
+ * @param {FormData} playerData - The data of the player to be added.
+ * @param {string} teamId - The ID of the team to which the player will be added.
+ * @return {Promise<{ status: number, message: string, errors?: object }>} - A promise that resolves to an object with the status code, message, and optional errors.
+ */
 export const addPlayerToExistingTeam = async (
 	playerData: FormData,
 	teamId: string
 ) => {
 	const rawPlayerData = {
-		playerName: playerData.get("playerName"),
+		playerName: playerData.get("playerName") as string,
 		teamId: teamId,
 	};
 

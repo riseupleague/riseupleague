@@ -16,8 +16,7 @@ import { Input } from "@ui/components/input";
 import { Separator } from "@ui/components/separator";
 import { useState } from "react";
 import { addPlayerToExistingTeam } from "@/actions/player-actions";
-import { useFormStatus } from "react-dom";
-import { Loader2 } from "lucide-react";
+import SubmitButton from "../general/SubmitButton";
 
 const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const [errors, setErrors] = useState(undefined);
@@ -77,33 +76,20 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 								</div>
 
 								<DialogFooter>
-									<SubmitButton />
+									<SubmitButton btnText="Add New Player" />
 								</DialogFooter>
 							</form>
 						</DialogContent>
 					</Dialog>
 				)}
 			</div>
+
 			<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{team?.map((player, index) => {
 					return <FeaturedPlayerCard player={player} key={index} />;
 				})}
 			</div>
 		</>
-	);
-};
-
-const SubmitButton = () => {
-	const { pending } = useFormStatus();
-
-	return (
-		<Button type="submit" disabled={pending} className="w-full">
-			{pending ? (
-				<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-			) : (
-				"Add Player"
-			)}
-		</Button>
 	);
 };
 
