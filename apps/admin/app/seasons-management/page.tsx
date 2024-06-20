@@ -1,35 +1,24 @@
 import { getAllSeasons } from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import AddSeason from "@/components/seasons-management/AddSeason";
-import { Button } from "@ui/components/button";
-import { Separator } from "@ui/components/separator";
-import Link from "next/link";
+import NoSeasonsFound from "@/components/general/NoSeasonsFound";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export default async function Page(): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const resSeasons = await getAllSeasons();
 	const { seasons } = await resSeasons.json();
 
-	return (
-		<section>
-			<h1>seasons management</h1>
+	const activeSeason = seasons.findLast((season) => season.active === true);
 
-			<div>
-				<Separator className="my-4 border-b border-neutral-400" />
-				<div className="flex flex-col gap-2">
-					{seasons?.map((season, index) => (
-						<Button key={index} variant="secondary" className="p-4" asChild>
-							<Link href={`seasons-management/season/${season._id}`}>
-								<h4>{season.seasonName}</h4>
-							</Link>
-						</Button>
-					))}
-				</div>
-			</div>
+	if (seasons.length !== 0) {
+		redirect(`/seasons-management/${activeSeason._id}`);
+	}
 
-			<Separator className="my-4 border-b border-neutral-500" />
-
-			<AddSeason />
-		</section>
-	);
+	return <>{seasons.length === 0 ? <NoSeasonsFound /> : <></>}</>;
 }
+
+export const metadata: Metadata = {
+	title: "Rise Up Admin | Seasons Management",
+};

@@ -2,6 +2,7 @@ import { extractInstagramUsername } from "@utils/utils";
 import {
 	Table,
 	TableBody,
+	TableCaption,
 	TableCell,
 	TableHead,
 	TableHeader,
@@ -11,6 +12,9 @@ import Link from "next/link";
 
 const TeamPlayersTable = ({ teamPlayers }) => (
 	<Table>
+		<TableCaption className="text-lg text-neutral-300">
+			{teamPlayers.length} players
+		</TableCaption>
 		<TableHeader>
 			<TableRow>
 				<TableHead className="text-left">Player Name</TableHead>

@@ -10,7 +10,6 @@ const playerSchema = new Schema({
 	customerId: {
 		type: String,
 	},
-
 	playerName: {
 		type: String,
 		required: true,
