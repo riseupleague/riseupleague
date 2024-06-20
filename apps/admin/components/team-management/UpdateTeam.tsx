@@ -115,6 +115,22 @@ const UpdateTeam = ({ team }): JSX.Element => {
 						/>
 					</div>
 
+					<div className="flex w-full flex-col gap-3">
+						<Label htmlFor="teamCaptain">New Team Captain:</Label>
+						<select
+							name="teamCaptain"
+							id="teamCaptain"
+							className="rounded border border-neutral-600 bg-neutral-900 p-2"
+						>
+							<option value="">Select Captain</option>
+							{team.players.map((player) => (
+								<option key={player._id} value={player._id}>
+									{player.playerName}
+								</option>
+							))}
+						</select>
+					</div>
+
 					<div className="flex gap-2">
 						<div className="flex w-full flex-col gap-3">
 							<Label htmlFor="nameShort">New Team Name Short:</Label>
@@ -138,6 +154,38 @@ const UpdateTeam = ({ team }): JSX.Element => {
 							/>
 						</div>
 					</div>
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="wins">New wins:</Label>
+							<Input
+								name="wins"
+								id="wins"
+								placeholder="New wins"
+								defaultValue={team?.wins}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="losses">New losses:</Label>
+							<Input
+								name="losses"
+								id="losses"
+								placeholder="New losses"
+								defaultValue={team?.losses}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="losses">New Point Difference:</Label>
+							<Input
+								name="pointDifference"
+								id="pointDifference"
+								placeholder="New pointDifference"
+								defaultValue={team?.pointDifference}
+								className="text-neutral-900"
+							/>
+						</div>
+					</div>
 
 					<div className="flex items-center gap-3">
 						<Checkbox
@@ -156,9 +204,9 @@ const UpdateTeam = ({ team }): JSX.Element => {
 					</DialogFooter>
 				</form>
 
-				<form action={handleDeleteTeam}>
+				{/* <form action={handleDeleteTeam}>
 					<DeleteButton />
-				</form>
+				</form> */}
 			</DialogContent>
 		</Dialog>
 	);
