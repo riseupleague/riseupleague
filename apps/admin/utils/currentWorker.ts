@@ -1,7 +1,7 @@
-import { auth } from "@/auth";
+import { getServerSession } from "next-auth";
 
 export const currentWorker = async () => {
-	const session = await auth();
+	const session = await getServerSession();
 
 	return session?.user;
 };

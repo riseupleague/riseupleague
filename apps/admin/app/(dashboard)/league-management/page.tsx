@@ -3,9 +3,9 @@ import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NoSeasonsFound from "@/components/general/NoSeasonsFound";
 import { currentWorker } from "@/utils/currentWorker";
-import { getWorkerType } from "@/utils/getWorkerType";
 import { isRouteForCommissioner } from "@/utils/isRouteForCommissioner";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 export default async function Page(): Promise<JSX.Element> {
@@ -15,7 +15,6 @@ export default async function Page(): Promise<JSX.Element> {
 
 		// Check if worker can view route
 		await isRouteForCommissioner();
-
 		// Fetch all seasons
 		const resSeasons = await getAllSeasons();
 		const { seasons } = await resSeasons.json();

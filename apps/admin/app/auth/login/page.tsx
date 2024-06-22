@@ -1,8 +1,8 @@
 import LoginForm from "@/components/auth/LoginForm";
-import React from "react";
+import { isLoggedIn } from "@/utils/isLoggedIn";
 
-const LoginPage = () => {
-	return <LoginForm />;
-};
+export default async function LoginPage(): Promise<JSX.Element> {
+	const loggedIn = await isLoggedIn();
 
-export default LoginPage;
+	return <LoginForm loggedIn={loggedIn} />;
+}

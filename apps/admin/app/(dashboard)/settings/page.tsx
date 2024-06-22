@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
 import { redirect } from "next/navigation";
-import { auth } from "@/auth";
+import { getServerSession } from "next-auth";
 
 export default async function Page(): Promise<JSX.Element> {
 	try {
@@ -9,7 +9,7 @@ export default async function Page(): Promise<JSX.Element> {
 		await connectToDatabase();
 
 		// Retrieve the session
-		const session = await auth();
+		const session = await getServerSession();
 
 		// Check if the user is authenticated
 		if (!session || !session.user || !session.user.email) {

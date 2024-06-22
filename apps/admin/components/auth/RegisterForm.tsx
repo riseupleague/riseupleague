@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +12,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@ui/components/form";
+
 import CardWrapper from "./CardWrapper";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
@@ -100,7 +100,6 @@ const RegisterForm = () => {
 											{...field}
 											disabled={isPending}
 											className="bg-neutral-700"
-											placeholder="******"
 											type="password"
 										/>
 									</FormControl>

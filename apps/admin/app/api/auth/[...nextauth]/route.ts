@@ -1,167 +1,56 @@
-// import { addNewUser } from "@/api-helpers/controllers/users-controller";
-// import Worker from "@/api-helpers/models/Worker";
-// import NextAuth from "next-auth/next";
-// import GoogleProvider from "next-auth/providers/google";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import bcrypt from "bcryptjs";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import Worker from "@/api-helpers/models/Worker";
+import { LoginSchema } from "@/schemas";
 
-// const authOptions = {
-// 	providers: [
-// 		CredentialsProvider({
-// 			name: "credentials",
-// 			credentials: {
-// 				email: { label: "Email", type: "text" },
-// 				password: { label: "Password", type: "password" },
-// 			},
-// 			async authorize(credentials) {
-// 				const { email, password } = credentials;
+export const authOptions: NextAuthOptions = {
+	session: {
+		strategy: "jwt",
+		maxAge: 30 * 24 * 60 * 60, // 30 days
+	},
+	callbacks: {
+		async jwt({ token, user }) {
+			console.log("token:", token);
+			// if (!token.email) return token;
+			const worker = await Worker.findOne({ email: token.email }).select(
+				"type"
+			);
 
-// 				try {
-// 					const worker = await Worker.findOne({ email });
+			// if (!worker) return token;
 
-// 					if (!worker) return null;
+			token.type = worker.type;
+			return token;
+		},
+		async session({ session, token }) {
+			session.user.type = token.type as string;
+			console.log("callbackSession:", session);
+			return session;
+		},
+	},
+	providers: [
+		CredentialsProvider({
+			name: "credentials",
+			credentials: {
+				email: { label: "Email", type: "text" },
+				password: { label: "Password", type: "password" },
+			},
+			async authorize(credentials) {
+				console.log("credentials: ", credentials);
+				const validatedFields = LoginSchema.safeParse(credentials);
+				console.log("failed");
+				if (validatedFields.success) {
+					console.log("success");
+					const { email, password } = validatedFields.data;
+					const worker = await Worker.findOne({ email });
+					if (!worker || !worker.password) return null;
+					const passwordsMatch = worker.password === password;
+					if (passwordsMatch) return worker;
+				}
+				return null;
+			},
+		}),
+	],
+};
 
-// 					const passwordMatch = await bcrypt.compare(password, worker.password);
-
-// 					if (!passwordMatch) return null;
-
-// 					return worker;
-// 				} catch (error) {
-// 					console.error("Error during sign-in:", error);
-// 					throw error;
-// 				}
-// 			},
-// 		}),
-// 	],
-// 	session: {
-// 		jwt: true,
-// 		maxAge: 30 * 24 * 60 * 60, // 30 days
-// 	},
-// 	secret: process.env.NEXTAUTH_SECRET,
-// 	pages: {
-// 		signIn: "/",
-// 	},
-// };
-
-// const handler = NextAuth(authOptions as any);
-
-// export { handler as GET, handler as POST };
-
-// // import { addNewUser } from "@/api-helpers/controllers/users-controller";
-// // import Worker from "@/api-helpers/models/Worker";
-// // import NextAuth from "next-auth/next";
-// // import GoogleProvider from "next-auth/providers/google";
-// // import CredentialsProvider from "next-auth/providers/credentials";
-// // import bcrypt from "bcryptjs";
-
-// // const authOptions = {
-// // 	providers: [
-// // 		CredentialsProvider({
-// // 			name: "credentials",
-// // 			credentials: {
-// // 				email: { label: "Email", type: "text" },
-// // 				password: { label: "Password", type: "password" },
-// // 			},
-// // 			async authorize(credentials) {
-// // 				const { email, password } = credentials;
-
-// // 				try {
-// // 					const worker = await Worker.findOne({ email });
-
-// // 					if (!worker) return null;
-
-// // 					return worker;
-// // 				} catch (e) {
-// // 					console.error("Error during sign-in:", e);
-// // 				}
-// // 				const worker = { id: "1" };
-// // 				return worker;
-// // 			},
-// // 		}),
-// // 	],
-// // 	session: {
-// // 		jwt: true,
-// // 		maxAge: 30 * 24 * 60 * 60, // 30 days
-// // 	},
-// // 	callbacks: {
-// // 		async session({ session, token }) {
-// // 			console.log("session1:", session?.user);
-// // 			return session;
-// // 		},
-// // 	},
-// // 	secret: process.env.NEXTAUTH_SECRET,
-// // 	pages: {
-// // 		signIn: "/",
-// // 	},
-// // };
-
-// // const handler = NextAuth(authOptions as any); // @ts-ignore
-
-// // export { handler as GET, handler as POST };
-
-// import { handlers } from "@/auth"; // Referring to the auth.ts we just created
-// export const { GET, POST } = handlers;
-
-// import NextAuth from "next-auth";
-// import { options } from "./options";
-
-// const handler = NextAuth(options);
-
-// export { handler as GET, handler as POST };
-
-// import NextAuth from "next-auth/next";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import Worker from "@/api-helpers/models/Worker";
-
-// const handler = NextAuth({
-// 	session: {
-// 		strategy: "jwt",
-// 	},
-
-// 	pages: {
-// 		signIn: "/auth/login",
-// 	},
-
-// 	providers: [
-// 		CredentialsProvider({
-// 			name: "Credentials",
-// 			credentials: {
-// 				email: { label: "Email", type: "text" },
-// 				password: { label: "Password", type: "password" },
-// 			},
-// 			async authorize(credentials) {
-// 				const { email, password } = credentials;
-// 				console.log("credentials:", credentials);
-// 				try {
-// 					const worker = await Worker.findOne({ email });
-
-// 					console.log("worker:", worker);
-// 					if (!worker) return null;
-// 					const isPasswordMatch = password === worker.Password;
-// 					if (isPasswordMatch) return worker;
-// 				} catch (e) {
-// 					console.error("Error during sign-in:", e);
-// 				}
-// 				const worker = { id: "1" };
-// 				return worker;
-// 			},
-// 		}),
-// 	],
-// 	// callbacks: {
-// 	// 	async jwt({ token, user }) {
-// 	// 		console.log("user:", user);
-// 	// 		return token;
-// 	// 	},
-
-// 	// 	async session({ session, token }) {
-// 	// 		console.log("token:", token);
-
-// 	// 		return session;
-// 	// 	},
-// 	// },
-// });
-
-// export { handler as GET, handler as POST };
-
-import { handlers } from "@/auth";
-export const { GET, POST } = handlers;
+const handler = NextAuth(authOptions as any);
+export { handler as GET, handler as POST };

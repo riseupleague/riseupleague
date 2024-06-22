@@ -1,9 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 
-export const getWorkerType = async () => {
+export const isLoggedIn = async () => {
 	const session = await getServerSession(authOptions);
-
-	console.log("session:", session);
-	return session?.user?.type;
+	if (session) return true;
 };
