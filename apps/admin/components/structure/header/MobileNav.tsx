@@ -15,7 +15,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 
-const MobileNav = ({ session, activeSeason }) => {
+const MobileNav = ({ user }) => {
 	const [open, setOpen] = useState(false);
 	const pathname = usePathname();
 
@@ -49,7 +49,7 @@ const MobileNav = ({ session, activeSeason }) => {
 	];
 
 	return (
-		<section className="block md:hidden">
+		<section className="block sm:hidden">
 			<RxHamburgerMenu
 				onClick={() => setOpen(!open)}
 				className="size-8 md:hidden"
@@ -88,7 +88,7 @@ const MobileNav = ({ session, activeSeason }) => {
 					</div>
 
 					<SheetFooter>
-						{session && <Button onClick={() => signOut()}>Sign Out</Button>}
+						{user && <Button onClick={() => signOut()}>Sign Out</Button>}
 					</SheetFooter>
 				</SheetContent>
 			</Sheet>

@@ -8,20 +8,20 @@ import Image from "next/image";
 
 import MobileNav from "./MobileNav";
 import WorkerDropdown from "./WorkerDropdown";
-import { useSession } from "next-auth/react";
+import { useCurrentWorker } from "@/hooks/use-current-worker";
 
 const Header = ({ activeSeason }): JSX.Element => {
 	// const session = await getServerSession();
-	const { data: session } = useSession();
+	const user = useCurrentWorker();
 
 	return (
 		<header
-			className={`sticky top-0 z-20 flex items-center ${session ? "justify-between" : "justify-center"} border-b border-neutral-500 bg-neutral-900 p-6 md:p-10`}
+			className={`sticky top-0 z-20 flex items-center ${user ? "justify-between" : "justify-center"} border-b border-neutral-500 bg-neutral-900 p-6 md:p-10`}
 		>
 			<figure className="flex justify-center">
 				<Link
 					href="/"
-					className="hidden transition hover:opacity-80 lg:inline-block"
+					className="hidden transition hover:opacity-80 sm:inline-block"
 				>
 					<Image
 						alt="Rise Up Logo"
@@ -31,7 +31,7 @@ const Header = ({ activeSeason }): JSX.Element => {
 						priority
 					/>
 				</Link>
-				<Link href="/" className="transition hover:opacity-80 lg:hidden">
+				<Link href="/" className="transition hover:opacity-80 sm:hidden">
 					<Image
 						alt="Rise Up Logo"
 						src="/images/logo.png"
@@ -42,9 +42,9 @@ const Header = ({ activeSeason }): JSX.Element => {
 				</Link>
 			</figure>
 
-			{session && <WorkerDropdown session={session} />}
+			{user && <WorkerDropdown user={user} />}
 
-			{session && <MobileNav session={session} activeSeason={activeSeason} />}
+			{user && <MobileNav user={user} />}
 		</header>
 	);
 };

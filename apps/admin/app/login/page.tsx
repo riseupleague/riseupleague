@@ -1,14 +1,14 @@
 import LoginForm from "@/components/auth/LoginForm";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
-import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { getWorkerType } from "@/utils/getWorkerType";
+import { isLoggedIn } from "@/utils/isLoggedIn";
 
 export default async function Login(): Promise<JSX.Element> {
 	await connectToDatabase();
-	const session = await getServerSession();
-	const resWorker = await getCurrentWorker(session?.user?.email);
-	const { worker } = await resWorker.json();
-	if (worker) redirect("/");
-	return <LoginForm />;
+	const loggedIn = await isLoggedIn();
+
+	return <LoginForm loggedIn={loggedIn} />;
 }
