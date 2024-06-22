@@ -10,5 +10,5 @@ export default async function Login(): Promise<JSX.Element> {
 	await connectToDatabase();
 	const loggedIn = await isLoggedIn();
 
-	return <LoginForm />;
+	return <LoginForm loggedIn={loggedIn} />;
 }
