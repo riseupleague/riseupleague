@@ -2,7 +2,6 @@ import "../../../packages/ui/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import { NextAuthProvider } from "./Providers";
-import { auth } from "@/auth";
 // import Header from "@/components/structure/header/Header";
 // import Sidebar from "@/components/structure/sidebar/Sidebar";
 // import { Toaster } from "@ui/components/toaster";
