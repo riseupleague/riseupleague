@@ -41,7 +41,6 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 			const newGamesHomeTeam = oldHomeTeam.games.filter((oldGame) => {
 				return oldGame._id.toString() !== gameId.toString();
 			});
-			console.log(newGamesHomeTeam);
 			oldHomeTeam.games = newGamesHomeTeam;
 			await oldHomeTeam.save();
 		}
@@ -51,7 +50,6 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 			const newGamesAwayTeam = oldAwayTeam.games.filter((oldGame) => {
 				return oldGame._id.toString() !== gameId.toString();
 			});
-			console.log(newGamesAwayTeam);
 
 			oldAwayTeam.games = newGamesAwayTeam;
 			await oldAwayTeam.save();
@@ -69,10 +67,6 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 			currentGame.awayTeam = awayTeam;
 			currentGame.gameName = `${currentHomeTeam.teamName} vs. ${currentAwayTeam.teamName}`;
 
-			console.log("homeTeam:", currentGame.homeTeam);
-			console.log("awayTeam:", currentGame.awayTeam);
-			console.log("gameName:", currentGame.gameName);
-
 			currentAwayTeam.games = currentAwayTeam.games.concat(currentGame._id);
 			await currentAwayTeam.save();
 		} else {
@@ -82,10 +76,8 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 				currentGame.gameName = `${currentHomeTeam.teamName} vs. Away Team`;
 				currentGame.awayTeam = null;
 
-				console.log("homeTeam:", currentGame.homeTeam);
-				console.log("awayTeam:", currentGame.awayTeam);
-				console.log("gameName:", currentGame.gameName);
 				currentHomeTeam.games = currentHomeTeam.games.concat(currentGame._id);
+
 				await currentHomeTeam.save();
 			} else if (!homeTeam && awayTeam) {
 				currentAwayTeam = await Team.findById(awayTeam);
@@ -93,18 +85,13 @@ export async function updateUpcomingGame(gameId: string, gameData: FormData) {
 				currentGame.gameName = `${currentAwayTeam.teamName} vs. Away Team`;
 				currentGame.awayTeam = null;
 
-				console.log("homeTeam:", currentGame.homeTeam);
-				console.log("awayTeam:", currentGame.awayTeam);
-				console.log("gameName:", currentGame.gameName);
 				currentAwayTeam.games = currentAwayTeam.games.concat(currentGame._id);
+
 				await currentAwayTeam.save();
 			} else if (!homeTeam && !awayTeam) {
 				currentGame.homeTeam = null;
 				currentGame.gameName = "";
 				currentGame.awayTeam = null;
-				console.log("homeTeam:", currentGame.homeTeam);
-				console.log("awayTeam:", currentGame.awayTeam);
-				console.log("gameName:", currentGame.gameName);
 			}
 		}
 		// Save the updated game
@@ -128,30 +115,9 @@ export async function updateFinishedGame(gameId: string, gameData: FormData) {
 		const date = gameData.get("date");
 		const time = gameData.get("time");
 		const location = gameData.get("location");
-		console.log(homeTeamId, awayTeamId, date, time, location);
-		// const oldHomeTeam = await Team.findById(currentGame.homeTeam);
 
-		// if (oldHomeTeam) {
-		// 	const newGamesHomeTeam = oldHomeTeam.games.filter((oldGame) => {
-		// 		return oldGame._id.toString() !== gameId.toString();
-		// 	});
-		// 	console.log(newGamesHomeTeam);
-		// 	//   oldHomeTeam.games = newGamesHomeTeam;
-		// 	//   await oldHomeTeam.save();
-		// }
-		// const oldAwayTeam = await Team.findById(currentGame.awayTeam);
+		revalidatePath("/");
 
-		// if (oldAwayTeam) {
-		// 	const newGamesAwayTeam = oldAwayTeam.games.filter((oldGame) => {
-		// 		return oldGame._id.toString() !== gameId.toString();
-		// 	});
-		// 	console.log(newGamesAwayTeam);
-
-		// 	//   oldAwayTeam.games = newGamesAwayTeam;
-		// 	//   await oldAwayTeam.save();
-		// }
-
-		revalidatePath(`/`);
 		return { status: 200, message: "Successfully updated team." };
 	} catch (e) {
 		console.log(e);
@@ -177,20 +143,14 @@ export async function generateGameSchedule(
 
 		if (!divisionExists) return { status: 404, message: "No division found." };
 		const teamsTotal = gameData.get("teamsTotal");
-		console.log("teamsTotal:", teamsTotal);
-
 		const startTime = gameData.get("startTime")?.toString();
-
 		const location = gameData.get("location");
 
 		if (!teamsTotal) return { status: 404, message: "No teams total found." };
-
 		if (!startTime) return { status: 404, message: "No start time found." };
 		if (!location) return { status: 404, message: "No location found." };
 
 		const numberOfMatches = calculateMatches(teamsTotal);
-		console.log("numberOfMatches:", numberOfMatches);
-
 		const gamesToAdd = [];
 
 		// Assuming 4 games per week
@@ -223,18 +183,16 @@ export async function generateGameSchedule(
 			gamesToAdd.push(game);
 		}
 
-		console.log("gamesToAdd:", gamesToAdd);
-
 		// Save all the games at once
 		const savedGames = await Game.insertMany(gamesToAdd);
 		// Update the division with the IDs of the newly added games
 		divisionExists.games = divisionExists.games.concat(
 			savedGames.map((game) => game._id)
 		);
-		await divisionExists.save();
-		console.log("Games added successfully:", savedGames);
 
+		await divisionExists.save();
 		revalidatePath("/");
+
 		return { status: 200, message: "Successfully generated schedule." };
 	} catch (e) {
 		console.log(e);
@@ -252,9 +210,6 @@ export async function createGame(gameData: FormData) {
 		const date = gameData.get("date");
 		const time = gameData.get("time");
 		const location = gameData.get("location");
-
-		console.log(date + "T" + formatTime(time));
-
 		const calculatedDate = new Date(date + "T" + formatTime(time));
 
 		const homeTeam = await Team.findById(homeTeamId);
@@ -263,18 +218,10 @@ export async function createGame(gameData: FormData) {
 		const division = await Division.findById(divisionId);
 		const season = await Season.findById(seasonId);
 
-		if (!homeTeam) {
-			return { status: 404, message: "Home Team not found." };
-		}
-		if (!awayTeam) {
-			return { status: 404, message: "Away Team not found." };
-		}
-		if (!division) {
-			return { status: 404, message: "Division not found." };
-		}
-		if (!season) {
-			return { status: 404, message: "Season not found." };
-		}
+		if (!homeTeam) return { status: 404, message: "Home Team not found." };
+		if (!awayTeam) return { status: 404, message: "Away Team not found." };
+		if (!division) return { status: 404, message: "Division not found." };
+		if (!season) return { status: 404, message: "Season not found." };
 
 		const gameName = `${homeTeam.teamName} vs. ${awayTeam.teamName}`;
 		const game = new Game({

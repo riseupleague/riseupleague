@@ -39,10 +39,10 @@ const PlayersTable = ({ players }) => {
 			</TableHeader>
 			<TableBody>
 				{players.map((player, index) => {
-					console.log(player?.createdAt);
 					const dateCreated = convertToEST(new Date(player?.createdAt));
 					const dateFormatted = format(dateCreated, "ccc MMM do, uuuu");
 					const time = format(dateCreated, "h:mma");
+
 					return (
 						<TableRow key={index}>
 							<TableCell className="text-left text-base md:text-lg">

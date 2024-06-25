@@ -36,7 +36,6 @@ const GamesListByDate = ({
 		);
 		setGames([{ date: gamesByDate[0].date, games: selectedGames }]);
 		const filteredDivisions = divisions.filter((division) => {
-			console.log(division, division.city, selectedCity);
 			return division.city === selectedCity;
 		});
 		setDivisionsToShow(filteredDivisions);

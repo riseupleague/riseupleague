@@ -13,13 +13,10 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 	}
 
 	const { name, email, password, type } = validatedFields.data;
-	console.log(name, email, password, type);
-
 	const resExistingWorker = await getWorkerByEmail(email);
 	const { worker } = await resExistingWorker.json();
-	if (worker) {
-		return { error: "Email already in use!" };
-	}
+
+	if (worker) return { error: "Email already in use!" };
 
 	// Create a new user document with hashed password
 	const newWorker = new Worker({

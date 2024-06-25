@@ -1,19 +1,20 @@
 "use client";
+
 import React from "react";
 import { LogOut } from "lucide-react";
 import DownChevronIcon from "@/components/icons/DownChevronIcon";
 import { signOut } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
-	DropdownMenuGroup,
 	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@ui/components/dropdown-menu";
+
 const WorkerDropdown = ({ user }) => {
+	const router = useRouter();
+
 	const handleLogOut = () => {
 		signOut();
 	};

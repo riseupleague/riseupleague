@@ -25,7 +25,7 @@ import Link from "next/link";
 const GenerateSchedule = ({ division }): JSX.Element => {
 	const { toast } = useToast();
 	const router = useRouter();
-	console.log("division:", division);
+
 	const handleGenerateSchedule = async (gameData: FormData) => {
 		const result = await generateGameSchedule(
 			division._id,
@@ -126,22 +126,6 @@ const SubmitButton = () => {
 		<DialogClose asChild>
 			<Button type="submit" className="w-full" disabled={pending}>
 				{pending ? "Generating..." : "Generate"}
-			</Button>
-		</DialogClose>
-	);
-};
-
-const DeleteButton = () => {
-	const { pending } = useFormStatus();
-
-	return (
-		<DialogClose asChild>
-			<Button
-				type="submit"
-				className="w-full bg-red-500 transition-all hover:bg-red-700"
-				disabled={pending}
-			>
-				{pending ? "Deleting..." : "Delete"}
 			</Button>
 		</DialogClose>
 	);

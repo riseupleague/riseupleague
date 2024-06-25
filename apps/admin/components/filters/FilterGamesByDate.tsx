@@ -24,10 +24,10 @@ const FilterGamesByDate = ({ dateInSeconds }): JSX.Element => {
 			// Convert the Unix timestamp to seconds
 			const seconds = unixTimestamp / 1000;
 
-			console.log(seconds); // Output: 1841508800
 			redirect(`/games-management/${seconds}`);
 		}
 	}, [date]);
+
 	return (
 		<div className="font-barlow flex flex-col gap-2">
 			<Label>Filter By Date:</Label>

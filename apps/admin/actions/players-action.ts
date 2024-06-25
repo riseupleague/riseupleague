@@ -27,7 +27,6 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 			instagram: playerData.get("instagram"),
 		};
 
-		console.log("rawPlayerData:", rawPlayerData);
 		// Update the player's profile in the database
 		const updatedPlayer = await Player.findByIdAndUpdate(
 			playerId,
@@ -43,10 +42,11 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 			},
 			{ new: true, runValidators: true }
 		);
-		if (!updatedPlayer) {
+		if (!updatedPlayer)
 			return { status: 500, message: "Internal server error." };
-		}
+
 		revalidatePath(`/`);
+
 		return { status: 200, message: "Successfully updated player." };
 	} catch (e) {
 		console.log(e);
@@ -84,25 +84,15 @@ export async function addPlayer(playerData: FormData) {
 			user: playerData.get("user"),
 		};
 
-		console.log("rawPlayerData:", rawPlayerData);
-
 		const team = await Team.findById(rawPlayerData.team);
 		const division = await Division.findById(rawPlayerData.division);
 		const season = await Season.findById(rawPlayerData.season);
 		const user = await User.findById(rawPlayerData.user);
-		if (!team) {
-			return { status: 404, message: "Team not found." };
-		}
-		if (!division) {
-			return { status: 404, message: "Division not found." };
-		}
-		if (!season) {
-			return { status: 404, message: "Season not found." };
-		}
 
-		if (!user) {
-			return { status: 404, message: "User not found." };
-		}
+		if (!team) return { status: 404, message: "Team not found." };
+		if (!division) return { status: 404, message: "Division not found." };
+		if (!season) return { status: 404, message: "Season not found." };
+		if (!user) return { status: 404, message: "User not found." };
 
 		// Update the player's profile in the database
 		const newPlayer = new Player({
@@ -122,15 +112,14 @@ export async function addPlayer(playerData: FormData) {
 		const savedPlayer = await newPlayer.save();
 		team.players = team.players.concat(savedPlayer._id);
 		await team.save();
-		console.log(savedPlayer._id);
 
 		user.basketball = user.basketball.concat(savedPlayer._id);
 		await user.save();
-		console.log(user.basketball);
-		if (!newPlayer) {
-			return { status: 500, message: "Internal server error." };
-		}
-		revalidatePath(`/`);
+
+		if (!newPlayer) return { status: 500, message: "Internal server error." };
+
+		revalidatePath("/");
+
 		return { status: 200, message: "Successfully updated player." };
 	} catch (e) {
 		console.log(e);
