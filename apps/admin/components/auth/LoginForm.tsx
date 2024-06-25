@@ -47,7 +47,7 @@ const LoginForm = ({ loggedIn }) => {
 			return { error: "error message" };
 		}
 		const { email, password } = validatedFields.data;
-		console.log(email, password);
+		console.log("onSubmit:", email, password);
 		try {
 			const login = await signIn("credentials", {
 				email,
