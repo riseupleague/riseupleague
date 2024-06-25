@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@ui/components/button";
+import Link from "next/link";
 import {
 	Table,
 	TableBody,
@@ -10,10 +10,8 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/table";
-import Link from "next/link";
 
 const TeamsTable = ({ teams }) => {
-	console.log(teams);
 	return (
 		<Table>
 			<TableCaption className="text-lg text-neutral-300">

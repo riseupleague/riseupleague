@@ -1,9 +1,18 @@
 "use client";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { LoginSchema } from "@/schemas";
+import CardWrapper from "./CardWrapper";
+import { Input } from "@ui/components/input";
+import { Button } from "@ui/components/button";
+import { FormError } from "./FormError";
+import { FormSuccess } from "./FormSuccess";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import {
 	Form,
 	FormControl,
@@ -13,21 +22,14 @@ import {
 	FormMessage,
 } from "@ui/components/form";
 
-import CardWrapper from "./CardWrapper";
-import { Input } from "@ui/components/input";
-import { Button } from "@ui/components/button";
-import { FormError } from "./FormError";
-import { FormSuccess } from "./FormSuccess";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
 const LoginForm = ({ loggedIn }) => {
 	const [error, setError] = useState<string | undefined>("");
 	const [success, setSuccess] = useState<string | undefined>("");
 	const [isPending, setIsPending] = useState<boolean>(false);
 	const router = useRouter();
-	console.log("loggedIn:", loggedIn);
+
 	if (loggedIn) router.push("/");
+
 	const form = useForm<z.infer<typeof LoginSchema>>({
 		resolver: zodResolver(LoginSchema),
 		defaultValues: {
@@ -43,11 +45,10 @@ const LoginForm = ({ loggedIn }) => {
 
 		const validatedFields = LoginSchema.safeParse(values);
 
-		if (!validatedFields.success) {
-			return { error: "error message" };
-		}
+		if (!validatedFields.success) return { error: "error message" };
+
 		const { email, password } = validatedFields.data;
-		console.log("onSubmit:", email, password);
+
 		try {
 			const login = await signIn("credentials", {
 				email,
@@ -56,14 +57,20 @@ const LoginForm = ({ loggedIn }) => {
 				redirect: false,
 			});
 
-			console.log("login:", login);
+			if (login.error) {
+				setError(login?.error);
+
+				console.log(login);
+			}
 		} catch (error) {
 			console.log(error);
+
+			return { error: error };
 		}
 
-		return {
-			success: "success message",
-		};
+		setIsPending(false);
+
+		return { success: "success message" };
 	};
 
 	return (
@@ -111,7 +118,11 @@ const LoginForm = ({ loggedIn }) => {
 					<FormError message={error} />
 					<FormSuccess message={success} />
 					<Button type="submit" className="w-full" disabled={isPending}>
-						Login
+						{isPending ? (
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+						) : (
+							"Login"
+						)}
 					</Button>
 				</form>
 			</Form>

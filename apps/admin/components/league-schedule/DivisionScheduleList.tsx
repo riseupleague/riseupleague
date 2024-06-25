@@ -1,8 +1,6 @@
 "use client";
-import { Separator } from "@ui/components/separator";
+
 import React, { useState } from "react";
-import ScheduleCard from "./ScheduleCard";
-import FilterByDate from "../filters/FilterByDate";
 import GameCard from "./GameCard";
 import FilterDivisionGamesByDate from "../filters/FilterDivisionGamesByDate";
 import CreateGame from "../game-management/CreateGame";
@@ -36,7 +34,6 @@ const DivisionScheduleList = ({ division }) => {
 		acc[week].push(game);
 		return acc;
 	}, {});
-	console.log("gamesByWeek:", gamesByWeek);
 
 	const handleDateChange = async (selectedDate) => {
 		// Parse selectedDate into a Date object
@@ -51,7 +48,6 @@ const DivisionScheduleList = ({ division }) => {
 				year: "numeric",
 			});
 
-			console.log(formattedSelectedDate);
 			setCurrentDate(formattedSelectedDate);
 			// Now you can use formattedSelectedDate for filtering or any other purposes
 

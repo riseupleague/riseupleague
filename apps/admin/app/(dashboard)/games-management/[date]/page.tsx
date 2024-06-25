@@ -27,8 +27,6 @@ export default async function SeasonPage({
 		const divisionNamesAndCitiesArrays = gamesByDate[0]?.games.reduce(
 			(result, game) => {
 				// Extract division names (unique)
-
-				console.log(game.division);
 				if (
 					!result.divisionNamesAndCities.find(
 						(item) => item._id === game.division._id

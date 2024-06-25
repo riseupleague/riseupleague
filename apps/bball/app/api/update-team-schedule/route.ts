@@ -21,12 +21,6 @@ export async function PATCH(req: Request) {
 			otherTeamsCount === undefined ||
 			otherTeamsCount === null
 		) {
-			console.log("Invalid Inputs:", {
-				teamId,
-				divisionId,
-				addedGames,
-				otherTeamsCount,
-			});
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
 		}
 
