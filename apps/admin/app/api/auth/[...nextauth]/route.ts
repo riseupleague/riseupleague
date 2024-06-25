@@ -32,18 +32,14 @@ const authOptions: NextAuthOptions = {
 			},
 			async authorize(credentials) {
 				const validatedFields = LoginSchema.safeParse(credentials);
-				console.log("validatedFields:", validatedFields);
+
 				if (validatedFields.success) {
 					const { email, password } = validatedFields.data;
-					console.log("validatedFields.data:", email, password);
-
 					const worker = await Worker.findOne({ email });
-					console.log("worker:", worker);
 
-					if (worker && worker.password === password) {
-						return worker;
-					}
+					if (worker && worker.password === password) return worker;
 				}
+
 				return null;
 			},
 		}),

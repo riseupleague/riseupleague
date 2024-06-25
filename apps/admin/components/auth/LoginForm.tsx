@@ -57,14 +57,10 @@ const LoginForm = ({ loggedIn }) => {
 				redirect: false,
 			});
 
-			if (login.error) {
-				setError(login?.error);
-
-				console.log(login);
-			}
+			if (login.error) setError(login?.error);
+			if (login.status === 200) router.push("/league-management");
 		} catch (error) {
 			console.log(error);
-
 			return { error: error };
 		}
 
@@ -115,6 +111,7 @@ const LoginForm = ({ loggedIn }) => {
 							)}
 						/>
 					</div>
+
 					<FormError message={error} />
 					<FormSuccess message={success} />
 					<Button type="submit" className="w-full" disabled={isPending}>

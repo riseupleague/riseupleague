@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 export const isRouteForCommissioner = async () => {
 	const workerType = await getWorkerType();
 
-	console.log("workerType:", workerType);
 	if (workerType !== "commissioner" && workerType !== "owner") {
 		redirect(`/error-page`);
 	}
