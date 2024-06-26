@@ -276,6 +276,7 @@ export async function POST(req: Request) {
 						},
 					});
 					const savedPlayer = await newPlayer.save();
+
 					return savedPlayer._id;
 				});
 

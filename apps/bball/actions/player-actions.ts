@@ -65,7 +65,8 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
  */
 export const addPlayerToExistingTeam = async (
 	playerData: FormData,
-	teamId: string
+	teamId: string,
+	user: any
 ) => {
 	const rawPlayerData = {
 		playerName: playerData.get("playerName") as string,
@@ -83,23 +84,38 @@ export const addPlayerToExistingTeam = async (
 		};
 	}
 
-	const teamExists = await Team.findById(teamId);
+	try {
+		const teamExists = await Team.findById(teamId);
+		if (!teamExists) return { status: 404, message: "Team not found." };
 
-	console.log(teamExists);
+		const newPlayer = new Player({
+			season: user?.season?._id.toString(),
+			division: user?.division?._id.toString(),
+			team: teamId,
+			teamCaptain: false,
+			playerName: rawPlayerData.playerName,
+			averageStats: {
+				points: 0,
+				rebounds: 0,
+				assists: 0,
+				blocks: 0,
+				steals: 0,
+				threesMade: 0,
+				twosMade: 0,
+				freeThrowsMade: 0,
+			},
+		});
 
-	if (!teamExists) return { status: 404, message: "Team not found." };
+		await newPlayer.save();
 
-	// const result = await Team.findByIdAndUpdate({
-	// 	teamId,
-	// 	$push: {
-
-	// 	}
-	// })
-
-	return {
-		status: 200,
-		message: "Player added successfully.",
-	};
+		return {
+			status: 200,
+			message: "Player added successfully.",
+		};
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
+	}
 };
 
 export const deletePlayer = async (playerId: string) => {

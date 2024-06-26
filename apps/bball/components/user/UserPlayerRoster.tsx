@@ -2,6 +2,13 @@
 
 import { Button } from "@ui/components/button";
 import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
+import { Label } from "@ui/components/label";
+import { Input } from "@ui/components/input";
+import { Separator } from "@ui/components/separator";
+import { useState } from "react";
+import { addPlayerToExistingTeam } from "@/actions/player-actions";
+import SubmitButton from "../general/SubmitButton";
+import { useToast } from "@ui/components/use-toast";
 import {
 	Dialog,
 	DialogContent,
@@ -11,13 +18,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Separator } from "@ui/components/separator";
-import { useState } from "react";
-import { addPlayerToExistingTeam } from "@/actions/player-actions";
-import SubmitButton from "../general/SubmitButton";
-import { useToast } from "@ui/components/use-toast";
 
 const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const { toast } = useToast();
@@ -29,11 +29,15 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const maxNumPlayers = team.length >= 10;
 
 	const handleAddPlayer = async (playerData: FormData) => {
-		const result = await addPlayerToExistingTeam(playerData, teamId);
+		const result = await addPlayerToExistingTeam(
+			playerData,
+			teamId,
+			selectedPlayer
+		);
 
 		if (result?.errors) return setErrors(result.errors);
 
-		// successfully created season
+		// successfully created player
 		if (result?.status === 200) {
 			setErrors(undefined);
 
