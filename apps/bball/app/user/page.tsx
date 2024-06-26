@@ -84,8 +84,7 @@ export const metadata: Metadata = {
 const cardData = [
 	{
 		title: "My Player",
-		description:
-			"Player name, personalized jersey information And Game Schedules.",
+		description: "Player information, jersey information and game schedules.",
 		imgSrc: "/images/profile/profile-player.svg",
 		imgAlt: "Profile Player",
 		link: "/user/player",

@@ -108,11 +108,8 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 				(player) => player.name !== ""
 			).length;
 
-			if (numOfPlayers >= 8) {
-				validateAndSubmit(numOfPlayers, "none");
-			} else {
-				openDialog();
-			}
+			if (numOfPlayers >= 8) validateAndSubmit(numOfPlayers, "none");
+			else openDialog();
 		}
 	};
 

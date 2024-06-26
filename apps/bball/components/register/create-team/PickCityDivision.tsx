@@ -63,7 +63,7 @@ const PickCityDivision = ({
 										<Button
 											key={index}
 											onClick={() => divisionHandler(division)}
-											className="relative flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
+											className="relative my-2 flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
 											disabled={division.teams.length >= 8 || isDivisionJoined}
 										>
 											<h5 className="mb-3">{division.divisionName}</h5>
