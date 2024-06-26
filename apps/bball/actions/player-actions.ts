@@ -110,5 +110,8 @@ export const deletePlayer = async (playerId: string) => {
 		revalidatePath("/");
 
 		return { status: 200, message: "Player deleted successfully." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
 	}
-}
+};
