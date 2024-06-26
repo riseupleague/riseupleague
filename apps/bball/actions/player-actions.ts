@@ -1,6 +1,7 @@
 "use server";
 
 import Player from "@/api-helpers/models/Player";
+import User from "@/api-helpers/models/User";
 import { revalidatePath } from "next/cache";
 import {
 	updatePlayerSchema,
@@ -85,8 +86,8 @@ export const addPlayerToExistingTeam = async (
 	}
 
 	try {
-		const teamExists = await Team.findById(teamId);
-		if (!teamExists) return { status: 404, message: "Team not found." };
+		const team = await Team.findById(teamId);
+		if (!team) return { status: 404, message: "Team not found." };
 
 		const newPlayer = new Player({
 			season: user?.season?._id.toString(),
@@ -106,7 +107,12 @@ export const addPlayerToExistingTeam = async (
 			},
 		});
 
-		await newPlayer.save();
+		const player = await newPlayer.save();
+		team.players = team.players.concat(player._id);
+
+		await team.save();
+
+		revalidatePath("/");
 
 		return {
 			status: 200,

@@ -38,7 +38,7 @@ export default async function User(): Promise<JSX.Element> {
 
 			<Breadcrumb />
 
-			{currentPlayers && <UserPlayer currentPlayers={currentPlayers} />}
+			<UserPlayer currentPlayers={currentPlayers} />
 		</section>
 	);
 }
