@@ -38,7 +38,7 @@ export const getAllDivisionsWithId = async (seasonId: string) => {
 				},
 			})
 			.select(
-				"divisionName season teams location city day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen games"
+				"divisionName season teams location city day startTime endTime earlyBirdPrice earlyBirdTeamPrice regularPrice regularTeamPrice regularTeamPriceId description earlyBirdOpen games"
 			);
 
 		if (!divisions) {
@@ -62,7 +62,7 @@ export const getAllRegisterDivisions = async () => {
 	try {
 		const registerSeason = await Season.find({ register: "true" });
 		const divisions = await Division.find({ season: registerSeason }).select(
-			"divisionName location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+			"divisionName location day startTime endTime earlyBirdPrice earlyBirdTeamPrice regularTeamPrice regularTeamPriceId teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 		);
 
 		if (!divisions) {
@@ -201,7 +201,7 @@ export const getDivisionFromIdWithTeams = async (id: string) => {
 				},
 			})
 			.select(
-				"divisionName season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+				"divisionName season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdTeamPrice regularTeamPrice regularTeamPriceId"
 			);
 
 		if (!division) {
@@ -243,7 +243,7 @@ export const getDivisionFromIdWithGames = async (id: string) => {
 			})
 			.populate("teams", "teamName")
 			.select(
-				"divisionName teams homeTeam season games teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+				"divisionName teams homeTeam season games teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdTeamPrice regularTeamPrice regularTeamPriceId"
 			);
 
 		if (!division) {
@@ -327,7 +327,7 @@ export const getRegisterDivisionById = async (id: string) => {
 			},
 		})
 		.select(
-			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId"
+			"divisionName location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId season earlyBirdInstalmentId earlyBirdTeamPrice regularTeamPrice regularTeamPriceId"
 		);
 
 	if (!division) {

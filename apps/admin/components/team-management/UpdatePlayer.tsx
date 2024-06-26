@@ -7,7 +7,7 @@ import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -18,7 +18,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { updatePlayer } from "@/actions/players-action";
+import { updatePlayer, deletePlayer } from "@/actions/players-action";
 
 const UpdatePlayer = ({ player }): JSX.Element => {
 	const { toast } = useToast();
@@ -37,6 +37,39 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 		}
 
 		// no season found
+		if (result?.status === 404) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+	};
+
+	const handleDeletePlayer = async (playerData: FormData) => {
+		const result = await deletePlayer(player._id);
+
+		// successfully deleted player
+		if (result?.status === 200) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+
+			redirect("/league-management");
+		}
+
+		// no player found
 		if (result?.status === 404) {
 			return toast({
 				variant: "destructive",
@@ -172,6 +205,12 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 
 					<DialogFooter>
 						<SubmitButton />
+					</DialogFooter>
+				</form>
+
+				<form action={handleDeletePlayer}>
+					<DialogFooter className="flex gap-2">
+						<DeleteButton />
 					</DialogFooter>
 				</form>
 			</DialogContent>

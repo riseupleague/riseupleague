@@ -16,7 +16,10 @@ const divisionSchema = new Schema({
 	startTime: { type: String },
 	endTime: { type: String },
 	earlyBirdPrice: { type: String },
+	earlyBirdTeamPrice: { type: String },
 	regularPrice: { type: String },
+	regularTeamPrice: { type: String },
+	regularTeamPriceId: { type: String },
 	instalmentPrice: { type: String },
 	description: { type: String },
 	earlyBirdOpen: { type: Boolean },
@@ -24,6 +27,7 @@ const divisionSchema = new Schema({
 	regularPriceFullId: { type: String },
 	regularPriceInstalmentId: { type: String },
 	divisionColor: { type: String },
+	teamColors: { type: Array },
 });
 
 export default mongoose.models.Division ||

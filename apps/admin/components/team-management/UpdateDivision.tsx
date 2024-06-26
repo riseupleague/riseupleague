@@ -66,7 +66,7 @@ const UpdateDivision = ({ division }): JSX.Element => {
 				description: result.message,
 			});
 
-			router.push("/seasons-management");
+			router.push("/league-management");
 		}
 
 		// no season found
@@ -212,6 +212,33 @@ const UpdateDivision = ({ division }): JSX.Element => {
 
 					<div className="flex gap-2">
 						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="earlyBirdTeamPrice">
+								New Early Bird Team Price
+							</Label>
+							<Input
+								type="number"
+								name="earlyBirdTeamPrice"
+								id="earlyBirdTeamPrice"
+								placeholder="Early Bird Team Price"
+								defaultValue={division?.earlyBirdTeamPrice}
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="regularTeamPrice">New Regular Team Price</Label>
+							<Input
+								type="number"
+								name="regularTeamPrice"
+								id="regularTeamPrice"
+								placeholder="Regular Team Price"
+								defaultValue={division?.regularTeamPrice}
+								className="text-neutral-900"
+							/>
+						</div>
+					</div>
+
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
 							<Label htmlFor="instalmentPrice">New Instalment Price (x6)</Label>
 							<Input
 								type="number"
@@ -246,6 +273,19 @@ const UpdateDivision = ({ division }): JSX.Element => {
 							id="regularPriceInstalmentId"
 							placeholder="Regular Price Instalment ID"
 							defaultValue={division?.regularPriceInstalmentId}
+							className="text-neutral-900"
+						/>
+					</div>
+
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="regularTeamPriceId">
+							New Regular Team Price ID:
+						</Label>
+						<Input
+							name="regularTeamPriceId"
+							id="regularTeamPriceId"
+							placeholder="Regular Team Price ID"
+							defaultValue={division?.regularTeamPriceId}
 							className="text-neutral-900"
 						/>
 					</div>

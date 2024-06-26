@@ -66,7 +66,7 @@ const UpdateSeason = ({ season, id }): JSX.Element => {
 				description: result.message,
 			});
 
-			router.push("/seasons-management");
+			router.push("/league-management");
 		}
 
 		// no season found

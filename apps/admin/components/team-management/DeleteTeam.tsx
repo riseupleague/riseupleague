@@ -3,7 +3,7 @@
 import { Button } from "@ui/components/button";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -38,6 +38,8 @@ const DeleteTeam = ({ team }): JSX.Element => {
 				title: "Success!",
 				description: result.message,
 			});
+
+			redirect("/league-management");
 		}
 
 		// no season found
