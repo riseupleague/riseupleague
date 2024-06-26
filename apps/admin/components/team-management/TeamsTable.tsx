@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
 	Table,
 	TableBody,
@@ -9,7 +10,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/table";
-import Link from "next/link";
 
 const TeamsTable = ({ teams }) => {
 	return (
@@ -42,17 +42,33 @@ const TeamsTable = ({ teams }) => {
 							<TableRow key={index}>
 								<TableCell className="text-left text-base md:text-lg">
 									<Link
-										href={`/team-management/team/${team?._id}`}
+										href={`/league-management/${team?.season}/${team?.division}/${team?._id}`}
 										className="transition-all hover:text-neutral-300 hover:underline"
 									>
-										{team?.teamName}
+										{team?.teamName}{" "}
+										{team?.paid ? (
+											<span className="text-sm uppercase text-green-500">
+												- Paid full
+											</span>
+										) : (
+											""
+										)}
 									</Link>
 								</TableCell>
 								<TableCell className="text-center text-base md:text-lg">
 									{team?.players?.length}
 								</TableCell>
 								<TableCell className="text-left text-base md:text-lg">
-									{teamCaptain}
+									{teamCaptain ? (
+										<Link
+											className="hover:underline"
+											href={`/team-management/player/${teamCaptain._id}`}
+										>
+											{teamCaptain.playerName}
+										</Link>
+									) : (
+										<span className="text-red-500">No Team Captain</span>
+									)}
 								</TableCell>
 							</TableRow>
 						);

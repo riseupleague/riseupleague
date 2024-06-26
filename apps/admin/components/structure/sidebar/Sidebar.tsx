@@ -1,34 +1,31 @@
 import SidebarContent from "./SidebarContent";
-
-const Sidebar = (): JSX.Element => {
+const Sidebar = ({ activeSeason }): JSX.Element => {
 	const sidebarLinks = [
 		{
-			title: "dashboard",
-			href: "/",
+			title: "league management",
+			href: `${activeSeason ? "/league-management/" + activeSeason._id : "/league-management"}`,
+			id: "league-management",
 		},
-		{
-			title: "seasons management",
-			href: "/seasons-management",
-		},
-		{
-			title: "team management",
-			href: "/team-management",
-		},
+
 		{
 			title: "league schedule",
-			href: "/league-schedule",
-		},
-		{
-			title: "games management",
-			href: "/games-management",
+			href: `${activeSeason ? "/league-schedule/" + activeSeason._id : "/league-schedule"}`,
+			id: "league-schedule",
 		},
 		{
 			title: "website management",
 			href: "/website-management",
+			id: "website-management",
 		},
 		{
 			title: "customer management",
 			href: "/customer-management",
+			id: "dashboard",
+		},
+		{
+			title: "settings",
+			href: "/settings",
+			id: "settings",
 		},
 	];
 
