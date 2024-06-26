@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Worker from "@/api-helpers/models/Worker";
 import { LoginSchema } from "@/schemas";
+import { connectToDatabase } from "@/api-helpers/utils";
 
 const authOptions: NextAuthOptions = {
 	session: {
@@ -10,12 +11,15 @@ const authOptions: NextAuthOptions = {
 	},
 	callbacks: {
 		async jwt({ token, user }) {
+			await connectToDatabase();
+
 			if (user) {
 				const worker = await Worker.findOne({ email: user.email }).select(
 					"type"
 				);
 				token.type = worker ? worker.type : null;
 			}
+
 			return token;
 		},
 		async session({ session, token }) {
@@ -31,6 +35,8 @@ const authOptions: NextAuthOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
+				await connectToDatabase();
+
 				const validatedFields = LoginSchema.safeParse(credentials);
 
 				if (validatedFields.success) {

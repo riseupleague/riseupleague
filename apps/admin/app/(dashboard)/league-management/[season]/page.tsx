@@ -1,9 +1,5 @@
 import { getAllDivisionsWithId } from "@/api-helpers/controllers/divisions-controller";
 import { getAllFreeAgents } from "@/api-helpers/controllers/players-controller";
-import {
-	getAllSeasons,
-	getSeasonById,
-} from "@/api-helpers/controllers/seasons-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
@@ -13,6 +9,10 @@ import SeasonManagement from "@/components/seasons-management/SeasonManagement";
 import { Metadata } from "next";
 import CreateDivision from "@/components/seasons-management/CreateDivision";
 import { isRouteForCommissioner } from "@/utils/isRouteForCommissioner";
+import {
+	getAllSeasons,
+	getSeasonById,
+} from "@/api-helpers/controllers/seasons-controller";
 
 export default async function SeasonPage({
 	params,

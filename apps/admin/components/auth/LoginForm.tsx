@@ -45,7 +45,10 @@ const LoginForm = ({ loggedIn }) => {
 
 		const validatedFields = LoginSchema.safeParse(values);
 
-		if (!validatedFields.success) return { error: "error message" };
+		if (!validatedFields.success) {
+			setError("Invalid credentials.");
+			return { error: "error message" };
+		}
 
 		const { email, password } = validatedFields.data;
 
@@ -57,7 +60,7 @@ const LoginForm = ({ loggedIn }) => {
 				redirect: false,
 			});
 
-			if (login.error) setError(login?.error);
+			if (login.error) setError(`${login?.status} error: ${login?.error}`);
 			if (login.status === 200) router.push("/league-management");
 		} catch (error) {
 			console.log(error);
