@@ -25,6 +25,7 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 			shortSize: playerData.get("shortSize"),
 			jerseyName: playerData.get("jerseyName"),
 			instagram: playerData.get("instagram"),
+			teamCaptain: playerData.get("teamCaptain") ? true : false,
 		};
 
 		// Update the player's profile in the database
@@ -38,6 +39,7 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 					instagram: rawPlayerData.instagram,
 					jerseySize: rawPlayerData.jerseySize,
 					shortSize: rawPlayerData.shortSize,
+					teamCaptain: rawPlayerData.teamCaptain,
 				},
 			},
 			{ new: true, runValidators: true }
@@ -45,7 +47,7 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 		if (!updatedPlayer)
 			return { status: 500, message: "Internal server error." };
 
-		revalidatePath(`/`);
+		revalidatePath("/");
 
 		return { status: 200, message: "Successfully updated player." };
 	} catch (e) {
@@ -54,6 +56,12 @@ export async function updatePlayer(playerId: string, playerData: FormData) {
 	}
 }
 
+/**
+ * Function to add a new player to the database with the provided player data.
+ *
+ * @param {FormData} playerData - The data of the player to be added.
+ * @return {Object} An object containing the status and a message indicating the result of the operation.
+ */
 export async function addPlayer(playerData: FormData) {
 	try {
 		const averageStats = {

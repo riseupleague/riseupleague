@@ -7,7 +7,6 @@ import TeamInfo from "@/components/team-management/TeamInfo";
 import TeamPlayersTable from "@/components/team-management/TeamPlayersTable";
 import UpdateTeam from "@/components/team-management/UpdateTeam";
 import { isRouteForCommissioner } from "@/utils/isRouteForCommissioner";
-import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Metadata } from "next";
 

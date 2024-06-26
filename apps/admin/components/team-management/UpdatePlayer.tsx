@@ -159,16 +159,21 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 						</div>
 					</div>
 
+					<div className="flex items-center gap-3">
+						<Checkbox
+							name="teamCaptain"
+							id="teamCaptain"
+							className="border-neutral-200"
+						/>
+						<Label htmlFor="teamCaptain">Team Captain</Label>
+					</div>
+
 					<Separator className="mb-4 border-b border-neutral-500" />
 
 					<DialogFooter>
 						<SubmitButton />
 					</DialogFooter>
 				</form>
-				{/* 
-				<form action={handleDeleteTeam}>
-					<DeleteButton />
-				</form> */}
 			</DialogContent>
 		</Dialog>
 	);
