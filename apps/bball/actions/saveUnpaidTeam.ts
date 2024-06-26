@@ -14,10 +14,9 @@ export async function saveUnpaidTeam(userId, unpaidTeam) {
 		}
 
 		const newUnpaidTeams = user.unpaidTeams.filter((team) => {
-			console.log(team.division._id, unpaidTeam.division._id);
 			return team.division._id !== unpaidTeam.division._id;
 		});
-		console.log("isUnpaidTeamActive:", newUnpaidTeams);
+
 		user.unpaidTeams = [...newUnpaidTeams, unpaidTeam];
 		await user.save();
 

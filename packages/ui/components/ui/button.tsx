@@ -20,6 +20,8 @@ const buttonVariants = cva(
 					"border border-input bg-background hover:bg-neutral-700 hover:text-accent-foreground",
 				ghost: "hover:bg-accent hover:text-accent-foreground",
 				link: "text-primary underline-offset-4 hover:underline",
+				addition:
+					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
 				register:
 					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
 				navlink:

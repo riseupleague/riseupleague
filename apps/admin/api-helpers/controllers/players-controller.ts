@@ -3,9 +3,9 @@ import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 
-export const getAllCurrentPlayers = async () => {
+export const getAllCurrentPlayers = async (seasonId: string) => {
 	try {
-		const activeSeason = await Season.find({ active: "true" });
+		const activeSeason = await Season.find({ season: seasonId });
 
 		// Get the total number of records that match the query criteria
 		const allPlayers = await Player.find({ season: activeSeason })
@@ -21,6 +21,35 @@ export const getAllCurrentPlayers = async () => {
 
 		return NextResponse.json({ allPlayers });
 	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllPlayersWithId = async (seasonId: string) => {
+	try {
+		const players = await Player.find({ season: seasonId })
+			.populate("team", "teamName")
+			.populate("season", "register")
+			.populate("division", "divisionName")
+			.populate("user", "name")
+			.select(
+				"playerName instagram team division season user createdAt teamCaptain"
+			)
+			.sort({ createdAt: -1 });
+
+		if (!players) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ players });
+	} catch (error) {
+		console.error("Error:", error);
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 }

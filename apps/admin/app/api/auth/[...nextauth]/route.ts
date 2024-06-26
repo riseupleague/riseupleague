@@ -1,45 +1,59 @@
-import { addNewUser } from "@/api-helpers/controllers/users-controller";
-import User from "@/api-helpers/models/User";
-import NextAuth from "next-auth/next";
-import GoogleProvider from "next-auth/providers/google";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
+import Worker from "@/api-helpers/models/Worker";
+import { LoginSchema } from "@/schemas";
+import { connectToDatabase } from "@/api-helpers/utils";
 
-const authOptions = {
+const authOptions: NextAuthOptions = {
+	session: {
+		strategy: "jwt",
+		maxAge: 30 * 24 * 60 * 60, // 30 days
+	},
+	callbacks: {
+		async jwt({ token, user }) {
+			await connectToDatabase();
+
+			if (user) {
+				const worker = await Worker.findOne({ email: user.email }).select(
+					"type"
+				);
+				token.type = worker ? worker.type : null;
+			}
+
+			return token;
+		},
+		async session({ session, token }) {
+			session.user.type = token.type as string;
+			return session;
+		},
+	},
 	providers: [
-		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+		CredentialsProvider({
+			name: "credentials",
+			credentials: {
+				email: { label: "Email", type: "text" },
+				password: { label: "Password", type: "password" },
+			},
+			async authorize(credentials) {
+				await connectToDatabase();
+
+				const validatedFields = LoginSchema.safeParse(credentials);
+
+				if (validatedFields.success) {
+					const { email, password } = validatedFields.data;
+					const worker = await Worker.findOne({ email });
+
+					if (worker && worker.password === password) return worker;
+				}
+
+				return null;
+			},
 		}),
-		// CredentialsProvider({
-		// 	name: "credentials",
-		// 	credentials: {
-		// 		email: { label: "Email", type: "text" },
-		// 		password: { label: "Password", type: "password" },
-		// 	},
-		// 	async authorize(credentials) {
-		// 		const { email, password } = credentials;
-
-		// 		try {
-		// 			const user = await User.findOne({ email });
-
-		// 			if (!user) return null;
-
-		// 			const passwordsMatch = await bcrypt.compare(password, user.password);
-
-		// 			if (!passwordsMatch) return null;
-
-		// 			return user;
-		// 		} catch (e) {
-		// 			console.error("Error during sign-in:", e);
-		// 		}
-		// 		const user = { id: "1" };
-		// 		return user;
-		// 	},
-		// }),
 	],
+	pages: {
+		signIn: "/auth/login",
+	},
 };
 
-const handler = NextAuth(authOptions as any); // @ts-ignore
-
+const handler = NextAuth(authOptions as any);
 export { handler as GET, handler as POST };
