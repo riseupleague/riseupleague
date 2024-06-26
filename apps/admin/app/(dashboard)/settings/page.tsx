@@ -5,13 +5,9 @@ import { getServerSession } from "next-auth";
 
 export default async function Page(): Promise<JSX.Element> {
 	try {
-		// Connect to the database
 		await connectToDatabase();
-
-		// Retrieve the session
 		const session = await getServerSession();
 
-		// Check if the user is authenticated
 		if (!session || !session.user || !session.user.email) {
 			redirect("/login");
 		}

@@ -1,6 +1,6 @@
 {
 	"name": "admin",
-	"version": "admin@0.1.0",
+	"version": "admin@1.0.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev --port 3001",

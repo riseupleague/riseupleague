@@ -1,24 +1,21 @@
 "use client";
-import { getCurrentWorker } from "@/api-helpers/controllers/workers-controller";
-import { Button } from "@ui/components/button";
 
 import Link from "next/link";
-
 import Image from "next/image";
-
 import MobileNav from "./MobileNav";
 import WorkerDropdown from "./WorkerDropdown";
 import { useCurrentWorker } from "@/hooks/use-current-worker";
+import packageJson from "../../../package.json";
 
 const Header = ({ activeSeason }): JSX.Element => {
-	// const session = await getServerSession();
 	const user = useCurrentWorker();
+	const version = packageJson.version.replace("admin@", "");
 
 	return (
 		<header
-			className={`sticky top-0 z-20 flex items-center ${user ? "justify-between" : "justify-center"} border-b border-neutral-500 bg-neutral-900 p-6 md:p-10`}
+			className={`${user ? "justify-between" : "justify-center"} sticky top-0 z-20 grid grid-cols-3 items-center border-b border-neutral-500 bg-neutral-900 p-6 md:p-10`}
 		>
-			<figure className="flex justify-center">
+			<figure className="flex justify-start">
 				<Link
 					href="/"
 					className="hidden transition hover:opacity-80 sm:inline-block"
@@ -42,9 +39,12 @@ const Header = ({ activeSeason }): JSX.Element => {
 				</Link>
 			</figure>
 
-			{user && <WorkerDropdown user={user} />}
+			<p className="text-center text-xl md:text-4xl">ADMIN SITE v{version}</p>
 
-			{user && <MobileNav user={user} />}
+			<div className="flex justify-end">
+				{user && <WorkerDropdown user={user} />}
+				{user && <MobileNav user={user} />}
+			</div>
 		</header>
 	);
 };
