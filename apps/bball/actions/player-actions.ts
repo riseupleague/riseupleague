@@ -84,6 +84,9 @@ export const addPlayerToExistingTeam = async (
 	}
 
 	const teamExists = await Team.findById(teamId);
+
+	console.log(teamExists);
+
 	if (!teamExists) return { status: 404, message: "Team not found." };
 
 	// const result = await Team.findByIdAndUpdate({

@@ -17,12 +17,14 @@ import { Separator } from "@ui/components/separator";
 import { useState } from "react";
 import { addPlayerToExistingTeam } from "@/actions/player-actions";
 import SubmitButton from "../general/SubmitButton";
+import { useToast } from "@ui/components/use-toast";
 
 const UserPlayerRoster = ({ team, selectedPlayer }) => {
+	const { toast } = useToast();
 	const [errors, setErrors] = useState(undefined);
 
-	const teamCaptain = team.filter((player) => player.teamCaptain === true);
-	const teamId = team[0]._id;
+	const teamCaptain = team.filter((player) => player.teamCaptain === true)[0];
+	const teamId = team[0].team;
 	const isTeamCaptain = teamCaptain._id === selectedPlayer._id ? true : false;
 	const maxNumPlayers = team.length >= 10;
 
@@ -31,7 +33,24 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 
 		if (result?.errors) return setErrors(result.errors);
 
-		setErrors(undefined);
+		// successfully created season
+		if (result?.status === 200) {
+			setErrors(undefined);
+
+			return toast({
+				variant: "success",
+				title: "Player added to team!",
+				description: result.message,
+			});
+		}
+
+		// show error toast
+		setErrors(result.errors);
+		return toast({
+			variant: "destructive",
+			title: "Error",
+			description: result.message,
+		});
 	};
 
 	return (
