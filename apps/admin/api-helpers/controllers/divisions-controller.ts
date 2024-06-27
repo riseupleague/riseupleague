@@ -3,32 +3,6 @@ import Division from "@/api-helpers/models/Division";
 import Season from "@/api-helpers/models/Season";
 import Team from "@/api-helpers/models/Team";
 
-type Season = {
-	_id: string;
-	seasonName: string;
-	active: boolean;
-	divisions: string[];
-	__v: number;
-};
-
-// Define the type for a Division object
-type Division = {
-	_id: string;
-	divisionName: string;
-	season: string; // Assuming season is a string (ObjectId.toString())
-	teams: any[]; // An array of Team objects
-	location: string;
-	day: string;
-	startTime: string;
-	endTime: string;
-	earlyBird: string;
-	regularPrice: string;
-	description: string;
-	earlyBirdOpen: boolean;
-	earlyBirdId: string;
-	regularPriceFullId: string;
-	regularPriceInstalmentId: string;
-};
 export const getAllCurrentDivisions = async () => {
 	try {
 		const activeSeason = await Season.find({ active: "true" });
@@ -54,9 +28,17 @@ export const getAllCurrentDivisions = async () => {
 export const getAllDivisionsWithId = async (seasonId: string) => {
 	try {
 		const divisions = await Division.find({ season: seasonId })
-			.populate("teams", "teamName")
+			.populate({
+				path: "teams",
+				select:
+					"teamName teamNameShort players primaryColor secondaryColor tertiaryColor paid",
+				populate: {
+					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
+					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
+				},
+			})
 			.select(
-				"divisionName season teams location day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen"
+				"divisionName season teams location city day startTime endTime earlyBirdPrice regularPrice description earlyBirdOpen games"
 			);
 
 		if (!divisions) {
@@ -210,9 +192,58 @@ export const getCurrentDivisionFromIdWithTeams = async (id: string) => {
 export const getDivisionFromIdWithTeams = async (id: string) => {
 	try {
 		const division = await Division.findOne({ _id: id })
-			.populate("teams", "teamName _id wins losses pointDifference teamBanner")
+			.populate({
+				path: "teams",
+				select: "teamName _id players season division",
+				populate: {
+					path: "players", // assuming 'players' is the field in the 'teams' model referencing another model
+					select: "playerName teamCaptain", // Select the fields you want to populate from the 'players' model
+				},
+			})
 			.select(
-				"divisionName season teams location day startTime teamSchedule endTime earlyBirdPrice regularPrice description earlyBirdOpen teamSchedule"
+				"divisionName season teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
+			);
+
+		if (!division) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+
+		return NextResponse.json({ division }, { status: 200 });
+	} catch (error) {
+		return NextResponse.json({ message: error.message }, { status: 500 });
+	}
+};
+
+export const getDivisionFromIdWithGames = async (id: string) => {
+	try {
+		const division = await Division.findOne({ _id: id })
+			.populate({
+				path: "games",
+				populate: [
+					{
+						path: "division", // assuming 'players' is the field in the 'teams' model referencing another model
+						select: "divisionName city season", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "homeTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+					{
+						path: "awayTeam", // assuming 'players' is the field in the 'teams' model referencing another model
+						select:
+							"teamName teamNameShort wins losses primaryColor secondaryColor tertiaryColor", // Select the fields you want to populate from the 'players' model
+					},
+				],
+				select:
+					"status homeTeam awayTeam season division date gameName homeTeamScore awayTeamScore location week time day",
+			})
+			.populate("teams", "teamName")
+			.select(
+				"divisionName teams homeTeam season games teamSchedule location city day startTime endTime earlyBirdPrice regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId"
 			);
 
 		if (!division) {

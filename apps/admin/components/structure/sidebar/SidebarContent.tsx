@@ -13,7 +13,7 @@ const SidebarContent = ({ sidebarLinks }): JSX.Element => {
 
 				// if homepage, make active class exact
 				if (link.title === "dashboard") isActive = pathname === link.href;
-				else isActive = pathname.includes(link.href);
+				else isActive = pathname.includes(link.id);
 
 				return (
 					<Link

@@ -99,7 +99,7 @@ export const getGamesByDate = async (selectedDate) => {
 		})
 			.populate({
 				path: "division",
-				select: "divisionName",
+				select: "divisionName city",
 			})
 			.populate({
 				path: "homeTeam",
@@ -154,10 +154,11 @@ export const getGamesByDate = async (selectedDate) => {
 
 export const getGameById = async (id) => {
 	try {
-		const game = await Game.findById(id)
+		const selectedGame = await Game.findById(id)
 			.populate({
 				path: "homeTeam",
-				select: "teamName teamNameShort wins losses averageStats location",
+				select:
+					"teamName teamNameShort wins losses averageStats location players",
 				populate: [
 					{
 						path: "players",
@@ -178,7 +179,8 @@ export const getGameById = async (id) => {
 			})
 			.populate({
 				path: "awayTeam",
-				select: "teamName teamNameShort wins losses averageStats location",
+				select:
+					"teamName teamNameShort wins losses averageStats location players",
 				populate: [
 					{
 						path: "players",
@@ -197,16 +199,65 @@ export const getGameById = async (id) => {
 					},
 				],
 			})
-			.populate("division", "divisionName")
+			.populate({
+				path: "division",
+				select: "divisionName teams",
+				populate: [
+					{
+						path: "teams",
+						select: "teamName",
+					},
+				],
+			})
+			.populate("playerOfTheGame", "playerName")
 			.populate("season", "seasonName");
 
-		if (!game) {
+		if (!selectedGame) {
 			return NextResponse.json(
 				{ message: "Internal Server Error" },
 				{ status: 500 }
 			);
 		}
-		return NextResponse.json({ game });
+		return NextResponse.json({ selectedGame });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+export const getAllGamesBySeasonId = async (seasonId: string) => {
+	try {
+		const games = await Game.find({ season: seasonId })
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "awayTeam",
+				select: "teamName teamNameShort",
+			})
+			.populate({
+				path: "playerOfTheGame",
+				select: "playerName allStats",
+			})
+			.select(
+				"status homeTeam awayTeam homeTeamScore awayTeamScore division date gameName location playerOfTheGame season"
+			)
+			.sort({ date: "asc" });
+
+		if (!games) {
+			return NextResponse.json(
+				{ message: "Internal Server Error" },
+				{ status: 500 }
+			);
+		}
+		return NextResponse.json({ games });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
