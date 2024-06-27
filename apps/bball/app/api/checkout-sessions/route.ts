@@ -4,6 +4,12 @@ import { connectToDatabase } from "@/api-helpers/utils";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+/**
+ * Creates a Stripe checkout session for a full payment or subscription based on the provided form data.
+ *
+ * @param {Request} req - The incoming request object containing the form data.
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object containing the created session or an error response.
+ */
 export async function POST(req: Request) {
 	await connectToDatabase();
 

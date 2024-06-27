@@ -1,7 +1,6 @@
 "use server";
 
 import Player from "@/api-helpers/models/Player";
-import User from "@/api-helpers/models/User";
 import { revalidatePath } from "next/cache";
 import {
 	updatePlayerSchema,
@@ -124,6 +123,15 @@ export const addPlayerToExistingTeam = async (
 	}
 };
 
+/**
+ * Deletes a player from the database by their ID.
+ *
+ * @param {string} playerId - The ID of the player to be deleted.
+ * @return {Promise<{ status: number, message: string }>} - A promise that resolves to an object with the status code and a message indicating the success or failure of the deletion.
+ * - If the player is found and deleted successfully, the status code is 200 and the message is "Player deleted successfully."
+ * - If the player is not found, the status code is 404 and the message is "Player not found."
+ * - If there is an error during the deletion, the status code is 500 and the message is "Internal server error."
+ */
 export const deletePlayer = async (playerId: string) => {
 	try {
 		const player = await Player.findByIdAndDelete(playerId);

@@ -3,14 +3,18 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import User from "@/api-helpers/models/User";
 import bcrypt from "bcryptjs";
 
+/**
+ * Handles the POST request to register a new user.
+ *
+ * @param {Request} req - The request object.
+ * @return {Promise<NextResponse>} A promise that resolves to the response object.
+ */
 export async function POST(req: Request) {
 	try {
 		await connectToDatabase();
 
-		// Extract user data from the request body
 		const { name, email, password } = await req.json();
 		const hashedPassword = await bcrypt.hash(password, 10);
-		// Check if the user already exists
 		const existingUser = await User.findOne({ email });
 
 		if (existingUser) {
@@ -20,16 +24,15 @@ export async function POST(req: Request) {
 			);
 		}
 
-		// Create a new user document
 		const newUser = new User({
 			name,
 			email,
-			password: hashedPassword, // You should hash the password before storing it
+			password: hashedPassword,
 			type: "email",
 		});
 
-		// Save the user to the database
 		await newUser.save();
+
 		return NextResponse.json(
 			{ email: newUser.email, password: password },
 			{ status: 201 }
