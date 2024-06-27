@@ -14,7 +14,6 @@ export default async function User(): Promise<JSX.Element> {
 
 	const resPlayer = await getCurrentAndRegisterUserPlayers(session.user.email);
 	const { user, season, registerSeason } = await resPlayer.json();
-	console.log("user.basketball:", user.basketball);
 
 	const currentPlayers = user.basketball
 		.filter((player) => {
@@ -30,7 +29,6 @@ export default async function User(): Promise<JSX.Element> {
 				return player;
 			}
 		});
-	console.log("currentPlayers:", currentPlayers);
 
 	return (
 		<section className="container mx-auto">
