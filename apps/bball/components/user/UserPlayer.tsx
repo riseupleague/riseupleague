@@ -10,6 +10,8 @@ import { Card, CardHeader, CardTitle } from "@ui/components/card";
 import { ChevronLeft } from "lucide-react";
 
 const UserPlayer = ({ currentPlayers }) => {
+	console.log(currentPlayers);
+
 	const sortedPlayers = [...currentPlayers].sort((a, b) =>
 		a.register > b.register ? 1 : -1
 	);

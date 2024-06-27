@@ -5,10 +5,16 @@ import thirtyPtBadge from "@/public/images/badges/thirtyPtBadge.svg";
 import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 import { extractInstagramUsername } from "@utils/utils";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 export default function FeaturedPlayerCard({ player }) {
 	let badges = new Array(5).fill("");
 	let playerIg = player?.instagram || "";
+
+	const path = usePathname();
+	const isUserPage = path.includes("/user/player");
+	const isRegistered = player?.user;
+	const showUnregistered = isUserPage && !isRegistered;
 
 	// remove '@' when trying to view IG profile
 	if (playerIg[0] === "@") playerIg = playerIg.substring(1);
@@ -84,6 +90,12 @@ export default function FeaturedPlayerCard({ player }) {
 							height={300}
 						/>
 					</div>
+				)}
+
+				{showUnregistered && (
+					<p className="text-primary text-center font-semibold uppercase">
+						Unregistered
+					</p>
 				)}
 
 				<div className="m-2 flex items-center justify-between">
