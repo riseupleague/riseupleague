@@ -9,6 +9,7 @@ import { useState } from "react";
 import { addPlayerToExistingTeam } from "@/actions/player-actions";
 import SubmitButton from "../general/SubmitButton";
 import { useToast } from "@ui/components/use-toast";
+import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogContent,
@@ -20,13 +21,18 @@ import {
 } from "@ui/components/dialog";
 
 const UserPlayerRoster = ({ team, selectedPlayer }) => {
+	const router = useRouter();
 	const { toast } = useToast();
 	const [errors, setErrors] = useState(undefined);
+	const [open, setOpen] = useState(false);
 
 	const teamCaptain = team.filter((player) => player.teamCaptain === true)[0];
+	const teamHasPaid = selectedPlayer?.team?.paid;
 	const teamId = team[0].team;
 	const isTeamCaptain = teamCaptain._id === selectedPlayer._id ? true : false;
 	const maxNumPlayers = team.length >= 10;
+
+	const addPlayerBtnAvailable = teamHasPaid && isTeamCaptain ? true : false;
 
 	const handleAddPlayer = async (playerData: FormData) => {
 		const result = await addPlayerToExistingTeam(
@@ -41,11 +47,15 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 		if (result?.status === 200) {
 			setErrors(undefined);
 
-			return toast({
+			setOpen(false);
+
+			toast({
 				variant: "success",
 				title: "Player added to team!",
 				description: result.message,
 			});
+
+			return router.push("/user");
 		}
 
 		// show error toast
@@ -61,9 +71,9 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 		<>
 			<div className="flex justify-between">
 				<p className="font-barlow mb-10 text-3xl uppercase">My Roster</p>
-				{isTeamCaptain && (
-					<Dialog>
-						<DialogTrigger asChild>
+				{addPlayerBtnAvailable && (
+					<Dialog open={open} onOpenChange={setOpen}>
+						<DialogTrigger asChild onClick={() => setOpen(!open)}>
 							<Button size="sm" variant="signIn" disabled={maxNumPlayers}>
 								{maxNumPlayers ? "Max Players Reached" : "Add Another Player"}
 							</Button>
