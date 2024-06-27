@@ -29,9 +29,8 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const teamCaptain = team.filter((player) => player.teamCaptain === true)[0];
 	const teamHasPaid = selectedPlayer?.team?.paid;
 	const teamId = team[0].team;
-	const isTeamCaptain = teamCaptain._id === selectedPlayer._id ? true : false;
+	const isTeamCaptain = teamCaptain?._id === selectedPlayer._id ? true : false;
 	const maxNumPlayers = team.length >= 10;
-
 	const addPlayerBtnAvailable = teamHasPaid && isTeamCaptain ? true : false;
 
 	const handleAddPlayer = async (playerData: FormData) => {

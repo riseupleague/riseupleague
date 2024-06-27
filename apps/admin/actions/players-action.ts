@@ -167,6 +167,8 @@ export const deletePlayer = async (playerId: string) => {
 		const player = await Player.findByIdAndDelete(playerId);
 		if (!player) return { status: 404, message: "Player not found." };
 
+		revalidatePath("/");
+
 		return { status: 200, message: "Player deleted successfully." };
 	} catch (e) {
 		console.log(e);

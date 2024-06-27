@@ -1,6 +1,4 @@
 const DivisionInfo = ({ division }): JSX.Element => {
-	console.log(division);
-
 	return (
 		<div className="mb-4 grid grid-cols-1 md:grid-cols-2 md:gap-x-1">
 			<h5>Name: {division?.divisionName}</h5>

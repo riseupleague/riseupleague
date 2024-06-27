@@ -7,7 +7,7 @@ import { Input } from "@ui/components/input";
 import { Checkbox } from "@ui/components/checkbox";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -55,7 +55,7 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 		}
 	};
 
-	const handleDeletePlayer = async (playerData: FormData) => {
+	const handleDeletePlayer = async () => {
 		const result = await deletePlayer(player._id);
 
 		// successfully deleted player
@@ -66,7 +66,7 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 				description: result.message,
 			});
 
-			redirect("/league-management");
+			router.push("/league-management");
 		}
 
 		// no player found

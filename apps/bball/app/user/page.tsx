@@ -2,8 +2,10 @@ import { getCurrentUser } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
-import UserProfile from "@/components/user/UserProfile";
 import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import Breadcrumb from "@/components/general/Breadcrumb";
 import {
 	Card,
 	CardContent,
@@ -11,10 +13,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@ui/components/card";
-import Image from "next/image";
-import { Button } from "@ui/components/button";
-import Link from "next/link";
-import Breadcrumb from "@/components/general/Breadcrumb";
+
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
 
@@ -70,17 +69,6 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-// export async function generateMetadata() {
-// 	const session = await getServerSession();
-// 	if (!session || !session.user) redirect("/");
-// 	const resUser = await getCurrentUser(session.user.email);
-// 	const { user } = await resUser.json();
-// 	return {
-// 		title: `Rise Up League | ${user.name}'s Profile`,
-// 		description:
-// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-// 	};
-// }
 const cardData = [
 	{
 		title: "My Player",
