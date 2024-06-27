@@ -51,40 +51,6 @@ const RegistrationSuccess = ({ team }) => {
 			</div>
 			<div className="w-full border border-neutral-600 p-5 md:w-1/2">
 				<h3 className="text-center text-4xl uppercase">Season Details</h3>{" "}
-				{/* <ul>
-					<li className="flex justify-between">
-						<span>Date Registered</span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-					<li className="flex justify-between">
-						<span></span>
-						<span></span>
-					</li>
-				</ul> */}
 				<ul className="my-5 rounded  p-3 uppercase text-white">
 					<li className="my-4 flex justify-between text-2xl">
 						<span>Division:</span>{" "}

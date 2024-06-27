@@ -5,6 +5,9 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@ui/components/button";
+import RegisterPageInfo from "@/components/register/register-info/RegisterPageInfo";
+import RegisterCTABanner from "@/components/register/register-info/RegisterCTABanner";
+import { upcomingSeasonName } from "@/utils/upcomingSeasonName";
 import {
 	getCurrentUser,
 	addNewUser,
@@ -17,10 +20,6 @@ import {
 	CardTitle,
 } from "@ui/components/card";
 
-import RegisterPageInfo from "@/components/register/register-info/RegisterPageInfo";
-import RegisterCTABanner from "@/components/register/register-info/RegisterCTABanner";
-import { upcomingSeasonName } from "@/utils/upcomingSeasonName";
-
 export default async function Register({
 	searchParams,
 }: {
@@ -30,6 +29,7 @@ export default async function Register({
 
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
+
 	const { user } = await resUser.json();
 	const seasonName = await upcomingSeasonName();
 

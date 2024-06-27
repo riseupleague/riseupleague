@@ -31,7 +31,7 @@ const ChooseTeam = ({ division, session }): JSX.Element => {
 			setIsTeamSelected(true);
 			window.scrollTo({
 				top: 0,
-				behavior: "smooth", // This enables smooth scrolling
+				behavior: "smooth",
 			});
 		} else {
 			setCodeError("Wrong code!");

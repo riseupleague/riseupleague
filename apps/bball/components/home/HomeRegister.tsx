@@ -7,10 +7,9 @@ import SignInDialog from "../auth/SignInDialog";
 import { useState } from "react";
 
 const HomeRegister = (): JSX.Element => {
-	const { status, data: session } = useSession();
+	const { data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
-	// Function to open the dialog
 	const openDialog = () => {
 		setOpen(true);
 	};

@@ -4,7 +4,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { CiCalendar } from "react-icons/ci";
 import { BsArrowRight } from "react-icons/bs";
 import { Button } from "@ui/components/button";
-// import { useRouter } from "next/navigation";
 import {
 	Accordion,
 	AccordionContent,
@@ -23,8 +22,6 @@ const PickCityDivision = ({
 	registerInfo: any;
 	setRegisterInfo: any;
 }) => {
-	// const router = useRouter();
-
 	const divisionHandler = (division) => {
 		setRegisterInfo({
 			...registerInfo,
@@ -38,8 +35,6 @@ const PickCityDivision = ({
 				5: false,
 			},
 		});
-
-		// router.push("/register/create-team/?step=2");
 	};
 
 	return (

@@ -26,9 +26,6 @@ export default async function CreateTeam(): Promise<JSX.Element> {
 	const resDivisions = await getAllRegisterDivisions();
 	const { divisions } = await resDivisions.json();
 
-	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { players, season } = await resPlayer.json();
-
 	const seasonName = await upcomingSeasonName();
 
 	return (

@@ -134,7 +134,6 @@ const JerseySelection = ({ team }): JSX.Element => {
 		});
 
 		if (res.ok) {
-			const { updatedDivision } = await res.json();
 			setIsLoader(false);
 			router.push("/user");
 		}

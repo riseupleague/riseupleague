@@ -53,8 +53,8 @@ const Hero = (): JSX.Element => {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 		arrows: false,
-		autoplay: true, // Enable auto-play
-		autoplaySpeed: 5000, // Set auto-play speed in milliseconds
+		autoplay: true,
+		autoplaySpeed: 5000,
 	};
 	return (
 		<section className="group relative mb-16  h-[450px] w-full border-0  sm:h-[650px]">
@@ -65,10 +65,7 @@ const Hero = (): JSX.Element => {
 							key={index}
 							className="repeat-0 relative h-full w-full items-center bg-cover bg-center duration-500"
 						>
-							<div
-								// style={{ backgroundImage: `url(${slide.url})` }}
-								className="flex h-full  w-full items-end bg-opacity-80 bg-gradient-to-t from-black via-transparent px-5 pb-10   sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0"
-							>
+							<div className="flex h-full w-full items-end bg-opacity-80 bg-gradient-to-t from-black via-transparent px-5 pb-10   sm:items-center sm:bg-gradient-to-r sm:via-black sm:pb-0">
 								<Image
 									src={slide.url}
 									alt={slide.title}

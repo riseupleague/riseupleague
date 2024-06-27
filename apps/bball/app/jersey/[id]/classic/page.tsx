@@ -53,9 +53,7 @@ export default async function Classic({
 	});
 
 	// isUserInTeam will be true if any player in user.basketball is in team.players, otherwise false
-	if (!isUserInTeam) {
-		redirect("/");
-	}
+	if (!isUserInTeam) redirect("/");
 
 	const selectedNumber =
 		typeof searchParams.number === "string" ? searchParams.number : "";

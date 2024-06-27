@@ -2,7 +2,6 @@
 
 import { Button } from "@ui/components/button";
 import { progressData } from "@/lib/data/register/progressData";
-// import { useRouter } from "next/navigation";
 
 const RegisterProgress = ({
 	registerInfo,
@@ -32,8 +31,6 @@ const RegisterProgressButton = ({
 	setRegisterInfo,
 	text,
 }) => {
-	// const router = useRouter();
-
 	let activeColour = "border-primary";
 	if (registerInfo.step < step) activeColour = "border-neutral-400";
 	const handleStep = () => {
@@ -41,8 +38,6 @@ const RegisterProgressButton = ({
 			...registerInfo,
 			step,
 		});
-
-		// router.push("/register/create-team/?step=" + step);
 	};
 
 	return (
