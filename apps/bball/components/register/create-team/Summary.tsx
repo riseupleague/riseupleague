@@ -25,7 +25,7 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 	const [isLoader, setIsLoader] = useState(false);
 	const [isStripeError, setIsStripeError] = useState(false);
 	const [submitType, setSubmitType] = useState("");
-
+	console.log("registerInfo:", registerInfo);
 	const {
 		handleSubmit,
 		control,
