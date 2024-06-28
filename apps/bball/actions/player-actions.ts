@@ -23,7 +23,6 @@ export const updatePlayer = async (playerId: string, playerData: FormData) => {
 			jerseyName: playerData.get("jerseyName") as string,
 			jerseyNumber: playerData.get("jerseyNumber") as string,
 			jerseySize: playerData.get("jerseySize") as string,
-			shortSize: playerData.get("shortSize") as string,
 		};
 
 		const validatedFields = updatePlayerSchema.safeParse(rawPlayerData);

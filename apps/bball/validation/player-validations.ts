@@ -6,7 +6,6 @@ export const updatePlayerSchema = z.object({
 	jerseyName: z.string().min(1, { message: "Jersey name is required." }),
 	jerseyNumber: z.string().min(1, { message: "Jersey number is required." }),
 	jerseySize: z.string().min(1, { message: "Jersey size is required." }),
-	shortSize: z.string().min(1, { message: "Jersey short size is required." }),
 });
 
 export const addPlayerSchema = z.object({

@@ -26,9 +26,7 @@ const UserPlayerInfo = ({ player }) => {
 	const [errors, setErrors] = useState([]);
 	const [open, setOpen] = useState(false);
 
-	const customizeJersey = nextConfig.customizeJersey
-		? player.register || player.freeAgent
-		: false;
+	const customizeJersey = nextConfig.customizeJersey;
 
 	const handleUpdatePlayer = async (playerData: FormData) => {
 		const result = await updatePlayer(player._id, playerData);
@@ -78,7 +76,6 @@ const UserPlayerInfo = ({ player }) => {
 				jerseyName: playerData.get("jerseyName") as string,
 				jerseyNumber: playerData.get("jerseyNumber") as string,
 				jerseySize: playerData.get("jerseySize") as string,
-				shortSize: playerData.get("shortSize") as string,
 			});
 		}
 
@@ -184,29 +181,11 @@ const UserPlayerInfo = ({ player }) => {
 													<option value="XXXXL">XXXXL</option>
 												</select>
 											</div>
-											<div className="flex flex-col gap-3">
-												<Label htmlFor="shortSize" className="uppercase">
-													Short Size
-												</Label>
-												<select
-													name="shortSize"
-													id="shortSize"
-													defaultValue={playerInfo?.shortSize}
-													className="rounded border border-neutral-600 bg-neutral-900 p-2"
-												>
-													<option value="SM">SM</option>
-													<option value="MD">MD</option>
-													<option value="LG">LG</option>
-													<option value="XL">XL</option>
-													<option value="XXL">XXL</option>
-													<option value="XXXL">XXXL</option>
-													<option value="XXXXL">XXXXL</option>
-												</select>
-											</div>
 										</>
 									)}
 								</div>
 							</div>
+
 							<SheetFooter className="mt-10 flex gap-2">
 								<SubmitButton btnText="Submit" />
 							</SheetFooter>
