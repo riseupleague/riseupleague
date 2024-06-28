@@ -19,7 +19,6 @@ export async function PATCH(req: Request) {
 			jerseyName,
 			jerseyNumber,
 			jerseySize,
-			shortSize,
 			instagram,
 		} = await req.json();
 
@@ -32,7 +31,6 @@ export async function PATCH(req: Request) {
 					jerseyName,
 					jerseyNumber,
 					jerseySize,
-					shortSize,
 					instagram,
 				},
 			},

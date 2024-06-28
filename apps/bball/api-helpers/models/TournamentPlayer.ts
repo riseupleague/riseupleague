@@ -48,9 +48,6 @@ const tournamentPlayerSchema = new Schema({
 	jerseySize: {
 		type: String,
 	},
-	shortSize: {
-		type: String,
-	},
 	jerseyName: {
 		type: String,
 	},

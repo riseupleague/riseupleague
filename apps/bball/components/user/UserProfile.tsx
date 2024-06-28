@@ -32,7 +32,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 	const [playerJerseyName, setPlayerJerseyName] = useState("");
 	const [playerJerseyNumber, setPlayerJerseyNumber] = useState("");
 	const [playerJerseySize, setPlayerJerseySize] = useState("");
-	const [playerShortSize, setPlayerShortSize] = useState("");
 	const [playerInstagram, setPlayerInstagram] = useState("");
 
 	const [playerFormObject, setPlayerFormObject] = useState({
@@ -40,7 +39,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 		jerseyName: "",
 		jerseyNumber: "",
 		jerseySize: "",
-		shortSize: "",
 	});
 
 	const [profileName, setProfileName] = useState(user.name);
@@ -52,7 +50,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 			jerseyName: playerJerseyName || player?.jerseyName || "",
 			jerseyNumber: playerJerseyNumber || player?.jerseyNumber || "",
 			jerseySize: playerJerseySize || player?.jerseySize || "",
-			shortSize: playerShortSize || player?.shortSize || "",
 		};
 		setPlayerFormObject(chosenPlayerFormObject);
 	};
@@ -117,14 +114,13 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 			setPlayerJerseyName(player.jerseyName);
 			setPlayerJerseyNumber(player.jerseyNumber);
 			setPlayerJerseySize(player.jerseySize);
-			setPlayerShortSize(player.shortSize);
 			setPlayerInstagram(player.instagram);
+
 			const chosenPlayerFormObject = {
 				instagram: player?.instagram || "",
 				jerseyName: player?.jerseyName || "",
 				jerseyNumber: player?.jerseyNumber || "",
 				jerseySize: player?.jerseySize || "",
-				shortSize: player?.shortSize || "",
 			};
 
 			setPlayerFormObject(chosenPlayerFormObject);
@@ -251,14 +247,6 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 														: player.jerseySize}
 												</span>
 											</li>
-											<li className="flex justify-between border-b border-t border-neutral-600 p-4">
-												<span>Jersey Bottom:</span>
-												<span>
-													{playerShortSize !== ""
-														? playerShortSize
-														: player.shortSize}
-												</span>
-											</li>
 											<li className="flex flex-col justify-end  border-b border-t border-neutral-600 p-4">
 												<Sheet>
 													<SheetTrigger asChild>
@@ -360,35 +348,7 @@ const UserProfile = ({ session, user, userSchedule }): JSX.Element => {
 																</div>
 																<div className="flex flex-col gap-3">
 																	<Label
-																		htmlFor="shortSize"
-																		className="uppercase"
-																	>
-																		Short Size
-																	</Label>
-
-																	<select
-																		onChange={(e) =>
-																			handlePlayerInputChange(
-																				"shortSize",
-																				e.target.value
-																			)
-																		}
-																		id="shortSize"
-																		value={playerFormObject?.shortSize}
-																		className="rounded border border-neutral-600 bg-neutral-900 p-2"
-																	>
-																		<option value="SM">SM</option>
-																		<option value="MD">MD</option>
-																		<option value="LG">LG</option>
-																		<option value="XL">XL</option>
-																		<option value="XXL">XXL</option>
-																		<option value="XXXL">XXXL</option>
-																		<option value="XXXXL">XXXXL</option>
-																	</select>
-																</div>
-																<div className="flex flex-col gap-3">
-																	<Label
-																		htmlFor="shortSize"
+																		htmlFor="instagram"
 																		className="uppercase"
 																	>
 																		Instagram

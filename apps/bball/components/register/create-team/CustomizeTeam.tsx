@@ -80,10 +80,6 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 		// 	errors.jerseySize = "Jersey top size is required";
 		// }
 
-		// if (!formData.shortSize) {
-		// 	errors.shortSize = "Jersey bottom size is required";
-		// }
-
 		// if (!formData.termsChecked) {
 		// 	errors.termsChecked = "You must agree to the terms and conditions";
 		// }
@@ -110,10 +106,6 @@ const CustomizeTeam = ({ division, session }): JSX.Element => {
 
 	// const handleJerseySize = (value: string) => {
 	// 	setFormData({ ...formData, jerseySize: value });
-	// };
-
-	// const handleShortSize = (value: string) => {
-	// 	setFormData({ ...formData, shortSize: value });
 	// };
 
 	const handleCreateTeamAndPlayer = async (

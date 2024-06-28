@@ -4,10 +4,8 @@ import { Button } from "@ui/components/button";
 import { Separator } from "@ui/components/separator";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
@@ -23,7 +21,6 @@ import { useState } from "react";
 
 const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 	const { toast } = useToast();
-	const router = useRouter();
 	const [userExist, setUserExist] = useState(false);
 	const [userEmail, setUserEmail] = useState("");
 	const [userId, setUserId] = useState("");
@@ -184,22 +181,6 @@ const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 									<option value="XXXXL">XXXXL</option>
 								</select>
 							</div>
-							<div className="flex w-full flex-col gap-3">
-								<Label htmlFor="shortSize">New Short Size:</Label>
-								<select
-									name="shortSize"
-									id="shortSize"
-									className="rounded border border-neutral-600 bg-neutral-900 p-2"
-								>
-									<option value="SM">SM</option>
-									<option value="MD">MD</option>
-									<option value="LG">LG</option>
-									<option value="XL">XL</option>
-									<option value="XXL">XXL</option>
-									<option value="XXXL">XXXL</option>
-									<option value="XXXXL">XXXXL</option>
-								</select>
-							</div>
 						</div>
 						<Separator className="mb-4 border-b border-neutral-500" />
 
@@ -209,7 +190,9 @@ const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 					</form>
 				) : (
 					<form action={handleUserExist}>
-						<p className="my-4">Find user email</p>
+						<p className="my-4 text-xl">
+							Enter player email to add a new player:
+						</p>
 						<div className="my-4 flex w-full flex-col gap-3">
 							<Label htmlFor="email">Email:</Label>
 							<Input

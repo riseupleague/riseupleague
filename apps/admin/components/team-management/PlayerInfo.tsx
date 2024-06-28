@@ -5,7 +5,6 @@ const PlayerInfo = ({ player }): JSX.Element => {
 			<h5>Jersey Number: {player?.jerseyNumber}</h5>
 			<h5>Jersey Name: {player?.jerseyName}</h5>
 			<h5>Jersey Size: {player?.jerseySize}</h5>
-			<h5>Short Size: {player?.shortSize}</h5>
 			<h5>Instagram Handle: {player?.instagram}</h5>
 			<h5>
 				Team Captain:&nbsp;

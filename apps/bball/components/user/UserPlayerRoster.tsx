@@ -12,7 +12,8 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const router = useRouter();
 	const { toast } = useToast();
 	const [errors, setErrors] = useState(undefined);
-	const [open, setOpen] = useState(false);
+	const [addOpen, setAddOpen] = useState(false);
+	const [deleteOpen, setDeleteOpen] = useState(false);
 
 	const teamCaptain = team.filter((player) => player.teamCaptain === true)[0];
 	const teamId = team[0].team;
@@ -32,7 +33,7 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 		if (result?.status === 200) {
 			setErrors(undefined);
 
-			setOpen(false);
+			setAddOpen(false);
 
 			toast({
 				variant: "success",
@@ -59,13 +60,17 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 				{isTeamCaptain && (
 					<div className="flex gap-2">
 						<AddPlayerToTeam
-							open={open}
-							setOpen={setOpen}
+							open={addOpen}
+							setOpen={setAddOpen}
 							handleAddPlayer={handleAddPlayer}
 							maxNumPlayers={maxNumPlayers}
 							errors={errors}
 						/>
-						<DeletePlayerFromTeam />
+						<DeletePlayerFromTeam
+							open={deleteOpen}
+							setOpen={setDeleteOpen}
+							team={team}
+						/>
 					</div>
 				)}
 			</div>
