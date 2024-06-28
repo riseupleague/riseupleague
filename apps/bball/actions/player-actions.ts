@@ -144,3 +144,26 @@ export const deletePlayer = async (playerId: string) => {
 		return { status: 500, message: "Internal server error." };
 	}
 };
+
+/**
+ * Deletes a player from the team based on the player information provided.
+ *
+ * @param {any} player - The player object to be deleted from the team.
+ * @return {Promise<{ status: number, message: string }>} - A promise that resolves to an object with the status code and a message indicating the success or failure of the deletion.
+ */
+export const deletePlayerFromTeam = async (player: any) => {
+	try {
+		if (player?.user)
+			return { status: 403, message: "Cannot delete registered player." };
+
+		const playerFound = await Player.findByIdAndDelete(player._id);
+		if (!playerFound) return { status: 404, message: "Player not found." };
+
+		revalidatePath("/");
+
+		return { status: 200, message: "Player deleted successfully." };
+	} catch (e) {
+		console.log(e);
+		return { status: 500, message: "Internal server error." };
+	}
+};

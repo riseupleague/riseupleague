@@ -10,7 +10,7 @@ import {
 	DialogTrigger,
 } from "@ui/components/dialog";
 import { Separator } from "@ui/components/separator";
-import { deletePlayer } from "@/actions/player-actions";
+import { deletePlayerFromTeam } from "@/actions/player-actions";
 import { useToast } from "@ui/components/use-toast";
 import { useRouter } from "next/navigation";
 
@@ -20,8 +20,8 @@ const DeletePlayerFromTeam = ({ open, setOpen, team }) => {
 
 	const roster = team.filter((player) => !player.teamCaptain && !player.user);
 
-	const handleDeletePlayer = async (playerId) => {
-		const result = await deletePlayer(playerId);
+	const handleDeletePlayer = async (player) => {
+		const result = await deletePlayerFromTeam(player);
 
 		// successfully updated season
 		if (result?.status === 200) {
@@ -35,7 +35,16 @@ const DeletePlayerFromTeam = ({ open, setOpen, team }) => {
 			router.push("/user");
 		}
 
-		// no season found
+		// tried to delete registered player
+		if (result?.status === 403) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// no player found
 		if (result?.status === 404) {
 			toast({
 				variant: "destructive",
@@ -77,7 +86,7 @@ const DeletePlayerFromTeam = ({ open, setOpen, team }) => {
 						<Button
 							variant="signIn"
 							key={player._id}
-							onClick={() => handleDeletePlayer(player._id)}
+							onClick={() => handleDeletePlayer(player)}
 						>
 							<p className="text-lg">{player.playerName}</p>
 						</Button>
