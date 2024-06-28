@@ -35,7 +35,6 @@ interface FormData {
 	jerseyNumber: string;
 	instagram: string;
 	jerseySize: string;
-	shortSize: string;
 	termsChecked: boolean;
 	refundChecked: boolean;
 }
@@ -46,7 +45,6 @@ interface FormErrors {
 	jerseyName?: string;
 	jerseyNumber?: string;
 	jerseySize?: string;
-	shortSize?: string;
 	termsChecked?: string;
 	refundChecked?: string;
 }
@@ -63,7 +61,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 		instagram: "",
 		jerseyNumber: "",
 		jerseySize: "",
-		shortSize: "",
 		termsChecked: false,
 		refundChecked: false,
 	});
@@ -104,10 +101,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 			errors.jerseySize = "Jersey top size is required";
 		}
 
-		if (!formData.shortSize) {
-			errors.shortSize = "Jersey bottom size is required";
-		}
-
 		if (!formData.termsChecked) {
 			errors.termsChecked = "You must agree to the terms and conditions";
 		}
@@ -138,21 +131,16 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 		setFormData({ ...formData, jerseySize: value });
 	};
 
-	const handleShortSize = (value: string) => {
-		setFormData({ ...formData, shortSize: value });
-	};
-
 	const handleCreateTeamAndPlayer = async (
 		itemPriceId: string,
 		payment: string
 	) => {
 		setIsLoader(true);
 
-		const { jerseyName, jerseyNumber, jerseySize, shortSize, instagram } =
-			formData;
+		const { jerseyName, jerseyNumber, jerseySize, instagram } = formData;
 
 		// Check for required input fields
-		if (!jerseyNumber || !jerseySize || !shortSize) {
+		if (!jerseyNumber || !jerseySize) {
 			console.error("Invalid Inputs");
 			return; // Exit the function if inputs are invalid
 		}
@@ -164,7 +152,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 				payment: payment,
 				jerseyNumber,
 				jerseySize,
-				shortSize,
 				jerseyName,
 				instagram,
 				playerName: session.user.name,
@@ -340,25 +327,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 									</SelectContent>
 								</Select>
 							</section>
-							<section>
-								<Label className="uppercase">Jersey Bottom Size</Label>
-								<Select onValueChange={handleShortSize}>
-									<SelectTrigger className="font-barlow w-full text-lg md:w-[180px]">
-										<SelectValue placeholder={formData.shortSize} />
-									</SelectTrigger>
-									<SelectContent className="font-barlow text-lg">
-										<SelectGroup>
-											<SelectItem value="SM">SM</SelectItem>
-											<SelectItem value="MD">MD</SelectItem>
-											<SelectItem value="LG">LG</SelectItem>
-											<SelectItem value="XL">XL</SelectItem>
-											<SelectItem value="XXL">XXL</SelectItem>
-											<SelectItem value="XXXL">XXXL</SelectItem>
-											<SelectItem value="XXXXL">XXXXL</SelectItem>
-										</SelectGroup>
-									</SelectContent>
-								</Select>
-							</section>
 
 							<Separator
 								orientation="horizontal"
@@ -461,11 +429,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 								{formErrors.jerseySize}
 							</p>
 						)}
-						{formErrors.shortSize && (
-							<p className="text-primary  rounded-md p-2">
-								{formErrors.shortSize}
-							</p>
-						)}
 						{formErrors.termsChecked && (
 							<p className="text-primary  rounded-md p-2">
 								{formErrors.termsChecked}
@@ -563,15 +526,6 @@ const CustomizeJersey = ({ team, session, division }): JSX.Element => {
 									type="text"
 									className="w-40 border-0 bg-neutral-700 py-[16px]"
 									value={formData.jerseySize}
-									disabled
-								/>
-							</section>
-							<section className="flex items-center">
-								<Label className="uppercase">Jersey Bottom Size</Label>
-								<Input
-									type="text"
-									className="w-40 border-0 bg-neutral-700 py-[16px]"
-									value={formData.shortSize}
 									disabled
 								/>
 							</section>

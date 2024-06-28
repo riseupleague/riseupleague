@@ -27,9 +27,6 @@ const playerSchema = new Schema({
 	jerseySize: {
 		type: String,
 	},
-	shortSize: {
-		type: String,
-	},
 	jerseyName: {
 		type: String,
 	},

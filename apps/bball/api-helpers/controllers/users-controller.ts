@@ -118,7 +118,7 @@ export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 				},
 			],
 			select:
-				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName freeAgent",
+				"team division season playerName  instagram jerseyNumber jerseySize jerseyName freeAgent",
 		});
 
 		return NextResponse.json({ user, season, registerSeason });
@@ -161,7 +161,7 @@ export const getCurrentUser = async (email: string) => {
 				},
 			],
 			select:
-				"team division season playerName  instagram jerseyNumber jerseySize shortSize jerseyName",
+				"team division season playerName  instagram jerseyNumber jerseySize jerseyName",
 		});
 
 		return NextResponse.json({

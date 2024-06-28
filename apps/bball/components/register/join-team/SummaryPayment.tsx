@@ -21,7 +21,6 @@ interface FormData {
 	jerseyName: string;
 	jerseyNumber: string;
 	jerseySize: string;
-	shortSize: string;
 	termsChecked: boolean;
 	refundChecked: boolean;
 }
@@ -82,15 +81,6 @@ const SummaryPayment = ({ formData }: { formData: FormData }): JSX.Element => {
 							type="text"
 							className="w-40 border-0 bg-neutral-700 py-[16px]"
 							value={formData.jerseySize}
-							disabled
-						/>
-					</section>
-					<section className="flex items-center">
-						<Label className="uppercase">Jersey Bottom Size</Label>
-						<Input
-							type="text"
-							className="w-40 border-0 bg-neutral-700 py-[16px]"
-							value={formData.shortSize}
 							disabled
 						/>
 					</section>

@@ -173,23 +173,6 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 								<option value="XXXXL">XXXXL</option>
 							</select>
 						</div>
-						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="shortSize">New Short Size:</Label>
-							<select
-								name="shortSize"
-								id="shortSize"
-								defaultValue={player?.shortSize}
-								className="rounded border border-neutral-600 bg-neutral-900 p-2"
-							>
-								<option value="SM">SM</option>
-								<option value="MD">MD</option>
-								<option value="LG">LG</option>
-								<option value="XL">XL</option>
-								<option value="XXL">XXL</option>
-								<option value="XXXL">XXXL</option>
-								<option value="XXXXL">XXXXL</option>
-							</select>
-						</div>
 					</div>
 
 					<div className="flex items-center gap-3">
