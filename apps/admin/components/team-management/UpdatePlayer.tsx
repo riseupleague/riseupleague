@@ -18,7 +18,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { updatePlayer } from "@/actions/players-action";
+import { updatePlayer, deletePlayer } from "@/actions/players-action";
 
 const UpdatePlayer = ({ player }): JSX.Element => {
 	const { toast } = useToast();
@@ -37,6 +37,39 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 		}
 
 		// no season found
+		if (result?.status === 404) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+	};
+
+	const handleDeletePlayer = async () => {
+		const result = await deletePlayer(player._id);
+
+		// successfully deleted player
+		if (result?.status === 200) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+
+			router.push("/league-management");
+		}
+
+		// no player found
 		if (result?.status === 404) {
 			return toast({
 				variant: "destructive",
@@ -159,16 +192,27 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 						</div>
 					</div>
 
+					<div className="flex items-center gap-3">
+						<Checkbox
+							name="teamCaptain"
+							id="teamCaptain"
+							className="border-neutral-200"
+						/>
+						<Label htmlFor="teamCaptain">Team Captain</Label>
+					</div>
+
 					<Separator className="mb-4 border-b border-neutral-500" />
 
 					<DialogFooter>
 						<SubmitButton />
 					</DialogFooter>
 				</form>
-				{/* 
-				<form action={handleDeleteTeam}>
-					<DeleteButton />
-				</form> */}
+
+				<form action={handleDeletePlayer}>
+					<DialogFooter className="flex gap-2">
+						<DeleteButton />
+					</DialogFooter>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);

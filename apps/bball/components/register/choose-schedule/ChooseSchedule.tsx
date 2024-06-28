@@ -30,7 +30,6 @@ import {
 
 const ChooseSchedule = ({ team, user }): JSX.Element => {
 	const router = useRouter();
-	// const gamesMade = team.division.games;
 	const [gamesMade, setGamesMade] = useState(team.division.games);
 	const scheduleAvailable = gamesMade.length > 0 ? true : false;
 	const teamCaptain = team.players[0];
@@ -53,7 +52,6 @@ const ChooseSchedule = ({ team, user }): JSX.Element => {
 	const isTeamCaptain =
 		user._id === teamCaptain.user || user.name === teamCaptain.playerName;
 
-	// const isTeamCaptain = true;
 	const [teamsToRemove, setTeamsToRemove] = useState(
 		team.division.teamsWithSchedule ? team.division.teamsWithSchedule : []
 	);
@@ -61,10 +59,6 @@ const ChooseSchedule = ({ team, user }): JSX.Element => {
 	const [otherTeams, setOtherTeams] = useState(
 		team.division.teamsWithSchedule ? team.division.teamsWithSchedule : []
 	);
-
-	// const otherTeams = team.division.teamsWithSchedule
-	// 	? team.division.teamsWithSchedule
-	// 	: [];
 
 	const [selectedGames, setSelectedGames] = useState([]);
 	const [isLoader, setIsLoader] = useState(false);

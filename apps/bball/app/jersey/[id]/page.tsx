@@ -31,9 +31,7 @@ export default async function Jersey({
 	});
 
 	// isUserInTeam will be true if any player in user.basketball is in team.players, otherwise false
-	if (!isUserInTeam) {
-		redirect("/");
-	}
+	if (!isUserInTeam) redirect("/");
 
 	const back = typeof searchParams.back === "string" ? searchParams.back : "";
 
@@ -53,11 +51,6 @@ export default async function Jersey({
 			<h1 className="mb-10">Jersey Locker</h1>
 
 			<JerseySelection team={team} />
-			{/* <CustomizeJersey
-					edition={selectedEdition}
-					number={selectedNumber}
-					team={team}
-				/> */}
 		</section>
 	);
 }

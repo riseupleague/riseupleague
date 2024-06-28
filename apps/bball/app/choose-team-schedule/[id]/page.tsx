@@ -8,10 +8,8 @@ import Link from "next/link";
 
 export default async function Jersey({
 	params,
-	searchParams,
 }: {
 	params: { id: string };
-	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
 

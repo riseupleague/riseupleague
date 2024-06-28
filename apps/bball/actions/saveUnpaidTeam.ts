@@ -3,6 +3,14 @@
 import User from "@/api-helpers/models/User";
 import { connectToDatabase } from "@/api-helpers/utils";
 
+/**
+ * Saves an unpaid team for a user.
+ *
+ * @param {string} userId - The ID of the user.
+ * @param {Object} unpaidTeam - The unpaid team to be saved.
+ * @return {Promise<Object>} An object indicating the success or failure of the operation.
+ * @throws {Error} If the user is not found.
+ */
 export async function saveUnpaidTeam(userId, unpaidTeam) {
 	await connectToDatabase();
 

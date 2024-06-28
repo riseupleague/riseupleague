@@ -14,10 +14,10 @@ export const footerOptions = [
 				label: "standings",
 				href: "/standings",
 			},
-			// {
-			// 	label: "leaders",
-			// 	href: "/leaders",
-			// },
+			{
+				label: "stat leaders",
+				href: "/leaders/stats",
+			},
 			{
 				label: "teams",
 				href: "/teams",
@@ -65,7 +65,7 @@ export const footerOptions = [
 				href: "https://www.instagram.com/riseup.bball/",
 			},
 			{
-				label: "youtube",
+				label: "youTube",
 				href: "https://www.youtube.com/@RiseUPBasketballLeagueMedia/videos",
 			},
 			{

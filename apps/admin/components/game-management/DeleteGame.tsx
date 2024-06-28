@@ -1,24 +1,20 @@
 "use client";
 
 import { Button } from "@ui/components/button";
-import { Separator } from "@ui/components/separator";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
 import { useRouter } from "next/navigation";
+import { deleteGame } from "@/actions/games-action";
+import { Loader2 } from "lucide-react";
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { deleteGame } from "@/actions/games-action";
 
 const DeleteGame = ({ game }): JSX.Element => {
 	const { toast } = useToast();
@@ -98,7 +94,7 @@ const DeleteButton = () => {
 				className="w-full bg-red-500 transition-all hover:bg-red-700"
 				disabled={pending}
 			>
-				{pending ? "Deleting..." : "Delete"}
+				{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Delete"}
 			</Button>
 		</DialogClose>
 	);

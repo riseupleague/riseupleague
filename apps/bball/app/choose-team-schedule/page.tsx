@@ -9,7 +9,7 @@ export default async function Jersey(): Promise<JSX.Element> {
 
 	const session = await getServerSession();
 	const resUser = await getCurrentAndRegisterUserPlayers(session.user.email);
-	const { user, season, registerSeason } = await resUser.json();
+	const { user, registerSeason } = await resUser.json();
 
 	return (
 		<section className="container mx-auto min-h-fit">

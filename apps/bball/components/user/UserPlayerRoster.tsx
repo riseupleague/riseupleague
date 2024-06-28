@@ -1,12 +1,83 @@
-import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
+"use client";
 
-const UserPlayerRoster = ({ team }) => {
+import FeaturedPlayerCard from "../general/FeaturedPlayerCard";
+import { useState } from "react";
+import { addPlayerToExistingTeam } from "@/actions/player-actions";
+import { useToast } from "@ui/components/use-toast";
+import { useRouter } from "next/navigation";
+import AddPlayerToTeam from "./roster/AddPlayerToTeam";
+import DeletePlayerFromTeam from "./roster/DeletePlayerFromTeam";
+
+const UserPlayerRoster = ({ team, selectedPlayer }) => {
+	const router = useRouter();
+	const { toast } = useToast();
+	const [errors, setErrors] = useState(undefined);
+	const [open, setOpen] = useState(false);
+
+	const teamCaptain = team.filter((player) => player.teamCaptain === true)[0];
+	const teamId = team[0].team;
+	const isTeamCaptain = teamCaptain?._id === selectedPlayer._id ? true : false;
+	const maxNumPlayers = team.length >= 10;
+
+	const handleAddPlayer = async (playerData: FormData) => {
+		const result = await addPlayerToExistingTeam(
+			playerData,
+			teamId,
+			selectedPlayer
+		);
+
+		if (result?.errors) return setErrors(result.errors);
+
+		// successfully created player
+		if (result?.status === 200) {
+			setErrors(undefined);
+
+			setOpen(false);
+
+			toast({
+				variant: "success",
+				title: "Player added to team!",
+				description: result.message,
+			});
+
+			return router.push("/user");
+		}
+
+		// show error toast
+		setErrors(result.errors);
+		return toast({
+			variant: "destructive",
+			title: "Error",
+			description: result.message,
+		});
+	};
+
 	return (
-		<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-			{team?.map((player, index) => {
-				return <FeaturedPlayerCard player={player} key={index} />;
-			})}
-		</div>
+		<>
+			<div className="flex justify-between">
+				<p className="font-barlow mb-10 text-3xl uppercase">My Roster</p>
+				{isTeamCaptain && (
+					<div className="flex gap-2">
+						<AddPlayerToTeam
+							open={open}
+							setOpen={setOpen}
+							handleAddPlayer={handleAddPlayer}
+							maxNumPlayers={maxNumPlayers}
+							errors={errors}
+						/>
+						<DeletePlayerFromTeam />
+					</div>
+				)}
+			</div>
+
+			<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+				{team
+					?.sort((a, b) => (a.jerseyNumber > b.jerseyNumber ? 1 : -1))
+					.map((player, index) => (
+						<FeaturedPlayerCard player={player} key={index} />
+					))}
+			</div>
+		</>
 	);
 };
 

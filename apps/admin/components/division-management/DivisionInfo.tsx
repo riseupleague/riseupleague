@@ -11,6 +11,7 @@ const DivisionInfo = ({ division }): JSX.Element => {
 			{division?.earlyBirdPrice && (
 				<>
 					<h5>Early Bird Price: {division?.earlyBirdPrice}</h5>
+					<h5>Early Bird Team Price: {division?.earlyBirdTeamPrice}</h5>
 					<h5>
 						Early Bird Open:{" "}
 						<span
@@ -22,7 +23,9 @@ const DivisionInfo = ({ division }): JSX.Element => {
 				</>
 			)}
 			<h5>Regular Price: {division?.regularPrice}</h5>
+			<h5>Regular Team Price: {division?.regularTeamPrice}</h5>
 			<h5>Regular Instalment Price (x6): {division?.instalmentPrice}</h5>
+			<h5>Regular Team Price ID: {division?.regularTeamPriceId}</h5>
 			<h5>Regular Instalment Price ID: {division?.regularPriceInstalmentId}</h5>
 			<h5>Early Bird ID: {division?.earlyBirdId}</h5>
 			<h5>Regular Full Price ID: {division?.regularPriceFullId}</h5>

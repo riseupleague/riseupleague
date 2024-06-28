@@ -1,15 +1,22 @@
 import { NextResponse } from "next/server";
-
 import { connectToDatabase } from "@/api-helpers/utils";
 import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 
+/**
+ * Handles the POST request for registering a team.
+ *
+ * @param {Request} req - The request object containing the team data.
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object.
+ * If the request is successful, it returns a JSON response with the saved team data and a status code of 201.
+ * If the request is unsuccessful, it returns a JSON response with an error message and a status code of 422 or 500.
+ */
 export async function POST(req: Request) {
 	try {
 		await connectToDatabase();
 
 		// Extract user data from the request body
-		const { teamName, teamNameShort, teamCode, division, season, teamId } =
+		const { teamName, teamNameShort, teamCode, division, season } =
 			await req.json();
 
 		// Check for required input fields
@@ -65,6 +72,12 @@ export async function POST(req: Request) {
 	}
 }
 
+/**
+ * Handles the PATCH request for updating a team's information based on the provided request.
+ *
+ * @param {Request} req - The request object containing the team data to be updated.
+ * @return {Promise<NextResponse>} A promise that resolves to a JSON response with the updated team data and status codes based on the outcome.
+ */
 export async function PATCH(req: Request) {
 	try {
 		await connectToDatabase();
@@ -79,6 +92,7 @@ export async function PATCH(req: Request) {
 			teamId,
 			playerId,
 		} = await req.json();
+
 		// Check for required input fields
 		if (!teamId || !teamName || !teamNameShort || !teamCode) {
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });
@@ -110,17 +124,17 @@ export async function PATCH(req: Request) {
 					season: season,
 				},
 			},
-			{ new: true } // Return the updated team
+			{ new: true }
 		);
 
 		// Handle the rest of the code based on the existingPlayer
 		const newTeam = await Team.findById(teamId);
+
 		// Use filter to create a new array excluding the specified playerId
 		newTeam.players = newTeam.players.filter((player) => {
 			player.toString() !== playerId;
 		});
 
-		// Save the updated team
 		await newTeam.save();
 
 		if (!updatedTeam) {
@@ -137,12 +151,19 @@ export async function PATCH(req: Request) {
 	}
 }
 
+/**
+ * Handles the DELETE request for deleting a team based on the provided request.
+ *
+ * @param {Request} req - The request object containing the team data to be deleted.
+ * @return {Promise<NextResponse>} A promise that resolves to a JSON response with the deleted team data and status codes based on the outcome.
+ */
 export async function DELETE(req: Request) {
 	try {
 		await connectToDatabase();
 
 		// Extract user data from the request body
 		const { team } = await req.json();
+
 		// Check for required input fields
 		if (!team) {
 			return NextResponse.json({ message: "Invalid Inputs" }, { status: 422 });

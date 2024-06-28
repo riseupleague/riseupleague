@@ -1,5 +1,3 @@
-import FreeAgentsRegistration from "@/components/register/free-agent/FreeAgentsRegistration";
-import { getUserPlayerPayment } from "@/api-helpers/controllers/users-controller";
 import { getAllRegisterDivisions } from "@/api-helpers/controllers/divisions-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
@@ -29,11 +27,11 @@ const FreeAgents = async ({
 	}
 	const resDivisions = await getAllRegisterDivisions();
 	const { divisions } = await resDivisions.json();
-	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { players, season } = await resPlayer.json();
 	const selectedDivision = divisions.find((div) => div.city === params.id);
+
 	if (!selectedDivision) redirect("/");
 	const divisionPricePurposes = selectedDivision.divisions[0];
+
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">
 			<p className="font-barlow mb-0 mt-10 text-center text-xl uppercase md:text-3xl">

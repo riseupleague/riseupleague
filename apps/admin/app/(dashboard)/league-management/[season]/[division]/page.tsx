@@ -20,6 +20,7 @@ export default async function DivisionPage({
 
 	const resDivision = await getDivisionFromIdWithTeams(params.division);
 	const { division } = await resDivision.json();
+
 	return (
 		<section>
 			<h1>Division: {division?.divisionName}</h1>
@@ -27,9 +28,11 @@ export default async function DivisionPage({
 			<Separator className="my-4 border-b border-neutral-500" />
 
 			<DivisionInfo division={division} />
+
 			<div className="mt-8 space-y-3">
 				<UpdateDivision division={division} />
 			</div>
+
 			<Separator className="my-4 border-b border-neutral-500" />
 
 			<h2>Teams:</h2>

@@ -1,17 +1,15 @@
 import { connectToDatabase } from "@/api-helpers/utils";
-import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
-import ChooseTeam from "@/components/register/join-team/ChooseTeam";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
+import JoinTeamSummary from "@/components/register/join-team/JoinTeamSummary";
+import { getRegisterTeamById } from "@/api-helpers/controllers/teams-controller";
+import RegistrationSuccess from "@/components/register/RegistrationSuccess";
 import {
 	getCurrentUser,
 	addNewUser,
 	getUserPlayerPayment,
 } from "@/api-helpers/controllers/users-controller";
-import JoinTeamSummary from "@/components/register/join-team/JoinTeamSummary";
-import { getRegisterTeamById } from "@/api-helpers/controllers/teams-controller";
-import RegistrationSuccess from "@/components/register/RegistrationSuccess";
 
 export default async function JoinTeam({
 	params,
@@ -33,7 +31,7 @@ export default async function JoinTeam({
 	const { team } = await resTeam.json();
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { players, season } = await resPlayer.json();
+	const { players } = await resPlayer.json();
 
 	const isDivisionJoined = players.find((player) => {
 		return player?.division?._id === team.division._id;
@@ -52,10 +50,9 @@ export default async function JoinTeam({
 			<h1 className=" mt-5 text-right text-7xl font-semibold uppercase text-neutral-700 md:mt-20 md:text-center  md:text-white">
 				Join a team
 			</h1>
+
 			{isTeamJoined && <RegistrationSuccess team={isTeamJoined} />}
 			{!isTeamJoined && <JoinTeamSummary team={team} session={session} />}
-
-			{/* <JoinTeamSummary team={team} session={session} /> */}
 		</main>
 	);
 }

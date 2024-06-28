@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { updatePlayer } from "@/actions/player-actions";
-import { Loader2 } from "lucide-react";
 import { Label } from "@ui/components/label";
 import { Input } from "@ui/components/input";
 import { Button } from "@ui/components/button";
 import { useToast } from "@ui/components/use-toast";
 import UserPlayerJerseyInfo from "./UserPlayerJerseyInfo";
 import UserPlayerSeasonInfo from "./UserPlayerSeasonInfo";
-import { useFormStatus } from "react-dom";
 import {
 	Sheet,
 	SheetContent,
@@ -19,6 +17,8 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@ui/components/sheet";
+import SubmitButton from "../general/SubmitButton";
+import nextConfig from "../../next.config";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
@@ -26,9 +26,7 @@ const UserPlayerInfo = ({ player }) => {
 	const [errors, setErrors] = useState([]);
 	const [open, setOpen] = useState(false);
 
-	// comment line below to disable jersey customization
-	// const customizeJersey = player.register || player.freeAgent;
-	const customizeJersey = false;
+	const customizeJersey = nextConfig.customizeJersey;
 
 	const handleUpdatePlayer = async (playerData: FormData) => {
 		const result = await updatePlayer(player._id, playerData);
@@ -78,7 +76,6 @@ const UserPlayerInfo = ({ player }) => {
 				jerseyName: playerData.get("jerseyName") as string,
 				jerseyNumber: playerData.get("jerseyNumber") as string,
 				jerseySize: playerData.get("jerseySize") as string,
-				shortSize: playerData.get("shortSize") as string,
 			});
 		}
 
@@ -104,10 +101,10 @@ const UserPlayerInfo = ({ player }) => {
 									Edit Player
 								</SheetTitle>
 								<SheetDescription className="text-sm text-neutral-500">
-									{/* Please note that there will be a deadline (TBD) to change your
+									Please note that there will be a deadline (TBD) to change your
 									custom jersey information. After this deadline, we will not be
-									able to change it. Stay tuned to our socials to be notified! */}
-									Jerseys have been ordered!
+									able to change it. Stay tuned to our socials to be notified!
+									{/* Jerseys have been ordered! */}
 								</SheetDescription>
 							</SheetHeader>
 							<div className="font-barlow">
@@ -184,31 +181,13 @@ const UserPlayerInfo = ({ player }) => {
 													<option value="XXXXL">XXXXL</option>
 												</select>
 											</div>
-											<div className="flex flex-col gap-3">
-												<Label htmlFor="shortSize" className="uppercase">
-													Short Size
-												</Label>
-												<select
-													name="shortSize"
-													id="shortSize"
-													defaultValue={playerInfo?.shortSize}
-													className="rounded border border-neutral-600 bg-neutral-900 p-2"
-												>
-													<option value="SM">SM</option>
-													<option value="MD">MD</option>
-													<option value="LG">LG</option>
-													<option value="XL">XL</option>
-													<option value="XXL">XXL</option>
-													<option value="XXXL">XXXL</option>
-													<option value="XXXXL">XXXXL</option>
-												</select>
-											</div>
 										</>
 									)}
 								</div>
 							</div>
+
 							<SheetFooter className="mt-10 flex gap-2">
-								<SubmitButton />
+								<SubmitButton btnText="Submit" />
 							</SheetFooter>
 						</form>
 
@@ -227,18 +206,6 @@ const UserPlayerInfo = ({ player }) => {
 
 			<UserPlayerJerseyInfo player={playerInfo} />
 		</div>
-	);
-};
-
-const SubmitButton = () => {
-	const { pending } = useFormStatus();
-
-	return (
-		// <SheetClose asChild>
-		<Button type="submit" disabled={pending} className="w-full">
-			{pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Submit"}
-		</Button>
-		// </SheetClose>
 	);
 };
 

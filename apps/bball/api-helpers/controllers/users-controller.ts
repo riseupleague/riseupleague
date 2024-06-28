@@ -95,7 +95,7 @@ export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 				{
 					path: "team",
 					select:
-						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players",
+						"teamName teamCode primaryColor secondaryColor tertiaryColor jerseyEdition players paid",
 					populate: [
 						{
 							path: "players",

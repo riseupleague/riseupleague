@@ -8,7 +8,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { LogOut } from "lucide-react";
 import SignInDialog from "@/components/auth/SignInDialog";
 import { FaChevronDown } from "react-icons/fa6";
-import { CgProfile } from "react-icons/cg";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -20,7 +19,7 @@ import {
 } from "@ui/components/dropdown-menu";
 
 const ProfileLink = ({ user }): JSX.Element => {
-	const { status, data: session } = useSession();
+	const { data: session } = useSession();
 	const [open, setOpen] = useState(false);
 
 	const openDialog = () => {

@@ -25,12 +25,15 @@ export async function createDivision(seasonId: string, divisionData: FormData) {
 			startTime: divisionData.get("startTime"),
 			endTime: divisionData.get("endTime"),
 			earlyBirdPrice: divisionData.get("earlyBirdPrice"),
+			earlyBirdTeamPrice: divisionData.get("earlyBirdTeamPrice"),
 			regularPrice: divisionData.get("regularPrice"),
+			regularTeamPrice: divisionData.get("regularTeamPrice"),
 			instalmentPrice: divisionData.get("instalmentPrice"),
 			description: divisionData.get("description"),
 			earlyBirdOpen: divisionData.get("earlyBirdOpen") ? true : false,
 			earlyBirdId: divisionData.get("earlyBirdId"),
 			regularPriceFullId: divisionData.get("regularPriceFullId"),
+			regularTeamPriceId: divisionData.get("regularTeamPriceId"),
 			regularPriceInstalmentId: divisionData.get("regularPriceInstalmentId"),
 		};
 
@@ -71,12 +74,15 @@ export async function updateDivision(divisionData: any, id: string) {
 			endTime: divisionData.get("endTime"),
 			earlyBirdPrice: divisionData.get("earlyBirdPrice"),
 			regularPrice: divisionData.get("regularPrice"),
+			earlyBirdTeamPrice: divisionData.get("earlyBirdTeamPrice"),
+			regularTeamPrice: divisionData.get("regularTeamPrice"),
 			instalmentPrice: divisionData.get("instalmentPrice"),
 			description: divisionData.get("description"),
 			earlyBirdOpen: divisionData.get("earlyBirdOpen") ? true : false,
 			earlyBirdId: divisionData.get("earlyBirdId"),
 			regularPriceFullId: divisionData.get("regularPriceFullId"),
 			regularPriceInstalmentId: divisionData.get("regularPriceInstalmentId"),
+			regularTeamPriceId: divisionData.get("regularTeamPriceId"),
 		};
 
 		const division = await Division.findByIdAndUpdate(id, rawDivisionData);
@@ -102,6 +108,8 @@ export async function deleteDivision(divisionId: string) {
 		if (!division) return { status: 404, message: "No division found." };
 
 		await Division.findByIdAndRemove(divisionId);
+
+		revalidatePath("/");
 
 		return { status: 200, message: "Successfully deleted division." };
 	} catch (e) {

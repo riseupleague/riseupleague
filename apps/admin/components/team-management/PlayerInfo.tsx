@@ -7,6 +7,14 @@ const PlayerInfo = ({ player }): JSX.Element => {
 			<h5>Jersey Size: {player?.jerseySize}</h5>
 			<h5>Short Size: {player?.shortSize}</h5>
 			<h5>Instagram Handle: {player?.instagram}</h5>
+			<h5>
+				Team Captain:&nbsp;
+				<span
+					className={`${player?.teamCaptain ? "text-green-400" : "text-primary"}`}
+				>
+					{player?.teamCaptain ? "TRUE" : "FALSE"}
+				</span>
+			</h5>
 		</div>
 	);
 };

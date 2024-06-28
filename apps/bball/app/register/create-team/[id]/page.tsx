@@ -31,7 +31,7 @@ export default async function JoinTeam({
 	const { division } = await resDivision.json();
 
 	const resPlayer = await getUserPlayerPayment(session.user.email);
-	const { players, season } = await resPlayer.json();
+	const { players } = await resPlayer.json();
 	const isDivisionJoined = players.find((player) => {
 		return player?.division?._id === params.id;
 	});

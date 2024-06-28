@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
-
 import { connectToDatabase } from "@/api-helpers/utils";
 import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 
+/**
+ * Updates the color of a team in a division.
+ *
+ * @param {Request} req - The request object containing the team and division IDs,
+ *                        as well as the new primary, secondary, and tertiary colors,
+ *                        and the new jersey edition.
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object
+ *                                  with the updated team information or an error message.
+ */
 export async function PATCH(req: Request) {
 	try {
 		await connectToDatabase();

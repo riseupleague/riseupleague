@@ -20,7 +20,7 @@ export async function createSeason(seasonData: FormData) {
 		const season = new Season(rawSeasonData);
 		await season.save();
 
-		revalidatePath("/seasons-management");
+		revalidatePath("/league-management");
 
 		return { status: 201, message: "Successfully added season." };
 	} catch (e) {
