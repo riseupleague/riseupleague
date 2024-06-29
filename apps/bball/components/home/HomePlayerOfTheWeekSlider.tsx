@@ -14,22 +14,23 @@ const HomePlayerOfTheWeekSlider = ({ playerOfTheGames }) => {
 		slidesToScroll: 1,
 		responsive: [
 			{
-				breakpoint: 600, // Adjust the breakpoint value as needed (e.g., for tablets)
+				breakpoint: 600,
 				settings: {
 					slidesToShow: 1,
 				},
 			},
 			{
-				breakpoint: 768, // Adjust the breakpoint value as needed (e.g., for tablets)
+				breakpoint: 768,
 				settings: {
 					slidesToShow: 2,
 				},
 			},
 		],
 		arrows: false,
-		autoplay: true, // Enable auto-play
-		autoplaySpeed: 2000, // Set auto-play speed in milliseconds
+		autoplay: true,
+		autoplaySpeed: 2000,
 	};
+
 	return (
 		<div>
 			<Slider {...settings}>

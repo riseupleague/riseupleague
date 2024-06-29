@@ -1,28 +1,22 @@
 "use client";
 
 import { Button } from "@ui/components/button";
-import { Separator } from "@ui/components/separator";
-import { Label } from "@ui/components/label";
-import { Input } from "@ui/components/input";
-import { Checkbox } from "@ui/components/checkbox";
 import { useFormStatus } from "react-dom";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
 	Dialog,
 	DialogClose,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { deleteTeam, updateTeam } from "@/actions/teams-actions";
+import { deleteTeam } from "@/actions/teams-actions";
 
 const DeleteTeam = ({ team }): JSX.Element => {
 	const { toast } = useToast();
-	const router = useRouter();
 
 	const handleDeleteTeam = async () => {
 		if (team.players.length > 0) {
@@ -45,7 +39,7 @@ const DeleteTeam = ({ team }): JSX.Element => {
 				description: result.message,
 			});
 
-			// router.push(`/team-management/season/${}`);
+			redirect("/league-management");
 		}
 
 		// no season found

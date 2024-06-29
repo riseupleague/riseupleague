@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server";
-
 import { connectToDatabase } from "@/api-helpers/utils";
 import Team from "@/api-helpers/models/Team";
 import Division from "@/api-helpers/models/Division";
 import Game from "@/api-helpers/models/Game";
 
+/**
+ * Updates the schedule of a team in a division.
+ *
+ * @param {Request} req - The request object containing the team ID, division ID, added games, and other teams count.
+ * @return {Promise<NextResponse>} A promise that resolves to a NextResponse object with the updated team schedule.
+ * If the request is invalid, returns a 422 status code with an error message.
+ * If the team is not found, returns a 404 status code with an error message.
+ * If there is an internal server error, returns a 500 status code with an error message.
+ */
 export async function PATCH(req: Request) {
 	try {
 		await connectToDatabase();

@@ -1,4 +1,4 @@
-"use client"; // Error components must be Client Components
+"use client";
 
 import { Button } from "@ui/components/button";
 import Link from "next/link";

@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Player from "@/api-helpers/models/Player";
-import Team from "@/api-helpers/models/Team";
-import User from "@/api-helpers/models/User";
-import Division from "@/api-helpers/models/Division";
 
+/**
+ * Updates an existing player's information based on the provided request.
+ *
+ * @param {Request} req - The request object containing the player information.
+ * @return {Promise<NextResponse>} A promise that resolves to the response object with the updated player data and status codes based on the outcome.
+ */
 export async function PATCH(req: Request) {
 	try {
 		await connectToDatabase();
@@ -16,7 +19,6 @@ export async function PATCH(req: Request) {
 			jerseyName,
 			jerseyNumber,
 			jerseySize,
-			shortSize,
 			instagram,
 		} = await req.json();
 
@@ -29,11 +31,10 @@ export async function PATCH(req: Request) {
 					jerseyName,
 					jerseyNumber,
 					jerseySize,
-					shortSize,
 					instagram,
 				},
 			},
-			{ new: true } // Return the updated player
+			{ new: true }
 		);
 
 		return NextResponse.json({ newPlayer: existingPlayer }, { status: 201 });

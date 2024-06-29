@@ -70,7 +70,6 @@ const CustomerManagementPage = async ({
 						<TableHead>IG</TableHead>
 						<TableHead>Jersey #</TableHead>
 						<TableHead>Jersey Size</TableHead>
-						<TableHead>Short Size</TableHead>
 						<TableHead>Jersey Name</TableHead>
 						<TableHead>Season</TableHead>
 						<TableHead>Division</TableHead>
@@ -84,7 +83,6 @@ const CustomerManagementPage = async ({
 							<TableCell>{player?.instagram}</TableCell>
 							<TableCell>{player?.jerseyNumber}</TableCell>
 							<TableCell>{player?.jerseySize}</TableCell>
-							<TableCell>{player?.shortSize}</TableCell>
 							<TableCell>{player?.jerseyName}</TableCell>
 							<TableCell>{player?.season?.seasonName}</TableCell>
 							<TableCell>{player?.division?.divisionName}</TableCell>

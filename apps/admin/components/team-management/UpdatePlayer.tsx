@@ -18,7 +18,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@ui/components/dialog";
-import { updatePlayer } from "@/actions/players-action";
+import { updatePlayer, deletePlayer } from "@/actions/players-action";
 
 const UpdatePlayer = ({ player }): JSX.Element => {
 	const { toast } = useToast();
@@ -37,6 +37,39 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 		}
 
 		// no season found
+		if (result?.status === 404) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+
+		// internal server error
+		if (result?.status === 500) {
+			return toast({
+				variant: "destructive",
+				title: "Error",
+				description: result.message,
+			});
+		}
+	};
+
+	const handleDeletePlayer = async () => {
+		const result = await deletePlayer(player._id);
+
+		// successfully deleted player
+		if (result?.status === 200) {
+			toast({
+				variant: "success",
+				title: "Success!",
+				description: result.message,
+			});
+
+			router.push("/league-management");
+		}
+
+		// no player found
 		if (result?.status === 404) {
 			return toast({
 				variant: "destructive",
@@ -140,23 +173,15 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 								<option value="XXXXL">XXXXL</option>
 							</select>
 						</div>
-						<div className="flex w-full flex-col gap-3">
-							<Label htmlFor="shortSize">New Short Size:</Label>
-							<select
-								name="shortSize"
-								id="shortSize"
-								defaultValue={player?.shortSize}
-								className="rounded border border-neutral-600 bg-neutral-900 p-2"
-							>
-								<option value="SM">SM</option>
-								<option value="MD">MD</option>
-								<option value="LG">LG</option>
-								<option value="XL">XL</option>
-								<option value="XXL">XXL</option>
-								<option value="XXXL">XXXL</option>
-								<option value="XXXXL">XXXXL</option>
-							</select>
-						</div>
+					</div>
+
+					<div className="flex items-center gap-3">
+						<Checkbox
+							name="teamCaptain"
+							id="teamCaptain"
+							className="border-neutral-200"
+						/>
+						<Label htmlFor="teamCaptain">Team Captain</Label>
 					</div>
 
 					<Separator className="mb-4 border-b border-neutral-500" />
@@ -165,10 +190,12 @@ const UpdatePlayer = ({ player }): JSX.Element => {
 						<SubmitButton />
 					</DialogFooter>
 				</form>
-				{/* 
-				<form action={handleDeleteTeam}>
-					<DeleteButton />
-				</form> */}
+
+				<form action={handleDeletePlayer}>
+					<DialogFooter className="flex gap-2">
+						<DeleteButton />
+					</DialogFooter>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);

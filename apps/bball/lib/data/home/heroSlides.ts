@@ -3,7 +3,7 @@ export const heroSlides = [
 		url: "/images/home/early-bird.jpg",
 		title: "Registration now open!",
 		description:
-			"REGISTER NOW FOR OUR 1ST YEAR ANNIVERSARY SEASON! This is our GREATEST season ever, DON'T MISS OUT!",
+			"REGISTER NOW FOR OUR 2024 Fall Season! This is our GREATEST season ever, DON'T MISS OUT!",
 		cta: "Register Now",
 		link: "/register?info=true",
 	},

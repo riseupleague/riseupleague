@@ -10,7 +10,6 @@ import { Button } from "@ui/components/button";
 import getStripe from "@/utils/checkout";
 import { Loader2 } from "lucide-react";
 import { saveUnpaidTeam } from "@/actions/saveUnpaidTeam";
-import twentyPtBadge from "@/public/images/badges/twentyPtBadge.svg";
 
 const checkboxSchema = z.object({
 	agreeToTerms: z.boolean().refine((val) => val === true, {
@@ -26,7 +25,7 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 	const [isLoader, setIsLoader] = useState(false);
 	const [isStripeError, setIsStripeError] = useState(false);
 	const [submitType, setSubmitType] = useState("");
-
+	console.log("registerInfo:", registerInfo);
 	const {
 		handleSubmit,
 		control,
@@ -114,6 +113,7 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 	const redirectToCheckout = async (items, formObject) => {
 		try {
 			setIsLoader(true);
+
 			const response = await fetch("/api/checkout-sessions", {
 				method: "POST",
 				headers: {

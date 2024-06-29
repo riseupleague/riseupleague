@@ -1,19 +1,15 @@
+import { getServerSession } from "next-auth";
+import { connectToDatabase } from "@/api-helpers/utils";
+import { Metadata } from "next";
+import FreeAgentsSuccess from "@/components/register/free-agent/FreeAgentsSuccess";
+import CreateTeamSuccess from "@/components/register/create-team/CreateteamSuccess";
+import JoinTeamSuccess from "@/components/register/join-team/JoinTeamSuccess";
+import { redirect } from "next/navigation";
 import {
 	addNewUser,
 	getCurrentUser,
 	getUserPlayerPayment,
 } from "@/api-helpers/controllers/users-controller";
-import { Separator } from "@ui/components/separator";
-import { getServerSession } from "next-auth";
-import { Button } from "@ui/components/button";
-import { getRegisterDivisionById } from "@/api-helpers/controllers/divisions-controller";
-import { connectToDatabase } from "@/api-helpers/utils";
-import { Metadata } from "next";
-import Link from "next/link";
-import FreeAgentsSuccess from "@/components/register/free-agent/FreeAgentsSuccess";
-import CreateTeamSuccess from "@/components/register/create-team/CreateteamSuccess";
-import JoinTeamSuccess from "@/components/register/join-team/JoinTeamSuccess";
-import { redirect } from "next/navigation";
 
 export default async function Success({
 	params,
@@ -21,6 +17,7 @@ export default async function Success({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
@@ -34,12 +31,11 @@ export default async function Success({
 	if (params.id !== "free-agent") {
 		const resPlayer = await getUserPlayerPayment(session.user.email);
 		const { players, season } = await resPlayer.json();
-		const selectedPlayer = players.find((player) => {
-			return (
+		const selectedPlayer = players.find(
+			(player) =>
 				player.season.toString() === season &&
 				player.team?.division._id === params.id
-			);
-		});
+		);
 
 		if (selectedPlayer?.teamCaptain) {
 			return <CreateTeamSuccess player={selectedPlayer} />;
@@ -50,6 +46,7 @@ export default async function Success({
 		const resPlayer = await getUserPlayerPayment(session.user.email);
 		const { players } = await resPlayer.json();
 		const freeAgentPlayer = players.find((player) => player.freeAgent === true);
+
 		return <FreeAgentsSuccess player={freeAgentPlayer} />;
 	}
 }

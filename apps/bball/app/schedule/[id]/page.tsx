@@ -1,6 +1,7 @@
 import { getGamesByDate } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
 import NewSchedule from "@/components/games/NewSchedule";
+import Breadcrumb from "@/components/general/Breadcrumb";
 import { Metadata } from "next";
 
 export default async function Schedule({
@@ -47,9 +48,6 @@ export default async function Schedule({
 	}
 
 	return (
-		// <main className="font-barlow container  mx-auto min-h-fit text-white">
-		// 	<ScheduleFilterPage gamesByDate={gamesByDate} />
-		// </main>
 		<main>
 			{/* new h1 with bg image */}
 			<div className="mb-4 bg-[url('/images/register/createTeam.jpg')] bg-cover bg-center bg-no-repeat md:mb-8 lg:mb-12">
@@ -65,7 +63,6 @@ export default async function Schedule({
 			</div>
 
 			<div className="font-barlow container mx-auto min-h-fit">
-				{/* <ScheduleFilterPage gamesByDate={gamesByDate} /> */}
 				<NewSchedule
 					gamesByDate={gamesByDate}
 					divisions={divisionNamesAndCities}

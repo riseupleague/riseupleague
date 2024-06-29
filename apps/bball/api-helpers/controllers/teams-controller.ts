@@ -3,29 +3,6 @@ import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 
 /**
- * Retrieves all current teams for the given season.
- *
- * @param {string} seasonId - The ID of the season for which teams are being retrieved
- * @return {Promise<NextResponse>} A JSON response containing the teams for the given season
- */
-export const getAllCurrentTeams = async (seasonId: string) => {
-	try {
-		const teams = await Team.find({ season: seasonId }).select("teamName");
-
-		if (teams.length === 0) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
-
-		return NextResponse.json({ teams });
-	} catch (error) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-/**
  * Retrieves all registered teams for the current season.
  *
  * @return {Promise} An array of teams with their names and codes.
@@ -44,43 +21,6 @@ export const getAllRegisterTeams = async () => {
 
 		return NextResponse.json({ teams });
 	} catch (error) {
-		return NextResponse.json(
-			{ message: "Internal Server Error" },
-			{ status: 500 }
-		);
-	}
-};
-
-/**
- * Generate a list of all current teams with their division names and IDs.
- *
- * @return {Promise} teamsNameDivisionAndId - Array of team objects with division names and IDs
- */
-export const getAllCurrentTeamsNameDivisionAndId = async () => {
-	try {
-		const activeSeason = await Season.find({ active: "true" });
-
-		// Use select to retrieve only divisionName and _id fields
-		const teamsNameDivisionAndId = await Team.find({ season: activeSeason })
-			.populate("division", "divisionName")
-			.select("teamName _id division");
-
-		// Create the object to push (All Teams)
-		const allTeamsObject = {
-			division: { _id: "", divisionName: "" },
-			teamName: "All Teams",
-			_id: "",
-		};
-
-		// Push the All Teams object into the array
-		teamsNameDivisionAndId.unshift(allTeamsObject);
-		if (!teamsNameDivisionAndId) {
-			return NextResponse.json({ message: "No teams found" }, { status: 404 });
-		}
-
-		return NextResponse.json({ teamsNameDivisionAndId });
-	} catch (error) {
-		console.error("Error:", error);
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
 			{ status: 500 }

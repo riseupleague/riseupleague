@@ -15,7 +15,7 @@ const buttonVariants = cva(
 				signIn:
 					"flex items-center gap-2 bg-neutral-500 text-neutral-50 uppercase font-barlow transition-all hover:opacity-80",
 				destructive:
-					"bg-destructive text-destructive-foreground hover:bg-destructive/90",
+					"bg-red-600 font-barlow uppercase hover:bg-opacity-80 transition-all",
 				outline:
 					"border border-input bg-background hover:bg-neutral-700 hover:text-accent-foreground",
 				ghost: "hover:bg-accent hover:text-accent-foreground",

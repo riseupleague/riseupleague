@@ -6,6 +6,7 @@ const JerseySelection = () => {
 	const handleJerseyEdition = (edition) => {
 		setJerseyEdition(edition);
 	};
+
 	return (
 		<div>
 			<h3 className="mt-10 text-3xl font-medium uppercase ">

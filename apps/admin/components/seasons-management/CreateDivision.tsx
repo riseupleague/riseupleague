@@ -157,6 +157,29 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 
 					<div className="flex gap-2">
 						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="earlyBirdTeamPrice">Early Bird Team Price</Label>
+							<Input
+								type="number"
+								name="earlyBirdTeamPrice"
+								id="earlyBirdTeamPrice"
+								placeholder="Early Bird Team Price"
+								className="text-neutral-900"
+							/>
+						</div>
+						<div className="flex w-full flex-col gap-3">
+							<Label htmlFor="regularTeamPrice">Regular Team Price</Label>
+							<Input
+								type="number"
+								name="regularTeamPrice"
+								id="regularTeamPrice"
+								placeholder="Regular Team Price"
+								className="text-neutral-900"
+							/>
+						</div>
+					</div>
+
+					<div className="flex gap-2">
+						<div className="flex w-full flex-col gap-3">
 							<Label htmlFor="instalmentPrice">Instalment Price (x6)</Label>
 							<Input
 								type="number"
@@ -186,6 +209,16 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 							name="regularPriceInstalmentId"
 							id="regularPriceInstalmentId"
 							placeholder="Regular Price Instalment ID"
+							className="text-neutral-900"
+						/>
+					</div>
+
+					<div className="flex flex-col gap-3">
+						<Label htmlFor="regularTeamPriceId">Regular Team Price ID:</Label>
+						<Input
+							name="regularTeamPriceId"
+							id="regularTeamPriceId"
+							placeholder="Regular Team Price ID"
 							className="text-neutral-900"
 						/>
 					</div>

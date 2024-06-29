@@ -4,7 +4,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { CiCalendar } from "react-icons/ci";
 import { BsArrowRight } from "react-icons/bs";
 import { Button } from "@ui/components/button";
-// import { useRouter } from "next/navigation";
 import {
 	Accordion,
 	AccordionContent,
@@ -23,8 +22,6 @@ const PickCityDivision = ({
 	registerInfo: any;
 	setRegisterInfo: any;
 }) => {
-	// const router = useRouter();
-
 	const divisionHandler = (division) => {
 		setRegisterInfo({
 			...registerInfo,
@@ -38,13 +35,12 @@ const PickCityDivision = ({
 				5: false,
 			},
 		});
-
-		// router.push("/register/create-team/?step=2");
 	};
 
 	return (
 		<section>
 			<h3>Pick A City & Division</h3>
+
 			{regions?.length > 0 ? (
 				<Accordion type="single" collapsible className="w-full">
 					{regions?.map((region, index) => (
@@ -54,16 +50,15 @@ const PickCityDivision = ({
 							</AccordionTrigger>
 							<AccordionContent>
 								{region.divisions.map((division, index) => {
-									console.log(division.teams);
-
 									const isDivisionJoined = userDivisions.some(
 										(div) => div === division._id
 									);
+
 									return (
 										<Button
 											key={index}
 											onClick={() => divisionHandler(division)}
-											className="relative flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
+											className="relative my-2 flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
 											disabled={division.teams.length >= 8 || isDivisionJoined}
 										>
 											<h5 className="mb-3">{division.divisionName}</h5>

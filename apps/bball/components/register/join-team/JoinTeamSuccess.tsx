@@ -1,5 +1,3 @@
-import { convertToEST } from "@/utils/convertToEST";
-import { format } from "date-fns";
 import Link from "next/link";
 
 const JoinTeamSuccess = ({ player }) => {
@@ -21,13 +19,9 @@ const JoinTeamSuccess = ({ player }) => {
 		return formattedTime;
 	};
 
-	// Example usage:
 	const startTimeAMPM = convertToAMPM(team?.division?.startTime);
 	const endTimeAMPM = convertToAMPM(team?.division?.endTime);
 
-	// const date = convertToEST(new Date(team?.createdAt));
-	// const dateFormatted = format(date, "ccc MMM do, uuuu");
-	// const time = format(date, "h:mm a");
 	return (
 		<div className="container mx-auto my-auto">
 			<div className="flex flex-col gap-10 md:flex-row">
