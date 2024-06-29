@@ -5,8 +5,8 @@ import Season from "@/api-helpers/models/Season";
 
 const Schema = mongoose.Schema;
 
-const tournamentSubDivisionSchema = new Schema({
-	tournamentSubDivisionName: { type: String, required: true },
+const tournamentLevelSchema = new Schema({
+	tournamentLevelName: { type: String, required: true },
 	tournament: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Tournament",
@@ -19,5 +19,5 @@ const tournamentSubDivisionSchema = new Schema({
 	divisionColor: { type: String },
 });
 
-export default mongoose.models.TournamentSubDivision ||
-	mongoose.model("TournamentSubDivision", tournamentSubDivisionSchema);
+export default mongoose.models.TournamentLevel ||
+	mongoose.model("TournamentLevel", tournamentLevelSchema);

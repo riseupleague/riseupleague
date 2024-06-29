@@ -78,7 +78,7 @@ const cardData = [
 		imgAlt: "Create a team now",
 		btnText: "Register Now",
 		href: "/register/tournament/all-nations",
-		_id: "all-nations",
+		_id: "all-mans-under-6ft",
 	},
 	{
 		title: "All Nations",
@@ -87,7 +87,7 @@ const cardData = [
 		imgAlt: "join as a free agent photo",
 		btnText: "Register Now",
 		href: "/register/tournament/all-mans-under-six-feet",
-		_id: "all-mans-under-6ft",
+		_id: "all-nations",
 	},
 ];
 

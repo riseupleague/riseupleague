@@ -1,5 +1,64 @@
 import { z } from "zod";
 
+// Roster Schema with additional fields
+export const buildTournamentRosterSchema = z
+	.array(
+		z.object({
+			id: z.number(),
+			name: z.string().min(1, "Player name is required"),
+			jerseySize: z.string().nonempty("Jersey Size is required"),
+			jerseyName: z
+				.string()
+				.nonempty("Jersey Name is required")
+				.max(
+					12,
+					"Your jersey name is too long. Choose a jersey name of up to 12 characters."
+				),
+			jerseyNumber: z
+				.string()
+				.nonempty("Jersey number is required")
+				.max(3, "Please limit to three digits")
+				.refine(validateJerseyNumber, {
+					message: "Please input a number",
+				}),
+		})
+	)
+	.min(4, "At least 4 additional players are required");
+
+export const createTeamTournamentSchema = z.object({
+	tournamentLevel: z.string().nonempty("Skill Level is required"),
+	teamName: z.string().nonempty("Team Name is required"),
+	teamNameShort: z
+		.string()
+		.max(4, "Short Team Name must be 4 letters or less")
+		.nonempty("Short Team Name is required"),
+	teamCode: z.string().nonempty("Team Code is required"),
+	teamCaptainName: z.string().nonempty("Team captain name is required"),
+	instagram: z.string().optional(),
+	phoneNumber: z
+		.string()
+		.nonempty("Phone number is required")
+		.refine(validatePhoneNumber, {
+			message: "Invalid phone number format",
+		}),
+	jerseySize: z.string().nonempty("Jersey Size is required"),
+	jerseyName: z
+		.string()
+		.nonempty("Jersey Name is required")
+		.max(
+			12,
+			"Your jersey name is too long. Choose a jersey name of up to 12 characters."
+		),
+	jerseyNumber: z
+		.string()
+		.nonempty("Jersey number is required")
+		.max(3, "Please limit to three digits")
+		.refine(validateJerseyNumber, {
+			message: "Please input a number",
+		}),
+	roster: buildTournamentRosterSchema,
+});
+
 export const createTeamSchema = z.object({
 	teamName: z.string().nonempty("Team Name is required"),
 	teamNameShort: z
