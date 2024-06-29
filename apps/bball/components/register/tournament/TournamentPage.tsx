@@ -4,16 +4,19 @@ import TournamentHero from "@/components/register/tournament/TournamentHero";
 import TournamentInfo from "@/components/register/tournament/TournamentInfo";
 import TournamentSelection from "@/components/register/tournament/TournamentSelection";
 import TournamentForm from "./TournamentForm";
+import TournamentDivision from "@/api-helpers/models/TournamentDivision";
 const TournamentPage = ({ tournament }) => {
-	console.log("tournament:", tournament);
-	const [division, setDivision] = useState("");
+	const [division, setDivision] = useState({});
 	const handleDivision = (selectedDivision) => {
-		setDivision(selectedDivision);
+		const foundDivision = tournament.tournamentDivisions.find(
+			(tournamentDiv) => tournamentDiv._id === selectedDivision
+		);
+		setDivision(foundDivision);
 	};
 	return (
 		<>
-			{division && division !== "" ? (
-				<TournamentForm tournament={tournament} />
+			{Object.keys(division).length > 0 ? (
+				<TournamentForm division={division} setDivision={setDivision} />
 			) : (
 				<>
 					<TournamentHero />

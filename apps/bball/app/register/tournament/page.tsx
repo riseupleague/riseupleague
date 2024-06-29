@@ -37,21 +37,21 @@ export default async function Tournament(): Promise<JSX.Element> {
 		tournamentDivisions: [
 			{
 				tournamentDivisionName: "All Asians",
-				tournamentSubDivision: [
+				tournamentLevel: [
 					{
-						tournamentSubDivisionName: "Beginner",
+						tournamentLevelName: "Beginner",
 						teams: [],
 						games: [],
 						_id: "beginner",
 					},
 					{
-						tournamentSubDivisionName: "Intermediate",
+						tournamentLevelName: "Intermediate",
 						teams: [],
 						games: [],
 						_id: "intermediate",
 					},
 					{
-						tournamentSubDivisionName: "Advanced",
+						tournamentLevelName: "Advanced",
 						teams: [],
 						games: [],
 						_id: "advanced",
@@ -59,25 +59,25 @@ export default async function Tournament(): Promise<JSX.Element> {
 				],
 				location: "Sheridan",
 				city: "Brampton",
-				_id: "all-asian",
+				_id: "all-asians",
 			},
 			{
 				tournamentDivisionName: "All Mans Under 6ft",
-				tournamentSubDivision: [
+				tournamentLevel: [
 					{
-						tournamentSubDivisionName: "Beginner",
+						tournamentLevelName: "Beginner",
 						teams: [],
 						games: [],
 						_id: "beginner",
 					},
 					{
-						tournamentSubDivisionName: "Intermediate",
+						tournamentLevelName: "Intermediate",
 						teams: [],
 						games: [],
 						_id: "intermediate",
 					},
 					{
-						tournamentSubDivisionName: "Advanced",
+						tournamentLevelName: "Advanced",
 						teams: [],
 						games: [],
 						_id: "advanced",
@@ -89,27 +89,27 @@ export default async function Tournament(): Promise<JSX.Element> {
 			},
 			{
 				tournamentDivisionName: "All Nations",
-				tournamentSubDivision: [
+				tournamentLevel: [
 					{
-						tournamentSubDivisionName: "Beginner",
+						tournamentLevelName: "Beginner",
 						teams: [],
 						games: [],
 						_id: "beginner",
 					},
 					{
-						tournamentSubDivisionName: "Intermediate",
+						tournamentLevelName: "Intermediate",
 						teams: [],
 						games: [],
 						_id: "intermediate",
 					},
 					{
-						tournamentSubDivisionName: "Advanced",
+						tournamentLevelName: "Advanced",
 						teams: [],
 						games: [],
 						_id: "advanced",
 					},
 					{
-						tournamentSubDivisionName: "Elite",
+						tournamentLevelName: "Elite",
 						teams: [],
 						games: [],
 						_id: "elite",
@@ -123,7 +123,7 @@ export default async function Tournament(): Promise<JSX.Element> {
 	};
 
 	return (
-		<main className="font-barlow mx-auto my-10 min-h-fit text-white">
+		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
 			<TournamentPage tournament={tournamentObj} />
 		</main>
 	);
