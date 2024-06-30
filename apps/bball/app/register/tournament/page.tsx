@@ -16,7 +16,7 @@ export default async function Tournament(): Promise<JSX.Element> {
 	const session = await getServerSession();
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
-
+	const isRiseUpPlayer = user.basketball.length > 0;
 	if (!user) {
 		await addNewUser(session.user.name, session.user.email, "google");
 
@@ -122,9 +122,19 @@ export default async function Tournament(): Promise<JSX.Element> {
 		],
 	};
 
+	const tournament = {
+		price: isRiseUpPlayer
+			? tournamentObj.riseUpDiscountPrice
+			: tournamentObj.regularPrice,
+		priceId: isRiseUpPlayer
+			? tournamentObj.riseUpDiscountPriceId
+			: tournamentObj.regularPriceId,
+		tournamentDivisions: [...tournamentObj.tournamentDivisions],
+	};
+
 	return (
 		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
-			<TournamentPage tournament={tournamentObj} />
+			<TournamentPage tournament={tournament} />
 		</main>
 	);
 }

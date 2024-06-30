@@ -10,9 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const TournamentSelection = ({ onDivision }) => {
+const TournamentSelection = ({ onDivision, targetRef }) => {
 	return (
-		<div className="container mx-auto mt-20">
+		<div ref={targetRef} className="container mx-auto mt-20">
 			<h2 className="font-abolition text-center text-3xl md:text-5xl">
 				Is your team ready to claim the title of the best?
 			</h2>

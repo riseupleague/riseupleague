@@ -2,7 +2,7 @@ import { Button } from "@ui/components/button";
 import Image from "next/image";
 import React from "react";
 
-const TournamentHero = () => {
+const TournamentHero = ({ onScroll }) => {
 	return (
 		<div className="relative h-[500px] lg:h-[750px] xl:h-[1000px]">
 			<div className="absolute inset-0">
@@ -32,7 +32,11 @@ const TournamentHero = () => {
 						LOCATION 2: GAME6 ACADEMY - ADVANCED AND ELITE
 					</p>
 				</h2>
-				<Button className="bg-primary mt-5 text-white" variant="default">
+				<Button
+					onClick={onScroll}
+					className="bg-primary mt-5 text-white"
+					variant="default"
+				>
 					Register Now
 				</Button>
 			</div>

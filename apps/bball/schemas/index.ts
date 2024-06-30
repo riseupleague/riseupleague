@@ -32,7 +32,6 @@ export const createTeamTournamentSchema = z.object({
 		.string()
 		.max(4, "Short Team Name must be 4 letters or less")
 		.nonempty("Short Team Name is required"),
-	teamCode: z.string().nonempty("Team Code is required"),
 	teamCaptainName: z.string().nonempty("Team captain name is required"),
 	instagram: z.string().optional(),
 	phoneNumber: z
@@ -41,15 +40,15 @@ export const createTeamTournamentSchema = z.object({
 		.refine(validatePhoneNumber, {
 			message: "Invalid phone number format",
 		}),
-	jerseySize: z.string().nonempty("Jersey Size is required"),
-	jerseyName: z
+	teamCaptainJerseySize: z.string().nonempty("Jersey Size is required"),
+	teamCaptainJerseyName: z
 		.string()
 		.nonempty("Jersey Name is required")
 		.max(
 			12,
 			"Your jersey name is too long. Choose a jersey name of up to 12 characters."
 		),
-	jerseyNumber: z
+	teamCaptainJerseyNumber: z
 		.string()
 		.nonempty("Jersey number is required")
 		.max(3, "Please limit to three digits")
