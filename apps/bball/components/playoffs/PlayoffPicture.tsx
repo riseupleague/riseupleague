@@ -3,15 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import FilterByDivision from "@/components/filters/FilterByDivision";
-import Link from "next/link";
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@ui/components/ui/table";
+import PlayoffDivisionBracket from "./PlayoffDivisionBracket";
 
 const PlayoffPicture = ({ divisions }): JSX.Element => {
 	let initialDivisions = divisions;
@@ -20,6 +12,7 @@ const PlayoffPicture = ({ divisions }): JSX.Element => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const params = searchParams.get("divisionId");
+	const gridSpots = [0, 5, 7, 10, 12, 17, 20, 21, 24, 29, 31, 34, 36, 41];
 
 	// if URL has a 'divisionId' param, filter divisions automatically
 	if (params && params !== "default") {
@@ -50,7 +43,7 @@ const PlayoffPicture = ({ divisions }): JSX.Element => {
 		const selectedDivisionId = event;
 
 		// update URL query when division changes
-		router.push(`/standings?divisionId=${event}`);
+		router.push(`/standings/playoffs?divisionId=${event}`);
 
 		if (selectedDivisionId !== "default") {
 			// filter the divisions based on the selected division name
@@ -74,89 +67,7 @@ const PlayoffPicture = ({ divisions }): JSX.Element => {
 			<div className="mt-5 flex flex-col gap-10">
 				{divisionsWithTeams.map((division) => (
 					<div key={division._id}>
-						<h3 className="font-barlow my-4 text-2xl font-semibold uppercase text-neutral-100">
-							{division.divisionName}
-						</h3>
-
-						<Table className="font-barlow uppercase">
-							<TableHeader>
-								<TableRow className="border-b-neutral-500">
-									<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-										#
-									</TableHead>
-									<TableHead className="w-1/2 p-1 text-left text-sm sm:w-auto sm:text-lg">
-										Team
-									</TableHead>
-									<TableHead className="w-1/12 p-1 text-sm sm:text-lg">
-										W
-									</TableHead>
-									<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-										L
-									</TableHead>
-									<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-										GP
-									</TableHead>
-									<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-										W%
-									</TableHead>
-									<TableHead className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-										PD
-									</TableHead>
-								</TableRow>
-							</TableHeader>
-							<TableBody>
-								{division.teams
-									.sort((a, b) =>
-										a.pointDifference > b.pointDifference ? 1 : -1
-									)
-									.sort((a, b) =>
-										a.wpct?.toFixed(3) < b.wpct?.toFixed(3) ? 1 : -1
-									)
-									.map((team, index) => {
-										const positivePD = team.pointDifference > 0;
-
-										return (
-											<TableRow
-												key={index}
-												className="border-b-neutral-500 text-sm sm:text-lg"
-											>
-												<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-													{index + 1}
-												</TableCell>
-												<TableCell className="w-1/2 p-1 text-left sm:w-auto">
-													<Link
-														href={`/teams/${team._id}`}
-														className="flex w-fit hover:underline"
-													>
-														{team.teamName}
-													</Link>
-												</TableCell>
-												<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-													{team.wins || 0}
-												</TableCell>
-												<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-													{team.losses || 0}
-												</TableCell>
-												<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-													{team.gp}
-												</TableCell>
-												<TableCell className="w-1/12 p-1 text-sm sm:w-auto sm:text-lg">
-													{team.wpct?.toFixed(3)}
-												</TableCell>
-												<TableCell
-													className={`w-1/12 p-1 text-sm sm:w-auto sm:text-lg ${
-														positivePD ? "text-green-500" : "text-primary"
-													}
-													`}
-												>
-													{positivePD ? "+" : ""}
-													{team.pointDifference || 0}
-												</TableCell>
-											</TableRow>
-										);
-									})}
-							</TableBody>
-						</Table>
+						<PlayoffDivisionBracket division={division} />
 					</div>
 				))}
 			</div>

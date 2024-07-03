@@ -16,7 +16,7 @@ export default async function Standings(): Promise<JSX.Element> {
 
 	return (
 		<section className="container mx-auto min-h-fit">
-			<h1>playoffs</h1>
+			<h1 className="text-center">playoff picture</h1>
 			<PlayoffPicture divisions={divisionsWithStats} />
 		</section>
 	);
