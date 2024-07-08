@@ -6,8 +6,12 @@ import { redirect } from "next/navigation";
 const LoginPage = async () => {
 	await connectToDatabase();
 
-	const session = await getServerSession();
-	if (session !== null) redirect("/");
+	try {
+		const session = await getServerSession();
+		if (session) redirect("/");
+	} catch (e) {
+		console.log(e);
+	}
 
 	return (
 		<section className="font-barlow container mx-auto">

@@ -4,6 +4,7 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { connectToDatabase } from "@/api-helpers/utils";
 
 const authOptions = {
 	providers: [
@@ -18,6 +19,8 @@ const authOptions = {
 				password: { label: "Password", type: "password" },
 			},
 			async authorize(credentials) {
+				await connectToDatabase();
+
 				const { email, password } = credentials;
 
 				try {
@@ -56,6 +59,8 @@ const authOptions = {
 		},
 
 		async signIn({ user, account }) {
+			await connectToDatabase();
+
 			if (account.provider === "google") {
 				const { name, email } = user;
 
