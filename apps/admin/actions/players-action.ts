@@ -6,6 +6,7 @@ import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import Season from "@/api-helpers/models/Season";
 import User from "@/api-helpers/models/User";
+import { connectToDatabase } from "@/api-helpers/utils";
 
 /**
  * Create a new team for a given season and division.

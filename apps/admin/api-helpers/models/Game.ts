@@ -7,10 +7,9 @@ import Player from "@/api-helpers/models/Player";
 const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
-	gameName: { type: String },
+	gameName: { type: String, required: true },
 	date: { type: Date },
 	time: { type: String },
-	week: { type: Number },
 	homeTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
 	awayTeam: { type: mongoose.Schema.Types.ObjectId, ref: "Team" },
 	homeTeamScore: { type: Number, required: true },
@@ -44,7 +43,9 @@ const gameSchema = new Schema({
 			},
 		},
 	],
+	started: { type: Boolean, required: true },
 	youtubeLink: { type: String },
+	isPlayoffGame: { type: Boolean },
 });
 
 export default mongoose.models.Game || mongoose.model("Game", gameSchema);

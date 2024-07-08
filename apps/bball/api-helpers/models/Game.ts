@@ -45,6 +45,7 @@ const gameSchema = new Schema({
 	],
 	started: { type: Boolean, required: true },
 	youtubeLink: { type: String },
+	isPlayoffGame: { type: Boolean },
 });
 
 export default mongoose.models.Game || mongoose.model("Game", gameSchema);

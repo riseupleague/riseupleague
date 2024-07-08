@@ -7,17 +7,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { useSession } from "next-auth/react";
-import SignInDialog from "../auth/SignInDialog";
 import { heroSlides } from "@/lib/data/home/heroSlides";
 import Image from "next/image";
 
 const Hero = (): JSX.Element => {
 	const [open, setOpen] = useState(false);
-
-	// Function to open the dialog
-	const openDialog = () => {
-		setOpen(true);
-	};
 	const { status, data: session } = useSession();
 
 	// State to track the active slide index
@@ -80,7 +74,9 @@ const Hero = (): JSX.Element => {
 										{slide.link === "/register?info=true" ? (
 											<>
 												{!session || !session.user ? (
-													<Button onClick={openDialog}>{slide.cta}</Button>
+													<Button asChild>
+														<Link href="/login">Log In or Sign Up</Link>
+													</Button>
 												) : (
 													<Link href={slide.link} target="_blank">
 														{slide.cta !== "" ? (
@@ -103,8 +99,6 @@ const Hero = (): JSX.Element => {
 					);
 				})}
 			</Slider>
-
-			<SignInDialog open={open} onOpenChange={setOpen} />
 		</section>
 	);
 };
