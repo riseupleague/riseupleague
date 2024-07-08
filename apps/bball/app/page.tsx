@@ -13,6 +13,7 @@ import Hero from "@/components/home/Hero";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
+
 	return (
 		<div className="container mx-auto min-h-fit">
 			<Suspense fallback={<SecondaryHeaderSkeleton />}>

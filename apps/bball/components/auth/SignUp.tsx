@@ -89,27 +89,26 @@ const SignUp = () => {
 				if (result.status === 201) {
 					setErrors(null);
 
-					toast({
-						variant: "success",
-						title: "Successfully created account.",
-						description: "Welcome to Rise Up Basketball 🏀",
-						duration: 3000,
-					});
-
 					const login = await signIn("credentials", {
 						email: userData.get("email").toString(),
 						password: userData.get("password").toString(),
 						redirect: false,
 					});
 
-					if (login?.error) throw new Error(login.error);
+					window.location.href = "/?newUser=true";
 
-					startTransition(() => router.push("/"));
-					startTransition(() => router.refresh());
+					// toast({
+					// 	variant: "success",
+					// 	title: "Successfully created account.",
+					// 	description: "Welcome to Rise Up Basketball 🏀",
+					// 	duration: 3000,
+					// });
+
+					// startTransition(() => router.refresh());
+					// startTransition(() => router.push("/"));
 				}
 			} catch (error) {
 				console.log(error);
-				throw new Error(error);
 			}
 		}
 	};
