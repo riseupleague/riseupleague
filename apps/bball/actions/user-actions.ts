@@ -45,7 +45,7 @@ export const findUser = async (formData: FormData) => {
 			};
 		}
 
-		const user = await User.findOne({ email, type: "email" });
+		const user = await User.findOne({ email: email.toString() });
 
 		if (!user) {
 			return {
