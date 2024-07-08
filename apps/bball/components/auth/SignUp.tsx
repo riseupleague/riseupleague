@@ -88,11 +88,21 @@ const SignUp = () => {
 
 					toast({
 						variant: "success",
-						title: "Logged in successfully!",
-						duration: 1500,
+						title: "Successfully created account.",
+						description: "Welcome to Rise Up Basketball 🏀",
+						duration: 3000,
 					});
 
-					window.location.href = "/";
+					const login = await signIn("credentials", {
+						email: userData.get("email").toString(),
+						password: userData.get("password").toString(),
+						redirect: false,
+					});
+
+					if (login?.error) throw new Error(login.error);
+
+					startTransition(() => router.push("/"));
+					startTransition(() => router.refresh());
 				}
 			} catch (error) {
 				console.log(error);
