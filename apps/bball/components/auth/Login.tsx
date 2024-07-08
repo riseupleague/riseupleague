@@ -121,7 +121,7 @@ const Login = () => {
 
 	return (
 		<div className="my-8">
-			<Card className="mx-auto w-96">
+			<Card className="mx-auto w-full sm:w-96">
 				<CardHeader>
 					<CardTitle className="text-center text-3xl">
 						Log in to your account
