@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 const LoginPage = async () => {
 	const session = await getServerSession();
-	if (session) redirect("/");
+	if (session !== null) redirect("/");
 
 	return (
 		<section className="font-barlow container mx-auto">
