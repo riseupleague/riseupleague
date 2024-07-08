@@ -21,9 +21,9 @@ const buttonVariants = cva(
 				ghost: "hover:bg-accent hover:text-accent-foreground",
 				link: "text-primary underline-offset-4 hover:underline",
 				addition:
-					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
+					"text-white bg-primary uppercase font-medium font-barlow transition hover:bg-primaryDark",
 				register:
-					"text-white bg-primary uppercase font-bold font-barlow transition hover:bg-primaryDark",
+					"text-white bg-primary uppercase font-medium font-barlow transition hover:bg-primaryDark",
 				navlink:
 					"bg-transparent text-white border-none px-0 flex items-center gap-3 w-full justify-start",
 			},

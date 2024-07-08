@@ -7,7 +7,6 @@ import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { usePathname } from "next/navigation";
-import SignInDialog from "@/components/auth/SignInDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { CiCalendar } from "react-icons/ci";
 import { IoHomeOutline, IoPodiumOutline } from "react-icons/io5";
@@ -22,6 +21,7 @@ import {
 	SheetContent,
 	SheetTrigger,
 } from "@ui/components/sheet";
+import Link from "next/link";
 
 const SideNav = ({ navPosition }): React.JSX.Element => {
 	const path = usePathname();
@@ -163,14 +163,23 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 							Log out
 						</Button>
 					) : (
-						<Button
-							className="w-full bg-neutral-500 text-base font-medium uppercase text-neutral-50"
-							onClick={() => setOpen(true)}
-						>
-							Log in
-						</Button>
+						<div className="space-y-2">
+							<SheetClose asChild>
+								<Button variant="addition" className="w-full" asChild>
+									<Link href="/login">Log in</Link>
+								</Button>
+							</SheetClose>
+							<SheetClose asChild>
+								<Button
+									variant="secondary"
+									className="w-full uppercase"
+									asChild
+								>
+									<Link href="/signup">Sign Up</Link>
+								</Button>
+							</SheetClose>
+						</div>
 					)}
-					<SignInDialog open={open} onOpenChange={setOpen} />
 				</div>
 			</SheetContent>
 		</Sheet>
