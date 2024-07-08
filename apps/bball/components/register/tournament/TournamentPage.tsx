@@ -37,9 +37,9 @@ const TournamentPage = ({ tournament, isRiseUpCustomer, user, selections }) => {
 	};
 
 	// Function to handle button click and scroll to the target element
-	const scrollToElement = () => {
-		targetRef.current.scrollIntoView({ behavior: "smooth" });
-	};
+	// const scrollToElement = () => {
+	// 	targetRef.current.scrollIntoView({ behavior: "smooth" });
+	// };
 
 	const scrollToTop = () => {
 		topRef.current.scrollIntoView({ behavior: "smooth" });
@@ -50,7 +50,7 @@ const TournamentPage = ({ tournament, isRiseUpCustomer, user, selections }) => {
 		<section ref={topRef}>
 			{registerInfo.step === 1 && (
 				<>
-					<TournamentHero onScroll={scrollToElement} />
+					{/* <TournamentHero onScroll={scrollToElement} /> */}
 					<TournamentInfo />
 					<TournamentSelection
 						onDivision={handleDivision}

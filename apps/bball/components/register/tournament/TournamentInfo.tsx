@@ -3,7 +3,7 @@ import React from "react";
 const TournamentInfo = () => {
 	return (
 		<>
-			<div className="mx-auto my-10 flex flex-col gap-14 px-10 md:gap-20 md:px-36 lg:px-44 xl:px-56">
+			<div className="mx-auto mb-10 flex flex-col gap-14 px-10 md:gap-20 md:px-36 lg:px-44 xl:px-56">
 				<p className="font-barlow mt-20 text-center text-xl md:text-2xl lg:text-4xl xl:text-5xl">
 					This summer, we are bringing together all teams in our community and
 					in other leagues to compete and determine the strongest team.
