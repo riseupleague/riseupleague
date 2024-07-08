@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import {
 	Card,
 	CardContent,
+	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
@@ -125,6 +126,9 @@ const Login = () => {
 					<CardTitle className="text-center text-3xl">
 						Log in to your account
 					</CardTitle>
+					<CardDescription>
+						In order to register, you need to create an account.
+					</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<Button

@@ -23,9 +23,9 @@ export const findUser = async (formData: FormData) => {
 	try {
 		await connectToDatabase();
 
-		const email = formData.get("email");
+		const email = formData.get("email").toString();
 
-		if (email.toString().includes("@gmail")) {
+		if (email.includes("@gmail")) {
 			return {
 				status: 422,
 				message: "Please use Gmail method above when using a Gmail account.",
@@ -45,7 +45,7 @@ export const findUser = async (formData: FormData) => {
 			};
 		}
 
-		const user = await User.findOne({ email: email.toString() });
+		const user = await User.findOne({ email });
 
 		if (!user) {
 			return {
@@ -74,9 +74,9 @@ export const createUser = async (formData: FormData) => {
 		await connectToDatabase();
 
 		const rawUserData = {
-			email: formData.get("email"),
-			password: formData.get("password"),
-			name: formData.get("name"),
+			email: formData.get("email").toString(),
+			password: formData.get("password").toString(),
+			name: formData.get("name").toString(),
 		};
 
 		const validatedUser = createUserSchema.safeParse(rawUserData);
@@ -90,14 +90,11 @@ export const createUser = async (formData: FormData) => {
 			};
 		}
 
-		const hashedPassword = await bcrypt.hash(
-			rawUserData.password.toString(),
-			10
-		);
+		const hashedPassword = await bcrypt.hash(rawUserData.password, 10);
 
 		const newUser = new User({
-			name: rawUserData.name.toString(),
-			email: rawUserData.email.toString(),
+			name: rawUserData.name,
+			email: rawUserData.email,
 			password: hashedPassword,
 			type: "email",
 		});
