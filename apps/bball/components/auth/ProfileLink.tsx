@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "@ui/components/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@ui/components/avatar";
 import { LogOut } from "lucide-react";
-import SignInDialog from "@/components/auth/SignInDialog";
 import { FaChevronDown } from "react-icons/fa6";
 import {
 	DropdownMenu,
@@ -20,20 +18,6 @@ import {
 
 const ProfileLink = ({ user }): JSX.Element => {
 	const { data: session } = useSession();
-	const [open, setOpen] = useState(false);
-
-	const openDialog = () => {
-		setOpen(true);
-	};
-
-	const closeDialog = () => {
-		setOpen(false);
-	};
-
-	const handleLogOut = () => {
-		closeDialog();
-		signOut();
-	};
 
 	return (
 		<div className="bg-transparent">
@@ -65,7 +49,6 @@ const ProfileLink = ({ user }): JSX.Element => {
 								<DropdownMenuGroup>
 									<DropdownMenuItem asChild className="cursor-pointer text-lg">
 										<Link
-											onClick={closeDialog}
 											href="/user"
 											className="flex w-full items-center gap-2 transition-all hover:opacity-80"
 										>
@@ -84,7 +67,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 
 								<DropdownMenuItem
 									className="flex w-full cursor-pointer items-center gap-2 text-lg transition-all hover:opacity-80"
-									onClick={handleLogOut}
+									onClick={() => signOut()}
 								>
 									<LogOut className="stroke-neutral-400" />
 									Log out
@@ -94,12 +77,19 @@ const ProfileLink = ({ user }): JSX.Element => {
 					</div>
 				</>
 			) : (
-				<>
-					<Button onClick={openDialog} variant="register" size="sm">
-						Log In
+				<div className="flex items-center gap-1">
+					<Button variant="register" size="sm" asChild>
+						<Link href="/login">Log In</Link>
 					</Button>
-					<SignInDialog open={open} onOpenChange={setOpen} />
-				</>
+					<Button
+						variant="signIn"
+						size="sm"
+						className="hidden uppercase sm:flex"
+						asChild
+					>
+						<Link href="/signup">Sign Up</Link>
+					</Button>
+				</div>
 			)}
 		</div>
 	);
