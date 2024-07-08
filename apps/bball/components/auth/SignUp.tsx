@@ -59,40 +59,44 @@ const SignUp = () => {
 
 		// create user
 		else {
-			const result = await createUser(userData);
+			try {
+				const result = await createUser(userData);
 
-			if (result?.status === 422) {
-				setErrors(result.errors);
+				if (result?.status === 422) {
+					setErrors(result.errors);
 
-				return toast({
-					variant: "destructive",
-					title: "Invalid fields.",
-					description: "Please see the errors indicated.",
-				});
-			}
+					return toast({
+						variant: "destructive",
+						title: "Invalid fields.",
+						description: "Please see the errors indicated.",
+					});
+				}
 
-			if (result?.status === 500) {
-				setErrors(null);
+				if (result?.status === 500) {
+					setErrors(null);
 
-				return toast({
-					variant: "destructive",
-					title:
-						"Internal server error. Please report this to @riseup.bball. Thanks!",
-					description: result.message,
-				});
-			}
+					return toast({
+						variant: "destructive",
+						title:
+							"Internal server error. Please report this to @riseup.bball. Thanks!",
+						description: result.message,
+					});
+				}
 
-			setErrors(null);
+				if (result.status === 201) {
+					setErrors(null);
 
-			if (result.status === 201) {
-				toast({
-					variant: "success",
-					title: "Logged in successfully!",
-					duration: 1500,
-				});
+					toast({
+						variant: "success",
+						title: "Logged in successfully!",
+						duration: 1500,
+					});
 
-				startTransition(() => router.push("/"));
-				startTransition(() => router.refresh());
+					window.location.href = "/";
+				}
+			} catch (error) {
+				console.log(error);
+				throw new Error(error);
 			}
 		}
 	};
