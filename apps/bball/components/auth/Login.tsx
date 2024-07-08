@@ -75,8 +75,8 @@ const Login = () => {
 		else {
 			try {
 				const result = await signIn("credentials", {
-					email: userData.get("email"),
-					password: userData.get("password"),
+					email: userData.get("email").toString(),
+					password: userData.get("password").toString(),
 					redirect: false,
 				});
 
