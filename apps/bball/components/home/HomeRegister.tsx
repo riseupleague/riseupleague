@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import SignInDialog from "../auth/SignInDialog";
 import { useState } from "react";
+import Image from "next/image";
 
 const HomeRegister = (): JSX.Element => {
 	const { data: session } = useSession();
@@ -23,7 +24,7 @@ const HomeRegister = (): JSX.Element => {
 						Register Now
 					</Button>
 				) : (
-					<Link href="/register?info=true" className="w-full">
+					<Link href="/register/tournament" className="w-full">
 						<Button className="w-full">Register Now</Button>
 					</Link>
 				)}

@@ -1,70 +1,43 @@
 import mongoose from "mongoose";
-import Team from "@/api-helpers/models/Team";
-import Division from "@/api-helpers/models/Division";
-import Season from "@/api-helpers/models/Season";
-import Game from "@/api-helpers/models/Game";
 
 const Schema = mongoose.Schema;
 
 const tournamentPlayerSchema = new Schema({
 	createdAt: { type: Date, default: Date.now }, // Added field to track creation date
-	freeAgent: {
-		type: Boolean,
-	},
-	agreeToRefundPolicy: {
-		type: Boolean,
-	},
-	agreeToTerms: {
-		type: Boolean,
-	},
-	receiveNews: {
-		type: Boolean,
-	},
-	customerId: {
-		type: String,
-	},
+
 	playerName: {
 		type: String,
 		required: true,
 	},
-	playerImage: {
-		type: {
-			id: String,
-			image: String,
-		},
-	},
-	instagram: {
-		type: String,
-	},
+
 	jerseyNumber: {
 		type: Number,
 	},
-	jerseyNumberTwo: {
-		type: Number,
-	},
-	jerseyNumberThree: {
-		type: Number,
-	},
+
 	jerseySize: {
 		type: String,
 	},
 	jerseyName: {
 		type: String,
 	},
-	team: {
+	tournamentTeam: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Team",
+		ref: "TournamentTeam",
 	},
 	teamCaptain: {
 		type: Boolean,
 	},
-	division: {
+	tournamentDivision: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Division",
+		ref: "TournamentDivision",
 	},
-	season: {
+	tournamentLevel: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: "Season",
+		ref: "TournamentLevel",
+	},
+	tournament: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Tournament",
 	},
 	user: {
 		type: mongoose.Schema.Types.ObjectId,

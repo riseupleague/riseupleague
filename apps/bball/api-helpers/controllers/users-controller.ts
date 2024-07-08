@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Season from "@/api-helpers/models/Season";
 import User from "@/api-helpers/models/User";
 import { connectToDatabase } from "@/api-helpers/utils";
+import Tournament from "@/api-helpers/models/Tournament";
 
 /**
  * Adds a new user to the database.
@@ -122,6 +123,29 @@ export const getCurrentAndRegisterUserPlayers = async (email: string) => {
 		});
 
 		return NextResponse.json({ user, season, registerSeason });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieves current season, register season, and user information based on the provided email.
+ *
+ * @param {string} email - The email of the user
+ * @return {Promise<object>} A Promise that resolves to an object containing user, season, and registerSeason information
+ */
+export const getCurrentAndRegisterUserTournament = async (email: string) => {
+	try {
+		const tournament = await Tournament.findOne({ active: true });
+		const registerTournament = await Tournament.findOne({ register: true });
+
+		const user = await User.findOne({ email }).populate("tournament");
+
+		return NextResponse.json({ user, tournament, registerTournament });
 	} catch (error) {
 		console.error("Error:", error);
 		return NextResponse.json(

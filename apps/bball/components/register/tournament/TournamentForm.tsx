@@ -14,7 +14,7 @@ import Link from "next/link";
 
 type TeamFormValues = z.infer<typeof createTeamTournamentSchema>;
 
-const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
+const TournamentForm = ({ registerInfo, setRegisterInfo, onScrollToTop }) => {
 	const {
 		register,
 		handleSubmit,
@@ -23,26 +23,23 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 	} = useForm<TeamFormValues>({
 		resolver: zodResolver(createTeamTournamentSchema),
 		defaultValues: {
-			tournamentLevel: registerInfo?.teamDetails?.tournamentLevel || "",
 			teamName: registerInfo?.teamDetails?.teamName || "",
 			teamNameShort: registerInfo?.teamDetails?.teamNameShort || "",
-			teamCaptainName: registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			instagram: registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			phoneNumber: registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			teamCaptainJerseyName:
-				registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			teamCaptainJerseyNumber:
-				registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			teamCaptainJerseySize:
-				registerInfo?.teamCaptainDetails?.teamNameShort || "",
-			roster: registerInfo?.roster,
+			teamCaptainName: registerInfo?.teamCaptainDetails?.playerName || "",
+			instagram: registerInfo?.teamCaptainDetails?.instagram || "",
+			phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber || "",
+			// teamCaptainJerseyName: registerInfo?.teamCaptainDetails?.jerseyName || "",
+			// teamCaptainJerseyNumber:
+			// 	registerInfo?.teamCaptainDetails?.jerseyNumber || "",
+			// teamCaptainJerseySize: registerInfo?.teamCaptainDetails?.jerseySize || "",
+			// roster: registerInfo?.roster,
 		},
 	});
 
-	const { fields, append } = useFieldArray({
-		control,
-		name: "roster",
-	});
+	// const { fields, append } = useFieldArray({
+	// 	control,
+	// 	name: "roster",
+	// });
 
 	const onSubmit: SubmitHandler<TeamFormValues> = (data) => {
 		console.log("data:", data);
@@ -50,29 +47,26 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 		const teamDetails = {
 			teamName: data.teamName,
 			teamNameShort: data.teamNameShort,
-			tournamentLevel: data.tournamentLevel,
+			tournamentLevel: registerInfo.division.level,
 		};
 
 		const teamCaptainDetails = {
 			playerName: data.teamCaptainName,
 
 			instagram: data.instagram,
-			jerseySize: data.teamCaptainJerseySize,
-			jerseyName: data.teamCaptainJerseyName,
-			jerseyNumber: data.teamCaptainJerseyNumber,
+
 			phoneNumber: data.phoneNumber,
 		};
 
-		const roster = [...data.roster];
+		// const roster = [...data.roster];
 
 		setRegisterInfo({
 			...registerInfo,
 			teamDetails,
 			teamCaptainDetails,
-			roster,
 			step: 3,
 		});
-		console.log(errors);
+		onScrollToTop();
 	};
 
 	// const handlePlayerNameChange = (index, value) => {
@@ -81,49 +75,36 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 	// 	);
 	// 	setPlayers(newPlayers);
 	// };
-	const addPlayer = () => {
-		append({
-			id: fields.length + 1,
-			name: "",
-			jerseySize: "",
-			jerseyName: "",
-			jerseyNumber: "",
-		});
-	};
+	// const addPlayer = () => {
+	// 	append({
+	// 		id: fields.length + 1,
+	// 		name: "",
+	// 		jerseySize: "",
+	// 		jerseyName: "",
+	// 		jerseyNumber: "",
+	// 	});
+	// };
 
 	console.log(errors);
 
 	return (
 		<section>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<h3 className="mb-6">Skill Level</h3>
+				<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
+					<p className="text-2xl font-semibold uppercase">
+						City: {registerInfo.division.city}
+					</p>
+					<p className="text-2xl font-semibold uppercase">
+						Gym: {registerInfo.division.location}
+					</p>
 
-				<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 ">
-					<div className="space-y-3">
-						<label htmlFor="tournamentLevel" className="text-xl uppercase">
-							What Skill level do you want to join in?{" "}
-						</label>
-						<select
-							{...register("tournamentLevel", {
-								required: "Jersey size is required",
-							})}
-							id="tournamentLevel"
-							className="focus:ring-ring ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex w-full items-center rounded-md border border-neutral-300 bg-[#111827] p-4 text-lg font-normal transition-colors file:border-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-						>
-							<option value="" disabled>
-								Select skill level
-							</option>
+					<p className="text-2xl font-semibold uppercase">
+						Division: {registerInfo.division.tournamentDivisionName}
+					</p>
 
-							{registerInfo?.division?.tournamentLevel.map((level) => (
-								<option key={level._id} value={level._id}>
-									{level.tournamentLevelName}
-								</option>
-							))}
-						</select>
-						{errors.tournamentLevel && (
-							<p className="text-red-600">{errors.tournamentLevel.message}</p>
-						)}
-					</div>
+					<p className="text-2xl font-semibold uppercase">
+						Level: {registerInfo.division.level}
+					</p>
 				</div>
 
 				<h3 className="mb-6">Team Details</h3>
@@ -220,7 +201,7 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 							with you that way we are always on the same page.
 						</p>
 					</div>
-					<div className="space-y-3">
+					{/* <div className="space-y-3">
 						<label
 							htmlFor="teamCaptainJerseySize"
 							className="text-xl uppercase"
@@ -315,10 +296,10 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 							Please ensure this is the number that your want. This cannot be
 							changed later.
 						</p>
-					</div>
+					</div> */}
 				</div>
 
-				<div className="mb-6">
+				{/* <div className="mb-6">
 					<h3>Build Your Roster</h3>
 					<p className="text-lg uppercase">Team Name:</p>
 					<p className="text-lg uppercase">
@@ -462,10 +443,12 @@ const TournamentForm = ({ registerInfo, setRegisterInfo }) => {
 							Add Another Player
 						</Button>
 					</div>
-					{errors.roster && (
-						<p className="text-red-600">{errors.roster.message}</p>
+					{errors?.roster && (
+						<p className="text-red-600">
+							{errors?.roster?.message || errors?.roster?.root?.message}
+						</p>
 					)}
-				</div>
+				</div> */}
 
 				<div className="mt-4 flex justify-between">
 					<Button

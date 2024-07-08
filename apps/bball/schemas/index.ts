@@ -26,7 +26,6 @@ export const buildTournamentRosterSchema = z
 	.min(4, "At least 4 additional players are required");
 
 export const createTeamTournamentSchema = z.object({
-	tournamentLevel: z.string().nonempty("Skill Level is required"),
 	teamName: z.string().nonempty("Team Name is required"),
 	teamNameShort: z
 		.string()
@@ -40,23 +39,53 @@ export const createTeamTournamentSchema = z.object({
 		.refine(validatePhoneNumber, {
 			message: "Invalid phone number format",
 		}),
-	teamCaptainJerseySize: z.string().nonempty("Jersey Size is required"),
-	teamCaptainJerseyName: z
-		.string()
-		.nonempty("Jersey Name is required")
-		.max(
-			12,
-			"Your jersey name is too long. Choose a jersey name of up to 12 characters."
-		),
-	teamCaptainJerseyNumber: z
-		.string()
-		.nonempty("Jersey number is required")
-		.max(3, "Please limit to three digits")
-		.refine(validateJerseyNumber, {
-			message: "Please input a number",
-		}),
-	roster: buildTournamentRosterSchema,
+	// teamCaptainJerseySize: z.string().nonempty("Jersey Size is required"),
+	// teamCaptainJerseyName: z
+	// 	.string()
+	// 	.nonempty("Jersey Name is required")
+	// 	.max(
+	// 		12,
+	// 		"Your jersey name is too long. Choose a jersey name of up to 12 characters."
+	// 	),
+	// teamCaptainJerseyNumber: z
+	// 	.string()
+	// 	.nonempty("Jersey number is required")
+	// 	.max(3, "Please limit to three digits")
+	// 	.refine(validateJerseyNumber, {
+	// 		message: "Please input a number",
+	// 	}),
+	// roster: buildTournamentRosterSchema,
 });
+// .superRefine((data, ctx) => {
+// 	const jerseyNumberCounts = {};
+
+// 	// Include the team captain's jersey number in the counts
+// 	const allPlayers = [
+// 		{ jerseyNumber: data.teamCaptainJerseyNumber },
+// 		...data.roster,
+// 	];
+
+// 	allPlayers.forEach((player, index) => {
+// 		if (jerseyNumberCounts[player.jerseyNumber]) {
+// 			jerseyNumberCounts[player.jerseyNumber]++;
+// 		} else {
+// 			jerseyNumberCounts[player.jerseyNumber] = 1;
+// 		}
+// 	});
+
+// 	allPlayers.forEach((player, index) => {
+// 		if (jerseyNumberCounts[player.jerseyNumber] > 1) {
+// 			ctx.addIssue({
+// 				code: z.ZodIssueCode.custom,
+// 				message: `Duplicate jersey number: ${player.jerseyNumber} found`,
+// 				path:
+// 					index === 0
+// 						? ["teamCaptainJerseyNumber"]
+// 						: ["roster", index - 1, "jerseyNumber"],
+// 			});
+// 		}
+// 	});
+// });
 
 export const createTeamSchema = z.object({
 	teamName: z.string().nonempty("Team Name is required"),

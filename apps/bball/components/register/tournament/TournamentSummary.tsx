@@ -21,7 +21,12 @@ const checkboxSchema = z.object({
 	receiveNews: z.boolean().optional(),
 });
 
-const TournamentSummary = ({ registerInfo, setRegisterInfo }) => {
+const TournamentSummary = ({
+	registerInfo,
+	setRegisterInfo,
+	isRiseUpCustomer,
+	user,
+}) => {
 	const [isLoader, setIsLoader] = useState(false);
 	const [isStripeError, setIsStripeError] = useState(false);
 	const [submitType, setSubmitType] = useState("");
@@ -39,102 +44,73 @@ const TournamentSummary = ({ registerInfo, setRegisterInfo }) => {
 	});
 
 	const onSubmit = async (data: z.infer<typeof checkboxSchema>) => {
-		const unpaidTeamObject = {
-			...registerInfo,
-			checkboxes: data,
+		console.log("summary:", registerInfo);
+
+		const metadata = {
+			payment: "full",
+			status: "tournament",
+			email: user.email,
+			userId: user._id,
+			division: registerInfo?.division._id,
+			tournament: registerInfo?.division.tournament,
+			level: registerInfo?.division.level,
+			teamName: registerInfo?.teamDetails?.teamName,
+			teamNameShort: registerInfo?.teamDetails?.teamNameShort,
+			playerName: registerInfo?.teamCaptainDetails?.playerName,
+			instagram: registerInfo?.teamCaptainDetails?.instagram,
+			phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber,
 		};
-
-		// await saveUnpaidTeam(user._id, unpaidTeamObject);
-
-		// if (registerInfo?.addFreeAgent === "none") {
-		// 	const metadata = {
-		// 		status: "createTeam",
-		// 		payment: "full",
-		// 		email: user.email,
-		// 		userId: user._id,
-		// 		division: registerInfo?.division._id,
-		// 		divisionName: registerInfo?.division.divisionName,
-		// 		teamName: registerInfo?.teamDetails?.teamName,
-		// 		playerName: registerInfo?.teamCaptainDetails?.playerName,
-		// 		instagram: registerInfo?.teamCaptainDetails?.instagram,
-		// 		phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber,
-		// 		paid: submitType === "team" ? true : false,
-		// 	};
-		// 	if (submitType === "player") {
-		// 		// Handle player discount submission
-		// 		const itemPriceId = registerInfo.division?.earlyBirdOpen
-		// 			? registerInfo.division?.earlyBirdId
-		// 			: registerInfo.division?.regularPriceId;
-
-		// 		redirectToCheckout([{ price: itemPriceId, quantity: 1 }], metadata);
-		// 	} else if (submitType === "team") {
-		// 		// Handle team discount submission
-		// 		const itemPriceId = registerInfo.division?.earlyBirdOpen
-		// 			? registerInfo.division?.earlyBirdTeamPriceId
-		// 			: registerInfo.division?.regularTeamPriceId;
-
-		// 		redirectToCheckout([{ price: itemPriceId, quantity: 1 }], metadata);
-		// 	}
-		// } else {
-		// 	const metadata = {
-		// 		status: "createTeam",
-		// 		payment: "full",
-		// 		email: user.email,
-		// 		userId: user._id,
-		// 		division: registerInfo?.division._id,
-		// 		divisionName: registerInfo?.division.divisionName,
-		// 		teamName: registerInfo?.teamDetails?.teamName,
-		// 		playerName: registerInfo?.teamCaptainDetails?.playerName,
-		// 		instagram: registerInfo?.teamCaptainDetails?.instagram,
-		// 		phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber,
-
-		// 		paid: registerInfo?.addFreeAgent === "false" ? true : false,
-		// 	};
-
-		// 	if (registerInfo?.addFreeAgent === "false") {
-		// 		// Handle team discount submission
-		// 		const itemPriceId = registerInfo.division?.earlyBirdOpen
-		// 			? registerInfo.division?.earlyBirdTeamPriceId
-		// 			: registerInfo.division?.regularTeamPriceId;
-
-		// 		redirectToCheckout([{ price: itemPriceId, quantity: 1 }], metadata);
-		// 	} else if (registerInfo?.addFreeAgent === "true") {
-		// 		// Handle player discount submission
-		// 		const itemPriceId = registerInfo.division?.earlyBirdOpen
-		// 			? registerInfo.division?.earlyBirdId
-		// 			: registerInfo.division?.regularPriceId;
-
-		// 		redirectToCheckout([{ price: itemPriceId, quantity: 1 }], metadata);
-		// 	}
-		// }
+		console.log(
+			"redirecttocheckout:",
+			[
+				{
+					price: isRiseUpCustomer
+						? registerInfo.price.riseUpDiscountPriceId
+						: registerInfo.price.regularPriceId,
+					quantity: 1,
+				},
+			],
+			metadata
+		);
+		redirectToCheckout(
+			[
+				{
+					price: isRiseUpCustomer
+						? registerInfo.price.riseUpDiscountPriceId
+						: registerInfo.price.regularPriceId,
+					quantity: 1,
+				},
+			],
+			metadata
+		);
 	};
 
-	// const redirectToCheckout = async (items, formObject) => {
-	// 	try {
-	// 		setIsLoader(true);
+	const redirectToCheckout = async (items, formObject) => {
+		try {
+			setIsLoader(true);
 
-	// 		const response = await fetch("/api/checkout-sessions", {
-	// 			method: "POST",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 			body: JSON.stringify({ items, formObject: JSON.stringify(formObject) }),
-	// 		});
+			const response = await fetch("/api/checkout-sessions", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ items, formObject: JSON.stringify(formObject) }),
+			});
 
-	// 		if (response.ok) {
-	// 			const { session } = await response.json();
-	// 			const stripe = await getStripe();
-	// 			setIsLoader(false);
-	// 			await stripe.redirectToCheckout({ sessionId: session.id });
-	// 		} else {
-	// 			setIsLoader(false);
-	// 			setIsStripeError(true);
-	// 			console.error("Failed to create Stripe checkout session:", response);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error("Error creating Stripe checkout session:", error);
-	// 	}
-	// };
+			if (response.ok) {
+				const { session } = await response.json();
+				const stripe = await getStripe();
+				setIsLoader(false);
+				await stripe.redirectToCheckout({ sessionId: session.id });
+			} else {
+				setIsLoader(false);
+				setIsStripeError(true);
+				console.error("Failed to create Stripe checkout session:", response);
+			}
+		} catch (error) {
+			console.error("Error creating Stripe checkout session:", error);
+		}
+	};
 
 	return (
 		<section>
@@ -159,9 +135,17 @@ const TournamentSummary = ({ registerInfo, setRegisterInfo }) => {
 					</li>
 				</ul>
 			</div>
-			<div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
+			{/* <div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
 				<h4 className="mb-5 text-xl uppercase">Roster</h4>
 				<ul className="grid grid-cols-1 gap-3  md:grid-cols-2">
+					<li>
+						<p>Team Captain:: {registerInfo.teamCaptainDetails?.playerName}</p>
+						<p>Jersey Name: {registerInfo.teamCaptainDetails?.jerseyName}</p>
+						<p>
+							Jersey Number: {registerInfo.teamCaptainDetails?.jerseyNumber}
+						</p>
+						<p>Jersey Size: {registerInfo.teamCaptainDetails?.jerseySize}</p>
+					</li>
 					{registerInfo?.roster.map((player) => (
 						<li key={player.id}>
 							<p>
@@ -173,7 +157,10 @@ const TournamentSummary = ({ registerInfo, setRegisterInfo }) => {
 						</li>
 					))}
 				</ul>
-			</div>
+				<p className="mt-10 text-xl font-semibold">
+					Total Players: {registerInfo?.roster?.length + 1}
+				</p>
+			</div> */}
 
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
@@ -261,6 +248,30 @@ const TournamentSummary = ({ registerInfo, setRegisterInfo }) => {
 							I want to receive emails for the latest news about Rise Up.
 						</Label>
 					</div>
+
+					{isRiseUpCustomer ? (
+						<div className="mt-10">
+							<p className="text-xl">Total Price:</p>
+							<p className="text-red-500 line-through">
+								${registerInfo.price.regularPrice}
+							</p>
+
+							<p className="text-2xl font-semibold">
+								${registerInfo.price.riseUpDiscountPrice}{" "}
+								<span className="text-lg">+ tax</span>
+							</p>
+							<p>Rise up discount!</p>
+						</div>
+					) : (
+						<div className="mt-10">
+							<p className="text-xl">Total Price:</p>
+
+							<p className="text-2xl font-semibold">
+								${registerInfo.price.regularPrice}{" "}
+								<span className="text-lg">+ tax</span>
+							</p>
+						</div>
+					)}
 				</div>
 				<div className="mt-4 flex justify-between">
 					<Button

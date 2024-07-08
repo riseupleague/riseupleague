@@ -15,6 +15,7 @@ type Division = {
 	_id: string;
 	divisionName: string;
 	season: string; // Assuming season is a string (ObjectId.toString())
+	tournament: boolean;
 	teams: any[]; // An array of Team objects
 	location: string;
 	day: string;
