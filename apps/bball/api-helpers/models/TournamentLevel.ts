@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-import Team from "@/api-helpers/models/Team";
-import Game from "@/api-helpers/models/Game";
-import Season from "@/api-helpers/models/Season";
 
 const Schema = mongoose.Schema;
 
@@ -11,12 +8,16 @@ const tournamentLevelSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Tournament",
 	},
-	teams: [{ type: mongoose.Schema.Types.ObjectId, ref: "Team" }],
-	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
-	teamColors: { type: Array },
-	price: { type: String },
-	priceId: { type: String },
-	divisionColor: { type: String },
+	tournamentDivision: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "TournamentDivision",
+	},
+	tournamentTeams: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: "TournamentTeam" },
+	],
+	tournamentGames: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: "TournamentGame" },
+	],
 });
 
 export default mongoose.models.TournamentLevel ||

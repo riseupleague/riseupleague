@@ -26,6 +26,12 @@ export const connectToDatabase = async () => {
 			require("./models/Season");
 			require("./models/Team");
 			require("./models/User");
+			require("./models/Tournament");
+			require("./models/TournamentDivision");
+			require("./models/TournamentLevel");
+			require("./models/TournamentTeam");
+			require("./models/TournamentPlayer");
+
 			return mongoose;
 		});
 	}

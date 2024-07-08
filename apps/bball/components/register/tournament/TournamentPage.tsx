@@ -1,30 +1,82 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import TournamentDivision from "@/api-helpers/models/TournamentDivision";
 import TournamentHero from "@/components/register/tournament/TournamentHero";
 import TournamentInfo from "@/components/register/tournament/TournamentInfo";
 import TournamentSelection from "@/components/register/tournament/TournamentSelection";
 import TournamentForm from "./TournamentForm";
-import TournamentDivision from "@/api-helpers/models/TournamentDivision";
-const TournamentPage = ({ tournament }) => {
-	const [division, setDivision] = useState({});
+import TournamentSummary from "@/components/register/tournament/TournamentSummary";
+const TournamentPage = ({ tournament, isRiseUpCustomer, user, selections }) => {
+	const userDivisions = [];
+	const [registerInfo, setRegisterInfo] = useState({
+		step: 1,
+		roster: [],
+		division: {},
+		price: {
+			regularPrice: tournament.regularPrice,
+			regularPriceId: tournament.regularPriceId,
+			riseUpDiscountPrice: tournament.riseUpDiscountPrice,
+			riseUpDiscountPriceId: tournament.riseUpDiscountPriceId,
+			otherLeagueDiscountPrice: tournament.otherLeagueDiscountPrice,
+			otherLeagueDiscountPriceId: tournament.otherLeagueDiscountPriceId,
+		},
+	});
+
+	const targetRef = useRef(null);
+	const topRef = useRef(null);
 	const handleDivision = (selectedDivision) => {
+		console.log("selectedDivision:", selectedDivision);
 		const foundDivision = tournament.tournamentDivisions.find(
-			(tournamentDiv) => tournamentDiv._id === selectedDivision
+			(tournamentDiv) => {
+				return tournamentDiv._id.toString() === selectedDivision;
+			}
 		);
-		setDivision(foundDivision);
+
+		setRegisterInfo({ ...registerInfo, step: 2, division: foundDivision });
+		scrollToTop();
 	};
+
+	// Function to handle button click and scroll to the target element
+	// const scrollToElement = () => {
+	// 	targetRef.current.scrollIntoView({ behavior: "smooth" });
+	// };
+
+	const scrollToTop = () => {
+		topRef.current.scrollIntoView({ behavior: "smooth" });
+	};
+
+	console.log(registerInfo);
 	return (
-		<>
-			{Object.keys(division).length > 0 ? (
-				<TournamentForm division={division} setDivision={setDivision} />
-			) : (
+		<section ref={topRef}>
+			{registerInfo.step === 1 && (
 				<>
-					<TournamentHero />
+					{/* <TournamentHero onScroll={scrollToElement} /> */}
 					<TournamentInfo />
-					<TournamentSelection onDivision={handleDivision} />
+					<TournamentSelection
+						onDivision={handleDivision}
+						targetRef={targetRef}
+						userDivisions={userDivisions}
+						selections={selections}
+					/>
 				</>
 			)}
-		</>
+
+			{registerInfo.step === 2 && (
+				<TournamentForm
+					registerInfo={registerInfo}
+					setRegisterInfo={setRegisterInfo}
+					onScrollToTop={scrollToTop}
+				/>
+			)}
+			{registerInfo.step === 3 && (
+				<TournamentSummary
+					registerInfo={registerInfo}
+					setRegisterInfo={setRegisterInfo}
+					isRiseUpCustomer={isRiseUpCustomer}
+					user={user}
+				/>
+			)}
+		</section>
 	);
 };
 

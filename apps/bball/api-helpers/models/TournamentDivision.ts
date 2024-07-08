@@ -1,8 +1,5 @@
 import mongoose from "mongoose";
-import Team from "@/api-helpers/models/Team";
-import Game from "@/api-helpers/models/Game";
-import Season from "@/api-helpers/models/Season";
-
+import TournamentLevel from "./TournamentLevel";
 const Schema = mongoose.Schema;
 
 const tournamentDivisionSchema = new Schema({
@@ -11,11 +8,14 @@ const tournamentDivisionSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Tournament",
 	},
-	tournamentSubDivision: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "TournamentSubDivision",
-	},
-	location: { type: String, required: true },
+	tournamentTeams: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: "TournamentTeam" },
+	],
+	tournamentGames: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: "TournamentGame" },
+	],
+	level: { type: String, required: true },
+	location: { type: String },
 	city: { type: String },
 });
 

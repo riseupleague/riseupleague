@@ -77,6 +77,13 @@ const cardData = [
 		imgAlt: "Profile Player",
 		link: "/user/player",
 	},
+	{
+		title: "My Tournament",
+		description: "Tournament information and game schedules.",
+		imgSrc: "/images/profile/profile-player.svg",
+		imgAlt: "Profile Player",
+		link: "/user/tournament",
+	},
 	// {
 	// 	title: "Season registration",
 	// 	description: "Explore upcoming, and previous seasons",

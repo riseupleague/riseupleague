@@ -15,14 +15,17 @@ export async function POST(req: Request) {
 
 	const { items, formObject } = await req.json();
 	const parsedFormObject = JSON.parse(formObject);
-
+	console.log("checkoutsession:", items, parsedFormObject);
 	try {
 		if (parsedFormObject.payment === "full") {
 			const session = await stripe.checkout.sessions.create({
 				mode: "payment",
 				payment_method_types: ["card"],
 				line_items: items ?? [],
-				success_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+				success_url:
+					parsedFormObject.status === "tournament"
+						? `${process.env.NEXT_PUBLIC_API_BASE_URL}success/tournament/${parsedFormObject.division}`
+						: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
 				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
 				automatic_tax: {
 					enabled: true,

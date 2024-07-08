@@ -10,6 +10,7 @@ import HomeFaq from "@/components/home/HomeFaq";
 import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Hero from "@/components/home/Hero";
+import TournamentPromo from "@/components/home/TournamentPromo";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -20,7 +21,8 @@ const Page = async (): Promise<JSX.Element> => {
 				<SecondaryHeader />
 			</Suspense>
 
-			<Hero />
+			{/* <Hero /> */}
+			<TournamentPromo />
 
 			<HomeRegister />
 

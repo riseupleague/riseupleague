@@ -1,13 +1,20 @@
 import mongoose from "mongoose";
-import Division from "@/api-helpers/models/Division";
-
+import TournamentDivision from "./TournamentDivision";
 const Schema = mongoose.Schema;
 
 const tournamentSchema = new Schema({
 	tournamentName: { type: String, required: true },
+	regularPrice: { type: String, required: true },
+	regularPriceId: { type: String, required: true },
+	riseUpDiscountPrice: { type: String, required: true },
+	riseUpDiscountPriceId: { type: String, required: true },
+	otherLeagueDiscountPrice: { type: String, required: true },
+	otherLeagueDiscountPriceId: { type: String, required: true },
 	active: { type: Boolean },
 	register: { type: Boolean },
-	divisions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Division" }],
+	tournamentDivisions: [
+		{ type: mongoose.Schema.Types.ObjectId, ref: "TournamentDivision" },
+	],
 });
 
 export default mongoose.models.Tournament ||
