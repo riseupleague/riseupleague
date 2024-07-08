@@ -38,7 +38,6 @@ const TournamentSelection = ({
 		const selectedCityAndDivisions = selections.find(
 			(selection) => selection.city === city
 		);
-		console.log(selectedCityAndDivisions);
 		setCity(selectedCityAndDivisions);
 		setSelectionStep(2);
 	};

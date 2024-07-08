@@ -25,7 +25,6 @@ const TournamentPage = ({ tournament, isRiseUpCustomer, user, selections }) => {
 	const targetRef = useRef(null);
 	const topRef = useRef(null);
 	const handleDivision = (selectedDivision) => {
-		console.log("selectedDivision:", selectedDivision);
 		const foundDivision = tournament.tournamentDivisions.find(
 			(tournamentDiv) => {
 				return tournamentDiv._id.toString() === selectedDivision;
@@ -45,7 +44,6 @@ const TournamentPage = ({ tournament, isRiseUpCustomer, user, selections }) => {
 		topRef.current.scrollIntoView({ behavior: "smooth" });
 	};
 
-	console.log(registerInfo);
 	return (
 		<section ref={topRef}>
 			{registerInfo.step === 1 && (
