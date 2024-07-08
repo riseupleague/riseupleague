@@ -8,7 +8,7 @@ const TournamentPromo = async () => {
 	const session = await getServerSession();
 
 	return (
-		<div className="relative mt-20 h-[500px] lg:h-[750px] xl:h-[1000px] ">
+		<div className="relative h-[500px] lg:h-[750px] xl:h-[1000px] ">
 			<div className="absolute inset-0">
 				<Image
 					src="/images/tournament/tournament-of-power-banner.jpg"
