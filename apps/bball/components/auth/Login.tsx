@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import {
 	Card,
 	CardContent,
@@ -27,6 +27,9 @@ const Login = () => {
 	const [userFound, setUserFound] = useState(false);
 	const [isPending, startTransition] = useTransition();
 	const [errors, setErrors] = useState(null);
+
+	const { status, data: session } = useSession();
+	if (session || session?.user) router.push("/");
 
 	const handleLogin = async (userData: FormData) => {
 		// finding user first
