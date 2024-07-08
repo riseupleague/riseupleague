@@ -101,7 +101,8 @@ const Login = () => {
 
 					toast({
 						variant: "success",
-						title: "Logged in successfully!",
+						title: "Logged in successfully.",
+						description: "Welcome back to Rise Up Basketball 🏀",
 						duration: 1500,
 					});
 
