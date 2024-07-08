@@ -99,15 +99,17 @@ const Login = () => {
 				if (result.status === 200) {
 					setErrors(null);
 
-					toast({
-						variant: "success",
-						title: "Logged in successfully.",
-						description: "Welcome back to Rise Up Basketball 🏀",
-						duration: 1500,
-					});
+					window.location.href = "/";
 
-					startTransition(() => router.push("/"));
-					startTransition(() => router.refresh());
+					// toast({
+					// 	variant: "success",
+					// 	title: "Logged in successfully.",
+					// 	description: "Welcome back to Rise Up Basketball 🏀",
+					// 	duration: 1500,
+					// });
+
+					// startTransition(() => router.push("/"));
+					// startTransition(() => router.refresh());
 				}
 			} catch (e) {
 				console.error(e);
