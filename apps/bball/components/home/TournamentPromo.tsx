@@ -1,10 +1,14 @@
 import { Button } from "@ui/components/button";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { getServerSession } from "next-auth";
 
-const TournamentHero = ({ onScroll }) => {
+const TournamentPromo = async () => {
+	const session = await getServerSession();
+
 	return (
-		<div className="relative h-[500px] lg:h-[750px] xl:h-[1000px]">
+		<div className="relative h-[500px] lg:h-[750px] xl:h-[1000px] ">
 			<div className="absolute inset-0">
 				<Image
 					src="/images/tournament/tournament-of-power-banner.jpg"
@@ -30,16 +34,27 @@ const TournamentHero = ({ onScroll }) => {
 					</p>
 					<p className="text-xl lg:text-5xl">LOCATION 2: GAME6 ACADEMY</p>
 				</h2>
-				<Button
-					onClick={onScroll}
-					className="bg-primary mt-5 text-white"
-					variant="default"
-				>
-					Register Now
-				</Button>
+
+				{!session || !session.user ? (
+					<Button
+						className="bg-primary mt-5 text-white"
+						variant="default"
+						asChild
+					>
+						<Link href={"/login"}>Register Now</Link>
+					</Button>
+				) : (
+					<Button
+						className="bg-primary mt-5 text-white"
+						variant="default"
+						asChild
+					>
+						<Link href={"/register/tournament"}>Register Now</Link>
+					</Button>
+				)}
 			</div>
 		</div>
 	);
 };
 
-export default TournamentHero;
+export default TournamentPromo;

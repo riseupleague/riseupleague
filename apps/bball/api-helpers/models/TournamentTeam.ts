@@ -1,24 +1,13 @@
 import mongoose from "mongoose";
-import Player from "@/api-helpers/models/Player";
-import Game from "@/api-helpers/models/Game";
-import Division from "@/api-helpers/models/Division";
-import Season from "@/api-helpers/models/Season";
 
 const Schema = mongoose.Schema;
 
 const tournamentTeamSchema = new Schema({
 	createdAt: { type: Date, default: Date.now }, // Added field to track creation date
-	paid: { type: Boolean },
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
-	teamCode: { type: String, required: true },
 	jerseyEdition: { type: String },
-	teamBanner: { type: String },
-	teamBannerId: { type: String },
-	teamCaptain: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Player",
-	},
+
 	primaryColor: { type: String },
 	secondaryColor: { type: String },
 	tertiaryColor: { type: String },
@@ -28,7 +17,7 @@ const tournamentTeamSchema = new Schema({
 	players: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "Player",
+			ref: "TournamentPlayer",
 		},
 	],
 	seasonStatistics: [
@@ -46,7 +35,7 @@ const tournamentTeamSchema = new Schema({
 				teamId: String,
 				game: {
 					type: mongoose.Schema.Types.ObjectId,
-					ref: "Game",
+					ref: "TournamentGame",
 				},
 			},
 		},
@@ -63,22 +52,27 @@ const tournamentTeamSchema = new Schema({
 			freeThrowsMade: Number,
 		},
 	},
-	games: [
+	tournamentGames: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "Game",
+			ref: "TournamentGame",
 		},
 	],
-	division: {
+	level: { type: String, required: true },
+
+	tournamentDivision: {
 		type: Schema.Types.ObjectId,
-		ref: "Division",
+		ref: "TournamentDivision",
 		required: true,
 	},
-	season: {
+	tournament: {
 		type: Schema.Types.ObjectId,
-		ref: "Season",
+		ref: "Tournament",
 		required: true,
 	},
+	teamCaptain: { type: String, required: true },
+	instagram: { type: String },
+	phoneNumber: { type: String, required: true },
 });
 
 tournamentTeamSchema.index({ players: 1 });
