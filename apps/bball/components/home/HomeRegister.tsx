@@ -16,7 +16,7 @@ const HomeRegister = (): JSX.Element => {
 						<Link href="/login">Register Now For Fall Season</Link>
 					</Button>
 				) : (
-					<Link href="/register/tournament" className="w-full">
+					<Link href="/register/register?info=true" className="w-full">
 						<Button className="w-full">Register Now For Fall Season</Button>
 					</Link>
 				)}
