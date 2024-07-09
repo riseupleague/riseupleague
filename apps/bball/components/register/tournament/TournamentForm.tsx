@@ -42,8 +42,6 @@ const TournamentForm = ({ registerInfo, setRegisterInfo, onScrollToTop }) => {
 	// });
 
 	const onSubmit: SubmitHandler<TeamFormValues> = (data) => {
-		console.log("data:", data);
-
 		const teamDetails = {
 			teamName: data.teamName,
 			teamNameShort: data.teamNameShort,
@@ -84,8 +82,6 @@ const TournamentForm = ({ registerInfo, setRegisterInfo, onScrollToTop }) => {
 	// 		jerseyNumber: "",
 	// 	});
 	// };
-
-	console.log(errors);
 
 	return (
 		<section>

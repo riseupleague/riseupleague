@@ -44,8 +44,6 @@ const TournamentSummary = ({
 	});
 
 	const onSubmit = async (data: z.infer<typeof checkboxSchema>) => {
-		console.log("summary:", registerInfo);
-
 		const metadata = {
 			payment: "full",
 			status: "tournament",
@@ -60,18 +58,7 @@ const TournamentSummary = ({
 			instagram: registerInfo?.teamCaptainDetails?.instagram,
 			phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber,
 		};
-		console.log(
-			"redirecttocheckout:",
-			[
-				{
-					price: isRiseUpCustomer
-						? registerInfo.price.riseUpDiscountPriceId
-						: registerInfo.price.regularPriceId,
-					quantity: 1,
-				},
-			],
-			metadata
-		);
+
 		redirectToCheckout(
 			[
 				{

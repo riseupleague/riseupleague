@@ -24,8 +24,6 @@ export default async function Tournament(): Promise<JSX.Element> {
 		redirect("/");
 	}
 
-	console.log("user:", user);
-
 	const resRegisterTournament = await getRegisterTournament();
 
 	const { tournament } = await resRegisterTournament.json();
@@ -158,8 +156,6 @@ export default async function Tournament(): Promise<JSX.Element> {
 		return acc;
 	}, []);
 
-	// // Convert the object into an array of cities with divisions
-	console.log("divisions:", tournament.tournamentDivisions);
 	return (
 		<main className="font-barlow container mx-auto my-10 min-h-fit text-white">
 			<TournamentPage
