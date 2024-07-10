@@ -1,4 +1,3 @@
-import { connectToDatabase } from "@/api-helpers/utils";
 import { getAllCurrentDivisionsWithTeamNames } from "@/api-helpers/controllers/divisions-controller";
 import TeamsFilterPage from "@/components/teams/TeamsFilterPage";
 import { Metadata } from "next";
@@ -6,8 +5,6 @@ import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 
 export default async function Teams(): Promise<JSX.Element> {
-	await connectToDatabase();
-
 	const resDivisionsWithTeamNames = await getAllCurrentDivisionsWithTeamNames();
 	const { divisionsWithTeamNames } = await resDivisionsWithTeamNames.json();
 

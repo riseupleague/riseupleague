@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import FilterByDivision from "@/components/filters/FilterByDivision";
 import Link from "next/link";
@@ -12,8 +12,10 @@ import {
 	TableHeader,
 	TableRow,
 } from "@ui/components/ui/table";
+import FilterBySeason from "../filters/FilterBySeason";
 
-const StandingsTable = ({ divisions }): JSX.Element => {
+const StandingsTable = ({ seasons, divisions, season }): JSX.Element => {
+	const [selectedSeason, setSelectedSeason] = useState(season);
 	let initialDivisions = divisions;
 	let filterPlaceholder = "All Divisions";
 
@@ -50,7 +52,7 @@ const StandingsTable = ({ divisions }): JSX.Element => {
 		const selectedDivisionId = event;
 
 		// update URL query when division changes
-		router.push(`/standings?divisionId=${event}`);
+		router.push(`/standings/${selectedSeason._id}?divisionId=${event}`);
 
 		if (selectedDivisionId !== "default") {
 			// filter the divisions based on the selected division name
@@ -63,14 +65,26 @@ const StandingsTable = ({ divisions }): JSX.Element => {
 		}
 	};
 
+	const handleSeasonChange = (event) => {
+		const newSelectedSeason = seasons.find((season) => season._id === event);
+		setSelectedSeason(newSelectedSeason);
+		redirect(`/standings/${newSelectedSeason._id}`);
+	};
+
 	return (
 		<div>
-			<FilterByDivision
-				handleDivisionChange={handleDivisionChange}
-				divisions={divisionsNameAndId}
-				placeholder={filterPlaceholder}
-			/>
-
+			<div className="flex flex-col gap-4 md:flex-row">
+				<FilterBySeason
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+					currentSeason={season}
+				/>
+				<FilterByDivision
+					handleDivisionChange={handleDivisionChange}
+					divisions={divisionsNameAndId}
+					placeholder={filterPlaceholder}
+				/>
+			</div>
 			<div className="mt-5 flex flex-col gap-10">
 				{divisionsWithTeams.map((division) => (
 					<div key={division._id}>

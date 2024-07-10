@@ -117,6 +117,7 @@ export const getAllRegisterDivisions = async () => {
  *
  * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
  */
+
 export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
 		const activeSeason = await Season.findOne({ active: true }).exec();
@@ -129,6 +130,73 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 		}
 
 		const divisions = await Division.find({ season: activeSeason._id })
+			.populate({
+				path: "teams",
+				select: "teamName wins losses pointDifference teamBanner _id",
+			})
+			.select("divisionName teams city")
+			.exec();
+
+		if (!divisions.length) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		const divisionsWithStats = divisions.map((division) => {
+			const teamsWithStats = division.teams.map((team) => {
+				const { wins, losses, pointDifference, teamName, _id } = team;
+				const gp = wins + losses;
+				const wpct = gp === 0 ? 0 : wins / gp;
+
+				return {
+					teamName,
+					wins,
+					losses,
+					pointDifference,
+					gp,
+					wpct,
+					_id,
+				};
+			});
+
+			return {
+				_id: division._id,
+				divisionName: division.divisionName,
+				city: division.city,
+				teams: teamsWithStats,
+			};
+		});
+
+		return NextResponse.json({ divisionsWithStats });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieves all active divisions with their associated teams and statistics.
+ *
+ * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
+ */
+
+export const getAllDivisionsWithTeamsBySeasonId = async (seasonId) => {
+	try {
+		const selectedSeason = await Season.findById(seasonId).exec();
+
+		if (!selectedSeason) {
+			return NextResponse.json(
+				{ message: "No active season found" },
+				{ status: 404 }
+			);
+		}
+
+		const divisions = await Division.find({ season: selectedSeason._id })
 			.populate({
 				path: "teams",
 				select: "teamName wins losses pointDifference teamBanner _id",

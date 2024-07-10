@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import HomeRegister from "@/components/home/HomeRegister";
-import SecondaryHeader from "@/components/structure/header/SecondaryHeader";
+import SecondaryHeader from "@/components/structure/header-components/SecondaryHeader";
 import SecondaryHeaderSkeleton from "@/components/skeleton/SecondaryHeaderSkeleton";
 import PlayersOfTheWeekSkeleton from "@/components/skeleton/PlayersOfTheWeekSkeleton";
 import HomePlayersOfTheWeek from "@/components/home/HomePlayersOfTheWeek";
