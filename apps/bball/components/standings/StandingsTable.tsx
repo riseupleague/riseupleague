@@ -139,7 +139,7 @@ const StandingsTable = ({ seasons, divisions, season }): JSX.Element => {
 												</TableCell>
 												<TableCell className="w-1/2 p-1 text-left sm:w-auto">
 													<Link
-														href={`/teams/${team._id}`}
+														href={`/teams/team/${team._id}`}
 														className="flex w-fit hover:underline"
 													>
 														{team.teamName}

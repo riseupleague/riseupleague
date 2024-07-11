@@ -33,7 +33,7 @@ const PrimaryHeader = ({ user, activeSeasonId }): JSX.Element => {
 		},
 		{
 			label: "teams",
-			href: "/teams",
+			href: `/teams/${activeSeasonId}`,
 			icon: <RiTeamLine className="size-7 text-neutral-300" />,
 		},
 		{

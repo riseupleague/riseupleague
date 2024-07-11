@@ -30,7 +30,7 @@ export default function playerOfTheGame({ player }) {
 				<div className="mt-5 flex flex-col text-white">
 					<div className="flex justify-between">
 						<div className="flex flex-col">
-							<Link href={`/teams/${player.team._id}`}>
+							<Link href={`/teams/team/${player.team._id}`}>
 								{player.team.teamName} | #{player.jerseyNumber}
 							</Link>
 							<Link

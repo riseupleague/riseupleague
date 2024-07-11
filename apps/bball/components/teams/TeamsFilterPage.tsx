@@ -3,8 +3,12 @@
 import { useState } from "react";
 import FilterByDivision from "../filters/FilterByDivision";
 import TeamsCard from "./TeamsCard";
+import { redirect } from "next/navigation";
+import FilterBySeason from "../filters/FilterBySeason";
 
-const TeamsFilterPage = ({ divisions }): JSX.Element => {
+const TeamsFilterPage = ({ divisions, seasons, season }): JSX.Element => {
+	const [selectedSeason, setSelectedSeason] = useState(season);
+
 	const [divisionsWithTeams, setDivisionsWithTeams] = useState(divisions);
 	const divisionsNameAndId = divisions.map((division) => {
 		return {
@@ -39,12 +43,25 @@ const TeamsFilterPage = ({ divisions }): JSX.Element => {
 		}
 	};
 
+	const handleSeasonChange = (event) => {
+		const newSelectedSeason = seasons.find((season) => season._id === event);
+		setSelectedSeason(newSelectedSeason);
+		redirect(`/teams/${newSelectedSeason._id}`);
+	};
+
 	return (
 		<div>
-			<FilterByDivision
-				handleDivisionChange={handleDivisionChange}
-				divisions={divisionsNameAndId}
-			/>
+			<div className="flex flex-col gap-4 md:flex-row">
+				<FilterBySeason
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+					currentSeason={season}
+				/>
+				<FilterByDivision
+					handleDivisionChange={handleDivisionChange}
+					divisions={divisionsNameAndId}
+				/>
+			</div>
 
 			{divisionsWithTeams.map((division) => (
 				<div key={division._id}>

@@ -211,7 +211,7 @@ const ChooseSchedule = ({ team, user }): JSX.Element => {
 
 			if (data.updated) {
 				setIsLoader(false);
-				router.push(`/teams/${team._id}`); // Use router.push instead of redirect
+				router.push(`/teams/team/${team._id}`); // Use router.push instead of redirect
 			} else {
 				const { teamAddedFirst } = data;
 				setGamesMade(teamAddedFirst.division.games);
