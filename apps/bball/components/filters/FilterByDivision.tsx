@@ -31,7 +31,7 @@ const FilterByDivision = ({
 				}}
 				className="font-barlow text-lg"
 			>
-				<SelectGroup className="overflow-y-scroll">
+				<SelectGroup>
 					<SelectLabel>Division:</SelectLabel>
 					{divisions.map((division, index) => (
 						<SelectItem
