@@ -2,6 +2,7 @@ import "../../../packages/ui/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import { Toaster } from "@ui/components/toaster";
+import { NextAuthProvider } from "./Providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
@@ -18,8 +19,10 @@ const RootLayout = ({ children }): JSX.Element => {
 			lang="en"
 		>
 			<body className="font-barlow bg-neutral-900 text-neutral-100">
-				<main className="stats">{children}</main>
-				<Toaster />
+				<NextAuthProvider>
+					<main className="stats">{children}</main>
+					<Toaster />
+				</NextAuthProvider>
 			</body>
 		</html>
 	);
