@@ -2,6 +2,39 @@ import { NextResponse } from "next/server";
 import Game from "@/api-helpers/models/Game";
 import { startOfDay, addHours, endOfDay } from "date-fns";
 
+export const getAllGames = async (divisionId) => {
+	try {
+		const allGames = await Game.find({
+			division: divisionId,
+		})
+			.populate({
+				path: "division",
+				select: "divisionName",
+			})
+			.populate({
+				path: "homeTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.populate({
+				path: "awayTeam",
+				select:
+					"teamName teamNameShort primaryColor secondaryColor tertiaryColor",
+			})
+			.select("status homeTeam awayTeam division date gameName location");
+
+		return NextResponse.json({
+			allGames: allGames.sort((a, b) => (a.date > b.date ? 1 : -1)),
+		});
+	} catch (error) {
+		console.error(error);
+		return NextResponse.json(
+			{ error: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 /**
  * Retrieves all upcoming games within the next one week and returns them sorted by date.
  *
