@@ -19,10 +19,10 @@ const RootLayout = ({ children }): JSX.Element => {
 			lang="en"
 		>
 			<body className="font-barlow bg-neutral-900 text-neutral-100">
-				<NextAuthProvider>
-					<main className="stats">{children}</main>
-					<Toaster />
-				</NextAuthProvider>
+				{/* <NextAuthProvider> */}
+				<main className="stats">{children}</main>
+				<Toaster />
+				{/* </NextAuthProvider> */}
 			</body>
 		</html>
 	);

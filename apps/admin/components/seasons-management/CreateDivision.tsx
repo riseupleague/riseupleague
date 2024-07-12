@@ -45,7 +45,7 @@ const CreateDivision = ({ seasonId }): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="register" className="w-full font-semibold">
+				<Button variant="tertiary" className="w-full font-semibold">
 					Create Division
 				</Button>
 			</DialogTrigger>

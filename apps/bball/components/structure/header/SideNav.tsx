@@ -165,7 +165,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 					) : (
 						<div className="space-y-2">
 							<SheetClose asChild>
-								<Button variant="addition" className="w-full" asChild>
+								<Button variant="tertiary" className="w-full" asChild>
 									<Link href="/login">Log in</Link>
 								</Button>
 							</SheetClose>

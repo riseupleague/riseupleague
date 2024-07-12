@@ -47,7 +47,7 @@ const CreateTeam = ({ divisionId, seasonId }): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="register" className="w-full font-semibold">
+				<Button variant="tertiary" className="w-full font-semibold">
 					Create Team
 				</Button>
 			</DialogTrigger>

@@ -98,7 +98,7 @@ const AddNewPlayer = ({ teamId, seasonId, divisionId }): JSX.Element => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant="addition">Add new player</Button>
+				<Button variant="tertiary">Add new player</Button>
 			</DialogTrigger>
 			<DialogContent className="rounded border border-neutral-500 bg-neutral-900">
 				<DialogHeader>

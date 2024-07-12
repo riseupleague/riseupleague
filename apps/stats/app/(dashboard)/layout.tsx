@@ -19,11 +19,11 @@ const DashboardLayout = ({ children }): JSX.Element => {
 			lang="en"
 		>
 			<body className="font-barlow bg-neutral-900 text-neutral-100">
-				<NextAuthProvider>
-					<header>header</header>
-					<main className="stats">{children}</main>
-					<footer>footer</footer>
-				</NextAuthProvider>
+				{/* <NextAuthProvider> */}
+				<header>header</header>
+				<main className="stats">{children}</main>
+				<footer>footer</footer>
+				{/* </NextAuthProvider> */}
 
 				<Toaster />
 			</body>

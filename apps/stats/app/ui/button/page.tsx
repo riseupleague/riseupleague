@@ -1,10 +1,11 @@
 import { Separator } from "@ui/components/separator";
 import { Button, btnVariants, ButtonProps } from "@ui/components/button";
+import { Select } from "@ui/components/select";
 
-const ui = () => {
+const ButtonPage = () => {
 	return (
 		<div className="container mx-auto min-h-fit">
-			<h1>ui page</h1>
+			<h1>Button</h1>
 
 			<Separator className="my-4 border-b border-neutral-500" />
 
@@ -42,4 +43,4 @@ const ui = () => {
 	);
 };
 
-export default ui;
+export default ButtonPage;
