@@ -45,7 +45,7 @@ const JoinTeamSuccess = ({ player }) => {
 					<p>NEXT STEPS:</p>
 					<ul className="mb-4">
 						<li className="text-lg">1. Customize Your Team Jersey</li>
-						<li className="text-lg">2. Set Your Team Schedule</li>
+						{/* <li className="text-lg">2. Set Your Team Schedule</li> */}
 					</ul>
 					<p className="mb-16">
 						Visit your profile page to complete these steps. You must complete

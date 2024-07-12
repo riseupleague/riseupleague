@@ -119,38 +119,42 @@ export const createTeamSchema = z.object({
 		}),
 });
 
-export const joinTeamSchema = z.object({
-	playerName: z.string().nonempty("Player Name is required"),
-	instagram: z.string().optional(),
-	phoneNumber: z
-		.string()
-		.nonempty("Phone number is required")
-		.refine(validatePhoneNumber, {
-			message: "Invalid phone number format",
+export const joinTeamSchema = (existingJerseyNumbers: string[]) =>
+	z.object({
+		playerName: z.string().nonempty("Player Name is required"),
+		instagram: z.string().optional(),
+		phoneNumber: z
+			.string()
+			.nonempty("Phone number is required")
+			.refine(validatePhoneNumber, {
+				message: "Invalid phone number format",
+			}),
+		jerseySize: z.string().nonempty("Jersey Size is required"),
+		jerseyName: z
+			.string()
+			.nonempty("Jersey Name is required")
+			.max(
+				12,
+				"Your jersey name is too long. Choose a jersey name of up to 12 characters."
+			),
+		jerseyNumber: z
+			.string()
+			.nonempty("Jersey number is required")
+			.max(3, "Please limit to three digits")
+			.refine(validateJerseyNumber, {
+				message: "Please input a number",
+			})
+			.refine((num) => !existingJerseyNumbers.includes(num), {
+				message: "Jersey number already taken. Please choose another number.",
+			}),
+		agreeToTerms: z.boolean().refine((val) => val === true, {
+			message: "You must agree to the Terms and Conditions",
 		}),
-	jerseySize: z.string().nonempty("Jersey Size is required"),
-	jerseyName: z
-		.string()
-		.nonempty("Jersey Name is required")
-		.max(
-			12,
-			"Your jersey name is too long. Choose a jersey name of up to 12 characters."
-		),
-	jerseyNumber: z
-		.string()
-		.nonempty("Jersey number is required")
-		.max(3, "Please limit to three digits")
-		.refine(validateJerseyNumber, {
-			message: "Please input a number",
+		agreeToRefundPolicy: z.boolean().refine((val) => val === true, {
+			message: "You must agree to the Refund Policy",
 		}),
-	agreeToTerms: z.boolean().refine((val) => val === true, {
-		message: "You must agree to the Terms and Conditions",
-	}),
-	agreeToRefundPolicy: z.boolean().refine((val) => val === true, {
-		message: "You must agree to the Refund Policy",
-	}),
-	receiveNews: z.boolean().optional(),
-});
+		receiveNews: z.boolean().optional(),
+	});
 
 export const buildRosterSchema = z
 	.array(
