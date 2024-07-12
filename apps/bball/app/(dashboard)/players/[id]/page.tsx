@@ -46,7 +46,7 @@ const Players = async ({
 					<Badge variant="division">{player.division.divisionName}</Badge>
 					<h1 className="text-4xl md:text-8xl">{player?.playerName}</h1>
 					<Link
-						href={`/teams/${player?.team._id}`}
+						href={`/teams/team/${player?.team._id}`}
 						className="font-barlow block w-full text-center text-xl transition-all hover:text-neutral-200 md:text-4xl"
 					>
 						{player?.team.teamName} | #{player?.jerseyNumber}

@@ -117,6 +117,7 @@ export const getAllRegisterDivisions = async () => {
  *
  * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
  */
+
 export const getAllCurrentDivisionsWithTeams = async () => {
 	try {
 		const activeSeason = await Season.findOne({ active: true }).exec();
@@ -179,6 +180,73 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 };
 
 /**
+ * Retrieves all active divisions with their associated teams and statistics.
+ *
+ * @return {Promise} A Promise that resolves with the divisions and their associated statistics.
+ */
+
+export const getAllDivisionsWithTeamsBySeasonId = async (seasonId) => {
+	try {
+		const selectedSeason = await Season.findById(seasonId).exec();
+
+		if (!selectedSeason) {
+			return NextResponse.json(
+				{ message: "No active season found" },
+				{ status: 404 }
+			);
+		}
+
+		const divisions = await Division.find({ season: selectedSeason._id })
+			.populate({
+				path: "teams",
+				select: "teamName wins losses pointDifference teamBanner _id",
+			})
+			.select("divisionName teams city")
+			.exec();
+
+		if (!divisions.length) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		const divisionsWithStats = divisions.map((division) => {
+			const teamsWithStats = division.teams.map((team) => {
+				const { wins, losses, pointDifference, teamName, _id } = team;
+				const gp = wins + losses;
+				const wpct = gp === 0 ? 0 : wins / gp;
+
+				return {
+					teamName,
+					wins,
+					losses,
+					pointDifference,
+					gp,
+					wpct,
+					_id,
+				};
+			});
+
+			return {
+				_id: division._id,
+				divisionName: division.divisionName,
+				city: division.city,
+				teams: teamsWithStats,
+			};
+		});
+
+		return NextResponse.json({ divisionsWithStats });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
  * Retrieves all current divisions with their associated team names and colors.
  *
  * @return {Promise} A Promise that resolves with the divisions and team details.
@@ -190,6 +258,47 @@ export const getAllCurrentDivisionsWithTeamNames = async () => {
 		// Use select to retrieve only divisionName and _id fields
 		const divisionsWithTeamNames = await Division.find({
 			season: activeSeason,
+		})
+			.populate("teams", "teamName primaryColor secondaryColor tertiaryColor")
+			.select("divisionName city _id teams");
+		if (!divisionsWithTeamNames) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisionsWithTeamNames });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieves all current divisions with their associated team names and colors.
+ *
+ * @return {Promise} A Promise that resolves with the divisions and team details.
+ */
+export const getAllDivisionsWithTeamNamesBySeasonId = async (
+	seasonId: string
+) => {
+	try {
+		const selectedSeason = await Season.findById(seasonId).exec();
+
+		if (!selectedSeason) {
+			return NextResponse.json(
+				{ message: "No active season found" },
+				{ status: 404 }
+			);
+		}
+
+		// Use select to retrieve only divisionName and _id fields
+		const divisionsWithTeamNames = await Division.find({
+			season: selectedSeason,
 		})
 			.populate("teams", "teamName primaryColor secondaryColor tertiaryColor")
 			.select("divisionName city _id teams");

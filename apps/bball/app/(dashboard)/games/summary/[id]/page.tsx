@@ -1,14 +1,14 @@
 import { getGameById } from "@/api-helpers/controllers/games-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import PreviewMatchup from "@/components/games/preview/PreviewMatchup";
+import SummaryBoxScore from "@/components/games/summary/SummaryBoxScore";
 import Link from "next/link";
 import { format } from "date-fns";
-import { convertToEST } from "@/utils/convertToEST";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { isLiveGame, extractYoutubeLink } from "@utils/utils";
 import { utcToZonedTime } from "date-fns-tz";
 
-export default async function Preview({
+export default async function Summary({
 	params,
 }: {
 	params: { id: string };
@@ -19,23 +19,17 @@ export default async function Preview({
 	const resGame = await getGameById(id);
 	const { game } = await resGame.json();
 
-	// if game is done, redirect to /summary/[id] page
-	if (game?.status) redirect(`/games/summary/${game._id}`);
+	// if game hasn't started, redirect to /preview/[id] page
+	if (!game?.started) redirect(`/games/preview/${game._id}`);
 
-	let date;
-	let formattedDate;
-	let time;
+	const date = new Date(game.date);
+	const estDate = utcToZonedTime(date, "America/Toronto");
 
-	if (game.division._id === "660d6a75ab30a11b292cd290") {
-		// utc dates
-		date = new Date(game.date);
-		const utcDate = utcToZonedTime(date, "UTC");
-		formattedDate = format(utcDate, "E L/d @ h:mm a");
-	} else {
-		// convert to toronto dates
-		date = convertToEST(new Date(game.date));
-		formattedDate = format(date, "E L/d @ h:mm a");
-	}
+	const day = format(estDate, "EEE");
+	const monthDay = format(estDate, "P").slice(0, 5);
+	const time = format(estDate, "h:mm a");
+
+	const liveGame = isLiveGame(date);
 
 	return (
 		<section className="container mx-auto min-h-fit">
@@ -53,20 +47,25 @@ export default async function Preview({
 							{game.homeTeamScore}
 						</h2>
 						<Link
-							href={`/teams/${game.homeTeam?._id}`}
+							href={`/teams/team/${game.homeTeam._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
 						>
-							{game.homeTeam?.teamNameShort}
+							{game.homeTeam.teamNameShort}
 						</Link>
 						<h5>
-							{game.homeTeam?.wins} - {game.homeTeam?.losses}
+							{game.homeTeam.wins} - {game.homeTeam.losses}
 						</h5>
 					</div>
 
 					{/* game info */}
 					<div className="font-oswald my-4 flex w-full flex-col items-center text-center">
-						<h4>{formattedDate}</h4>
-						<h6>{game.location}</h6>
+						<h2 className={`${liveGame && "text-primary"} my-8`}>
+							{liveGame ? "LIVE" : "Final"}
+						</h2>
+						<h4>
+							{day} {monthDay} @ {time}
+						</h4>
+						<h5>{game.location}</h5>
 					</div>
 
 					{/* away team */}
@@ -79,22 +78,35 @@ export default async function Preview({
 							{game.awayTeamScore}
 						</h2>
 						<Link
-							href={`/teams/${game.awayTeam?._id}`}
+							href={`/teams/team/${game.awayTeam._id}`}
 							className="my-2 text-3xl font-bold hover:underline"
 						>
-							{game.awayTeam?.teamNameShort}
+							{game.awayTeam.teamNameShort}
 						</Link>
 						<h5>
-							{game.awayTeam?.wins} - {game.awayTeam?.losses}
+							{game.awayTeam.wins} - {game.awayTeam.losses}
 						</h5>
 					</div>
 				</div>
 
+				{/* video */}
+				{game?.youtubeLink && (
+					<div className="my-6 md:my-24">
+						<iframe
+							className="aspect-video w-full"
+							src={`https://www.youtube.com/embed/${extractYoutubeLink(game.youtubeLink)}`}
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowFullScreen
+							title="Embedded youtube"
+						></iframe>
+					</div>
+				)}
+
 				<hr />
 
-				{/* preview matchup */}
+				{/* box score */}
 				<div className="my-10">
-					<PreviewMatchup game={game} />
+					<SummaryBoxScore game={game} />
 				</div>
 			</div>
 		</section>
@@ -102,19 +114,7 @@ export default async function Preview({
 }
 
 export const metadata: Metadata = {
-	title: "Rise Up League | Preview",
+	title: "Rise Up League | Summary",
 	description:
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
-
-// export async function generateMetadata({ params }) {
-// 	const { id } = params;
-// 	const resGame = await getGameById(id);
-// 	const { game } = await resGame.json();
-
-// 	return {
-// 		title: `Rise Up League | ${game.gameName}`,
-// 		description:
-// 			"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
-// 	};
-// }

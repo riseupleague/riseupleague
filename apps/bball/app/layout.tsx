@@ -1,7 +1,7 @@
 import "../../../packages/ui/styles/globals.css";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
-import Header from "../components/structure/header/header";
-import Footer from "../components/structure/footer/footer";
+import Header from "../components/structure/header-components/Header";
+import Footer from "../components/structure/footer-components/Footer";
 import { NextAuthProvider } from "./Providers";
 import GoogleAnalytics from "@/components/general/GoogleAnalytics";
 import { Toaster } from "@ui/components/toaster";
@@ -37,9 +37,9 @@ const RootLayout = ({ children }: ChildrenProps): JSX.Element => {
 					<GoogleAnalytics ga_id={process.env.GOOGLE_ANALYTICS_ID} />
 				) : null}
 				<NextAuthProvider>
-					<Header />
+					{/* <Header /> */}
 					<main className="bball">{children}</main>
-					<Footer />
+					{/* <Footer /> */}
 					<Toaster />
 				</NextAuthProvider>
 			</body>

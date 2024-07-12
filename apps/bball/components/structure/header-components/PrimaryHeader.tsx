@@ -13,8 +13,75 @@ import { HiOutlineTrophy } from "react-icons/hi2";
 import { RiTeamLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 
-const PrimaryHeader = ({ user }): JSX.Element => {
+const PrimaryHeader = ({ user, activeSeasonId }): JSX.Element => {
 	const path = usePathname();
+	const headerOptions = [
+		{
+			label: "home",
+			href: "/",
+			icon: <IoHomeOutline className="size-7 text-neutral-300" />,
+		},
+		{
+			label: "schedule",
+			href: `/schedule`,
+			icon: <CiCalendar className="size-7 text-neutral-300" />,
+		},
+		{
+			label: "standings",
+			href: `/standings/${activeSeasonId}`,
+			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
+		},
+		{
+			label: "teams",
+			href: `/teams/${activeSeasonId}`,
+			icon: <RiTeamLine className="size-7 text-neutral-300" />,
+		},
+		{
+			label: "leaders",
+			href: "/leaders/stats",
+			icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
+			submenu: [
+				{
+					label: "Stats",
+					href: "/leaders/stats",
+				},
+				{
+					label: "MVP Ladder",
+					href: "/leaders/mvp-ladder",
+				},
+			],
+		},
+		{
+			label: "league",
+			icon: <CgProfile className="size-6 text-neutral-300" />,
+			submenu: [
+				{
+					label: "All Players",
+					href: "/players",
+				},
+				{
+					label: "League Rules",
+					href: "/league-rules",
+				},
+				{
+					label: "Terms and Conditions",
+					href: "/terms-and-conditions",
+				},
+				{
+					label: "Refund Policy",
+					href: "/refund-policy",
+				},
+				{
+					label: "FAQ",
+					href: "/faq",
+				},
+				{
+					label: "Contact Us",
+					href: "/contact-us",
+				},
+			],
+		},
+	];
 
 	return (
 		<nav>
@@ -61,73 +128,5 @@ const PrimaryHeader = ({ user }): JSX.Element => {
 		</nav>
 	);
 };
-
-const headerOptions = [
-	{
-		label: "home",
-		href: "/",
-		icon: <IoHomeOutline className="size-7 text-neutral-300" />,
-	},
-	{
-		label: "schedule",
-		href: `/schedule`,
-		icon: <CiCalendar className="size-7 text-neutral-300" />,
-	},
-	{
-		label: "standings",
-		href: "/standings",
-		icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
-	},
-	{
-		label: "teams",
-		href: "/teams",
-		icon: <RiTeamLine className="size-7 text-neutral-300" />,
-	},
-	{
-		label: "leaders",
-		href: "/leaders/stats",
-		icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
-		submenu: [
-			{
-				label: "Stats",
-				href: "/leaders/stats",
-			},
-			{
-				label: "MVP Ladder",
-				href: "/leaders/mvp-ladder",
-			},
-		],
-	},
-	{
-		label: "league",
-		icon: <CgProfile className="size-6 text-neutral-300" />,
-		submenu: [
-			{
-				label: "All Players",
-				href: "/players",
-			},
-			{
-				label: "League Rules",
-				href: "/league-rules",
-			},
-			{
-				label: "Terms and Conditions",
-				href: "/terms-and-conditions",
-			},
-			{
-				label: "Refund Policy",
-				href: "/refund-policy",
-			},
-			{
-				label: "FAQ",
-				href: "/faq",
-			},
-			{
-				label: "Contact Us",
-				href: "/contact-us",
-			},
-		],
-	},
-];
 
 export default PrimaryHeader;

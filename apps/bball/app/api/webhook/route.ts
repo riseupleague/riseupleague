@@ -432,32 +432,79 @@ export async function POST(req: Request) {
 				const updatedUser = await User.findOne({
 					email: metadata.email,
 				});
+				console.log("updatedUser", updatedUser);
+
 				const selectedDivision = await Division.findById(metadata.division);
-				const newPlayer = await Player.findById(metadata.playerId);
-				console.log("updatedUser:", updatedUser);
-				console.log("newPlayer:", newPlayer);
-				newPlayer.playerName = metadata.playerName;
-				newPlayer.instagram = metadata.instagram;
-				newPlayer.jerseyNumber = metadata.jerseyNumber;
-				newPlayer.jerseySize = metadata.jerseySize;
-				newPlayer.jerseyName = metadata.jerseyName;
-				newPlayer.agreeToRefundPolicy = metadata.agreeToRefundPolicy;
-				newPlayer.agreeToTerms = metadata.agreeToTerms;
-				newPlayer.receiveNews = metadata.receiveNews;
-				newPlayer.user = updatedUser._id;
+				console.log("selectedDivision", selectedDivision);
 
-				if (metadata.payment === "four") {
-					newPlayer.customerId = session.customer;
+				if (metadata.teamCaptain === true) {
+					const selectedTeam = await Team.findById(metadata.team);
+					console.log("selectedTeam", selectedTeam);
+
+					const newPlayer = new Player({
+						season: selectedTeam.season.toString(),
+						division: selectedTeam.division.toString(),
+						team: metadata.team.toString(),
+						teamCaptain: true,
+						playerName: metadata.playerName,
+						instagram: metadata.instagram,
+						jerseyNumber: metadata.jerseyNumber,
+						jerseySize: metadata.jerseySize,
+						jerseyName: metadata.jerseyName,
+						agreeToRefundPolicy: metadata.agreeToRefundPolicy,
+						agreeToTerms: metadata.agreeToTerms,
+						receiveNews: metadata.receiveNews,
+						user: updatedUser._id,
+						averageStats: {
+							points: 0,
+							rebounds: 0,
+							assists: 0,
+							blocks: 0,
+							steals: 0,
+							threesMade: 0,
+							twosMade: 0,
+							freeThrowsMade: 0,
+						},
+					});
+					console.log("newPlayer", newPlayer);
+
+					await newPlayer.save();
+					console.log("Registered player:", newPlayer);
+					selectedTeam.players = selectedTeam.players.concat(newPlayer._id);
+					await selectedTeam.save();
+					console.log("selectedTeam", selectedTeam);
+
+					updatedUser.basketball = updatedUser.basketball.concat(newPlayer._id);
+
+					await updatedUser.save();
+					console.log("updatedUser", updatedUser);
+				} else {
+					const newPlayer = await Player.findById(metadata.playerId);
+					console.log("updatedUser:", updatedUser);
+					console.log("newPlayer:", newPlayer);
+					newPlayer.playerName = metadata.playerName;
+					newPlayer.instagram = metadata.instagram;
+					newPlayer.jerseyNumber = metadata.jerseyNumber;
+					newPlayer.jerseySize = metadata.jerseySize;
+					newPlayer.jerseyName = metadata.jerseyName;
+					newPlayer.agreeToRefundPolicy = metadata.agreeToRefundPolicy;
+					newPlayer.agreeToTerms = metadata.agreeToTerms;
+					newPlayer.receiveNews = metadata.receiveNews;
+					newPlayer.user = updatedUser._id;
+
+					if (metadata.payment === "four") {
+						newPlayer.customerId = session.customer;
+					}
+					console.log("Registered player:", newPlayer);
+
+					await newPlayer.save();
+					console.log("Registered player:", newPlayer);
+					// Handle the rest of the code based on the existingPlayer
+
+					updatedUser.basketball = updatedUser.basketball.concat(newPlayer._id);
+
+					await updatedUser.save();
 				}
-				console.log("Registered player:", newPlayer);
-
-				await newPlayer.save();
-				console.log("Registered player:", newPlayer);
-				// Handle the rest of the code based on the existingPlayer
-
-				updatedUser.basketball = updatedUser.basketball.concat(newPlayer._id);
-
-				await updatedUser.save();
 
 				if (metadata.payment === "four") {
 					let schedule = await stripe.subscriptionSchedules.create({

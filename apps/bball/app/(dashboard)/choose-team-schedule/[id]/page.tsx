@@ -30,7 +30,7 @@ export default async function Jersey({
 					<h3>You already selected your schedule for the upcoming season.</h3>
 					<p className="mt-10 text-xl">
 						Please check your team page for more info:{" "}
-						<Link className="underline" href={`/teams/${team._id}`}>
+						<Link className="underline" href={`/teams/team/${team._id}`}>
 							{team.teamName}
 						</Link>
 					</p>
