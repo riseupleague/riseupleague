@@ -26,7 +26,7 @@ const JoinTeamSummary = ({ team, session }) => {
 	const [isLoader, setIsLoader] = useState(false);
 	const [isStripeError, setIsStripeError] = useState(false);
 
-	const isTeamEmpty = team.players.length === 0;
+	const teamCreatedManually = team.createdManually;
 
 	const defaultValues: PlayerFormValues = {
 		playerName: "",
@@ -39,11 +39,11 @@ const JoinTeamSummary = ({ team, session }) => {
 		agreeToRefundPolicy: false,
 		receiveNews: false,
 	};
-	console.log("team:", team);
 
 	const existingJerseyNumber = team.players
-		.filter((player) => player.jerseyNumber !== undefined)
-		.map((player) => player.jerseyNumber.toString());
+		.filter((player) => player?.jerseyNumber !== undefined && player?.jerseyNumber !== null)
+		.map((player) => player.jerseyNumber?.toString());
+
 
 	const {
 		register,
@@ -71,13 +71,13 @@ const JoinTeamSummary = ({ team, session }) => {
 
 		let metadata;
 
-		if (isTeamEmpty) {
+		if (teamCreatedManually) {
 			metadata = {
 				...playerDetails,
 				status: "joinTeam",
 				payment: "full",
 				email: session.user.email,
-				teamCaptain: true,
+				createdManually: true,
 				division: team?.division._id,
 				teamName: team?.teamName,
 				team: team?._id,
@@ -138,7 +138,7 @@ const JoinTeamSummary = ({ team, session }) => {
 
 	return (
 		<>
-			{!isTeamEmpty ? (
+			{!teamCreatedManually ? (
 				<>
 					{playerSelected._id === "" && (
 						<div>
@@ -504,7 +504,7 @@ const JoinTeamSummary = ({ team, session }) => {
 			) : (
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<h3 className="mt-10 text-3xl font-medium uppercase">
-						Fill Team Captain Details:
+						Fill Player DETAILS:
 					</h3>
 					<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
 						<div className="space-y-3">

@@ -437,7 +437,7 @@ export async function POST(req: Request) {
 				const selectedDivision = await Division.findById(metadata.division);
 				console.log("selectedDivision", selectedDivision);
 
-				if (metadata.teamCaptain === true) {
+				if (metadata.createdManually === true) {
 					const selectedTeam = await Team.findById(metadata.team);
 					console.log("selectedTeam", selectedTeam);
 
@@ -445,7 +445,6 @@ export async function POST(req: Request) {
 						season: selectedTeam.season.toString(),
 						division: selectedTeam.division.toString(),
 						team: metadata.team.toString(),
-						teamCaptain: true,
 						playerName: metadata.playerName,
 						instagram: metadata.instagram,
 						jerseyNumber: metadata.jerseyNumber,

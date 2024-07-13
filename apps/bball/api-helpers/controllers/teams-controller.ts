@@ -82,7 +82,7 @@ export const getRegisterTeamById = async (id: string) => {
 			select: "teamCaptain playerName user jerseyNumber",
 		})
 		.populate({ path: "teamCaptain", select: "playerName" })
-		.select("division teamCaptain paid teamName");
+		.select("division teamCaptain paid teamName createdManually");
 
 	if (!team) {
 		return NextResponse.json({ message: "No team found" }, { status: 404 });
