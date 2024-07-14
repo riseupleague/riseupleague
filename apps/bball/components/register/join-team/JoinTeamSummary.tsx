@@ -39,7 +39,6 @@ const JoinTeamSummary = ({ team, session }) => {
 		agreeToRefundPolicy: false,
 		receiveNews: false,
 	};
-	console.log("team:", team);
 
 	const existingJerseyNumber = team.players
 		.filter((player) => player.jerseyNumber !== undefined)
