@@ -351,6 +351,40 @@ export const getAllCurrentDivisionsNameAndId = async () => {
 	}
 };
 
+
+
+/**
+ * Retrieves all the current divisions' names and their corresponding IDs.
+ *
+ * @return {Promise<NextResponse>} A Promise that resolves to a NextResponse object.
+ * The NextResponse object contains the divisions' names and IDs if found, or an error message and status code.
+ */
+export const getAllDivisionsNameAndIdBySeasonId = async (seasonId:string) => {
+	try {
+		const activeSeason = await Season.findById(seasonId);
+		console.log("activeSeason:",activeSeason)
+		// Use select to retrieve only divisionName and _id fields
+		const divisionsNameAndId = await Division.find({
+			season: activeSeason,
+		}).select("divisionName _id");
+
+		if (!divisionsNameAndId) {
+			return NextResponse.json(
+				{ message: "No divisions found" },
+				{ status: 404 }
+			);
+		}
+
+		return NextResponse.json({ divisionsNameAndId });
+	} catch (error) {
+		console.error("Error:", error);
+		return NextResponse.json(
+			{ message: "Internal Server Error" },
+			{ status: 500 }
+		);
+	}
+};
+
 /**
  * Retrieves a division by ID along with related teams and season information.
  *
