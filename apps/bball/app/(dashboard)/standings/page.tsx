@@ -13,8 +13,6 @@ export default async function Standings(): Promise<JSX.Element> {
 	// const resSeasons = await getLeagueStandings();
 
 	// const { seasonNames, activeSeason } = await resSeasons.json();
-	// console.log("seasonNames:", seasonNames);
-	// console.log("activeSeason:", activeSeason);
 
 	// revalidatePath("/standings", "page");
 

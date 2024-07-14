@@ -19,7 +19,6 @@ export default async function User(): Promise<JSX.Element> {
 		session.user.email
 	);
 	const { user, tournament, registerTournament } = await resPlayer.json();
-	console.log(user, registerTournament);
 	return (
 		<section className="container mx-auto">
 			<h1 className="text-start text-3xl lg:text-5xl">

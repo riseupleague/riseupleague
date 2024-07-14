@@ -1,15 +1,31 @@
+import { getDivisionPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { connectToDatabase } from "@/api-helpers/utils";
-import { getAllCurrentDivisionsNameAndId } from "@/api-helpers/controllers/divisions-controller";
+import { getAllDivisionsNameAndIdBySeasonId } from "@/api-helpers/controllers/divisions-controller";
 import { Metadata } from "next";
+import LeaderGrid from "@/components/leaders/LeaderGrid";
+import { revalidatePath } from "next/cache";
+import {
+	getAllSeasonNamesFilter,
+	getActiveSeason,
+} from "@/api-helpers/controllers/seasons-controller";
 import { redirect } from "next/navigation";
 
-const Leaders = async (): Promise<JSX.Element> => {
+const LeadersPage = async ({
+	params,
+}: {
+	params: { season: string };
+}): Promise<JSX.Element> => {
 	await connectToDatabase();
 
-	const resDivisions = await getAllCurrentDivisionsNameAndId();
-	const { divisionsNameAndId } = await resDivisions.json();
+	const resSeasonById = await getActiveSeason();
+	const { season } = await resSeasonById.json();
+	redirect(`/leaders/stats/${season._id}/${season.divisions[0]}`);
 
-	redirect(`/leaders/stats/${divisionsNameAndId[0]._id}`);
+	return (
+		<section className="container mx-auto min-h-fit">
+			<h1>league leaders</h1>
+		</section>
+	);
 };
 
 export const metadata: Metadata = {
@@ -18,4 +34,4 @@ export const metadata: Metadata = {
 		"The Rise Up League is a growing sports league that is taking Ontario by storm! Come join and Rise Up to the challenge!",
 };
 
-export default Leaders;
+export default LeadersPage;

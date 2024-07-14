@@ -12,11 +12,9 @@ const LeaderGrid = ({
 	divisions,
 	selectedDivision,
 	seasons,
-	season
+	season,
 }): JSX.Element => {
-
 	const [selectedSeason, setSelectedSeason] = useState(season);
-
 	const router = useRouter();
 	const [currentStat, setCurrentStat] = useState("points");
 	let statFilterPlaceholder = "Points";
@@ -27,21 +25,19 @@ const LeaderGrid = ({
 		};
 	});
 
-	const [players, setPlayers] = useState(
-		allPlayers.sort((a, b) =>
-			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
-		)
-	);
+	const [players, setPlayers] = useState(allPlayers);
 
 	// Handle the select change event
-	const handleDivisionChange = async (selectedDivisionId) => {
-		router.push(`/leaders/stats/${selectedDivisionId}`);
+	const handleDivisionChange = async (event) => {
+		router.push(`/leaders/stats/${season._id}/${event}`);
 	};
 
 	const handleSeasonChange = (event) => {
 		const newSelectedSeason = seasons.find((season) => season._id === event);
 		setSelectedSeason(newSelectedSeason);
-		redirect(`/leaders/stats/${newSelectedSeason._id}?divisionId=${newSelectedSeason.divisions[0]}`);
+		redirect(
+			`/leaders/stats/${newSelectedSeason._id}/${newSelectedSeason.divisions[0]}`
+		);
 	};
 
 	// Handle the select change event
@@ -64,11 +60,11 @@ const LeaderGrid = ({
 					handleSeasonChange={handleSeasonChange}
 					currentSeason={season}
 				/>
-				{/* <FilterByDivision
+				<FilterByDivision
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
-					placeholder={selectedDivision.divisionName}
-				/> */}
+					placeholder={selectedDivision?.divisionName || ""}
+				/>
 				<FilterByStat
 					handleStatChange={handleStatChange}
 					filterPlaceholder={statFilterPlaceholder}

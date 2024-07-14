@@ -4,57 +4,27 @@ import { getAllDivisionsNameAndIdBySeasonId } from "@/api-helpers/controllers/di
 import { Metadata } from "next";
 import LeaderGrid from "@/components/leaders/LeaderGrid";
 import { revalidatePath } from "next/cache";
-import { getAllSeasonNamesFilter, getSeasonById } from "@/api-helpers/controllers/seasons-controller";
-
+import {
+	getAllSeasonNamesFilter,
+	getSeasonById,
+} from "@/api-helpers/controllers/seasons-controller";
+import { redirect } from "next/navigation";
 
 const LeadersPage = async ({
 	params,
-    searchParams
 }: {
 	params: { season: string };
-    searchParams:{divisionId:string}
 }): Promise<JSX.Element> => {
 	await connectToDatabase();
-
-
-    const resDivisionPlayers = await getDivisionPlayersWithAvg(searchParams.divisionId);
-	const { allPlayers } = await resDivisionPlayers.json();
-
-	const resDivisions = await getAllDivisionsNameAndIdBySeasonId(params.season);
-	const { divisionsNameAndId } = await resDivisions.json();
-
-
-    console.log("divisionsNameAndId:",divisionsNameAndId)
-
-	const selectedDivision = divisionsNameAndId.find(
-		(division) => division._id === searchParams.divisionId
-	);
-
-    console.log("selectedDivision:",selectedDivision)
-
-
-	const resSeasonNamesFilter = await getAllSeasonNamesFilter();
-	const { seasonNamesWithoutRegister } = await resSeasonNamesFilter.json();
 
 	const resSeasonById = await getSeasonById(params.season);
 	const { season } = await resSeasonById.json();
 
-	revalidatePath(`/leaders/stats/${selectedDivision}`, "page");
-
-
-
-    // redirect(`/leaders/stats/${params.season}/${firstDivisionId}`)
+	redirect(`/leaders/stats/${season._id}/${season.divisions[0]}`);
 
 	return (
 		<section className="container mx-auto min-h-fit">
 			<h1>league leaders</h1>
-			<LeaderGrid
-				allPlayers={allPlayers}
-				divisions={divisionsNameAndId}
-				selectedDivision={selectedDivision}
-                seasons={seasonNamesWithoutRegister}
-                season={season}
-			/>
 		</section>
 	);
 };
