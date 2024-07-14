@@ -3,14 +3,20 @@
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByStat from "../filters/FilterByStat";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
+import FilterBySeason from "../filters/FilterBySeason";
 
 const LeaderGrid = ({
 	allPlayers,
 	divisions,
 	selectedDivision,
+	seasons,
+	season
 }): JSX.Element => {
+
+	const [selectedSeason, setSelectedSeason] = useState(season);
+
 	const router = useRouter();
 	const [currentStat, setCurrentStat] = useState("points");
 	let statFilterPlaceholder = "Points";
@@ -32,6 +38,12 @@ const LeaderGrid = ({
 		router.push(`/leaders/stats/${selectedDivisionId}`);
 	};
 
+	const handleSeasonChange = (event) => {
+		const newSelectedSeason = seasons.find((season) => season._id === event);
+		setSelectedSeason(newSelectedSeason);
+		redirect(`/leaders/stats/${newSelectedSeason._id}?divisionId=${newSelectedSeason.divisions[0]}`);
+	};
+
 	// Handle the select change event
 	const handleStatChange = (selectedStat) => {
 		let currentPlayers = allPlayers;
@@ -47,11 +59,16 @@ const LeaderGrid = ({
 	return (
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col gap-4 md:flex-row">
-				<FilterByDivision
+				<FilterBySeason
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+					currentSeason={season}
+				/>
+				{/* <FilterByDivision
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
 					placeholder={selectedDivision.divisionName}
-				/>
+				/> */}
 				<FilterByStat
 					handleStatChange={handleStatChange}
 					filterPlaceholder={statFilterPlaceholder}

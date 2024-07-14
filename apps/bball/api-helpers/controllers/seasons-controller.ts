@@ -26,7 +26,7 @@ export const getAllSeasons = async () => {
 export const getAllSeasonNamesFilter = async () => {
 	try {
 		const seasonNames = await Season.find().select(
-			"seasonName active register"
+			"seasonName active register divisions"
 		);
 
 		const seasonNamesWithoutRegister = seasonNames.filter((season) => {
@@ -100,3 +100,32 @@ export const getSeasonById = async (id: string) => {
 		);
 	}
 };
+
+/**
+ * Retrieves a season's first division Id.
+ *
+ * @param {string} id - The ID of the season to retrieve.
+ * @return {Promise<NextResponse>} A promise that resolves to the JSON response containing the retrieved season.
+ */
+export const getFirstDivisionOfTheSeason = async (id: string) => {
+	try {
+		const season = await Season.findById(id);
+
+		console.log(season)
+		const firstDivisionId = season.divisions[0]
+		return NextResponse.json({ firstDivisionId });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "error retrieving active season" },
+			{ status: 500 }
+		);
+	}
+};
+
+
+
+
+
+
+
+getFirstDivisionOfTheSeason

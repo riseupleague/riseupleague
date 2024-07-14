@@ -8,18 +8,18 @@ import { revalidatePath } from "next/cache";
 const Leaders = async ({
 	params,
 }: {
-	params: { id: string };
+	params: { division: string };
 }): Promise<JSX.Element> => {
 	await connectToDatabase();
 
-	const resDivisionPlayers = await getDivisionPlayersWithAvg(params.id);
+	const resDivisionPlayers = await getDivisionPlayersWithAvg(params.division);
 	const { allPlayers } = await resDivisionPlayers.json();
 
 	const resDivisions = await getAllCurrentDivisionsNameAndId();
 	const { divisionsNameAndId } = await resDivisions.json();
 
 	const selectedDivision = divisionsNameAndId.find(
-		(division) => division._id === params.id
+		(division) => division._id === params.division
 	);
 
 	revalidatePath(`/leaders/stats/${selectedDivision}`, "page");
@@ -27,11 +27,11 @@ const Leaders = async ({
 	return (
 		<section className="container mx-auto min-h-fit">
 			<h1>league leaders</h1>
-			<LeaderGrid
+			{/* <LeaderGrid
 				allPlayers={allPlayers}
 				divisions={divisionsNameAndId}
 				selectedDivision={selectedDivision}
-			/>
+			/> */}
 		</section>
 	);
 };

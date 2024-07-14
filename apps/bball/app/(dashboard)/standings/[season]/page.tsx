@@ -12,7 +12,6 @@ import {
 	getSeasonById,
 } from "@/api-helpers/controllers/seasons-controller";
 import { Suspense } from "react";
-import User from "@/api-helpers/models/User";
 
 export default async function Standings({
 	params,
