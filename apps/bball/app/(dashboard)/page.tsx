@@ -11,6 +11,7 @@ import HomeContactUs from "@/components/home/HomeContactUs";
 import { connectToDatabase } from "@/api-helpers/utils";
 import Hero from "@/components/home/Hero";
 import TournamentPromo from "@/components/home/TournamentPromo";
+import GoogleDrivePhotos from "@/components/home/GoogleDrivePhotos";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -29,6 +30,8 @@ const Page = async (): Promise<JSX.Element> => {
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
+
+			<GoogleDrivePhotos />
 
 			<HomeSocials />
 			<HomeFaq />
