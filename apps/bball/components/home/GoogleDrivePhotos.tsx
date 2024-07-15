@@ -21,7 +21,7 @@ const GoogleDrivePhotos = async () => {
 			<div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
 				<h2 className="mb-4 mt-10 flex flex-col gap-3 text-xl font-bold leading-tight lg:gap-5 lg:text-5xl">
 					<p className="text-xl lg:text-3xl">
-						We upload your game photos every week! Don't forget to tag us!
+						We upload your game photos every week! Dont forget to tag us!
 					</p>
 				</h2>
 
