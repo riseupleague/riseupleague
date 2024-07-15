@@ -18,7 +18,7 @@ export default async function MVPLadder({
 	params: { division: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
-
+	console.log("hi");
 	const resDivisionPlayers = await getDivisionPlayersWithAvg(params.division);
 	const { allPlayers } = await resDivisionPlayers.json();
 
