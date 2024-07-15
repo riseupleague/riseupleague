@@ -13,7 +13,7 @@ import { HiOutlineTrophy } from "react-icons/hi2";
 import { RiTeamLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 
-const PrimaryHeader = ({ user, activeSeasonId }): JSX.Element => {
+const PrimaryHeader = ({ user, season }): JSX.Element => {
 	const path = usePathname();
 	const headerOptions = [
 		{
@@ -28,12 +28,12 @@ const PrimaryHeader = ({ user, activeSeasonId }): JSX.Element => {
 		},
 		{
 			label: "standings",
-			href: `/standings/${activeSeasonId}`,
+			href: `/standings/${season._id}`,
 			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
 		},
 		{
 			label: "teams",
-			href: `/teams/${activeSeasonId}`,
+			href: `/teams/${season._id}`,
 			icon: <RiTeamLine className="size-7 text-neutral-300" />,
 		},
 		{
@@ -43,11 +43,11 @@ const PrimaryHeader = ({ user, activeSeasonId }): JSX.Element => {
 			submenu: [
 				{
 					label: "Stats",
-					href: "/leaders/stats",
+					href: `/leaders/stats/${season._id}/${season.divisions[0]}`,
 				},
 				{
 					label: "MVP Ladder",
-					href: "/leaders/mvp-ladder",
+					href: `/leaders/mvp-ladder/${season._id}/${season.divisions[0]}`,
 				},
 			],
 		},

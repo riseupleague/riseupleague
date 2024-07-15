@@ -1,41 +1,39 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
 import MVPCard from "./MVPCard";
-import nextConfig from "../../next.config";
+import FilterBySeason from "../filters/FilterBySeason";
 
-const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
+const MVPGrid = ({
+	allPlayersWithScore,
+	selectedDivision,
+	divisions,
+	seasons,
+	season,
+}): JSX.Element => {
 	const router = useRouter();
 	const filterPlaceholder = selectedDivision.divisionName;
-	const minGamesRequired = nextConfig.mvpLadderMinGamesNeeded ? 5 : 0;
 
-	// calculate mvp score and sort
-	const allPlayersWithScore = allPlayers
-		.map((player) => {
-			return {
-				...player,
-				mvpScore: calculateMvpScore(
-					player.averageStats,
-					player.team?.wins,
-					player.team?.losses
-				),
-			};
-		})
-		.sort((a, b) => (a.mvpScore < b.mvpScore ? 1 : -1))
-		.filter(
-			(player) =>
-				player.mvpScore > 0 && player.allStats.length >= minGamesRequired
+	const handleSeasonChange = (event) => {
+		const newSelectedSeason = seasons.find((season) => season._id === event);
+		redirect(
+			`/leaders/mvp-ladder/${newSelectedSeason._id}/${newSelectedSeason.divisions[0]}`
 		);
-
+	};
 	// Handle the select change event
 	const handleDivisionChange = async (selectedDivisionId) => {
-		router.push(`/leaders/mvp-ladder/${selectedDivisionId}`);
+		router.push(`/leaders/mvp-ladder/${season._id}/${selectedDivisionId}`);
 	};
 
 	return (
 		<div className="relative">
-			<div className="items-left my-8 flex flex-col justify-between gap-4">
+			<div className="items-left my-8 flex flex-col gap-4 md:flex-row">
+				<FilterBySeason
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+					currentSeason={season}
+				/>
 				<FilterByDivision
 					handleDivisionChange={handleDivisionChange}
 					divisions={divisions}
@@ -44,7 +42,7 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 			</div>
 
 			<div className="relative my-8 grid grid-cols-1 overflow-auto">
-				{allPlayers.length > 0 ? (
+				{allPlayersWithScore.length > 0 ? (
 					<>
 						<article className="font-barlow flex justify-between rounded-t-lg border border-neutral-600 bg-neutral-500 px-4 py-2 uppercase sm:pr-6">
 							<div className="flex w-2 items-center text-sm sm:text-lg">#</div>
@@ -146,21 +144,6 @@ const MVPGrid = ({ allPlayers, selectedDivision, divisions }): JSX.Element => {
 			</div>
 		</div>
 	);
-};
-
-const calculateMvpScore = (avgStats, wins, losses) => {
-	let wpct;
-	const avgStatsSum =
-		avgStats.points * 3 +
-		avgStats.rebounds * 2 +
-		avgStats.assists * 2 +
-		avgStats.steals * 2 +
-		avgStats.blocks * 2;
-
-	if (!wins && !losses) wpct = 0;
-	else wpct = wins === 0 && losses === 0 ? 0 : wins / (wins + losses);
-
-	return avgStatsSum + 3 * wpct;
 };
 
 export default MVPGrid;

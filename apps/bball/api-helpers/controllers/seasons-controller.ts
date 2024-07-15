@@ -30,11 +30,8 @@ export const getAllSeasonNamesFilter = async () => {
 		);
 
 		const seasonNamesWithoutRegister = seasonNames.filter((season) => {
-			console.log(season.register);
 			return season.register === false || season.register === undefined;
 		});
-
-		console.log(seasonNamesWithoutRegister);
 
 		// // Use select to retrieve only divisionName and _id fields
 		// const divisionsWithTeamNames = await Division.find({
@@ -126,7 +123,6 @@ export const getFirstDivisionOfTheSeason = async (id: string) => {
 	try {
 		const season = await Season.findById(id);
 
-		console.log(season);
 		const firstDivisionId = season.divisions[0];
 		return NextResponse.json({ firstDivisionId });
 	} catch (e) {
