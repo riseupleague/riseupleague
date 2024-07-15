@@ -6,15 +6,20 @@ import LeaderGrid from "@/components/leaders/LeaderGrid";
 import { revalidatePath } from "next/cache";
 import {
 	getAllSeasonNamesFilter,
-	getActiveSeason,
+	getSeasonById,
 } from "@/api-helpers/controllers/seasons-controller";
 import { redirect } from "next/navigation";
 
-const LeadersPage = async (): Promise<JSX.Element> => {
+const LeadersPage = async ({
+	params,
+}: {
+	params: { season: string };
+}): Promise<JSX.Element> => {
 	await connectToDatabase();
 
-	const resActiveSeason = await getActiveSeason();
-	const { season } = await resActiveSeason.json();
+	const resSeasonById = await getSeasonById(params.season);
+	const { season } = await resSeasonById.json();
+
 	redirect(`/leaders/stats/${season._id}/${season.divisions[0]}`);
 
 	return (

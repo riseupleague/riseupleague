@@ -26,15 +26,12 @@ export const getAllSeasons = async () => {
 export const getAllSeasonNamesFilter = async () => {
 	try {
 		const seasonNames = await Season.find().select(
-			"seasonName active register"
+			"seasonName active register divisions"
 		);
 
 		const seasonNamesWithoutRegister = seasonNames.filter((season) => {
-			console.log(season.register);
 			return season.register === false || season.register === undefined;
 		});
-
-		console.log(seasonNamesWithoutRegister);
 
 		// // Use select to retrieve only divisionName and _id fields
 		// const divisionsWithTeamNames = await Division.find({
@@ -67,11 +64,8 @@ export const getAllSeasonNamesFilter = async () => {
 export const getActiveSeasonId = async () => {
 	try {
 		const activeSeason = await Season.find({ active: true }, "_id"); // Fetch only the _id field
-		console.log("activeSeason:", activeSeason);
 		const seasonIdArray = activeSeason.map((season) => season._id);
-		console.log("seasonIds:", seasonIdArray);
 		const [seasonId] = seasonIdArray;
-		console.log("seasonId:", seasonId);
 
 		return NextResponse.json({ activeSeasonId: seasonId.toString() });
 	} catch (e) {
@@ -100,3 +94,43 @@ export const getSeasonById = async (id: string) => {
 		);
 	}
 };
+
+/**
+ * Retrieves a season by the provided ID.
+ *
+ * @return {Promise<NextResponse>} A promise that resolves to the JSON response containing the retrieved season.
+ */
+export const getActiveSeason = async () => {
+	try {
+		const seasons = await Season.find({ active: true });
+		const season = seasons[0];
+		return NextResponse.json({ season });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "error retrieving active season" },
+			{ status: 500 }
+		);
+	}
+};
+
+/**
+ * Retrieves a season's first division Id.
+ *
+ * @param {string} id - The ID of the season to retrieve.
+ * @return {Promise<NextResponse>} A promise that resolves to the JSON response containing the retrieved season.
+ */
+export const getFirstDivisionOfTheSeason = async (id: string) => {
+	try {
+		const season = await Season.findById(id);
+
+		const firstDivisionId = season.divisions[0];
+		return NextResponse.json({ firstDivisionId });
+	} catch (e) {
+		return NextResponse.json(
+			{ message: "error retrieving active season" },
+			{ status: 500 }
+		);
+	}
+};
+
+getFirstDivisionOfTheSeason;
