@@ -35,6 +35,8 @@ const divisionSchema = new Schema({
 	regularTeamPriceId: { type: String },
 	regularPriceInstalmentId: { type: String },
 	divisionColor: { type: String },
+	firstInstalmentPrice: { type: String, required: true },
+	firstInstalmentPriceId: { type: String, required: true },
 });
 
 export default mongoose.models.Division ||

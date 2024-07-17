@@ -20,6 +20,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 			5: false,
 		},
 	});
+
 	return (
 		<section>
 			{registerInfo.step === 1 && <BackButton href="/register" />}

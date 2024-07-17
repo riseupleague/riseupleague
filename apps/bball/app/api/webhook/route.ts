@@ -394,29 +394,52 @@ export async function POST(req: Request) {
 							items: phase.items,
 						}));
 
+						// const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+						// 	[
+						// 		...phases.map((phase) => ({
+						// 			...phase,
+						// 			items: phase.items.map((item) => ({
+						// 				price:
+						// 					selectedDivision.earlyBirdOpen === true
+						// 						? selectedDivision.earlyBirdInstalmentId
+						// 						: selectedDivision.regularPriceInstalmentId,
+						// 				quantity: 1,
+						// 			})),
+						// 		})),
+						// 		{
+						// 			items: [
+						// 				{
+						// 					price:
+						// 						selectedDivision.earlyBirdOpen === true
+						// 							? selectedDivision.earlyBirdInstalmentId
+						// 							: selectedDivision.regularPriceInstalmentId,
+						// 					quantity: 1,
+						// 				} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+						// 			],
+						// 			iterations: 3,
+						// 		},
+						// 	];
 						const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
 							[
-								...phases.map((phase) => ({
-									...phase,
-									items: phase.items.map((item) => ({
-										price:
-											selectedDivision.earlyBirdOpen === true
-												? selectedDivision.earlyBirdInstalmentId
-												: selectedDivision.regularPriceInstalmentId,
-										quantity: 1,
-									})),
-								})),
 								{
 									items: [
 										{
-											price:
-												selectedDivision.earlyBirdOpen === true
-													? selectedDivision.earlyBirdInstalmentId
-													: selectedDivision.regularPriceInstalmentId,
+											price: selectedDivision.firstInstalmentPriceId, // Initial $25 payment
 											quantity: 1,
-										} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+										},
 									],
-									iterations: 5,
+									start_date: schedule.phases[0].start_date,
+									end_date: schedule.phases[0].end_date,
+								},
+								{
+									items: [
+										{
+											price: selectedDivision.regularPriceInstalmentId, // $85 installment price ID
+											quantity: 1,
+										},
+									],
+									start_date: schedule.phases[0].end_date,
+									iterations: 3,
 								},
 							];
 
@@ -516,29 +539,53 @@ export async function POST(req: Request) {
 						items: phase.items,
 					}));
 
+					// const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+					// 	[
+					// 		...phases.map((phase) => ({
+					// 			...phase,
+					// 			items: phase.items.map((item) => ({
+					// 				price:
+					// 					selectedDivision.earlyBirdOpen === true
+					// 						? selectedDivision.earlyBirdInstalmentId
+					// 						: selectedDivision.regularPriceInstalmentId,
+					// 				quantity: 1,
+					// 			})),
+					// 		})),
+					// 		{
+					// 			items: [
+					// 				{
+					// 					price:
+					// 						selectedDivision.earlyBirdOpen === true
+					// 							? selectedDivision.earlyBirdInstalmentId
+					// 							: selectedDivision.regularPriceInstalmentId,
+					// 					quantity: 1,
+					// 				} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+					// 			],
+					// 			iterations: 3,
+					// 		},
+					// 	];
+
 					const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
 						[
-							...phases.map((phase) => ({
-								...phase,
-								items: phase.items.map((item) => ({
-									price:
-										selectedDivision.earlyBirdOpen === true
-											? selectedDivision.earlyBirdInstalmentId
-											: selectedDivision.regularPriceInstalmentId,
-									quantity: 1,
-								})),
-							})),
 							{
 								items: [
 									{
-										price:
-											selectedDivision.earlyBirdOpen === true
-												? selectedDivision.earlyBirdInstalmentId
-												: selectedDivision.regularPriceInstalmentId,
+										price: selectedDivision.firstInstalmentPriceId, // Initial $25 payment
 										quantity: 1,
-									} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+									},
 								],
-								iterations: 5,
+								start_date: schedule.phases[0].start_date,
+								end_date: schedule.phases[0].end_date,
+							},
+							{
+								items: [
+									{
+										price: selectedDivision.regularPriceInstalmentId, // $85 installment price ID
+										quantity: 1,
+									},
+								],
+								start_date: schedule.phases[0].end_date,
+								iterations: 3,
 							},
 						];
 
