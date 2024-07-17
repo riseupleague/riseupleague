@@ -116,11 +116,11 @@ const AddFreeAgentNone = ({
 						<p className="text-xl uppercase">Price Breakdown Per Player:</p>
 						<p className="my-2">Gyms Fee: $80</p>
 						<p className="my-2">Uniforms: $50</p>
-						<p className="my-2">Media: $55</p>
+						<p className="my-2">Media: $50</p>
 						<p className="my-2">Referees: $40</p>
-						<p className="my-2">Stats/Game Videos/Graphics: $55</p>
+						<p className="my-2">Stats/Game Videos/Graphics: $50</p>
 						<p className="my-2">
-							Regular Price Total: ${80 + 50 + 55 + 40 + 55}
+							Regular Price Total: ${80 + 50 + 50 + 40 + 50}
 						</p>
 					</div>
 
@@ -163,7 +163,7 @@ const AddFreeAgentNone = ({
 
 								<li className="my-2">
 									Get a $
-									{80 + 50 + 55 + 40 + 55 - registerInfo.division?.regularPrice}{" "}
+									{80 + 50 + 50 + 40 + 50 - registerInfo.division?.regularPrice}{" "}
 									discount
 								</li>
 								<li className="my-2">Add unlimited players</li>
@@ -279,11 +279,11 @@ const AddFreeAgentNone = ({
 						<p className="text-xl uppercase">Price Breakdown Per Player:</p>
 						<p className="my-2">Gyms Fee: $80</p>
 						<p className="my-2">Uniforms: $50</p>
-						<p className="my-2">Media: $55</p>
+						<p className="my-2">Media: $50</p>
 						<p className="my-2">Referees: $40</p>
-						<p className="my-2">Stats/Game Videos/Graphics: $55</p>
+						<p className="my-2">Stats/Game Videos/Graphics: $50</p>
 						<p className="my-2">
-							Regular Price Total: ${80 + 50 + 55 + 40 + 55}
+							Regular Price Total: ${80 + 50 + 50 + 40 + 50}
 						</p>
 					</div>
 
@@ -296,22 +296,22 @@ const AddFreeAgentNone = ({
 						</p>
 						<ul>
 							<li className="my-2">
-								First Payment: ${registerInfo.division?.firstInstalmentPrice} +
-								tax
+								First Payment: ${registerInfo.division?.firstInstalmentPrice}
 							</li>
 
 							<li className="my-2">
-								Second Payment: ${registerInfo.division?.instalmentPrice} + tax
+								Second Payment: ${registerInfo.division?.instalmentPrice}
 							</li>
 							<li className="my-2">
-								Third Payment: ${registerInfo.division?.instalmentPrice} + tax
+								Third Payment: ${registerInfo.division?.instalmentPrice}
 							</li>
 
 							<li className="my-2">
-								Fourth Payment: ${registerInfo.division?.instalmentPrice} + tax
+								Fourth Payment: ${registerInfo.division?.instalmentPrice}
 							</li>
+							<li className="my-2">Instalment Processing fee: $10</li>
 							<li className="my-2">
-								Total: ${registerInfo.division?.regularPrice} + tax
+								Total: ${registerInfo.division?.regularPrice}
 							</li>
 						</ul>
 					</div>
@@ -418,11 +418,11 @@ const AddFreeAgentNone = ({
 						<p className="text-xl uppercase">Price Breakdown Per Player:</p>
 						<p className="my-2">Gyms Fee: $80</p>
 						<p className="my-2">Uniforms: $50</p>
-						<p className="my-2">Media: $55</p>
+						<p className="my-2">Media: $50</p>
 						<p className="my-2">Referees: $40</p>
-						<p className="my-2">Stats/Game Videos/Graphics: $55</p>
+						<p className="my-2">Stats/Game Videos/Graphics: $50</p>
 						<p className="my-2">
-							Regular Price Total: ${80 + 50 + 55 + 40 + 55}
+							Regular Price Total: ${80 + 50 + 50 + 40 + 50}
 						</p>
 					</div>
 
