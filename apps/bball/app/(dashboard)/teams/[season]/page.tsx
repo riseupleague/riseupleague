@@ -6,6 +6,7 @@ import {
 	getAllSeasonNamesFilter,
 	getSeasonById,
 } from "@/api-helpers/controllers/seasons-controller";
+import { connectToDatabase } from "@/api-helpers/utils";
 import TeamsFilterPage from "@/components/teams/TeamsFilterPage";
 import { Metadata } from "next";
 import { revalidatePath } from "next/cache";
@@ -16,8 +17,7 @@ export default async function Teams({
 }: {
 	params: { season: string };
 }): Promise<JSX.Element> {
-	// const resDivisionsWithTeamNames = await getAllCurrentDivisionsWithTeamNames();
-	// const { divisionsWithTeamNames } = await resDivisionsWithTeamNames.json();
+	await connectToDatabase();
 
 	const resDivisionsWithTeamNames =
 		await getAllDivisionsWithTeamNamesBySeasonId(params.season);

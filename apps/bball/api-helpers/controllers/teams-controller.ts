@@ -74,7 +74,7 @@ export const getRegisterTeamById = async (id: string) => {
 		.populate({
 			path: "division",
 			select:
-				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId teamCaptain",
+				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId firstInstalmentPrice firstInstalmentPriceId earlyBirdInstalmentId teamCaptain",
 		})
 		.populate({ path: "season", select: "freePrice" })
 		.populate({
