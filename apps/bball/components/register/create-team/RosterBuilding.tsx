@@ -252,10 +252,18 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 											<span className="text-sm">early bird price </span>
 										</p>
 									) : (
-										<p className="text-xl">
-											${registerInfo.division.regularPrice}.00
-											<span className="text-sm lowercase"> + tax</span>{" "}
-										</p>
+										<>
+											<p className="text-xl">
+												${registerInfo.division.regularPrice}.00
+												<span className="text-sm lowercase"> + tax</span>
+											</p>
+											<p>or</p>
+											<p className="text-lg">
+												${registerInfo.division?.firstInstalmentPrice} down + $
+												{registerInfo.division?.instalmentPrice} three times
+												biweekly
+											</p>
+										</>
 									)}
 								</DialogTitle>
 								<DialogDescription>
@@ -304,8 +312,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 											<ul>
 												<li className="my-2 text-sm">
 													As low as $
-													{Number(registerInfo.division?.earlyBirdTeamPrice) /
-														10}{" "}
+													{Number(registerInfo.division?.regularTeamPrice) / 10}{" "}
 													per player
 												</li>
 												<li className="my-2 text-sm">No tax!</li>

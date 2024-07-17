@@ -20,7 +20,7 @@ const SummaryPOTG = ({ playerOfTheGame, game }): JSX.Element => {
 				<div className="font-barlow flex w-full flex-col justify-center gap-1 md:w-1/2">
 					<p className="text-base text-neutral-500">
 						<Link
-							href={`/teams/${playerOfTheGame._id}`}
+							href={`/teams/team/${playerOfTheGame._id}`}
 							className="uppercase transition-all hover:text-neutral-300"
 						>
 							{playerOfTheGame.team.teamName}

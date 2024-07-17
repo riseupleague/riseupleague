@@ -34,7 +34,7 @@ const LeaderCard = ({ player, rank, currentStat }): JSX.Element => {
 					/>
 				</span>
 				<Link
-					href={`/teams/${player.team?._id}`}
+					href={`/teams/team/${player.team?._id}`}
 					className="font-barlow w-fit text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
 				>
 					<span className="block sm:hidden">{player.team?.teamNameShort}</span>

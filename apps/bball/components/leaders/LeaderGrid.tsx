@@ -3,14 +3,18 @@
 import { useState } from "react";
 import LeaderCard from "./LeaderCard";
 import FilterByStat from "../filters/FilterByStat";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import FilterByDivision from "../filters/FilterByDivision";
+import FilterBySeason from "../filters/FilterBySeason";
 
 const LeaderGrid = ({
 	allPlayers,
 	divisions,
 	selectedDivision,
+	seasons,
+	season,
 }): JSX.Element => {
+	const [selectedSeason, setSelectedSeason] = useState(season);
 	const router = useRouter();
 	const [currentStat, setCurrentStat] = useState("points");
 	let statFilterPlaceholder = "Points";
@@ -21,15 +25,19 @@ const LeaderGrid = ({
 		};
 	});
 
-	const [players, setPlayers] = useState(
-		allPlayers.sort((a, b) =>
-			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
-		)
-	);
+	const [players, setPlayers] = useState(allPlayers);
 
 	// Handle the select change event
-	const handleDivisionChange = async (selectedDivisionId) => {
-		router.push(`/leaders/stats/${selectedDivisionId}`);
+	const handleDivisionChange = async (event) => {
+		router.push(`/leaders/stats/${season._id}/${event}`);
+	};
+
+	const handleSeasonChange = (event) => {
+		const newSelectedSeason = seasons.find((season) => season._id === event);
+		setSelectedSeason(newSelectedSeason);
+		redirect(
+			`/leaders/stats/${newSelectedSeason._id}/${newSelectedSeason.divisions[0]}`
+		);
 	};
 
 	// Handle the select change event
@@ -47,10 +55,15 @@ const LeaderGrid = ({
 	return (
 		<div className="relative">
 			<div className="items-left my-8 flex flex-col gap-4 md:flex-row">
+				<FilterBySeason
+					seasons={seasons}
+					handleSeasonChange={handleSeasonChange}
+					currentSeason={season}
+				/>
 				<FilterByDivision
 					handleDivisionChange={handleDivisionChange}
 					divisions={initialDivisions}
-					placeholder={selectedDivision.divisionName}
+					placeholder={selectedDivision?.divisionName || ""}
 				/>
 				<FilterByStat
 					handleStatChange={handleStatChange}

@@ -16,6 +16,19 @@ export async function POST(req: Request) {
 	const { items, formObject } = await req.json();
 	const parsedFormObject = JSON.parse(formObject);
 	console.log("checkoutsession:", items, parsedFormObject);
+	const testClock = await stripe.testHelpers.testClocks.create({
+		frozen_time: Math.floor(new Date().getTime() / 1000), // Correctly get the time in seconds
+	});
+	// const customer = await stripe.customers.create({
+	// 	test_clock: testClock.id,
+	// 	address: {
+	// 		line1: "51 Ebby Avenue",
+	// 		city: "Brampton",
+	// 		state: "Ontario",
+	// 		postal_code: "L6Z 3T7",
+	// 		country: "CA",
+	// 	},
+	// });
 	try {
 		if (parsedFormObject.payment === "full") {
 			const session = await stripe.checkout.sessions.create({

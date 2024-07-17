@@ -74,12 +74,15 @@ export const getRegisterTeamById = async (id: string) => {
 		.populate({
 			path: "division",
 			select:
-				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId earlyBirdInstalmentId teamCaptain",
+				"divisionName city location day startTime endTime earlyBirdPrice teams regularPrice instalmentPrice description earlyBirdOpen earlyBirdId regularPriceFullId regularPriceInstalmentId firstInstalmentPrice firstInstalmentPriceId earlyBirdInstalmentId teamCaptain",
 		})
 		.populate({ path: "season", select: "freePrice" })
-		.populate({ path: "players", select: "teamCaptain playerName user" })
+		.populate({
+			path: "players",
+			select: "teamCaptain playerName user jerseyNumber",
+		})
 		.populate({ path: "teamCaptain", select: "playerName" })
-		.select("division teamCaptain paid teamName");
+		.select("division teamCaptain paid teamName createdManually");
 
 	if (!team) {
 		return NextResponse.json({ message: "No team found" }, { status: 404 });

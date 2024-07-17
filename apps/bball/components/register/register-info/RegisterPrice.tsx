@@ -59,14 +59,14 @@ const RegisterPrice = () => {
 						</li>
 						<li className={styles["cs-li"]}>
 							<div className="mt-5">
-								<p className="text-xl uppercase">Price Breakdown:</p>
-								<p className="my-2">Gym Fee: $80 / eight to nine weeks</p>
+								<p className="text-xl uppercase">Price Breakdown Per Player:</p>
+								<p className="my-2">Gyms Fee: $80</p>
 								<p className="my-2">Uniforms: $50</p>
-								<p className="my-2">Media: $55</p>
+								<p className="my-2">Media: $50</p>
 								<p className="my-2">Referees: $40</p>
-								<p className="my-2">Stats/Game Videos/Graphics: $55</p>
+								<p className="my-2">Stats/Game Videos/Graphics: $50</p>
 								<p className="my-2">
-									Regular Price Total: ${80 + 50 + 55 + 40 + 55}
+									Regular Price Total: ${80 + 50 + 50 + 40 + 50}
 								</p>
 							</div>
 						</li>

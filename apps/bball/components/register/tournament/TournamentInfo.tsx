@@ -44,7 +44,7 @@ const TournamentInfo = () => {
 					</h2>
 					<div className="font-barlow flex flex-col justify-between gap-10 lg:flex-row">
 						<div>
-							<p className="mb-6 text-2xl font-semibold md:text-3xl lg:text-5xl">
+							<p className="mb-6 text-2xl font-semibold md:text-3xl lg:text-4xl">
 								All Asians
 							</p>
 							<ul className=" flex list-disc flex-col gap-5 text-2xl md:text-4xl">
@@ -55,7 +55,7 @@ const TournamentInfo = () => {
 							</ul>
 						</div>
 						<div>
-							<p className="font-barlow mb-6 text-2xl font-semibold md:text-3xl lg:text-5xl">
+							<p className="font-barlow mb-6 text-2xl font-semibold md:text-3xl lg:text-4xl">
 								All Mans Under 6ft
 							</p>
 							<ul className=" flex list-disc flex-col gap-5 text-2xl md:text-4xl">
@@ -66,7 +66,7 @@ const TournamentInfo = () => {
 							</ul>
 						</div>
 						<div>
-							<p className="font-barlow mb-6 text-2xl font-semibold md:text-3xl lg:text-5xl">
+							<p className="font-barlow mb-6 text-2xl font-semibold md:text-3xl lg:text-4xl">
 								All Nations
 							</p>
 							<ul className=" flex list-disc flex-col gap-5 text-2xl md:text-4xl">

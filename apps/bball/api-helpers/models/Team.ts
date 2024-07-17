@@ -9,6 +9,7 @@ const Schema = mongoose.Schema;
 const teamSchema = new Schema({
 	createdAt: { type: Date, default: Date.now }, // Added field to track creation date
 	paid: { type: Boolean },
+	createdManually:{ type: Boolean },
 	teamName: { type: String, required: true },
 	teamNameShort: { type: String, required: true },
 	teamCode: { type: String, required: true },
