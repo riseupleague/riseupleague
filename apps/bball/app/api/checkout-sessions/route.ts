@@ -31,8 +31,6 @@ export async function POST(req: Request) {
 	// });
 	try {
 		if (parsedFormObject.payment === "full") {
-			console.log("items:", items);
-
 			const session = await stripe.checkout.sessions.create({
 				mode: "payment",
 				payment_method_types: ["card"],
@@ -52,7 +50,6 @@ export async function POST(req: Request) {
 
 			return NextResponse.json({ session }, { status: 200 });
 		} else {
-			console.log("items:", items);
 			const session = await stripe.checkout.sessions.create({
 				// customer: customer.id,
 				mode: "subscription",
