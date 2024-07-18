@@ -42,7 +42,7 @@ const ScheduleCard = ({ game }): JSX.Element => {
 				<div className="grid grid-cols-3">
 					{/* home team */}
 					<Link
-						href={`/teams/${game.homeTeam?._id}`}
+						href={`/teams/team/${game.homeTeam?._id}`}
 						className="flex flex-col items-center gap-[10px] p-4"
 					>
 						<TeamLogo
@@ -83,7 +83,7 @@ const ScheduleCard = ({ game }): JSX.Element => {
 
 					{/* away team */}
 					<Link
-						href={`/teams/${game.awayTeam?._id}`}
+						href={`/teams/team/${game.awayTeam?._id}`}
 						className="flex flex-col items-center gap-[10px] p-4"
 					>
 						<TeamLogo

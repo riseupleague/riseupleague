@@ -6,7 +6,7 @@ import TeamLogo from "@/components/general/icons/TeamLogo";
 const TeamsCard = ({ team }): JSX.Element => {
 	return (
 		<Link
-			href={`/teams/${team?._id}`}
+			href={`/teams/team/${team?._id}`}
 			className="flex w-full items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 px-3 py-1 transition hover:opacity-80"
 		>
 			<div className="flex items-center gap-3">

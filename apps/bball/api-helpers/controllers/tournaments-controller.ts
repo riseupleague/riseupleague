@@ -13,7 +13,6 @@ import TournamentPlayer from "../models/TournamentPlayer";
 export const getRegisterTournament = async () => {
 	try {
 		// const tournament = await Tournament.find();
-		// console.log("tournament:", tournament);
 
 		// const registerTournament = await Tournament.find({ register: true });
 

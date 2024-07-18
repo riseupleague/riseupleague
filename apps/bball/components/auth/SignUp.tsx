@@ -19,7 +19,7 @@ import { createUser, findUser } from "@/actions/user-actions";
 import SubmitButton from "../general/SubmitButton";
 import { useToast } from "@ui/components/use-toast";
 import { useRouter } from "next/navigation";
-import UserLoading from "@/app/choose-team-schedule/[id]/loading";
+// import UserLoading from "@/app/choose-team-schedule/[id]/loading";
 
 const SignUp = () => {
 	const { toast } = useToast();
@@ -113,7 +113,7 @@ const SignUp = () => {
 		}
 	};
 
-	if (isPending) return <UserLoading />;
+	// if (isPending) return <UserLoading />;
 
 	return (
 		<div className="my-8">

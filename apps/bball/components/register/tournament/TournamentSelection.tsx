@@ -60,7 +60,7 @@ const TournamentSelection = ({
 						{selections.map((region) => (
 							<Button
 								key={region.city}
-								className="relative my-2 flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
+								className="relative my-2 flex w-full flex-col items-center rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
 								onClick={() => handleCity(region.city)}
 							>
 								<h3 className="mb-3">{region.city}</h3>
@@ -80,7 +80,7 @@ const TournamentSelection = ({
 						{city.divisions.map((div) => (
 							<Button
 								key={div.division}
-								className="relative my-2 flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
+								className="relative my-2 flex w-full flex-col items-center rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
 								onClick={() => handleDivision(div.division)}
 							>
 								<h3 className="mb-3">{div.division}</h3>
@@ -104,7 +104,7 @@ const TournamentSelection = ({
 						{division.levels.map((level) => (
 							<Button
 								key={level.level}
-								className="relative my-2 flex w-full flex-col items-start rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
+								className="relative my-2 flex w-full flex-col items-center rounded border border-neutral-600 bg-[#111827] p-4 text-neutral-100 transition-all hover:bg-neutral-600"
 								onClick={() => onDivision(level.division._id)}
 							>
 								<h3 className="mb-3">{level.level}</h3>
