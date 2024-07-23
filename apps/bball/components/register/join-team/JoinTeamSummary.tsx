@@ -101,7 +101,7 @@ const JoinTeamSummary = ({ team, session }) => {
 
 		const itemPriceId = team.division?.earlyBirdOpen
 			? team.division?.earlyBirdId
-			: team.division?.regularPriceId;
+			: team.division?.regularPriceFullId;
 
 		if (team.paid) {
 			redirectToCheckout(
