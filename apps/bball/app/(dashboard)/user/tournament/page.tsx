@@ -1,13 +1,11 @@
-import {
-	getCurrentAndRegisterUserPlayers,
-	getCurrentAndRegisterUserTournament,
-} from "@/api-helpers/controllers/users-controller";
+import { getCurrentAndRegisterUserTournament } from "@/api-helpers/controllers/users-controller";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import Breadcrumb from "@/components/general/Breadcrumb";
-import UserPlayer from "@/components/user/UserPlayer";
+import { Button } from "@ui/components/button";
+import Link from "next/link";
 
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -19,18 +17,30 @@ export default async function User(): Promise<JSX.Element> {
 		session.user.email
 	);
 	const { user, tournament, registerTournament } = await resPlayer.json();
+
 	return (
 		<section className="container mx-auto">
 			<h1 className="text-start text-3xl lg:text-5xl">
-				👋 Welcome Back {user.name}!
+				👋 Welcome Back {user?.name}!
 			</h1>
 
 			<Breadcrumb />
 
-			<p className="mt-10">
-				Thank you for singing up for the {registerTournament.tournamentName}. We
-				will update you shortly!
-			</p>
+			{user?.tournament?.length > 0 ? (
+				<p className="mt-10">
+					Thank you for signing up for the {registerTournament?.tournamentName}.
+					We will update you shortly!
+				</p>
+			) : (
+				<div className="mt-10 space-y-6">
+					<p>You have not registered for any tournaments.</p>
+					<p>Register you or your team now to get started!</p>
+
+					<Button variant="register" asChild>
+						<Link href="/register/tournament">Register Now</Link>
+					</Button>
+				</div>
+			)}
 		</section>
 	);
 }
