@@ -23,7 +23,7 @@ const Page = async (): Promise<JSX.Element> => {
 			</Suspense>
 
 			{/* <Hero /> */}
-			<TournamentPromo />
+			{/* <TournamentPromo /> */}
 
 			<HomeRegister />
 
