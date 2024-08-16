@@ -46,4 +46,12 @@ export const faq = [
 		answer:
 			"All teams get to participate in the playoffs! The quarterfinals will be held on one day, but the semifinals and finals games will be held on the same day a week after the quarterfinals. There will be at least a 1 hour break between games to let players cool down and prepare for the finals game.",
 	},
+	{
+		question: "How do I add players to my team for the upcoming season?",
+		answer: `You can add players to your team if you are the Team Captain. Navigate to your Profile -> Upcoming Season -> "My Roster". From there, you'll be able to add (or delete) players to your team.`,
+	},
+	{
+		question: "What's the max amount of players I can add to my team?",
+		answer: `If you paid for your team in full, you can add up to a maximum of 10 players to your team. If you paid individually, you can add up to a maximum of 16 players to your team.`,
+	},
 ];
