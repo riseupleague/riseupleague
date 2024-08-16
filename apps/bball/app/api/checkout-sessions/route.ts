@@ -15,7 +15,6 @@ export async function POST(req: Request) {
 
 	const { items, formObject } = await req.json();
 	const parsedFormObject = JSON.parse(formObject);
-	console.log("checkoutsession:", items, parsedFormObject);
 	// const testClock = await stripe.testHelpers.testClocks.create({
 	// 	frozen_time: Math.floor(new Date().getTime() / 1000), // Correctly get the time in seconds
 	// });
