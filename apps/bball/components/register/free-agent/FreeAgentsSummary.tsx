@@ -36,8 +36,8 @@ const FreeAgentsSummary = ({
 	divisionPricePurposes,
 }): JSX.Element => {
 	const { data: session, status } = useSession();
-
 	const skillsSum = playerSkillsSum(skills);
+	console.log("divisionPricePurposes:", divisionPricePurposes);
 	const division = determineDivision(skillsSum, city);
 	const [isLoader, setIsLoader] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
@@ -119,6 +119,9 @@ const FreeAgentsSummary = ({
 				phoneNumber,
 				playerName,
 				email: session.user.email,
+				firstInstalmentPriceId: divisionPricePurposes.firstInstalmentPriceId,
+				regularPriceInstalmentId:
+					divisionPricePurposes.regularPriceInstalmentId,
 			};
 
 			if (Object.keys(errors).length === 0) {
@@ -182,7 +185,7 @@ const FreeAgentsSummary = ({
 			divisionPricePurposes.earlyBirdOpen
 				? handleCreateTeamAndPlayer(divisionPricePurposes.earlyBirdId, "four")
 				: handleCreateTeamAndPlayer(
-						divisionPricePurposes.regularPriceInstalmentId,
+						divisionPricePurposes.firstInstalmentPriceId,
 						"four"
 					);
 		} else {
@@ -219,6 +222,7 @@ const FreeAgentsSummary = ({
 	// 		[number]: newValue,
 	// 	}));
 	// };
+
 	return (
 		<>
 			<div className="group my-2 flex w-fit items-center gap-3 text-xl">
@@ -336,9 +340,9 @@ const FreeAgentsSummary = ({
 											Or
 										</span>
 										<p>
-											Six Payments of $
-											{divisionPricePurposes.instalmentPrice + ".00"}{" "}
-											<span className="text-sm"> + tax</span>
+											${divisionPricePurposes.firstInstalmentPrice + ".00"} +
+											tax and ${divisionPricePurposes.instalmentPrice + ".00"} +
+											tax three times biweekly
 										</p>
 									</div>
 								</div>
@@ -512,12 +516,11 @@ const FreeAgentsSummary = ({
 						{!divisionPricePurposes.earlyBirdOpen && (
 							<section>
 								<Separator className="my-4 border-b border-neutral-600" />
-								<p className="my-4 text-base font-medium">
-									Six Instalments of:
-								</p>
+
 								<p className="mb-4 text-2xl">
-									${divisionPricePurposes.instalmentPrice}
-									<span className="text-sm"> + tax</span>
+									${divisionPricePurposes.firstInstalmentPrice + ".00"} + tax
+									and ${divisionPricePurposes.instalmentPrice + ".00"} + tax
+									three times biweekly
 								</p>
 								<Button
 									className="mt-10 flex w-full justify-center text-center font-medium"

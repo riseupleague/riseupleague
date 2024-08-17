@@ -122,7 +122,7 @@ const cardData = [
 		imgSrc: "/images/register/joinFreeAgent.jpg",
 		imgAlt: "Join as a free agent Now",
 		// btnText: "Join as a free agent Now",
-		btnText: "Coming soon",
+		btnText: "Join as a free agent",
 
 		href: "/register/free-agent",
 	},
