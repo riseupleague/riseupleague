@@ -178,23 +178,47 @@ export async function POST(req: Request) {
 							items: phase.items,
 						}));
 
+						// const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
+						// 	[
+						// 		...phases.map((phase) => ({
+						// 			...phase,
+						// 			items: phase.items.map((item) => ({
+						// 				price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
+						// 				quantity: 1,
+						// 			})),
+						// 		})),
+						// 		{
+						// 			items: [
+						// 				{
+						// 					price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
+						// 					quantity: 1,
+						// 				} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+						// 			],
+						// 			iterations: 5,
+						// 		},
+						// 	];
+
 						const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
 							[
-								...phases.map((phase) => ({
-									...phase,
-									items: phase.items.map((item) => ({
-										price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
-										quantity: 1,
-									})),
-								})),
 								{
 									items: [
 										{
-											price: "price_1OAiUpLNj0EwRSePyJXX2I8C",
+											price: metadata.firstInstalmentPriceId, // Initial $25 payment
 											quantity: 1,
-										} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
+										},
 									],
-									iterations: 5,
+									start_date: schedule.phases[0].start_date,
+									end_date: schedule.phases[0].end_date,
+								},
+								{
+									items: [
+										{
+											price: metadata.regularPriceInstalmentId, // $85 installment price ID
+											quantity: 1,
+										},
+									],
+									start_date: schedule.phases[0].end_date,
+									iterations: 3,
 								},
 							];
 
