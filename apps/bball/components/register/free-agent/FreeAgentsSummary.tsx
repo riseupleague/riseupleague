@@ -37,7 +37,6 @@ const FreeAgentsSummary = ({
 }): JSX.Element => {
 	const { data: session, status } = useSession();
 	const skillsSum = playerSkillsSum(skills);
-	console.log("divisionPricePurposes:", divisionPricePurposes);
 	const division = determineDivision(skillsSum, city);
 	const [isLoader, setIsLoader] = useState(false);
 	const [formData, setFormData] = useState<FormData>({
