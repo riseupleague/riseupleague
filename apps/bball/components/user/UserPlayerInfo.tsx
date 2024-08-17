@@ -73,9 +73,9 @@ const UserPlayerInfo = ({ player }) => {
 				...playerInfo,
 				playerName: playerData.get("playerName") as string,
 				instagram: playerData.get("instagram") as string,
-				jerseyName: playerData.get("jerseyName") as string,
-				jerseyNumber: playerData.get("jerseyNumber") as string,
-				jerseySize: playerData.get("jerseySize") as string,
+				// jerseyName: playerData.get("jerseyName") as string,
+				// jerseyNumber: playerData.get("jerseyNumber") as string,
+				// jerseySize: playerData.get("jerseySize") as string,
 			});
 		}
 
