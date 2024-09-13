@@ -1,4 +1,5 @@
 import { sub, parseISO } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
 
 /**
  * Extracts the YouTube video ID from a given YouTube link.
@@ -45,4 +46,14 @@ export const extractInstagramUsername = (instagram: string) => {
 	}
 
 	return instagram.replace("@", "");
+};
+
+/**
+ * Converts a given ISO date string to a Date object in the Eastern Standard Time (EST) timezone.
+ *
+ * @param {Date} isoDate - The ISO date string to convert.
+ * @return {Date} The converted Date object in the EST timezone.
+ */
+export const convertToEST = (isoDate: Date) => {
+	return new Date(utcToZonedTime(isoDate, "America/Toronto"));
 };

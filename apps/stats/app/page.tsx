@@ -9,15 +9,48 @@ const StatsApp = async (): Promise<JSX.Element> => {
 	const resDivisions = await getAllCurrentDivisions();
 	const { divisions } = await resDivisions.json();
 
+	const groupedDivisions = divisions.reduce((acc, division) => {
+		const divisionName = division.divisionName.toLowerCase();
+		const level = divisionName.includes("beginner")
+			? "beginner"
+			: divisionName.includes("intermediate")
+				? "intermediate"
+				: divisionName.includes("elite")
+					? "elite"
+					: null;
+
+		if (level) {
+			const existingLevel = acc.find((l) => l.level === level);
+			if (existingLevel) {
+				existingLevel.divisions.push(division);
+			} else {
+				acc.push({ level, divisions: [division] });
+			}
+		}
+
+		return acc;
+	}, []);
+
 	return (
 		<section className="container mx-auto min-h-fit">
 			<h1>Stats page</h1>
 
-			<div className="flex flex-col gap-4">
-				{divisions.map((division) => (
-					<Button key={division._id} variant="signIn" size="lg" asChild>
-						<Link href={`/${division._id}`}>{division.divisionName}</Link>
-					</Button>
+			<div className="space-y-8">
+				{groupedDivisions.map((level, index) => (
+					<div key={index}>
+						<h3>{level.level}</h3>
+
+						<div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+							{level.divisions.map((division, index) => (
+								<Button key={index} variant="secondary" asChild>
+									<Link href={`/${division._id}`}>
+										{division.divisionName} -&nbsp;
+										<span className="capitalize">{division.city}</span>
+									</Link>
+								</Button>
+							))}
+						</div>
+					</div>
 				))}
 			</div>
 		</section>
