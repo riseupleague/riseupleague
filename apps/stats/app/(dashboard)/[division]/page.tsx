@@ -11,7 +11,7 @@ const DivisionPage = async ({ params }: { params: { division: string } }) => {
 	const resGames = await getAllGames(params.division);
 	const { allGames } = await resGames.json();
 
-	const gamesByDate = Object.entries(
+	const gamesByDate: { date: string; games: any }[] = Object.entries(
 		allGames.reduce((acc, game) => {
 			const date = format(convertToEST(new Date(game.date)), "yyyy-MM-dd");
 			if (!acc[date]) acc[date] = [];
