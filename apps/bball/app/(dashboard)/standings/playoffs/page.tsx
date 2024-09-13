@@ -12,6 +12,8 @@ export default async function Standings(): Promise<JSX.Element> {
 	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
 		await resDivisions.json();
 
+	console.log(divisionsWithStats);
+
 	revalidatePath("/standings/playoffs", "page");
 
 	return (
