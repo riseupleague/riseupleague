@@ -92,8 +92,8 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 								<SheetClose asChild>
 									<Button
 										className="flex w-full items-center gap-2 px-4 py-[11px]"
-										variant="navlink"
-										size="navlink"
+										variant="nav"
+										size="nav"
 										onClick={() => router.push("/user")}
 									>
 										<div className="flex flex-1 gap-2">
@@ -134,8 +134,8 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 									<SheetClose asChild>
 										<Button
 											className="flex px-4 py-[11px]"
-											variant="navlink"
-											size="navlink"
+											variant="nav"
+											size="nav"
 											onClick={() => router.push(option.href)}
 										>
 											<div className="flex flex-1 gap-2">
@@ -165,7 +165,7 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 					) : (
 						<div className="space-y-2">
 							<SheetClose asChild>
-								<Button variant="addition" className="w-full" asChild>
+								<Button variant="tertiary" className="w-full" asChild>
 									<Link href="/login">Log in</Link>
 								</Button>
 							</SheetClose>

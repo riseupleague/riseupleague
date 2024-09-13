@@ -78,7 +78,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 				</>
 			) : (
 				<div className="flex items-center gap-1">
-					<Button variant="register" size="sm" asChild>
+					<Button variant="tertiary" size="sm" asChild>
 						<Link href="/login">Log In</Link>
 					</Button>
 					<Button

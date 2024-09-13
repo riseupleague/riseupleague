@@ -1,8 +1,8 @@
-import "../../../packages/ui/styles/globals.css";
+import "../../../../packages/ui/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import { Toaster } from "@ui/components/toaster";
-import { NextAuthProvider } from "./Providers";
+import { NextAuthProvider } from "../Providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
@@ -12,7 +12,7 @@ const barlow = Barlow_Condensed({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const RootLayout = ({ children }): JSX.Element => {
+const DashboardLayout = ({ children }): JSX.Element => {
 	return (
 		<html
 			className={`${oswald.variable} ${inter.variable} ${barlow.variable}`}
@@ -21,8 +21,9 @@ const RootLayout = ({ children }): JSX.Element => {
 			<body className="font-barlow bg-neutral-900 text-neutral-100">
 				{/* <NextAuthProvider> */}
 				<main className="stats">{children}</main>
-				<Toaster />
 				{/* </NextAuthProvider> */}
+
+				<Toaster />
 			</body>
 		</html>
 	);
@@ -33,4 +34,4 @@ export const metadata: Metadata = {
 	description: "Rise Up League Stat Tracker",
 };
 
-export default RootLayout;
+export default DashboardLayout;
