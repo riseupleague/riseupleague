@@ -12,7 +12,6 @@ const PlayoffPicture = ({ divisions }): JSX.Element => {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const params = searchParams.get("divisionId");
-	const gridSpots = [0, 5, 7, 10, 12, 17, 20, 21, 24, 29, 31, 34, 36, 41];
 
 	// if URL has a 'divisionId' param, filter divisions automatically
 	if (params && params !== "default") {
