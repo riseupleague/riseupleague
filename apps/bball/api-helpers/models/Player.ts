@@ -23,6 +23,16 @@ const playerSchema = new Schema({
 	customerId: {
 		type: String,
 	},
+	subscriptionPayments: [
+		{
+			invoiceId: String,
+			status: String, // e.g., 'succeeded', 'failed'
+			amountPaid: Number,
+			attemptCount: Number,
+			lastAttempt: Date,
+			paymentLink: String, // New field for the payment link
+		},
+	],
 	playerName: {
 		type: String,
 		required: true,
