@@ -4,9 +4,10 @@ import { userEmailSchema } from "@/validation/user-validations";
 import User from "@/api-helpers/models/User";
 
 import crypto from "crypto";
-import { ForgotPasswordEmailTemplate } from "@/components/emails/forgot-password";
 import { Resend } from "resend";
 import { revalidatePath } from "next/cache";
+import { render } from "@react-email/render";
+import ForgotPassword from "@/emails/ForgotPassword";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -60,10 +61,12 @@ export const resetUserPassword = async (formData: FormData) => {
 				to: recipientEmail,
 				reply_to: "riseupbballleague@gmail.com",
 				subject: "Reset your Rise Up League password",
-				react: ForgotPasswordEmailTemplate({
-					name: user.name,
-					link: resetUrl,
-				}),
+				html: render(
+					ForgotPassword({
+						name: user.name,
+						link: resetUrl,
+					})
+				),
 			});
 		});
 
