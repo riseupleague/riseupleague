@@ -9,3 +9,7 @@ export const createUserSchema = z.object({
 		.string()
 		.min(4, { message: "Password must be at least 4 characters." }),
 });
+
+export const newPasswordSchema = z
+	.string()
+	.min(4, { message: "Password must be at least 4 characters." });

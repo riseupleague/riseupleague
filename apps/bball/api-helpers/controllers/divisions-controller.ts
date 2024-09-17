@@ -132,7 +132,8 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 		const divisions = await Division.find({ season: activeSeason._id })
 			.populate({
 				path: "teams",
-				select: "teamName wins losses pointDifference teamBanner _id",
+				select:
+					"teamName teamNameShort wins losses pointDifference teamBanner _id",
 			})
 			.select("divisionName teams city")
 			.exec();
@@ -146,12 +147,14 @@ export const getAllCurrentDivisionsWithTeams = async () => {
 
 		const divisionsWithStats = divisions.map((division) => {
 			const teamsWithStats = division.teams.map((team) => {
-				const { wins, losses, pointDifference, teamName, _id } = team;
+				const { wins, losses, pointDifference, teamName, teamNameShort, _id } =
+					team;
 				const gp = wins + losses;
 				const wpct = gp === 0 ? 0 : wins / gp;
 
 				return {
 					teamName,
+					teamNameShort,
 					wins,
 					losses,
 					pointDifference,

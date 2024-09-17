@@ -1,10 +1,16 @@
 import PlayoffMatchup from "./PlayoffMatchup";
 
 const PlayoffDivisionBracket = ({ division }) => {
+	if (division.teams.length !== 8)
+		return <UnavailableBracket division={division} />;
+
 	const gridSpots = [0, 4, 6, 7, 8, 10, 14];
 	const sortedTeams = division.teams
 		.sort((a, b) => (a.pointDifference > b.pointDifference ? 1 : -1))
 		.sort((a, b) => (a.wpct?.toFixed(3) < b.wpct?.toFixed(3) ? 1 : -1));
+	const teamsWithSeed = sortedTeams.map((team, index) => {
+		return { ...team, seed: index + 1 };
+	});
 
 	const findMatchup = (index, teams) => {
 		if (index === 0) return [teams[0], teams[7]];
@@ -20,7 +26,7 @@ const PlayoffDivisionBracket = ({ division }) => {
 				{division.divisionName}
 			</h3>
 
-			<div className="mb-4 grid grid-cols-5 [&>div>p]:text-sm [&>div]:text-center">
+			<div className="mb-4 grid auto-cols-min grid-cols-5 [&>div>p]:text-sm [&>div]:text-center">
 				<div>
 					<h5>Quarter Finals</h5>
 					<p>Best of 1</p>
@@ -30,7 +36,7 @@ const PlayoffDivisionBracket = ({ division }) => {
 					<p>Best of 1</p>
 				</div>
 				<div>
-					<h5>Finals</h5>
+					<h5>🏆 Finals 🏆</h5>
 					<p>Best of 1</p>
 				</div>
 				<div>
@@ -43,11 +49,11 @@ const PlayoffDivisionBracket = ({ division }) => {
 				</div>
 			</div>
 
-			<div className="grid grid-cols-5 grid-rows-3 gap-4">
+			<div className="grid auto-cols-max grid-cols-5 grid-rows-3 gap-4 overflow-scroll">
 				{Array(15)
 					.fill("")
 					.map((_, index) => {
-						const matchupTeams = findMatchup(index, sortedTeams);
+						const matchupTeams = findMatchup(index, teamsWithSeed);
 
 						return gridSpots.includes(index) ? (
 							<PlayoffMatchup key={index} index={index} teams={matchupTeams} />
@@ -59,5 +65,14 @@ const PlayoffDivisionBracket = ({ division }) => {
 		</div>
 	);
 };
+
+const UnavailableBracket = ({ division }) => (
+	<div>
+		<h3 className="text-primary font-barlow my-4 text-2xl font-semibold uppercase">
+			No playoff bracket available for {division.divisionName} ({division.city})
+			at this time.
+		</h3>
+	</div>
+);
 
 export default PlayoffDivisionBracket;
