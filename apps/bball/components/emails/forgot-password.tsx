@@ -7,6 +7,13 @@ export const ForgotPasswordEmailTemplate: React.FC<
 	Readonly<ForgotPasswordEmailTemplateProps>
 > = ({ name, link }) => (
 	<div>
+		<div>
+			<img
+				style={{ margin: "0 auto", width: "200px" }}
+				src={`${process.env.NEXT_PUBLIC_API_BASE_URL}images/riseup-logo.png`}
+				alt="Rise Up League Logo"
+			/>
+		</div>
 		<p>Dear {name}:</p>
 		<p>
 			You recently requested a password reset for your account. To complete the
