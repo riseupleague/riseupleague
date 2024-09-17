@@ -24,6 +24,12 @@ const userSchema = new Schema(
 		password: {
 			type: String,
 		},
+		resetToken: {
+			type: String,
+		},
+		resetTokenExpiry: {
+			type: Date,
+		},
 		basketball: [
 			{
 				type: mongoose.Schema.Types.ObjectId,

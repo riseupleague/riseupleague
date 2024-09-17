@@ -99,9 +99,11 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 										<div className="flex flex-1 gap-2">
 											<Avatar>
 												<AvatarImage src={`${session.user.image}`} />
-												<AvatarFallback className="bg-neutral-400 uppercase">
-													{session?.user?.name[0]}
-												</AvatarFallback>
+												{session?.user?.name && (
+													<AvatarFallback className="bg-neutral-400 uppercase">
+														{session?.user?.name[0]}
+													</AvatarFallback>
+												)}
 											</Avatar>
 											<div className="font-barlow flex flex-col items-start">
 												<h5 className="m-0 text-base font-medium">
