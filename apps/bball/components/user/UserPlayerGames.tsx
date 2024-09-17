@@ -55,42 +55,44 @@ const UserPlayerGames = ({ games }) => {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{games?.map((game, index) => {
-							let date;
-							let formattedDate;
+						{games
+							?.sort((a, b) => (new Date(a.date) > new Date(b.date) ? 1 : -1))
+							.map((game, index) => {
+								let date;
+								let formattedDate;
 
-							if (game.division === "660d6a75ab30a11b292cd290") {
-								// utc dates
-								date = new Date(game.date);
-								const utcDate = utcToZonedTime(date, "UTC");
-								formattedDate = format(utcDate, "E L/d @ h:mm a");
-								// utc dates
-							} else {
-								// convert to toronto dates
+								if (game.division === "660d6a75ab30a11b292cd290") {
+									// utc dates
+									date = new Date(game.date);
+									const utcDate = utcToZonedTime(date, "UTC");
+									formattedDate = format(utcDate, "E L/d @ h:mm a");
+									// utc dates
+								} else {
+									// convert to toronto dates
 
-								date = convertToEST(new Date(game.date));
-								formattedDate = format(date, "E L/d @ h:mm a");
-								// convert to toronto dates
-							}
+									date = convertToEST(new Date(game.date));
+									formattedDate = format(date, "E L/d @ h:mm a");
+									// convert to toronto dates
+								}
 
-							return (
-								<TableRow
-									key={index}
-									className="h-10 border-b-neutral-500 text-sm md:text-lg"
-								>
-									<TableCell className="w-1/3 p-1 text-left sm:w-1/12">
-										<Link
-											href={`/games/preview/${game?._id}`}
-											className="transition-all hover:underline"
-										>
-											{game?.gameName}
-										</Link>
-									</TableCell>
-									<TableCell className="w-1/3 p-1">{formattedDate}</TableCell>
-									<TableCell className="w-1/3 p-1">{game.location}</TableCell>
-								</TableRow>
-							);
-						})}
+								return (
+									<TableRow
+										key={index}
+										className="h-10 border-b-neutral-500 text-sm md:text-lg"
+									>
+										<TableCell className="w-1/3 p-1 text-left sm:w-1/12">
+											<Link
+												href={`/games/preview/${game?._id}`}
+												className="transition-all hover:underline"
+											>
+												{game?.gameName}
+											</Link>
+										</TableCell>
+										<TableCell className="w-1/3 p-1">{formattedDate}</TableCell>
+										<TableCell className="w-1/3 p-1">{game.location}</TableCell>
+									</TableRow>
+								);
+							})}
 					</TableBody>
 				</Table>
 			)}
