@@ -50,6 +50,7 @@ const Hero = (): JSX.Element => {
 		autoplay: true,
 		autoplaySpeed: 5000,
 	};
+
 	return (
 		<section className="group relative mb-16  h-[450px] w-full border-0  sm:h-[650px]">
 			<Slider {...settings}>

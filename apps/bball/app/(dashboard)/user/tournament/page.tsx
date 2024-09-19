@@ -32,9 +32,11 @@ export default async function User(): Promise<JSX.Element> {
 					We will update you shortly!
 				</p>
 			) : (
-				<div className="mt-10 space-y-6">
-					<p>You have not registered for any tournaments.</p>
-					<p>Register you or your team now to get started!</p>
+				<div className="mt-10">
+					<p className="mb-4">
+						You have not registered for any tournaments. Register you or your
+						team now to get started!
+					</p>
 
 					<Button variant="register" asChild>
 						<Link href="/register/tournament">Register Now</Link>

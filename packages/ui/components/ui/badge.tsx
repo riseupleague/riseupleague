@@ -1,6 +1,5 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "../../lib/utils";
 
 const badgeVariants = cva(
@@ -19,7 +18,7 @@ const badgeVariants = cva(
 				division:
 					"font-barlow mx-auto rounded border border-neutral-500 bg-neutral-500 px-5 py-1 text-center text-sm font-semibold uppercase text-white hover:bg-neutral-500 md:px-10 md:py-3 md:text-4xl",
 				schedule:
-					"font-oswald w-fit text-center rounded-sm border-none bg-[#282d35] px-[15px] py-1 text-[10px] md:text-xs font-normal uppercase text-neutral-100",
+					"font-inter w-fit text-center rounded-sm border-none bg-[#18181b] px-[15px] py-1 text-[10px] md:text-xs font-normal capitalize text-neutral-100 rounded-[17px]",
 				outline: "text-foreground",
 			},
 		},
