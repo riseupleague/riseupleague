@@ -21,7 +21,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 
 	return (
 		<div className="bg-transparent">
-			{status === "authenticated" ? (
+			{user !== null ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>

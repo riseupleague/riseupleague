@@ -31,7 +31,7 @@ const RegistrationSuccess = ({ team }) => {
 					Your registration for Rise Up Basketball has been confirmed
 					successfully. We are thrilled to have you on board for this season!
 					Stay tuned for updates, news and more. If you have any questions,
-					please don’t hesitate to send an email at riseupbballleague@gmail.com
+					please don’t hesitate to send an email at support@riseupleague.com
 				</p>
 				<p>NEXT STEPS:</p>
 				<ul className="mb-4">

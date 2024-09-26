@@ -42,6 +42,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 				<TeamCreation
 					registerInfo={registerInfo}
 					setRegisterInfo={setRegisterInfo}
+					user={user}
 				/>
 			)}
 

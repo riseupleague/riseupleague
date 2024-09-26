@@ -11,25 +11,25 @@ import Link from "next/link";
 
 type TeamFormValues = z.infer<typeof createTeamSchema>;
 
-const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
-	const generateCode = () => {
-		const characters =
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		let generatedCode = "";
-		for (let i = 0; i < 5; i++) {
-			const randomIndex = Math.floor(Math.random() * characters.length);
-			generatedCode += characters[randomIndex];
-		}
+const TeamCreation = ({ registerInfo, setRegisterInfo, user }) => {
+	// const generateCode = () => {
+	// 	const characters =
+	// 		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	// 	let generatedCode = "";
+	// 	for (let i = 0; i < 5; i++) {
+	// 		const randomIndex = Math.floor(Math.random() * characters.length);
+	// 		generatedCode += characters[randomIndex];
+	// 	}
 
-		return generatedCode;
-	};
+	// 	return generatedCode;
+	// };
 
-	const defaultCode = generateCode();
+	// const defaultCode = generateCode();
 
 	const defaultValues: TeamFormValues = {
 		teamName: registerInfo?.teamDetails?.teamName || "",
 		teamNameShort: registerInfo?.teamDetails?.teamNameShort || "",
-		teamCode: registerInfo?.teamDetails?.teamCode || defaultCode,
+		teamCode: registerInfo?.teamDetails?.teamCode || "",
 		playerName: registerInfo?.teamCaptainDetails?.playerName || "",
 		instagram: registerInfo?.teamCaptainDetails?.instagram || "",
 		phoneNumber: registerInfo?.teamCaptainDetails?.phoneNumber || "",
@@ -48,7 +48,7 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 		defaultValues,
 	});
 
-	const onSubmit: SubmitHandler<TeamFormValues> = (data) => {
+	const onSubmit: SubmitHandler<TeamFormValues> = async (data) => {
 		const teamDetails = {
 			teamName: data.teamName,
 			teamNameShort: data.teamNameShort,
@@ -76,6 +76,17 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 				4: false,
 				5: false,
 			},
+		});
+
+		const res = await fetch("/api/actions/add-phone-number", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				userEmail: user.email,
+				phoneNumber: data.phoneNumber,
+			}),
 		});
 	};
 
@@ -123,17 +134,15 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 							variant="form"
 							type="text"
 							name="teamCode"
-							placeholder=""
-							value={defaultCode}
-							disabled={true}
+							placeholder="Enter your team code"
 							{...register("teamCode")}
 						/>
 						{errors.teamCode && (
 							<p className="text-red-600">{errors.teamCode.message}</p>
 						)}
-						<p className="text-sm text-neutral-300">
+						{/* <p className="text-sm text-neutral-300">
 							This team code is generated randomly.
-						</p>
+						</p> */}
 					</div>
 				</div>
 
@@ -194,33 +203,6 @@ const TeamCreation = ({ registerInfo, setRegisterInfo }) => {
 							with you that way we are always on the same page.
 						</p>
 					</div>
-
-					{/* <div className="space-y-3">
-						<Label htmlFor="jerseySize" className="text-xl uppercase">
-							What is your jersey size?
-						</Label>
-						<Input
-							variant="form"
-							type="text"
-							name="jerseySize"
-							placeholder=""
-							{...register("jerseySize")}
-						/>
-
-					
-						{errors.jerseySize && (
-							<p className="text-red-600">{errors.jerseySize.message}</p>
-						)}
-						<p className="text-sm text-neutral-300">
-							Note: Your jersey size cannot be reordered.{" "}
-							<a
-								href=""
-								className="underline transition-all hover:text-neutral-100"
-							>
-								Read more here
-							</a>
-						</p>
-					</div> */}
 
 					<div className="space-y-3">
 						<label htmlFor="jerseySize" className="text-xl uppercase">

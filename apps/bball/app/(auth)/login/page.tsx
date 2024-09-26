@@ -8,7 +8,6 @@ const LoginPage = async () => {
 
 	try {
 		const session = await getServerSession();
-		console.log("session:", session);
 		if (session) redirect("/");
 	} catch (e) {
 		console.log(e);
