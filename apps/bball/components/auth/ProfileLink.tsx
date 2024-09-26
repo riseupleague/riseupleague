@@ -17,11 +17,11 @@ import {
 } from "@ui/components/dropdown-menu";
 
 const ProfileLink = ({ user }): JSX.Element => {
-	const { data: session } = useSession();
+	const { status, data: session } = useSession();
 
 	return (
 		<div className="bg-transparent">
-			{user !== null ? (
+			{status === "authenticated" ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>
