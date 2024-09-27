@@ -34,7 +34,7 @@ export default async function JoinTeam({
 	const { players } = await resPlayer.json();
 
 	const isDivisionJoined = players.find((player) => {
-		return player?.division?._id === team.division._id;
+		return player?.division?._id === team.division?._id;
 	});
 
 	if (isDivisionJoined) {
@@ -44,6 +44,8 @@ export default async function JoinTeam({
 	const isTeamJoined = players.find((player) => {
 		return player.team?._id === params.id;
 	});
+
+	console.log("team:", team);
 
 	return (
 		<main className="font-barlow container  mx-auto my-10 min-h-fit text-white">

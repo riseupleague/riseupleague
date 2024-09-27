@@ -582,8 +582,11 @@ const JoinTeamSummary = ({ team, session }) => {
 												) : (
 													<>
 														{team.division?.earlyBirdOpen ? (
-															<p className="text-2xl font-semibold">
+															<p className="text-4xl font-semibold">
 																${team.division?.earlyBirdPrice} + tax
+																<span className="text-primary block text-2xl">
+																	Early Bird Price
+																</span>
 															</p>
 														) : (
 															<p>${team.division?.regularPrice} + tax</p>
@@ -1220,8 +1223,11 @@ const JoinTeamSummary = ({ team, session }) => {
 							) : (
 								<>
 									{team.division?.earlyBirdOpen ? (
-										<p className="text-2xl font-semibold">
+										<p className="text-4xl font-semibold">
 											${team.division?.earlyBirdPrice} + tax
+											<span className="text-primary block text-2xl">
+												Early Bird Price
+											</span>
 										</p>
 									) : (
 										<p>${team.division?.regularPrice} + tax</p>

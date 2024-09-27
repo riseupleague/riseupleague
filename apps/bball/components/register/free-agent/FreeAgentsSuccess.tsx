@@ -21,7 +21,7 @@ const FreeAgentsSuccess = ({ player }) => {
 					</p>
 					<Link
 						className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-						href={`/user`}
+						href={`/user/player`}
 					>
 						Go to my profile
 					</Link>
