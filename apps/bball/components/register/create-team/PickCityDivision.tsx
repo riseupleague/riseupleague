@@ -10,6 +10,7 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from "@ui/components/accordion";
+import { convertMilitaryToRegularTime } from "@/utils/convertMilitaryToRegularTime";
 
 const PickCityDivision = ({
 	regions,
@@ -72,9 +73,14 @@ const PickCityDivision = ({
 													<CiCalendar className="text-neutral-400" />{" "}
 													{division.day}
 												</p>
+												<p className="flex items-center gap-1 text-base font-normal">
+													<CiCalendar className="text-neutral-400" />{" "}
+													{convertMilitaryToRegularTime(division.startTime)}-
+													{convertMilitaryToRegularTime(division.endTime)}
+												</p>
 											</div>
 
-											<p className="text-lg font-normal">
+											<p className="text-start text-lg font-normal">
 												{division.description}
 											</p>
 

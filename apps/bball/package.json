@@ -1,15 +1,17 @@
 {
 	"name": "bball",
-	"version": "bball@1.4.6",
+	"version": "bball@1.5.0",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"email": "email dev"
 	},
 	"dependencies": {
 		"@radix-ui/react-avatar": "^1.0.4",
+		"@react-email/components": "0.0.25",
 		"@stripe/stripe-js": "^2.1.11",
 		"bcryptjs": "^2.4.3",
 		"chart.js": "^4.4.0",
@@ -39,6 +41,7 @@
 		"autoprefixer": "^10.4.14",
 		"eslint-config-custom": "*",
 		"postcss": "^8.4.24",
+		"react-email": "3.0.1",
 		"tailwindcss": "^3.3.3",
 		"tsconfig": "*",
 		"typescript": "^5.2.2"

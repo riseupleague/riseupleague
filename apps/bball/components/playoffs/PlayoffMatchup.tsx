@@ -12,9 +12,23 @@ const PlayoffMatchup = ({ teams, index }) => {
 		>
 			{!firstRound ? (
 				<>
-					<div className="text-left">{teams[0].teamName}</div>
+					<div className="flex gap-1 text-left">
+						<span className="text-primary">{teams[0].seed}: </span>
+						<span className="hidden lg:block">{teams[0].teamName}</span>
+						<span className="block lg:hidden">{teams[0].teamNameShort}</span>
+						<span className="ml-1 text-neutral-500">
+							({teams[0].wins}-{teams[0].losses})
+						</span>
+					</div>
 					<hr className="border-t border-neutral-600" />
-					<div className="text-left">{teams[1].teamName}</div>
+					<div className="flex gap-1 text-left">
+						<span className="text-primary">{teams[1].seed}: </span>
+						<span className="hidden lg:block">{teams[1].teamName}</span>
+						<span className="block lg:hidden">{teams[1].teamName}</span>
+						<span className="ml-1 text-neutral-500">
+							({teams[1].wins}-{teams[1].losses})
+						</span>
+					</div>
 				</>
 			) : (
 				<div className="flex h-full items-center justify-center">TBD</div>

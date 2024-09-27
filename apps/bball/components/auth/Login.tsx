@@ -150,6 +150,13 @@ const Login = () => {
 						or with email and password
 					</p>
 
+					<Link
+						href="/reset-password"
+						className="text-primary mx-1 mt-2 block transition-all hover:opacity-80"
+					>
+						Forgot Password?
+					</Link>
+
 					<form action={handleLogin} className="font-normal text-neutral-900">
 						<div className="space-y-2">
 							<Label htmlFor="email" className="hidden">

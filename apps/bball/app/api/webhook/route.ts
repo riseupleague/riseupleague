@@ -1,4 +1,11 @@
 import Stripe from "stripe";
+import { Resend } from "resend";
+import { EmailTemplate } from "@/components/emails/email-template";
+import { render } from "@react-email/render";
+import InstalmentUpcoming from "@/emails/InstalmentUpcoming";
+import InstalmentFailed from "@/emails/InstalmentFailed";
+import InstalmentSuccess from "@/emails/InstalmentSuccess";
+
 import Player from "@/api-helpers/models/Player";
 import Team from "@/api-helpers/models/Team";
 import User from "@/api-helpers/models/User";
@@ -10,6 +17,7 @@ import TournamentTeam from "@/api-helpers/models/TournamentTeam";
 import TournamentDivision from "@/api-helpers/models/TournamentDivision";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 /**
  * Handles the POST request for the webhook.
@@ -228,6 +236,25 @@ export async function POST(req: Request) {
 						});
 					}
 				}
+
+				const emails = [updatedUser.email];
+
+				const emailPromises = Array.from(new Set(emails)).map(
+					(recipientEmail) => {
+						return resend.emails.send({
+							from: "Rise Up League <no-reply@riseupleague.com>",
+							to: recipientEmail,
+							reply_to: "support@riseupleague.com",
+							subject: "Registration Successful",
+							react: EmailTemplate({
+								firstName: updatedUser.name,
+								status: "welcome free agent",
+							}),
+						});
+					}
+				);
+
+				await Promise.all(emailPromises);
 			}
 
 			if (metadata.status === "createTeam" && metadata.teamName !== "") {
@@ -473,6 +500,24 @@ export async function POST(req: Request) {
 						});
 					}
 				}
+				const emails = [updatedUser.email];
+
+				const emailPromises = Array.from(new Set(emails)).map(
+					(recipientEmail) => {
+						return resend.emails.send({
+							from: "Rise Up League <no-reply@riseupleague.com>",
+							to: recipientEmail,
+							reply_to: "support@riseupleague.com",
+							subject: "Registration Successful",
+							react: EmailTemplate({
+								firstName: updatedUser.name,
+								status: "welcome create team",
+							}),
+						});
+					}
+				);
+
+				await Promise.all(emailPromises);
 			}
 
 			if (metadata.status === "joinTeam") {
@@ -618,6 +663,24 @@ export async function POST(req: Request) {
 						phases: updatedPhases,
 					});
 				}
+				const emails = [updatedUser.email];
+
+				const emailPromises = Array.from(new Set(emails)).map(
+					(recipientEmail) => {
+						return resend.emails.send({
+							from: "Rise Up League <no-reply@riseupleague.com>",
+							to: recipientEmail,
+							reply_to: "support@riseupleague.com",
+							subject: "Registration Successful",
+							react: EmailTemplate({
+								firstName: updatedUser.name,
+								status: "welcome join team",
+							}),
+						});
+					}
+				);
+
+				await Promise.all(emailPromises);
 			}
 
 			const auth = new google.auth.GoogleAuth({
@@ -638,9 +701,23 @@ export async function POST(req: Request) {
 				version: "v4",
 			});
 
+			const dateSignUp = new Date(Date.now()); // Current date
+
+			const dateSignUpOptions: Intl.DateTimeFormatOptions = {
+				weekday: "long", // "Friday"
+				year: "numeric", // "2024"
+				month: "long", // "September"
+				day: "numeric", // "27"
+			};
+
+			const formattedDateSignUp = dateSignUp.toLocaleDateString(
+				"en-US",
+				dateSignUpOptions
+			);
+
 			const response = await sheets.spreadsheets.values.append({
 				spreadsheetId: "1uFrrYeBPut9A0_6zvC90YJm22FRBXAuL_pG64bJmymU",
-				range: "Sheet5!A2:I", // Assuming 5 columns are required for the form data
+				range: "winterSeason!A2:J",
 				valueInputOption: "USER_ENTERED",
 				requestBody: {
 					values: [
@@ -653,6 +730,7 @@ export async function POST(req: Request) {
 							metadata.email,
 							metadata.divisionName,
 							metadata.payment === "four" ? "Yes" : "No",
+							formattedDateSignUp,
 						],
 					],
 				},
@@ -662,76 +740,251 @@ export async function POST(req: Request) {
 		const session = event.data.object;
 
 		if (session.billing_reason === "subscription_cycle") {
-			// // Find the RegisterPlayer based on the customer's email
-			// const registeredPlayer = await RegisterPlayer.findOne({
-			// 	email: session.customer_email,
-			// });
-			// // Check if the customer with the same invoice ID exists
-			// const existingCustomer = await Customer.findOne({
-			// 	invoiceId: session.id,
-			// });
-			// if (existingCustomer) {
-			// 	// Customer with the same invoice ID found, update attempt count
-			// 	existingCustomer.attempt_count = session.attempt_count;
-			// 	// Save the updated customer data to MongoDB
-			// 	try {
-			// 		await existingCustomer.save();
-			// 		console.log("Customer data updated in MongoDB:", existingCustomer);
-			// 	} catch (err) {
-			// 		console.error("Error updating customer data:", err);
-			// 	}
-			// } else {
-			// 	const periodEnd = new Date(session.period_end * 1000); // Convert timestamp to milliseconds
-			// 	const periodStart = new Date(session.period_start * 1000); // Convert timestamp to milliseconds
-			// 	// Create a new Customer document
-			// 	const newCustomer = new Customer({
-			// 		customerId: session.customer,
-			// 		customerName: registeredPlayer
-			// 			? registeredPlayer.registrationName
-			// 			: session.customer_name,
-			// 		customerEmail: session.customer_email,
-			// 		invoiceId: session.id,
-			// 		invoiceAmountDue: session.amount_due,
-			// 		invoiceStatus: session.status,
-			// 		paymentFailedTimestamp: new Date(),
-			// 		instagram: registeredPlayer ? registeredPlayer.instagram : "",
-			// 		phoneNumber: registeredPlayer ? registeredPlayer.phoneNumber : "",
-			// 		division: registeredPlayer ? registeredPlayer.division : "",
-			// 		hosted_invoice_url: session.hosted_invoice_url,
-			// 		period_end: `${
-			// 			periodEnd.getMonth() + 1
-			// 		}/${periodEnd.getDate()}/${periodEnd.getFullYear()}`,
-			// 		period_start: `${
-			// 			periodStart.getMonth() + 1
-			// 		}/${periodStart.getDate()}/${periodStart.getFullYear()}`,
-			// 		attempt_count: session.attempt_count, // Add attempt_count field
-			// 	});
-			// 	// Save the customer data to MongoDB
-			// 	try {
-			// 		await newCustomer.save();
-			// 		console.log("Customer data saved to MongoDB:", newCustomer);
-			// 	} catch (err) {
-			// 		console.error("Error saving customer data:", err);
-			// 	}
-			// }
+			const invoiceFailed = event.data.object;
+			console.log(`Payment failed for invoice ${invoiceFailed.id}`);
+
+			// Find the player document
+			const playerFailed = await Player.findOne({
+				customerId: invoiceFailed.customer,
+			}).populate("user"); // Populate the user field
+
+			if (playerFailed) {
+				// Check if a subscription payment with the same invoiceId already exists
+				const existingFailedPayment = playerFailed.subscriptionPayments.find(
+					(payment) => payment.invoiceId === invoiceFailed.id
+				);
+
+				if (existingFailedPayment) {
+					// Update the existing payment record
+					await Player.updateOne(
+						{ "subscriptionPayments.invoiceId": invoiceFailed.id },
+						{
+							$set: {
+								"subscriptionPayments.$.status": "failed",
+								"subscriptionPayments.$.amountPaid": 0,
+								"subscriptionPayments.$.attemptCount":
+									invoiceFailed.attempt_count ||
+									existingFailedPayment.attemptCount,
+								"subscriptionPayments.$.lastAttempt": new Date(),
+								"subscriptionPayments.$.paymentLink":
+									invoiceFailed.hosted_invoice_url, // Add payment link
+							},
+						}
+					);
+				} else {
+					// Add a new payment record
+					await Player.findOneAndUpdate(
+						{ customerId: invoiceFailed.customer },
+						{
+							$push: {
+								subscriptionPayments: {
+									invoiceId: invoiceFailed.id,
+									status: "failed",
+									amountPaid: 0,
+									attemptCount: invoiceFailed.attempt_count || 1,
+									lastAttempt: new Date(),
+									paymentLink: invoiceFailed.hosted_invoice_url, // Add payment link
+								},
+							},
+						}
+					);
+				}
+
+				const paymentNumber =
+					playerFailed.subscriptionPayments.filter(
+						(item) => item.status === "succeeded"
+					).length + 1;
+				const emails = [playerFailed.user.email, "support@riseupleague.com"];
+				const userFirstName = playerFailed.user.name;
+				const paymentPrice = `${invoiceFailed.amount_due / 100}`;
+				const dueDate = new Date(invoiceFailed.lines.data[0].period.end * 1000)
+					.toISOString()
+					.split("T")[0]; // Convert Unix timestamp to ISO date
+				const paymentLink = invoiceFailed.hosted_invoice_url;
+
+				const emailPromises = Array.from(new Set(emails)).map(
+					(recipientEmail) => {
+						return resend.emails.send({
+							from: "Rise Up League <no-reply@riseupleague.com>",
+							to: recipientEmail,
+							reply_to: "support@riseupleague.com",
+							subject: "Missed Payment!",
+							html: render(
+								InstalmentFailed({
+									userFirstName,
+									paymentPrice,
+									dueDate,
+									paymentNumber,
+									paymentLink,
+								})
+							),
+						});
+					}
+				);
+
+				await Promise.all(emailPromises);
+			} else {
+				console.warn(
+					"No player found with the given customerId:",
+					invoiceFailed.customer
+				);
+			}
 		}
-	} else if (event.type === "invoice.payment_succeeded") {
-		// console.log("✅ invoice.payment_succeeded:", event.id);
-		// const session = event.data.object;
-		// console.log(`💰 Payment succeeded!`);
-		// // Find and delete the customer by customerId
-		// try {
-		// 	const deletedCustomer = await Customer.findOneAndDelete({
-		// 		customerId: session.customer,
-		// 	});
-		// 	if (deletedCustomer) {
-		// 		console.log("Customer deleted from MongoDB:", deletedCustomer);
-		// 	} else {
-		// 		console.log("Customer not found in MongoDB.");
-		// 	}
-		// } catch (err) {
-		// 	console.error("Error deleting customer data:", err);
-		// }
+	}
+
+	// else if (event.type === "invoice.updated") {
+	// 	const session = event.data.object;
+
+	// 	if (session.billing_reason === "subscription_cycle") {
+	// 		const invoiceUpcoming = event.data.object;
+	// 		console.log(`Payment upcoming for invoice ${invoiceUpcoming.id}`);
+
+	// 		// Find the player document
+	// 		const playerUpcoming = await Player.findOne({
+	// 			customerId: invoiceUpcoming.customer,
+	// 		}).populate("user"); // Populate the user field
+
+	// 		if (playerUpcoming) {
+	// 			const paymentNumber =
+	// 				playerUpcoming.subscriptionPayments.filter(
+	// 					(item) => item.status === "succeeded"
+	// 				).length + 1;
+	// 			const emails = [
+	// 				playerUpcoming.user.email,
+	// 				"riseupbballleague@gmail.com",
+	// 			];
+	// 			const userFirstName = playerUpcoming.user.name;
+	// 			const paymentPrice = `$${invoiceUpcoming.amount_due / 100}`;
+	// 			const unformattedDueDate = new Date(
+	// 				invoiceUpcoming.lines.data[0].period.end * 1000
+	// 			); // Convert Unix timestamp to JS date
+
+	// 			const dueDate = unformattedDueDate.toLocaleDateString("en-US", {
+	// 				weekday: "short", // Short weekday (e.g., "Fri.")
+	// 				day: "numeric", // Numeric day (e.g., "13")
+	// 				month: "short", // Short month (e.g., "Sep.")
+	// 				year: "numeric", // Full year (e.g., "2024")
+	// 			});
+	// 			const emailPromises = Array.from(new Set(emails)).map(
+	// 				(recipientEmail) => {
+	// 					return resend.emails.send({
+	// 						from: "Rise Up League <no-reply@riseupleague.com>",
+	// 						to: recipientEmail,
+	// 						reply_to: "support@riseupleague.com",
+	// 						subject: "Payment Reminder",
+	// 						html: render(
+	// 							InstalmentUpcoming({
+	// 								userFirstName,
+	// 								paymentPrice,
+	// 								dueDate,
+	// 								paymentNumber,
+	// 							})
+	// 						),
+	// 					});
+	// 				}
+	// 			);
+
+	// 			await Promise.all(emailPromises);
+	// 		} else {
+	// 			console.warn(
+	// 				"No player found with the given customerId:",
+	// 				invoiceUpcoming.customer
+	// 			);
+	// 		}
+	// 	}
+	// }
+	else if (event.type === "invoice.payment_succeeded") {
+		const invoiceSuccess = event.data.object;
+		console.log(`Payment succeeded for invoice ${invoiceSuccess.id}`);
+
+		// Find the player document
+		const player = await Player.findOne({
+			customerId: invoiceSuccess.customer,
+		}).populate("user"); // Populate the user field
+
+		if (player) {
+			// Check if a subscription payment with the same invoiceId already exists
+			const existingPayment = player.subscriptionPayments.find(
+				(payment) => payment.invoiceId === invoiceSuccess.id
+			);
+
+			if (existingPayment) {
+				// Update the existing payment record
+				await Player.updateOne(
+					{ "subscriptionPayments.invoiceId": invoiceSuccess.id },
+					{
+						$set: {
+							"subscriptionPayments.$.status": "succeeded",
+							"subscriptionPayments.$.amountPaid": invoiceSuccess.amount_paid,
+							"subscriptionPayments.$.attemptCount":
+								invoiceSuccess.attempt_count || existingPayment.attemptCount,
+							"subscriptionPayments.$.lastAttempt": new Date(),
+							"subscriptionPayments.$.paymentLink":
+								invoiceSuccess.hosted_invoice_url, // Add payment link
+						},
+					}
+				);
+			} else {
+				// Add a new payment record
+				await Player.findOneAndUpdate(
+					{ customerId: invoiceSuccess.customer },
+					{
+						$push: {
+							subscriptionPayments: {
+								invoiceId: invoiceSuccess.id,
+								status: "succeeded",
+								amountPaid: invoiceSuccess.amount_paid,
+								attemptCount: invoiceSuccess.attempt_count || 1,
+								lastAttempt: new Date(),
+								paymentLink: invoiceSuccess.hosted_invoice_url, // Add payment link
+							},
+						},
+					}
+				);
+			}
+
+			const paymentNumber =
+				player.subscriptionPayments.filter(
+					(item) => item.status === "succeeded"
+				).length + 1;
+
+			const userFirstName = player.user.name;
+			const paymentPrice = `${invoiceSuccess.amount_paid / 100}`;
+			const currentDate = new Date(Date.now());
+
+			const paymentDate = currentDate.toLocaleDateString("en-US", {
+				weekday: "short", // Short weekday (e.g., "Fri.")
+				day: "numeric", // Numeric day (e.g., "13")
+				month: "short", // Short month (e.g., "Sep.")
+				year: "numeric", // Full year (e.g., "2024")
+			});
+			const emails = [player.user.email, "support@riseupleague.com"];
+
+			const emailPromises = Array.from(new Set(emails)).map(
+				(recipientEmail) => {
+					return resend.emails.send({
+						from: "Rise Up League <no-reply@riseupleague.com>",
+						to: recipientEmail,
+						reply_to: "support@riseupleague.com",
+						subject: "Thanks for your payment!",
+						html: render(
+							InstalmentSuccess({
+								userFirstName,
+								paymentPrice,
+								paymentDate,
+								paymentNumber,
+							})
+						),
+					});
+				}
+			);
+			await Promise.all(emailPromises);
+		} else {
+			console.warn(
+				"No player found with the given customerId:",
+				invoiceSuccess.customer
+			);
+		}
 	} else {
 		console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
 	}

@@ -33,7 +33,40 @@ const btnVariants = {
 const buttonVariants = cva(
 	"inline-flex items-center justify-center rounded-md text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
 	{
-		variants: btnVariants,
+		variants: {
+			variant: {
+				default:
+					"bg-neutral-100 text-neutral-900 transition font-barlow rounded font-semibold hover:bg-neutral-200",
+				secondary:
+					"bg-neutral-500 font-barlow font-medium text-neutral-100 border border-neutral-500 rounded-md transition hover:bg-neutral-800",
+				signIn:
+					"flex items-center gap-2 bg-neutral-500 text-neutral-50 uppercase font-barlow transition-all hover:opacity-80",
+				destructive:
+					"bg-red-600 font-barlow uppercase hover:bg-opacity-80 transition-all",
+				outline:
+					"border border-input bg-background hover:bg-neutral-700 hover:text-accent-foreground",
+				ghost: "hover:bg-accent hover:text-accent-foreground",
+				link: "text-primary underline-offset-4 hover:underline",
+				addition:
+					"text-white bg-primary uppercase font-medium font-barlow transition hover:bg-primaryDark",
+				register:
+					"text-white bg-primary uppercase font-medium font-barlow transition hover:bg-primaryDark",
+				navlink:
+					"bg-transparent text-white border-none px-0 flex items-center gap-3 w-full justify-start",
+				register2:
+					"bg-neutral-100 text-neutral-900 font-semibold hover:bg-neutral-200 transition-all font-inter",
+				register3:
+					"bg-neutral-900 text-neutral-100 font-semibold border border-neutral-600 rounded-md hover:bg-neutral-800 transition-all",
+			},
+			size: {
+				default: "px-12 py-2",
+				sm: "h-9 rounded-md px-5",
+				lg: "h-11 rounded-md px-8",
+				icon: "h-10 w-10",
+				navlink: "px-6 py-2",
+				register2: "py-4 px-6",
+			},
+		},
 		defaultVariants: {
 			variant: "default",
 			size: "default",

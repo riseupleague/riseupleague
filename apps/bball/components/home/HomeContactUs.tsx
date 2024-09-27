@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const HomeContactUs = (): JSX.Element => {
 	return (
-		<section className="font-barlow container mx-auto flex flex-col rounded bg-neutral-600 px-5 py-12 text-center">
+		<section className="font-barlow container mx-auto mb-16 flex flex-col rounded bg-neutral-600 px-5 py-12 text-center lg:mb-24">
 			<h3 className="mb-4 text-2xl uppercase">
 				don&apos;t see the answers you need?
 			</h3>

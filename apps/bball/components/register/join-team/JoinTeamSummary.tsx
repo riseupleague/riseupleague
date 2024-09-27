@@ -58,7 +58,7 @@ const JoinTeamSummary = ({ team, session }) => {
 		defaultValues,
 	});
 
-	const onSubmit: SubmitHandler<PlayerFormValues> = (data) => {
+	const onSubmit: SubmitHandler<PlayerFormValues> = async (data) => {
 		const playerDetails = {
 			playerName: data.playerName,
 			instagram: data.instagram,
@@ -73,6 +73,17 @@ const JoinTeamSummary = ({ team, session }) => {
 		// Add further actions like saving the data or submitting it to an API
 
 		let metadata;
+
+		const res = await fetch("/api/actions/add-phone-number", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				userEmail: session.user.email,
+				phoneNumber: data.phoneNumber,
+			}),
+		});
 
 		if (teamCreatedManually) {
 			metadata = {
@@ -113,7 +124,9 @@ const JoinTeamSummary = ({ team, session }) => {
 		}
 	};
 
-	const onSubmitInstallments: SubmitHandler<PlayerFormValues> = (data) => {
+	const onSubmitInstallments: SubmitHandler<PlayerFormValues> = async (
+		data
+	) => {
 		const playerDetails = {
 			playerName: data.playerName,
 			instagram: data.instagram,
@@ -128,6 +141,17 @@ const JoinTeamSummary = ({ team, session }) => {
 		// Add further actions like saving the data or submitting it to an API
 
 		let metadata;
+
+		const res = await fetch("/api/actions/add-phone-number", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				userEmail: session.user.email,
+				phoneNumber: data.phoneNumber,
+			}),
+		});
 
 		if (teamCreatedManually) {
 			metadata = {
@@ -288,7 +312,7 @@ const JoinTeamSummary = ({ team, session }) => {
 									</TabsList>
 									<TabsContent value="regular">
 										<form onSubmit={handleSubmit(onSubmit)}>
-											<h4 className="mt-10 text-center text-xl uppercase">
+											<h4 className="text-primary my-10 text-center text-3xl uppercase">
 												One Time Payment
 											</h4>
 											<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
@@ -558,8 +582,11 @@ const JoinTeamSummary = ({ team, session }) => {
 												) : (
 													<>
 														{team.division?.earlyBirdOpen ? (
-															<p className="text-2xl font-semibold">
+															<p className="text-4xl font-semibold">
 																${team.division?.earlyBirdPrice} + tax
+																<span className="text-primary block text-2xl">
+																	Early Bird Price
+																</span>
 															</p>
 														) : (
 															<p>${team.division?.regularPrice} + tax</p>
@@ -601,7 +628,7 @@ const JoinTeamSummary = ({ team, session }) => {
 									</TabsContent>
 									<TabsContent value="installment">
 										<form onSubmit={handleSubmit(onSubmitInstallments)}>
-											<h4 className="mt-10 text-center text-xl uppercase">
+											<h4 className="text-primary my-10 text-center text-3xl uppercase">
 												Four Installments
 											</h4>
 											<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
@@ -1196,8 +1223,11 @@ const JoinTeamSummary = ({ team, session }) => {
 							) : (
 								<>
 									{team.division?.earlyBirdOpen ? (
-										<p className="text-2xl font-semibold">
+										<p className="text-4xl font-semibold">
 											${team.division?.earlyBirdPrice} + tax
+											<span className="text-primary block text-2xl">
+												Early Bird Price
+											</span>
 										</p>
 									) : (
 										<p>${team.division?.regularPrice} + tax</p>

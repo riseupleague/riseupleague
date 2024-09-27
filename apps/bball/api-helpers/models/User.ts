@@ -17,12 +17,21 @@ const userSchema = new Schema(
 			required: true,
 			unique: true,
 		},
+		phoneNumber: {
+			type: String,
+		},
 		type: {
 			type: String,
 			required: true,
 		},
 		password: {
 			type: String,
+		},
+		resetToken: {
+			type: String,
+		},
+		resetTokenExpiry: {
+			type: Date,
 		},
 		basketball: [
 			{

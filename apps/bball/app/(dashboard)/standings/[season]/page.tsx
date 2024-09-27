@@ -34,7 +34,7 @@ export default async function Standings({
 
 	return (
 		<section className="container mx-auto min-h-fit">
-			<h1 className="my-10 text-4xl lg:my-20">{season.seasonName} Standings</h1>
+			<h1 className="my-10 lg:my-20">{season.seasonName} Standings</h1>
 			<Suspense fallback={null}>
 				<StandingsTable
 					divisions={divisionsWithStats}
