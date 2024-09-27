@@ -59,7 +59,7 @@ export const resetUserPassword = async (formData: FormData) => {
 			return resend.emails.send({
 				from: "Rise Up League <no-reply@riseupleague.com>",
 				to: recipientEmail,
-				reply_to: "riseupbballleague@gmail.com",
+				reply_to: "support@riseupleague.com",
 				subject: "Reset your Rise Up League password",
 				html: render(
 					ForgotPassword({

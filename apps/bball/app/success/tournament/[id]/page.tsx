@@ -23,7 +23,7 @@ const TournamentSuccessPage = () => {
 						successfully. We are thrilled to have you on board for this
 						tournament! Stay tuned for updates, news and more. If you have any
 						questions, please don’t hesitate to send an email at
-						riseupbballleague@gmail.com
+						support@riseupleague.com
 					</p>
 					<div className="py-10 text-center">
 						<Link

@@ -123,6 +123,17 @@ const FreeAgentsSummary = ({
 					divisionPricePurposes.regularPriceInstalmentId,
 			};
 
+			const res = await fetch("/api/actions/add-phone-number", {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					userEmail: session.user.email,
+					phoneNumber: phoneNumber,
+				}),
+			});
+
 			if (Object.keys(errors).length === 0) {
 				redirectToCheckout([{ price: itemPriceId, quantity: 1 }], formObject);
 			} else {

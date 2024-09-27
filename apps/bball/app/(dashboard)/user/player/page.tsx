@@ -5,6 +5,8 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { Metadata } from "next";
 import Breadcrumb from "@/components/general/Breadcrumb";
 import UserPlayer from "@/components/user/UserPlayer";
+import { Button } from "@ui/components/button";
+import Link from "next/link";
 
 export default async function User(): Promise<JSX.Element> {
 	await connectToDatabase();
@@ -38,7 +40,23 @@ export default async function User(): Promise<JSX.Element> {
 
 			<Breadcrumb />
 
-			<UserPlayer currentPlayers={currentPlayers} />
+			{currentPlayers.length > 0 ? (
+				<UserPlayer currentPlayers={currentPlayers} />
+			) : (
+				<div className="flex flex-col items-center justify-center rounded-lg  p-8">
+					<h2 className="text-xl font-bold ">No Players Registered</h2>
+					<p className="mt-2 ">
+						Please register to a team to participate in the game.
+					</p>
+					<Button
+						className="bg-primary mt-5 text-white"
+						variant="default"
+						asChild
+					>
+						<Link href={"/register"}>Register Now</Link>
+					</Button>
+				</div>
+			)}
 		</section>
 	);
 }

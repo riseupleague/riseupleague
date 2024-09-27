@@ -1,4 +1,4 @@
-import "../../../packages/ui/styles/globals.css";
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
 import { NextAuthProvider } from "./Providers";

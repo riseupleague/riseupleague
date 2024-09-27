@@ -34,16 +34,17 @@ const MiddleNav = ({ headerOptions, path }): JSX.Element => {
 					}
 
 					return (
-						<NavigationMenuItem key={index} className="font-abolition w-full">
+						<NavigationMenuItem
+							key={index}
+							className="font-inter w-full capitalize"
+						>
 							{option.submenu ? (
 								// dropdown menu
 								<NavigationMenu>
-									<NavigationMenuTrigger>
-										<span
-											className={`${isActive && "text-primary"} hover:text-primary text-2xl transition-all`}
-										>
-											{option.label}
-										</span>
+									<NavigationMenuTrigger
+										className={`${isActive && "text-primary"} hover:text-primary text-base capitalize transition-all`}
+									>
+										{option.label}
 									</NavigationMenuTrigger>
 									<NavigationMenuContent className="border-none">
 										<ul className="flex flex-col bg-neutral-700 px-3 py-2">
@@ -51,9 +52,9 @@ const MiddleNav = ({ headerOptions, path }): JSX.Element => {
 												<NavigationMenuLink key={index} asChild>
 													<Link
 														href={subOption.href}
-														className={`${navigationMenuTriggerStyle()} font-barlow w-full uppercase text-neutral-300 hover:text-neutral-100`}
+														className={`${navigationMenuTriggerStyle()} font-inter w-full capitalize text-neutral-300 hover:text-neutral-100`}
 													>
-														<span className="text-xl">{subOption.label}</span>
+														<span className="text-base">{subOption.label}</span>
 													</Link>
 												</NavigationMenuLink>
 											))}
@@ -65,7 +66,7 @@ const MiddleNav = ({ headerOptions, path }): JSX.Element => {
 								<Link href={option.href} legacyBehavior passHref>
 									<NavigationMenuLink className={navigationMenuTriggerStyle()}>
 										<span
-											className={`${isActive && "text-primary"} hover:text-primary text-2xl transition-all`}
+											className={`${isActive && "text-primary"} hover:text-primary text-base capitalize transition-all`}
 										>
 											{option.label}
 										</span>

@@ -93,10 +93,10 @@ const TermsAndConditions = (): JSX.Element => {
 					please contact our league&apos;s customer service at{" "}
 					<a
 						className="text-primary transition-all hover:underline"
-						href="mailto:riseupbballleague@gmail.com
+						href="mailto:support@riseupleague.com
 "
 					>
-						riseupbballleague@gmail.com
+						support@riseupleague.com
 					</a>{" "}
 				</p>
 
