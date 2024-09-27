@@ -21,7 +21,7 @@ const HomeFaq = (): JSX.Element => {
 					Can’t find what you’re looking for? No worries, you can always contact
 					us!
 				</p>
-				<Button variant="register2" size="register2" asChild>
+				<Button variant="register2" size="register2" className="mb-4" asChild>
 					<Link href="/faq">View Full FAQs</Link>
 				</Button>
 			</div>
