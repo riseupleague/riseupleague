@@ -19,6 +19,7 @@ import {
 } from "@ui/components/sheet";
 import SubmitButton from "../general/SubmitButton";
 import nextConfig from "../../next.config";
+import { revalidatePath } from "next/cache";
 
 const UserPlayerInfo = ({ player }) => {
 	const { toast } = useToast();
@@ -169,6 +170,77 @@ const UserPlayerInfo = ({ player }) => {
 												<select
 													name="jerseySize"
 													id="jerseySize"
+													defaultValue={playerInfo?.jerseySize}
+													className="rounded border border-neutral-600 bg-neutral-900 p-2"
+												>
+													<option value="SM">SM</option>
+													<option value="MD">MD</option>
+													<option value="LG">LG</option>
+													<option value="XL">XL</option>
+													<option value="XXL">XXL</option>
+													<option value="XXXL">XXXL</option>
+													<option value="XXXXL">XXXXL</option>
+												</select>
+											</div>
+										</>
+									)}
+
+									{!customizeJersey && (
+										<>
+											<div className="flex flex-col gap-3">
+												<Label
+													htmlFor="jerseyName"
+													className="text-sm font-medium uppercase text-neutral-400"
+												>
+													Custom Jersey Name{" "}
+													<span className="text-xs italic text-red-500">
+														customization is no longer available.
+													</span>
+												</Label>
+												<Input
+													type="text"
+													name="jerseyName"
+													id="jerseyName"
+													disabled
+													placeholder={playerInfo?.jerseyName}
+													className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+												/>
+											</div>
+
+											<div className="flex flex-col gap-3">
+												<Label
+													htmlFor="jerseyNumber"
+													className="text-sm font-medium uppercase text-neutral-400"
+												>
+													Jersey Number{" "}
+													<span className="text-xs italic text-red-500">
+														customization is no longer available.
+													</span>
+												</Label>
+												<Input
+													type="number"
+													name="jerseyNumber"
+													id="jerseyNumber"
+													disabled
+													placeholder={playerInfo?.jerseyNumber}
+													min="0"
+													className="font-barlow border border-neutral-600 bg-neutral-900 p-2 uppercase"
+												/>
+											</div>
+											<div className="flex flex-col gap-3">
+												<Label
+													htmlFor="jerseySize"
+													className="text-sm font-medium uppercase text-neutral-400"
+												>
+													Jersey Size{" "}
+													<span className="text-xs italic text-red-500">
+														customization is no longer available.
+													</span>
+												</Label>
+												<select
+													name="jerseySize"
+													id="jerseySize"
+													disabled
 													defaultValue={playerInfo?.jerseySize}
 													className="rounded border border-neutral-600 bg-neutral-900 p-2"
 												>

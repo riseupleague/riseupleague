@@ -17,23 +17,22 @@ import {
 } from "@ui/components/dropdown-menu";
 
 const ProfileLink = ({ user }): JSX.Element => {
-	const { data: session } = useSession();
-
+	const { status, data: session } = useSession();
 	return (
 		<div className="bg-transparent">
-			{user !== null ? (
+			{session?.user ? (
 				<>
 					<div className="flex items-center gap-10">
 						<DropdownMenu>
 							<DropdownMenuTrigger className="font-oswald flex items-center gap-2 transition-all hover:opacity-80">
 								<span className="text-primary hidden text-lg lg:inline-block">
-									{user?.name}
+									{session?.user?.name}
 								</span>
 								<div className="flex items-center gap-1 ">
 									<Avatar className="block lg:hidden">
 										<AvatarImage src={session?.user?.image} />
 										<AvatarFallback className="bg-neutral-400 uppercase">
-											{user?.name[0]}
+											{session?.user?.name[0]}
 										</AvatarFallback>
 									</Avatar>
 									<FaChevronDown className="text-neutral-300" />
@@ -41,7 +40,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 							</DropdownMenuTrigger>
 							<DropdownMenuContent className="font-barlow w-56 border border-neutral-500 bg-neutral-900">
 								<DropdownMenuLabel className="font-barlow text-xl font-medium uppercase">
-									{user?.email}
+									{session?.user?.email}
 								</DropdownMenuLabel>
 
 								<DropdownMenuSeparator className="border border-neutral-600" />
@@ -55,7 +54,7 @@ const ProfileLink = ({ user }): JSX.Element => {
 											<Avatar className="hidden size-7 lg:block">
 												<AvatarImage src={session?.user?.image} />
 												<AvatarFallback className="bg-neutral-400 uppercase">
-													{user?.name[0]}
+													{session?.user?.name[0]}
 												</AvatarFallback>
 											</Avatar>
 											<span>Profile</span>

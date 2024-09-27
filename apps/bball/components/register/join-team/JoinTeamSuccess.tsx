@@ -33,8 +33,7 @@ const JoinTeamSuccess = ({ player }) => {
 						Your registration for Rise Up Basketball has been confirmed
 						successfully. We are thrilled to have you on board for this season!
 						Stay tuned for updates, news and more. If you have any questions,
-						please don’t hesitate to send an email at
-						riseupbballleague@gmail.com
+						please don’t hesitate to send an email at support@riseupleague.com
 					</p>
 					<div className="my-4">
 						<h3 className="text-primary text-3xl normal-case">
@@ -54,7 +53,7 @@ const JoinTeamSuccess = ({ player }) => {
 					</p>
 					<Link
 						className="font-barlow rounded bg-neutral-100 px-12 py-2 font-bold text-neutral-900 transition hover:bg-neutral-200"
-						href={`/user`}
+						href={`/user/player`}
 					>
 						Go to my profile
 					</Link>

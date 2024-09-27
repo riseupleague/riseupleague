@@ -80,10 +80,10 @@ const RefundPolicy = (): JSX.Element => {
 					1. All refund requests must be made in writing and sent to our
 					league&apos;s official email address at{" "}
 					<a
-						href="mailto:riseupbballleague@gmail.com
+						href="mailto:support@riseupleague.com
 "
 					>
-						riseupbballleague@gmail.com
+						support@riseupleague.com
 					</a>
 					. The subject line should read: &quot;Refund Request -
 					[Participant&apos;s Name]&quot;.
@@ -131,10 +131,10 @@ const RefundPolicy = (): JSX.Element => {
 					For all refund-related inquiries or assistance, please contact our
 					league&apos;s customer service at{" "}
 					<a
-						href="mailto:riseupbballleague@gmail.com"
+						href="mailto:support@riseupleague.com"
 						className="text-primary hover:underline"
 					>
-						riseupbballleague@gmail.com
+						support@riseupleague.com
 					</a>{" "}
 				</p>
 

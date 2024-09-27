@@ -54,7 +54,7 @@ const HomeRegister = (): JSX.Element => {
 						variant="default"
 						asChild
 					>
-						<Link href="/register?info=true">Register Now</Link>
+						<Link href="/register">Register Now</Link>
 					</Button>
 				)}
 			</div>

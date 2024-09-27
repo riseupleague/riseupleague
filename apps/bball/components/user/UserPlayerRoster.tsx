@@ -20,7 +20,6 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 	const isTeamCaptain = teamCaptain?._id === selectedPlayer._id ? true : false;
 	const teamPaidInFull = selectedPlayer?.team?.paid;
 	const maxNumPlayers = teamPaidInFull ? team.length >= 10 : team.length >= 16;
-
 	const handleAddPlayer = async (playerData: FormData) => {
 		const result = await addPlayerToExistingTeam(
 			playerData,
@@ -59,7 +58,7 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 			<div className="flex justify-between">
 				<p className="font-barlow mb-10 text-3xl uppercase">My Roster</p>
 				{isTeamCaptain && (
-					<div className="flex gap-2">
+					<div className="flex flex-col gap-2 md:flex-row">
 						<AddPlayerToTeam
 							open={addOpen}
 							setOpen={setAddOpen}
@@ -75,6 +74,15 @@ const UserPlayerRoster = ({ team, selectedPlayer }) => {
 					</div>
 				)}
 			</div>
+			{team.length < 9 && (
+				<p className="text-primary mb-5 mt-4 text-sm font-medium">
+					Note: Teams with fewer than 9 players will automatically have free
+					agents assigned to complete their roster.
+					<span className="ml-2 font-bold ">
+						Add more players to prevent this from happening!
+					</span>
+				</p>
+			)}
 
 			<div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 				{team

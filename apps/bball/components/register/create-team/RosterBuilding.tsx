@@ -153,6 +153,10 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 					</div>
 				</div>
 
+				<p className="text-primary text-2xl uppercase">
+					Team captains must enter their roster names to allow players to select
+					and join the team through the join portal.
+				</p>
 				<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
 					{players.map((player, index) => (
 						<div key={player.id} className="space-y-3">
@@ -185,8 +189,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 
 				<p className="my-4 text-center">
 					Reminder: Add up to 8 more players to prevent{" "}
-					<span className="text-lg font-semibold">free agents</span> or{" "}
-					<span className="text-lg font-semibold">Full team fee.</span>
+					<span className="text-lg font-semibold">free agents</span>
 				</p>
 
 				<div className="flex flex-col gap-20">
@@ -236,36 +239,13 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 									</ul>
 									<p className="mt-2 text-start">
 										To ensure teams are full and competitive, we require a
-										minimum of 9 players. Since you have less than 9 players,
-										please choose an option to proceed:
+										minimum of 9 players. Since you have less than 9 players, we
+										will add free agents to complete your team.
 									</p>
 								</DialogDescription>
 							</DialogHeader>
 
 							<div>
-								<DialogTitle>
-									<p className="text-lg">TOTAL PER PLAYER:</p>
-									{registerInfo.division.earlyBirdOpen ? (
-										<p className="text-xl">
-											${registerInfo.division.earlyBirdPrice}.00
-											<span className="text-sm lowercase"> + tax</span>{" "}
-											<span className="text-sm">early bird price </span>
-										</p>
-									) : (
-										<>
-											<p className="text-xl">
-												${registerInfo.division.regularPrice}.00
-												<span className="text-sm lowercase"> + tax</span>
-											</p>
-											<p>or</p>
-											<p className="text-lg">
-												${registerInfo.division?.firstInstalmentPrice} down + $
-												{registerInfo.division?.instalmentPrice} three times
-												biweekly
-											</p>
-										</>
-									)}
-								</DialogTitle>
 								<DialogDescription>
 									<Button
 										type="button"
@@ -273,62 +253,6 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 										onClick={() => handleContinueWithFreeAgents("true")}
 									>
 										Continue With Free Agents
-									</Button>
-									<span className="mt-2 block text-neutral-200">
-										We will add free agents to complete your team.
-									</span>
-								</DialogDescription>
-							</div>
-
-							<p className="text-center text-xl font-semibold">OR</p>
-
-							<div>
-								<DialogTitle>
-									<p className="text-lg">TOTAL TEAM FEE WITH TAX INCLUDED:</p>
-
-									{registerInfo.division.earlyBirdOpen ? (
-										<>
-											<p className="text-3xl">
-												{/* CHANGE TO REGULAR FULL PRICE */}$
-												{registerInfo.division.earlyBirdTeamPrice}.00
-											</p>
-											<ul>
-												<li className="my-2 text-sm">
-													As low as $
-													{Number(registerInfo.division?.earlyBirdTeamPrice) /
-														10}{" "}
-													per player
-												</li>
-												<li className="my-2 text-sm">No tax!</li>
-												<li className="my-2 text-sm">Save more!</li>
-												<li className="my-2 text-sm">Maximum 10 players</li>
-											</ul>
-										</>
-									) : (
-										<>
-											<p className="text-3xl">
-												${registerInfo.division.regularTeamPrice}.00
-											</p>
-											<ul>
-												<li className="my-2 text-sm">
-													As low as $
-													{Number(registerInfo.division?.regularTeamPrice) / 10}{" "}
-													per player
-												</li>
-												<li className="my-2 text-sm">No tax!</li>
-												<li className="my-2 text-sm">Save more!</li>
-												<li className="my-2 text-sm">Maximum 10 players</li>
-											</ul>
-										</>
-									)}
-								</DialogTitle>
-								<DialogDescription>
-									<Button
-										type="button"
-										className="w-full"
-										onClick={() => handleContinueWithFreeAgents("false")}
-									>
-										Pay Full Team Fee
 									</Button>
 								</DialogDescription>
 							</div>

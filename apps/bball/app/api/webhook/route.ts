@@ -701,9 +701,23 @@ export async function POST(req: Request) {
 				version: "v4",
 			});
 
+			const dateSignUp = new Date(Date.now()); // Current date
+
+			const dateSignUpOptions: Intl.DateTimeFormatOptions = {
+				weekday: "long", // "Friday"
+				year: "numeric", // "2024"
+				month: "long", // "September"
+				day: "numeric", // "27"
+			};
+
+			const formattedDateSignUp = dateSignUp.toLocaleDateString(
+				"en-US",
+				dateSignUpOptions
+			);
+
 			const response = await sheets.spreadsheets.values.append({
 				spreadsheetId: "1uFrrYeBPut9A0_6zvC90YJm22FRBXAuL_pG64bJmymU",
-				range: "Sheet5!A2:I", // Assuming 5 columns are required for the form data
+				range: "winterSeason!A2:J",
 				valueInputOption: "USER_ENTERED",
 				requestBody: {
 					values: [
@@ -716,6 +730,7 @@ export async function POST(req: Request) {
 							metadata.email,
 							metadata.divisionName,
 							metadata.payment === "four" ? "Yes" : "No",
+							formattedDateSignUp,
 						],
 					],
 				},
