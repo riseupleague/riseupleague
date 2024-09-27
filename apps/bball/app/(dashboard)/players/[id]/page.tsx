@@ -44,7 +44,9 @@ const Players = async ({
 
 				<div className="flex w-1/2 flex-col items-center justify-center md:w-3/4">
 					<Badge variant="division">{player.division.divisionName}</Badge>
-					<h1 className="text-4xl md:text-8xl">{player?.playerName}</h1>
+
+					<h1>{player?.playerName}</h1>
+
 					<Link
 						href={`/teams/team/${player?.team._id}`}
 						className="font-barlow block w-full text-center text-xl transition-all hover:text-neutral-200 md:text-4xl"

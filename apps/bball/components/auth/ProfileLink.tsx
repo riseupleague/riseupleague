@@ -76,14 +76,14 @@ const ProfileLink = ({ user }): JSX.Element => {
 					</div>
 				</>
 			) : (
-				<div className="flex items-center gap-1">
-					<Button variant="register" size="sm" asChild>
+				<div className="flex items-center gap-3">
+					<Button variant="register3" size="register2" asChild>
 						<Link href="/login">Log In</Link>
 					</Button>
 					<Button
-						variant="signIn"
-						size="sm"
-						className="hidden uppercase sm:flex"
+						variant="register2"
+						size="register2"
+						className="hidden sm:flex"
 						asChild
 					>
 						<Link href="/signup">Sign Up</Link>

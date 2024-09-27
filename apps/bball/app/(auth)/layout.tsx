@@ -8,7 +8,6 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 		<>
 			<HeaderLogoOnly />
 			<>{children}</>
-
 			<Footer />
 		</>
 	);

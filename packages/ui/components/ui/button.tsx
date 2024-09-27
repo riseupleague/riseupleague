@@ -26,6 +26,10 @@ const buttonVariants = cva(
 					"text-white bg-primary uppercase font-medium font-barlow transition hover:bg-primaryDark",
 				navlink:
 					"bg-transparent text-white border-none px-0 flex items-center gap-3 w-full justify-start",
+				register2:
+					"bg-neutral-100 text-neutral-900 font-semibold hover:bg-neutral-200 transition-all font-inter",
+				register3:
+					"bg-neutral-900 text-neutral-100 font-semibold border border-neutral-600 rounded-md hover:bg-neutral-800 transition-all",
 			},
 			size: {
 				default: "px-12 py-2",
@@ -33,6 +37,7 @@ const buttonVariants = cva(
 				lg: "h-11 rounded-md px-8",
 				icon: "h-10 w-10",
 				navlink: "px-6 py-2",
+				register2: "py-4 px-6",
 			},
 		},
 		defaultVariants: {

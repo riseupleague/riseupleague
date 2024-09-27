@@ -87,10 +87,10 @@ const MVPGrid = ({
 					</>
 				) : (
 					<div>
-						<h3 className="text-primary mx-auto max-w-md text-center">
+						<p className="text-primary mx-auto max-w-md text-center">
 							Not enough data for this division. <br /> Select another division
 							or come back at a later time!
-						</h3>
+						</p>
 					</div>
 				)}
 			</div>
@@ -107,7 +107,7 @@ const MVPGrid = ({
 					following:
 				</p>
 
-				<ul className="flex list-inside list-disc flex-col gap-1">
+				<ul className="flex list-inside list-disc flex-col gap-1 text-sm">
 					<li>
 						Player <span className="text-primary">must</span> have played in at
 						least 5 regular season games.
@@ -131,7 +131,7 @@ const MVPGrid = ({
 				</p>
 
 				<p className="my-4">Calculation:</p>
-				<ul className="ml-4 flex list-inside list-disc flex-col gap-1 sm:w-1/2">
+				<ul className="ml-4 flex list-inside list-disc flex-col gap-1 text-sm sm:w-1/2">
 					<li>22.4 PPG * 3.0 = 67.2</li>
 					<li>10.2 RPG * 2.0 = 20.4</li>
 					<li>3.4 APG * 2.0 = 6.8</li>

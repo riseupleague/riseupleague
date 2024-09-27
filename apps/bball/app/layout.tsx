@@ -1,7 +1,5 @@
-import "../../../packages/ui/styles/globals.css";
+import "./globals.css";
 import { Inter, Oswald, Barlow_Condensed } from "next/font/google";
-import Header from "../components/structure/header-components/Header";
-import Footer from "../components/structure/footer-components/Footer";
 import { NextAuthProvider } from "./Providers";
 import GoogleAnalytics from "@/components/general/GoogleAnalytics";
 import { Toaster } from "@ui/components/toaster";
@@ -25,11 +23,21 @@ const abolition = localFont({
 	],
 	variable: "--font-abolition",
 });
+const akira = localFont({
+	src: [
+		{
+			path: "../lib/fonts/akira-expanded.otf",
+			weight: "400",
+			style: "normal",
+		},
+	],
+	variable: "--font-akira",
+});
 
 const RootLayout = ({ children }: ChildrenProps): JSX.Element => {
 	return (
 		<html
-			className={`${oswald.variable} ${inter.variable} ${barlow.variable} ${abolition.variable}`}
+			className={`${akira.variable} ${oswald.variable} ${inter.variable} ${barlow.variable} ${abolition.variable}`}
 			lang="en"
 		>
 			<body className="bg-neutral-900 text-neutral-100">
@@ -37,9 +45,7 @@ const RootLayout = ({ children }: ChildrenProps): JSX.Element => {
 					<GoogleAnalytics ga_id={process.env.GOOGLE_ANALYTICS_ID} />
 				) : null}
 				<NextAuthProvider>
-					{/* <Header /> */}
 					<main className="bball">{children}</main>
-					{/* <Footer /> */}
 					<Toaster />
 				</NextAuthProvider>
 			</body>
