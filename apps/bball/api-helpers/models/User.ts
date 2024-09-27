@@ -54,7 +54,6 @@ const userSchema = new Schema(
 				teamCaptainDetails: { type: Object, required: true },
 				teamDetails: { type: Object, required: true },
 				checkboxes: { type: Object, required: true },
-				createdAt: { type: Date, default: Date.now, expires: 86400 }, // Automatically deletes after 24 hours
 			},
 		],
 
