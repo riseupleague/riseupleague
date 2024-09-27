@@ -41,7 +41,7 @@ const LeadersPage = async ({
 
 	return (
 		<section className="container mx-auto min-h-fit">
-			<h1 className="my-10 text-4xl lg:my-20">{season.seasonName} Leaders</h1>
+			<h1 className="my-10 lg:my-20">{season.seasonName} Leaders</h1>
 
 			<LeaderGrid
 				allPlayers={filteredPlayersByPoints}

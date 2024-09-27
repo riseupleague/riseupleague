@@ -59,9 +59,7 @@ export default async function Schedule(): Promise<JSX.Element> {
 			<div className="mb-4 bg-[url('/images/register/createTeam.jpg')] bg-cover bg-center bg-no-repeat md:mb-8 lg:mb-12">
 				<div className="to-trasparent bg-gradient-to-r from-black">
 					<div className="container mx-auto py-8 sm:py-16 lg:py-36">
-						<h1 className="font-abolition m-0 mb-4 text-left">
-							Season Schedule
-						</h1>
+						<h1 className="m-0 mb-4 text-left">Season Schedule</h1>
 
 						{/* <Breadcrumb /> */}
 					</div>

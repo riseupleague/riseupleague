@@ -16,6 +16,7 @@ module.exports = {
 			inter: ["Inter"],
 			barlow: ["Barlow"],
 			abolition: ["Abolition"],
+			akira: ["Akira"],
 		},
 		container: {
 			padding: "16px",
@@ -26,6 +27,7 @@ module.exports = {
 				inter: ["var(--font-inter)"],
 				barlow: ["var(--font-barlow)"],
 				abolition: ["var(--font-abolition)"],
+				akira: ["var(--font-akira)"],
 			},
 			colors: {
 				primary: "#ff422e",
@@ -44,6 +46,9 @@ module.exports = {
 					800: "#11161f",
 					900: "#04080f",
 				},
+			},
+			height: {
+				hero: "calc(100dvh - 264px)",
 			},
 			keyframes: {
 				"accordion-down": {

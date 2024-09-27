@@ -33,7 +33,7 @@ export default async function Teams({
 
 	return (
 		<section className="container mx-auto  min-h-fit">
-			<h1 className="my-10 text-4xl lg:my-20">{season.seasonName} Teams</h1>
+			<h1 className="my-10 lg:my-20">{season.seasonName} Teams</h1>
 			<Suspense fallback={null}>
 				<TeamsFilterPage
 					divisions={divisionsWithTeamNames}

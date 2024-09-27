@@ -5,7 +5,7 @@ import { FaTiktok } from "react-icons/fa";
 
 const HomeSocials = (): JSX.Element => {
 	return (
-		<section className="font-barlow mb-8 text-neutral-100">
+		<section className="font-barlow mb-16 text-neutral-100 lg:mb-24">
 			<h3 className="my-6">socials 📱</h3>
 			<hr />
 			<div className="my-4 grid grid-cols-1 gap-1 sm:grid-cols-2 md:gap-4">

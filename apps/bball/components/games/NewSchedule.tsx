@@ -47,7 +47,7 @@ const NewSchedule = ({
 
 	return (
 		<section>
-			<div className="flex flex-col gap-4 md:flex-row">
+			<div className="flex flex-col gap-4 lg:flex-row">
 				<FilterByDate formattedEstDate={formattedEstDate} />
 				{cities?.length > 1 && (
 					<FilterByCity
