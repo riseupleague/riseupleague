@@ -8,6 +8,6 @@ module.exports = {
 			"res.cloudinary.com",
 		],
 	},
-	customizeJersey: false,
+	customizeJersey: true,
 	mvpLadderMinGamesNeeded: false,
 };

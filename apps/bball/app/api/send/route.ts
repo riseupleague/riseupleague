@@ -12,7 +12,7 @@ export async function POST() {
 			return resend.emails.send({
 				from: "RISEUP <noreply@riseupleague.com>",
 				to: recipientEmail,
-				reply_to: "riseupbballleague@gmail.com",
+				reply_to: "support@riseupleague.com",
 				subject: "Hello world",
 				react: EmailTemplate({ firstName: "John", status: "welcome" }),
 			});
