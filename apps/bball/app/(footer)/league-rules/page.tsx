@@ -47,8 +47,8 @@ const LeagueRules = (): JSX.Element => {
 					<h2>player playoff eligibility</h2>
 					<ul className="font-barlow my-4 list-outside list-disc pl-4 text-lg">
 						<li>
-							NO FILL-INS ALLOWED IN PLAYOFFS. Refer to the 'Player Fill-In
-							policy.'
+							NO FILL-INS ALLOWED IN PLAYOFFS. Refer to the &apos;Player Fill-In
+							policy.&apos;
 						</li>
 						<li>
 							Players must have played a minimum of two (2) regular season games
