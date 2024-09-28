@@ -30,7 +30,7 @@ const HomeRegister = (): JSX.Element => {
 				</Button>
 			) : (
 				<Button variant="register2" size="register2" asChild>
-					<Link href="/register?info=true">Register Now</Link>
+					<Link href="/register">Register Now</Link>
 				</Button>
 			)}
 		</section>
