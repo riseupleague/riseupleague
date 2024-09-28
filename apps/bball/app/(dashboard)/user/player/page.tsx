@@ -17,20 +17,13 @@ export default async function User(): Promise<JSX.Element> {
 	const resPlayer = await getCurrentAndRegisterUserPlayers(session.user.email);
 	const { user, season, registerSeason } = await resPlayer.json();
 
-	const currentPlayers = user.basketball
-		.filter((player) => {
-			return (
-				player?.season?._id.toString() === season?._id.toString() ||
-				player?.season?._id.toString() === registerSeason?._id.toString()
-			);
-		})
-		.map((player) => {
-			if (player?.season?._id.toString() === registerSeason?._id.toString()) {
-				return { ...player, register: true };
-			} else {
-				return player;
-			}
-		});
+	const currentPlayers = user.basketball.map((player) => {
+		if (player?.season?._id.toString() === registerSeason?._id.toString()) {
+			return { ...player, register: true };
+		} else {
+			return player;
+		}
+	});
 
 	return (
 		<section className="container mx-auto">

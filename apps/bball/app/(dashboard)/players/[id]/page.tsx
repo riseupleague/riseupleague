@@ -30,7 +30,7 @@ const Players = async ({
 							<Image
 								src={player.playerImage.image}
 								alt="player image"
-								className="aspect-square h-full w-full"
+								className="aspect-square h-full w-full object-cover"
 								width={200}
 								height={300}
 							/>
@@ -45,7 +45,9 @@ const Players = async ({
 				<div className="flex w-1/2 flex-col items-center justify-center md:w-3/4">
 					<Badge variant="division">{player.division.divisionName}</Badge>
 
-					<h1>{player?.playerName}</h1>
+					<h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl">
+						{player?.playerName}
+					</h1>
 
 					<Link
 						href={`/teams/team/${player?.team._id}`}
