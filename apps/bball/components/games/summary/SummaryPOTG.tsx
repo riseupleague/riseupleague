@@ -9,8 +9,8 @@ const SummaryPOTG = ({ playerOfTheGame, game }): JSX.Element => {
 	)[0];
 
 	// trim ig if '@' sign included
-	let playerIg = playerOfTheGame.instagram;
-	if (playerIg[0] === "@") playerIg = playerIg.substring(1);
+	let playerIg = playerOfTheGame?.instagram;
+	if (playerIg && playerIg[0] === "@") playerIg = playerIg.substring(1);
 
 	return (
 		<div className="mx-auto my-8 flex max-w-3xl flex-col rounded border border-neutral-600 bg-neutral-800 p-4 md:p-8">

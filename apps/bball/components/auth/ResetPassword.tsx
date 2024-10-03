@@ -64,7 +64,7 @@ const ResetPassword = () => {
 			return toast({
 				variant: "destructive",
 				title:
-					"Internal server error. Please report this to @riseup.bball. Thanks!",
+					"Internal server error. Please report this to @riseup.leagues. Thanks!",
 				description: result.message,
 			});
 		}
