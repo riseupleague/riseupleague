@@ -35,7 +35,7 @@ export default function Error({
 				asChild
 				className="font-barlow rounded bg-neutral-100 px-12 py-2 text-center font-medium uppercase text-neutral-900 transition hover:bg-neutral-200"
 			>
-				<Link href="https://instagram.com/riseup.bball">@riseup.bball</Link>
+				<Link href="https://instagram.com/riseup.leagues">@riseup.leagues</Link>
 			</Button>
 			<Button
 				asChild
