@@ -424,7 +424,7 @@ const FreeAgentsSummary = ({
 							<Label className="mb-3 block uppercase">Instagram Handle</Label>
 							<Input
 								type="text"
-								placeholder="ex: @riseup.bball"
+								placeholder="ex: @riseup.leagues"
 								className={`bg-neutral-700 py-[16px] `}
 								value={instagram}
 								onChange={(e) => setInstagram(e.target.value)}

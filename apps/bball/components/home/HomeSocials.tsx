@@ -24,8 +24,8 @@ const HomeSocials = (): JSX.Element => {
 
 const socialLinks = [
 	{
-		text: "Instagram - @riseup.bball",
-		link: "https://www.instagram.com/riseup.bball/",
+		text: "Instagram - @riseup.leagues",
+		link: "https://www.instagram.com/riseup.leagues/",
 		icon: <FaInstagram className="size-6" />,
 	},
 	{
@@ -41,6 +41,11 @@ const socialLinks = [
 	{
 		text: "Instagram (Markham) - @riseup.markham",
 		link: "https://www.instagram.com/riseup.markham/",
+		icon: <FaInstagram className="size-6" />,
+	},
+	{
+		text: "Instagram (Mississauga) - @riseup.sauga",
+		link: "https://www.instagram.com/riseup.sauga/",
 		icon: <FaInstagram className="size-6" />,
 	},
 	{
