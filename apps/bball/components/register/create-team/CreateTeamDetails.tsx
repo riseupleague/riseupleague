@@ -147,7 +147,7 @@ const CreateTeamDetails = ({
 							<Label className="mb-3 block uppercase">Instagram Handle</Label>
 							<Input
 								type="text"
-								placeholder="ex: @riseup.bball"
+								placeholder="ex: @riseup.leagues"
 								className="border-neutral-500 bg-[#111827] py-4"
 								value={formData.instagram}
 								onChange={(e) =>

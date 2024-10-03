@@ -44,7 +44,7 @@ const PreviousGames = ({ team }): JSX.Element => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{team?.seasonStatistics?.map((stats, index) => {
+					{team?.seasonStatistics.map((stats, index) => {
 						if (stats.game?.status) {
 							const isHomeTeam =
 								stats.game?.homeTeam.teamName === team.teamName;

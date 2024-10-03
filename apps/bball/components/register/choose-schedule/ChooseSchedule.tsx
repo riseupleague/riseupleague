@@ -786,7 +786,7 @@ const ChooseSchedule = ({ team, user }): JSX.Element => {
 							<div className="flex gap-4">
 								<Button variant="default">
 									<Link
-										href="https://www.instagram.com/riseup.bball/"
+										href="https://www.instagram.com/riseup.leagues/"
 										target="_blank"
 									>
 										Rise Up Instagram
@@ -810,7 +810,7 @@ const ChooseSchedule = ({ team, user }): JSX.Element => {
 					<div className="flex gap-4">
 						<Button variant="default">
 							<Link
-								href="https://www.instagram.com/riseup.bball/"
+								href="https://www.instagram.com/riseup.leagues/"
 								target="_blank"
 							>
 								Instagram
