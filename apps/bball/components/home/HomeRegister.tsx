@@ -4,9 +4,13 @@ import { Button } from "@ui/components/button";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const HomeRegister = (): JSX.Element => {
 	const { data: session } = useSession();
+
+	if (navigator.userAgent.includes("Instagram"))
+		redirect("/instagram-redirect");
 
 	return (
 		<section className="relative mb-16 flex h-[500px] max-h-[100dvh-300px] flex-col items-center justify-center text-center lg:mb-24 lg:h-[750px] xl:h-[1000px]">
