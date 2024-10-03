@@ -11,6 +11,7 @@ import {
 } from "@ui/components/table";
 
 const PreviousGames = ({ team }): JSX.Element => {
+	console.log("team:", team);
 	return (
 		<div className="mt-10">
 			<h3 className="my-6">Previous Games</h3>
@@ -44,7 +45,7 @@ const PreviousGames = ({ team }): JSX.Element => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{team?.seasonStatistics?.map((stats, index) => {
+					{team?.seasonStatistics.map((stats, index) => {
 						if (stats.game?.status) {
 							const isHomeTeam =
 								stats.game?.homeTeam.teamName === team.teamName;
