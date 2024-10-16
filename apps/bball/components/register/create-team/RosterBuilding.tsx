@@ -187,9 +187,9 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 							Team Captains
 						</h2>
 						<p className="mb-4 text-lg text-white">
-							Complete your roster below with each player's name, email, and
-							phone number to ensure they receive important updates and payment
-							reminders. You'll unlock the{" "}
+							Complete your roster below with each player&apos;s name, email,
+							and phone number to ensure they receive important updates and
+							payment reminders. You&apos;ll unlock the{" "}
 							<span className="font-semibold">50% discount</span> on your
 							payment.
 						</p>
