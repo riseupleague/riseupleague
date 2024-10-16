@@ -9,7 +9,7 @@ const HomeRegister = (): JSX.Element => {
 	const { data: session } = useSession();
 
 	return (
-		<section className="relative mb-16 flex h-[500px] max-h-[100dvh-300px] flex-col items-center justify-center text-center lg:mb-24 lg:h-[750px] xl:h-[1000px]">
+		<section className="relative mb-16 flex h-[500px] max-h-[100dvh-300px] flex-col items-center justify-center text-center lg:mb-24 lg:h-[750px]">
 			<Image
 				src="/images/tournament/tournament-of-power-banner.jpg"
 				alt="Hero Image"
@@ -24,15 +24,9 @@ const HomeRegister = (): JSX.Element => {
 				Ready to elevate your basketball experience?
 			</p>
 
-			{!session || !session.user ? (
-				<Button variant="register2" size="register2" asChild>
-					<Link href={"/login"}>Register Now</Link>
-				</Button>
-			) : (
-				<Button variant="register2" size="register2" asChild>
-					<Link href="/register">Register Now</Link>
-				</Button>
-			)}
+			<Button variant="register2" size="register2" asChild>
+				<Link href="/register">Register Now</Link>
+			</Button>
 		</section>
 	);
 };

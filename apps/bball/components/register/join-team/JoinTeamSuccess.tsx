@@ -36,9 +36,9 @@ const JoinTeamSuccess = ({ player }) => {
 						please don’t hesitate to send an email at support@riseupleague.com
 					</p>
 					<div className="my-4">
-						<h3 className="text-primary text-3xl normal-case">
+						<p className="text-primary text-3xl font-extrabold normal-case">
 							Team Code: {team?.teamCode}
-						</h3>
+						</p>
 						<p>Save this code and share it with your teammates</p>
 					</div>
 					<p>NEXT STEPS:</p>

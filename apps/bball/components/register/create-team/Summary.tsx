@@ -202,21 +202,6 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 					)}
 				</ul>
 			</div>
-			<div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
-				<h4 className="text-center text-xl uppercase">
-					Registration Fee Allocation
-				</h4>
-				<ul>
-					<li className="text-xl">$50 + Tax For Jersey Order</li>
-					<li className="text-xl">$50 + Tax For Gym Fees</li>
-				</ul>
-				<p className="mt-2 flex flex-col text-neutral-200">
-					<span>Note: There will be no refunds for this transactions.</span>
-					<Link href={"/refund-policy"} target="_blank" className="underline">
-						Read Refund Policy
-					</Link>
-				</p>
-			</div>
 
 			<div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
 				{registerInfo.addFreeAgent === "true" && (
@@ -262,6 +247,21 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 					away.
 				</p>
 			)}
+			<div className="my-4 rounded border border-neutral-600 bg-[#111827] px-4 py-6">
+				<h4 className="text-center text-xl uppercase">
+					Registration Fee Allocation
+				</h4>
+				<ul>
+					<li className="text-xl">$50 + Tax For Jersey Order</li>
+					<li className="text-xl">$50 + Tax For Gym Fees</li>
+				</ul>
+				<p className="mt-2 flex flex-col text-neutral-200">
+					<span>Note: There will be no refunds for this transactions.</span>
+					<Link href={"/refund-policy"} target="_blank" className="underline">
+						Read Refund Policy
+					</Link>
+				</p>
+			</div>
 		</section>
 	);
 };

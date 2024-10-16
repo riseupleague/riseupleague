@@ -12,15 +12,19 @@ import {
 
 export default async function FreeAgents(): Promise<JSX.Element> {
 	await connectToDatabase();
+	const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}register/free-agent`;
 
 	const session = await getServerSession();
+	if (!session) {
+		redirect(`/login?redirectUrl=${redirectUrl}`);
+	}
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
 	if (!user) {
 		await addNewUser(session.user.name, session.user.email, "google");
 
-		redirect("/");
+		redirect(`/login?redirectUrl=${redirectUrl}`);
 	}
 	const resDivisions = await getAllRegisterDivisions();
 	const { divisions } = await resDivisions.json();

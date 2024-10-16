@@ -12,24 +12,40 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import Hero from "@/components/home/Hero";
 import TournamentPromo from "@/components/home/TournamentPromo";
 import GoogleDrivePhotos from "@/components/home/GoogleDrivePhotos";
+import HomeCurrentSeasonStandings from "@/components/home/HomeCurrentSeasonStandings";
+import HomeLeagueLeaders from "@/components/home/HomeLeagueLeaders";
+import HomeLatestYoutubeVideos from "@/components/home/HomeLatestYoutubeVideos";
+import LatestGames from "@/components/home/LatestGames";
+import HomeUpcomingGames from "@/components/home/HomeUpcomingGames";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	return (
 		<div className="container mx-auto min-h-fit">
-			<Suspense fallback={<SecondaryHeaderSkeleton />}>
+			{/* <Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
-			</Suspense>
+			</Suspense> */}
 
 			{/* <Hero /> */}
 			{/* <TournamentPromo /> */}
 
 			<HomeRegister />
 
+			<div className="flex flex-col-reverse lg:flex-row">
+				<HomeLatestYoutubeVideos />
+				<HomeCurrentSeasonStandings />
+			</div>
+
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
+
+			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
+				<HomeLeagueLeaders />
+			</Suspense>
+
+			<HomeUpcomingGames />
 
 			<GoogleDrivePhotos />
 
