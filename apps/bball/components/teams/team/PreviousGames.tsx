@@ -11,7 +11,6 @@ import {
 } from "@ui/components/table";
 
 const PreviousGames = ({ team }): JSX.Element => {
-	console.log("team:", team);
 	return (
 		<div className="mt-10">
 			<h3 className="my-6">Previous Games</h3>

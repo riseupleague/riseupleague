@@ -68,7 +68,7 @@ const Login = () => {
 				return toast({
 					variant: "destructive",
 					title:
-						"Internal server error. Please report this to @riseup.bball. Thanks!",
+						"Internal server error. Please report this to @riseup.leagues. Thanks!",
 					description: result.message,
 				});
 			}
@@ -110,7 +110,7 @@ const Login = () => {
 					variant: "destructive",
 					title: "Something went wrong.",
 					description:
-						"Internal server error. Please report this to @riseup.bball. Thanks!",
+						"Internal server error. Please report this to @riseup.leagues. Thanks!",
 				});
 			}
 		}

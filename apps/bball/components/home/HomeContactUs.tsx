@@ -12,7 +12,7 @@ const HomeContactUs = (): JSX.Element => {
 				accounts and we will get back to you as soon as we can.
 			</p>
 
-			<div className="mx-auto grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
+			<div className="mx-auto grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-5">
 				{instagrams.map((ig, index) => (
 					<Button
 						key={index}
@@ -37,8 +37,8 @@ const HomeContactUs = (): JSX.Element => {
 				className="mx-auto w-fit border border-neutral-100 uppercase transition hover:opacity-80"
 				asChild
 			>
-				<Link href="https://instagram.com/riseup.bball" target="_blank">
-					@riseup.bball
+				<Link href="https://instagram.com/riseup.leagues" target="_blank">
+					@riseup.leagues
 				</Link>
 			</Button>
 		</section>
@@ -57,6 +57,10 @@ const instagrams = [
 	{
 		name: "riseup.markham",
 		url: "https://instagram.com/riseup.markham",
+	},
+	{
+		name: "riseup.sauga",
+		url: "https://instagram.com/riseup.sauga",
 	},
 	{
 		name: "riseup.niagara",

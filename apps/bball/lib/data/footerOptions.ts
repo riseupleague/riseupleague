@@ -62,7 +62,7 @@ export const footerOptions = [
 		links: [
 			{
 				label: "instagram",
-				href: "https://www.instagram.com/riseup.bball/",
+				href: "https://www.instagram.com/riseup.leagues/",
 			},
 			{
 				label: "youTube",
