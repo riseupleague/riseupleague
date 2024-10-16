@@ -16,6 +16,13 @@ const divisionSchema = new Schema({
 	games: [{ type: mongoose.Schema.Types.ObjectId, ref: "Game" }],
 	teamColors: { type: Array },
 	uniqueJersey: { type: Array },
+	statLeaders: {
+		points: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
+		rebounds: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
+		assists: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
+		steals: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
+		blocks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Player" }],
+	},
 	location: { type: String, required: true },
 	city: { type: String },
 	day: { type: String, required: true },

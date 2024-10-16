@@ -68,6 +68,14 @@ const playerSchema = new Schema({
 	teamCaptain: {
 		type: Boolean,
 	},
+	paymentStatus: {
+		hasPaid: Boolean,
+		reminderCount: Number,
+		teamCreatedDate: Date,
+		lastAttempt: Date,
+		email: String,
+		phoneNumber: String,
+	},
 	division: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Division",

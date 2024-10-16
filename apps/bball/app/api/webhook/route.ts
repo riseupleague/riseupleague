@@ -15,6 +15,7 @@ import { connectToDatabase } from "@/api-helpers/utils";
 import { google } from "googleapis";
 import TournamentTeam from "@/api-helpers/models/TournamentTeam";
 import TournamentDivision from "@/api-helpers/models/TournamentDivision";
+import { JoinTeamReminderTemplate } from "@/components/emails/join-team-reminder";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -397,6 +398,8 @@ export async function POST(req: Request) {
 						updatedUser
 					);
 
+					const dateSignUp = new Date(Date.now()); // Current date
+
 					// Create and save all players concurrently
 					const playerPromises = unpaidTeamToPay.players.map(async (player) => {
 						const newPlayer = new Player({
@@ -414,6 +417,14 @@ export async function POST(req: Request) {
 								threesMade: 0,
 								twosMade: 0,
 								freeThrowsMade: 0,
+							},
+							paymentStatus: {
+								hasPaid: false,
+								reminderCount: 0,
+								teamCreatedDate: dateSignUp,
+								lastAttempt: dateSignUp,
+								email: player.email,
+								phoneNumber: player.phoneNumber,
 							},
 						});
 						console.log("Step 16: Creating new player:", newPlayer);
@@ -434,6 +445,23 @@ export async function POST(req: Request) {
 					await updatedUser.save();
 					console.log("Step 19: Saved updated team and user to database");
 
+					await fetch(
+						`${process.env.NEXT_PUBLIC_API_BASE_URL}api/send-join-team-reminders`,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+							},
+							body: JSON.stringify({
+								teamId: savedTeam._id, // Pass the teamId if available
+							}),
+						}
+					);
+
+					console.log(
+						"Step 20: Sent join team email and sms reminders to roster"
+					);
+
 					if (metadata.payment === "four") {
 						let schedule = await stripe.subscriptionSchedules.create({
 							from_subscription: session.subscription as string,
@@ -445,31 +473,6 @@ export async function POST(req: Request) {
 							items: phase.items,
 						}));
 
-						// const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
-						// 	[
-						// 		...phases.map((phase) => ({
-						// 			...phase,
-						// 			items: phase.items.map((item) => ({
-						// 				price:
-						// 					selectedDivision.earlyBirdOpen === true
-						// 						? selectedDivision.earlyBirdInstalmentId
-						// 						: selectedDivision.regularPriceInstalmentId,
-						// 				quantity: 1,
-						// 			})),
-						// 		})),
-						// 		{
-						// 			items: [
-						// 				{
-						// 					price:
-						// 						selectedDivision.earlyBirdOpen === true
-						// 							? selectedDivision.earlyBirdInstalmentId
-						// 							: selectedDivision.regularPriceInstalmentId,
-						// 					quantity: 1,
-						// 				} as Stripe.SubscriptionScheduleUpdateParams.Phase.Item,
-						// 			],
-						// 			iterations: 3,
-						// 		},
-						// 	];
 						const updatedPhases: Stripe.SubscriptionScheduleUpdateParams.Phase[] =
 							[
 								{

@@ -5,7 +5,7 @@ import React from "react";
 
 const GoogleDrivePhotos = async () => {
 	return (
-		<section className="relative mb-16 flex h-[250px] flex-col items-center justify-center lg:mb-24">
+		<section className="relative mb-16 flex h-[250px] flex-col items-center justify-center  lg:mb-24">
 			<Image
 				src="/images/home/photos.jpg"
 				alt="Google Drive Photos Image"

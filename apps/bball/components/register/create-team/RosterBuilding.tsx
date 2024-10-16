@@ -12,19 +12,15 @@ import {
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
 
-type SafeParseResult<T> =
-	| { success: true; data: T }
-	| { success: false; error: ZodError };
-
 const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	const [players, setPlayers] = useState(
 		registerInfo?.players || [
-			{ id: 1, name: "" },
-			{ id: 2, name: "" },
-			{ id: 3, name: "" },
-			{ id: 4, name: "" },
-			{ id: 5, name: "" },
-			{ id: 6, name: "" },
+			{ id: 1, name: "", email: "", phoneNumber: "" },
+			{ id: 2, name: "", email: "", phoneNumber: "" },
+			{ id: 3, name: "", email: "", phoneNumber: "" },
+			{ id: 4, name: "", email: "", phoneNumber: "" },
+			{ id: 5, name: "", email: "", phoneNumber: "" },
+			{ id: 6, name: "", email: "", phoneNumber: "" },
 		]
 	);
 
@@ -38,34 +34,55 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 	};
 
 	const addPlayer = () => {
-		setPlayers([...players, { id: players.length + 1, name: "" }]);
+		setPlayers([
+			...players,
+			{ id: players.length + 1, name: "", email: "", phoneNumber: "" },
+		]);
 	};
 
-	const handlePlayerNameChange = (index, value) => {
+	const handlePlayerChange = (index, field, value) => {
 		const newPlayers = players.map((player, i) =>
-			i === index ? { ...player, name: value } : player
+			i === index ? { ...player, [field]: value } : player
 		);
 		setPlayers(newPlayers);
 	};
 
 	const handleValidation = () => {
-		// Validate the first six players
-		const inputtedPlayers = players
-			.filter((player) => player.name !== "")
-			.map((player, id) => {
-				return { id: id + 1, name: player.name };
-			});
+		const inputtedPlayers = players.filter((player) => player.name !== "");
 
-		const result = buildRosterSchema.safeParse(
-			inputtedPlayers.length >= 6
-				? inputtedPlayers.slice(0, 6)
-				: players.slice(0, 6)
-		);
+		// Simple email and phone number regex validations
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const phoneRegex =
+			/^(?:\+?1[- ]?)?\(?(?:[2-9][0-9]{2})\)?[- ]?(?:[2-9][0-9]{2})[- ]?(?:[0-9]{4})$/;
+		let validationErrors = [];
+
+		// Loop through players to validate email and phone numbers
+		inputtedPlayers.forEach((player, index) => {
+			if (player.email && !emailRegex.test(player.email)) {
+				validationErrors.push({
+					path: [`player${index + 1}`, "email"],
+					message: `Player ${index + 1} has an invalid email.`,
+				});
+			}
+
+			if (player.phoneNumber && !phoneRegex.test(player.phoneNumber)) {
+				validationErrors.push({
+					path: [`player${index + 1}`, "phoneNumber"],
+					message: `Player ${index + 1} has an invalid phone number.`,
+				});
+			}
+		});
+
+		const result = buildRosterSchema.safeParse(players);
 
 		if (!result.success) {
 			const errors = (result as { success: false; error: ZodError }).error
 				.errors;
-			setErrors(errors);
+			validationErrors = [...validationErrors, ...errors];
+		}
+
+		if (validationErrors.length > 0) {
+			setErrors(validationErrors);
 			return false;
 		}
 
@@ -81,7 +98,12 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		const inputtedPlayers = players
 			.filter((player) => player.name !== "")
 			.map((player, id) => {
-				return { id: id + 1, name: player.name };
+				return {
+					id: id + 1,
+					name: player.name,
+					email: player.email,
+					phoneNumber: player.phoneNumber,
+				};
 			});
 
 		const updatedRegisterInfo = {
@@ -124,6 +146,13 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		}
 	};
 
+	const handleDeletePlayer = (index) => {
+		const updatedPlayers = players.filter((_, i) => i !== index);
+		setPlayers(updatedPlayers);
+	};
+
+	console.log("errors:", errors);
+
 	return (
 		<section>
 			<form ref={formRef}>
@@ -152,44 +181,131 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 						/>
 					</div>
 				</div>
+				<div className="rounded border border-neutral-600 bg-[#111827] px-4 py-6 ">
+					<div className="space-y-4">
+						<h2 className="mb-4 text-2xl font-bold text-white">
+							Team Captains
+						</h2>
+						<p className="mb-4 text-lg text-white">
+							Complete your roster below with each player&apos;s name, email,
+							and phone number to ensure they receive important updates and
+							payment reminders. You&apos;ll unlock the{" "}
+							<span className="font-semibold">50% discount</span> on your
+							payment.
+						</p>
+						<p className="text-md font-medium text-red-600">
+							<strong>Note:</strong> All your players must sign up before the
+							deadline to avoid team removal, allowing waitlisted teams to join.
+						</p>
+					</div>
 
-				<p className="text-primary text-2xl uppercase">
-					Team captains must enter their roster names to allow players to select
-					and join the team through the join portal.
-				</p>
-				<div className="my-8 grid grid-cols-1 gap-3 rounded border border-neutral-600 bg-[#111827] px-4 py-6 md:grid-cols-2">
-					{players.map((player, index) => (
-						<div key={player.id} className="space-y-3">
-							<Label
-								htmlFor={`player${player.id}`}
-								className="text-xl uppercase"
-							>
-								Player {player.id}
-							</Label>
-							<Input
-								variant="form"
-								type="text"
-								name={`player${player.id}`}
-								placeholder={`Enter Player ${player.id}'s name`}
-								defaultValue={player.name}
-								onChange={(e) => handlePlayerNameChange(index, e.target.value)}
-							/>
-							{index < 6 &&
-								errors.find((error) => error.path.includes(index)) && (
+					<div className="my-8 grid grid-cols-1 gap-3 md:grid-cols-2">
+						{players.map((player, index) => (
+							<div key={player.id} className="space-y-3">
+								<Label
+									htmlFor={`player${player.id}`}
+									className="flex items-center justify-between text-xl uppercase"
+								>
+									Enter Player {player.id}
+									{/* Delete button for Player 7 and up */}
+									{index >= 6 && (
+										<button
+											type="button"
+											onClick={() => handleDeletePlayer(index)}
+											className="text-sm text-red-500 underline"
+										>
+											Delete
+										</button>
+									)}
+								</Label>
+
+								{/* Player Name Input */}
+								<Input
+									variant="form"
+									type="text"
+									name={`player${player.id}`}
+									placeholder={`Enter Player ${player.id}'s name`}
+									defaultValue={player.name}
+									onChange={(e) =>
+										handlePlayerChange(index, "name", e.target.value)
+									}
+								/>
+								{/* Error for Player Name */}
+								{errors.find(
+									(error) => error.path[0] === index && error.path[1] === "name"
+								) && (
 									<p className="text-red-500">
 										{
-											errors.find((error) => error.path.includes(index))
-												?.message
+											errors.find(
+												(error) =>
+													error.path[0] === index && error.path[1] === "name"
+											)?.message
 										}
 									</p>
 								)}
-						</div>
-					))}
+
+								{/* Player Email Input */}
+								<Input
+									variant="form"
+									type="email"
+									name={`playerEmail${player.id}`}
+									placeholder={`Email`}
+									defaultValue={player.email}
+									onChange={(e) =>
+										handlePlayerChange(index, "email", e.target.value)
+									}
+								/>
+								{/* Error for Player Email */}
+								{errors.find(
+									(error) =>
+										error.path[0] === index && error.path[1] === "email"
+								) && (
+									<p className="text-red-500">
+										{
+											errors.find(
+												(error) =>
+													error.path[0] === index && error.path[1] === "email"
+											)?.message
+										}
+									</p>
+								)}
+
+								{/* Player Phone Number Input */}
+								<Input
+									variant="form"
+									type="text"
+									name={`playerPhone${player.id}`}
+									placeholder={`Phone Number`}
+									defaultValue={player.phoneNumber}
+									onChange={(e) =>
+										handlePlayerChange(index, "phoneNumber", e.target.value)
+									}
+								/>
+								{/* Error for Player Phone Number */}
+								{errors.find(
+									(error) =>
+										error.path[0] === index && error.path[1] === "phoneNumber"
+								) && (
+									<p className="text-red-500">
+										{
+											errors.find(
+												(error) =>
+													error.path[0] === index &&
+													error.path[1] === "phoneNumber"
+											)?.message
+										}
+									</p>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 
 				<p className="my-4 text-center">
 					Reminder: Add up to 8 more players to prevent{" "}
-					<span className="text-lg font-semibold">free agents</span>
+					<span className="text-primary text-lg font-semibold">
+						free agents
+					</span>
 				</p>
 
 				<div className="flex flex-col gap-20">

@@ -30,6 +30,14 @@ export async function POST(req: Request) {
 	// });
 	try {
 		if (parsedFormObject.payment === "full") {
+			let coupon;
+			if (parsedFormObject.status === "createTeam") {
+				coupon = await stripe.coupons.create({
+					percent_off: 50, // 50%
+					currency: "cad", // Set the currency to CAD
+					duration: "once", // Applies only to the first payment
+				});
+			}
 			const session = await stripe.checkout.sessions.create({
 				mode: "payment",
 				payment_method_types: ["card"],
@@ -42,6 +50,7 @@ export async function POST(req: Request) {
 				automatic_tax: {
 					enabled: true,
 				},
+				discounts: [{ coupon: coupon.id }], // Apply the 50% coupon
 				metadata: {
 					formObject,
 				},

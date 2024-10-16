@@ -161,6 +161,17 @@ export const buildRosterSchema = z
 		z.object({
 			id: z.number(),
 			name: z.string().min(1, "Player name is required"),
+			email: z
+				.string()
+				.min(1, "Email is required")
+				.email("Invalid email format"), // This validates the email format
+			phoneNumber: z
+				.string()
+				.min(1, "Phone number is required")
+				.regex(
+					/^(?:\+?1[- ]?)?\(?(?:[2-9][0-9]{2})\)?[- ]?(?:[2-9][0-9]{2})[- ]?(?:[0-9]{4})$/,
+					"Invalid phone number format"
+				), // Validates the phone number
 		})
 	)
 	.min(6, "At least 6 players are required");

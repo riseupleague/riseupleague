@@ -18,16 +18,18 @@ import { useState, useTransition } from "react";
 import { findUser } from "@/actions/user-actions";
 import SubmitButton from "../general/SubmitButton";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
-// import UserLoading from "@/app/user/loading";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Login = () => {
 	const { toast } = useToast();
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	// Get redirectUrl from search params or default to "/"
+	const redirectUrl = searchParams.get("redirectUrl") || "/";
 	const [userFound, setUserFound] = useState(false);
 	const [isPending, startTransition] = useTransition();
 	const [errors, setErrors] = useState(null);
-
+	console.log("redirectUrl:", redirectUrl);
 	const { status, data: session } = useSession();
 	if (session || session?.user) router.push("/");
 
@@ -82,6 +84,7 @@ const Login = () => {
 					email: userData.get("email").toString(),
 					password: userData.get("password").toString(),
 					redirect: false,
+					callbackUrl: redirectUrl, // Use redirectUrl as the callbackUrl
 				});
 
 				if (result.error) {
@@ -98,18 +101,8 @@ const Login = () => {
 
 				if (result.status === 200) {
 					setErrors(null);
-
-					window.location.href = "/";
-
-					// toast({
-					// 	variant: "success",
-					// 	title: "Logged in successfully.",
-					// 	description: "Welcome back to Rise Up Basketball 🏀",
-					// 	duration: 1500,
-					// });
-
-					// startTransition(() => router.push("/"));
-					// startTransition(() => router.refresh());
+					// Redirect to the callbackUrl after successful login
+					window.location.href = redirectUrl;
 				}
 			} catch (e) {
 				console.error(e);
@@ -139,7 +132,7 @@ const Login = () => {
 				<CardContent>
 					<Button
 						variant="signIn"
-						onClick={() => signIn("google")}
+						onClick={() => signIn("google", { callbackUrl: redirectUrl })}
 						className="w-full"
 					>
 						<FcGoogle className="scale-110" />

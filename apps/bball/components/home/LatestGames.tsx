@@ -14,7 +14,7 @@ const LatestGames = async (): Promise<JSX.Element> => {
 	const { games } = await resGames.json();
 
 	return (
-		<section className="font-barlow mb-8 text-neutral-100">
+		<section className="font-barlow mb-8 w-full text-neutral-100 lg:w-1/2">
 			<h3 className="my-6">latest games</h3>
 			<hr />
 			<HomeLatestGames games={games} />

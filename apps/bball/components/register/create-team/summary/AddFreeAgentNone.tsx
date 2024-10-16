@@ -19,10 +19,6 @@ const AddFreeAgentNone = ({
 }) => {
 	return (
 		<Tabs defaultValue="regular">
-			<TabsList className="grid w-full grid-cols-2">
-				<TabsTrigger value="regular">One Time Payment</TabsTrigger>
-				<TabsTrigger value="installment">Four Installments</TabsTrigger>
-			</TabsList>
 			<TabsContent value="regular">
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<h4 className="text-primary my-10 text-center text-3xl uppercase">
@@ -44,10 +40,11 @@ const AddFreeAgentNone = ({
 					{registerInfo.division?.earlyBirdOpen ? (
 						<div className="my-5">
 							<p className="text-primary text-3xl uppercase">
-								Early Bird Player Discount:
+								50% Off & Early Bird Player Discount:
 							</p>
+
 							<p className="text-4xl font-semibold">
-								${registerInfo.division?.earlyBirdPrice} + tax
+								${registerInfo.division?.earlyBirdPrice * 0.5} + tax
 							</p>
 							<ul>
 								<li className="my-2">
@@ -55,36 +52,22 @@ const AddFreeAgentNone = ({
 								</li>
 
 								<li className="my-2">
-									Get a $
-									{80 +
-										50 +
-										55 +
-										40 +
-										55 -
-										registerInfo.division?.earlyBirdPrice}{" "}
-									discount
+									Get $
+									{+registerInfo.division?.regularPrice -
+										+registerInfo.division?.earlyBirdPrice * 0.5}{" "}
+									off
 								</li>
-								<li className="my-2">Limited Time Only</li>
 							</ul>
 						</div>
 					) : (
 						<div className="my-5">
-							<p className="text-xl uppercase">Regular Player Price:</p>
-							<p className="text-2xl font-semibold">
-								${registerInfo.division?.regularPrice} + tax
+							<p className="text-primary text-3xl uppercase">
+								Total with 50% Off:
 							</p>
-							<ul>
-								<li className="my-2">
-									Regular price is ${registerInfo.division?.regularPrice} + tax
-								</li>
 
-								<li className="my-2">
-									Get a $
-									{80 + 50 + 50 + 40 + 50 - registerInfo.division?.regularPrice}{" "}
-									discount
-								</li>
-								<li className="my-2">Limited Time Only</li>
-							</ul>
+							<p className="text-4xl font-semibold">
+								${registerInfo.division?.regularPrice * 0.5} + tax
+							</p>
 						</div>
 					)}
 
@@ -185,7 +168,7 @@ const AddFreeAgentNone = ({
 					</Button>
 				</form>
 			</TabsContent>
-			<TabsContent value="installment">
+			{/* <TabsContent value="installment">
 				<form onSubmit={handleSubmit(onSubmitInstallments)}>
 					<h4 className="text-primary my-10 text-center text-3xl uppercase">
 						Four Installments
@@ -327,7 +310,7 @@ const AddFreeAgentNone = ({
 						)}
 					</Button>
 				</form>
-			</TabsContent>
+			</TabsContent> */}
 		</Tabs>
 	);
 };

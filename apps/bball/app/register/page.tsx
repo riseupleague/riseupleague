@@ -26,17 +26,19 @@ export default async function Register({
 	searchParams: { [key: string]: string | string[] | undefined };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+	const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}register`;
 
 	const session = await getServerSession();
+	if (!session) {
+		redirect(`/login?redirectUrl=${redirectUrl}`);
+	}
 	const resUser = await getCurrentUser(session.user.email);
 
 	const { user } = await resUser.json();
 	const seasonName = await upcomingSeasonName();
-
 	if (!user) {
 		await addNewUser(session.user.name, session.user.email, "google");
-
-		redirect("/");
+		redirect(`/login?redirectUrl=${redirectUrl}`);
 	}
 
 	const info = typeof searchParams.info === "string" ? searchParams.info : "";

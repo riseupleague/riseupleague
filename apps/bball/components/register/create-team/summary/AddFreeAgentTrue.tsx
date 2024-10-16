@@ -19,10 +19,6 @@ const AddFreeAgentTrue = ({
 }) => {
 	return (
 		<Tabs defaultValue="regular">
-			<TabsList className="grid w-full grid-cols-2">
-				<TabsTrigger value="regular">One Time Payment</TabsTrigger>
-				<TabsTrigger value="installment">Four Installments</TabsTrigger>
-			</TabsList>
 			<TabsContent value="regular">
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<h4 className="text-primary my-10 text-center text-3xl uppercase">
@@ -45,11 +41,11 @@ const AddFreeAgentTrue = ({
 						{registerInfo.division?.earlyBirdOpen ? (
 							<>
 								<p className="text-primary text-3xl uppercase">
-									Early Bird Player Discount:
+									50% Off & Early Bird Player Discount:
 								</p>
 
 								<p className="text-4xl font-semibold">
-									${registerInfo.division?.earlyBirdPrice} + tax
+									${registerInfo.division?.earlyBirdPrice * 0.5} + tax
 								</p>
 								<ul>
 									<li className="my-2">
@@ -58,23 +54,19 @@ const AddFreeAgentTrue = ({
 									</li>
 
 									<li className="my-2">
-										Get a $
-										{80 +
-											50 +
-											55 +
-											40 +
-											55 -
-											registerInfo.division?.earlyBirdPrice}{" "}
-										discount
+										Get $
+										{+registerInfo.division?.regularPrice -
+											+registerInfo.division?.earlyBirdPrice * 0.5}{" "}
+										off
 									</li>
 								</ul>
 							</>
 						) : (
 							<>
-								<p className="text-xl uppercase">Total:</p>
+								<p className="text-xl uppercase">Total with 50% Off:</p>
 
 								<p className="text-2xl font-semibold">
-									${registerInfo.division?.regularPrice} + tax
+									${registerInfo.division?.regularPrice * 0.5} + tax
 								</p>
 							</>
 						)}
@@ -180,7 +172,7 @@ const AddFreeAgentTrue = ({
 					)}
 				</form>
 			</TabsContent>
-			<TabsContent value="installment">
+			{/* <TabsContent value="installment">
 				<form onSubmit={handleSubmit(onSubmitInstallments)}>
 					<h4 className="text-primary my-10 text-center text-3xl uppercase">
 						Four Installments
@@ -210,23 +202,25 @@ const AddFreeAgentTrue = ({
 								Note: payments include instalment fees.
 							</p>
 							<li className="my-2">
-								First Payment: ${registerInfo.division?.firstInstalmentPrice}
+								First Payment: ${registerInfo.division?.firstInstalmentPrice} -
+								<span className="text-xs"> $7.50 team captain discount</span>
 							</li>
 
 							<li className="my-2">
-								Second Payment: ${registerInfo.division?.instalmentPrice}
+								Second Payment: ${registerInfo.division?.instalmentPrice} -
+								<span className="text-xs"> $7.50 team captain discount</span>
 							</li>
 							<li className="my-2">
-								Third Payment: ${registerInfo.division?.instalmentPrice}
+								Third Payment: ${registerInfo.division?.instalmentPrice} -{" "}
+								<span className="text-xs"> $7.50 team captain discount</span>
 							</li>
 
 							<li className="my-2">
-								Fourth Payment: ${registerInfo.division?.instalmentPrice}
+								Fourth Payment: ${registerInfo.division?.instalmentPrice} -
+								<span className="text-xs"> $7.50 team captain discount</span>
 							</li>
 
-							<li className="my-2 text-2xl font-semibold">
-								Total: ${registerInfo.division?.regularPrice}
-							</li>
+				
 						</ul>
 					</div>
 					<p className="text-lg"> Please Check All Boxes Before Proceeding</p>
@@ -326,7 +320,7 @@ const AddFreeAgentTrue = ({
 						in your roster, We will add free agents to your team.
 					</p>
 				</form>
-			</TabsContent>
+			</TabsContent> */}
 		</Tabs>
 	);
 };
