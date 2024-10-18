@@ -37,7 +37,7 @@ const HomePlayersOfTheWeek = async (): Promise<JSX.Element> => {
 		});
 
 	return (
-		<section className="font-barlow mb-8 text-neutral-100">
+		<section className="font-barlow container mx-auto mb-8 min-h-fit text-neutral-100">
 			{playerOfTheGames.length > 0 && (
 				<>
 					<h3 className="my-6">players of the week</h3>

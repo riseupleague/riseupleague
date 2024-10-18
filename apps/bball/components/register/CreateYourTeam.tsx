@@ -21,6 +21,8 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 		},
 	});
 
+	console.log("registerInfo:", registerInfo);
+
 	return (
 		<section>
 			{registerInfo.step === 1 && <BackButton href="/register" />}
@@ -50,6 +52,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 				<RosterBuilding
 					registerInfo={registerInfo}
 					setRegisterInfo={setRegisterInfo}
+					user={user}
 				/>
 			)}
 

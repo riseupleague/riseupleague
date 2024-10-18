@@ -2,6 +2,11 @@ import SidebarContent from "./SidebarContent";
 const Sidebar = ({ activeSeason }): JSX.Element => {
 	const sidebarLinks = [
 		{
+			title: "Dashboard",
+			href: `/`,
+			id: "dashboard",
+		},
+		{
 			title: "league management",
 			href: `${activeSeason ? "/league-management/" + activeSeason._id : "/league-management"}`,
 			id: "league-management",

@@ -28,7 +28,7 @@ const MobileBottomNav = ({ headerOptions, path }): JSX.Element => {
 							href={option.href}
 							className={`${isActive && "text-primary"} flex flex-col items-center justify-center`}
 						>
-							{option.icon}
+							{isActive ? option.iconActive : option.icon}
 							<span className="font-barlow text-base capitalize tracking-tighter">
 								{option.label}
 							</span>

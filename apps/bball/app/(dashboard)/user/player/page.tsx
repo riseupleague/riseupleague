@@ -28,7 +28,7 @@ export default async function User(): Promise<JSX.Element> {
 	return (
 		<section className="container mx-auto">
 			<h1 className="text-start text-3xl lg:text-5xl">
-				👋 Welcome Back {user.name}!
+				👋 Welcome Back {user?.name}!
 			</h1>
 
 			<Breadcrumb />

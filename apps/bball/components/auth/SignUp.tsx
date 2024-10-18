@@ -18,7 +18,7 @@ import { useState, useTransition } from "react";
 import { createUser, findUser } from "@/actions/user-actions";
 import SubmitButton from "../general/SubmitButton";
 import { useToast } from "@ui/components/use-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 // import UserLoading from "@/app/choose-team-schedule/[id]/loading";
 
 const SignUp = () => {
@@ -27,7 +27,9 @@ const SignUp = () => {
 	const [newUser, setNewUser] = useState(false);
 	const [errors, setErrors] = useState(null);
 	const [isPending, startTransition] = useTransition();
-
+	const searchParams = useSearchParams();
+	// Get redirectUrl from search params or default to "/"
+	const redirectUrl = searchParams.get("redirectUrl") || "/";
 	const { status, data: session } = useSession();
 	if (session || session?.user) router.push("/");
 

@@ -3,7 +3,7 @@ import { Button } from "@ui/components/button";
 import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { unstable_noStore as noStore } from "next/cache";
-import HomeLeaderGrid from "../leaders/HomeLeaderGrid";
+import HomeLeaderGrid from "./HomeLeaderGrid";
 import { DivisionWithStats } from "@/types";
 
 const HomeLeaders = async (): Promise<JSX.Element> => {
@@ -16,19 +16,23 @@ const HomeLeaders = async (): Promise<JSX.Element> => {
 	const { divisionsWithStats }: { divisionsWithStats: DivisionWithStats[] } =
 		await resDivisions.json();
 
+	const sortedByPoints = allPlayers.sort((a, b) =>
+		a.averageStats["points"] < b.averageStats["points"] ? 1 : -1
+	);
+
 	return (
-		<section className="font-barlow mb-8 text-neutral-100">
+		<section className="font-barlow mb-8 text-neutral-100 lg:w-1/2">
 			<h3>league leaders 🥇</h3>
 			<hr />
 
 			<div className="my-4">
 				<HomeLeaderGrid
-					allPlayers={allPlayers}
+					allPlayers={sortedByPoints}
 					divisions={divisionsWithStats}
 				/>
 			</div>
 
-			<Link href="/leaders" className="w-full">
+			<Link href={`/leaders/stats`} className="w-full">
 				<Button className="w-full">View All League Leaders</Button>
 			</Link>
 		</section>

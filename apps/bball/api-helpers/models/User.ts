@@ -47,14 +47,15 @@ const userSchema = new Schema(
 		],
 		unpaidTeams: [
 			{
-				allowStep: { type: Array, required: true },
-				division: { type: Object, required: true },
-				players: { type: Array, required: true },
-				step: { type: Number, required: true },
-				teamCaptainDetails: { type: Object, required: true },
-				teamDetails: { type: Object, required: true },
-				checkboxes: { type: Object, required: true },
-				createdAt: { type: Date, default: Date.now }, // Automatically deletes after 24 hours
+				paid: { type: Boolean },
+				allowStep: { type: Array },
+				division: { type: Object },
+				players: { type: Array },
+				step: { type: Number },
+				teamCaptainDetails: { type: Object },
+				teamDetails: { type: Object },
+				checkboxes: { type: Object },
+				createdAt: { type: Date, default: Date.now },
 			},
 		],
 

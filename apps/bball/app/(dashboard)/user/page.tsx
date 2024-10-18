@@ -23,10 +23,11 @@ export default async function User(): Promise<JSX.Element> {
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
+	console.log("user:", user);
 	return (
 		<section className="container mx-auto">
 			<h1 className="text-start text-3xl lg:text-5xl">
-				👋 Welcome Back {user.name}!
+				👋 Welcome Back {user?.name}!
 			</h1>
 			<Breadcrumb />
 

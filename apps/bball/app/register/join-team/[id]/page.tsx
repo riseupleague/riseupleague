@@ -17,15 +17,19 @@ export default async function JoinTeam({
 	params: { id: string };
 }): Promise<JSX.Element> {
 	await connectToDatabase();
+	const redirectUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}register/join-team/${params.id}`;
 
 	const session = await getServerSession();
+	if (!session) {
+		redirect(`/login?redirectUrl=${redirectUrl}`);
+	}
 	const resUser = await getCurrentUser(session.user.email);
 	const { user } = await resUser.json();
 
 	if (!user) {
 		await addNewUser(session.user.name, session.user.email, "google");
 
-		redirect("/");
+		redirect(`/login?redirectUrl=${redirectUrl}`);
 	}
 	const resTeam = await getRegisterTeamById(params.id);
 	const { team } = await resTeam.json();
