@@ -31,27 +31,27 @@ const LeaderCard = ({ player, rank, currentStat }): JSX.Element => {
 				</Link>
 			</div>
 			<div
-				className={`${currentStat === "points" && "text-primary !flex font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "points" && "text-primary flex font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 			>
 				{player.averageStats.points.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "rebounds" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+				className={`${currentStat === "rebounds" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.rebounds.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "assists" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+				className={`${currentStat === "assists" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.assists.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "steals" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+				className={`${currentStat === "steals" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.steals.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "blocks" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+				className={`${currentStat === "blocks" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.blocks.toFixed(1)}
 			</div>

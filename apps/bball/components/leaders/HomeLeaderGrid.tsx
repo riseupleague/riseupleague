@@ -91,27 +91,27 @@ const HomeLeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 					<div className="flex w-1/6 items-center text-sm sm:text-lg">Name</div>
 					<div className="flex w-1/6 items-center text-sm sm:text-lg">Team</div>
 					<div
-						className={`${currentStat === "points" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+						className={`${currentStat === "points" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						PPG
 					</div>
 					<div
-						className={`${currentStat === "rebounds" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+						className={`${currentStat === "rebounds" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						RPG
 					</div>
 					<div
-						className={`${currentStat === "assists" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+						className={`${currentStat === "assists" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						APG
 					</div>
 					<div
-						className={`${currentStat === "steals" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+						className={`${currentStat === "steals" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						SPG
 					</div>
 					<div
-						className={`${currentStat === "blocks" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg lg:flex`}
+						className={`${currentStat === "blocks" && "text-primary !flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg`}
 					>
 						BPG
 					</div>

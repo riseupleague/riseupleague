@@ -18,6 +18,8 @@ import HomeLatestYoutubeVideos from "@/components/home/HomeLatestYoutubeVideos";
 import LatestGames from "@/components/home/LatestGames";
 import HomeUpcomingGames from "@/components/home/HomeUpcomingGames";
 import HomeLeaders from "@/components/home/HomeLeaders";
+import HomePromoBanner from "@/components/home/HomePromoBanner";
+import HomeSkillsAssesment from "@/components/home/HomeSkillsAssesment";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -30,10 +32,15 @@ const Page = async (): Promise<JSX.Element> => {
 
 			{/* <Hero /> */}
 			{/* <TournamentPromo /> */}
-
 			<HomeRegister />
 
-			<HomeLeaders />
+			<HomePromoBanner />
+
+			<div className="container mx-auto flex min-h-fit flex-col-reverse gap-10 lg:flex-row">
+				<HomeSkillsAssesment />
+
+				<HomeLeaders />
+			</div>
 
 			<div className="container mx-auto flex min-h-fit flex-col-reverse lg:flex-row">
 				<HomeLatestYoutubeVideos />
