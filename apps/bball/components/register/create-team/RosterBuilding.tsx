@@ -11,8 +11,9 @@ import {
 	DialogDescription,
 } from "@ui/components/dialog";
 import { buildRosterSchema } from "@/schemas";
+import { saveUnpaidTeam } from "@/actions/saveUnpaidTeam";
 
-const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
+const RosterBuilding = ({ registerInfo, setRegisterInfo, user }) => {
 	const [players, setPlayers] = useState(
 		registerInfo?.players || [
 			{ id: 1, name: "", email: "", phoneNumber: "" },
@@ -90,7 +91,7 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 		return true;
 	};
 
-	const validateAndSubmit = (numOfPlayers: number, freeAgent: string) => {
+	const validateAndSubmit = async (numOfPlayers: number, freeAgent: string) => {
 		const isValid = handleValidation();
 		if (!isValid) return;
 
@@ -119,6 +120,22 @@ const RosterBuilding = ({ registerInfo, setRegisterInfo }) => {
 				5: false,
 			},
 		};
+
+		const unpaidTeamObject = {
+			...registerInfo,
+			players: inputtedPlayers,
+			step: 4,
+			addFreeAgent: freeAgent,
+			allowStep: {
+				1: true,
+				2: true,
+				3: true,
+				4: true,
+				5: false,
+			},
+			paid: false,
+		};
+		await saveUnpaidTeam(user._id, unpaidTeamObject);
 
 		setRegisterInfo(updatedRegisterInfo);
 	};

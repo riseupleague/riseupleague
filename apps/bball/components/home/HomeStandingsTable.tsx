@@ -88,11 +88,7 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 									<TableCell className="text-center">{team.wins}</TableCell>
 									<TableCell className="text-center">{team.losses}</TableCell>
 									<TableCell className="relative p-0 text-center">
-										<span
-											className={`${team.streak === "3-0" ? "bg-green-600" : "bg-green-400"} px-2`}
-										>
-											{team.streak}
-										</span>
+										<span className="bg-green-600 px-2">{team.streak}</span>
 										{team.streak === "3-0" && (
 											<span className="absolute">🔥</span>
 										)}

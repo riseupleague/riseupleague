@@ -1,6 +1,6 @@
 {
 	"name": "bball",
-	"version": "bball@1.5.1",
+	"version": "bball@1.5.2",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -36,6 +36,7 @@
 		"@iconify/react": "^4.1.1",
 		"@playwright/test": "^1.41.1",
 		"@types/bcryptjs": "^2.4.6",
+		"@types/google.maps": "^3.58.1",
 		"@types/node": "^20.9.0",
 		"@types/react": "^18.2.5",
 		"@types/react-dom": "^18.2.4",

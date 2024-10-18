@@ -20,6 +20,7 @@ import HomeUpcomingGames from "@/components/home/HomeUpcomingGames";
 import HomeLeaders from "@/components/home/HomeLeaders";
 import HomePromoBanner from "@/components/home/HomePromoBanner";
 import HomeSkillsAssesment from "@/components/home/HomeSkillsAssesment";
+import HomeGymFinder from "@/components/home/HomeGymFinder";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -42,7 +43,9 @@ const Page = async (): Promise<JSX.Element> => {
 				<HomeLeaders />
 			</div>
 
-			<div className="container mx-auto flex min-h-fit flex-col-reverse lg:flex-row">
+			{/* <HomeGymFinder /> */}
+
+			<div className="container mx-auto flex min-h-fit flex-col lg:flex-row">
 				<HomeLatestYoutubeVideos />
 				<HomeCurrentSeasonStandings />
 			</div>

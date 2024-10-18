@@ -85,7 +85,7 @@ const HomeSkillsAssesment = (): JSX.Element => {
 		<Card className="border-primary mx-auto w-full overflow-hidden lg:w-1/2">
 			<CardHeader className=" text-white">
 				<CardTitle className="text-2xl font-bold">
-					Find Your Perfect Division
+					Find The Perfect Division For You
 				</CardTitle>
 				<CardDescription className="text-white/80">
 					Solo player? No problem! Adjust the sliders to find your ideal match.

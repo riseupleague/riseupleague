@@ -99,11 +99,11 @@ export default async function Register({
 						))}
 					</section>
 
-					<RegisterCTABanner
+					{/* <RegisterCTABanner
 						description={"Need more information?"}
 						ctaLink={"/register?info=true"}
 						ctaText={"Click Here"}
-					/>
+					/> */}
 				</main>
 			)}
 		</>

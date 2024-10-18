@@ -38,7 +38,7 @@ const HomeRegister = (): JSX.Element => {
 					asChild
 					className="bg-primaryDark hover:bg-primary animate-bounce rounded-md px-6 py-3 text-lg font-bold uppercase text-white shadow-lg transition-all duration-1000 ease-in-out lg:px-10 lg:py-4 lg:text-xl"
 				>
-					<Link href="/register">Claim Your Spot Now</Link>
+					<Link href="/register">Secure Your Spot Now</Link>
 				</Button>
 
 				<p className="animate-fadeIn mt-4 text-sm font-semibold text-gray-300 lg:text-base">

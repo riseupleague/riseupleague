@@ -16,11 +16,6 @@ const videos = [
 	{ id: 3, title: "Video 3" },
 	{ id: 4, title: "Video 4" },
 	{ id: 5, title: "Video 5" },
-	{ id: 6, title: "Video 6" },
-	{ id: 7, title: "Video 7" },
-	{ id: 8, title: "Video 8" },
-	{ id: 9, title: "Video 9" },
-	{ id: 10, title: "Video 10" },
 ];
 
 export default function YoutubePlaylistViewer() {
