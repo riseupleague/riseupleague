@@ -65,14 +65,14 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 
 		return (
 			<>
-				<Table>
+				<Table className="text-base">
 					<TableHeader>
 						<TableRow>
 							<TableHead className="w-12">#</TableHead>
 							<TableHead>Team</TableHead>
 							<TableHead className="text-center">W</TableHead>
 							<TableHead className="text-center">L</TableHead>
-							<TableHead className="text-center">Last 3</TableHead>
+							<TableHead className="px-1 text-center">Last 3</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -87,7 +87,7 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 									</TableCell>
 									<TableCell className="text-center">{team.wins}</TableCell>
 									<TableCell className="text-center">{team.losses}</TableCell>
-									<TableCell className="relative text-center">
+									<TableCell className="relative p-0 text-center">
 										<span
 											className={`${team.streak === "3-0" ? "bg-green-600" : "bg-green-400"} px-2`}
 										>
@@ -115,10 +115,10 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 
 	return (
 		<Card className="w-full border-none bg-none ">
-			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+			<CardHeader className="flex flex-row items-center justify-between space-y-0 px-0 pb-2">
 				<CardTitle className="text-2xl font-bold">Standings</CardTitle>
 				<Select value={selectedDivision} onValueChange={setSelectedDivision}>
-					<SelectTrigger className="flex w-[45px] items-center justify-between">
+					<SelectTrigger className="flex w-[45px] items-center justify-between border-none">
 						{/* Show chevron only on mobile */}
 						<span className="hidden">
 							<SelectValue placeholder="Select Division" />
@@ -135,7 +135,7 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 					</SelectContent>
 				</Select>
 			</CardHeader>
-			<CardContent>
+			<CardContent className="px-0">
 				{selectedDivisionData && renderStandings(selectedDivisionData)}
 			</CardContent>
 		</Card>

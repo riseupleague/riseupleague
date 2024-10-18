@@ -43,7 +43,7 @@ const HomeUpcomingGames = async (): Promise<JSX.Element> => {
 			"status homeTeam awayTeam division date gameName homeTeamScore awayTeamScore location"
 		)
 		.sort({ date: 1 }) // Sort by date (earliest first)
-		.limit(4); // Only retrieve the first 4 games
+		.limit(5); // Only retrieve the first 4 games
 
 	const gamesByDate =
 		games &&
@@ -72,13 +72,16 @@ const HomeUpcomingGames = async (): Promise<JSX.Element> => {
 	});
 
 	return (
-		<section className="font-barlow mb-8 w-full text-neutral-100">
+		<section className="font-barlow container mx-auto my-16 min-h-fit w-full text-neutral-100">
 			<h3 className="my-4">Upcoming games</h3>
 			<div className="my-6">
 				{games?.map((game, index) => (
 					<HomeScheduleCard game={game} key={index} />
 				))}
 			</div>
+			<Link href={`/schedule`} className="w-full">
+				<Button className="w-full">View Game Schedule</Button>
+			</Link>
 		</section>
 	);
 };

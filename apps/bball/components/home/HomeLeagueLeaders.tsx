@@ -17,7 +17,7 @@ const HomeLeagueLeaders = async (): Promise<JSX.Element> => {
 		await resDivisions.json();
 
 	return (
-		<section className="font-barlow mb-8 flex  justify-between text-neutral-100 "></section>
+		<section className="font-barlow container mx-auto  mb-8 flex min-h-fit justify-between text-neutral-100"></section>
 	);
 };
 

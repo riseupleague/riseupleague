@@ -30,6 +30,7 @@ const UserPlayer = ({ currentPlayers }) => {
 			? selectedPlayer.team.players
 			: [];
 
+	console.log("selectedPlayer:", selectedPlayer);
 	return (
 		<div className="my-20">
 			{!selectedPlayer && (
@@ -84,9 +85,12 @@ const UserPlayer = ({ currentPlayers }) => {
 							<TabsTrigger value="games" className="font-barlow">
 								My Games
 							</TabsTrigger>
-							<TabsTrigger value="roster" className="font-barlow">
-								My Roster
-							</TabsTrigger>
+
+							{!selectedPlayer.freeAgent && (
+								<TabsTrigger value="roster" className="font-barlow">
+									My Roster
+								</TabsTrigger>
+							)}
 							<div className="absolute bottom-[2px] -z-10 w-full border-b border-neutral-600" />
 						</TabsList>
 

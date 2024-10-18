@@ -16,7 +16,7 @@ export default async function DivisionPage({
 	await connectToDatabase();
 
 	// Check if worker can view route
-	await isRouteForCommissioner();
+	// await isRouteForCommissioner();
 
 	const resDivision = await getDivisionFromIdWithTeams(params.division);
 	const { division } = await resDivision.json();

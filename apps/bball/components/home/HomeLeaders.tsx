@@ -17,7 +17,7 @@ const HomeLeaders = async (): Promise<JSX.Element> => {
 		await resDivisions.json();
 
 	return (
-		<section className="font-barlow mb-8 text-neutral-100">
+		<section className="font-barlow container mx-auto mb-8 min-h-fit text-neutral-100">
 			<h3>league leaders 🥇</h3>
 			<hr />
 
@@ -28,7 +28,7 @@ const HomeLeaders = async (): Promise<JSX.Element> => {
 				/>
 			</div>
 
-			<Link href="/leaders" className="w-full">
+			<Link href={`/leaders/stats`} className="w-full">
 				<Button className="w-full">View All League Leaders</Button>
 			</Link>
 		</section>

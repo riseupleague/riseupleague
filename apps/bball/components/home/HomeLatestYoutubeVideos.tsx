@@ -50,10 +50,7 @@ export default function YoutubePlaylistViewer() {
 				>
 					<CarouselContent className="-ml-1">
 						{videos.map((video) => (
-							<CarouselItem
-								key={video.id}
-								className="basis-1/4 pl-1 sm:basis-1/4 md:basis-1/4 lg:basis-1/4"
-							>
+							<CarouselItem key={video.id} className="basis-1/2 md:basis-1/4">
 								<div className="p-0.5">
 									<Card>
 										<CardContent className="flex aspect-video items-center justify-center p-0">

@@ -17,12 +17,13 @@ import HomeLeagueLeaders from "@/components/home/HomeLeagueLeaders";
 import HomeLatestYoutubeVideos from "@/components/home/HomeLatestYoutubeVideos";
 import LatestGames from "@/components/home/LatestGames";
 import HomeUpcomingGames from "@/components/home/HomeUpcomingGames";
+import HomeLeaders from "@/components/home/HomeLeaders";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	return (
-		<div className="container mx-auto min-h-fit">
+		<div className="">
 			{/* <Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense> */}
@@ -32,7 +33,9 @@ const Page = async (): Promise<JSX.Element> => {
 
 			<HomeRegister />
 
-			<div className="flex flex-col-reverse lg:flex-row">
+			<HomeLeaders />
+
+			<div className="container mx-auto flex min-h-fit flex-col-reverse lg:flex-row">
 				<HomeLatestYoutubeVideos />
 				<HomeCurrentSeasonStandings />
 			</div>

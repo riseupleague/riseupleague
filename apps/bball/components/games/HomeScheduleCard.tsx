@@ -51,7 +51,7 @@ const HomeScheduleCard = ({ game }): JSX.Element => {
 				<div className="flex w-full items-center px-1 md:gap-2 lg:gap-12 lg:px-0">
 					{/* home team */}
 					<div className="flex h-full w-1/3 items-center justify-start gap-2 lg:w-[45%]">
-						<h6 className="font-akira text-center text-xs">
+						<h6 className="font-akira text-center text-xs lg:text-lg">
 							<span className="lg:hidden">{game.homeTeam?.teamNameShort}</span>
 							<span className="hidden lg:block">{game.homeTeam?.teamName}</span>
 						</h6>
@@ -76,7 +76,7 @@ const HomeScheduleCard = ({ game }): JSX.Element => {
 					{/* away team */}
 					<div className="relative flex h-full w-1/3 items-center justify-end md:gap-2 lg:w-[45%]">
 						<span className="scale-50 md:scale-75"></span>
-						<h6 className="font-akira max-w-[180px] text-left text-xs">
+						<h6 className="font-akira max-w-[180px] text-left text-xs lg:text-lg">
 							<span className="lg:hidden">{game.awayTeam?.teamNameShort}</span>
 							<span className="hidden lg:block">{game.awayTeam?.teamName}</span>
 						</h6>

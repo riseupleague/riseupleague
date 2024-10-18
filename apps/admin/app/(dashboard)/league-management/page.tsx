@@ -11,7 +11,7 @@ export default async function Page(): Promise<JSX.Element> {
 		await connectToDatabase();
 
 		// Check if worker can view route
-		await isRouteForCommissioner();
+		// await isRouteForCommissioner();
 
 		// Fetch all seasons
 		const resSeasons = await getAllSeasons();
