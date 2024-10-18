@@ -18,11 +18,7 @@ const HomeLeaderGrid = ({ allPlayers, divisions }): JSX.Element => {
 	const [currentStat, setCurrentStat] = useState("points");
 	const [selectedDivision, setSelectedDivision] = useState("default");
 
-	const [players, setPlayers] = useState(
-		allPlayers.sort((a, b) =>
-			a.averageStats[currentStat] < b.averageStats[currentStat] ? 1 : -1
-		)
-	);
+	const [players, setPlayers] = useState(allPlayers);
 
 	let divisionFilterPlaceholder = "All Divisions";
 	let statFilterPlaceholder = "Points";

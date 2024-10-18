@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createTeamSchema } from "@/schemas";
 import Link from "next/link";
+import { saveUnpaidTeam } from "@/actions/saveUnpaidTeam";
 
 type TeamFormValues = z.infer<typeof createTeamSchema>;
 
@@ -77,6 +78,23 @@ const TeamCreation = ({ registerInfo, setRegisterInfo, user }) => {
 				5: false,
 			},
 		});
+
+		const unpaidTeamObject = {
+			...registerInfo,
+			teamDetails,
+			teamCaptainDetails,
+			step: 3,
+			allowStep: {
+				1: true,
+				2: true,
+				3: true,
+				4: false,
+				5: false,
+			},
+			paid: false,
+		};
+
+		await saveUnpaidTeam(user._id, unpaidTeamObject);
 
 		const res = await fetch("/api/actions/add-phone-number", {
 			method: "PATCH",

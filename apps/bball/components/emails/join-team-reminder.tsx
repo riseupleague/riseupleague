@@ -27,7 +27,7 @@ export const JoinTeamReminderTemplate: React.FC<
 
 			<div style={styles.body}>
 				<p>
-					You’ve been invited to join the <strong>{teamName}</strong> team,
+					You&apos;ve been invited to join the <strong>{teamName}</strong> team,
 					captained by <strong>{teamCaptainName}</strong>. We&apos;re excited to
 					have you onboard and can&apos;t wait to see you on the court!
 				</p>

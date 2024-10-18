@@ -45,6 +45,7 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 		const unpaidTeamObject = {
 			...registerInfo,
 			checkboxes: data,
+			paid: false,
 		};
 
 		await saveUnpaidTeam(user._id, unpaidTeamObject);
@@ -116,6 +117,7 @@ const Summary = ({ registerInfo, setRegisterInfo, user }) => {
 		const unpaidTeamObject = {
 			...registerInfo,
 			checkboxes: data,
+			paid: false,
 		};
 		await saveUnpaidTeam(user._id, unpaidTeamObject);
 

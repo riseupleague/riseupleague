@@ -52,6 +52,7 @@ const CreateYourTeam = ({ divisions, user }): JSX.Element => {
 				<RosterBuilding
 					registerInfo={registerInfo}
 					setRegisterInfo={setRegisterInfo}
+					user={user}
 				/>
 			)}
 
