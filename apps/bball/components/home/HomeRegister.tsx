@@ -15,7 +15,7 @@ const HomeRegister = (): JSX.Element => {
 	// }, []);
 
 	return (
-		<section className="relative mb-16 flex h-[600px] flex-col items-center justify-center bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-transparent text-center">
+		<section className="relative mb-16 flex h-[700px] flex-col items-center justify-center bg-gradient-to-b from-[rgba(0,0,0,0.5)] to-transparent text-center">
 			<div className="container mx-auto min-h-fit">
 				<Image
 					src="/images/tournament/tournament-of-power-banner.jpg"

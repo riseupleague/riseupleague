@@ -20,26 +20,32 @@ const PrimaryHeader = ({ user, season }): JSX.Element => {
 			label: "home",
 			href: "/",
 			icon: <IoHomeOutline className="size-7 text-neutral-300" />,
+			iconActive: <IoHomeOutline className="text-primary  size-7" />,
 		},
 		{
 			label: "schedule",
 			href: `/schedule`,
 			icon: <CiCalendar className="size-7 text-neutral-300" />,
+			iconActive: <CiCalendar className="text-primary  size-7" />,
 		},
 		{
 			label: "standings",
 			href: `/standings/${season._id}`,
 			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
+			iconActive: <IoPodiumOutline className="text-primary  size-7" />,
 		},
 		{
 			label: "teams",
 			href: `/teams/${season._id}`,
 			icon: <RiTeamLine className="size-7 text-neutral-300" />,
+			iconActive: <RiTeamLine className="text-primary  size-7" />,
 		},
 		{
 			label: "leaders",
 			href: "/leaders/stats",
 			icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
+			iconActive: <HiOutlineTrophy className="text-primary  size-7" />,
+
 			submenu: [
 				{
 					label: "Stats",
@@ -54,6 +60,8 @@ const PrimaryHeader = ({ user, season }): JSX.Element => {
 		{
 			label: "league",
 			icon: <CgProfile className="size-6 text-neutral-300" />,
+			iconActive: <RiTeamLine className="text-primary  size-7" />,
+
 			submenu: [
 				{
 					label: "All Players",

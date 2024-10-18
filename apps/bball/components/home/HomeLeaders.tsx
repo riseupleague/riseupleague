@@ -3,7 +3,7 @@ import { Button } from "@ui/components/button";
 import { getAllPlayersWithAvg } from "@/api-helpers/controllers/players-controller";
 import { getAllCurrentDivisionsWithTeams } from "@/api-helpers/controllers/divisions-controller";
 import { unstable_noStore as noStore } from "next/cache";
-import HomeLeaderGrid from "../leaders/HomeLeaderGrid";
+import HomeLeaderGrid from "./HomeLeaderGrid";
 import { DivisionWithStats } from "@/types";
 
 const HomeLeaders = async (): Promise<JSX.Element> => {

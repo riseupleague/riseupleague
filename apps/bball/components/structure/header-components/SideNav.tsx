@@ -34,37 +34,44 @@ const SideNav = ({ navPosition }): React.JSX.Element => {
 			label: "home",
 			href: "/",
 			icon: <IoHomeOutline className="size-7 text-neutral-300" />,
+			iconActive: <IoHomeOutline className="text-primary  size-7" />,
 		},
 		{
 			label: "schedule",
 			href: "/schedule",
 			icon: <CiCalendar className="size-7 text-neutral-300" />,
+			iconActive: <CiCalendar className="text-primary  size-7" />,
 		},
 		{
 			label: "standings",
 			href: "/standings",
 			dropdown: true,
 			icon: <IoPodiumOutline className="size-7 text-neutral-300" />,
+			iconActive: <IoPodiumOutline className="text-primary  size-7" />,
 		},
 		{
 			label: "leaders",
 			href: "/leaders/stats",
 			icon: <FaMedal className="size-7 text-neutral-300" />,
+			iconActive: <FaMedal className="text-primary  size-7" />,
 		},
 		{
 			label: "teams",
 			href: "/teams",
 			icon: <RiTeamLine className="size-7 text-neutral-300" />,
+			iconActive: <RiTeamLine className="text-primary  size-7" />,
 		},
 		{
 			label: "players",
 			href: "/players",
 			icon: <MdOutlinePerson className="size-7 text-neutral-300" />,
+			iconActive: <MdOutlinePerson className="text-primary  size-7" />,
 		},
 		{
 			label: "MVP Ladder",
 			href: "/leaders/mvp-ladder",
 			icon: <HiOutlineTrophy className="size-7 text-neutral-300" />,
+			iconActive: <HiOutlineTrophy className="text-primary  size-7" />,
 		},
 	];
 
