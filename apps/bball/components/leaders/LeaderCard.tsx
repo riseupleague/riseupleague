@@ -22,17 +22,6 @@ const LeaderCard = ({ player, rank, currentStat }): JSX.Element => {
 				</Link>
 			</div>
 			<div className="flex w-1/6 items-center gap-1 text-sm sm:text-lg">
-				<span className="hidden lg:block">
-					<TeamLogo
-						primary={player.team?.primaryColor || ""}
-						secondary={player.team?.secondaryColor || ""}
-						tertiary={player.team?.tertiaryColor || ""}
-						width={15}
-						height={14}
-						circleHeight={1.3}
-						circleWidth={1.3}
-					/>
-				</span>
 				<Link
 					href={`/teams/team/${player.team?._id}`}
 					className="font-barlow w-fit text-left text-sm uppercase transition hover:opacity-80 sm:text-lg"
@@ -42,27 +31,27 @@ const LeaderCard = ({ player, rank, currentStat }): JSX.Element => {
 				</Link>
 			</div>
 			<div
-				className={`${currentStat === "points" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "points" && "text-primary flex font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
 			>
 				{player.averageStats.points.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "rebounds" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "rebounds" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.rebounds.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "assists" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "assists" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.assists.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "steals" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "steals" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.steals.toFixed(1)}
 			</div>
 			<div
-				className={`${currentStat === "blocks" && "text-primary font-bold"} flex w-fit items-center text-sm sm:w-6 sm:text-lg`}
+				className={`${currentStat === "blocks" && "text-primary flex font-bold"} hidden w-fit items-center text-sm sm:w-6 sm:text-lg `}
 			>
 				{player.averageStats.blocks.toFixed(1)}
 			</div>

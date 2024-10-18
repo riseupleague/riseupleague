@@ -22,7 +22,7 @@ export default async function SeasonPage({
 	await connectToDatabase();
 
 	// Check if worker can view route
-	await isRouteForCommissioner();
+	// await isRouteForCommissioner();
 
 	// Fetch all data concurrently using Promise.all
 	const [seasonsRes, seasonRes, divisionsRes, freeAgentsRes] =

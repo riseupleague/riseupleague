@@ -12,7 +12,7 @@ const HomeFaq = (): JSX.Element => {
 	const shortFaq = faq.slice(0, 3);
 
 	return (
-		<section className="font-barlow mb-16 flex flex-col text-neutral-100 md:flex-row md:gap-14 lg:mb-24">
+		<section className="font-barlow container mx-auto mb-16 flex min-h-fit flex-col text-neutral-100 md:flex-row md:gap-14 lg:mb-24">
 			<div className="md:w-5/12">
 				<h2 className="my-6 text-4xl lg:text-5xl">
 					Frequently Asked Questions 🤔

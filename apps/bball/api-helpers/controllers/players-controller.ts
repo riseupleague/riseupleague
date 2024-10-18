@@ -177,36 +177,7 @@ export const getAllPlayersWithAvg = async () => {
 			})
 			.select("playerName team division averageStats allStats");
 
-		// Calculate the size of allStats for each player
-		allPlayers.forEach((player) => {
-			player.allStatsSize = player.allStats.length;
-		});
-
-		const avgStats = {
-			points: 0,
-			rebounds: 0,
-			assists: 0,
-			steals: 0,
-			blocks: 0,
-		};
-
-		allPlayers.forEach((p) => {
-			avgStats.points += p.averageStats.points;
-			avgStats.rebounds += p.averageStats.rebounds;
-			avgStats.assists += p.averageStats.assists;
-			avgStats.steals += p.averageStats.steals;
-			avgStats.blocks += p.averageStats.blocks;
-		});
-
-		const allAvg = {
-			points: avgStats.points / allPlayers.length,
-			rebounds: avgStats.rebounds / allPlayers.length,
-			assists: avgStats.assists / allPlayers.length,
-			steals: avgStats.steals / allPlayers.length,
-			blocks: avgStats.blocks / allPlayers.length,
-		};
-
-		return NextResponse.json({ allPlayers, allAvg }, { status: 200 });
+		return NextResponse.json({ allPlayers }, { status: 200 });
 	} catch (e) {
 		return NextResponse.json(
 			{ message: "Internal Server Error" },
