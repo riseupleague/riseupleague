@@ -36,7 +36,7 @@ const Page = async (): Promise<JSX.Element> => {
 
 			<HomePromoBanner />
 
-			<div className="container mx-auto flex min-h-fit flex-col-reverse gap-10 lg:flex-row">
+			<div className="container mx-auto flex min-h-fit flex-col gap-10 lg:flex-row">
 				<HomeSkillsAssesment />
 
 				<HomeLeaders />
