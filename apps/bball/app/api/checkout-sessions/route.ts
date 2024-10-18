@@ -37,26 +37,46 @@ export async function POST(req: Request) {
 					currency: "cad", // Set the currency to CAD
 					duration: "once", // Applies only to the first payment
 				});
-			}
-			const session = await stripe.checkout.sessions.create({
-				mode: "payment",
-				payment_method_types: ["card"],
-				line_items: items ?? [],
-				success_url:
-					parsedFormObject.status === "tournament"
-						? `${process.env.NEXT_PUBLIC_API_BASE_URL}success/tournament/${parsedFormObject.division}`
-						: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
-				cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
-				automatic_tax: {
-					enabled: true,
-				},
-				discounts: [{ coupon: coupon.id }], // Apply the 50% coupon
-				metadata: {
-					formObject,
-				},
-			});
 
-			return NextResponse.json({ session }, { status: 200 });
+				const session = await stripe.checkout.sessions.create({
+					mode: "payment",
+					payment_method_types: ["card"],
+					line_items: items ?? [],
+					success_url:
+						parsedFormObject.status === "tournament"
+							? `${process.env.NEXT_PUBLIC_API_BASE_URL}success/tournament/${parsedFormObject.division}`
+							: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+					cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
+					automatic_tax: {
+						enabled: true,
+					},
+					discounts: [{ coupon: coupon.id }], // Apply the 50% coupon
+					metadata: {
+						formObject,
+					},
+				});
+
+				return NextResponse.json({ session }, { status: 200 });
+			} else {
+				const session = await stripe.checkout.sessions.create({
+					mode: "payment",
+					payment_method_types: ["card"],
+					line_items: items ?? [],
+					success_url:
+						parsedFormObject.status === "tournament"
+							? `${process.env.NEXT_PUBLIC_API_BASE_URL}success/tournament/${parsedFormObject.division}`
+							: `${process.env.NEXT_PUBLIC_API_BASE_URL}success/${parsedFormObject.division}`,
+					cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}register`,
+					automatic_tax: {
+						enabled: true,
+					},
+					metadata: {
+						formObject,
+					},
+				});
+
+				return NextResponse.json({ session }, { status: 200 });
+			}
 		} else {
 			const session = await stripe.checkout.sessions.create({
 				// customer: customer.id,
