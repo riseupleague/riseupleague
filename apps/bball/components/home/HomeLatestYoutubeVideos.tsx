@@ -22,7 +22,7 @@ export default function YoutubePlaylistViewer() {
 	const [mainVideo, setMainVideo] = useState(videos[0]);
 
 	return (
-		<div className="bg-background w-full p-2 sm:p-4 md:p-6 lg:w-2/3">
+		<div className="bg-background w-full p-2 sm:p-4 md:p-6 lg:w-1/2">
 			<h3 className="my-2 text-xl font-bold sm:my-4 sm:text-2xl">
 				Latest Videos
 			</h3>

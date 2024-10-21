@@ -13795,7 +13795,7 @@ export default function Classic2() {
 	`;
 	return (
 		<div
-			className="h-full w-full rounded bg-neutral-100"
+			className="h-full w-full rounded"
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);

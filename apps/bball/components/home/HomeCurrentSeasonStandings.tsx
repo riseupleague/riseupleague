@@ -18,7 +18,7 @@ const HomeCurrentSeasonStandings = async (): Promise<JSX.Element> => {
 		await resDivisions.json();
 
 	return (
-		<section className="font-barlow mb-8 flex w-full flex-col justify-between text-neutral-100 lg:w-1/3">
+		<section className="font-barlow mb-8 flex w-full flex-col justify-between text-neutral-100 lg:w-1/2">
 			<HomeStandingsTable divisionsWithStats={divisionsWithStats} />
 		</section>
 	);
