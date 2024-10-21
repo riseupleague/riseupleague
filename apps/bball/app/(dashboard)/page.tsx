@@ -21,6 +21,8 @@ import HomeLeaders from "@/components/home/HomeLeaders";
 import HomePromoBanner from "@/components/home/HomePromoBanner";
 import HomeSkillsAssesment from "@/components/home/HomeSkillsAssesment";
 import HomeGymFinder from "@/components/home/HomeGymFinder";
+import HomeJerseyCustomizer from "@/components/home/HomeJerseyCustomizer";
+import HomeJersey from "@/components/home/HomeJersey";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
@@ -40,30 +42,30 @@ const Page = async (): Promise<JSX.Element> => {
 			<div className="container mx-auto flex min-h-fit flex-col gap-10 lg:flex-row">
 				<HomeSkillsAssesment />
 
-				<HomeLeaders />
+				<HomeCurrentSeasonStandings />
 			</div>
+
+			<HomeJersey />
 
 			{/* <HomeGymFinder /> */}
 
 			<div className="container mx-auto flex min-h-fit flex-col lg:flex-row">
 				<HomeLatestYoutubeVideos />
-				<HomeCurrentSeasonStandings />
+				<HomeUpcomingGames />
 			</div>
 
-			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
+			{/* <Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomePlayersOfTheWeek />
 			</Suspense>
 
 			<Suspense fallback={<PlayersOfTheWeekSkeleton />}>
 				<HomeLeagueLeaders />
-			</Suspense>
-
-			<HomeUpcomingGames />
+			</Suspense> */}
 
 			<GoogleDrivePhotos />
 
-			<HomeSocials />
 			<HomeFaq />
+			<HomeSocials />
 			<HomeContactUs />
 		</div>
 	);

@@ -1,6 +1,6 @@
 {
 	"name": "bball",
-	"version": "bball@1.5.2",
+	"version": "bball@1.5.3",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",

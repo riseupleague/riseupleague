@@ -9847,7 +9847,7 @@ export default function Classic4() {
 	`;
 	return (
 		<div
-			className="h-full w-full rounded bg-neutral-100"
+			className="h-full w-full rounded"
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);

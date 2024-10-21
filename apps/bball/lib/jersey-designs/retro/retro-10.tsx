@@ -4338,7 +4338,7 @@ export default function Retro10() {
 	`;
 	return (
 		<div
-			className="jerseyDiv h-full w-full rounded bg-neutral-100"
+			className="jerseyDiv h-full w-full rounded "
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);

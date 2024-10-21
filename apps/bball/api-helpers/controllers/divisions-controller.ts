@@ -243,6 +243,19 @@ export const getAllDivisionsWithTeamsByActiveSeason = async () => {
 
 				lastThreeGames.forEach((game) => {
 					// Ensure that game, game.game, and team IDs exist
+					if (!game || !game.game) {
+						// console.error("Missing game or game details:", game);
+						return;
+					}
+
+					// Check if homeTeam and awayTeam exist
+					const homeTeamExists = game.game.homeTeam?._id;
+					const awayTeamExists = game.game.awayTeam?._id;
+
+					if (!homeTeamExists || !awayTeamExists) {
+						// console.error("Missing homeTeam or awayTeam in game:", game);
+						return;
+					}
 
 					const isWin =
 						(game.game.homeTeam._id.equals(team._id) &&
