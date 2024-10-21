@@ -2229,7 +2229,7 @@ export default function Classic3() {
 	`;
 	return (
 		<div
-			className="w-full rounded bg-neutral-100"
+			className="w-full rounded"
 			dangerouslySetInnerHTML={{ __html: svgString }}
 		/>
 	);

@@ -61,7 +61,7 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 			.sort((a, b) => (b.pointDifference || 0) - (a.pointDifference || 0))
 			.sort((a, b) => (b.wpct || 0) - (a.wpct || 0));
 
-		const teamsToShow = sortedTeams;
+		const teamsToShow = sortedTeams.slice(0, 4);
 
 		return (
 			<>
@@ -99,11 +99,8 @@ export default function HomeStandingsTable({ divisionsWithStats }) {
 					</TableBody>
 				</Table>
 
-				<Link
-					className="mt-4 flex justify-end text-lg font-semibold uppercase"
-					href={`/standings`}
-				>
-					See all standings
+				<Link href={`/standings`} className="w-full">
+					<Button className="w-full">View All Standings</Button>
 				</Link>
 			</>
 		);

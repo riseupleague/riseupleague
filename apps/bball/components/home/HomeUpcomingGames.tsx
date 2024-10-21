@@ -72,7 +72,7 @@ const HomeUpcomingGames = async (): Promise<JSX.Element> => {
 	});
 
 	return (
-		<section className="font-barlow container mx-auto my-16 min-h-fit w-full text-neutral-100">
+		<section className="font-barlow container mx-auto min-h-fit w-full p-2 text-neutral-100 sm:p-4 lg:w-1/2">
 			<h3 className="my-4">Upcoming games</h3>
 			<div className="my-6">
 				{games?.map((game, index) => (
