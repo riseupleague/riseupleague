@@ -23,12 +23,13 @@ import HomeSkillsAssesment from "@/components/home/HomeSkillsAssesment";
 import HomeGymFinder from "@/components/home/HomeGymFinder";
 import HomeJerseyCustomizer from "@/components/home/HomeJerseyCustomizer";
 import HomeJersey from "@/components/home/HomeJersey";
+import { cookies } from "next/headers";
 
 const Page = async (): Promise<JSX.Element> => {
 	await connectToDatabase();
 
 	return (
-		<div className="">
+		<div>
 			{/* <Suspense fallback={<SecondaryHeaderSkeleton />}>
 				<SecondaryHeader />
 			</Suspense> */}
