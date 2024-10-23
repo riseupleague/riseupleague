@@ -15,14 +15,14 @@ export default function Component({ cookieSetter }: any) {
 
 	const memoizedEffect = useCallback(() => {
 		const setCookie = async () => await promoBannerAction();
+		const timer = setTimeout(() => setIsOpen(true), 1000);
 
 		setCookie().then((result) => {
-			console.log(result);
 			cookieResultRef.current = result;
 			setCookieResult(result);
 		});
 
-		return;
+		return () => clearTimeout(timer);
 	}, []);
 
 	useEffect(memoizedEffect, []);
@@ -30,7 +30,7 @@ export default function Component({ cookieSetter }: any) {
 	return (
 		<div>
 			{cookieResult && (
-				<Dialog open onOpenChange={setIsOpen}>
+				<Dialog open={isOpen} onOpenChange={setIsOpen}>
 					<DialogContent className="overflow-hidden p-0 sm:max-w-[425px]">
 						<Card className="w-full border-0">
 							<CardContent className="p-0">
